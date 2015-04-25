@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -e  /etc/apache2/sites-available/zarafa-webapp ]; then
+        ln -sf  /etc/apache2/sites-available/zarafa-webapp.conf /etc/apache2/sites-available/zarafa-webapp 
+fi
+
+# enable zarafa-webapp for apache
+if [ -x "`which a2ensite`" ]; then
+	# no error, file may have been renamed
+	a2ensite zarafa-webapp || true
+fi
+
+#DEBHELPER#
+
+exit 0

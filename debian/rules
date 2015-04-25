@@ -1,0 +1,58 @@
+#!/usr/bin/make -f
+INSTDIR=$(CURDIR)/debian/zarafa-webapp
+WADEB=$(CURDIR)/debian/zarafa-webapp
+WABASE=/usr/share/zarafa-webapp
+WACONFBASE=/etc/zarafa/webapp
+APACHECONFBASE=/etc/apache2/sites-available
+WA=$(WADEB)$(WABASE)
+
+export DH_VERBOSE=1
+
+%:
+	dh $@
+
+
+override_dh_auto_clean:
+
+override_dh_auto_build:
+	ant deploy deploy-plugins
+	
+override_dh_auto_install:
+
+	install -d -m 755 $(INSTDIR)$(WABASE)
+	install -d -m 755 $(INSTDIR)$(APACHECONFBASE)
+	install -d -m 755 $(INSTDIR)$(WACONFBASE)
+	# user/group 33 is always www-data
+	install -d -m 755 -o 33 -g 33 $(INSTDIR)/var/lib/zarafa-webapp/tmp
+
+	cp -a deploy/* deploy/.htaccess $(INSTDIR)$(WABASE)/
+
+	# echo version
+	dpkg-parsechangelog | grep Version | sed -e 's/^Version: //g' > $(INSTDIR)$(WABASE)/version
+
+	rm -rf $(INSTDIR)$(WABASE)/debian $(INSTDIR)/zarafa-webapp.spec
+
+	mv $(INSTDIR)$(WABASE)/config.php.dist $(INSTDIR)$(WACONFBASE)/config.php
+	ln -sf $(WACONFBASE)/config.php $(INSTDIR)$(WABASE)/config.php
+
+	rm $(INSTDIR)$(WABASE)/debug.php.dist
+	find $(INSTDIR)$(WABASE) -name \*debug\* -print0 | xargs -0 rm
+
+	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
+
+	# LICENSE / CONTRIBUTORS
+	install -m 644 LICENSE.txt $(INSTDIR)$(WABASE)/LICENSE.txt
+	install -m 644 CONTRIBUTORS.txt $(INSTDIR)$(WABASE)/CONTRIBUTORS.txt
+
+	# packaging of plugins
+	for i in browsercompatibility clockwidget contactfax dropboxattachment example extbox facebook facebookwidget feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm twidget webappmanual webodf xmpp zdeveloper zperformance; do \
+		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
+		Q=$(CURDIR)/debian/zarafa-webapp-$$i$(WACONFBASE) ; \
+		mkdir -v -p $$P $$Q ; \
+		mv -v -f $(WA)/plugins/$$i $$P/ ; \
+		mv -v -f $$P/$$i/config.php $$Q/config-$$i.php ; \
+		ln -sf $(WACONFBASE)/config-$$i.php $$P/$$i/config.php ; \
+	done
+
+override_dh_fixperms:
+	dh_fixperms -Xvar/lib/zarafa-webapp/tmp

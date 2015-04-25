@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+# disable zarafa-webapp for apache
+if [ -x "`which a2dissite`" ]; then
+  # no error, file may have been renamed
+  a2dissite zarafa-webapp || true
+  rm -f /etc/apache2/sites-available/zarafa-webapp 
+fi
+
+#DEBHELPER#
+
+exit 0
