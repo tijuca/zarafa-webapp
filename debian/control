@@ -9,7 +9,7 @@ Build-Depends: ant,
   debhelper (>= 8.0.0),
   libxml2-utils,
   php5-cli
-Standards-Version: 3.9.4
+Standards-Version: 3.9.6
 
 Package: zarafa-webapp
 Architecture: all
