@@ -3,7 +3,12 @@ Section: non-free
 Priority: optional
 Maintainer: Giraffe Maintainers <pkg-giraffe-maintainers@lists.alioth.debian.org>
 Uploaders: Carsten Schoenert <c.schoenert@t-online.de>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: ant,
+  ant-optional,
+  default-jdk,
+  debhelper (>= 8.0.0),
+  libxml2-utils,
+  php5-cli
 Standards-Version: 3.9.4
 
 Package: zarafa-webapp
