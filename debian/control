@@ -7,6 +7,9 @@ Build-Depends: ant,
   ant-optional,
   default-jdk,
   debhelper (>= 8.0.0),
+  libjs-extjs,
+  libjs-jac,
+  libjs-prettify,
   libxml2-utils,
   php5-cli
 Standards-Version: 3.9.6
