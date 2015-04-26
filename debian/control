@@ -13,7 +13,6 @@ Standards-Version: 3.9.6
 
 Package: zarafa-webapp
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, php5-mapi (>= 7.1.11), zarafa-contacts (>= 7.1.11), php-gettext
 Description: New and improved WebApp for the Zarafa Collaboration Platform
  Provides a web-client written in PHP that uses JSON and Ext JS
@@ -22,189 +21,162 @@ Description: New and improved WebApp for the Zarafa Collaboration Platform
 
 Package: zarafa-webapp-browsercompatibility
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp browser compatibility plugin 
  Browser compatibility plugin for zarafa-webapp
 
 Package: zarafa-webapp-clockwidget
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp clock plugin 
  Clock widget for zarafa-webapp
 
 Package: zarafa-webapp-contactfax
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp fax plugin 
  Contact fax plugin for zarafa-webapp
 
 Package: zarafa-webapp-dropboxattachment
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Dropbox attachment plugin
  DropBox attachment feature plugin for zarafa-webapp
 
 Package: zarafa-webapp-extbox
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp image preview plugin
  Image attachment preview plugin for zarafa-webapp
 
 Package: zarafa-webapp-facebook
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp facebook plugin
  Facebook integration plugin for zarafa-webapp
 
 Package: zarafa-webapp-facebookwidget
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp facebook widget plugin
  Facebook widget plugin for zarafa-webapp
 
 Package: zarafa-webapp-feedback
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Feedback plugin
  Feedback collector plugin for zarafa-webapp
 
 Package: zarafa-webapp-files
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp files plugin
  Files plugin for zarafa-webapp
 
 Package: zarafa-webapp-folderwidgets
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp folder widgets plugin
  Folder widgets plugin for zarafa-webapp
 
 Package: zarafa-webapp-gmaps
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp google maps plugin
  Google Maps plugin for zarafa-webapp
 
 Package: zarafa-webapp-oauthlib
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp OAuth plugin
  OAuth v2.0 protocol library plugin for zarafa-webapp
 
 Package: zarafa-webapp-pimfolder
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp personal inbox plugin
  Personal Inbox Management plugin for WebApp
 
 Package: zarafa-webapp-pdfbox
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp PDF viewer plugin
  PDF attachment viewer plugin for zarafa-webapp
 
 Package: zarafa-webapp-quickitems
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp quick items plugin
  Quick Items plugin for zarafa-webapp
 
 Package: zarafa-webapp-salesforce
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Salesforce plugin
  Salesforce plugin for zarafa-webapp
 
 Package: zarafa-webapp-shellgame
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp shell game plugin
  Shell game plugin for zarafa-webapp
 
 Package: zarafa-webapp-spreed
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Spreed plugin
  Spreed integration plugin for zarafa-webapp
 
 Package: zarafa-webapp-statslogging
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp statistics plugin
  User interface statistics logging plugin for zarafa-webapp
 
 Package: zarafa-webapp-sugarcrm
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp SugarCRM plugin
  SugarCRM Webapp archive plugin for zarafa-webapp
 
 Package: zarafa-webapp-titlecounter
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Titlecounter plugin
  Titlecounter plugin for zarafa-webapp
 
 Package: zarafa-webapp-twidget
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Twitter plugin
  Twitter widget plugin for zarafa-webapp
 
 Package: zarafa-webapp-webappmanual
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Manual plugin
  Adds direct WebApp Manual usage
 
 Package: zarafa-webapp-webodf
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp WebODC plugin
  WebODF plugin for zarafa-webapp
 
 Package: zarafa-webapp-xmpp
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp XMPP plugin
  XMPP plugin for zarafa-webapp
 
 Package: zarafa-webapp-zdeveloper
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp developer plugin
  Developer plugin for zarafa-webapp
 
 Package: zarafa-webapp-zperformance
 Architecture: all
-Section: web
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp performance monitoring plugin
  Performance monitoring plugin for zarafa-webapp
