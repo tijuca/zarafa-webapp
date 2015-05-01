@@ -169,7 +169,8 @@ Description: Zarafa WebApp WebODC plugin
 
 Package: zarafa-webapp-xmpp
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
+  libjs-jac
 Description: Zarafa WebApp XMPP plugin
  XMPP plugin for zarafa-webapp
 
