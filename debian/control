@@ -53,18 +53,6 @@ Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp image preview plugin
  Image attachment preview plugin for zarafa-webapp
 
-Package: zarafa-webapp-facebook
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp facebook plugin
- Facebook integration plugin for zarafa-webapp
-
-Package: zarafa-webapp-facebookwidget
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp facebook widget plugin
- Facebook widget plugin for zarafa-webapp
-
 Package: zarafa-webapp-feedback
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
@@ -148,12 +136,6 @@ Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
 Description: Zarafa WebApp Titlecounter plugin
  Titlecounter plugin for zarafa-webapp
-
-Package: zarafa-webapp-twidget
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Twitter plugin
- Twitter widget plugin for zarafa-webapp
 
 Package: zarafa-webapp-webappmanual
 Architecture: all

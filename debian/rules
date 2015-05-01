@@ -65,7 +65,7 @@ override_dh_auto_install:
 	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
 
 	# packaging of plugins
-	for i in browsercompatibility clockwidget contactfax dropboxattachment example extbox facebook facebookwidget feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm titlecounter twidget webappmanual webodf xmpp zdeveloper zperformance; do \
+	for i in browsercompatibility clockwidget contactfax dropboxattachment example extbox feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm titlecounter webappmanual webodf xmpp zdeveloper zperformance; do \
 		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
 		Q=$(CURDIR)/debian/zarafa-webapp-$$i$(WACONFBASE) ; \
 		mkdir -v -p $$P $$Q ; \
@@ -80,6 +80,8 @@ override_dh_install:
 	cd $(CURDIR)/debian/zarafa-webapp-xmpp/usr/share/zarafa-webapp/plugins/xmpp/ ;\
 		rm -rf jsjac ;\
 		ln -s /usr/share/javascript/jsjac
+	# remove Facebook & Twitter things
+	rm -rf $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/plugins/*
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/zarafa-webapp/tmp
