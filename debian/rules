@@ -64,10 +64,6 @@ override_dh_auto_install:
 
 	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
 
-	# LICENSE / CONTRIBUTORS
-	install -m 644 LICENSE.txt $(INSTDIR)$(WABASE)/LICENSE.txt
-	install -m 644 CONTRIBUTORS.txt $(INSTDIR)$(WABASE)/CONTRIBUTORS.txt
-
 	# packaging of plugins
 	for i in browsercompatibility clockwidget contactfax dropboxattachment example extbox facebook facebookwidget feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm twidget webappmanual webodf xmpp zdeveloper zperformance; do \
 		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
@@ -77,6 +73,13 @@ override_dh_auto_install:
 		mv -v -f $$P/$$i/config.php $$Q/config-$$i.php ; \
 		ln -sf $(WACONFBASE)/config-$$i.php $$P/$$i/config.php ; \
 	done
+
+override_dh_install:
+	dh_install
+	# fixing libjs-jac dependencies
+	cd $(CURDIR)/debian/zarafa-webapp-xmpp/usr/share/zarafa-webapp/plugins/xmpp/ ;\
+		rm -rf jsjac ;\
+		ln -s /usr/share/javascript/jsjac
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/zarafa-webapp/tmp
