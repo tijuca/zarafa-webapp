@@ -1,7 +1,8 @@
 Source: zarafa-webapp
 Section: non-free
 Priority: optional
-Maintainer: Zarafa Development Team <development@zarafa.com>
+Maintainer: Giraffe Maintainers <pkg-giraffe-maintainers@lists.alioth.debian.org>
+Uploaders: Carsten Schoenert <c.schoenert@t-online.de>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
 
