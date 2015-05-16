@@ -834,7 +834,7 @@ License: AGPL-3
 
 Files: client/extjs/*
 Copyright: 2011-2013, Sencha Inc
-License: UNKNOWN
+License: GPL-3
 
 Files: client/zarafa/Object.js
 Copyright: 2012, Mozilla Contributors
@@ -846,39 +846,43 @@ License: UNKNOWN
 
 Files: client/third-party/tinymce/*
 Copyright: 2013, Oleg Schildt
-License: UNKNOWN
+License: LGPL-2.1+
 
 Files: client/third-party/xregexp/*
 Copyright: 2007-2010, Steven Levithan
-License: UNKNOWN
+License: MIT
+
+Files: client/third-party/tinymce/TinyMceTextArea.js
+Copyright: 2013, Oleg Schildt
+License: LPGL-2.1+
 
 Files: client/tinymce/classes/util/Class.js
 Copyright: 2003-2012, Moxiecode Systems AB,
-License: UNKNOWN
+License: LGPL-2.1
 
 Files: client/tinymce/plugins/autolink/plugin.js
 Copyright: 2011, 2012, Moxiecode Systems AB
-License: UNKNOWN
+License: LGPL-2.1
 
 Files: client/tinymce/plugins/charmap/*
-Copyright: ?
-License: UNKNOWN
+Copyright: 2011, 2012, Moxiecode Systems AB
+License: LGPL-2.1
 
 Files: client/tinymce/plugins/visualblocks/plugin.js
 Copyright: 2011, 2012, Moxiecode Systems AB
-License: UNKNOWN
+License: LGPL-2.1
 
 Files: client/zarafa/ABOUT.js
 Copyright: 2005-2014, Zarafa B.V.
 License: MIT/X11 and AGPL-3
 
 Files: client/zarafa/common/ui/CompositeField.js
-Copyright: ?
-License: UNKNOWN
+Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
+License: AGPL-3
 
 Files: client/zarafa/settings/ui/SettingsCopyrightCategory.js
-Copyright: ?
-License: UNKNOWN
+Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
+License: AGPL-3
 
 Files: plugins/browsercompatibility/js/ABOUT.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
@@ -888,6 +892,10 @@ Files: plugins/dropboxattachment/js/ABOUT.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
            2012, Ben Tadiar, https://github.com/benthedesigner/dropbox
 License: MIT/X11 and AGPL-3
+
+Files: plugins/dropboxatachment/php/Dropbox
+Copyright: 2012 Ben Tadiar
+License: MIT
 
 Files: plugins/extbox/js/ABOUT.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
