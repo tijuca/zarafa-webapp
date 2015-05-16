@@ -935,10 +935,9 @@ Files: plugins/files/php/Files/sabredav/vendor/sabre/vobject/lib/Sabre/VObject/D
 Copyright: 2007-2013, fruux GmbH.
 License: UNKNOWN
 
-Files: plugins/pdfbox/js/ABOUT.js
-Copyright: 2011, Mozilla Foundation<
-           2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-License: MIT/X11 and AGPL-3
+Files: plugins/pdfbox/js/pdfjs/*
+Copyright: 2011, Mozilla Foundation
+License: MIT/X11
 
 Files: plugins/pdfbox/pdfbox/pdfbox.js
 Copyright: 2006-2009 http://extjs.com
