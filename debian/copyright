@@ -943,6 +943,10 @@ Files: plugins/pdfbox/pdfbox/pdfbox.js
 Copyright: 2006-2009 http://extjs.com
 License: MIT/X11
 
+Files: plugins/salesforce/php/Httpful/*
+Copyright: 2012 Nate Good
+License: MIT
+
 Files: plugins/spreed/js/ABOUT.js
 Copyright: The PHP Group, and covered
            2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
