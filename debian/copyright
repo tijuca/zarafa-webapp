@@ -836,6 +836,10 @@ Files: client/extjs/*
 Copyright: 2011-2013, Sencha Inc
 License: UNKNOWN
 
+Files: client/zarafa/Object.js
+Copyright: 2012, Mozilla Contributors
+License: 
+
 Files: client/third-party/lovcombo/*
 Copyright: 2008, Ing. Jozef Sakáloš
 License: UNKNOWN
