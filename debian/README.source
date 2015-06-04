@@ -1,0 +1,36 @@
+
+non-free files:
+===============
+The upstream source contains some files we don't want because they are not
+compatable with the Debian Free Software Guide. In detail there are javascript
+files that are minimized, *.swf files and other files we have to filter out.
+
+To get rid of these there is a file debian/create-upstream-tarball.sh that will
+create a orig.tar.xz file from a given upstream file. This upstream source has
+to be already downloaded. You can use uscan to download the upstream source.
+The created *.orig.tar.xz will be placed one folder above the repository. Use
+the script like:
+
+  $ debian/create-upstream-tarball.sh /path/to/webapp-VERSION.SVN_ID.tar.gz
+
+The created cleaned *.orig.tar.xz can be used to be imported with
+git-buildpackage.
+
+  $ gbp import-orig --sign-tags [--verbose] ../zarafa-webapp_VERSION.orig.tar.xz
+
+included tinymce parts:
+=======================
+The zarafa-webapp upstream source also contains files from the tinymce package
+that lintian is of course complaining.
+
+ W: zarafa-webapp: embedded-javascript-library usr/share/zarafa-webapp/client/tinymce/plugins/compat3x/tiny_mce_popup.js please use tinymce
+ I: zarafa-webapp: font-in-non-font-package usr/share/zarafa-webapp/client/tinymce/skins/lightgray/fonts/tinymce-small.ttf
+ I: zarafa-webapp: font-in-non-font-package usr/share/zarafa-webapp/client/tinymce/skins/lightgray/fonts/tinymce.ttf
+
+These issues are not solvable right now as the Debian version of the package
+tinymce is to old for linking, while writing version 3.8.4 Debian has
+included.
+There is a wishlist bug for updating the tinymce package. If the bug has
+solved we can eleminate the warnings from lintian.
+
+  https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=742832
