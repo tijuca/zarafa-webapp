@@ -1,0 +1,2 @@
+# Source                   # Target
+usr/share/javascript/jsjac usr/share/zarafa-webapp/plugins/xmpp/jsjac

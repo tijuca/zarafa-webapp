@@ -76,12 +76,13 @@ override_dh_auto_install:
 
 override_dh_install:
 	dh_install
-	# fixing libjs-jac dependencies
-	cd $(CURDIR)/debian/zarafa-webapp-xmpp/usr/share/zarafa-webapp/plugins/xmpp/ ;\
-		rm -rf jsjac ;\
-		ln -s /usr/share/javascript/jsjac
 	# remove Facebook & Twitter things
 	rm -rf $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/plugins/*
+
+override_dh_link:
+	# remove the copied libjs-jac folder so dh_link can work
+	rm -rf $(CURDIR)/debian/zarafa-webapp-xmpp/usr/share/zarafa-webapp/plugins/xmpp/jsjac
+	dh_link
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/zarafa-webapp/tmp
