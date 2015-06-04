@@ -1,0 +1,2 @@
+version=3
+http://download.zarafa.com/community/final/WebApp/(\d\.\d\.\d)/webapp-(\d\.\d\.\d)\.\d\S*\.tar\.gz
