@@ -65,13 +65,16 @@ override_dh_auto_install:
 	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
 
 	# packaging of plugins
-	for i in browsercompatibility clockwidget contactfax dropboxattachment example extbox feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm titlecounter webappmanual webodf xmpp zdeveloper zperformance; do \
+	for i in browsercompatibility clockwidget contactfax dropboxattachment extbox feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm titlecounter webappmanual webodf xmpp zdeveloper zperformance; do \
 		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
 		Q=$(CURDIR)/debian/zarafa-webapp-$$i$(WACONFBASE) ; \
-		mkdir -v -p $$P $$Q ; \
+		mkdir -v -p $$P; \
 		mv -v -f $(WA)/plugins/$$i $$P/ ; \
-		mv -v -f $$P/$$i/config.php $$Q/config-$$i.php ; \
-		ln -sf $(WACONFBASE)/config-$$i.php $$P/$$i/config.php ; \
+		if [ -f $$P/$$i/config.php ]; then \
+			mkdir -v -p $$Q; \
+			mv -v -f $$P/$$i/config.php $$Q/config-$$i.php ; \
+			ln -sf $(WACONFBASE)/config-$$i.php $$P/$$i/config.php ; \
+		fi \
 	done
 
 override_dh_install:
