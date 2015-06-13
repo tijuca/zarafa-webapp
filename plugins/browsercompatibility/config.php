@@ -1,0 +1,3 @@
+<?php
+define('PLUGIN_BROWSERCOMPATIBILITY_USER_DEFAULT_ENABLE', false);
+?>
