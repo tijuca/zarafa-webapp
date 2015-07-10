@@ -143,6 +143,17 @@
 	}
 
 	/**
+	 * getPluginsVersionInfo
+	 * 
+	 * Function is use to get the version information of installed plugins.
+	 * @return {String} JSON encoded plugins version info string.
+	 */
+	function getPluginsVersionInfo(){
+		$pluginsVersionInfo = $GLOBALS['PluginManager']->getPluginsVersion();
+		return JSON::Encode($pluginsVersionInfo);
+	}
+
+	/**
 	 * Gets maximum post request size of attachment from php ini settings.
 	 * post_max_size specifies maximum size of a post request, 
 	 * we are uploading attachment using post method

@@ -518,30 +518,27 @@ Ext.apply(Date, {
 	{
 		var ta = a.getTime();
 		var tb = b.getTime();
+		var difference = ta-tb;
 
 		switch (field) {
 			case Date.DAY:
 				// For calculating days we apply the same
 				// inaccuracy as Date::add() we are not 100%
 				// sure a day lasts 24 hour when DST is in play.
-				tb += Date.getDSTDiff(a, b);
-				ta /= 24;
-				tb /= 24;
+				difference -= Date.getDSTDiff(a, b);
+				difference /= 24;
 			case Date.HOUR:
-				ta /= 60;
-				tb /= 60;
+				difference /= 60;
 			case Date.MINUTE:
-				ta /= 60;
-				tb /= 60;
+				difference /= 60;
 			case Date.SECOND:
-				ta /= 1000;
-				tb /= 1000;
+				difference /= 1000;
 			case Date.MILLI:
 			default:
 				break;
 		}
 
-		return ta - tb;
+		return difference;
 	},
 
 	/**

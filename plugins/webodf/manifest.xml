@@ -2,7 +2,7 @@
 <!DOCTYPE plugin SYSTEM "manifest.dtd">
 <plugin version = "2">
 	<info>
-		<version>0.2</version>
+		<version>0.3</version>
 		<name>webodfbox</name>
 		<title>WebODF Documents attachment preview</title>
 		<author>Zarafa</author>
@@ -13,21 +13,35 @@
 		<configfile>config.php</configfile>
 	</config>
 	<components>
-		<component>
-			<info>
-				<name>webodf.js</name>
-				<title>webodf.js</title>
-				<author>2011 KO GmbH The Open Document Company</author>
-				<authorURL>https://gitorious.org/webodf/webodf</authorURL>
-				<description>WebODF is a JavaScript library that makes it easy to add Open Document Format (ODF) support to your website and to your mobile or desktop application. It uses HTML and CSS to display ODF documents.</description>
-			</info>
-			<files>
-				<client>
-					<clientfile load = "debug">lib/webodf-debug.js</clientfile>
-					<clientfile load = "release">lib/webodf.js</clientfile>
-				</client>
-			</files>
-		</component>
+        <component>
+            <info>
+                <name>TypedArrayPolyfill</name>
+                <title>TypedArray Polyfill</title>
+                <author>Joshua Belly</author>
+                <authorURL>https://github.com/inexorabletash/polyfill</authorURL>
+                <description>This polyfill has definitions for typed arrays for browsers that don't support them. (Internet Explorer &lt;= 10)</description>
+            </info>
+            <files>
+                <client>
+                    <clientfile load = "release">lib/TypedArray.js</clientfile>
+                </client>
+            </files>
+        </component>
+        <component>
+            <info>
+                <name>webodf.js</name>
+                <title>webodf.js</title>
+                <author>2011 KO GmbH The Open Document Company</author>
+                <authorURL>https://gitorious.org/webodf/webodf</authorURL>
+                <description>WebODF is a JavaScript library that makes it easy to add Open Document Format (ODF) support to your website and to your mobile or desktop application. It uses HTML and CSS to display ODF documents.</description>
+            </info>
+            <files>
+                <client>
+                    <clientfile load = "debug">lib/webodf-debug.js</clientfile>
+                    <clientfile load = "release">lib/webodf.js</clientfile>
+                </client>
+            </files>
+        </component>
 		<component>
 			<info>
 				<name>webodfboxplugin</name>
@@ -37,7 +51,7 @@
 			</info>
 			<files>
 				<server>
-					<serverfile>php/plugin.webodfbox.php</serverfile>
+					<serverfile>php/plugin.webodf.php</serverfile>
 				</server>
 				<client>
 					<clientfile load = "release">js/webodf.js</clientfile>

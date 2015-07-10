@@ -182,10 +182,9 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 
 		Ext.applyIf(config, {
 			baseCls : 'zarafa-calendar',
-			title : displayName ? Ext.util.Format.htmlEncode(displayName) : undefined,
-			themeCls : config.folder ? config.folder.getColorTheme() : undefined
+			title : displayName ? Ext.util.Format.htmlEncode(displayName) : undefined
 		});
-
+		
 		// define drag/drop events
 		this.addEvents(
 			/**
@@ -358,11 +357,24 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	applyCSSClassNames : function()
 	{
+		var contextModel = container.getCurrentContext().getModel();
+		var colorScheme = contextModel.getColorScheme(this.folder.get('entryid'));
+		
 		// Background
 		this.tabBackground.dom.className = this.getClassName('tab', 'background');
+		
 		this.tabLeft.dom.className = this.getClassName('tab-leftside');
 		this.tab.dom.className = this.getClassName('tab-body');
 		this.tabRight.dom.className = this.getClassName('tab-rightside');
+		this.tabLeft.applyStyles({
+			'background-color' : colorScheme.header
+		});
+		this.tab.applyStyles({
+			'background-color' : colorScheme.header
+		});
+		this.tabRight.applyStyles({
+			'background-color' : colorScheme.header
+		});
 
 		// Contents
 		this.tabContents.dom.className = this.getClassName('tab', 'contents');

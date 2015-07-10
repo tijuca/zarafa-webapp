@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Secondary state handling

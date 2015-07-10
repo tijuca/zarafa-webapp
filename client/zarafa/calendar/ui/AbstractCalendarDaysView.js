@@ -268,16 +268,11 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 	{
 		var start = this.getDateRange().getStartDate();
 
-		// To determine the number of days between the 2 dates.
-		// To improve the result we should force both dates to be
-		// around the same time. This prevents problems when the
-		// start of the date variable is on a DST day where (in case
-		// of Brasil) the DST switch occurs on midnight. Causing
-		// a off-by-one error in the Math.floor(Date.diff()) line.
-		start = start.clone();
-		start.setHours(12);
-		date = date.clone();
-		date.setHours(12);
+		// We use the Ext clearTime() extension of Date() to account for
+		// differences in DST. We pass true to get a clone of the passed 
+		// date, so we don't overwrite the original date.
+		start = start.clearTime(true);
+		date = date.clearTime(true);
 
 		return Math.floor(Date.diff(Date.DAY, date, start));
 	},
@@ -635,7 +630,7 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 
 		this.doGreedyColoring(headerAppointments, true);
 
-		this.rowCount = (headerAppointments.length>0)?headerAppointments[0].slotCount:0;
+		this.rowCount = (headerAppointments.length>0) ? headerAppointments[0].slotCount : 0;
 	},
 
 	/**

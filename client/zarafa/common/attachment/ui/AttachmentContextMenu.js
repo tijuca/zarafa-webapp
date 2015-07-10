@@ -64,6 +64,12 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 			scope : this,
 			handler : this.onDownloadItem,
 			beforeShow : this.onDownloadBeforeShow
+		}, {
+			text : _('Download all as ZIP'),
+			iconCls : 'icon_attachment_download_zip',
+			scope : this,
+			handler : this.onDownloadAllAsZip,
+			beforeShow : this.onDownloadZipBeforeShow
 		}];
 	},
 
@@ -99,6 +105,30 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 	},
 
 	/**
+	 * Function will be called before {@link Zarafa.common.attachment.ui.AttachmentContextMenu AttachmentContextMenu} is shown
+	 * so we can decide which item should be disabled.
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item context menu item
+	 * @param {Zarafa.core.data.IPMAttachmentRecord} record attachment record on which context menu is shown
+	 */
+	onDownloadZipBeforeShow : function(item, record)
+	{
+		var normalAttachmentCounter = 0;
+		// Check if there is more than one normal attachments.
+		// Here, 'query' method of Ext.data.Store is useless in case where there is same id(-1) of all the unsaved attachments.
+		if(record.store.getCount() > 1) {
+			record.store.each(function(record){
+				if(!record.get('hidden')) {
+					normalAttachmentCounter++;
+				}
+			});
+		}
+
+		// embedded messages can not be downloaded as ZIP
+		// check if there is more than one attachments.
+		item.setDisabled(record.isEmbeddedMessage() || normalAttachmentCounter <= 1);
+	},
+
+	/**
 	 * Event handler which is called when the user selects the 'Preview'
 	 * item in the context menu. This will open the item in a new dialog.
 	 * @private
@@ -118,6 +148,16 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 	onDownloadItem : function()
 	{
 		Zarafa.common.Actions.downloadAttachment(this.records);
+	},
+
+	/**
+	 * Event handler which is called when the user selects the 'Download all as ZIP'
+	 * item in the context menu.
+	 * @private
+	 */
+	onDownloadAllAsZip : function()
+	{
+		Zarafa.common.Actions.downloadAttachment(this.records, true);
 	}
 });
 

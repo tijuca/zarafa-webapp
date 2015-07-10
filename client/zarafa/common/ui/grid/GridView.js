@@ -17,6 +17,14 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 	disableScrollToTop : undefined,
 
 	/**
+	 * @cfg {Boolean} isBuffering by default it was false which represent that no more rows are in buffer to 
+	 * insert in to {@link Zarafa.mail.ui.MailGrid mailgrid} and if it is true means there are some rows 
+	 * in buffer which are going to inser in {@link Zarafa.mail.ui.MailGrid mailgrid}, also it will not allow 
+	 * to fire {@link #livescrollstart} event till {@link #isBuffering} get false.
+	 */
+	isBuffering : false,
+
+	/**
 	 * @constructor
 	 * @param {Object} config Configuration object
 	 */
@@ -32,6 +40,27 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 			forceFit : true
 		});
 
+		this.addEvents(
+			/**
+			 * @event beforelivescrollstart
+			 * Fires when the scroll is being {@link #onScroll started}.
+			 * @param {Zarafa.common.ui.grid.GridView} grid view The grid view which fired the event
+			 * @param {HtmlElement} target The target of the event.
+			 */
+			'beforelivescrollstart',
+			/**
+			 * @event livescrollstart
+			 * Fires when the scroll is being {@link #onScroll started}.
+			 * @param {Number} cursor the cursor contains the last index of record in grid.
+			 */
+			'livescrollstart',
+			/**
+			 * @event beforesort
+			 * Fires when the header of grid is being {@link #onHeaderClick clicked}.
+			 * @param {Number} cursor the cursor contains the last index of record in grid.
+			 */
+			'beforesort'
+		);
 		Zarafa.common.ui.grid.GridView.superclass.constructor.call(this, config);
 
 		this.initEvents();
@@ -160,6 +189,50 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 	},
 
 	/**
+	 * Event handler which is triggered when scroll bar of an {@link Ext.grid.GridPanel Grid}
+	 * scrolled. here it will fire {@link #livescrollstart} event, if {@link Ext.grid.GridPanel Grid}
+	 * as rows and scroll bar is at the end of {@link Ext.grid.GridPanel Grid}.
+	 * @param {Ext.EventObject} event The {@link Ext.EventObject} encapsulating the DOM event.
+	 * @param {HtmlElement} target The target of the event.
+	 * @param {Object} option The options configuration passed to the {@link #addListener} call.
+	 */
+	onScroll : function(event, target, option) 
+	{
+		if(this.fireEvent('beforelivescrollstart', this, target) !== false) {
+			// chrome dose not support scrollTopMax so we have to find the scrollTopMax manually.
+			if(!Ext.isDefined(target.scrollTopMax))
+				var scrollTopMax = target.scrollHeight - target.offsetHeight;
+			else {
+				var scrollTopMax = target.scrollTopMax;
+			}
+
+			var scrollState = scrollTopMax * 0.90;
+			if(scrollState < target.scrollTop && !this.isBuffering) {
+				var cursor = this.ds.getCount();
+				if(cursor !== this.ds.totalLength) {
+					this.fireEvent('livescrollstart', cursor);
+				}
+			}
+		}
+	},
+
+	/**
+	 * Function was used to reset the scroller position to top if it is not. also it will 
+	 * set the focus to first line of grid.
+	 */
+	resetScroll : function()
+	{
+		if(this.getScrollState().top > 0) {
+			this.scrollToTop();
+			// it is required in case when user load all records in grid and switch the 
+			// view of grid, then it will show the extra space in grid. once user click on grid 
+			// it will resize grid and remove the extra space. it happens because focus element of grid
+			// will not resize when user switch the view so we have to set the focus on grid.
+			this.focusRow(1);
+		}
+	},
+
+	/**
 	 * Called when the GridView has been rendered.
 	 * This will check if the store has been loaded already, and apply
 	 * the emptyText if needed.
@@ -179,6 +252,7 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 				this.applyEmptyText();
 			}
 		}
+		this.scroller.on('scroll', this.onScroll, this);
 	},
 
 	/**
@@ -205,6 +279,72 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 			// changed...
 			sm.fireEvent('selectionchange', sm);
 		}
+	},
+
+	/**
+	 * Event handler triggered when header of {@link Ext.grid.GridPanel Grid}
+	 * was clicked for sort the data of {@link Ext.grid.GridPanel Grid}.
+	 * also it will fire the {@link #beforesort} event.
+	 * @param {Ext.grid.GridPanel} grid The grid on which the user clicked
+	 * @param {Number} The index number of the header which clicked.
+	 * @private
+	 */
+	onHeaderClick : function(grid, index) 
+	{
+		if(this.fireEvent('beforesort', this) !== false) {
+			Zarafa.common.ui.grid.GridView.superclass.onHeaderClick.apply(this, arguments);
+		}
+	},
+
+	/**
+	 * Event handler triggered when header menu item was clicked and the column show/hide submenu (if available).
+	 * Performs sorting if the sorter buttons were clicked, otherwise hides/shows the column that was clicked.
+	 * also it will fire the {@link #beforesort} event.
+	 * @param {Ext.menu.Item} item The item which is being clicked
+	 * @private
+	 */
+	handleHdMenuClick : function(item) 
+	{
+		if(this.fireEvent('beforesort', this) !== false) {
+			Zarafa.common.ui.grid.GridView.superclass.handleHdMenuClick.apply(this, arguments);
+		}
+	},
+
+	/**
+	 * Function used to insert the dummy row in grid and warp the loading mask on it.
+	 * also it was {@link #isBuffering} set to true.
+	 * 
+	 * @param {String} msg the message which load mask shows while loading.
+	 */
+	showGridRowLoadMask : function(msg)
+	{
+		this.isBuffering = true;
+		var height  = this.getRow(1).offsetHeight;
+		var width = this.getTotalWidth();
+
+		// add dummy row at bottom of the grid.
+		var style = {styles : 'width :'+width+'px; height :'+height+'px'};
+		var tpl = new Ext.Template('<div  id="dummy-row" style = "{styles}"> </div>');
+		var html = tpl.apply(style);
+		var dom = Ext.DomHelper.insertHtml('beforeEnd',this.mainBody.dom, html);
+
+		// wrap the loading mask on the dummy row.
+		Ext.get(dom).mask(msg, 'x-mask-loading x-mask-loading-row');
+		var el = Ext.get(dom).child('.ext-el-mask', true);
+		el.className += 'x-mask-row';
+	},
+
+	/**
+	 * Function use to remove the dummy row which use to show the loading mask and
+	 * {@link #isBuffering} set to false.
+	 */
+	removeGridRowLoadMask : function()
+	{
+		var rowMask = Ext.query('div#dummy-row', this.mainBody.dom)[0];
+		if(Ext.isDefined(rowMask)) {
+			Ext.get(rowMask).remove();
+		}
+		this.isBuffering = false;
 	}
 });
 

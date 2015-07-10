@@ -209,6 +209,18 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 */
 	onStoreBeforeLoad : function(store, options)
 	{
+		/*
+		 * if action type is updatelist and grid has no dummy row with warped 
+		 * loading mask, then show the loading mask on the grid row rather to 
+		 * show load mask on whole grid.
+		 */
+		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
+			if(!this.isLoading) {
+				this.getView().showGridRowLoadMask(this.loadMask.msg);
+				this.isLoading = true;
+			}
+			return;
+		}
 		// No need to reset the column model when we are searching
 		// We must use the column model the user set for the folder
 		// in which he is searching
@@ -250,7 +262,21 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * @param {Object} options The loading options that were specified (see {@link Ext.data.Store#load load} for details)
 	 * @private
 	 */
-	onStoreLoad : Ext.emptyFn,
+	onStoreLoad : function(store, records, options)
+	{
+		/*
+		 * if action type is updatelist and grid has dummy row which was warped
+		 * with loading mask, then remove that dummy row from grid. also don't 
+		 * show the loading mask on whole grid.
+		 */
+		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
+			if(this.isLoading){
+				this.getView().removeGridRowLoadMask();
+				this.isLoading = false;
+			}
+			return;
+		}
+	},
 
 	/**
 	 * Event handler for the {@link #beforeconfigchange} event which is fired at the start of

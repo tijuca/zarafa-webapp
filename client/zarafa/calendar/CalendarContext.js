@@ -228,6 +228,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 		switch(type) {
 			case Zarafa.core.data.SharedComponentType['common.create']:
 			case Zarafa.core.data.SharedComponentType['common.view']:
+			case Zarafa.core.data.SharedComponentType['common.preview']:
 				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass([ 'IPM.Appointment', 'IPM.OLE.CLASS.{00061055-0000-0000-C000-000000000046}' ], true)) {
 						bid = 1;
@@ -292,6 +293,9 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 			case Zarafa.core.data.SharedComponentType['common.view']:
 				component = Zarafa.calendar.dialogs.AppointmentContentPanel;
 				break;
+			case Zarafa.core.data.SharedComponentType['common.preview']:
+				component = Zarafa.calendar.ui.AppointmentPreviewPanel;
+				break;
 			case Zarafa.core.data.SharedComponentType['common.contextmenu']:
 				component = Zarafa.calendar.ui.CalendarContextMenu;
 				break;
@@ -342,10 +346,12 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 			context : this,
 			items : [{
 				xtype : 'panel',
+				id: 'zarafa-navigationpanel-calendar-navigation',
 				cls: 'zarafa-context-navigation-block',
 				title : _('My Calendars'),
 				items : [{
 					xtype : 'zarafa.multiselecthierarchytree',
+					id: 'zarafa-navigationpanel-calendar-navigation-tree',
 					model: this.getModel(),
 					IPMFilter: 'IPF.Appointment',
 					hideDeletedFolders : true,
@@ -356,7 +362,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 					colored : true,
 					bbarConfig: {
 						defaultSelectedSharedFolderType: Zarafa.hierarchy.data.SharedFolderTypes['APPOINTMENT'],
-						buttonText : _('Open Shared Calendars')
+						buttonText : _('Add Shared Calendar')
 					}
 				}]
 			}]
@@ -371,6 +377,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	createDatePicker : function()
 	{
 		var picker = new Zarafa.calendar.ui.DatePicker({
+			id: 'zarafa-navigationpanel-calendar-datepicker',
 			navigationContext: this,
 			showWeekNumber: true,
 			showToday : false,
@@ -420,6 +427,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'zarafa.calendarmainpanel',
+			id: 'zarafa-mainpanel-contentpanel-calendar',
 			context: this
 		};
 	},
@@ -440,6 +448,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 		// and whatever views were provided from the insertion point.
 		if (Zarafa.supportsCanvas()) {
 			defaultItems = defaultItems.concat([{
+				id: 'zarafa-maintoolbar-view-calendar-day',
 				text : _('Day'),
 				iconCls : 'icon-calendar-day',
 				valueView : Zarafa.calendar.data.Views.BLOCKS,
@@ -448,6 +457,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 				handler : this.onContextSelectView,
 				scope : this
 			},{
+				id: 'zarafa-maintoolbar-view-calendar-workweek',
 				text : _('Workweek'),
 				iconCls : 'icon-calendar-workweek',
 				valueView : Zarafa.calendar.data.Views.BLOCKS,
@@ -456,6 +466,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 				handler : this.onContextSelectView,
 				scope : this
 			},{
+				id: 'zarafa-maintoolbar-view-calendar-week',
 				text : _('Week'),
 				iconCls : 'icon-calendar-week',
 				valueView : Zarafa.calendar.data.Views.BLOCKS,
@@ -464,6 +475,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 				handler : this.onContextSelectView,
 				scope : this
 			},{
+				id: 'zarafa-maintoolbar-view-calendar-month',
 				text : _('Month'),
 				iconCls : 'icon-calendar-month',
 				valueView : Zarafa.calendar.data.Views.BLOCKS,
@@ -475,6 +487,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 		}
 
 		defaultItems.push({
+			id: 'zarafa-maintoolbar-view-calendar-list',
 			text : _('List'),
 			iconCls : 'icon-calendar-grid',
 			valueView : Zarafa.calendar.data.Views.LIST,
@@ -520,6 +533,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return [{
 			xtype: 'button',
+			id: 'zarafa-maintoolbar-calendar-today',
 			scale: 'large',
 			overflowText: _('Today'),
 			tooltip: _('Today'),
@@ -581,6 +595,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-appointment',
 			tooltip : _('Appointment')+' (Ctrl + Alt + A)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text: _('Appointment'),
@@ -604,6 +619,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-meetingrequest',
 			tooltip : _('Meeting request')+' (Ctrl + Alt + V)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text: _('Meeting request'),
@@ -627,6 +643,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 
 		var defaultItems = [{
 			xtype: 'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-selectedappointment',
 			overflowText: _('Print selected appointment'),
 			iconCls: 'icon_print_single_appt',
 			tooltip : _('Print selected appointment') + ' (Ctrl + P)',
@@ -638,6 +655,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 			scope: this
 		},{
 			xtype : 'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-calendaroverview',
 			overflowText: _('Print overview'),
 			iconCls: 'icon_print_view',
 			text: _('Print overview'),
@@ -715,7 +733,8 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 3,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-calendar'
 		};
 	}
 });

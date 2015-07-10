@@ -242,6 +242,18 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		return this.current_view_mode;
 	},
 
+	
+	// TODO : Advance Search
+	getLastView : function()
+	{
+		return this.oldView;
+	},
+	// TODO : Advance Search
+	getLastViewMode : function()
+	{
+		return this.oldViewMode;
+	},
+
 	/**
 	 * Obtain the {@link Zarafa.core.ContextModel mode} which is associated
 	 * to this context.
@@ -338,10 +350,25 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		var state = Zarafa.core.Context.superclass.getState.call(this) || {};
 		var model = this.getModel();
 		var searching = model && model.isSearching();
+		var scrolling = model && model.isLiveScrolling();
 
-		// When searching we will store the state we had before searching
-		// We need the state because it is used when the user switches to the Settings context > mail settings.
-		return Ext.apply(state, searching ? {
+		// True when search is performed but liveScroll is not..
+		var isOnlySearching = (searching && !scrolling);
+		/*
+		 * True when live scroll is performed and and current view mode should not be 
+		 * one of the main view mode (NO_PREVIEW, RIGHT_PREVIEW, BOTTOM_PREVIEW).
+		 * it gets false when user search something, use live scroll and then close the search
+		 */
+		var isOnlyScrolling = (scrolling && !searching && !Zarafa.mail.data.ViewModes.isMainViewMode(this.current_view_mode))
+
+		/* 
+		 * True when live scroll and searching both are performed also 
+		 * old view mode was one of the main view mode(NO_PREVIEW, RIGHT_PREVIEW, BOTTOM_PREVIEW).
+		 * it will gets false when user close the search or switch the context, folder and view.
+		 */
+		var isSearchingAndScrolling = (scrolling && searching && Zarafa.mail.data.ViewModes.isMainViewMode(this.oldViewMode));
+
+		return Ext.apply(state, isOnlySearching || isOnlyScrolling || isSearchingAndScrolling ?{
 			current_view : this.oldView,
 			current_view_mode : this.oldViewMode
 		} : {

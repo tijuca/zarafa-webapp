@@ -226,7 +226,7 @@
 		<if>
 			<available filepath="${target-folder}/${plugin-folder}/" file="php" type="dir" />
 			<then>
-				<foreach target="syntax-check" param="file">
+				<foreach target="syntax-check" param="file" parallel="true">
 					<path>
 						<fileset dir="${target-folder}/${plugin-folder}/">
 							<include name="**/*.php"/>

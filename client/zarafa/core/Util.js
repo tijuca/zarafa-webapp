@@ -719,5 +719,13 @@ Zarafa.core.Util =
 			string += String.fromCharCode(parseInt(hexString.substr(i, 2), 16));
 		}
 		return string.toLowerCase();
+	},
+
+	/**
+	 * Function used to reload the webapp.
+	 */
+	reloadWebapp : function()
+	{
+		window.location.reload();
 	}
 };

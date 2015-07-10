@@ -22,7 +22,7 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 	/**
 	 * @cfg {Number} minimumHeight The minimum height for this view.
 	 */
-	minimumHeight : 32,
+	minimumHeight : 20,
 
 	/**
 	 * @constructor
@@ -90,6 +90,7 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 	{
 		this.create('textarea', this.parentView.getCalendarBody(), 'body', this.getClassName('body'));
 		this.create('textarea', this.parentView.getCalendarHeader(), 'header', this.getClassName('header'));
+		this.header.setSize(2,2);
 		this.mon(this.body, 'keypress', this.onKeyPress, this);
 		this.mon(this.body, 'keydown', this.onKeyPress, this);
 		this.mon(this.body, 'blur', this.onBlur, this);
@@ -215,7 +216,6 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 
 		this.makeElementsVisible(this.header, true);
 		this.header.setLeftTop(bounds.left, bounds.top);
-		// this.header.setSize(bounds.right - bounds.left, bounds.bottom - bounds.top);
 		this.header.setSize(bounds.right - bounds.left, this.minimumHeight);
 	},
 

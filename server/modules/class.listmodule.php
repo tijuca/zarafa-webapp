@@ -154,8 +154,12 @@
 				// Sort
 				$this->parseSortOrder($action, null, true);
 
+				$limit = false;
+				if(isset($action['restriction']['limit'])){
+					$limit = $action['restriction']['limit'];
+				}
 				// Get the table and merge the arrays
-				$data = $GLOBALS["operations"]->getTable($store, $entryid, $this->properties, $this->sort, $this->start, false, $this->searchRestriction);
+				$data = $GLOBALS["operations"]->getTable($store, $entryid, $this->properties, $this->sort, $this->start, $limit, $this->searchRestriction);
 
 				// Open the folder.
 				$folder = mapi_msgstore_openentry($store, $entryid);
@@ -184,7 +188,8 @@
 				// do it here
 				$data["item"] = array_values($data["item"]);
 
-				$this->addActionData("list", $data);
+				$this->addActionData($actionType, $data);
+
 				$GLOBALS["bus"]->addData($this->getResponseData());
 			}
 		}
@@ -206,7 +211,7 @@
 				 * method instead we will pass restriction to messageList and
 				 * it will give us the restricted results
 				 */
-				return $this->messageList($store, $entryid, $action, $actionType);
+				return $this->messageList($store, $entryid, $action, "list");
 			}
 
 			$this->searchFolderList = true; // Set to indicate this is not the normal folder, but a search folder
@@ -268,6 +273,28 @@
 
 				mapi_folder_setsearchcriteria($searchFolder, $this->searchRestriction, $entryids, $subfolder_flag);
 				$this->sessionData['searchCriteriaCheck'] = $restrictionCheck;
+			}
+
+			/*
+			 * FIXME :
+			 * Future implementation 
+			 * - right now we send the search folder entryid if search folder is exist.
+			 * - but after introduce advance search we have to send the search_folder_entryid separately.
+			 * - we have to send something like in search request.
+			 * 		entryid,
+			 * 		store_entryid,
+			 * 		search_folder_entryid (if search folder is exist)
+			 * - on server side we check that search_folder_entryid is sent from client side 
+			 * - if yes the use it for search. else create search folder.
+			 * - also check that folder entryid(not search folder entryid) is different from
+			 * 	 sessionData['searchOriginalEntryids'][0] then change the mapi_folder_setsearchcriteria
+			 */
+			if(isset($this->sessionData['searchCriteriaCheck']) || $restrictionCheck == $this->sessionData['searchCriteriaCheck']) {
+				$folderEntryid = bin2hex($entryid);
+				if($this->sessionData['searchOriginalEntryids'][0] !== $folderEntryid) {
+					$this->sessionData['searchOriginalEntryids'][0] = $folderEntryid;
+					mapi_folder_setsearchcriteria($searchFolder, $this->searchRestriction, $entryids, $subfolder_flag);
+				}
 			}
 
 			unset($action["restriction"]);
@@ -356,7 +383,7 @@
 				mapi_table_sort($table, $this->sort, TBL_BATCH);
 			}
 
-			$rowCount = 50; // FIXME: $GLOBALS["settings"]->get("global/rowcount", 50);
+			$rowCount = $GLOBALS['settings']->get('zarafa/v1/main/page_size', 50);
 
 			$searchResults = array();
 			$entryid = bin2hex($entryid);

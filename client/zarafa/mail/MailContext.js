@@ -75,6 +75,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		Zarafa.core.data.SharedComponentType.addProperty('mail.dialog.options');
 		Zarafa.core.data.SharedComponentType.addProperty('mail.dialog.flags');
 		Zarafa.core.data.SharedComponentType.addProperty('mail.contextmenu.flags');
+		Zarafa.core.data.SharedComponentType.addProperty('search.create');
 	},
 
 	/**
@@ -87,10 +88,62 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			this.model.on({
 				'searchstart' : this.onModelSearchStart,
 				'searchstop' : this.onModelSearchStop,
+				'livescrollstart' : this.onModelLiveScrollStart,
+				'livescrollstop' : this.onModelLiveScrollStop,
 				scope : this
 			});
 		}
 		return this.model;
+	},
+
+	/**
+	 * Event handler for the {@link #model}#{@link Zarafa.core.ContextModel#livescrollstart live scroll start} event.
+	 * This will {@link #switchView switch the view} to {@link Zarafa.mail.data.Views#LIVESCROLL live scroll mode}.
+	 * The previously active {@link #getCurrentView view} will be stored in the {@link #oldView} and will
+	 * be recovered when the {@link #onModelLiveScrollStop live scroll is stopped}.
+	 * @param {Zarafa.core.ContextModel} model The model which fired the event
+	 * @private
+	 */
+	onModelLiveScrollStart : function(model)
+	{
+		if(this.getCurrentView() != Zarafa.mail.data.Views.LIVESCROLL && this.getCurrentViewMode() != Zarafa.mail.data.ViewModes.LIVESCROLL){
+			/*
+			 * Check that current view model is NO_PREVIEW, RIGHT_PREVIEW,
+			 * or BOTTOM_PREVIEW then set the view mode to oldViewMode and view to oldView.
+			 */
+			if(Zarafa.mail.data.ViewModes.isMainViewMode(this.getCurrentViewMode())) {
+				this.oldView = this.getCurrentView();
+				this.oldViewMode = this.getCurrentViewMode();
+			}
+			this.switchView(Zarafa.mail.data.Views.LIVESCROLL, Zarafa.mail.data.ViewModes.LIVESCROLL);
+		}
+	},
+
+	/**
+	 * Event handler for the {@link #model}#{@link Zarafa.core.ContextModel#livescrollstop live scroll stop} event.
+	 * This will {@link #switchView switch the view} to the {@link #oldView previous view}.
+	 * @param {Zarafa.core.ContextModel} model The model which fired the event
+	 * @private
+	 */
+	onModelLiveScrollStop : function(model)
+	{
+		/*
+		 * Check requires to prevent loading old view again when user
+		 * - Loads all mails in grid using live scroll
+		 * - Switch the view
+		 * - Click on refresh button
+		 * To overcome the above mentioned problem,
+		 * we have to check that currently selected mode is one of the main view mode
+		 * (NO_PREVIEW, RIGHT_PREVIEW and BOTTOM_PREVIEW) then switch the view with it
+		 * else switch with old view and view mode.
+		 */
+		if(Zarafa.mail.data.ViewModes.isMainViewMode(this.getCurrentViewMode())) {
+			this.switchView(this.getCurrentView(), this.getCurrentViewMode());
+		} else {
+			this.switchView(this.oldView, this.oldViewMode);
+		}
+		delete this.oldView;
+		delete this.oldViewMode;
 	},
 
 	/**
@@ -104,8 +157,15 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	onModelSearchStart : function(model)
 	{
 		if(this.getCurrentView() != Zarafa.mail.data.Views.SEARCH && this.getCurrentViewMode() != Zarafa.mail.data.ViewModes.SEARCH){
-			this.oldView = this.getCurrentView();
-			this.oldViewMode = this.getCurrentViewMode();
+			/*
+			 * Check that current view model is one of the view mode from
+			 * NO_PREVIEW, RIGHT_PREVIEW and BOTTOM_PREVIEW then set the view mode to 
+			 * oldViewMode and view to oldView.
+			 */
+			if(Zarafa.mail.data.ViewModes.isMainViewMode(this.getCurrentViewMode())) {
+				this.oldView = this.getCurrentView();
+				this.oldViewMode = this.getCurrentViewMode();
+			}
 			this.switchView(Zarafa.mail.data.Views.SEARCH, Zarafa.mail.data.ViewModes.SEARCH);
 		}
 	},
@@ -161,6 +221,9 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		}
 
 		switch (type) {
+			case Zarafa.core.data.SharedComponentType['search.create']:
+					bid = 0;
+				break;
 			case Zarafa.core.data.SharedComponentType['common.create']:
 			case Zarafa.core.data.SharedComponentType['common.view']:
 			case Zarafa.core.data.SharedComponentType['common.preview']:
@@ -236,6 +299,9 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	{
 		var component;
 		switch (type) {
+			case Zarafa.core.data.SharedComponentType['search.create']:
+				component = Zarafa.common.search.dialogs.SearchContentPanel;
+				break;
 			case Zarafa.core.data.SharedComponentType['common.create']:
 				component = Zarafa.mail.dialogs.MailCreateContentPanel;
 				break;
@@ -286,6 +352,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype : 'zarafa.mailpanel',
+			id: 'zarafa-mainpanel-contentpanel-mail',
 			context: this
 		};
 	},
@@ -302,10 +369,12 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			context : this,
 			items : [{
 				xtype : 'panel',
+				id: 'zarafa-navigationpanel-mail-navigation',
 				cls: 'zarafa-context-navigation-block',
 				title : _('My Mail'),
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
+					id: 'zarafa-navigationpanel-mail-navigation-tree',
 					model: this.getModel(),
 					IPMFilter: 'IPF.Note',
 					hideDeletedFolders : false,
@@ -333,6 +402,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-mail',
 			tooltip : _('Email message')+' (Ctrl + Alt + X)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text: _('Email message'),
@@ -467,6 +537,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		var items = container.populateInsertionPoint('main.maintoolbar.view.mail', this) || [];
 		
 		var defaultItems = [{
+			id: 'zarafa-maintoolbar-view-mail-nopreview',
 			overflowText: _('No preview'),
 			iconCls: 'icon_previewpanel_off',
 			text: _('No preview'),
@@ -476,6 +547,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			handler: this.onContextSelectView,
 			scope: this
 		},{
+			id: 'zarafa-maintoolbar-view-mail-previewright',
 			overflowText: _('Right preview'),
 			iconCls: 'icon_previewpanel_right',
 			text: _('Right preview'),
@@ -485,6 +557,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			handler: this.onContextSelectView,
 			scope: this
 		},{
+			id: 'zarafa-maintoolbar-view-mail-previewbottom',
 			overflowText: _('Bottom preview'),
 			iconCls: 'icon_previewpanel_bottom',
 			text: _('Bottom preview'),
@@ -523,6 +596,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		
 		var defaultItems = [{
 			xtype: 'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-singlemail',
 			overflowText: _('Print single e-mail'),
 			iconCls: 'icon_print_single',
 			tooltip : _('Print single e-mail') + ' (Ctrl + P)',
@@ -571,7 +645,8 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 2,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-mail'
 		};
 	}
 });

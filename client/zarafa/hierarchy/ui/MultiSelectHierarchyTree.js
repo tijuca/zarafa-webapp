@@ -33,18 +33,38 @@ Zarafa.hierarchy.ui.MultiSelectHierarchyTree = Ext.extend(Zarafa.hierarchy.ui.Hi
 			this.on('checkchange', this.onTreeNodeCheckChange, this);
 			this.on('click', this.onTreeNodeClick, this);
 			this.mon(this.model, 'folderchange', this.onFolderChange, this);
+			this.mon(this.model, 'activate', this.onCalendarActivate, this);
 		}
+	},
+
+	/**
+	 * Called after the tree has been {@link #render rendered} This will initialize
+	 * Remove listeners on Zarafa.hierarchy.ui.Tree click events
+	 * @private
+	 */
+	initEvents : function ()
+	{
+		Zarafa.hierarchy.ui.MultiSelectHierarchyTree.superclass.initEvents.call(this);
+		this.un('click', this.onFolderClicked, this);
 	},
 
 	/**
 	 * Called when a treeNode is click in tree. The corresponding folder is added to,
 	 * or removed from the active folder list depending on the state of the check box.
-	 * @param {Ext.tree.TreeNode} node tree node.
+	 * @param {Ext.tree.TreeNode} treeNode tree node.
 	 * @private
 	 */
 	onTreeNodeClick : function(treeNode)
 	{
-		this.onTreeNodeCheckChange(treeNode, !treeNode.getUI().isChecked());
+		var treeNodeui = treeNode.getUI();
+		if (treeNodeui.checkbox.checked && treeNode.isNodeSelected) {
+			treeNodeui.toggleCheck(false);
+			return false;
+		}
+		var folder = treeNode.getFolder();
+		this.model.addFolder(folder);
+		treeNode.isNodeSelected = true;
+		treeNodeui.toggleCheck(true);
 	},
 
 	/**
@@ -57,10 +77,12 @@ Zarafa.hierarchy.ui.MultiSelectHierarchyTree = Ext.extend(Zarafa.hierarchy.ui.Hi
 	onTreeNodeCheckChange : function(node, checked)
 	{
 		var folder = node.getFolder();
-
 		if (checked) {
-			this.model.addFolder(folder);
+			if (!node.isNodeSelected) {
+				this.fireEvent('click', node);
+			}
 		} else {
+			node.isNodeSelected = false;
 			this.model.removeFolder(folder);
 		}
 	},
@@ -74,6 +96,19 @@ Zarafa.hierarchy.ui.MultiSelectHierarchyTree = Ext.extend(Zarafa.hierarchy.ui.Hi
 	onFolderChange : function(model, folders)
 	{
 		this.updateAll();
+	},
+
+	/**
+	 * Handles a activate event from the model.This occurs when the user select calendar by clicking on calendar tab.
+	 * Set the corresponding folder as active folder in hierarchy.
+	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord[]} folder which will mark as selected
+	 */
+	onCalendarActivate : function(folder)
+	{
+		var selectedNode = this.getNodeById(folder.get('entryid'));
+		if (selectedNode) {
+			selectedNode.select();
+		}
 	}
 });
 

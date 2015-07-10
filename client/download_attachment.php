@@ -53,10 +53,26 @@ class DownloadAttachment
 	private $attachCid;
 
 	/**
+	 * A boolean value, set to false by default, to define if all the attachments are requested to be downloaded in a zip or not.
+	 */
+	private $allAsZip;
+
+	/**
+	 * A string that will be initialized with WebApp-specific and common-for-all file name for ZIP file.
+	 */
+	private $zipFileName;
+
+	/**
 	 * A random string that will be generated with every MAPIMessage instance to uniquely identify attachments that
 	 * belongs to this MAPIMessage, this is mainly used to get recently uploaded attachments for MAPIMessage.
 	 */
 	private $dialogAttachments;
+
+	/**
+	 * A boolean value, set to false by default, to define if the message, of which the attachments are required to be wrapped in ZIP,
+	 * is a sub message of other webapp item or not.
+	 */
+	private $isSubMessage;
 
 	/**
 	 * Constructor
@@ -68,6 +84,10 @@ class DownloadAttachment
 		$this->contentDispositionType = 'attachment';
 		$this->attachNum = array();
 		$this->attachCid = false;
+		$this->allAsZip = false;
+		$this->zipFileName = _('Attachments').'%s.zip';
+		$this->messageSubject = '';
+		$this->isSubMessage = false;
 	}
 
 	/**
@@ -115,6 +135,20 @@ class DownloadAttachment
 
 		if(isset($data['attachCid'])) {
 			$this->attachCid = sanitizeValue($data['attachCid'], '', FILENAME_REGEX);
+		}
+
+		if(isset($data['AllAsZip'])) {
+			$this->allAsZip = sanitizeValue($data['AllAsZip'], '', STRING_REGEX);
+		}
+
+		if(isset($data['subject'])) {
+			// Remove characters that we cannot use in a filename
+			$data['subject'] = preg_replace('/[^a-z0-9 ()]/mi', '_', $data['subject']);
+			$this->messageSubject = sanitizeValue($data['subject'], '', FILENAME_REGEX);
+		}
+
+		if($this->allAsZip && isset($data['isSubMessage'])){
+			$this->isSubMessage = sanitizeValue($data['isSubMessage'], '', STRING_REGEX);
 		}
 
 		if(isset($data['dialog_attachments'])) {
@@ -268,13 +302,25 @@ class DownloadAttachment
 				}
 			}
 			
+			$contentIsSentAsUTF8 = false;
+			// For ODF files we must change the content type because otherwise
+			// IE<11 cannot properly read it in the xmlhttprequest object
+			// NOTE: We only need to check for IE<=10, so no need to check for TRIDENT (IE11)
+			preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
+			if (count($matches)>1){
+				if ( strpos($contentType, 'application/vnd.oasis.opendocument.') !== false ){
+					$contentType = 'text/plain; charset=UTF-8';
+					$contentIsSentAsUTF8 = true;
+				}
+			}	
+			
 			// Set the headers
 			header('Pragma: public');
 			header('Expires: 0'); // set expiration time
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Content-Disposition: ' . $this->contentDispositionType . '; filename="' . addslashes(browserDependingHTTPHeaderEncode($filename)) . '"');
-			header('Content-Transfer-Encoding: binary');
 			header('Content-Type: ' . $contentType);
+			header('Content-Transfer-Encoding: binary');
 
 			// Open a stream to get the attachment data
 			$stream = mapi_openproperty($attachment, PR_ATTACH_DATA_BIN, IID_IStream, 0, 0);
@@ -282,9 +328,86 @@ class DownloadAttachment
 			// File length
 			header('Content-Length: ' . $stat['cb']);
 
-			// Print stream
+			// Read the attachment content from the stream
+			$body = '';
 			for($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
-				echo mapi_stream_read($stream, BLOCK_SIZE);
+				$body .= mapi_stream_read($stream, BLOCK_SIZE);
+			}
+			
+			// Convert the content to UTF-8 if we want to send it like that
+			if ( $contentIsSentAsUTF8 ){
+				$body = mb_convert_encoding($body, 'UTF-8');
+			}
+			echo $body;
+		}
+	}
+
+	/**
+	 * Helper function to configure header information which is required to send response as a ZIP archive
+	 * containing all the attachments.
+	 * @param String $randomZipName A random zip archive name.
+	 */
+	public function sendZipResponse($randomZipName)
+	{
+		$subject = isset($this->messageSubject) ? ' '.$this->messageSubject : '';
+		
+		// Set the headers
+		header('Pragma: public');
+		header('Expires: 0'); // set expiration time
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Content-Disposition: ' . $this->contentDispositionType . '; filename="' . addslashes(browserDependingHTTPHeaderEncode(sprintf($this->zipFileName, $subject))) . '"');
+		header('Content-Transfer-Encoding: binary');
+		header('Content-Type:  application/zip');
+		header('Content-Length: ' . filesize($randomZipName));
+
+		// Send the actual response as ZIP file
+		readfile($randomZipName);
+
+		// Remove the zip file to avoid unnecessary disk-space consumption
+		unlink($randomZipName);
+	}
+
+	/**
+	 * Function will open all attachments of message and prepare a ZIP file response for that attachment to send it to client.
+	 * This should only be used to download attachment that is already saved in MAPIMessage.
+	 * @param String $randomZipName A random zip archive name.
+	 * @param AttachmentState $attachment_state Object of AttachmentState class.
+	 * @param ZipArchive $zip ZipArchive object.
+	 */
+	public function addAttachmentsToZipArchive($randomZipName, $attachment_state, $zip)
+	{
+		// Get all the attachments from message
+		$attachmentTable = mapi_message_getattachmenttable($this->message);
+		$attachments = mapi_table_queryallrows($attachmentTable, array(PR_ATTACH_NUM, PR_ATTACH_METHOD));
+
+		foreach($attachments as $attachmentRow) {
+			if($attachmentRow[PR_ATTACH_METHOD] !== ATTACH_EMBEDDED_MSG) {
+				$attachment = mapi_message_openattach($this->message, $attachmentRow[PR_ATTACH_NUM]);
+
+				// Prevent inclusion of inline attachments and contact photos into ZIP
+				if(!$attachment_state->isInlineAttachment($attachment) && !$attachment_state->isContactPhoto($attachment)){
+					$props = mapi_attach_getprops($attachment, array(PR_ATTACH_LONG_FILENAME));
+
+					// Open a stream to get the attachment data
+					$stream = mapi_openproperty($attachment, PR_ATTACH_DATA_BIN, IID_IStream, 0, 0);
+					$stat = mapi_stream_stat($stream);
+
+					// Get the stream
+					$datastring = '';
+					for($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
+						$datastring .=  mapi_stream_read($stream, BLOCK_SIZE);
+					}
+
+					// Add file into zip by stream
+					$zip->addFromString($props[PR_ATTACH_LONG_FILENAME], $datastring);
+				}
+			}
+
+			// Go for adding unsaved attachments in ZIP, if any.
+			// This situation arise while user upload attachments in draft.
+			$attachmentFiles = $attachment_state->getAttachmentFiles($this->dialogAttachments);
+			if($attachmentFiles){
+				$this->addUnsavedAttachmentsToZipArchive($randomZipName, $attachment_state, $zip);
 			}
 		}
 	}
@@ -324,14 +447,76 @@ class DownloadAttachment
 	}
 
 	/**
+	 * Function will send all the attachments to client side wrapped in a ZIP file.
+	 * This should only be used to download all the attachments that are recently uploaded and not saved in MAPIMessage.
+	 * @param String $randomZipName A random zip archive name.
+	 * @param AttachmentState $attachment_state Object of AttachmentState class.
+	 * @param ZipArchive $zip ZipArchive object.
+	 */
+	public function addUnsavedAttachmentsToZipArchive($randomZipName, $attachment_state, $zip)
+	{
+		//Get recently uploaded attachment files
+		$attachmentFiles = $attachment_state->getAttachmentFiles($this->dialogAttachments);
+
+		foreach ($attachmentFiles as $fileName => $fileInfo) {
+			$filePath = $attachment_state->getAttachmentPath($fileName);
+			// Avoid including contact photo and embedded messages in ZIP
+			if ($fileInfo['sourcetype'] !== 'embedded' && $fileInfo['sourcetype'] !== 'contactphoto') {
+				$zip->addFile($filePath, $fileInfo['name']);
+			}
+		}
+	}
+
+	/**
 	 * Generic function to check passed data and decide which type of attachment is requested.
 	 */
 	public function download()
 	{
 		$attachment = false;
 
+		// Check if all attachments are requested to be downloaded as ZIP
+		if ($this->allAsZip) {
+			$attachment_state = new AttachmentState();
+			$attachment_state->open();
+
+			// Generate random ZIP file name at default temporary path of PHP
+			$randomZipName = tempnam(sys_get_temp_dir(), 'zip');
+
+			// Create an open zip archive.
+			$zip = new ZipArchive();
+			$result = $zip->open($randomZipName, ZipArchive::CREATE);
+
+			if ($result === TRUE) {
+				// Check if attachments are of saved message.
+				// Only saved message has the entryid configured.
+				if($this->entryId) {
+					// Check if the requested attachment(s) are of an embedded message
+					if($this->isSubMessage){
+						// Loop through the attachNums, message in message in message ...
+						for($index = 0, $len = count($this->attachNum); $index < $len - 1; $index++) {
+							// Open the attachment
+							$tempattach = mapi_message_openattach($this->message, $this->attachNum[$index]);
+							if($tempattach) {
+								// Open the object in the attachment
+								$this->message = mapi_attach_openobj($tempattach);
+							}
+						}
+					}
+					$this->addAttachmentsToZipArchive($randomZipName, $attachment_state, $zip);
+				} else {
+					$this->addUnsavedAttachmentsToZipArchive($randomZipName, $attachment_state, $zip);
+				}
+			} else {
+				// Throw exception if ZIP is not created successfully
+				throw new ZarafaException(_("ZIP is not created successfully"));
+			}
+
+			$zip->close();
+
+			$this->sendZipResponse($randomZipName);
+			$attachment_state->close();
 		// check if inline image is requested
-		if($this->attachCid) {
+		} else if($this->attachCid) {
 			// check if the inline image is in a embedded message
 			if(count($this->attachNum) > 0) {
 				// get the embedded message attachment
@@ -360,17 +545,108 @@ class DownloadAttachment
 				// no need to return anything here function will echo all the output
 				$this->downloadSavedAttachment($attachment);
 			}
+		} else {
+			throw new ZarafaException(_("Attachments can not be downloaded"));
 		}
+	}
+
+	/**
+	 * Function will encode all the necessary information about the exception
+	 * into JSON format and send the response back to client.
+	 *
+	 * @param object $exception Exception object.
+	 */
+	function handleSaveMessageException($exception)
+	{
+		$return = array();
+
+		// MAPI_E_NOT_FOUND exception contains generalize exception message.
+		// Set proper exception message as display message should be user understandable.
+		if($exception->getCode() == MAPI_E_NOT_FOUND) {
+			$exception->setDisplayMessage(_('Could not find attachment.'));
+		}
+
+		// Set the headers
+		header('Expires: 0'); // set expiration time
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+
+		// Set Content Disposition header
+		header('Content-Disposition: inline');
+		// Set content type header
+		header('Content-Type: text/plain');
+
+		//prepare exception response according to exception class
+		if($exception instanceof MAPIException) {
+			$return = array(
+				'success' => false,
+				'zarafa' => array(
+					'error' => array(
+						'type' => ERROR_MAPI,
+						'info' => array(
+							'hresult' => $exception->getCode(),
+							'hresult_name' => get_mapi_error_name($exception->getCode()),
+							'file' => $exception->getFileLine(),
+							'display_message' => $exception->getDisplayMessage()
+						)
+					)
+				)
+			);
+		} else if($exception instanceof ZarafaException) {
+			$return = array(
+				'success' => false,
+				'zarafa' => array(
+					'error' => array(
+						'type' => ERROR_ZARAFA,
+						'info' => array(
+							'file' => $exception->getFileLine(),
+							'display_message' => $exception->getDisplayMessage(),
+							'original_message' => $exception->getMessage()
+						)
+					)
+				)
+			);
+		} else if($exception instanceof BaseException) {
+			$return = array(
+				'success' => false,
+				'zarafa' => array(
+					'error' => array(
+						'type' => ERROR_GENERAL,
+						'info' => array(
+							'file' => $exception->getFileLine(),
+							'display_message' => $exception->getDisplayMessage(),
+							'original_message' => $exception->getMessage()
+						)
+					)
+				)
+			);
+		} else {
+			$return = array(
+				'success' => false,
+				'zarafa' => array(
+					'error' => array(
+						'type' => ERROR_GENERAL,
+						'info' => array(
+							'display_message' => _('Operation failed'),
+							'original_message' => $exception->getMessage()
+						)
+					)
+				)
+			);
+		}
+		echo JSON::Encode($return);
 	}
 }
 
 // create instance of class to download attachment
 $attachInstance = new DownloadAttachment();
 
-// initialize variables
-$attachInstance->init($_GET);
+try{
+	// initialize variables
+	$attachInstance->init($_GET);
 
-// download attachment
-$attachInstance->download();
-
+	// download attachment
+	$attachInstance->download();
+} catch (Exception $e) {
+	$attachInstance->handleSaveMessageException($e);
+}
 ?>

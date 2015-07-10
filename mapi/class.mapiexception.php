@@ -1,4 +1,4 @@
-<?
+<?php
 	/**
 	 * MAPIException
 	 * if enabled using mapi_enable_exceptions then php-ext can throw exceptions when

@@ -1229,7 +1229,6 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 		this.folders = options.folder || [];
 		//always show tab
 		this.showBorder = true;
-
 		this.manageCalendarViews();
 
 		// forward the event to the individual calendar views
@@ -1437,6 +1436,7 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	onCalendarActivate : function(calendar, folder)
 	{
 		this.model.activateFolderInGroup(folder, calendar.groupId);
+		this.model.setActiveFolder(folder);
 		// Only redraw tabs
 		for (var i = 0, len = this.calendars.length; i < len; i++) {
 			this.calendars[i].setActive(this.model.getActiveGroup() == this.calendars[i].groupId);

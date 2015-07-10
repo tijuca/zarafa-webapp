@@ -9,56 +9,48 @@
 		die("<strong>config.php is missing!</strong>");
 	}
 
-	include("init.php");
-	include("config.php");
-	include("defaults.php");
-
+	include_once("init.php");
+	include_once("config.php");
+	include_once("defaults.php");
+	require_once("server/core/class.webappsession.php");
+	
 	ob_start();
 	setlocale(LC_CTYPE, "en_US.UTF-8");
 
-	// Start the session
-	session_name(COOKIE_NAME);
-
-	if($_POST && array_key_exists(COOKIE_NAME, $_POST)) {
-		session_id($_POST[COOKIE_NAME]);
-	}
-
-	session_start();
-
 	// check if config is correct
 	if (defined("CONFIG_CHECK")){
-		include("server/class.configcheck.php");
+		include_once("server/class.configcheck.php");
 		new ConfigCheck(CONFIG_CHECK);
 	}
 
 	// Include the files
-	require("mapi/mapi.util.php");
-	require("mapi/mapicode.php");
-	require("mapi/mapidefs.php");
-	require("mapi/mapitags.php");
-	require("mapi/mapiguid.php");
-	require("mapi/class.baseexception.php");
-	require("mapi/class.mapiexception.php");
+	require_once("mapi/mapi.util.php");
+	require_once("mapi/mapicode.php");
+	require_once("mapi/mapidefs.php");
+	require_once("mapi/mapitags.php");
+	require_once("mapi/mapiguid.php");
+	require_once("mapi/class.baseexception.php");
+	require_once("mapi/class.mapiexception.php");
 
-	require("server/exceptions/class.ZarafaException.php");
-	require("server/exceptions/class.ZarafaErrorException.php");
-	require("server/util.php");
-	include("server/gettext.php");
+	require_once("server/exceptions/class.ZarafaException.php");
+	require_once("server/exceptions/class.ZarafaErrorException.php");
+	require_once("server/util.php");
+	include_once("server/gettext.php");
 
-	require("server/core/class.json.php");
-	require("server/core/constants.php");
-	require("server/core/class.conversion.php");
-	require("server/core/class.mapisession.php");
-	require("server/core/class.entryid.php");
+	require_once("server/core/class.json.php");
+	require_once("server/core/constants.php");
+	require_once("server/core/class.conversion.php");
+	require_once("server/core/class.mapisession.php");
+	require_once("server/core/class.entryid.php");
 
-	require("server/core/class.settings.php");
-	require("server/core/class.language.php");
+	require_once("server/core/class.settings.php");
+	require_once("server/core/class.language.php");
 
-	require("server/core/class.state.php");
-	require("server/core/class.attachmentstate.php");
+	require_once("server/core/class.state.php");
+	require_once("server/core/class.attachmentstate.php");
 
-	require("server/core/class.pluginmanager.php");
-	require("server/core/class.plugin.php");
+	require_once("server/core/class.pluginmanager.php");
+	require_once("server/core/class.plugin.php");
 
 	// Check if we need to logout from webapp
 	$logout = isset($_GET['logout']);
@@ -71,21 +63,12 @@
 	// requires a validated session.
 	function loadNeedsSession($load)
 	{
-		return !empty($load) && $load !== 'logon' && $load !== 'translations.js';
+		return !empty($load) && $load !== 'logon' && $load !== 'translations.js' && $load !== 'custom';
 	}
 
-	// Destroy session
-	function destroySession()
-	{
-		$_SESSION = array();
-
-		if (isset($_COOKIE[session_name()])) {
-			setcookie(session_name(), '', time()-42000, '/');
-		}
-
-		session_destroy();
-	}
-
+	// Start the session
+	$phpsession = WebAppSession::createInstance();
+	
 	if ($logout) {
 		// REMOTE_USER is set when apache has authenticated the user, means Single Sign-on
 		// environment is in effect. Don't allow user to redirect to the webapp login page
@@ -95,7 +78,7 @@
 			// session, and redirect the user to the logon page.
 			$actionURI = '?load=logon';
 
-			destroySession();
+			$phpsession->destroy();
 
 			$user = sanitizeGetValue('user', '', USERNAME_REGEX);
 			if ($user) {
@@ -357,7 +340,7 @@
 				case MAPI_E_LOGON_FAILED:
 				case MAPI_E_UNCONFIGURED:
 					// destroy the session so another login attempt will not use preserved data
-					destroySession();
+					$phpsession->destroy();
 					break;
 			}
 		}

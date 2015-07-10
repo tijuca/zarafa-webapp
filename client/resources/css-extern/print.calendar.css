@@ -8,11 +8,11 @@ table {
 
 table th {
   font-weight: bold;
-  padding: 2px 3px 2px 5px;
+  padding: 2px 3px 2px 0px;
 }
 
 table td {
-  padding: 2px 3px 2px 5px;
+  padding: 2px 3px 2px 0px;
 }
 
 /* date picker css */

@@ -137,6 +137,9 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			xtype : 'zarafa.wordselectionlink',
 			id : baseId + '-words'
 		},{
+			xtype : 'zarafa.wordselectionlink',
+			id : baseId + '-bodywords'
+		},{
 			xtype : 'zarafa.importancelink',
 			id : baseId + '-importance'
 		},{
@@ -357,6 +360,7 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			default:
 				break;
 			case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
+			case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
 			case Zarafa.common.rules.data.ConditionFlags.IMPORTANCE:
 			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_FROM:
 			case Zarafa.common.rules.data.ConditionFlags.SENDER_WORDS:
@@ -391,6 +395,8 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			case Restrictions.RES_PROPERTY:
 			case Restrictions.RES_SUBRESTRICTION:
 				switch (condition[1][Restrictions.ULPROPTAG]) {
+					case 'PR_BODY':
+						return Zarafa.common.rules.data.ConditionFlags.BODY_WORDS;
 					case 'PR_SUBJECT':
 						return Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS;
 					case 'PR_IMPORTANCE':
@@ -460,6 +466,10 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 				break;
 			case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
 				layout.setActiveItem(panel.id + '-words');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
+				layout.setActiveItem(panel.id + '-bodywords');
 				layout.activeItem.setCondition(value);
 				break;
 			case Zarafa.common.rules.data.ConditionFlags.IMPORTANCE:

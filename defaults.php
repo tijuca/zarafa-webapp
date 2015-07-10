@@ -71,10 +71,98 @@ if(!defined('FREEBUSY_LOAD_START_OFFSET')) define('FREEBUSY_LOAD_START_OFFSET', 
 // Freebusy end offset that will be used to load freebusy data in appointments, number is added to current time
 if(!defined('FREEBUSY_LOAD_END_OFFSET')) define('FREEBUSY_LOAD_END_OFFSET', 90);
 
+// Maximum eml files to be included in a single ZIP archive
+if(!defined('MAX_EML_FILES_IN_ZIP')) define('MAX_EML_FILES_IN_ZIP', 50);
+
 // Standard password key for session password. We recommend to change the default value for security reasons 
 // and a length of 16 characters. Passwords are only encrypted when the openssl module is installed
 if(!defined('PASSWORD_KEY')) define('PASSWORD_KEY','a75356b0d1b81b7');
 if(!defined('PASSWORD_IV')) define('PASSWORD_IV','b3f5a483');
+
+// Color schemes used for the calendars
+if (!defined('COLOR_SCHEMES')) define('COLOR_SCHEMES', json_encode(array(
+	array(
+		'name' => 'pink',
+		'displayName' => _('Pink'),
+		'base' => '#ff0099'
+	),
+	array(
+		'name' => 'charmpink',
+		'displayName' => _('Charm pink'),
+		'base' => '#f17daa'
+	),
+	array(
+		'name' => 'cadmiumred',
+		'displayName' => _('Cadmium red'),
+		'base' => '#e30022'
+	),
+	array(
+		'name' => 'apricot',
+		'displayName' => _('Apricot'),
+		'base' => '#f7b884'
+	),
+	array(
+		'name' => 'california',
+		'displayName' => _('California'),
+		'base' => '#f89406'
+	),
+	array(
+		'name' => 'yellow',
+		'displayName' => _('Yellow'),
+		'base' => '#f7ca18'
+	),
+	array(
+		'name' => 'softgreen',
+		'displayName' => _('Soft green'),
+		'base' => '#d3e28b'
+	),
+	array(
+		'name' => 'green',
+		'displayName' => _('Green'),
+		'base' => '#5ab557'
+	),
+	array(
+		'name' => 'mint',
+		'displayName' => _('Mint'),
+		'base' => '#1fa480'
+	),
+	array(
+		'name' => 'pearlaqua',
+		'displayName' => _('Pearl aqua'),
+		'base' => '#88d8c0'
+	),
+	array(
+		'name' => 'skyblue',
+		'displayName' => _('Sky blue'),
+		'base' => '#00ccff'
+	),
+	array(
+		'name' => 'babyblue',
+		'displayName' => _('Baby blue'),
+		'base' => '#7bd0f0'
+	),
+	array(
+		'name' => 'zarafablue',
+		'displayName' => _('Zarafa blue'),
+		'base' => '#0f70bd'
+	),
+	array(
+		'name' => 'mauve',
+		'displayName' => _('Mauve'),
+		'base' => '#9a8bbc'
+	),
+	array(
+		'name' => 'purple',
+		'displayName' => _('Purple'),
+		'base' => '#912787'
+	),
+	array(
+		'name' => 'silversand',
+		'displayName' => _('Silver sand'),
+		'base' => '#bdc3c7'
+	)
+)));
+
 /*
  * The following options are taken from the debug.php
  */

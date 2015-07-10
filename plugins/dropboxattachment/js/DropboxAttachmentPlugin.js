@@ -94,7 +94,7 @@ Zarafa.plugins.dropboxattachment.DropboxAttachmentPlugin = Ext.extend(Zarafa.cor
 
 Zarafa.onReady(function() {
 	container.registerPlugin(new Zarafa.core.PluginMetaData({
-		name : 'dropbox',
+		name : 'dropboxattachment',
 		displayName : _('Dropbox Attachment Plugin'),
 		about : Zarafa.plugins.dropboxattachment.ABOUT,
 		pluginConstructor : Zarafa.plugins.dropboxattachment.DropboxAttachmentPlugin

@@ -28,6 +28,7 @@
 
 	include("server/core/constants.php");
 
+	include("server/core/class.webappsession.php");
 	include("server/core/class.state.php");
 	include("server/core/class.attachmentstate.php");
 	include("server/core/class.jsonrequest.php");
@@ -51,10 +52,8 @@
 	// Notifier objects of the previous request are stored in the session. With this
 	// function they are restored to PHP objects.
 	ini_set("unserialize_callback_func", "sessionNotifierLoader");
-
-	// Start session
-	session_name(COOKIE_NAME);
-	session_start();
+	
+	$phpsession = WebAppSession::createInstance();
 
 	// Create global mapi object. This object is used in many other files
 	$GLOBALS["mapisession"] = new MAPISession(session_id());
@@ -63,7 +62,11 @@
 	// sessionid as send in the cookie. Otherwise the cookie was somehow modified in the
 	// browser.
 	$sessionid = sanitizeGetValue('sessionid', '', ID_REGEX);
-	if ($sessionid === $GLOBALS["mapisession"]->getSessionId()) {
+	if ( $phpsession->hasTimedOut() ) {
+		// Using a MAPI error code here, while it is not really a MAPI session timeout
+		// However to the user this should make no difference, so the MAPI error will do.
+		$hresult = MAPI_E_END_OF_SESSION;
+	} elseif ($sessionid === $GLOBALS["mapisession"]->getSessionId()) {
 		// Logon, the username and password are set in the "index.php" file. So whenever
 		// an user enters this file, the username and password whould be set in the $_SESSION
 		// variable

@@ -103,7 +103,6 @@ Zarafa.calendar.ui.canvas.CalendarBoxView = Ext.extend(Zarafa.calendar.ui.Abstra
 
 		Ext.applyIf(config, {
 			baseCls : 'zarafa-calendar',
-			calendarColorScheme : Zarafa.calendar.ui.ColorSchemes[0],
 			todayColorLow : '#f79a21',
 			todayColorHigh : '#ffef7b',
 			enableDD : true,
@@ -236,7 +235,7 @@ Zarafa.calendar.ui.canvas.CalendarBoxView = Ext.extend(Zarafa.calendar.ui.Abstra
 		// Draw a header for each day of the week. We just draw the outlines of each
 		// box in the colorscheme's border color and draw text in the center that tells us
 		// what day of the week that column represents.
-		context.strokeStyle = this.calendarColorScheme.border;
+		context.strokeStyle = this.calendarColorScheme.linenormal;
 		context.lineWidth = 1;
 		context.fillStyle = 'black';
 		context.setFont('bold 8pt Arial');
@@ -381,7 +380,7 @@ Zarafa.calendar.ui.canvas.CalendarBoxView = Ext.extend(Zarafa.calendar.ui.Abstra
 		}
 
 		var lineWidth = context.lineWidth;
-		context.strokeStyle = this.calendarColorScheme.border;
+		context.strokeStyle = this.calendarColorScheme.linenormal;
 		context.strokeRect((lineWidth / 2), (lineWidth / 2), boxWidth - lineWidth, boxHeight - lineWidth);
 
 		// Draw expand button.

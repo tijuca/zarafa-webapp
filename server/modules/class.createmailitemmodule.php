@@ -92,10 +92,10 @@
 					$copyInlineAttachmentsOnly = false;
 
 					if(isset($action['message_action']) && isset($action['message_action']['action_type'])) {
-						$actions = array('reply', 'replyall', 'forward');
+						$actions = array('reply', 'replyall', 'forward', 'edit_as_new');
 						if (array_search($action['message_action']['action_type'], $actions) !== false) {
 							/**
-							 * we need to copy the original attachments when it is an forwarded message
+							 * we need to copy the original attachments when it is a forwarded message, or an "edit as new" message
 							 * OR
 							 * we need to copy ONLY original inline(HIDDEN) attachments when it is reply/replyall message
 							 */
@@ -135,7 +135,10 @@
 							return;
 						}
 
-						$this->setReplyForwardInfo($action);
+						if ( !(isset($action['message_action']['action_type']) && $action['message_action']['action_type']==='edit_as_new') ){
+							$this->setReplyForwardInfo($action);
+						}
+
 						$result = $GLOBALS['operations']->submitMessage($store, $entryid, Conversion::mapXML2MAPI($this->properties, $action['props']), $messageProps, isset($action['recipients']) ? $action['recipients'] : array(), isset($action['attachments']) ? $action['attachments'] : array(), $copyFromMessage, $copyAttachments, false, $copyInlineAttachmentsOnly);
 
 						// If draft is sent from the drafts folder, delete notification
@@ -223,24 +226,65 @@
 		 * reply/forward and entry id of original mail, where we have to set the reply/forward arrow when 
 		 * draft(saved mail) is send.
 		 * @param array $action the action data, sent by the client
-		 * @return number return source_message_info value from record else return false.
+		 * @return array|Boolean false when entryid and source message entryid is missing otherwise array with
+		 * source store entryid and source message entryid if message has.
 		 */
 		function getSourceMsgInfo($action)
 		{
+			$metaData = array();
 			if(isset($action["props"]["source_message_info"]) && !empty($action["props"]["source_message_info"])) {
-				return $action["props"]["source_message_info"];
+				if(isset($action["props"]['sent_representing_entryid']) && !empty($action["props"]['sent_representing_entryid'])){
+					$storeEntryid = hex2bin($action['message_action']['source_store_entryid']);
+				} else {
+					$storeEntryid = hex2bin($action['store_entryid']);
+				}
+				$metaData['source_message_info'] = $action["props"]["source_message_info"];
+				$metaData['storeEntryid'] = $storeEntryid;
+				return $metaData;
 			} else if(isset($action["entryid"]) && !empty($action["entryid"])) {
-				$entryid = hex2bin($action['entryid']);
 				$storeEntryid = hex2bin($action['store_entryid']);
 				$store = $GLOBALS['mapisession']->openMessageStore($storeEntryid);
+
+				$entryid = hex2bin($action['entryid']);
 				$message = $GLOBALS['operations']->openMessage($store, $entryid);
 				$messageProps = mapi_getprops($message);
+
 				$props = Conversion::mapMAPI2XML($this->properties, $messageProps);
+
 				$sourceMsgInfo = !empty($props['props']['source_message_info']) ? $props['props']['source_message_info'] : false;
-				return $sourceMsgInfo;
+
+				if(isset($props["props"]['sent_representing_entryid']) && !empty($props["props"]['sent_representing_entryid'])){
+					$storeEntryid = $this->getSourceStoreEntriyId($props);
+				}
+
+				$metaData['source_message_info'] = $sourceMsgInfo;
+				$metaData['storeEntryid'] = $storeEntryid;
+				return $metaData;
 			}
 
 			return false;
+		}
+
+		/**
+		 * Function is used to get the shared or delegate store entryid where 
+		 * source message was stored on which we have to set replay/forward arrow
+		 * when draft(saved mail) is send.
+		 * @param Array $props the $props data, which get from saved mail.
+		 * @return string source store entryid.
+		 */
+		function getSourceStoreEntriyId($props) {
+			$otherUsers = $GLOBALS['mapisession']->retrieveOtherUsersFromSettings();
+			$sentRepresentingEntryid = $props['props']['sent_representing_entryid'];
+			$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), hex2bin($sentRepresentingEntryid));
+			$userProps = mapi_getprops($user, array(PR_EMAIL_ADDRESS));
+			foreach ($otherUsers as $sharedUser => $values) {
+				if($sharedUser === $userProps[PR_EMAIL_ADDRESS]) {
+					$userEntryid = mapi_msgstore_createentryid($GLOBALS['mapisession']->getDefaultMessageStore(),$sharedUser);
+					$store = $GLOBALS['mapisession']->openMessageStore($userEntryid);
+					$storeEntryid = mapi_getprops($store, array(PR_STORE_ENTRYID));
+					return $storeEntryid[PR_STORE_ENTRYID];
+				}
+			}
 		}
 
 		/**
@@ -252,9 +296,9 @@
 		{
 			$message = false;
 			$sourceMsgInfo = $this->getSourceMsgInfo($action);
-			if($sourceMsgInfo) {
+			if($sourceMsgInfo['source_message_info']) {
 				/**
-				 * $sourceMsgInfo contains the hex value, where first 24byte contains action type 
+				 * $sourceMsgInfo['source_message_info'] contains the hex value, where first 24byte contains action type 
 				 * and next 48byte contains entryid of original mail. so we have to extract the action type 
 				 * from this hex value.
 				 * 
@@ -262,12 +306,12 @@
 				 * Here 66 represents the REPLY action type. same way 67 and 68 is represent
 				 * REPLY ALL and FORWARD respectively.
 				 */
-				$mailActionType = substr($sourceMsgInfo, 24, 2);
+				$mailActionType = substr($sourceMsgInfo['source_message_info'], 24, 2);
 				// get the entry id of origanal mail's.
-				$originalEntryid = substr($sourceMsgInfo, 48);
+				$originalEntryid = substr($sourceMsgInfo['source_message_info'], 48);
 				$entryid = hex2bin($originalEntryid);
-				$storeEntryid = hex2bin($action['store_entryid']);
-				$store = $GLOBALS['mapisession']->openMessageStore($storeEntryid);
+
+				$store = $GLOBALS['mapisession']->openMessageStore($sourceMsgInfo['storeEntryid']);
 				try {
 					// if original mail of reply/forward mail is deleted from inbox then,
 					// it will throw an exception so to handle it we need to write this block in try catch.
@@ -280,22 +324,16 @@
 					$messageProps = mapi_getprops($message);
 					$props = Conversion::mapMAPI2XML($this->properties, $messageProps);
 					switch($mailActionType) {
-						// Reply
-						case '66':
+						
+						case '66': // Reply
+						case '67': // Reply All
 							$props['icon_index'] = 261;
-							$props['last_verb_executed'] = bin2hex("66");
 							break;
-						// Reply All
-						case '67':
-							$props['icon_index'] = 261;
-							$props['last_verb_executed'] = bin2hex("67");
-							break;
-						// Forward
-						case '68':
+						case '68':// Forward
 							$props['icon_index'] = 262;
-							$props['last_verb_executed'] = bin2hex("68");
 							break;
 					}
+					$props['last_verb_executed'] = hexdec($mailActionType);
 					$props['last_verb_execution_time'] = time();
 					$mapiProps = Conversion::mapXML2MAPI($this->properties, $props);
 					$messageActionProps = array();

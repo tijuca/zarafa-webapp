@@ -29,14 +29,14 @@ Zarafa.hierarchy.ui.HierarchyTreeBottomBar = Ext.extend(Ext.Container, {
 
 		Ext.applyIf(config, {
 			cls: 'zarafa-hierarchy-treepanel-bottombar',
-			layout:'fit',
+			layout:'table',
 			defaultSelectedSharedFolderType: Zarafa.hierarchy.data.SharedFolderTypes['ALL'],
 
 			items: [{
 				cls: 'zarafa-hierarchy-treepanel-footer-opensharedfolder',
 				xtype:'button',
 				tooltip : buttonText + ' (Alt + S)',
-				text: buttonText + '...',
+				text: buttonText + ' + ',
 				handler: this.openSharedFolder.createDelegate(this)
 			}]
 		});

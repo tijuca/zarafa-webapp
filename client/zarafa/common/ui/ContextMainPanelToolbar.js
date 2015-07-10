@@ -48,22 +48,24 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		// Built up the items array
 		var items = [];
 
-		// Then we add all pagination toolbars which are registered,
-		// and we add our own default pagination toolbar.
-		items.push({
-			xtype: 'zarafa.paging',
-			ref : 'pagesToolbar',
-			pageSize : 50,
-			store : config.model ? config.model.getStore() : undefined
-		});
-
 		if (!Ext.isEmpty(config.paging)) {
 			items = items.concat(config.paging);
 		}
 
+		// Then we add all pagination toolbars which are registered,
+		// and we add our own default pagination toolbar.
+		items.push({
+			xtype: 'zarafa.paging',
+            style : 'border-style : none',
+			ref : 'pagesToolbar',
+			pageSize : container.getSettingsModel().get('zarafa/v1/main/page_size'),
+			store : config.model ? config.model.getStore() : undefined
+		});
+
 		// We fill everything up to the right
 		items.push({
-			xtype: 'tbfill'
+			xtype: 'tbfill',
+			ref : 'tabFill'
 		});
 
 		// We add the default buttons
@@ -72,6 +74,7 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 			overflowText : _('Copy/Move'),
 			tooltip: _('Copy/Move') + ' (Ctrl + M)',
 			iconCls: 'icon_copy',
+			ref : 'copyButton',
 			nonEmptySelectOnly: true,
 			handler: this.onCopyMove,
 			scope: this
@@ -79,6 +82,7 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 			xtype: 'zarafa.toolbarbutton',
 			overflowText: _('Delete'),
 			tooltip: _('Delete') + ' (DELETE)',
+			ref : 'deleteButton',
 			iconCls: 'icon_delete',
 			nonEmptySelectOnly: true,
 			handler: this.onDelete,
@@ -96,6 +100,8 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 
 		// Update configuration
 		Ext.applyIf(config, {
+			xtype : 'zarafa.contextmainpaneltoolbar',
+            ref : 'contextMainPanelToolbar',
 			items : items,
 			enableOverflow : true
 		});

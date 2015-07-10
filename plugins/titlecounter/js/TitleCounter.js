@@ -28,10 +28,11 @@ Zarafa.plugins.titlecounter.TitleCounter = Ext.extend(Zarafa.core.Plugin, {
 	{
 		var unreadCounter = container.getHierarchyStore().getDefaultFolder('inbox').get('content_unread');
 
-		Ext.getDoc().dom.title = _('Zarafa WebApp');
 
 		if (unreadCounter > 0) {
-			Ext.getDoc().dom.title += ' (' + unreadCounter + ')';
+			Ext.getDoc().dom.title = '(' + unreadCounter + ') ' + _('Zarafa WebApp');
+		} else {
+			Ext.getDoc().dom.title = _('Zarafa WebApp');
 		}
 	}
 });

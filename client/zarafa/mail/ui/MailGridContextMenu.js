@@ -42,9 +42,14 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			config.model = config.context.getModel();
+		if ( !Ext.isDefined(config.model) ){
+			if ( Ext.isDefined(config.context) ) {
+				config.model = config.context.getModel();
+			}else{
+				config.model = container.getContextByName('mail').getModel();
+			}
 		}
+		
 
 		Ext.applyIf(config, {
 			items: [
@@ -77,9 +82,17 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 			scope: this
 		},{
 			xtype: 'zarafa.conditionalitem',
-			text : _('Save email as file'),
+			text : _('Download as files'),
 			iconCls : 'icon_saveaseml',
 			handler: this.onContextItemEml,
+			scope: this
+		},{
+			xtype: 'zarafa.conditionalitem',
+			text : _('Download as ZIP'),
+			iconCls : 'icon_saveemlaszip',
+			hideOnDisabled : false,
+			beforeShow : this.onZipMenuItemBeforeShow,
+			handler: this.onContextItemEmlZip,
 			scope: this
 		},{
 			//Print button, hide this as this functionality is still not implemented, so hide this button
@@ -121,11 +134,21 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 			scope: this
 		},{
 			xtype: 'zarafa.conditionalitem',
-			text : _('Forward as attachment'),
+			text : _('Forward as Attachment'),
 			iconCls : 'icon_embedded_attachment',
 			singleSelectOnly: true,
 			beforeShow : this.onMenuItemBeforeShow,
 			responseMode : Zarafa.mail.data.ActionTypes.FORWARD_ATTACH,
+			handler: this.onContextItemResponse,
+			scope: this
+		},{
+			xtype: 'zarafa.conditionalitem',
+			text : _('Edit as New Message'),
+			iconCls : 'icon_editAsNewEmail',
+			singleSelectOnly: true,
+			hidden: true,
+			beforeShow : this.onEditAsNewItemBeforeShow,
+			responseMode : Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
 			handler: this.onContextItemResponse,
 			scope: this
 		}];
@@ -211,7 +234,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	},
 
 	/**
-	 * Event handler which is called when the user selects the 'Save email as file'
+	 * Event handler which is called when the user selects the 'Download as files'
 	 * item in the context menu. This will request to download selected message
 	 * as file (RFC822-formatted e-mail stream) with eml extension.
 	 * @private
@@ -219,6 +242,39 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	onContextItemEml : function()
 	{
 		Zarafa.common.Actions.openSaveEmlDialog(this.records);
+	},
+
+	/**
+	 * Event handler which is called when the user selects the 'Download as ZIP'
+	 * item in the context menu. This will request to download selected message
+	 * as file (RFC822-formatted e-mail stream) with eml extension included in a ZIP archive.
+	 * @private
+	 */
+	onContextItemEmlZip : function()
+	{
+		Zarafa.common.Actions.openSaveEmlDialog(this.records, true);
+	},
+
+	/**
+	 * Event handler which determines if menu items should be disable or not.
+	 * It will check if records are more than the configured upper limit of
+	 * total messages allowed to be included in single ZIP archive.
+	 * it changes the display text of menu item by postfixing the maximum limit information.
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
+	 * @param {Zarafa.core.data.IPMRecord[]} records The records which must be checked
+	 * to see if the item must be enabled or disabled.
+	 * @private
+	 */
+	onZipMenuItemBeforeShow : function(item, records)
+	{
+		var serverConfig = container.getServerConfig();
+		var maxFiles = serverConfig.getMaxEmlFilesInZIP();
+
+		if(records.length > maxFiles){
+			item.setText(item.text + ' ( ' + _('max. ') + maxFiles + ' )');
+			item.disable();
+		}
 	},
 
 	/**
@@ -232,7 +288,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	},
 
 	/**
-	 * Called when one of the "Reply"/"Reply All"/"Forward" menuitems are clicked.
+	 * Called when one of the "Reply"/"Reply All"/"Forward"/"Edit as New Message" menuitems are clicked.
 	 * @param {Ext.Button} button The button which was clicked
 	 * @private
 	 */
@@ -240,7 +296,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	{
 		Zarafa.mail.Actions.openCreateMailResponseContent(this.records, this.model, button.responseMode);
 	},
-
+			
 	/**
 	 * Event handler which determines if menu items should be visible or not.
 	 * It will check if record is faulty then hide menu items which are not supported.
@@ -260,6 +316,27 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 				return false;
 			}
 		}, this);
+	},
+	
+	/**
+	 * Event handler which determines if the 'Edit as New Message' menu item should be visible or not.
+	 * It will check if we are showing the context menu in the Sent Items folder.
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
+	 * @param {Zarafa.core.data.IPMRecord[]} records The records which must be checked
+	 * to see if the item must be enabled or disabled.
+	 * @private
+	 */
+	onEditAsNewItemBeforeShow : function(item, records)
+	{
+		if ( this.model ){
+			var defaultFolder = this.model.getDefaultFolder();
+			if (defaultFolder.getDefaultFolderKey() === 'sent'){
+				item.setVisible(true);
+			}
+		}
+				
+		return this.onMenuItemBeforeShow(item, records);
 	},
 
 	/**

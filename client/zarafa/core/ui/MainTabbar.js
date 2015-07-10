@@ -37,6 +37,7 @@ Zarafa.core.ui.MainTabBar = Ext.extend(Ext.Toolbar, {
 		Ext.applyIf(config, {
 			// Override from Ext.Component
 			xtype: 'zarafa.maintabbar',
+			id: 'zarafa-mainmenu',
 			cls : 'zarafa-maintabbar',
 			defaultType: 'zarafa.maintab',
 			defaults: {
@@ -73,12 +74,14 @@ Zarafa.core.ui.MainTabBar = Ext.extend(Ext.Toolbar, {
 				xtype: 'tbtext',
 				width: 'auto',
 				cls: 'zarafa-maintabbar-logintext',
-				text: String.format(_('You are logged on as {0}'), container.getUser().getDisplayName())
+				text: String.format(_('You are logged on as {0}'), container.getUser().getDisplayName()),
+				id: 'mainmenu-logintext'
 		};
 
 		var logoutButton = {
 			text: _('Logout'),
-			handler : this.onLogoutButton
+			handler : this.onLogoutButton,
+			id: 'mainmenu-button-logout'
 		};
 
 		this.add(leftItems, {xtype: 'tbfill'}, loginText, rightItems, logoutButton);

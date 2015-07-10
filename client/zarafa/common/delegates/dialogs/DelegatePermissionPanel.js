@@ -8,6 +8,13 @@ Ext.namespace('Zarafa.common.delegates.dialogs');
  * Will generate UI for {@link Zarafa.common.delegates.dialogs.DelegatePermissionContentPanel DelegatePermissionContentPanel}.
  */
 Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.FormPanel, {
+
+	/**
+	 * @cfg {Array} folderTypes array of folder type that will be used
+	 * generate permissions combo box filed
+	 */
+	folderTypes : ['calendar','tasks', 'inbox', 'contacts', 'notes','journal'],
+
 	/**
 	 * @constructor
 	 * @param config Configuration structure
@@ -47,26 +54,7 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 			autoWidth : true,
 			cls : 'zarafa-fieldset',
 			labelAlign : 'left',
-			items : [
-				this.createComboField('calendar', _('Calendar')),
-				{
-					xtype : 'checkbox',
-					boxLabel : _('Delegate receives copies of meeting-related messages sent to me.'),
-					ref : '../delegateMeetingRuleCheck',
-					name : 'has_meeting_rule',
-					hideLabel : true,
-					checked : false,
-					listeners : {
-						check : this.onDelegateRuleCheck,
-						scope : this
-					}
-				},
-				this.createComboField('tasks', _('Tasks')),
-				this.createComboField('inbox', _('Inbox')),
-				this.createComboField('contacts', _('Contacts')),
-				this.createComboField('notes', _('Notes')),
-				this.createComboField('journal', _('Journal'))
-			]
+			items : this.createFieldItems(this.folderTypes)
 		}, {
 			xtype : 'checkbox',
 			boxLabel : _('Delegate can see my private items.'),
@@ -83,41 +71,74 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 	},
 
 	/**
-	 * Generic function to create comboboxes for different permission levels for default folders
-	 * of the hierarchy.
-	 * @param {String} type type of the default folder (calendar, inbox, notes etc.)
-	 * @param {String} label label to show for default folder
-	 * @return {Object} config object to create a {@link Ext.form.ComboBox ComboBox}.
-	 * @private
+	 * Generic function to create check box for delegate meeting rules check box.
+	 * @return {Obect} config object to create {@link Ext.form.CheckBox CheckBox}.
 	 */
-	createComboField : function(type, label)
+	createDelegateMeetingRuleCheck : function()
 	{
-		var profileStore = {
-			xtype : 'jsonstore',
-			fields : ['name', 'value'],
-			data : Zarafa.common.delegates.data.DelegatePermissionProfiles
-		};
-
-		return {
-			xtype : 'combo',
-			name : 'rights_' + type,
-			boxMinWidth : 200,
-			anchor : '100%',
-			fieldLabel : label,
-			store : profileStore,
-			mode : 'local',
-			triggerAction : 'all',
-			displayField : 'name',
-			valueField : 'value',
-			lazyInit : false,
-			forceSelection : true,
-			editable : false,
-			value : Zarafa.core.mapi.Rights.RIGHTS_NONE,
+		return{
+			xtype : 'checkbox',
+			boxLabel : _('Delegate receives copies of meeting-related messages sent to me.'),
+			ref : '../delegateMeetingRuleCheck',
+			name : 'has_meeting_rule',
+			hideLabel : true,
+			checked : false,
 			listeners : {
-				select : this.onProfileSelect,
+				check : this.onDelegateRuleCheck,
 				scope : this
 			}
-		};
+		}
+	},
+
+	/**
+	 * Generic function to create comboboxes for different permission levels for default folders
+	 * of the hierarchy.
+	 * @param {Array} type type of the default folder (calendar, inbox, notes etc.)
+	 * @return {Array} items array to create a {@link Ext.form.ComboBox ComboBox}.
+	 * @private
+	 */
+	createFieldItems : function(folderTypes)
+	{
+		var items = [];
+		for(var i =0; i < folderTypes.length; i++) {
+
+			var profileStore = {
+				xtype : 'jsonstore',
+				fields : ['name', 'value'],
+				data : Zarafa.common.delegates.data.DelegatePermissionProfiles
+			};
+
+			var item = {
+				xtype : 'combo',
+				name : 'rights_' + folderTypes[i],
+				boxMinWidth : 200,
+				anchor : '100%',
+				fieldLabel : Ext.util.Format.capitalize(folderTypes[i]),
+				store : profileStore,
+				mode : 'local',
+				triggerAction : 'all',
+				displayField : 'name',
+				valueField : 'value',
+				lazyInit : false,
+				// "Full Control", "No Rights" etc. folder permissions are not supported
+				// by the delegate so we just show the "Other" as text in combo box.
+				valueNotFoundText : _('Other'),
+				forceSelection : true,
+				editable : false,
+				value : Zarafa.core.mapi.Rights.RIGHTS_NONE,
+				listeners : {
+					select : this.onProfileSelect,
+					scope : this
+				}
+			}
+			items.push(item);
+
+			if(folderTypes[i] === 'calendar') {
+				items.push(this.createDelegateMeetingRuleCheck());
+			}
+			
+		}
+		return items
 	},
 
 	/**
@@ -143,7 +164,6 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 	{
 		if(contentReset || record.isModifiedSinceLastUpdate('rights_calendar')) {
 			var calendarRights = record.get('rights_calendar');
-
 			if(!calendarRights || calendarRights === Zarafa.core.mapi.Rights.RIGHTS_NONE || calendarRights === Zarafa.core.mapi.Rights.RIGHTS_READONLY) {
 				this.delegateMeetingRuleCheck.setDisabled(true);
 			} else {

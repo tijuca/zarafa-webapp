@@ -120,6 +120,7 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 				type: 'vbox',
 				align: 'stretch'
 			},
+			id: 'zarafa-navigationpanel',
 			cls: 'zarafa-navigation zarafa-panel zarafa-context-mainpanel',
 
 			north : northComponents,
@@ -133,6 +134,12 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 
 		// parent constructor
 		Zarafa.core.ui.NavigationPanel.superclass.constructor.call(this, config);
+
+		// If previous value is there in state to "show all the folders" then simply assign it to respective config
+		// TODO : This is achieved by overriding the applyState in Zarafa.hierarchy.ui.HierarchyTreePanel class.
+		// But, the instance of Zarafa.core.ui.NavigationPanel is not created when applyState gets executed.
+		var checkBoxState = container.getSettingsModel().get('zarafa/v1/state/sidebars/hierarchytree/showallcheckbox');
+		this.showFolderList = checkBoxState || false;
 	},
 
 	/**
@@ -233,7 +240,6 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 
 		// If there is no center panel for the active Context found, switch to the "Show all Folders" by default
 		if (!contextNavPanelFound) {
-			this.showFolderList = true;
 			if (!Ext.isFunction(layout.setActiveItem)) {
 				center.activeItem = 0;
 			} else {

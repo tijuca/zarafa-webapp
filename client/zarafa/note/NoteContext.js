@@ -151,6 +151,11 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 					bid = 1;
 				}
 				break;
+			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
+				if (record instanceof Zarafa.core.data.IPMRecord && record.isMessageClass('IPM.StickyNote', true)) {
+					bid = 1;
+				}
+				break;
 			case Zarafa.core.data.SharedComponentType['common.attachment.dialog.attachitem.columnmodel']:
 				if (record instanceof Zarafa.hierarchy.data.MAPIFolderRecord) {
 					if (record.isContainerClass('IPF.StickyNote', true)) {
@@ -187,6 +192,11 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			case Zarafa.core.data.SharedComponentType['common.contextmenu']:
 				component = Zarafa.note.ui.NoteContextMenu;
 				break;
+			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+					component = Zarafa.note.printer.NoteRenderer;
+				}
+				break;
 			case Zarafa.core.data.SharedComponentType['common.attachment.dialog.attachitem.columnmodel']:
 				component = Zarafa.note.attachitem.AttachNoteColumnModel;
 				break;
@@ -209,10 +219,12 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			context : this,
 			items : [{
 				xtype : 'panel',
+				id: 'zarafa-navigationpanel-notes-navigation',
 				cls: 'zarafa-context-navigation-block',
 				title : _('My Notes'),
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
+					id: 'zarafa-navigationpanel-notes-navigation-tree',
 					model: this.getModel(),
 					IPMFilter: 'IPF.StickyNote',
 					hideDeletedFolders : true,
@@ -237,6 +249,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype : 'zarafa.notemainpanel',
+			id: 'zarafa-mainpanel-contentpanel-notes',
 			context : this
 		};
 	},
@@ -253,6 +266,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-note',
 			tooltip : _('Sticky note')+' (Ctrl + Alt + S)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text: _('Sticky note'),
@@ -268,6 +282,48 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 	},
 
 	/**
+	 * Returns the buttons for the dropdown list of the Print button in the main toolbar. It will use the 
+	 * main.maintoolbar.print.note insertion point to allow other plugins to add their items at the end.
+	 * 
+	 * @return {Ext.Component[]} an array of components
+	 */
+	getMainToolbarPrintButtons : function()
+	{
+		var items = container.populateInsertionPoint('main.toolbar.print.note', this) || [];
+		
+		var defaultItems = [{
+			xtype: 'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-selectednote',
+			overflowText: _('Print selected note'),
+			iconCls: 'icon_print_single_note',
+			tooltip : _('Print selected note') + ' (Ctrl + P)',
+			plugins : 'zarafa.menuitemtooltipplugin',
+			text: _('Print selected note'),
+			hideOnDisabled: false,
+			singleSelectOnly : true,
+			handler: this.onPrintSelected,
+			scope: this
+		}];
+
+		return defaultItems.concat(items);
+	},
+	
+	/**
+	 * Handler for printing the selected {@link Zarafa.core.data.MAPIRecord} record. Menu item is disabled if there is no record selected.
+	 * Calls {@link Zarafa.common.Actions.openPrintDialog} openPrintDialog with the selected record.
+	 * @private
+	 */
+	onPrintSelected : function()
+	{
+		var records = this.getModel().getSelectedRecords();
+		if (Ext.isEmpty(records)) {
+			Ext.MessageBox.alert(_('Print'), _('No note selected'));
+			return;
+		}
+		Zarafa.common.Actions.openPrintDialog(records);
+	},
+
+	/**
 	 * Returns the buttons for the dropdown list of the VIEW-button in the main toolbar. It will use the 
 	 * main.maintoolbar.view.note insertion point to allow other plugins to add their items at the end.
 	 * 
@@ -278,6 +334,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 		var items = container.populateInsertionPoint('main.maintoolbar.view.note', this) || [];
 
 		var defaultItems = [{
+			id: 'zarafa-maintoolbar-view-notes-icons',
 			text: _('Icons'),
 			overflowText: _('Icons'),
 			iconCls: 'note_icon_view',
@@ -287,6 +344,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-notes-list',
 			text: _('List view'),
 			overflowText: _('List view'),
 			iconCls: 'note_list_view',
@@ -296,6 +354,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-notes-listlastsevendays',
 			text: _('List Last Seven Days'),
 			overflowText: _('List Last Seven Days'),
 			iconCls: 'task_seven_days',
@@ -306,6 +365,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}/*,{
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-notes-listbycategory',
 			text: _('List By Category'),
 			overflowText: _('List By Category'),
 			iconCls: 'note_list_view',
@@ -316,6 +376,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		},{
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-notes-listbycolor',
 			text: _('List By Color'),
 			overflowText: _('List By Color'),
 			iconCls: 'note_list_view',
@@ -352,7 +413,8 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 6,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-notes'
 		};
 	},
 

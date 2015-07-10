@@ -21,7 +21,9 @@ Ext.ux.PdfBox = (function(){
 		init: function() {
 			this.resizeDuration = this.animate ? ((11 - this.resizeSpeed) * 0.15) : 0;
 			this.overlayDuration = this.animate ? 0.2 : 0;
-			PDFJS.disableWorker = true;
+			PDFJS.disableWorker = false;
+			// show only error message on console
+			PDFJS.verbosity = 0;
 			if(!initialized) {
 				Ext.apply(this, Ext.util.Observable.prototype);
 				Ext.util.Observable.constructor.call(this);
@@ -116,13 +118,13 @@ Ext.ux.PdfBox = (function(){
 			els.navPrev.on('click', function(ev) {
 				ev.preventDefault();
 				currentPage--;
-				this.setPage(currentPage);
+				this.setPage(currentPage, this);
 			}, this);
 
 			els.navNext.on('click', function(ev) {
 				ev.preventDefault();
 				currentPage++;
-				this.setPage(currentPage);
+				this.setPage(currentPage, this);
 			}, this);
 		},
 
@@ -141,30 +143,80 @@ Ext.ux.PdfBox = (function(){
 			}
 		},
 
-		open: function(pdf, sel) {
+		open: function(pdf, sel, password) {
 			this.setViewSize();
 			this.pdfDoc = pdf;
-			els.overlay.fadeIn({
-				duration: this.overlayDuration,
-				endOpacity: this.overlayOpacity,
-				callback: function() {
-                    PDFJS.getDocument(this.pdfDoc.href, this).then( function(_pdfDoc){
-                        currentPage = 1;
-                        pdfDoc = _pdfDoc;
-                        var pageScroll = Ext.fly(document).getScroll();
-                        var lightboxTop = Math.round(pageScroll.top + (Ext.lib.Dom.getViewportHeight() / 10));
-                        var lightboxLeft = Math.round(pageScroll.left);
-                        els.pdfbox.shift({
-                            top: lightboxTop + 'px',
-                            left: lightboxLeft + 'px'
-                        }).show();
-                        this.setPage(currentPage);
-                        this.fireEvent('open', pdfDoc);
-                    });
-                },
-				scope: this
-			});
+			var self = this;
+			PDFJS.getDocument(this.pdfDoc.href, undefined, self.passwordCallback.createDelegate(self))
+				.then( function(_pdfDoc){
+					els.overlay.fadeIn({
+						duration: self.overlayDuration,
+						endOpacity: self.overlayOpacity,
+						callback: function() {
+							currentPage = 1;
+							pdfDoc = _pdfDoc;
+							var pageScroll = Ext.fly(document).getScroll();
+							var lightboxTop = Math.round(pageScroll.top + (Ext.lib.Dom.getViewportHeight() / 10));
+							var lightboxLeft = Math.round(pageScroll.left);
+							els.pdfbox.shift({
+								top: lightboxTop + 'px',
+								left: lightboxLeft + 'px'
+							}).show();
+							self.setPage(currentPage, self);
+							self.fireEvent('open', pdfDoc);
+						},
+						scope: this
+					});
+				});
 		},
+		
+		passwordCallback : function(providePassword, reasonCode){
+			switch ( reasonCode ){
+				case PDFJS.PasswordResponses.NEED_PASSWORD: 
+					// PDF is password protected, ask the user to provide a password
+					this.promptForPassword(false, providePassword);
+					break;
+				case PDFJS.PasswordResponses.INCORRECT_PASSWORD:
+					// Wrong password was provided, ask the user again
+					this.promptForPassword(true, providePassword);
+					break;
+				default:
+					// Don't know what happened
+					this.close();
+			}
+		},
+		
+		promptForPassword: function(wrongPasswordEntered, providePassword){
+			// Make the MessageBox use a password input
+			Ext.MessageBox.getDialog().body.child('input').dom.type='password';
+			var dlgBody = Ext.MessageBox.getDialog().body;
+			if ( wrongPasswordEntered ){
+				// Add the warning text below the input (because silly UX designer thinks that looks nicer, sigh... ;-))
+				var warning = dlgBody.createChild({cls: 'pdfbox-warning', html: _('The password you entered is incorrect, please try again.')}, dlgBody.child('textarea'), true);
+			}
+			Ext.MessageBox.prompt(
+				_('Your PDF file is password protected'),
+				_('Please enter the password to preview the file.'),
+				function(buttonId, password){
+					if ( buttonId === 'ok' ){
+						providePassword(password);
+					}else{
+						// User cancelled the messagebox, so don't open the PDF
+						this.close();
+					}
+					
+					// Set the MessageBox input type back to text
+					dlgBody.child('input').dom.type='text';
+					
+					// Remove a possible warning
+					if ( warning ){
+						Ext.get(warning).remove();
+					}
+				},
+				this
+			);
+		},
+
 		setViewSize: function(){
 			var viewSize = this.getViewSize();
 			els.overlay.setStyle({
@@ -177,51 +229,53 @@ Ext.ux.PdfBox = (function(){
 			}).show();
 		},
 
-		setPage: function(index){
-			pdfDoc.getPage(index).then(this.renderPage);
-		},
-		renderPage: function(page){
-			els.canvas.hide();
-			this.disableKeyNav();
-			if (this.animate) {
-				els.loading.show();
-			}
+		setPage: function(index, self){
+			pdfDoc.getPage(index).then(function(page){
+				els.canvas.hide();
+				self.disableKeyNav();
+				if (self.animate) {
+					els.loading.show();
+				}
 
-			els.hoverNav.hide();
-			els.navPrev.hide();
-			els.navNext.hide();
-			els.dataContainer.setOpacity(0.0001);
-			els.pageNumber.hide();
-			var canvasContext = els.canvas.dom.getContext('2d');
-			var viewport = page.getViewport(0.8);
-			var viewSize = this.getViewSize();
-			var aspect = Math.min((viewSize[0]-this.borderSize*2)/viewport.width, (viewSize[1]-this.borderSize*2-els.navClose.getHeight()*2)/viewport.height);
-			//we don't want resizing if the pages are *smaller* than the screen
-			var w = viewport.width*Math.min(aspect, 1);
-			var h = viewport.height*Math.min(aspect, 1);
-			var l = Math.max(0, Math.round((viewSize[0]-w)/2)-this.borderSize);
-			var t = Math.max(0, Math.round((viewSize[1]-h)/2)-this.borderSize*2);
-			els.canvas.dom.width = w;
-			els.canvas.dom.height = h;
-			els.canvas.applyStyles({'width': w + 'px', 'height': h + 'px'});
-			this.resizeCanvas(w, h);
-			viewport.width=w*aspect;
-			viewport.height=h*aspect;
-			
-			var renderContext = {
-			  canvasContext: canvasContext,
-			  viewport: viewport
-			};
-			page.render(renderContext);
-			els.pdfbox.shift({
-			  x: l,
-			  y: t
-			}).show();
-			//set size - take aspect from page, make canvas fit the view
-			//call resizeCanvas
-			//draw page on canvas 
-			//center and show lightbox
+				els.hoverNav.hide();
+				els.navPrev.hide();
+				els.navNext.hide();
+
+				els.dataContainer.setOpacity(0.0001);
+				els.pageNumber.hide();
+
+				var canvasContext = els.canvas.dom.getContext('2d');
+				var viewport = page.getViewport(0.8);
+				var viewSize = self.getViewSize(self);
+				var aspect = Math.min((viewSize[0]-self.borderSize*2)/viewport.width, (viewSize[1]-self.borderSize*2-els.navClose.getHeight()*2)/viewport.height);
+
+				//we don't want resizing if the pages are *smaller* than the screen
+				var w = viewport.width*Math.min(aspect, 1);
+				var h = viewport.height*Math.min(aspect, 1);
+				var l = Math.max(0, Math.round((viewSize[0]-w)/2)-self.borderSize);
+				var t = Math.max(0, Math.round((viewSize[1]-h)/2)-self.borderSize*2);
+				els.canvas.dom.width = w;
+				els.canvas.dom.height = h;
+				els.canvas.applyStyles({'width': w + 'px', 'height': h + 'px'});
+				
+				self.resizeCanvas(w, h);
+				viewport.width= w*aspect;
+				viewport.height=h*aspect;
+				
+				var renderContext = {
+					canvasContext: canvasContext,
+					viewport: viewport
+				};
+
+				page.render(renderContext);
+
+				els.pdfbox.shift({
+				  x: l,
+				  y: t,
+				}).show();
+			});
 		},
+
 		resizeCanvas: function(w, h){
 			var wCur = els.outerImageContainer.getWidth();
 			var hCur = els.outerImageContainer.getHeight();
@@ -277,7 +331,7 @@ Ext.ux.PdfBox = (function(){
 			els.caption.update(pdfDoc.title);
 
 			els.caption.show();
-			if (pdfDoc.numPages > 1) {
+			if (pdfDoc.numPages > 0) {
 				els.pageNumber.update(this.labelPage + ' ' + (currentPage) + ' ' + this.labelOf + '  ' + pdfDoc.numPages);
 				els.pageNumber.show();
 			}
@@ -330,13 +384,13 @@ Ext.ux.PdfBox = (function(){
 			else if (keyCode == 80 || keyCode == 37){ // display previous image
 				if (currentPage > 1){
 					currentPage--;
-					this.setPage(currentPage);
+					this.setPage(currentPage, this);
 				}
 			}
 			else if (keyCode == 78 || keyCode == 39){ // display next image
 				if (currentPage < pdfDoc.numPages){
 					currentPage++;
-					this.setPage(currentPage);
+					this.setPage(currentPage, this);
 				}
 			}
 		},

@@ -226,7 +226,7 @@ Zarafa.hierarchy.ui.Tree = Ext.extend(Ext.tree.TreePanel, {
 
 		// Check if the folder matches the requested IPMFilter
 		if (Ext.isDefined(this.IPMFilter)) {
-			hide = !folder.isContainerClass(this.IPMFilter, true);
+			hide = !folder.isContainerClass(this.IPMFilter, false);
 		}
 
 		// Check if the folder is located in Deleted items

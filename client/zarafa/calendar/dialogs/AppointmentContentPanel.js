@@ -269,10 +269,10 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 			}
 			if (record.updateSubStoreModifications) {
 				if (record.updateSubStoreModifications.recipients) {
-					// If recipients object is present, recipients have changed
+					// If recipients object is present, recipients have changed.
 					this.isRecipientChanged = true;
-				} else {
-					// Recipients object is not present, apparently another substore has changed
+				} else if(record.updateSubStoreModifications.attachments) {
+					// if attachment object is present, attachment have changed.
 					this.isPropertyChanged = true;
 				}
 
@@ -300,21 +300,27 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 		// invited. If they are, then we _must_ send a meeting update to those
 		// attendees. If the organizer doesn't want that, we will not save
 		// anything. Inform the user about this!
-		// 
+		//
 		// TODO:also need to add check for any modification/changes in record data,
 		// so that send is only done when there is any change in the data by the organizer
 		var record = this.record;
 
 		if (record.isMeetingSent() && !record.isAppointmentInPast() && record.getMessageAction('send') !== true) {
-			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
-				msg :_('An update message will be sent to all recipients, do you wish to continue?'),
-				icon: Ext.MessageBox.WARNING,
-				fn: this.sendMeetingUpdate,
-				scope: this,
-				buttons: Ext.MessageBox.YESNO
-			});
 
+			// Inform the user about the update must be send to only the added and removed attendees or to everybody.
+			// so,that send is only done when there is any change in attendees only.
+			if (this.isRecipientChanged && !this.isPropertyChanged) {
+				this.sendRecord();
+			} else {
+				Ext.MessageBox.show({
+					title : _('Zarafa WebApp'),
+					msg : _('An update message will be sent to all recipients, do you wish to continue?'),
+					icon : Ext.MessageBox.WARNING,
+					fn : this.sendMeetingUpdate,
+					scope : this,
+					buttons : Ext.MessageBox.YESNO
+				});
+			}
 			// The user is confronted with a messagebox, lets not yet
 			// save the appointment be wait for his answer.
 			return;

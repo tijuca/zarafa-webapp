@@ -178,7 +178,7 @@ Zarafa.common.ui.grid.Renderers = {
 	{
 		// Only render the cell as non-empty if the
 		// record is actually a meeting.
-		if (record.isMeeting()) {
+		if (Ext.isDefined(record.isMeeting) && record.isMeeting()) {
 			return Zarafa.common.ui.grid.Renderers.sender(value, p, record);
 		} else {
 			// if value is empty then add extra css class for empty cell
@@ -317,11 +317,19 @@ Zarafa.common.ui.grid.Renderers = {
 	 * @param {Object} value The data value for the cell.
 	 * @param {Object} p An object with metadata
 	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @param {Integer} row The row in the grid for which a cell is rendered
+	 * @param {Integer} column The column in the grid for which a cell is rendered
+	 * @param {Zarafa.mail.MailStore} The store of the grid that is being rendered
+	 * @param {Object} meta An object with meta data that can be used by the renderer function
 	 * @return {String} The formatted string
 	 */
-	datetime : function(value, p, record)
+	datetime : function(value, p, record, row, column, store, meta)
 	{
 		p.css = 'mail_date';
+		
+		if ( meta && meta.css ){
+			p.css += ' ' + meta.css;
+		} 
 
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 		return Ext.isDate(value) ? value.format(_('l d/m/Y G:i')) : _('None');
@@ -339,7 +347,7 @@ Zarafa.common.ui.grid.Renderers = {
 	{
 		p.css = 'mail_duration';
 
-		return Ext.util.Format.duration(value, 1);
+		return value ? Ext.util.Format.duration(value, 1) : '';
 	},
 
 	/**
@@ -534,5 +542,114 @@ Zarafa.common.ui.grid.Renderers = {
 	colorTextValue : function(value, p, record)
 	{
 		return Zarafa.core.mapi.NoteColor.getColorText(value);
+	},
+
+	/**
+	 * Render the name, subject and body information of record 
+	 *
+	 * @param {Object} value The data value for the cell.
+	 * @param {Object} p An object with metadata
+	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @return {String} The formatted string
+	 */
+	dataColumn : function(value, p, record)
+	{
+		p.css = 'search-data';
+
+		if(Ext.isEmpty(value)) {
+			// if value is empty then add extra css class for empty cell
+			p.css += ' zarafa-grid-empty-cell';
+		}
+		
+		var messageClass = record.get('message_class');
+		//TODO: give these variables better names
+		var name = '';
+		var subject = '';
+		var body = '';
+		var date = '';
+
+		switch (messageClass) {
+			case 'IPM.Contact':
+			case 'IPM.DistList':
+				name = Ext.util.Format.htmlEncode(record.get('display_name'));
+				subject = Ext.util.Format.htmlEncode(record.get('fileas'));
+				//TODO: try to get an emailadress from other fields if this field is empty
+				body = Ext.util.Format.htmlEncode(record.get('email_address'));
+				break;
+			case 'IPM.Task':
+				name = Ext.util.Format.htmlEncode(record.get('subject'));
+				body = Ext.util.Format.htmlEncode(record.get('body'));
+				break;
+			case 'IPM.StickyNote':
+				name = Ext.util.Format.htmlEncode(record.get('subject'));
+				subject = Ext.util.Format.htmlEncode(record.get('body'));
+				break;
+			default:
+			//case 'IPM.Note':
+			//case 'IPM.Appointment':
+			//case 'IPM.Schedule':
+				name = Zarafa.common.ui.grid.Renderers.sender(value, p, record);
+				subject = Ext.util.Format.htmlEncode(record.get('subject'));
+				body = Ext.util.Format.htmlEncode(record.get('body'));
+				break;
+		}
+		return ''+
+			'<table cellpadding=0 cellspacing=0 style="width:100%" class="messageclass-data mc-'+messageClass.toLowerCase().replace('.', '')+'">' + 
+				'<tr>' +
+					'<td class="icon ' + Zarafa.common.ui.IconClass.getIconClass(record) + '"></td>' +
+					'<td class="name"><div class="padding">' + name + '</div></td>' +
+					'<td class="subject-body"><div class="padding">' + ( subject ? '<span class="subject">'+subject+'</span>' : '' ) + ( body ? '<span class="body">'+body+'</span>' : '' ) + '</div></td>' +
+				'</tr>' +
+			'</table>';
+	},
+
+	/**
+	 * Render the date field and attachment icon if record contains attachment.
+	 *
+	 * @param {Object} value The data value for the cell.
+	 * @param {Object} p An object with metadata
+	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @return {String} The formatted string
+	 */
+	dateColumn : function(value, p, record)
+	{
+		p.css = 'search-date';
+
+		var messageClass = record.get('message_class');
+		if ( messageClass.substr(0, 'IPM.Schedule'.length) === 'IPM.Schedule' ){
+			messageClass = 'IPM.Schedule';
+		}
+
+		var date = '';
+
+		switch (messageClass) {
+			case 'IPM.Contact':
+			case 'IPM.DistList':
+				// No need to display a date for contacts
+				break;
+			case 'IPM.Task':
+				date = record.get('duedate');
+				break;
+			case 'IPM.StickyNote':
+				date = record.get('creation_time');
+				break;
+			case 'IPM.Appointment':
+			case 'IPM.Schedule':
+				date = record.get('appointment_startdate');
+				break;
+			default:
+			//case 'IPM.Note':
+				date = record.get('message_delivery_time');
+				break;
+		}
+		
+		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+		date = Ext.isDate(date) ? date.format(_('d/m/Y')) : '';
+		
+		// TODO: make insertionpoint for other icons (reuse mail grid insertionpoint???)
+		return '<table cellpadding=0 cellspacing=0 style="width:100%"><tr>' + 
+					'<td class="date">' + date + '</td>' +
+					( record.get('hasattach') ? '<td class="icon_attachment" style="width:22px"></td>' : '' ) +
+				'</tr></table>';
 	}
 };

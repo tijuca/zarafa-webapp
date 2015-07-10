@@ -23,6 +23,8 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 			},{
 				'name' : 'display_name'
 			},{
+				'name' : 'version'
+			},{
 				'name' : 'enabled',
 				'type' : 'boolean'
 			},{
@@ -34,13 +36,22 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 		});
 
 		var plugins = container.getPluginsMetaData();
+		var server = container.getServerConfig();
+		var pluginsVersion = server.getPluginsVersion();
+		var versionInfo;
 		for (var i = 0, len = plugins.length; i < len; i++) {
 			var plugin = plugins[i];
-
 			if (!plugin.isPrivate()) {
+				if(pluginsVersion[plugin.getName()] === null) {
+					versionInfo = _('Unknown');
+				} else {
+					versionInfo = pluginsVersion[plugin.getName()];
+				}
+
 				store.add(new Ext.data.Record({
 					'name' : plugin.getName(),
 					'display_name' : plugin.getDisplayName(),
+					'version' : versionInfo,
 					'enabled' : plugin.isEnabled(),
 					'allow_disable' : plugin.allowUserDisable,
 					'settings_base' : plugin.getSettingsBase()
@@ -95,32 +106,39 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 						emptyText : '<div class=\'emptytext\'>' + _('No plugins available') + '</div>'
 					},
 					store: store,
-					columns: [{
+					columns: [model, {
 						id : 'display_name',
 						header  : _('Display Name'),
 						dataIndex: 'display_name',
 						sortable: false,
 						renderer : this.onDisplayNameRenderer
-					}, model],
+					},{
+						id : 'display_name',
+						header  : _('Version'),
+						dataIndex: 'version',
+						sortable: false
+					}],
 					selModel: model
 				}]
 			}]
 		});
 
 		Zarafa.settings.ui.SettingsCopyrightWidget.superclass.constructor.call(this, config);
-		this.pluginsGrid.on('rowdblclick', this.onRowDblClick, this);
+		this.pluginsGrid.on('rowclick', this.onRowClick, this);
 	},
 
 	/**
-	 * Event handler is called when user double-clicks on row of grid. 
+	 * Event handler is called when user clicks on row of grid. 
 	 * Function toggles plugin selection. 
 	 * @param {Ext.grid.GridPanel} grid grid panel object.
 	 * @param {Number} rowIndex The index of the row which was double clicked
 	 * @param {Ext.EventObject} eventObj object of the event.
 	 * @private
 	 */
-	onRowDblClick : function(grid, rowIndex, eventObj)
+	onRowClick : function(grid, rowIndex, eventObj)
 	{
+		grid.getView().focusRow(rowIndex);
+
 		var model = grid.getSelectionModel();
 		var store = grid.getStore();
 		var record = store.getAt(rowIndex);
@@ -253,6 +271,7 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 	{
 		record.set('enabled', true);
 		this.model.set(record.get('settings_base') + '/enable', true);
+		this.model.requiresReload = true;
 	},
 
 	/**

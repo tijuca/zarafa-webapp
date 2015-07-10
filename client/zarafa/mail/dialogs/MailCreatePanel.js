@@ -12,7 +12,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 	 * @cfg {Boolean} use_html_editor True to enable the HTML editor in this panel.
 	 */
 	use_html_editor : false,
-
+	
 	/**
 	 * @constructor
 	 * @param {Object} config configuration object.
@@ -104,6 +104,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
 			ref: 'fromField',
+			cls: 'zarafa-mailcreatepanel-field-from',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
@@ -136,6 +137,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 		},{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
+			cls: 'zarafa-mailcreatepanel-field-to',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
@@ -160,6 +162,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 		{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
+			cls: 'zarafa-mailcreatepanel-field-cc',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
@@ -185,6 +188,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			xtype: 'zarafa.compositefield',
 			ref: 'bccField',
 			hideLabel: true,
+			cls: 'zarafa-mailcreatepanel-field-bcc',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
@@ -209,6 +213,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 		{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
+			cls: 'zarafa-mailcreatepanel-field-subject',
 			anchor: '100%',
 			items: [{
 				xtype: 'label',
@@ -229,6 +234,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 		},{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
+			cls: 'zarafa-mailcreatepanel-field-attachments',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
@@ -247,6 +253,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			}]
 		},{
 			xtype: 'zarafa.editorfield',
+			cls: 'zarafa-mailcreatepanel-field-editor',
 			enableKeyEvents : true,
 			ref: 'editorField',
 			hideLabel: true,

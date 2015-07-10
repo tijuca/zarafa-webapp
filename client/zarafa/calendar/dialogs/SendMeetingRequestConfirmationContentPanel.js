@@ -59,6 +59,15 @@ Zarafa.calendar.dialogs.SendMeetingRequestConfirmationContentPanel = Ext.extend(
 	 */
 	onOk : function()
 	{
+		/*
+		 * If user wants to perform an action (accept/decline/propose new time/ tentatively accept) on whole
+		 * meeting request then we have to remove base date from record because if record contains basedate then it 
+		 * will be treated as exception on server side and requested operation carried out on single occurrence.
+		 */
+		if(this.record.isRecurringOccurence() && Ext.isDefined(this.buttonName) && this.buttonName === 'recurring') {
+			this.record.removeIdProp('basedate');
+			this.record.set('basedate', '');
+		}
 		this.sendMRConfirmationPanel.updateRecord(this.record);
 		this.close();
 	},

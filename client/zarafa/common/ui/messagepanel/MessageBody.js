@@ -11,7 +11,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 	 * for the contents of the {@link #iframe} when the record has been opened, and it contains a plain-text
 	 * body. The data passed to this template will be the 'body' field which must be loaded as body.
 	 */
-	plaintextTemplate : '<html><body>{body}</body></html>',
+	plaintextTemplate : '<html><body><pre>{body}</pre></body></html>',
 
 	/**
 	 * The {RegExp} of emailPattern, this regular expression finds mailto links or email address
@@ -57,8 +57,41 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 				compiled: true
 			});
 		}
+		
 	},
+	
+	/**
+	 * Set event listeners on the iframe that will reset the 
+	 * {@link Zarafa#idleTime idle time} when the user performs
+	 * an action in the iframe (i.e. click, mousemove, keydown)
+	 * @private
+	 */
+	setIdleTimeEventListeners : function()
+	{
+		var iframeWindow = this.getEl().dom.contentWindow;
+		var iframeDocument = iframeWindow.document;
 
+		if ( !iframeDocument.addEventListener ) {
+			// User is using a browser that does not support addEventListener.
+			// Probably IE<9 which we don't support.
+			// However there is no reason to create errors for IE<9
+			// Client timeout will still be handled by the backend though,
+			// but the message will only be shown to the user when he tries to
+			// connect to the backend after the session has timed out. 
+			return;
+		}
+
+		iframeDocument.addEventListener('click', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+		iframeDocument.addEventListener('mousemove', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+		iframeDocument.addEventListener('keydown', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+	},
+		
 	/**
 	 * Updates the container by loading data from the record data into the {@link #template}
 	 *
@@ -83,8 +116,8 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 		if (Ext.isDefined(record)) {
 			// Display a 'loading' message. If the message is in HTML we can directly render it,
 			// otherwise we have to surround it with HTML tags for displaying plain-text.
-			body = record.getBody(true);
 			html = record.get('isHTML');
+			body = record.getBody(html);
 
 			if (!body) {
 				body = '';
@@ -265,6 +298,8 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 	 * Called when this component is being rendered into a container.
 	 * This will create a {@link #wrap} element around the iframe for
 	 * better organize the scrolling.
+	 * It will also check if a client timeout has been set, and if so call
+	 * {@link #setIdleTimeEventListeners} once the iframe has been loaded. 
 	 *
 	 * @param {Ext.Container} ct The container into which this component is being rendered
 	 * @param {Number} position The position inside the container where this component is being rendered
@@ -273,6 +308,14 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 	onRender : function(ct, position)
 	{
 		Zarafa.common.ui.messagepanel.MessageBody.superclass.onRender.call(this, ct, position);
+
+		// Check if a client timeout has been defined
+		var server = container.getServerConfig();
+		var clientTimeout = server.getClientTimeout();
+		if (clientTimeout){
+			// Wait for the iframe to load before calling setIdleTimeEventListeners()
+			this.getEl().on('load', this.setIdleTimeEventListeners, this);
+		}
 
 		this.wrap = this.el.wrap({cls: 'preview-body'});
 		this.resizeEl = this.positionEl = this.wrap;

@@ -83,8 +83,6 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			handler : this.onOpenCategories,
 			scope : this
 		}, {
-			//Print button, hide this as this functionality is still not implemented, so hide this button
-			hidden: true,
 			xtype : 'button',
 			overflowText: _('Print'),
 			tooltip: {

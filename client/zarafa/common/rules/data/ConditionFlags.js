@@ -39,7 +39,7 @@ Zarafa.common.rules.data.ConditionFlags = Zarafa.core.Enum.create({
 	 * @property
 	 * @type Number
 	 */
-	SUBJECT_BODY_WORDS : 4,
+	BODY_WORDS : 4,
 
 	/**
 	 * Indicates that the condition checks which words are in the sender

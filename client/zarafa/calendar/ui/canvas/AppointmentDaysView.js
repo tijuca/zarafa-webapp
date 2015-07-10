@@ -379,8 +379,8 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 
 		// Start fading out to transparent from 12 pixels from the right border.
 		var stop = Math.min(1, Math.max(0.1, (width - 12) / width));
-		gradient.addColorStop(0, this.isActive() ? 'black' : colorScheme.border);
-		gradient.addColorStop(stop, this.isActive() ? 'black' : colorScheme.border);
+		gradient.addColorStop(0, this.isActive() ? 'black' : '#666666');
+		gradient.addColorStop(stop, this.isActive() ? 'black' : '#666666');
 		gradient.addColorStop(1, 'rgba(0,0,0,0)');
 		context.fillStyle = gradient;
 
@@ -644,15 +644,13 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 							 topRadius - (lineWidth / 2), topRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2));
 		context.clip();
 
-		if (bound.firstBox) {
-			this.drawBodyText(
-				context,
-				textLeft + this.leftPadding,
-				this.bodyTextTopOffset,
-				width - textLeft - this.leftPadding,
-				height - this.bodyTextTopOffset - this.bodyTextBottomOffset
-			);
-		}
+		this.drawBodyText(
+			context,
+			textLeft + this.leftPadding,
+			this.bodyTextTopOffset,
+			width - textLeft - this.leftPadding,
+			height - this.bodyTextTopOffset - this.bodyTextBottomOffset
+		);
 		context.restore();
 	},
 

@@ -102,9 +102,6 @@ Zarafa.core.ui.MainTab = Ext.extend( Ext.Button, {
 			}
 
 			container.switchContext(context, contextFolder);
-
-			// Only display the folders related to the active context
-			container.getNavigationBar().setShowFolderList(false);
 		}
 	}
 });

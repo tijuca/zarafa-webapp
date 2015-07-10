@@ -64,14 +64,16 @@ class FreeBusyPublish {
 	}
 
 	/**
-	 * Publishes the infomation
-	 * @paam timestamp $starttime Time from which to publish data  (usually now)
-	 * @paam integer $length Amount of seconds from $starttime we should publish
+	 * Function is used to get the calender data based on give date range.
+	 * 
+	 * @param timestamp $starttime Time from which to get the calender data.
+	 * @param timestamp $length Time up till now get the calender data.
+	 * @return Array return the calender data array.
 	 */
-	 
-	function publishFB($starttime, $length) {
+	function getCalendarData($starttime, $length)
+	{
 		$start = $starttime;
-		$end = $starttime + $length;
+		$end = $length;
 
 		// Get all the items in the calendar that we need
 		
@@ -191,37 +193,46 @@ class FreeBusyPublish {
 
 		$contents = mapi_folder_getcontentstable($this->calendar);
 		mapi_table_restrict($contents, $restrict);
-		
+
 		while(1) {
 			$rows = mapi_table_queryrows($contents, array_values($this->proptags), 0, 50);
-			
+
 			if(!is_array($rows))
 				break;
 				
 			if(empty($rows))
 				break;
 				
-            foreach ($rows as $row) {
+			foreach ($rows as $row) {
 				$occurrences = Array();
-                if(isset($row[$this->proptags['recurring']]) && $row[$this->proptags['recurring']]) {
-                    $recur = new Recurrence($this->store, $row);
-                    
-                    $occurrences = $recur->getItems($starttime, $starttime + $length);
-                } else {
-                    $occurrences[] = $row;
-                }
-                
-                $calendaritems = array_merge($calendaritems, $occurrences);
-            }
+				if(isset($row[$this->proptags['recurring']]) && $row[$this->proptags['recurring']]) {
+					$recur = new Recurrence($this->store, $row);
+					
+					$occurrences = $recur->getItems($starttime, $length);
+				} else {
+					$occurrences[] = $row;
+				}
+				
+				$calendaritems = array_merge($calendaritems, $occurrences);
+			}
 		}
 
 		// $calendaritems now contains all the calendar items in the specified time
 		// frame. We now need to merge these into a flat array of begin/end/status 
 		// objects. This also filters out all the 'free' items (status 0)
-		
 		$freebusy = $this->mergeItemsFB($calendaritems);
-		
-		// $freebusy now contains the start, end and status of all items, merged.
+
+		return $freebusy;
+	}
+
+	/**
+	 * Publishes Free/Busy infomation of user.
+	 * @param timestamp $starttime Time from which to publish data  (usually now)
+	 * @param timestamp $length Time of seconds from $starttime we should publish
+	 */
+	function publishFB($start, $end)
+	{
+		$freebusy = $this->getCalendarData($start, $end);
 
 		// Get the FB interface
 		try {

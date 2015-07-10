@@ -97,7 +97,6 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 		]
 
 		config.tbar.items = Ext.flatten(tbarItems);
-
 		config.plugins = Ext.value(config.plugins, []);
 		config.plugins.push(Ext.applyIf(config.recordComponentPluginConfig || {}, {
 			ptype: 'zarafa.recordcomponentplugin',
@@ -219,7 +218,6 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 		// Do a complete refresh, clearing all UI components
 		// which might be active inside the panel.
 		this.removeAll();
-		this.hideLoadMask();
 
 		if (panelConstructor) {
 			this.add(new panelConstructor());
@@ -227,6 +225,7 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 
 		this.setRecord(record);
 		this.doLayout();
+		this.hideLoadMask();
 	},
 
 	/**

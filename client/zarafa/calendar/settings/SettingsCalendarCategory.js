@@ -33,6 +33,8 @@ Zarafa.calendar.settings.SettingsCalendarCategory = Ext.extend(Zarafa.settings.u
 			items : [{
 				xtype : 'zarafa.settingscalendarwidget'
 			},{
+				xtype : 'zarafa.settingsfreebusywidget'
+			},{
 				xtype : 'zarafa.settingsoverlaywidget'
 			},{
 				xtype : 'zarafa.settingsreminderwidget'

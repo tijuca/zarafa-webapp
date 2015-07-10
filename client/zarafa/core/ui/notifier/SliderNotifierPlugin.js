@@ -91,13 +91,18 @@ Zarafa.core.ui.notifier.SliderNotifierPlugin = Ext.extend(Zarafa.core.ui.notifie
 		var containerid = parentCt.id + '-' + position;
 		var containers = Zarafa.core.ui.notifier.SliderNotifierPlugin.sliderContainers;
 
-		if (!containers[containerid]) {
+		// Check if the container exists in the DOM, otherwise create a new one
+		if (!containers[containerid] || !Ext.get(containers[containerid].container.id) ) {
 			containers[containerid] = new Zarafa.core.ui.notifier.SliderContainer({
 				parentContainer : parentCt,
 				containerPosition : position,
 				slideinDirection : position[0],
 				slideoutDirection : position[0]
 			});
+		}else{
+			// The parent component could be removed from the DOM and rendered again later.
+			// If we set it again we are sure we have the DOM oject
+			containers[containerid].parentContainer = parentCt;
 		}
 
 		return containers[containerid];

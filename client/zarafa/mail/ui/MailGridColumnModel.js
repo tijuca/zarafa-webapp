@@ -115,19 +115,25 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			header : _('Received'),
 			dataIndex : 'message_delivery_time',
 			width : 160,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-received'}], true),
 			tooltip : _('Sort by: Received')
 		},{
 			header : _('Sent'),
 			dataIndex : 'client_submit_time',
 			width : 160,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-sent'}], true),
 			tooltip : _('Sort by: Sent')
 		},{
 			header : _('Modified'),
 			dataIndex : 'last_modification_time',
 			width : 160,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-modified'}], true),
 			hidden: true,
 			tooltip : _('Sort by: Modified')
 		},{
@@ -181,20 +187,26 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			header : _('Received'),
 			dataIndex : 'message_delivery_time',
 			width : 160,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-received'}], true),
 			tooltip : _('Sort by: Received')
 		},{
 			header : _('Sent'),
 			dataIndex : 'client_submit_time',
 			width : 160,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-sent'}], true),
 			tooltip : _('Sort by: Sent')
 		},{
 			header : _('Modified'),
 			dataIndex : 'last_modification_time',
 			width : 160,
 			sortable : true,
-			renderer : Zarafa.common.ui.grid.Renderers.datetime,
+			// Setting the renderer with createDelegate to be able to pass a meta object to the renderer.
+			// This way we can add a css-class to the element (used by Selenium tests)
+			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-modified'}], true),
 			tooltip : _('Sort by: Modified')
 		},{
 			header : '<p class="icon_mail_flag">&nbsp;</p>',

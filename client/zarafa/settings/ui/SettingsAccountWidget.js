@@ -120,6 +120,7 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 		var value = record.get(combo.valueField);
 
 		if (this.origLanguage !== value) {
+			this.model.requiresReload = true;
 			this.languageWarning.setValue(_('This change requires a reload of the WebApp'));
 		} else {
 			this.languageWarning.reset();

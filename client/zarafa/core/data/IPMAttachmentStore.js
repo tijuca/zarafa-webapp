@@ -111,11 +111,12 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	 * Builds and returns attachment URL to download attachment,
 	 * it uses {@link Zarafa.core.data.IPMRecord IPMRecord} to get store and message entryids.
 	 * @param {Zarafa.core.data.IPMAttachmentRecord} attachmentRecord Attachment record.
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 * @return {String} URL for downloading attachment.
 	 */
-	getAttachmentUrl : function(attachmentRecord)
+	getAttachmentUrl : function(attachmentRecord, allAsZip)
 	{
-		var url = this.getAttachmentBaseUrl(attachmentRecord);
+		var url = this.getAttachmentBaseUrl(attachmentRecord, allAsZip);
 		return Ext.urlAppend(url, 'contentDispositionType=attachment');
 	},
 
@@ -123,12 +124,13 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	 * Builds and returns attachment URL to download inline images,
 	 * it uses {@link Zarafa.core.data.IPMRecord IPMRecord} to get store and message entryids.
 	 * @param {Zarafa.core.data.IPMAttachmentRecord} attachmentRecord Attachment record.
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 * @return {String} URL for downloading attachments.
 	 */
-	getAttachmentBaseUrl : function(attachmentRecord)
+	getAttachmentBaseUrl : function(attachmentRecord, allAsZip)
 	{
 		var parentRecord = this.getParentRecord();
-		var attachNum = attachmentRecord.getParentAttachNum(parentRecord);
+		var isSubMessage = parentRecord.isSubMessage();
 
 		var url = container.getBaseURL();
 		url = Ext.urlAppend(url, 'load=download_attachment');
@@ -136,15 +138,28 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		url = Ext.urlAppend(url, 'store=' + parentRecord.get('store_entryid'));
 		url = Ext.urlAppend(url, 'entryid=' + this.getAttachmentParentRecordEntryId());
 
-		if (attachmentRecord.get('attach_num') != -1) {
-			// add attachment number of parent sub messages
-			attachNum.push(attachmentRecord.get('attach_num'));
+		// If all the attachments are requested to be downloaded in a ZIP, then there is no need to
+		// send 'attach_num' property.
+		if(!allAsZip || (allAsZip && isSubMessage)){
+			var attachNum = attachmentRecord.getParentAttachNum(parentRecord);
+			if (attachmentRecord.get('attach_num') != -1) {
+				// add attachment number of parent sub messages
+				attachNum.push(attachmentRecord.get('attach_num'));
 
-			for(var index = 0, len = attachNum.length; index < len; index++) {
-				url = Ext.urlAppend(url, 'attachNum[]=' + attachNum[index]);
+				for(var index = 0, len = attachNum.length; index < len; index++) {
+					url = Ext.urlAppend(url, 'attachNum[]=' + attachNum[index]);
+				}
+			} else {
+				url = Ext.urlAppend(url, 'attachNum[]=' + attachmentRecord.get('tmpname'));
 			}
-		} else {
-			url = Ext.urlAppend(url, 'attachNum[]=' + attachmentRecord.get('tmpname'));
+		}
+
+		if(allAsZip) {
+			url = Ext.urlAppend(url, 'AllAsZip=true');
+			if(isSubMessage){
+				url = Ext.urlAppend(url, 'isSubMessage=true');
+			}
+			url = Ext.urlAppend(url, 'subject='+parentRecord.get('subject'));
 		}
 
 		url = Ext.urlAppend(url, 'dialog_attachments=' + this.getId());

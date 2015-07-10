@@ -239,9 +239,10 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	 * Draws a single body element for the appointment body on the Canvas context.
 	 * @param {CanvasRenderingContext2D} context The canvas object on which we are drawing.
 	 * @param {Zarafa.calendar.data.AppointmentBounds} bound The bounds of this element.
+	 * @param {Number} index the index of bound.
 	 * @private
 	 */
-	drawBodyElement : function(context, bound)
+	drawBodyElement : function(context, bound, index)
 	{
 		var width = bound.right - bound.left;
 		var height = bound.bottom - bound.top;
@@ -325,23 +326,118 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 		context.clip();
 		var stop = Math.min(1, Math.max(0.1, (width - x) / width));
 		gradient = context.createLinearGradient(0, 0, width, 0);
-		gradient.addColorStop(0, this.isActive() ? 'black' : colorScheme.border);
-		gradient.addColorStop(stop, this.isActive() ? 'black' : colorScheme.border);
+		gradient.addColorStop(0, this.isActive() ? 'black' : '#666666');
+		gradient.addColorStop(stop, this.isActive() ? 'black' : '#666666');
 		gradient.addColorStop(1, 'rgba(0,0,0,0)');
 		context.fillStyle = gradient;
 
 		context.lineWidth = 1;
 		context.setFont('8pt Arial');
-		context.drawText(this.mainRenderedText, x, height - 6);
 
-		// Update the X position with the text we just drawn
-		x += context.textWidth(this.mainRenderedText + ' ');
+		// create an object which is used to show text on appointment.
+		var drawTextObject = {
+			xPosition : x,
+			yPosition : height - 6,
+			width : width,
+			showStartTime : false,
+			showEndTime : false
+		};
 
-		context.lineWidth = 1;
-		context.setFont('8pt Arial');
-		context.drawText(this.subRenderedText, x, height - 6);
+		// it will check that appointment was all day event then don't show
+		// start and end time.
+		if(!this.isAllDay()) {
+			drawTextObject.startTimeText = Ext.util.Format.htmlDecode(this.startTimeTextRenderer());
+			drawTextObject.endTimeText = Ext.util.Format.htmlDecode(this.endTimeTextRenderer());
 
+			// it will check that bounds length more then one it means 
+			// appointment is lies in to multiple weeks.
+			if(this.bounds.length > 1) {
+				// we have to show the start time and appointment title to first bounds.
+				if(index === 0) {
+					drawTextObject.showStartTime = true;
+				} else if ((this.bounds.length - 1) === index) {
+					// we have to show the end time and appointment title but
+					// we don't have to show start time because it is last bounds for the appointment.
+					drawTextObject.showEndTime = true;
+				}
+			} else if(this.bounds.length === 1) {
+				// if bounds length was one it means appointment does not
+				// lies in to multiple weeks. but it may possible that appointment 
+				// lies in to multiple days 
+
+				// it will check that appointment is more then
+				// one day event. then show the start/end time and appointment title with 
+				// its sub text.
+				if(this.getDateRange().getNumDays() > 0) {
+					drawTextObject.showStartTime = true;
+					drawTextObject.showEndTime = true;
+				} else {
+					// appointment was less then one day event 
+					// so we have to just show the start time and appointment title.
+					drawTextObject.showStartTime = true;
+				}
+			}
+		}
+
+		this.drawTextOnAppointment(context, drawTextObject);
 		context.restore();
+	},
+
+	/**
+	 * Function is responsible to draw start time , end time and
+	 * appointment title. it will draw the text based on the given object.
+	 * 
+	 * @param {CanvasRenderingContext2D} context The canvas object on which we are drawing.
+	 * @param {Object} Obj the Obj contains the configuration option which used to draw the text 
+	 * on appointment
+	 * @private
+	 */
+	drawTextOnAppointment : function(context, obj)
+	{
+		var titleText = this.mainRenderedText + ' '+ this.subRenderedText;
+		var endTimeWidth = context.textWidth(obj.endTimeText);
+		var startTimeWidth = context.textWidth(obj.startTimeText + ' ');
+		var rightFlot = obj.width - (endTimeWidth + this.leftPadding + this.getStripWidth());
+
+		// draw the end time and appointment title.
+		if(obj.showEndTime && !obj.showStartTime) {
+			// draw end time at extreme right position of appointment.
+			context.drawText(obj.endTimeText, rightFlot, obj.yPosition);
+
+			// find the character size and based on that character size find the 
+			// approximated characters are draw in remaining width.
+			var perTextSize = endTimeWidth / obj.endTimeText.length;
+			var size = Math.floor(rightFlot/perTextSize);
+			titleText = Ext.util.Format.ellipsis(titleText, size, false);
+
+		} else if(obj.showStartTime && !obj.showEndTime) {
+			// draw the start time and update the x position on which appointment title was draw.
+			context.drawText(obj.startTimeText, obj.xPosition, obj.yPosition);
+			obj.xPosition += startTimeWidth;
+
+		} else if(obj.showStartTime && obj.showEndTime) {
+			// draw the start and end time on respective appointment.
+
+			// draw end time at extreme right position of appointment.
+			context.drawText(obj.endTimeText, rightFlot, obj.yPosition);
+
+			// draw the start time at left most position of appointment.
+			context.drawText(obj.startTimeText, obj.xPosition, obj.yPosition);
+			obj.xPosition += startTimeWidth;
+
+			// find remaining width to draw the appointment title.
+			var remainingWidth = rightFlot - obj.xPosition;
+
+			// find the character size and based on that character size find the 
+			// approximated characters are draw in remaining width.
+			var perTextSize = startTimeWidth / obj.startTimeText.length;
+			var size = Math.floor(remainingWidth/perTextSize);
+
+			// apply ellipsis if text is bigger then remaining width.
+			titleText = Ext.util.Format.ellipsis(titleText, size, false);
+		}
+
+		context.drawText(titleText, obj.xPosition, obj.yPosition);
 	},
 
 	/**
@@ -357,7 +453,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 
 		// Draw all bounds onto the context
 		for (var i = 0, len = bounds.length; i < len; i++) {
-			this.drawBodyElement(context, bounds[i]);
+			this.drawBodyElement(context, bounds[i], i);
 		}
 
 		if (this.isSelected()) {
@@ -381,6 +477,32 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 		if (!Ext.isEmpty(this.bounds)) {
 			this.drawBodyElements(this.bounds);
 		}
+	},
+
+	/**
+	 * Body start time text renderer. This will return the start time in string which
+	 * must be displayed most prominently in the appointment when it has been rendered in the main contents
+	 * section of the calendar. This applies to non-all-day appointments and while calender was
+	 * {@link Zarafa.calendar.data.DataModes#MONTH month view} mode.
+	 * @return {String} The start time text of appointment.
+	 * @private
+	 */
+	startTimeTextRenderer : function()
+	{
+		return Ext.util.Format.htmlEncode(this.record.get('startdate').format(this.timeFormat));
+	},
+
+	/**
+	 * Body end time text renderer. This will return the start time in string which
+	 * must be displayed most prominently in the appointment when it has been rendered in the main contents
+	 * section of the calendar. This applies to non-all-day appointments and while calender was
+	 * {@link Zarafa.calendar.data.DataModes#MONTH month view} mode.
+	 * @return {String} The end time text of appointment.
+	 * @private
+	 */
+	endTimeTextRenderer : function()
+	{
+		return Ext.util.Format.htmlEncode(this.record.get('duedate').format(this.timeFormat));
 	},
 
 	/**

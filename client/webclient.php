@@ -13,7 +13,7 @@ $version = trim(file_get_contents('version'));
 <html>
 
 	<head>
-		<meta name="Generator" content="Zarafa WebApp v<?=$version?>">
+		<meta name="Generator" content="Zarafa WebApp v<?php echo$version?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Zarafa WebApp</title>
 		<link rel="icon" href="client/resources/images/favicon.ico" type="image/x-icon">
@@ -37,11 +37,11 @@ $version = trim(file_get_contents('version'));
 		<div id="loading-mask"></div>
 		<div id="loading">
 			<img src="client/resources/images/Zarafa_logo_transparent.png" />
-			<span id="loading-message" class="loading"><?= _('Loading Zarafa WebApp ...') ?></span>
+			<span id="loading-message" class="loading"><?php echo _('Loading Zarafa WebApp ...') ?></span>
 		</div>
 
 		<!-- Translations -->
-		<script type="text/javascript" src="index.php?version=<?=$version?>&amp;load=translations.js&amp;lang=<?=$GLOBALS["language"]->getSelected()?>"></script>
+		<script type="text/javascript" src="index.php?version=<?php echo $version ?>&amp;load=translations.js&amp;lang=<?php echo $GLOBALS["language"]->getSelected() ?>"></script>
 
 		<!-- ExtJS & Thirdparty extensions-->
 		<?php
@@ -62,45 +62,50 @@ $version = trim(file_get_contents('version'));
 		?>
 
 		<script type="text/javascript">
-			settings = <?= JSON::Encode($GLOBALS["settings"]->getJSON()); ?>;
+			settings = <?php echo JSON::Encode($GLOBALS["settings"]->getJSON()); ?>;
 		</script>
 		<script type="text/javascript">
-			languages = <?= JSON::Encode($GLOBALS["language"]->getJSON()); ?>;
+			languages = <?php echo JSON::Encode($GLOBALS["language"]->getJSON()); ?>;
 		</script>
 
 		<script type="text/javascript">
 			user = {
-				username		: "<?= addslashes($GLOBALS["mapisession"]->getUserName()) ?>",
-				fullname		: "<?= addslashes($GLOBALS["mapisession"]->getFullName()) ?>",
-				entryid			: "<?= bin2hex($GLOBALS["mapisession"]->getUserEntryid()) ?>",
-				email_address		: "<?= addslashes($GLOBALS["mapisession"]->getEmailAddress()) ?>",
-				smtp_address		: "<?= addslashes($GLOBALS["mapisession"]->getSMTPAddress()) ?>",
-				search_key		: "<?= bin2hex($GLOBALS["mapisession"]->getSearchKey()) ?>",
-				user_image		: "<?= bin2hex($GLOBALS["mapisession"]->getUserImage()) ?>",
-				sessionid		: "<?= $GLOBALS["mapisession"]->getSessionID() ?>"
+				username		: "<?php echo addslashes($GLOBALS["mapisession"]->getUserName()) ?>",
+				fullname		: "<?php echo addslashes($GLOBALS["mapisession"]->getFullName()) ?>",
+				entryid			: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserEntryid()) ?>",
+				email_address		: "<?php echo addslashes($GLOBALS["mapisession"]->getEmailAddress()) ?>",
+				smtp_address		: "<?php echo addslashes($GLOBALS["mapisession"]->getSMTPAddress()) ?>",
+				search_key		: "<?php echo bin2hex($GLOBALS["mapisession"]->getSearchKey()) ?>",
+				user_image		: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserImage()) ?>",
+				sessionid		: "<?php echo $GLOBALS["mapisession"]->getSessionID() ?>"
 			};
 		</script>
 
 		<script type="text/javascript">
 			version = {
-				webapp			: "<?= $version ?>",
-				zcp			: "<?= phpversion('mapi') ?>",
-				server			: "<?= DEBUG_SHOW_SERVER ? DEBUG_SERVER_ADDRESS : '' ?>",
-				svn			: "<?= DEBUG_LOADER === LOAD_SOURCE ? svnversion() : '' ?>"
+				webapp			: "<?php echo $version ?>",
+				zcp			: "<?php echo phpversion('mapi') ?>",
+				server			: "<?php echo DEBUG_SHOW_SERVER ? DEBUG_SERVER_ADDRESS : '' ?>",
+				svn			: "<?php echo DEBUG_LOADER === LOAD_SOURCE ? svnversion() : '' ?>"
 			};
 		</script>
 
 		<script type="text/javascript">
 			serverconfig = {
-				enable_plugins			: <?= ENABLE_PLUGINS ? 'true' : 'false' ?>,
-				enable_advanced_settings	: <?= ENABLE_ADVANCED_SETTINGS ? 'true' : 'false' ?>,
+				enable_plugins			: <?php echo ENABLE_PLUGINS ? 'true' : 'false' ?>,
+				enable_advanced_settings	: <?php echo ENABLE_ADVANCED_SETTINGS ? 'true' : 'false' ?>,
 				max_attachments			: undefined,
-				max_attachment_size		: <?= getMaxUploadSize() ?>,
-				post_max_size			: <?= getMaxPostRequestSize() ?>,
-				max_file_uploads		: <?= getMaxFileUploads() ?>,
+				max_attachment_size		: <?php echo getMaxUploadSize() ?>,
+				post_max_size			: <?php echo getMaxPostRequestSize() ?>,
+				max_file_uploads		: <?php echo getMaxFileUploads() ?>,
 				max_attachment_total_size	: undefined,
-				freebusy_load_start_offset : <?= FREEBUSY_LOAD_START_OFFSET ?>,
-				freebusy_load_end_offset : <?= FREEBUSY_LOAD_END_OFFSET ?>
+				freebusy_load_start_offset : <?php echo FREEBUSY_LOAD_START_OFFSET ?>,
+				freebusy_load_end_offset : <?php echo FREEBUSY_LOAD_END_OFFSET ?>,
+				client_timeout 			: <?php echo defined('CLIENT_TIMEOUT') && is_numeric(CLIENT_TIMEOUT) && CLIENT_TIMEOUT>0 ? CLIENT_TIMEOUT : 'false' ?>,
+				version_info			: <?php echo getPluginsVersionInfo() ?>,
+				color_schemes			: <?php echo COLOR_SCHEMES ?>,
+				additional_color_schemes: <?php echo defined('ADDITIONAL_COLOR_SCHEMES') ? ADDITIONAL_COLOR_SCHEMES : 'undefined' ?>,
+				maximum_eml_files_in_zip: <?php echo MAX_EML_FILES_IN_ZIP ?>
 			};
 		</script>
 
@@ -116,7 +121,7 @@ $version = trim(file_get_contents('version'));
 		?>
 
 		<script type="text/javascript">
-			urlActionData = <?= JSON::Encode($urlActionData); ?>;
+			urlActionData = <?php echo JSON::Encode($urlActionData); ?>;
 		</script>
 
 		<script type="text/javascript">

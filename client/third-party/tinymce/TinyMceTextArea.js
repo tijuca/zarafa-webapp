@@ -532,7 +532,10 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 						tinyMCE.EditorManager.on("AddEditor", function() {
 							me.withEd(function(){
 								var ed = me.getEditor();
-								me.setContent(ed, v);
+								// if selected editor is dirty then dont call setContent function.
+								if(!ed.isDirty()) {
+									me.setContent(ed, v);
+								}
 							});
 						}, this);
 					} else {

@@ -7,7 +7,7 @@ Ext.namespace('Zarafa.core.data');
 Zarafa.core.data.IPMResponseHandler = Ext.extend(Zarafa.core.data.ProxyResponseHandler, {
 	/**
 	 * Handles the 'list' response. Gathers the records from the response data,
-	 * converts each entry into a record (using {@link #readRecordsFromResponse}
+	 * converts each entry into a record (using {@link #readRecordsFromResponse})
 	 * and pushes them into the {@link #receivedRecords records list}.
 	 * @param {Object} response The response object belonging to the given command.
 	 * @return {Boolean} False when action could not be handled successfully. This will
@@ -15,6 +15,20 @@ Zarafa.core.data.IPMResponseHandler = Ext.extend(Zarafa.core.data.ProxyResponseH
 	 * {@link #done} function to be false.
 	 */
 	doList : function(response)
+	{
+		if (response.folder) {
+			this.metaData.folder = Ext.apply({}, response.folder);
+		}
+		this.receivedRecords = this.readRecordsFromResponse(response, 'item');
+	},
+
+	/**
+	 * Handles the 'updatelist' response. Gathers the records from the response data,
+	 * converts each entry into a record (using {@link #readRecordsFromResponse})
+	 * and pushes them into the {@link #receivedRecords records list}.
+	 * @param {Object} response The response object belonging to the given command.
+	 */
+	doUpdatelist : function(response)
 	{
 		if (response.folder) {
 			this.metaData.folder = Ext.apply({}, response.folder);
@@ -54,7 +68,7 @@ Zarafa.core.data.IPMResponseHandler = Ext.extend(Zarafa.core.data.ProxyResponseH
 
 	/**
 	 * Handles the 'search' response. Gathers the records from the response data, 
-	 * converts each entry into a record (using {@link #readRecordsFromResponse}
+	 * converts each entry into a record (using {@link #readRecordsFromResponse})
 	 * and pushes them into the {@link #receivedRecords records list}.
 	 * @param {Object} response The response object belonging to the given command.
 	 * @return {Boolean} False when action could not be handled successfully. This will
@@ -75,7 +89,7 @@ Zarafa.core.data.IPMResponseHandler = Ext.extend(Zarafa.core.data.ProxyResponseH
 
 	/**
 	 * Handles the 'updatesearch' response. Gathers the records from the response data, 
-	 * converts each entry into a record (using {@link #readRecordsFromResponse}
+	 * converts each entry into a record (using {@link #readRecordsFromResponse})
 	 * and pushes them into the {@link #receivedRecords records list}. This is the same
 	 * as {@link #doSearch} with the exception that the items read from the response will be added to
 	 * the previous list in the {@link Ext.data.Store store} which is collecting the results.
@@ -101,7 +115,7 @@ Zarafa.core.data.IPMResponseHandler = Ext.extend(Zarafa.core.data.ProxyResponseH
 
 	/**
 	 * Handles the 'stopsearch' response. This initializes {@link #receivedRecords}
-	 * as if records have been returned by the server (using {@link #readRecordsFromResponse}.
+	 * as if records have been returned by the server (using {@link #readRecordsFromResponse}).
 	 * This ensures that the store will correctly handle the response in the callback function
 	 * and correctly handles the 'success' property from the response.
 	 *

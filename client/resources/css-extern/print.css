@@ -3,6 +3,7 @@
 {
     size: auto;   /* auto is the initial value */
     margin: 5mm;  /* this affects the margin in the printer settings */
+
 }
 
 @media print {
@@ -16,20 +17,24 @@
 	}
 }
 
+body { 
+	margin-top: 0.5in;
+	margin-bottom: 0.5in;
+	margin-left: 0.5in;
+	margin-right: 0.5in;    
+}
+
 /* common css to make some tags clear on paper */
-html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td {
+html,div,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td {
 	margin:0;
 	padding:0;
 }
 img,body,html {
 	border:0;
 }
-address,caption,cite,code,dfn,em,strong,th,var {
+address,caption,cite,code,dfn,th,var {
 	font-style:normal;
 	font-weight:normal;
-}
-ol,ul {
-	list-style:none;
 }
 caption,th {
 	text-align:left;

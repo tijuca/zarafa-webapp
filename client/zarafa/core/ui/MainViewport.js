@@ -46,6 +46,7 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 			layout : 'fit',
 			items : [{
 				xtype: 'container',
+				id: 'zarafa-mainview',
 				layout : 'border',
 				cls : 'zarafa-panel-body',
 				border : false,
@@ -137,13 +138,15 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 	createContentContainer : function()
 	{
 		var cc = new Zarafa.core.ui.ContextContainer({
-			name : 'main.content'
+			name : 'main.content',
+			id: 'zarafa-mainpanel-content'
 		});
 		//get items from insertion point
 		//TODO: create separate insertion points for front and back of tab strip?
 		var lazyItems = container.populateInsertionPoint('main.content.tabpanel', this);
 		
 		this.contentPanel = new Zarafa.core.ui.MainContentTabPanel({
+			id: 'zarafa-mainpanel',
 			activeTab : 0,
 			region : 'center',
 			enableTabScroll : true,

@@ -103,7 +103,18 @@
 						$password = openssl_decrypt($password,"des-ede3-cbc",PASSWORD_KEY,0,PASSWORD_IV);
 					}
 				}
-				$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass);
+
+				$mapi_version = preg_split('/-/', phpversion('mapi'));
+
+				if (version_compare($mapi_version[0], '7.2.0', '>=')) {
+					$webapp_version = 'WebApp-'.trim(file_get_contents('version'));
+					$browser_version = $_SERVER['HTTP_USER_AGENT'];
+					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass,1,$webapp_version,$browser_version);
+				}
+				else {
+					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass);
+				}
+
 				if(function_exists("openssl_encrypt")) {
 					// In PHP 5.3.3 the iv parameter was added
 					if(version_compare(phpversion(), "5.3.3", "<")) {

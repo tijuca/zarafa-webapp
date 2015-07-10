@@ -141,6 +141,8 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 		// If the folder could be selected, then unregister the event handler.
 		if (this.hierarchyTree.selectFolderInTree(this.parentFolder)) {
 			this.mun(this.hierarchyTree, 'load', this.onTreeNodeLoad, this);
+			// Force focus on input field
+			this.newNameField.focus();
 		}
 	},
 

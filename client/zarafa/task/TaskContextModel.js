@@ -45,7 +45,7 @@ Zarafa.task.TaskContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 * this {@link Zarafa.task.dialogs.TaskEditContentPanel TaskEditContentPanel}.
 	 * @param {Zarafa.core.IPMFolder} folder (optional) The target folder in which the new record must be
 	 * created. If this is not provided the default folder will be used.
-	 * @return {Zarafa.coore.data.IPMRecord} The new {@link Zarafa.core.data.IPMRecord IPMRecord}.
+	 * @return {Zarafa.core.data.IPMRecord} The new {@link Zarafa.core.data.IPMRecord IPMRecord}.
 	 */
 	createRecord : function(folder)
 	{

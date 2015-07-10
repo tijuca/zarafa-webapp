@@ -80,18 +80,14 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 			collapsible : false,
 			split : true,
 			items: [{
-				xtype : 'zarafa.searchbar',
-				ref: '../searchBar',
-				searchFields : Zarafa.mail.data.SearchFields,
-				context : config.context
-			},{
 				xtype: 'zarafa.switchviewcontentcontainer',
 				ref: '../viewPanel',
 				layout : 'card',
 				lazyItems : this.initViews(config.context)
 			}],			
 			tbar : {
-				xtype: 'zarafa.contextmainpaneltoolbar',
+				xtype: 'zarafa.mailpaneltoolbar',
+				id: 'zarafa-main-content-mail-toolbar',
 				defaultTitle : _('Mail'),
 				height:33,
 				paging : container.populateInsertionPoint('context.mail.toolbar.paging', this),
@@ -127,6 +123,15 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 	},
 
 	/**
+	 * Function is used to get the {@link Zarafa.mail.ui.MailGrid mailgrid}
+	 * return {Zarafa.mail.ui.MailGrid} return the mail grid.
+	 */
+	getGridPanel : function()
+	{
+		return this.mailGrid;
+	}, 
+
+	/**
 	 * Initializes the {@link Zarafa.core.ui.PreviewPanel PreviewPanel}
 	 *
 	 * @param {Zarafa.mail.MailContext} context The Mail Context
@@ -137,6 +142,7 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 	{
 		return {
 			xtype: 'zarafa.mailpreviewpanel',
+			id: 'zarafa-main-content-mail-preview',
 			region : 'south',
 			split : true,
 			context: context
@@ -205,6 +211,7 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 				orientation = Zarafa.common.ui.layout.SwitchBorderLayout.Orientation.VERTICAL;
 				break;
 			case Zarafa.mail.data.ViewModes.SEARCH:
+			case Zarafa.mail.data.ViewModes.LIVESCROLL:
 				return;
 		}
 

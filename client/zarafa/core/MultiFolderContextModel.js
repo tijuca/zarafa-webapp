@@ -15,6 +15,16 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 * define the colors applied to it.
 	 */
 	colorScheme : undefined,
+	
+	/**
+	 * A flag that denotes if colors are being assigned, thereby letting
+	 * the setColor function know that it shouldn't fire the 'colormapchanged'
+	 * event.
+	 * @property
+	 * @type Boolean
+	 * @private
+	 */
+	assigningColors : false,
 
 	/**
 	 * @cfg {Boolean} default_merge_state True if the contents of each folder is currently merged into a single view.
@@ -80,7 +90,14 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 			 * @param {Object} groupings The groupings object
 			 * @param {String} active The active group
 			 */
-			'foldergroupingchanged'
+			'foldergroupingchanged',
+			/**
+			 * @event colormapchanged
+			 * Fires when a new color schema for a folder has been set.
+			 * @param {Zarafa.core.ContextModel} model this context model.
+			 * @param {Object} colorMap The new colorMap
+			 */
+			'colormapchanged'
 		);
 
 		// Initialize groupings
@@ -422,43 +439,59 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 * if we don't have sufficient colors, we have to start again from
 	 * the start (This obviously means that some colors will appear twice).
 	 * A color scheme is assigned for each folder entry id
+	 * Note: This functionality has changed after colors became persistent
+	 * Now assigning colors will only be done once for existing users that had
+	 * calendars open. And it will assign a color for the default calendar 
+	 * folder for every new user.
 	 * @private
 	 */
 	assignColors : function()
 	{
-		var entryids = Object.keys(this.colorMap);
-
+		this.assigningColors = true;
 		for (var i = 0, len = this.folders.length; i < len; i++) {
-			// check if folder is already in mapping and add it
-			if(!this.getColorScheme(this.folders[i].get('entryid'))) {
-				this.setColorScheme(this.folders[i], this.colorScheme[i % this.colorScheme.length]);
-			}
+			// check if folder is already in mapping and add it if it isn't
+			this.getColorScheme(this.folders[i].get('entryid'));
 		}
+		this.assigningColors = false;
 	},
 
 	/**
 	 * Obtain color scheme for given folder entryid. Fall back to first scheme if folder not in mapping
 	 * @param {String} folderId Entry id of a folder
+	 * @return {Object} The color scheme as defined in {@link Zarafa.calendar.ui.ColorSchemes color scheme}
+	 * for this folder
 	 */
 	getColorScheme : function(folderId)
 	{
 		if(!this.colorMap) {
 			return undefined;
 		}
+		
+		var colorSchemeName = this.colorMap[folderId];
+		var colorScheme = Zarafa.core.ColorSchemes.getColorScheme(colorSchemeName);
+		if ( !Ext.isDefined(colorScheme) ){
+			// No scheme defined yet. Let's just use a random color scheme.
+			colorScheme = this.colorScheme[Math.floor(Math.random()*this.colorScheme.length)];
+			this.setColorScheme(folderId, colorScheme);
+		}
 
-		return this.colorMap[folderId];
+		return colorScheme;
 	},
 
 	/**
-	 * add folder to mapping
-	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord} Folder to map
+	 * Map a folder to a color scheme
+	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord} Folder object to map
 	 * @param {Object} Color scheme to map to
 	 */
-	setColorScheme : function(folder, scheme)
+	setColorScheme : function(folderId, scheme)
 	{
-		this.colorMap[folder.get('entryid')] = scheme;
+		this.colorMap[folderId] = scheme.name;
+		
+		if ( !this.assigningColors ){
+			this.fireEvent('colormapchanged', this, this.colorMap);
+		}
 	},
-
+	
 	/**
 	 * Obtain the currently active group out of this.groupings
 	 */
@@ -475,6 +508,7 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	{
 		Zarafa.core.MultiFolderContextModel.superclass.initStateEvents.call(this);
 		this.on('foldergroupingchanged', this.saveState, this, { delay : 100 });
+		this.on('colormapchanged', this.saveState, this, { delay : 100 });
 	},
 
 	/**
@@ -489,7 +523,8 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 
 		return Ext.apply(state, {
 			groupings : this.groupings,
-			active_group : this.active_group
+			active_group : this.active_group,
+			colorMap : this.colorMap
 		});
 	},
 

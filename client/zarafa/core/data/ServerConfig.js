@@ -96,5 +96,45 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	getFreebusyLoadEndOffset : function()
 	{
 		return this.meta.freebusy_load_end_offset;
+	},
+
+	/**
+	 * @return {Number} The upper limit of the eml files allowed to be included in single ZIP archive
+	 */
+	getMaxEmlFilesInZIP : function()
+	{
+		return this.meta.maximum_eml_files_in_zip;
+	},
+
+	/**
+	 * @return {Mixed} The client timeout time (in seconds) if set or false otherwise.
+	 */
+	getClientTimeout : function()
+	{
+		return this.meta.client_timeout;
+	},
+
+	/**
+ 	 * @return {Array} returns the installed plugins version information array.
+	 */
+	getPluginsVersion : function()
+	{
+		return this.meta.version_info;
+	},
+
+	/**
+	 * @return {Array} returns the color schemes defined in config.php/default.php.
+	 */
+	getColorSchemes : function()
+	{
+		return this.meta.color_schemes;
+	},
+
+	/**
+	 * @return {Array} returns the additional color schemes defined in config.php/default.php.
+	 */
+	getAdditionalColorSchemes : function()
+	{
+		return this.meta.additional_color_schemes;
 	}
 });

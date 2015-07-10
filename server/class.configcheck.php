@@ -25,7 +25,6 @@ class ConfigCheck
 		$this->checkPHPsetting("register_globals", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("magic_quotes_gpc", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("magic_quotes_runtime", "off", "Modify this setting in '%s'");
-		$this->checkPHPsetting("short_open_tag", "on", "Modify this setting in '%s'");
 		$this->checkPHPsetting("session.auto_start", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("output_handler", "", "With this option set, it is unsure if the webaccess will work correctly");
 		$this->checkPHPsetting("zlib.output_handler", "", "With this option set, it is unsure if the webaccess will work correctly");
@@ -49,7 +48,7 @@ class ConfigCheck
 			?>
 				<p style="font-weight: bold;">Zarafa WebApp can't start because of incompatible configuration.</p>
 				<p>Please correct above errors, a good start is by checking your '<tt><?php echo $this->get_php_ini(); ?></tt>' file.</p>
-				<p>Or if you wish, you can disable this config check by editing the file '<tt><?php echo dirname($_SERVER["SCRIPT_FILENAME"]) ?>/config.php</tt>', but this is not recommend.</p>
+				<p>You can disable this configuration check by editing the file '<tt><?php echo dirname($_SERVER["SCRIPT_FILENAME"]) ?>/config.php</tt>', but this is not recommended.</p>
 			<?php
 			exit;
 		}

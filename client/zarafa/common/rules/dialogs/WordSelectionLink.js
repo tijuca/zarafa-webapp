@@ -189,6 +189,7 @@ Zarafa.common.rules.dialogs.WordSelectionLink = Ext.extend(Ext.BoxComponent, {
 					break;
 
 				case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
+				case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
 				default:
 					var subs;
 
@@ -250,6 +251,11 @@ Zarafa.common.rules.dialogs.WordSelectionLink = Ext.extend(Ext.BoxComponent, {
 			case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
 				this.store.each(function(word) {
 					conditions.push(RestrictionFactory.dataResContent('PR_SUBJECT', Restrictions.FL_SUBSTRING | Restrictions.FL_IGNORECASE, word.get('words')));
+				}, this);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
+				this.store.each(function(word) {
+					conditions.push(RestrictionFactory.dataResContent('PR_BODY', Restrictions.FL_SUBSTRING | Restrictions.FL_IGNORECASE, word.get('words')));
 				}, this);
 				break;
 

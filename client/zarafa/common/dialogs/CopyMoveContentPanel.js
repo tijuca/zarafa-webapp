@@ -56,7 +56,7 @@ Zarafa.common.dialogs.CopyMoveContentPanel = Ext.extend(Zarafa.core.ui.ContentPa
 			xtype : 'zarafa.copymovecontentpanel',
 			layout: 'fit',
 			title : title,
-			width: 300,
+			width: 400,
 			height: 350,
 			items: [{
 				xtype: 'zarafa.copymovepanel',

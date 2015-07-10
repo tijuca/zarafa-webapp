@@ -94,6 +94,43 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 	},
 
 	/**
+	 * Function is used to convert a mail record to task record.
+	 * @param {Zarafa.core.IPMFolder} folder The target folder in which the new record must be
+	 * created.
+	 * @return {Zarafa.core.data.IPMRecord} record The newly created task.
+	 */
+	convertToTask : function(folder)
+	{
+		var defaultStore = folder.getMAPIStore();
+
+		var taskRecord = Zarafa.core.data.RecordFactory.createRecordObjectByMessageClass('IPM.Task', {
+			store_entryid : folder.get('store_entryid'),
+			parent_entryid : folder.get('entryid'),
+			icon_index : Zarafa.core.mapi.IconIndex['task_normal'],
+			subject : this.get('subject'),
+			body : this.get('body'),
+			importance : this.get('importance'),
+			owner : defaultStore.isPublicStore() ? container.getUser().getFullName() : defaultStore.get('mailbox_owner_name')
+		});
+
+		/**
+		 * By copying the reference to the original mail,
+		 * the server is able to add attachments in to the task.
+		 */
+		taskRecord.addMessageAction('source_entryid', this.get('entryid'));
+		taskRecord.addMessageAction('source_store_entryid', this.get('store_entryid'));
+
+		// Initialize the taskRecord with attachments
+		var store = taskRecord.getAttachmentStore();
+		var origStore = this.getAttachmentStore();
+		origStore.each(function (attach) {
+			store.add(attach.copy());
+		}, this);
+
+		return taskRecord;
+	},
+
+	/**
 	 * Function will check if the {@link Zarafa.core.data.IPMRecord IPMRecord} contains any external content
 	 * in body part and if we should show it or hide it based on {@link Zarafa.core.Settings Settings}.
 	 * @param {String} body (optional) contents of body property of {@link Zarafa.core.data.IPMRecord IPMRecord}.

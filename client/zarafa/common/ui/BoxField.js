@@ -202,7 +202,13 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			boxMaxHeight: 50,
 
 			autoHeight: false,
-			autoScroll: true
+			autoScroll: true,
+			
+			/*
+			 * Override value of Ext.form.TriggerField
+			 * Because we don't want TAB-key to blur the element
+			 */
+			monitorTab: false
 		});
 
 		this.addEvents(
@@ -1401,6 +1407,12 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			scope: this
 		},{
 			key: [
+				Ext.EventObject.TAB
+			],
+			handler: this.onInputKeyTab,
+			scope: this
+		},{
+			key: [
 				Ext.EventObject.UP,
 				Ext.EventObject.PAGE_UP
 			],
@@ -1496,6 +1508,29 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		if (!(this.isExpanded() && this.store.getCount() > 0)) {
 			e.stopEvent();
 			this.convertInputToBox();
+		}
+	},
+
+	/**
+	 * Key handler for the {@link Ext.EventObject.TAB} event
+	 * for the {@link #el input element}.
+	 *
+	 * @param {Number} key The key which was pressed
+	 * @param {Ext.EventObject} e The event object which fired the event
+	 * @private
+	 */
+	onInputKeyTab : function(key, e)
+	{
+		//If the user entered something, we should prevent default tab behavior
+		if (!Ext.isEmpty(this.getValue())) {
+			e.stopEvent();
+
+			if (!(this.isExpanded() && this.store.getCount() > 0)){
+			    this.convertInputToBox();
+			}
+		}else{
+			//Trigger a blur to remove the focus class from the element
+			this.triggerBlur();
 		}
 	},
 

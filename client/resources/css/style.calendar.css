@@ -79,6 +79,8 @@
 	border: 1px solid #000000;
 	position : absolute;
 	z-index : 999;
+	overflow: hidden;
+	resize: none;
 }
 
 /* ? */
@@ -109,7 +111,7 @@
 	color : #000000;
 	font-weight : bold;
 	font-size : 11px;
-    font-family: tahoma, arial, verdana, sans-serif;
+    	font-family: arial,tahoma,verdana,sans-serif;
 }
 
 .zarafa-calendar-dragproxy-header
@@ -139,8 +141,8 @@
 	
 	font-weight : bold;
 	font-size : 11px;
-    font-family: tahoma,arial,verdana,sans-serif;
-    padding : 4px;
+    	font-family: arial,tahoma,verdana,sans-serif;
+	padding : 4px;
     
 	border : 1px solid #a0a0a0;
 	color : #000000;
@@ -268,7 +270,7 @@
 .zarafa-calendar-timestrip-element
 {
     font-size: 14px;
-    font-family: tahoma,arial,verdana,sans-serif;
+    font-family: arial,tahoma,verdana,sans-serif;
 	position: absolute;
 	color: #393839;
 	text-align:right;
@@ -290,7 +292,7 @@
 .zarafa-calendar-timestrip-header
 {
     font-size: 11px;
-    font-family: tahoma,arial,verdana,sans-serif;
+    font-family: arial,tahoma,verdana,sans-serif;
 	position: absolute;
 	color: black;
 	vertical-align: bottom;
@@ -311,6 +313,7 @@
 	position : absolute;
 	overflow : hidden;
 	height : 23px;
+	border-top-width: 3px;
 }
 
 .zarafa-calendar-tabarea .zarafa-calendar-tab-selected div
@@ -318,10 +321,20 @@
 	height: 24px;
 }
 
-.zarafa-calendar-tabarea .zarafa-calendar-tab-background .zarafa-calendar-tab-leftside,
+.zarafa-calendar-tabarea .zarafa-calendar-tab-background .zarafa-calendar-tab-leftside
+{
+	width: 32px;
+	border-top-left-radius: 5px 5px;
+	border-left-width: 3px;
+}
 .zarafa-calendar-tabarea .zarafa-calendar-tab-background .zarafa-calendar-tab-rightside
 {
 	width: 32px;
+	border-top-right-radius: 5px 5px;
+	transform: skewX(30deg);
+	-ms-transform: skewX(30deg);
+	margin-left: -20px;
+	border-right-width: 3px;
 }
 
 .zarafa-calendar-tabarea .zarafa-calendar-tab-contents
@@ -333,10 +346,10 @@
 {
 	position : absolute;
 	overflow : hidden;
-	padding-top : 8px;
+	padding-top : 9px;
 	cursor : pointer;
 	font-size : 10px;
-	font-family: tahoma,arial,verdana,sans-serif;
+    	font-family: arial,tahoma,verdana,sans-serif;
 	margin-left: 4px;
 	white-space:nowrap;
 }
@@ -353,12 +366,12 @@
 	cursor : pointer;
 	width : 16px;
 	height: 16px;
-	margin: 3px 0px 0px 4px;
+	margin: 1px 0px 0px 4px;
 }
 
 .zarafa-calendar-tabarea .zarafa-calendar-tab-icon-close
 {
-	background-image: url(../icons/cross.png) ! important;
+	background-image: url(../images/button/close_button.png) ! important;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -450,4 +463,9 @@
 	border-style: solid;
 	border-width: 1px;
 	padding: 2px 5px 2px 5px;
+}
+
+.zarafa-calendar-delegate-permission
+{
+	background-image: url(../icons/new/delegates_large.png);
 }

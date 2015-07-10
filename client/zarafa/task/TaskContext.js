@@ -61,6 +61,9 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		// Add a tree control showing a list of task folders to the navigation panel.
 		// The control will be shown when the user selects the task context from the button panel.
 		this.registerInsertionPoint('navigation.center', this.createTaskNavigationPanel, this);
+
+		// Adds convert mail to task contextmenu item in the mail contextmenu.
+		this.registerInsertionPoint('context.mail.contextmenu.actions', this.convertToTask, this);
 	},
 
 	/**
@@ -144,6 +147,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		switch (type) {
 			case Zarafa.core.data.SharedComponentType['common.create']:
 			case Zarafa.core.data.SharedComponentType['common.view']:
+			case Zarafa.core.data.SharedComponentType['common.preview']:
 				if (record instanceof Zarafa.core.data.IPMRecord && record.isMessageClass('IPM.Task', true)) {
 					bid = 1;
 				}
@@ -195,6 +199,9 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			case Zarafa.core.data.SharedComponentType['common.view']:
 				component = Zarafa.task.dialogs.TaskEditContentPanel;
 				break;
+			case Zarafa.core.data.SharedComponentType['common.preview']:
+				component = Zarafa.task.ui.TaskPreviewPanel;
+				break;
 			case Zarafa.core.data.SharedComponentType['common.contextmenu']:
 		  		component = Zarafa.task.ui.TaskContextMenu;
 				break;	
@@ -227,10 +234,12 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			context : this,
 			items : [{
 				xtype : 'panel',
+				id: 'zarafa-navigationpanel-tasks-navigation',
 				cls: 'zarafa-context-navigation-block',
 				title : _('My Tasks'),
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
+					id: 'zarafa-navigationpanel-tasks-navigation-tree',
 					model: this.getModel(),
 					IPMFilter: 'IPF.Task',
 					hideDeletedFolders : true,
@@ -256,6 +265,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype : 'zarafa.taskmainpanel',
+			id: 'zarafa-mainpanel-contentpanel-tasks',
 			context : this
 		};
 	},
@@ -271,6 +281,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		var items = container.populateInsertionPoint('main.maintoolbar.view.task', this) || [];
 
 		var defaultItems = [{
+			id: 'zarafa-maintoolbar-view-tasks-simple',
 			text: _('Simple Tasks'),
 			overflowText: _('Simple Tasks'),
 			iconCls: 'task_list_view task_simple_view',
@@ -280,6 +291,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-tasks-active',
 			text: _('Active Tasks'),
 			overflowText: _('Active Tasks'),
 			iconCls: 'task_list_view task_active_view',
@@ -289,6 +301,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-tasks-nextsevendays',
 			text: _('Next Seven Days'),
 			overflowText: _('Next Seven Days'),
 			iconCls: 'task_list_view task_seven_days',
@@ -298,6 +311,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-tasks-overdue',
 			text: _('Overdue Tasks'),
 			overflowText: _('OverDue Tasks'),
 			iconCls: 'task_list_view task_overdue_view',
@@ -307,6 +321,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		},{
+			id: 'zarafa-maintoolbar-view-tasks-completed',
 			text: _('Completed Tasks'),
 			overflowText: _('Completed Tasks'),
 			iconCls: 'task_list_view task_completed_view',
@@ -348,6 +363,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		return {
 
 			xtype	: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-task',
 			tooltip : _('Task')+' (Ctrl + Alt + K)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text	: _('Task'),
@@ -371,6 +387,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		
 		var defaultItems = [{
 			xtype: 'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-selectedtask',
 			overflowText: _('Print selected task'),
 			iconCls: 'icon_print_single_task',
 			tooltip : _('Print selected task') + ' (Ctrl + P)',
@@ -382,6 +399,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			scope: this
 		},{
 			overflowText: _('Print task list'),
+			id: 'zarafa-maintoolbar-print-tasklist',
 			iconCls: 'icon_print_task_list',
 			tooltip : _('Print task list') + ' (Ctrl + Alt + P)',
 			plugins : 'zarafa.menuitemtooltipplugin',
@@ -428,8 +446,41 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 5,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-tasks'
 		};
+	},
+
+	/**
+	 * Adds a new contextmenu item in the mail context, which converts an email to a task
+	 * @return {Zarafa.core.ui.menu.ConditionalItem[]} The Action context menu item
+	 * @private
+	 */
+	convertToTask : function()
+	{
+		return {
+			xtype: 'zarafa.conditionalitem',
+			text : _('Create task'),
+			iconCls : 'icon_createTask',
+			singleSelectOnly: true,
+			hidden: true,
+			handler: this.onContextItemCreateTask,
+			scope: this
+		}
+	},
+
+	/**
+	 * Event Handler triggered when {@link #convertToTask convert to task} context menu item is click. 
+	 * function is used to convert email to task record 
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item context menu item 
+	 * @param {Ext.EventObject} event The event information
+	 * @private
+	 */
+	onContextItemCreateTask : function(menuItem, event)
+	{
+		var records = menuItem.getRecords();
+		Zarafa.task.Actions.createTaskFromMail(records, this.getModel());
 	}
 });
 

@@ -63,8 +63,6 @@ Zarafa.note.ui.NoteContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu,
 			handler : this.onContextItemOpen,
 			singleSelectOnly : true
 		}, {
-			//Print button, hide this as this functionality is still not implemented, so hide this button
-			hidden: true,
 			text : _('Print'),
 			iconCls : 'icon_print',
 			scope : this,

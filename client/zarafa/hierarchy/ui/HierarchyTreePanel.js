@@ -33,13 +33,6 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	bbarConfig: undefined,
 
 	/**
-	 * Reference to the {@link Ext.form.Checkbox Checkbox} in the top toolbar.
-	 * @property
-	 * @type Ext.form.Checkbox
-	 */
-	showAllFoldersCheckbox: undefined,
-
-	/**
 	 * @cfg {Boolean} showAllFoldersDefaultValue True to render the 'Show all folders'
 	 * {@link #showAllFoldersCheckbox checkbox} as {@link Ext.form.Checkbox#checked checked}.
 	 */
@@ -62,6 +55,7 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			flex : 1,
 			minHeight : 100,
 			stateful : true,
+			statefulName : 'hierarchytree',
 			tbar: {
 				items: [
 				// Start aligning right
@@ -79,6 +73,7 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 					ref: '../showAllFoldersCheckbox',
 					checked : checked,
 					listeners : {
+						beforerender: this.reviseCheckboxDisablity,
 						check: this.onCheckShowAllFoldersCheckbox,
 						scope: this
 					}
@@ -172,6 +167,8 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 		this.mon(this.store, 'removeFolder', this.onFolderRemove, this);
 		this.mon(container, 'folderselect', this.onFolderSelect, this);
 
+		this.mon(container, 'contextswitch', this.reviseCheckboxDisablity, this);
+
 		// TODO This needs to be fixed by lazy loading the stuff in the mainPanel, then we can do container.getNavigationBar()
 		// But at the moment it is instantiated as getMainPanel is run and so we cannot yet get the navigationBar that way
 		var navigationPanel = this.findParentByType('zarafa.navigationpanel');
@@ -214,6 +211,31 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 		}
 
 		Zarafa.hierarchy.ui.HierarchyTreePanel.superclass.initEvents.call(this);
+	},
+
+	/**
+	 * Register the {@link #stateEvents state events} to the {@link #saveState} callback function.
+	 * @protected
+	 */
+	initStateEvents : function(){
+		Zarafa.hierarchy.ui.HierarchyTreePanel.superclass.initStateEvents.call(this);
+		this.mon(this.showAllFoldersCheckbox, 'check', this.saveState, this, {delay: 100});
+	},
+
+	/**
+	 * Fires on {@link Zarafa.core.Container#contextswitch}, or {@link Ext.form.Checkbox#beforerender}.
+	 * Make (@link #showAllFoldersCheckbox) disable if current context is Settings or Zarafa, enable otherwise.
+	 * @param {Object | Ext.form.Checkbox} parameters contains folder details or checkbox instance
+	 * @param {Context} oldContext (optional) previously selected context
+	 * @param {Context} newContext (optional) selected context
+	 *
+	 * @private
+	 */
+	reviseCheckboxDisablity : function(parameters, oldContext, newContext)
+	{
+		newContext = newContext || container.getCurrentContext();
+		var settingsOrToday = (newContext == container.getContextByName('settings') || newContext == container.getContextByName('today'));
+		this.showAllFoldersCheckbox.setDisabled(settingsOrToday);
 	},
 
 	/**
@@ -263,7 +285,10 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			var targetFolder = targetNode.getFolder();
 			var store = sourceNodes[0].getStore();
 
-			if (dropEvent.rawEvent.ctrlKey) {
+			// When dropping items in the wastebasket, call deleteRecords so recurring meetings are handled.
+			if(targetFolder.isSpecialFolder('wastebasket')) {
+				Zarafa.common.Actions.deleteRecords(sourceNodes);
+			} else if (dropEvent.rawEvent.ctrlKey) {
 				for (var i = 0, len = sourceNodes.length; i < len; i++) {
 					sourceNodes[i].copyTo(targetFolder);
 				}
@@ -273,7 +298,10 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 				}
 			}
 
-			store.save(sourceNodes);
+			// store.save is already called in deleteRecords
+			if(!targetFolder.isSpecialFolder('wastebasket')) {
+				store.save(sourceNodes);
+			}
 		}
 	},
 
@@ -329,7 +357,13 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	onFolderSelect : function(folder)
 	{
 		if (Ext.isArray(folder)) {
-			folder = folder[0];
+
+			// If we have multi selected folder then select previously selected node in tree.
+			if (folder.length > 1 && this.model) {
+				folder = this.model.getDefaultFolder();
+			} else {
+				folder = folder[0];
+			}
 		}
 
 		// Select the node of selected folder.
@@ -350,6 +384,11 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			var folders = this.model.getFolders();
 			for (var i = 0, len = folders.length; i < len; i++) {
 				this.selectFolderInTree(folders[i]);
+			}
+
+			// If we have multi selected folder then select previously selected node in tree.
+			if (folders.length > 1 && this.model) {
+				this.selectFolderInTree(this.model.getDefaultFolder());
 			}
 		}
 	},
@@ -479,6 +518,33 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 		}
 
 		Zarafa.hierarchy.ui.HierarchyTreePanel.superclass.beforeDestroy.apply(this, arguments);
+	},
+
+	/**
+	 * When {@link #stateful} the State object which should be saved into the
+	 * {@link Ext.state.Manager}.
+	 * @return {Object} The state object
+	 * @protected
+	 */
+	getState : function()
+	{
+		var state = Zarafa.hierarchy.ui.HierarchyTreePanel.superclass.getState.call(this) || {};
+		var checkboxValue = this.showAllFoldersCheckbox.getValue();
+		return Ext.apply(state, {
+			showallcheckbox : checkboxValue
+		});
+	},
+
+	/**
+	 * Obtain the path in which the {@link #getState state} must be saved.
+	 * This option is only used when the {@link Zarafa.core.data.SettingsStateProvider SettingsStateProvider} is
+	 * used in the {@link Ext.state.Manager}. This returns {@link #statefulName} if provided, or else generates
+	 * a custom name.
+	 * @return {String} The unique name for this component by which the {@link #getState state} must be saved. 
+	 */
+	getStateName : function()
+	{
+		return 'sidebars/' + Zarafa.core.ui.MainViewSidebar.superclass.getStateName.call(this);
 	}
 });
 Ext.reg('zarafa.hierarchytreepanel', Zarafa.hierarchy.ui.HierarchyTreePanel);

@@ -106,7 +106,6 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 
 		Ext.applyIf(config, {
 			baseCls : 'zarafa-calendar',
-			calendarColorScheme : Zarafa.calendar.ui.ColorSchemes[0],
 			todayColorLow : '#f79a21',
 			todayColorHigh : '#ffef7b',
 			enableDD : true,
@@ -280,11 +279,11 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 		context.fillStyle = this.calendarColorScheme.header;
 		context.fillRect(0, 0, width, height);
 
-		context.strokeStyle = this.calendarColorScheme.border;
+		context.strokeStyle = this.calendarColorScheme.linenormal;
 		context.strokeRect(0.5, 0.5, width - 1, height - 1);
 
 		// draw vertical lines to visually separate the different day strips
-		context.strokeStyle = this.calendarColorScheme.border;
+		context.strokeStyle = this.calendarColorScheme.linenormal;
 		for (var i = 1, len = dayPositions.length; i < len; i++) {
 			var pos = dayPositions[i];
 
@@ -400,7 +399,7 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 		}
 
 		// draw vertical lines to visually separate the different day strips
-		context.strokeStyle = this.calendarColorScheme.border;
+		context.strokeStyle = this.calendarColorScheme.linenormal;
 		for (var i = 0, len = dayPositions.length; i < len; i++) {
 			var pos = dayPositions[i];
 

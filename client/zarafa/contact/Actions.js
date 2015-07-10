@@ -108,6 +108,13 @@ Zarafa.contact.Actions = {
 		contactRecord.set('email_address_1', record.get('smtp_address'));
 		contactRecord.set('email_address_type_1', record.get('address_type'));
 		contactRecord.updateAddressbookProps();
+		
+		// Use the same logic as the {@link Zarafa.contact.dialogs.ContactDetailTab ContactDetailTab}
+		// to set the given_name and surname.
+		var ContactParser = new Zarafa.contact.data.ContactDetailsParser;
+		var data = ContactParser.parseNameInfo(record.get('display_name'));
+		contactRecord.set('given_name', data['given_name']);
+		contactRecord.set('surname', data['surname']);
 		contactRecord.endEdit();
 	},
 

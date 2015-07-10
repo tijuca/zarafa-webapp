@@ -68,6 +68,18 @@ Zarafa.mail.KeyMapping = Ext.extend(Object, {
 				description : _('Forward'),
 				category : _('Mail')
 			}
+		},{
+			key: Ext.EventObject.E,
+			ctrl: true,
+			alt: false,
+			shift: false,
+			stopEvent: true,
+			handler: this.onEditAsNewMail,
+			scope: this,
+			settingsCfg : {
+				description : _('Edit as New Message'),
+				category : _('Mail')
+			}
 		}];
 
 		var mailGridKeys = [{
@@ -101,7 +113,7 @@ Zarafa.mail.KeyMapping = Ext.extend(Object, {
 		// These keys might need to be in mail-global handler
 		Zarafa.core.KeyMapMgr.register('grid.mapimessage.mail', mailGridKeys);
 
-		// Reply/Reply All/Forward Key handlers
+		// Reply/Reply All/Forward/Edit as New Key handlers
 		Zarafa.core.KeyMapMgr.register('grid.mapimessage.mail', itemActionKeys);
 		Zarafa.core.KeyMapMgr.register('previewpanel.mail', itemActionKeys);
 		Zarafa.core.KeyMapMgr.register('contentpanel.record.message.showmail', itemActionKeys);
@@ -198,6 +210,22 @@ Zarafa.mail.KeyMapping = Ext.extend(Object, {
 		var model = this.getModel(component);
 		if(record){
 			Zarafa.mail.Actions.openCreateMailResponseContent(record, model, Zarafa.mail.data.ActionTypes.FORWARD);
+		}
+	},
+
+	/**
+	 * Event handler for the keydown event of the {@link Zarafa.core.KeyMap KeyMap} when the user wants to 
+	 * edit a sent item as a new item.
+	 * @param {Number} key Key code
+	 * @param {Ext.EventObject} event The event
+	 * @param {Ext.Component} component The component on which key event is fired.
+	 */
+	onEditAsNewMail: function(key, event, component)
+	{
+		var record = this.getSelectedRecord(component);
+		var model = this.getModel(component);
+		if(record){
+			Zarafa.mail.Actions.openCreateMailResponseContent(record, model, Zarafa.mail.data.ActionTypes.EDIT_AS_NEW);
 		}
 	},
 

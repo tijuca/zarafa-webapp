@@ -123,6 +123,13 @@ Zarafa.core.Actions =
 	 * @type String
 	 */
 	updatesearch : 'updatesearch',
+	
+	/**
+	 * Used for live scroll.
+	 * @property
+	 * @type String
+	 */
+	updatelist : 'updatelist',
 
 	/**
 	 * Used for stopping search on folder.
@@ -144,6 +151,13 @@ Zarafa.core.Actions =
 	 * @type String
 	 */
 	keepalive: 'keepalive',
+
+	/**
+	 * Used to send a request to destroy the session to the server
+	 * @property
+	 * @type String
+	 */
+	destroysession: 'destroysession',
 
 	/**
 	 * Used when receiving update from server indicating there is new mail
@@ -198,6 +212,13 @@ Zarafa.core.Actions =
 	 * @type String
 	 */
 	checknames: 'checknames',
+
+	/**
+	 * Used in {@link Zarafa.core.data.IPMExpandDistlistProxy IPMExpandDistlistProxy} for expand requests
+	 * @property
+	 * @type String
+	 */
+	expand: 'expand',
 
 	/**
 	 * Used in {@link Zarafa.core.data.IPMAttachmentProxy IPMAttachmentProxy} for uploading attachments.

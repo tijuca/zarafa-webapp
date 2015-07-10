@@ -296,8 +296,42 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 		if (this.record.get('alldayevent') === true && !newRange.isAllDay()) {
 			this.record.set('alldayevent', false);
 		}
+		this.updateRecurringInfo(this.record, newRange);
 		this.updateStartDueDate(this.record, newRange);
 		this.record.endEdit();
+	},
+
+	/**
+	 * Update the 'recurrence_startocc' and 'recurrence_endocc' in the given record from
+	 * the given daterange. When appointment is recurring meeting request then
+	 * update the necessary recurring information of meeting request.
+	 * 
+	 * @param {Zarafa.core.data.MAPIRecord} record the Record to update
+	 * @param {Zarafa.core.DateRange} daterange the Daterange to apply
+	 * @private
+	 */
+	updateRecurringInfo : function(record, daterange)
+	{
+		var startDate = daterange.getStartDate().clone();
+
+		if (record.get('alldayevent') === true) {
+			startDate = startDate.clearTime();
+		}
+		
+		// Add some necessary properties while time information of
+		// recurring meeting gets updated from scheduler.
+		if(record.isRecurring() && record.isMeeting()) {
+			record.updateTimezoneInformation();
+			var startOcc = (startDate.getHours() * 60) + startDate.getMinutes();
+			var endOcc = startOcc + daterange.getDuration(Date.MINUTE);
+			record.beginEdit();
+			record.set('recurring_reset', true);
+			record.set('recurrence_startocc', startOcc);
+			record.set('recurrence_endocc', endOcc);
+			record.set('recurrence_start', startDate.clearTime(true).fromUTC());
+			record.set('recurring_pattern', record.generateRecurringPattern());
+			record.endEdit();
+		}
 	},
 
 	/**
@@ -310,6 +344,7 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 	 */
 	onDateRangeFieldChange : function(field, newRange, oldRange)
 	{
+		this.updateRecurringInfo(this.record, newRange);
 		this.updateStartDueDate(this.record, newRange);
 	},
 
