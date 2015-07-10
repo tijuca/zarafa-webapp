@@ -9,18 +9,12 @@
 
 # We have to filter out some files and directorys from the upstream source.
 FILTER="\
-client/jquery/jquery-1.6.2.min.js \
+client/tinymce/jquery.tinymce.min.js \
 client/tinymce/plugins/media/moxieplayer.swf \
 plugins/files/js/external/uxmediapak.js \
 plugins/files/resources/flash/player.swf \
-plugins/xmpp/jsjac \
+plugins/pdfbox/pdfjs/pdf.min.worker.js \
 server/PEAR/JSON.php \
-tools/resources/ext-doc/template/ext/resources/ext-base.js \
-tools/resources/ext-doc/template/ext/resources/ext-all.js \
-tools/resources/ext-doc/template/dot/resources/ext-base.js \
-tools/resources/ext-doc/template/dot/resources/ext-all.js \
-tools/resources/ext-doc/template/ext/resources/prettify/prettify.js \
-tools/resources/ext-doc/template/dot/resources/prettify/prettify.js \
 "
 OPTIONS="--sign-tags --verbose"
 
@@ -59,16 +53,22 @@ fi
 if [ $(($#)) -lt 1 ]; then
     echo "You need to add the upstream file!" >&2
     usage
-	exit ${EXIT_FAILURE}
+    exit ${EXIT_FAILURE}
 fi
 
 cd ${TMPDIR}
 tar -xzf $1
 # getting directory there the source is exctracted
 SOURCEDIR=`ls -D . | grep *webapp*`
-NAME=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $1}'`
-VERSION=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $2}'`
+NAME=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $1"-"$2}'`
+VERSION=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $3}'`
 FINALNAME="${NAME}_${VERSION}"
+
+# uncomment for debugging
+#echo SOURCEDIR= $SOURCEDIR
+#echo NAME=      $NAME
+#echo VERSION=   $VERSION
+#echo FINALNAME= $FINALNAME
 
 echo "renaming '${SOURCEDIR}' to '${FINALNAME}'"
 mv ${SOURCEDIR} ${FINALNAME}
