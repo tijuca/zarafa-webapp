@@ -19,6 +19,8 @@ override_dh_auto_build:
 	cd plugins/xmpp/ ;\
 		rm -rf jsjac ;\
 		ln -s /usr/share/javascript/jsjac
+	# remove the license file from tinymce
+	rm -f client/tinymce/license.txt
 	# now let's build the stuff
 	ant deploy deploy-plugins
 
