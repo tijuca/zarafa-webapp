@@ -15,11 +15,6 @@ override_dh_auto_clean:
 
 override_dh_auto_build:
 	# linking some stuff from other packages
-	# libjs-extjs -> tools/resources/ext-doc/template/dot/resources/
-	cd tools/resources/ext-doc/template/dot/resources/ ;\
-		rm -f ext-base.js && rm -f ext-all.js ;\
-		ln -s /usr/share/javascript/extjs/adapter/ext/ext-base.js ;\
-		ln -s /usr/share/javascript/extjs/ext-all.js
 	# libjs-prettify -> tools/resources/ext-doc/template/ext/resources/prettify/
 	cd tools/resources/ext-doc/template/ext/resources/ ;\
 		rm -rf prettify ;\
