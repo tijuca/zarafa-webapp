@@ -5,6 +5,31 @@ WABASE=/usr/share/zarafa-webapp
 WACONFBASE=/etc/zarafa/webapp
 APACHECONFBASE=/etc/apache2/sites-available
 WA=$(WADEB)$(WABASE)
+PACKAGES=\
+browsercompatibility \
+clockwidget \
+contactfax \
+dropboxattachment \
+extbox \
+feedback \
+files \
+folderwidgets \
+gmaps \
+oauthlib \
+pdfbox \
+pimfolder \
+quickitems \
+salesforce \
+shellgame \
+spreed \
+statslogging \
+sugarcrm \
+titlecounter \
+webappmanual \
+webodf \
+xmpp \
+zdeveloper \
+zperformance
 
 export DH_VERBOSE=1
 
@@ -47,7 +72,7 @@ override_dh_auto_install:
 	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
 
 	# packaging of plugins
-	for i in browsercompatibility clockwidget contactfax dropboxattachment extbox feedback files folderwidgets gmaps oauthlib pdfbox pimfolder quickitems salesforce shellgame spreed statslogging sugarcrm titlecounter webappmanual webodf xmpp zdeveloper zperformance; do \
+	for i in ${PACKAGES}; do \
 		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
 		Q=$(CURDIR)/debian/zarafa-webapp-$$i$(WACONFBASE) ; \
 		mkdir -v -p $$P; \
