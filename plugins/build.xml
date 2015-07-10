@@ -65,7 +65,7 @@
 
 	<!-- Execute the given action on all plugins -->
 	<target name="execute">
-		<foreach target="execute-plugin" param="plugin">
+		<foreach target="execute-plugin" param="plugin" parallel="true">
 			<path>
 				<dirset dir="${plugins-folder}">
 					<include name="*"/>

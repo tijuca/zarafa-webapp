@@ -126,6 +126,8 @@ Zarafa.common.rules.dialogs.UserSelectionLink = Ext.extend(Ext.BoxComponent, {
 
 		this.mon(this.getActionEl(), 'click', this.onClick, this);
 		this.mon(this.store, 'update', this.onRecipientUpdate, this);
+		this.mon(this.store, 'add', this.onRecipientAdd, this);
+		this.mon(this.store, 'resolved', this.onRecipientAdd, this);
 	},
 
 	/**
@@ -143,6 +145,39 @@ Zarafa.common.rules.dialogs.UserSelectionLink = Ext.extend(Ext.BoxComponent, {
 			// update ui, after store is updated
 			this.update(this.store);
 		}
+	},
+
+	/**
+	 * Handler will be called when recipient is added to {@link Zarafa.core.data.IPMRecipientStore IPMRecipientStore}.
+	 * @param {Zarafa.core.data.IPMRecipientStore} store The store which fired the event
+	 * @param {Zarafa.core.data.IPMRecipientRecord} records The records which have been added
+	 * @private
+	 */
+	onRecipientAdd : function(store, records)
+	{
+		var record = records[0];
+		if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
+			Ext.MessageBox.show({
+				title: _('Zarafa WebApp'), 
+				msg: _('Distribution lists are not supported in rules, would you like to replace the distribution list with its members?'), 
+				buttons: Ext.MessageBox.YESNO, 
+				fn: this.onExpandDistList.createDelegate(this, [record], 1),
+				scope: this
+			});
+		}
+	},
+
+	/**
+	 * Handler for messagebox which asks the user to expand the distribution list of remove it.
+	 * @param {String} btn string containing either 'yes' or 'no
+	 * @param {Zarafa.core.data.IPMRecipientRecord} recip The records which should been expanded
+	 */
+	onExpandDistList: function(btn, recip)
+	{
+		if(btn === 'yes') {
+			this.store.expand(recip, true);
+		}
+		this.store.remove(recip);
 	},
 
 	/**

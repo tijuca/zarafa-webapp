@@ -116,7 +116,7 @@ Zarafa.core.data.IPMAttachmentRecord = Ext.extend(Ext.data.Record, {
 	 */
 	isHidden : function()
 	{
-		return this.hidden;
+		return this.get('hidden');
 	},
 
 	/**
@@ -157,11 +157,12 @@ Zarafa.core.data.IPMAttachmentRecord = Ext.extend(Ext.data.Record, {
 	/**
 	 * Builds and returns attachment URL to download attachment,
 	 * it uses {@link Zarafa.core.data.IPMRecord IPMRecord} to get store and message entryids.
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 * @return {String} URL for downloading attachment.
 	 */
-	getAttachmentUrl : function()
+	getAttachmentUrl : function(allAsZip)
 	{
-		return this.store.getAttachmentUrl(this);
+		return this.store.getAttachmentUrl(this, allAsZip);
 	},
 
 	/**

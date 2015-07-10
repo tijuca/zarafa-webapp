@@ -22,6 +22,7 @@ define('PR_CONVERSION_EITS'                           ,mapi_prop_tag(PT_BINARY, 
 define('PR_CONVERSION_WITH_LOSS_PROHIBITED'           ,mapi_prop_tag(PT_BOOLEAN,     0x000D));
 define('PR_CONVERTED_EITS'                            ,mapi_prop_tag(PT_BINARY,      0x000E));
 define('PR_DEFERRED_DELIVERY_TIME'                    ,mapi_prop_tag(PT_SYSTIME,     0x000F));
+define('PR_DEFERRED_SEND_TIME'                        ,mapi_prop_tag(PT_SYSTIME,     0x3FEF));
 define('PR_DELIVER_TIME'                              ,mapi_prop_tag(PT_SYSTIME,     0x0010));
 define('PR_DISCARD_REASON'                            ,mapi_prop_tag(PT_LONG,        0x0011));
 define('PR_DISCLOSURE_OF_RECIPIENTS'                  ,mapi_prop_tag(PT_BOOLEAN,     0x0012));
@@ -1027,6 +1028,7 @@ define('PR_ADDITIONAL_REN_ENTRYIDS'                   ,mapi_prop_tag(PT_MV_BINAR
 define('PR_FREEBUSY_ENTRYIDS'                         ,mapi_prop_tag(PT_MV_BINARY,   0x36E4));
 define('PR_REM_ONLINE_ENTRYID'                        ,mapi_prop_tag(PT_BINARY,      0x36D5));
 define('PR_REM_OFFLINE_ENTRYID'                       ,mapi_prop_tag(PT_BINARY,      0x36D6));
+define('PR_FREEBUSY_COUNT_MONTHS'                     ,mapi_prop_tag(PT_LONG,        0x6869));
 /*
 PR_IPM_OL2007_ENTRYIDS:
 	This is a single binary property containing the entryids for:

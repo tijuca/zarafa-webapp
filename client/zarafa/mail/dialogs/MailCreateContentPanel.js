@@ -171,6 +171,12 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 				record.setDelegatorInfo(delegator);
 			}
 
+			// When a 'send as' has been configured, enable the from field.
+			var sendAs = container.getSettingsModel().get('zarafa/v1/contexts/mail/sendas', true);
+			if(!Ext.isEmpty(sendAs)) {
+				hasFrom = true;
+			}
+
 			if(record.get('sent_representing_email_address')) {
 				hasFrom = true;
 				var delegatorFieldStore = this.mainPanel.fromRecipientField.getBoxStore();
@@ -195,6 +201,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 				switch (record.getMessageAction('action_type')) {
 					case Zarafa.mail.data.ActionTypes.REPLY:
 					case Zarafa.mail.data.ActionTypes.REPLYALL:
+					case Zarafa.mail.data.ActionTypes.EDIT_AS_NEW:
 						// Automatically place the focus on the body
 						this.inputAutoFocusPlugin.setAutoFocus('zarafa.editorfield');
 						break;

@@ -40,6 +40,13 @@ Zarafa.mail.data.ActionTypes =
 	FORWARD_ATTACH	: 'forward_attach',
 
 	/**
+	 * The message is an "edit as new" message created from a different {@link Zarafa.mail.MaiLRecord MailRecord}
+	 * @property
+	 * @type String
+	 */
+	EDIT_AS_NEW	: 'edit_as_new',
+
+	/**
 	 * Method used to determine if the given parameter is one of the known {@link Zarafa.mail.data.ActionTypes actiontype}.
 	 * @param {String} actionType what action type to check.
 	 * @return {Boolean} true if the given action type is one of the types defined in this class.

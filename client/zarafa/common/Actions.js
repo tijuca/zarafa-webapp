@@ -231,15 +231,22 @@ Zarafa.common.Actions = {
 	 * and call {@link Zarafa.common.attachment.ui.AttachmentDownloader#downloadMessage} method to start download the message as file
 	 * by setting the dialogFrame's location to the download URL of the given {@link Zarafa.core.data.IPMRecord records}.
 	 * @param {Zarafa.core.data.IPMRecord} records The record, or records which user want to save as file.
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 */
-	openSaveEmlDialog : function(records)
+	openSaveEmlDialog : function(records, allAsZip)
 	{
 		records = [].concat(records);
 
-		for (var i = 0; i < records.length; i++) {
-			var record = records[i];
+		if(!allAsZip){
+			for (var i = 0; i < records.length; i++) {
+				var record = records[i];
+				// Create separate iframe for each url to handle requests individually
+				var downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
+				downloadComponent.downloadItem(record.getDownloadMessageUrl(false));
+			}
+		} else {
 			var downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
-			downloadComponent.downloadMessage(record.getDownloadMessageUrl());
+			downloadComponent.downloadMessageAsZip(records);
 		}
 	},
 
@@ -751,22 +758,20 @@ Zarafa.common.Actions = {
 			saveRecords[0].store.save(saveRecords);
 		}
 	},
+
 	/**
 	 * Will start the download by setting the dialogFrame's location to the download URL of the file.
 	 * 
 	 * @param {Zarafa.core.data.IPMAttachmentRecord} records The record of the file to be downloaded
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 */
-	downloadAttachment : function(record)
+	downloadAttachment : function(record, allAsZip)
 	{
-		//TODO: allow downloading multiple files
-		if(!this.downloadFrame){
-			this.downloadFrame = Ext.getBody().createChild({
-				tag: 'iframe',
-				cls: 'x-hidden'
-			});
+		if(!this.downloadFrame) {
+			this.downloadFrame = new Zarafa.common.attachment.ui.AttachmentDownloader();
 		}
-		var url = record.getAttachmentUrl();
-		this.downloadFrame.dom.contentWindow.location = url;
+
+		this.downloadFrame.checkForEmbeddedAttachments(record, allAsZip);
 	},
 
 	/**

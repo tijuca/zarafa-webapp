@@ -32,6 +32,11 @@
 	// Name of the cookie that is used for the session
 	define("COOKIE_NAME", "ZARAFA_WEBAPP");
 
+	// The timeout (in seconds) for the session. User will be logged out of WebApp
+	// when he has not actively used the WebApp for this time.
+	// Set to 0 (or remove) for no timeout during browser session.
+	define('CLIENT_TIMEOUT', 0);
+
 	// Defines the base url and end with a slash.
 	$base_url = dirname($_SERVER["PHP_SELF"]);
 	if(substr($base_url,-1)!="/") $base_url .="/";
@@ -91,11 +96,26 @@
 	// Freebusy end offset that will be used to load freebusy data in appointments, number is added to current time
 	define('FREEBUSY_LOAD_END_OFFSET', 90);
 
+	// Maximum eml files to be included in a single ZIP archive
+	define('MAX_EML_FILES_IN_ZIP', 50);
+
 	// Standard password key for session password. We recommend to change the default value for security reasons 
 	// and a length of 16 characters. Passwords are only encrypted when the openssl module is installed
 	// IV vector should be 8 bits long
 	define('PASSWORD_KEY','a75356b0d1b81b7');
 	define('PASSWORD_IV','b3f5a483');
+	
+	// Additional color schemes for the calendars can be added by uncommenting and editing the following define.
+	// The format is the same as the format of COLOR_SCHEMES which is defined in default.php
+	// To change the default colors, COLOR_SCHEMES can also be defined here.
+	// 
+	// define('ADDITIONAL_COLOR_SCHEMES', json_encode(array(
+	// 		array(
+	//			'name' => 'pink',
+	//			'displayName' => _('Pink'),
+	//			'base' => '#ff0099'
+	//		)
+	// )));
 
 	/**************************************\
 	* Memory usage and timeouts            *

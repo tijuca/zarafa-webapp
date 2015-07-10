@@ -9,13 +9,12 @@
 	<property name="outputfile" value="${basedir}/tools.jar"/>
 
 	<!-- Meta target -->
-	<target name="all" depends="imagegen, jsconcat, ext-doc, package"/>
+	<target name="all" depends="jsconcat, ext-doc, package"/>
 	
 	<!-- Clean -->
 	<target name="clean">
 		<delete file="${outputfile}"/>
 		<delete dir="${outputdir}"/>
-		<build-tool name="imagegen" target="clean"/>
 		<build-tool name="jsconcat" target="clean"/>
 		<build-tool name="ext-doc" target="clean"/>
 	</target>
@@ -23,9 +22,6 @@
 	<!-- Creates required output dirs -->
 	<target name="init"><mkdir dir="${outputdir}"/></target>
 	
-	<!-- ImageGen build target -->
-	<target name="imagegen" depends="init"><build-tool name="imagegen" target="all"/></target>
-
 	<!-- JsConcat build target -->
 	<target name="jsconcat" depends="init"><build-tool name="jsconcat" target="all"/></target>
 	
@@ -36,7 +32,6 @@
 	<target name="package">
 		<jar destfile="${outputfile}">
 			<!-- Custom build tools -->
-			<zipfileset src="build/imagegen.jar" excludes="META-INF/*"/>
 			<zipfileset src="build/jsconcat.jar" excludes="META-INF/*"/>
 			<zipfileset src="build/ext-doc.jar" excludes="META-INF/*"/>
 

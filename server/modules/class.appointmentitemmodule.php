@@ -223,6 +223,19 @@
 				$data = array();
 				if ($result) {
 					$data = Conversion::mapMAPI2XML($this->properties, $messageProps);
+
+					// Get recipient information from the saved appointment to update client side
+					// according to the latest recipient related changes only if changes requested from client.
+					$savedAppointment = $GLOBALS['operations']->openMessage($store, $messageProps[PR_ENTRYID]);
+					if(!empty($action['recipients'])) {
+						$recipients = $GLOBALS["operations"]->getRecipientsInfo($store, $savedAppointment);
+						if(!empty($recipients)) {
+							$data["recipients"] = array(
+								"item" => $recipients
+							);
+						}
+					}
+
 					$data['action_response'] = Array(
 						'resources_booked' => $this->directBookingMeetingRequest
 					);

@@ -27,7 +27,7 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta name="Generator" content="Zarafa WebApp v<?=$version?>">
+		<meta name="Generator" content="Zarafa WebApp v<?php echo $version ?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Zarafa WebApp</title>
 		<link rel="stylesheet" type="text/css" href="client/resources/css-extern/login.css">
@@ -49,9 +49,9 @@
 		<table id="layout">
 			<tr><td>
 				<div id="login_main">
-					<form action="index.php<?= $url ?>" method="post">
+					<form action="index.php<?php echo $url ?>" method="post">
 						<div id="login_data">
-							<p><?=!(isset($GLOBALS["hresult"]))?_("Please logon"):"&nbsp;"?></p>
+							<p><?php echo !(isset($GLOBALS["hresult"]))? _("Please logon"): "&nbsp;" ?></p>
 							<p class="error"><?php
 
 	if (isset($GLOBALS["hresult"])) {
@@ -78,18 +78,18 @@
 							?></p>
 							<table id="form_fields">
 								<tr>
-									<td><input type="text" name="username" id="username" placeholder="Username" class="inputelement" value=<?= $user ?>></td>
+									<td><input type="text" name="username" id="username" placeholder="Username" class="inputelement" value=<?php echo $user ?>></td>
 								</tr>
 								<tr>
 									<td><input type="password" name="password" id="password" placeholder="Password" class="inputelement"></td>
 								</tr>
 								<tr>
-									<td class="button-row"><input id="submitbutton" class="button" type="submit" value=<?=_("Logon")?>></td>
+									<td class="button-row"><input id="submitbutton" class="button" type="submit" value=<?php echo _("Logon") ?>></td>
 								</tr>
 							</table>
 						</div>
 					</form>
-					<span id="version"><?= $longversion ?></span>
+					<span id="version"><?php echo $longversion ?></span>
 				</div>
 			</td></tr>
 		</table>

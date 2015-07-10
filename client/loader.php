@@ -21,7 +21,6 @@ class FileLoader {
 			$jsLoadingSequence[] = "client/extjs/ext-all.js";
 			$jsLoadingSequence[] = "client/extjs/ux/ux-all.js";
 			$jsLoadingSequence[] = "client/extjs-mod/extjs-mod.js";
-			$jsLoadingSequence[] = "client/jquery/jquery-1.6.2.min.js";
 			$jsLoadingSequence[] = "client/tinymce/tinymce.min.js";
 			$jsLoadingSequence[] = "client/third-party/ux-thirdparty.js";
 		} else if ($load == LOAD_DEBUG) {
@@ -29,7 +28,6 @@ class FileLoader {
 			$jsLoadingSequence[] = "client/extjs/ext-all-debug.js";
 			$jsLoadingSequence[] = "client/extjs/ux/ux-all-debug.js";
 			$jsLoadingSequence[] = "client/extjs-mod/extjs-mod-debug.js";
-			$jsLoadingSequence[] = "client/jquery/jquery-1.6.2.min.js";
 			$jsLoadingSequence[] = "client/tinymce/tinymce.js";
 			$jsLoadingSequence[] = "client/third-party/ux-thirdparty-debug.js";
 		} else {
@@ -42,7 +40,6 @@ class FileLoader {
 					$this->getListOfFiles('js', 'client/extjs-mod')
 				)
 			);
-			$jsLoadingSequence[] = "client/jquery/jquery-1.6.2.min.js";
 			$jsLoadingSequence[] = "client/tinymce/tinymce.dev.js";
 			$jsLoadingSequence = array_merge(
 				$jsLoadingSequence,

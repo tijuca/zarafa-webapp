@@ -36,6 +36,13 @@
 	background-position: center;
 }
 
+.icon_editAsNewEmail
+{
+	background-image: url(../icons/new/edit_as_new_mail.png) ! important;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .icon_sendEmail
 {
 	background-image: url(../icons/new/mail_send.png) ! important;
@@ -68,6 +75,11 @@
 .icon_attachment_download
 {
 	background-image: url(../icons/new/download.png) !important;
+}
+
+.icon_attachment_download_zip
+{
+	background-image: url(../icons/new/download_zip.png) !important;
 }
 
 .icon_attachment
@@ -361,11 +373,17 @@
 {
 	background-image: url(../icons_large/new/note_menu.png) ! important;
 }
-.icon_search
+
+.icon_search, .advance_search
 {
-	background-image: url(../icons/new/magnifier.png) ! important;
+	background-image: url(../icons/new/magnifier.png) !important;
 	background-repeat: no-repeat ! important;
 	background-position: 0 center ! important;
+}
+
+.advance_search
+{
+	background-position: -35px center !important;
 }
 
 .icon_advanced_find
@@ -476,7 +494,14 @@
 
 .icon_saveaseml
 {
-	background-image: url(../icons/new/save_as_eml.png) ! important;
+	background-image: url(../icons/new/download.png) !important;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.icon_saveemlaszip
+{
+	background-image: url(../icons/new/download_zip.png) !important;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -1371,4 +1396,11 @@
 }
 .view_icon {
 	background-image: url(../icons_large/new/view.png) !important;
+}
+
+.mixattach-message-box-icon {
+	background-image: url("../icons/new/download_zip_large.png") !important;
+	float: left;
+	height: 32px;
+	width: 41px;
 }

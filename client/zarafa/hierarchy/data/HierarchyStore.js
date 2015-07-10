@@ -347,7 +347,7 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 				}
 			}
 			var folder = this.getFolder((records[0].get('default_folder_'+folder_type)));
-			if (Ext.isDefined(folder)) {
+			if (Ext.isDefined(folder) && folder_type!=='calendar') {
 				Zarafa.hierarchy.Actions.openFolder(folder);
 			}
 			
@@ -749,7 +749,21 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 			// If this notification came at the same time as we reloaded this folder,
 			// we already obtained created item, and we don't need to reload.
 			if (!timestamp || records[i].lastExecutionTime(Zarafa.core.Actions['list']) < timestamp) {
-				records[i].reload();
+				/*
+				 * If this notification come at the time while user live scorlling 
+				 * then we have to reload the mail store with all mails(limit should 
+				 * be total loaded mails in grid).
+				 */
+				if(records[i].lastOptions.actionType === Zarafa.core.Actions['updatelist']) {
+					delete records[i].lastOptions.add;
+					Ext.apply(records[i].lastOptions.params.restriction,{
+						start : 0,
+						limit : records[i].getCount()
+					})
+					records[i].reload(records[i].lastOptions);
+				} else {
+					records[i].reload();
+				}
 			}
 		};
 
@@ -797,6 +811,31 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 			params : {},
 			// indicate that this is a keepalive request
 			actionType : Zarafa.core.Actions['keepalive']
+		};
+
+		// fire request
+		this.proxy.request(Ext.data.Api.actions['read'], null, options.params, this.reader, Ext.emptyFn, this, options);
+	},
+
+	/**
+	 * Function will be used to send {Zarafa.core.Actions#destroysession destroysession} requests to the server. This will be used when
+	 * CLIENT_TIMEOUT has been set in the configuration and the user has been idle for this time.
+	 * Function is created on a fingerprint of {@link #load} method, which performs a 'read' operation
+	 * for {@link Zarafa.hierarchy.data.HierarchyStore HierarchyStore}.
+	 * Reason to create this function was we don't have any operation type for destroysession requests
+	 * other than CRUD so what we do is call {@link Zarafa.hierarchy.data.HierarchyProxy#request}
+	 * method of {@link Zarafa.hierarchy.data.HierarchyProxy HierarchyProxy} with 'read' operation
+	 * and {Zarafa.core.Actions#destroysession destroysession} as {@link #actionType} in options, 
+	 * we also need to pass Ext.emptyFn as callback function and this way don't interfere with 
+	 * the working of {@link #load} and {@link #reload} functionalities.
+	 * @private
+	 */
+	sendDestroySession : function()
+	{
+		var options = {
+			params : {},
+			// indicate that this is a destroysession request
+			actionType : Zarafa.core.Actions['destroysession']
 		};
 
 		// fire request

@@ -418,6 +418,12 @@ Zarafa.common.ui.Box = Ext.extend(Ext.BoxComponent, {
 						 this.iconEl.getWidth() + this.iconEl.getFrameWidth('lr') + this.iconEl.getMargins('lr') +
 						 this.delBtnEl.getWidth() + this.delBtnEl.getFrameWidth('lr') + this.delBtnEl.getMargins('lr') +
 						 this.getResizeEl().getFrameWidth('lr') + this.getResizeEl().getMargins('lr'));
+
+			// Adjust the text width according to expand button as well, if it is defined.
+			if(Ext.isDefined(this.expandBtnEl)){
+				adjWidth -= (this.expandBtnEl.getWidth() + this.expandBtnEl.getFrameWidth('lr') + this.expandBtnEl.getMargins('lr'));
+			}
+
 			this.textEl.setWidth(adjWidth);
 		}
 	},

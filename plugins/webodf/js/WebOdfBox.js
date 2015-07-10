@@ -278,14 +278,7 @@ Zarafa.plugins.webodf.WebOdfBox = Ext.extend(Object, {
 		var topOffset = Math.max(0, Math.round((viewSize.domHeight - newSize.newHeight)/2) - this.addMargin*4);
 		
 		if(documentType == 'presentation'){
-			/**
-			 * FIXME :
-			 * It is lib problem so i have to call
-			 * this fitToContainingElement() method tow time.
-			 */
 			this.odfCanvas.fitToContainingElement(newSize.newWidth, newSize.newHeight);
-			this.odfCanvas.fitToContainingElement(newSize.newWidth, newSize.newHeight);
-
 			var canvasWidth = this.elements.canvas.getWidth();
 			var canvasHeight = this.elements.canvas.getHeight();
 			
@@ -451,7 +444,7 @@ Zarafa.plugins.webodf.WebOdfBox = Ext.extend(Object, {
 	 */
 	updateDetail :function()
 	{
-		if (this.pages.length > 1) {
+		if (this.pages.length > 0) {
 			var pageDetail = String.format(_('Page {0} of {1}'), this.currentPage, this.pages.length);
 			this.elements.pageNumber.update(pageDetail);
 			this.elements.pageNumber.show();

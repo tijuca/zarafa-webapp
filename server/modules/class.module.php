@@ -160,6 +160,10 @@
 						else
 							$e->setDisplayMessage(_("Error in search, please try again."));
 						break;
+
+					case "expand":
+						$e->setDisplayMessage(_("Error in distribution list expansion."));
+						break;
 				}
 			}
 		}

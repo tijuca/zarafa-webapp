@@ -321,8 +321,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		config = config || {};
 
 		Ext.applyIf(config, {
-			baseCls : 'zarafa-calendar',
-			themeCls: Zarafa.calendar.ui.ColorSchemes[0].name
+			baseCls : 'zarafa-calendar'
 		});
 
 		// define drag/drop events
@@ -1202,6 +1201,8 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	layoutBorder : function()
 	{
+		var selectedFolder = this.getSelectedFolder();
+		var colorScheme = this.contextModel.getColorScheme(selectedFolder.get('entryid'));
 		if (this.parentView.showBorder) {
 			var borderWidth = this.getBorderWidth();
 
@@ -1209,6 +1210,10 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			this.borderTop.dom.className = this.getClassName('border', 'top');
 			this.borderTop.setLeftTop(this.leftOffset, this.parentView.tab.getHeight() - borderWidth);
 			this.borderTop.setSize(this.width, borderWidth);
+			this.borderTop.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.borderTop.show();
 
 			// border divs in the header area
@@ -1217,11 +1222,19 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			this.headerBorderLeft.dom.className = this.getClassName('border', 'left');
 			this.headerBorderLeft.setLeftTop(this.leftOffset, 0);
 			this.headerBorderLeft.setSize(borderWidth, headerHeight);
+			this.headerBorderLeft.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.headerBorderLeft.show();
 
 			this.headerBorderRight.dom.className = this.getClassName('border', 'right');
 			this.headerBorderRight.setLeftTop(this.leftOffset + this.width - borderWidth, 0);
 			this.headerBorderRight.setSize(borderWidth, headerHeight);
+			this.headerBorderRight.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.headerBorderRight.show();
 
 			// border divs in the body area
@@ -1230,17 +1243,29 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			this.borderLeft.dom.className = this.getClassName('border', 'left');
 			this.borderLeft.setLeftTop(this.leftOffset, 0);
 			this.borderLeft.setSize(borderWidth, bodyHeight);
+			this.borderLeft.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.borderLeft.show();
 
 			this.borderRight.dom.className = this.getClassName('border', 'right');
 			this.borderRight.setLeftTop(this.leftOffset + this.width - borderWidth, 0);
 			this.borderRight.setSize(borderWidth, bodyHeight);
+			this.borderRight.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.borderRight.show();
 
 			// border div in the bottom area
 			this.borderBottom.dom.className = this.getClassName('border', 'bottom');
 			this.borderBottom.setLeftTop(this.leftOffset, 0);
 			this.borderBottom.setSize(this.width, borderWidth);
+			this.borderBottom.applyStyles({
+				'background-color' : colorScheme.header,
+				'border-color' : colorScheme.header
+			});
 			this.borderBottom.show();
 		} else {
 			this.borderTop.hide();
@@ -1291,7 +1316,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			tab.setBottomMargin(this.borderTop.getHeight());
 			tab.setLeftMargin(left);
 			tab.setWidth(width);
-			tab.themeCls = this.contextModel.getColorScheme(folder.get('entryid')).name;
 			left += width;
 		}
 	},
@@ -1307,9 +1331,10 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		if (this.selectedFolder) {
 			var colorScheme = this.contextModel.getColorScheme(this.selectedFolder.get('entryid'));
 			if(colorScheme) {
-				this.themeCls = colorScheme.name;
 				this.calendarColorScheme = colorScheme;
 			}
+		}else{
+			return Zarafa.calendar.ui.AbstractCalendarView.superclass.onLayout.call(this);
 		}
 
 		// layout border and tab
@@ -1338,11 +1363,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		// Determine the color scheme of the appointments
 		for (var i=0, appointment; appointment=this.appointments[i]; i++) {
 			var folderId = appointment.getRecord().get('parent_entryid');
-			var folder = this.getFolderById(folderId);
-
 			appointment.calendarColorScheme = this.contextModel.getColorScheme(folderId);
-			appointment.themeCls = appointment.calendarColorScheme.name;
-			// FIXME, colorScheme is deprecated
+
+			var folder = this.getFolderById(folderId);
 			appointment.setActive(folder == this.selectedFolder);
 		}
 
@@ -1629,6 +1652,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	onDrop : function(event, calendar, appointment, dateRange)
 	{
+		//Make sure this view gets the focus by calling the onTabClick event handler
+		this.onTabClick(this.getSelectedFolder());
+
 		this.fireEvent('appointmentcalendardrop', this, calendar, appointment.getRecord(), dateRange, event);
 		this.selectionModel.clearSelections();
 	},
@@ -1679,6 +1705,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	onMouseDown : function(event, appointment)
 	{
+		//Make sure this view gets the focus by calling the onTabClick event handler
+		this.onTabClick(this.getSelectedFolder());
+
 		if (appointment) {
 			var record = appointment.getRecord();
 

@@ -66,6 +66,7 @@ Zarafa.today.TodayContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype: 'zarafa.widgetpanel',
+			id: 'zarafa-mainpanel-contentpanel-today',
 			settingsPath : 'zarafa/v1/contexts/today',
 			showDefaultWidgets : ['mail', 'appointments', 'tasks'],
 			context : this,
@@ -97,7 +98,8 @@ Zarafa.today.TodayContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 1,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-today'
 		};
 	}
 });

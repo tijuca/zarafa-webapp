@@ -180,6 +180,14 @@ Zarafa.core.ModuleNames =
 	},
 
 	/**
+	 * TODO : Advance Search comments
+	 */
+	'ADVANCESEARCH' : {
+		list : 'advancedsearchlistmodule',
+		item : 'createmailitemmodule'
+	},
+
+	/**
 	 * Obtain the moduleName for an appropriate key.
 	 * The key could either be a component name, or a Message Class.
 	 *

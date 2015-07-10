@@ -13,6 +13,11 @@ Zarafa.hierarchy.ui.FolderNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 	folder : undefined,
 
 	/**
+	 * @cfg {Boolean} isNodeSelected the isNodeSelected is true when the folder is selected or checked, false otherwise.
+	 */
+	isNodeSelected : false,
+
+	/**
 	 * @cfg {String/Ext.XTemplate} tpl The template which must be applied on the {@link #text} for
 	 * rendering into the {@link Ext.tree.TreePanel tree}.
 	 */
@@ -175,7 +180,6 @@ Zarafa.hierarchy.ui.FolderNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 	update : function(deep)
 	{
 		var folder;
-		var background = '';
 
 		if (this.ownerTree && this.ownerTree.model) {
 			folder = this.ownerTree.model.getFolder(this.getFolder().get('entryid'));
@@ -183,22 +187,8 @@ Zarafa.hierarchy.ui.FolderNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
 		if (Ext.isDefined(folder)) {
 			this.setChecked(true);
-
-			if (this.getOwnerTree().colored) {
-				var scheme = this.getOwnerTree().model.getColorScheme(folder.get('entryid'));
-
-				if (scheme) {
-					background = scheme.header;
-				}				
-			}
 		} else {
 			this.setChecked(false);
-		}
-
-		// @FIXME use this.getUI().addClass instead of this
-		var ui = this.getUI();
-		if (ui.elNode) {
-			ui.elNode.style.backgroundColor = background;
 		}
 
 		if (deep) {

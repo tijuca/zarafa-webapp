@@ -33,6 +33,8 @@ Zarafa.settings.ui.SettingsGeneralCategory = Ext.extend(Zarafa.settings.ui.Setti
 			items : [{
 					xtype : 'zarafa.settingsaccountwidget'
 				},{
+					xtype : 'zarafa.settingsinboxnavigationwidget'
+				},{
 					xtype : 'zarafa.settingsaddressbookwidget'
 				},{
 					xtype : 'zarafa.settingsquotainfowidget'

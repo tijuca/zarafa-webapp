@@ -157,6 +157,20 @@ Zarafa.common.ui.messagepanel.ExtraInfoLinks = Ext.extend(Ext.Container, {
 	 * {@link Zarafa.core.data.IPMRecord record} is received as a delegate.
 	 */
 	delegatorInfoString : pgettext('mail.previewpanel', 'Received for {0}.'),
+
+	/**
+	 * @cfg {String} repliedString string which must be displayed in the dialog if the
+	 * {@link Zarafa.core.data.IPMRecord record} last_verb_executed property is 102 or 103. Which
+	 * means that the user has replied on the email.
+	 */
+	repliedString : pgettext('mail.previewpanel', 'You replied to this message on {0}.'),
+
+	/**
+	 * @cfg {String} forwardString string which must be displayed in the dialog if the
+	 * {@link Zarafa.core.data.IPMRecord record} last_verb_executed property is 104. Which
+	 * means that the user has forwarded this email.
+	 */
+	forwardString : pgettext('mail.previewpanel', 'You forwarded this message on {0}.'),
 	
 	/**
 	 * @cfg {String} itemCls css class that will be added to every item of this component.
@@ -205,6 +219,20 @@ Zarafa.common.ui.messagepanel.ExtraInfoLinks = Ext.extend(Ext.Container, {
 		var isVisible = false;
 		var sensitivity = record.get('sensitivity');
 		var importance = record.get('importance');
+		var lastVerbExecuted = record.get('last_verb_executed'); 
+
+		// 104 is set in createmailitemmodule::setReplyForwardInfo when a message is forwarded. 
+		if(lastVerbExecuted === 104) {
+			var text = String.format(this.forwardString, record.get('last_verb_execution_time').format('j-m-Y H:i'));
+			el.createChild({tag: 'div', html: text, cls: this.itemCls});
+
+			isVisible = true;
+		} else if(lastVerbExecuted === 102 || lastVerbExecuted == 103) { // 102/103 is set when the message is a reply.
+			var text = String.format(this.repliedString, record.get('last_verb_execution_time').format('j-m-Y H:i'));
+			el.createChild({tag: 'div', html: text, cls: this.itemCls});
+
+			isVisible = true;
+		}
 
 		if(Ext.isDefined(sensitivity) && sensitivity != Zarafa.core.mapi.Sensitivity.NONE){
 			var text = String.format(this.sensitivityInfoString, Zarafa.core.mapi.Sensitivity.getDisplayName(sensitivity));

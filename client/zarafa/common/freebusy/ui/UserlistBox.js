@@ -82,6 +82,16 @@ Zarafa.common.freebusy.ui.UserlistBox = Ext.extend(Zarafa.common.recipientfield.
 		this.iconEl.removeClass(className);
 
 		Zarafa.common.freebusy.ui.UserlistBox.superclass.update.apply(this, arguments);
+
+		// When record gets updated by resolve request, it may be possible that it is a DistList.
+		// Resize the expand button only if the recipient is distribution list.
+		if(this.record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
+			if (this.enableButtons === true && Ext.isDefined(this.expandBtnEl)) {
+				// Box needs to be resized manually because resizing (and all other post rendering activities)
+				// was completed at the time when box gets updated after resolve-response arrived.
+				this.onResize(this.width, this.height, this.width, this.height);
+			}
+		}
 	}
 });
 

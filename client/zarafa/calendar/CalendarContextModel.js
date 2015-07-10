@@ -75,7 +75,7 @@ Zarafa.calendar.CalendarContextModel = Ext.extend(Zarafa.core.MultiFolderContext
 		}
 
 		Ext.applyIf(config, {
-			colorScheme: Zarafa.calendar.ui.ColorSchemes,
+			colorScheme: Zarafa.core.ColorSchemes.getColorSchemes(),
 			current_data_mode : Zarafa.calendar.data.DataModes.WORKWEEK
 		});
 
@@ -98,7 +98,15 @@ Zarafa.calendar.CalendarContextModel = Ext.extend(Zarafa.core.MultiFolderContext
 			 * @param {Zarafa.core.DateRange} newDateRange new date range.
 			 * @param {Zarafa.core.DateRange} oldDateRange old date range.
 			 */
-			'daterangechange'
+			'daterangechange',
+
+			/**
+			 * @event activate
+			 * Fires when select calendar by clicking on calendar tab.
+			 * @param {Zarafa.hierarchy.data.MAPIFolderRecord[]} folder which will mark as selected
+			 */
+			'activate'
+
 		]);
 
 		Zarafa.calendar.CalendarContextModel.superclass.constructor.call(this, config);
@@ -541,5 +549,15 @@ Zarafa.calendar.CalendarContextModel = Ext.extend(Zarafa.core.MultiFolderContext
 			this.setDataMode(this.oldDataMode);
 		}
 		delete this.oldDataMode;
+	},
+
+	/**
+	 * Set the corresponding folder as active folder in hierarchy.
+	 * And will mark the given folder as {@link Zarafa.hierarchy.ui.Tree#selectFolderInTree selected}.
+	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord[]} folder which will mark as selected
+	 */
+	setActiveFolder : function(folder)
+	{
+		this.fireEvent('activate', folder, this);
 	}
 });

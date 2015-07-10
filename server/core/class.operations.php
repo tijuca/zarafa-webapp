@@ -1163,7 +1163,7 @@
 				$table = mapi_folder_getcontentstable($folder, MAPI_DEFERRED_ERRORS);
 
 				if(!$rowcount) {
-					$rowcount = 50; // FIXME: $GLOBALS["settings"]->get("global/rowcount", 50);
+					$rowcount = $GLOBALS['settings']->get('zarafa/v1/main/page_size', 50);
 				}
 
 				if(is_array($restriction)) {
@@ -1820,9 +1820,37 @@
 							}
 						} else {
 							$oldProps = mapi_getprops($message, array($properties['startdate'], $properties['duedate']));
-
 							// Modifying non-exception (the series) or normal appointment item
 							$message = $GLOBALS['operations']->saveMessage($store, $entryid, $parententryid, Conversion::mapXML2MAPI($properties, $action['props']), $messageProps, $recips ? $recips : array(), isset($action['attachments']) ? $action['attachments'] : array(), array(), false, false, false, false, false, false, $send);
+
+							$recurrenceProps = mapi_getprops($message, array($properties['startdate_recurring'], $properties['enddate_recurring'], $properties["recurring"]));
+							// Check if the meeting is recurring
+							if($recips && $recurrenceProps[$properties["recurring"]] && isset($recurrenceProps[$properties['startdate_recurring']]) && isset($recurrenceProps[$properties['enddate_recurring']])) {
+								// If recipient of meeting is modified than that modification needs to be applied
+								// to reccurring exception as well, if any.
+								$exception_recips = array();
+								if (isset($recips['add'])) {
+									$exception_recips['add'] = $this->createRecipientList($recips['add'], 'add', true, true);
+								}
+								if (isset($recips['remove'])) {
+									$exception_recips['remove'] = $this->createRecipientList($recips['remove'], 'remove');
+								}
+								if (isset($recips['modify'])) {
+									$exception_recips['modify'] = $this->createRecipientList($recips['modify'], 'modify', true, true);
+								}
+
+								// Create recurrence object
+								$recurrence = new Recurrence($store, $message);
+
+								$recurItems = $recurrence->getItems($recurrenceProps[$properties['startdate_recurring']], $recurrenceProps[$properties['enddate_recurring']]);
+
+								foreach($recurItems as $recurItem)
+								{
+									if(isset($recurItem["exception"])) {
+										$recurrence->modifyException(Array(), $recurItem["basedate"], $exception_recips);
+									}
+								}
+							}
 
 							// Only save recurrence if it has been changed by the user (because otherwise we'll reset
 							// the exceptions)
@@ -1839,6 +1867,23 @@
 									}
 								}
 
+								/**
+								 * Check if any recurrence property is missing, if yes then prepare 
+								 * the set of properties required to update the recurrence. For more info 
+								 * please refer detailed description of parseRecurrence function of 
+								 * BaseRecurrence class". 
+								 * 
+								 * Note : this is a special case of changing the time of
+								 * recurrence meeting from scheduling tab.
+								 */
+								$recurrance = $recur->getRecurrence();
+								unset($recurrance['changed_occurences']);
+								unset($recurrance['deleted_occurences']);
+								foreach($recurrance as $key => $value) {
+									if(!isset($action['props'][$key])) {
+										$action['props'][$key] = $value;
+									}
+								}
 								// Act like the 'props' are the recurrence pattern; it has more information but that
 								// is ignored
 								$recur->setRecurrence(isset($tz) ? $tz : false, $action['props']);
@@ -1942,10 +1987,14 @@
 							$modifiedRecipients = array_merge($modifiedRecipients, $this->createRecipientList($recips['modify'], 'modify'));
 						}
 					}
-
-					if (isset($recips['remove']) && !empty($recips['remove'])) {
-						$deletedRecipients = $deletedRecipients ? $deletedRecipients : array();
-						$deletedRecipients = array_merge($deletedRecipients, $this->createRecipientList($recips['remove'], 'remove'));
+					
+					// lastUpdateCounter is represent that how many times this message is updated(send)
+					$lastUpdateCounter = $request->getLastUpdateCounter();
+					if($lastUpdateCounter !== false && $lastUpdateCounter > 0) {
+						if (isset($recips['remove']) && !empty($recips['remove'])) {
+							$deletedRecipients = $deletedRecipients ? $deletedRecipients : array();
+							$deletedRecipients = array_merge($deletedRecipients, $this->createRecipientList($recips['remove'], 'remove'));
+						}
 					}
 				}
 
@@ -2721,8 +2770,7 @@
 					}
 
 					$old = mapi_message_openattach($copyFromMessage, $props[PR_ATTACH_NUM]);
-					$oldProps = mapi_getprops($old, array(PR_ATTACH_CONTENT_ID));
-					$isSetContentID = isset($oldProps[PR_ATTACH_CONTENT_ID]);
+					$isInlineAttachment = $attachment_state->isInlineAttachment($old);
 
 					/**
 					 * If reply/reply all message, then copy only inline attachments.
@@ -2732,10 +2780,10 @@
 						 * if message is reply/reply all and format is plain text than ignore inline attachments 
 						 * and normal attachments to copy from original mail.
 						 */
-						if($plainText || !$isSetContentID) {
+						if($plainText || !$isInlineAttachment) {
 							continue;
 						}
-					} else if($plainText && $isSetContentID) {
+					} else if($plainText && $isInlineAttachment) {
 						/**
 						 * If message is forward and format of message is plain text then ignore only inline attachments from the 
 						 * original mail.
@@ -2753,7 +2801,7 @@
 					 * NOTE : blockStatus is only generated when user has download inline image from external source.
 					 * it should remains empty if user add the sender in to safe sender list.
 					 */
-					if(!$plainText && $isSetContentID && empty($blockStatus) && !$isSafeSender) {
+					if(!$plainText && $isInlineAttachment && empty($blockStatus) && !$isSafeSender) {
 						continue;
 					}
 
@@ -2775,6 +2823,12 @@
 			$safeSenderList = $GLOBALS['settings']->get('zarafa/v1/contexts/mail/safe_senders_list');
 			$senderEntryid = mapi_getprops($copyFromMessage, array(PR_SENT_REPRESENTING_ENTRYID));
 			$senderEntryid = $senderEntryid[PR_SENT_REPRESENTING_ENTRYID];
+			
+			//If sender is user himself (which happens in case of "Send as New message") consider sender as safe
+			if ( $GLOBALS['entryid']->compareEntryIds($senderEntryid, $GLOBALS["mapisession"]->getUserEntryID()) ){
+				return true;
+			}
+			
 			$mailuser = mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), $senderEntryid);
 			$addressType = mapi_getprops($mailuser,array(PR_ADDRTYPE));
 
@@ -3366,7 +3420,22 @@
 					} else {
 						$messageProps = Conversion::mapXML2MAPI($properties, $props);
 						//New message
-						$message = $GLOBALS["operations"]->saveMessage($store, $entryid, $parententryid, $messageProps, $messageProps, $recips ? $recips : array(), isset($action['attachments']) ? $action['attachments'] : array(), array());
+
+						$copyAttachments = false;
+						$copyFromMessage = false;
+
+						// we need to copy the original attachments when create task from message.
+						if (isset($action['message_action']) && isset($action['message_action']['source_entryid'])) {
+							$copyFromMessage = hex2bin($action['message_action']['source_entryid']);
+							$copyFromStore = hex2bin($action['message_action']['source_store_entryid']);
+							$copyAttachments = true;
+
+							// get resources of store and message
+							$copyFromStore = $GLOBALS['mapisession']->openMessageStore($copyFromStore);
+							$copyFromMessage = $GLOBALS['operations']->openMessage($copyFromStore, $copyFromMessage);
+						}
+
+						$message = $GLOBALS["operations"]->saveMessage($store, $entryid, $parententryid, $messageProps, $messageProps, $recips ? $recips : array(), isset($action['attachments']) ? $action['attachments'] : array(), array(), $copyFromMessage, $copyAttachments);
 
 						// Set recurrence
 						if (isset($action['props']['recurring']) && $action['props']['recurring'] == 1) {
@@ -3894,9 +3963,20 @@
 				$calendar = mapi_msgstore_openentry($store, $rootFolderProps[PR_IPM_APPOINTMENT_ENTRYID]);
 				$storeProps = mapi_msgstore_getprops($store, array(PR_MAILBOX_OWNER_ENTRYID));
 				if (isset($storeProps[PR_MAILBOX_OWNER_ENTRYID])){
+					$freeBusyRange = $GLOBALS['settings']->get('zarafa/v1/contexts/calendar/free_busy_range', 2);
+					$localFreeBusyEntryids = mapi_getprops($rootFolder, array(PR_FREEBUSY_ENTRYIDS));
+					$localFreeBusyMessage = mapi_msgstore_openentry($store, $localFreeBusyEntryids[PR_FREEBUSY_ENTRYIDS][1]);
+					mapi_setprops($localFreeBusyMessage, array(PR_FREEBUSY_COUNT_MONTHS => $freeBusyRange));
+					mapi_savechanges($localFreeBusyMessage);
+
+					$start = time()-7 * 24 * 60 * 60;
+					$range = strtotime("+". $freeBusyRange." month");
+					$range = $range - (7 * 24 * 60 * 60);
+
 					// Lets share!
 					$pub = new FreeBusyPublish($GLOBALS["mapisession"]->getSession(), $store, $calendar, $storeProps[PR_MAILBOX_OWNER_ENTRYID]);
-					$pub->publishFB(time() - (7 * 24 * 60 * 60), 6 * 30 * 24 * 60 * 60); // publish from one week ago, 6 months ahead
+					$pub->publishFB($start, $range);
+					
 				}
 			}
 		}

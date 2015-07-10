@@ -2,7 +2,7 @@
 <!DOCTYPE plugin SYSTEM "manifest.dtd">
 <plugin version="2">
 	<info>
-		<version>0.2</version>
+		<version>0.3</version>
 		<name>pdfbox</name>
 		<title>PDF attachments preview</title>
 		<author>Zarafa</author>
@@ -24,7 +24,10 @@
 			<files>
 				<client>
 					<clientfile>pdfjs/compatibility.js</clientfile>
-					<clientfile>pdfjs/pdf.js</clientfile>
+					<clientfile load="source">pdfjs/pdf.js</clientfile>
+					<clientfile load="source">pdfjs/pdf.worker.js</clientfile>
+					<clientfile load="release">pdfjs/pdf.min.js</clientfile>
+					<clientfile load="release">pdfjs/pdf.min.worker.js</clientfile>
 				</client>
 			</files>
 		</component>

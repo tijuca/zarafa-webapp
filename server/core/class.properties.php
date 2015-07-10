@@ -847,6 +847,7 @@
 				$properties["transport_message_headers"] = PR_TRANSPORT_MESSAGE_HEADERS;
 				$properties["x_original_to"] = "PT_STRING8:PS_INTERNET_HEADERS:x-original-to";
 				$properties["source_message_info"] = "PT_BINARY:PSETID_Common:0x85CE";
+				$properties["deferred_send_time"] = PR_DEFERRED_SEND_TIME;
 
 				// Corresponding appointment related properties
 				$properties["appointment_startdate"] = "PT_SYSTIME:PSETID_Appointment:0x820d";

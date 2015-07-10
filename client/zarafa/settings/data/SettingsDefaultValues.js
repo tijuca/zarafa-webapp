@@ -98,6 +98,14 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 							'keycontrols_enabled' : false,
 
 							/**
+							 * zarafa/v1/main/page_size
+							 * Default page size for single page.
+							 * @property
+							 * @type Number
+							 */
+							'page_size' : 50,
+
+							/**
 							 * zarafa/v1/main/categories
 							 * @property
 							 * @type String[]
@@ -367,7 +375,13 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 								 * @property
 								 * @type Boolean
 								 */
-								 'datepicker_show_busy' : true
+								 'datepicker_show_busy' : true,
+								/**
+								 * zarafa/v1/contexts/calendar/free_busy_range
+								 * @property
+								 * @type Number
+								 */
+								 'free_busy_range' : 2
 							},
 
 							'contact' : {
@@ -386,6 +400,13 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 							},
 
 							'mail' : {
+
+								/**
+								 * zarafa/v1/contexts/mail/enable_live_scroll
+								 * @property
+								 * @type Boolean
+								 */
+								'enable_live_scroll' : true,
 
 								/**
 								 * zarafa/v1/contexts/mail/readreceipt_handling

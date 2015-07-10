@@ -41,6 +41,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 		Ext.applyIf(config, {
 			// Override from Ext.Component
 			xtype: 'zarafa.maintoolbar',
+			id : 'zarafa-maintoolbar',
 			cls : 'zarafa-maintoolbar',
 			// Set height to fixed number of pixels, to prevent resizing to 0px.
 			height: 45
@@ -87,14 +88,13 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 	{
 		var menu = [];
 		var itemMenu = container.populateInsertionPoint('main.maintoolbar.new.item', this) || [];
-		var folderMenu = container.populateInsertionPoint('main.maintoolbar.new.folder', this) || [];
 
 		// Make sure the items are properly sorted by priority.
 		itemMenu = Zarafa.core.Util.sortArray(itemMenu, 'ASC', 'newMenuIndex');
-		folderMenu = Zarafa.core.Util.sortArray(folderMenu, 'ASC', 'newMenuIndex');
+
 		// Remove doubles 
 		itemMenu = Zarafa.core.Util.uniqueArray(itemMenu, 'text');
-		folderMenu = Zarafa.core.Util.uniqueArray(folderMenu, 'text');
+
 		// menu.length should practically always be non-zero, but
 		// just in case, we check it, and add the divider to separate
 		// the default buttons from the rest.
@@ -104,6 +104,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 			itemMenu[0].ref = 'defaultButton';
 			menu.push({
 				xtype: 'menuitem',
+				id: 'zarafa-maintoolbar-newitem-defaultbutton',
 				tooltip : itemMenu[0].tooltip,
 				plugins : 'zarafa.menuitemtooltipplugin',
 				// The following config properties copy the first item for the default button.
@@ -114,11 +115,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 			},
 			'-');
 		}
-		// Add the folder list and a separator to the menu if the folder list is not empty.
-		if (folderMenu.length != 0) {
-			menu = menu.concat(folderMenu);
-			menu.push('-');
-		}
+		
 		// Add the item list to to the menu
 		if (itemMenu.length != 0) {
 			menu = menu.concat(itemMenu);
@@ -126,6 +123,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 
 		this.addItems({
 			xtype: 'splitbutton',
+			id: 'zarafa-maintoolbar-newitem',
 			scale: 'large',
 			ref: 'newButton',
 			rowspan: 2,
@@ -245,6 +243,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 				if (context.groupViewBtns) {
 					menuItems.push({
 						xtype: 'button',
+						id: 'zarafa-maintoolbar-view-'+context.getName(),
 						scale: 'large',
 						iconCls: 'view_icon',
 						tooltip: _('Switch view') + ' (Ctrl + Alt + 1..9)',
@@ -313,6 +312,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 			if(Ext.isArray(menu) && menu.length){
 				menuItems.push({
 					xtype: 'splitbutton',
+					id: 'zarafa-maintoolbar-print-'+context.getName(),
 					scale: 'large',
 					iconCls: 'icon_print',
 					tooltip: _('Print') + ' (Ctrl + P)',
@@ -350,7 +350,6 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 	 * called within the scope of the SplitButton.
 	 * @param {Ext.Component} cmp The SplitButton
 	 */
-	 //TODO
 	onRenderPrintButton: function(cmp)
 	{
 		cmp.mon(container, 'contextswitch', function(parameters, oldContext, newContext) {
@@ -372,6 +371,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 
 		menuItems.push({
 			xtype: 'button',
+			id: 'zarafa-maintoolbar-addressbook',
 			scale: 'large',
 			overflowText: _('Address Book'),
 			tooltip: _('Address Book'),
@@ -382,6 +382,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 
 		menuItems.push({
 			xtype: 'button',
+			id: 'zarafa-maintoolbar-refresh',
 			scale: 'large',
 			title: _('Refresh'),
 			overflowText: _('Refresh'),

@@ -86,6 +86,44 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			beforeShow : this.beforeShowNonPhantom,
 			handler : this.onDelete,
 			scope: this
+		},{
+			xtype: 'menuseparator' 
+		},{
+			xtype : 'zarafa.conditionalitem',
+			ref : 'acceptButton',
+			text: _('Accept'),
+			hidden : true,
+			iconCls: 'icon_accept_meeting_request',
+			beforeShow : this.beforeShowOnMeeting,
+			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_ACCEPTED,
+			scope: this
+		},{
+			xtype : 'zarafa.conditionalitem',
+			ref : 'tentativeButton',
+			text : _('Tentative'),
+			hidden : true,
+			iconCls : 'icon_tentative_meeting_request',
+			beforeShow : this.beforeShowOnMeeting,
+			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_TENTATIVE,
+			scope: this
+		},{
+			xtype : 'zarafa.conditionalitem',
+			ref : 'declineButton',
+			text : _('Decline'),
+			iconCls : 'icon_decline_meeting_request',
+			hidden : true,
+			beforeShow : this.beforeShowOnMeeting,
+			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_DECLINED,
+			scope: this
+		},{
+			xtype : 'zarafa.conditionalitem',
+			ref : 'proposeNewTimeButton',
+			text : _('Propose New Time'),
+			proposeNewTime : true,
+			hidden : true,
+			iconCls : 'icon_newtime_meeting_request',
+			beforeShow : this.beforeShowOnMeeting,
+			scope: this
 		}];
 	},
 
@@ -283,6 +321,162 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			}
 		}
 		item.setVisible(!hasPhantoms);
+	},
+
+	/**
+	 * Makes the given menuitem invisible when record is appointment or login user is organizer of meeting.
+	 * @param {Zarafa.core.ui.menu.MenuItem} item The item which is being tested
+	 * @param {Zarafa.core.data.MAPIRecord[]} records The records on which this context
+	 * menu is operating.
+	 * @private
+	 */
+	beforeShowOnMeeting : function(item, records)
+	{
+		// If user has select more then one record then we should not have to show the menu items.
+		if(records.length > 1){
+			return;
+		}
+
+		var record = records[0];
+		var isProposeButton = Ext.isDefined(item.proposeNewTime) && item.proposeNewTime;
+
+		// if record is received meeting then show all buttons (accept/decline/ tentatively accept) in context menu
+		if(record.isMeetingReceived()) {
+			item.setVisible(true);
+		}
+
+		// if selected record is received simple meeting request then set the handler on each button.
+		if(record.isMeetingReceived() && !(record.isRecurringOccurence() || record.get('recurring'))) {
+			if(isProposeButton) {
+				item.setHandler(this.openProposeNewTimeContent, this);
+			} else {
+				item.setHandler(this.openSendConfirmationContent, this);
+			}
+		}
+
+		if(record.isMeetingReceived() && (record.isRecurringOccurence() || record.get('recurring'))) {
+			// Add sub menu item while selected received meeting request is recurring.
+			// it will show the two sub menu items which provide facility to user to accept, tentatively accept,
+			// decline recurring series or occurrence and allow user to propose new time for single occurrence 
+			// of recurring meeting request.
+			item.menu = new Ext.menu.Menu({
+				items: [{
+					xtype : 'zarafa.conditionalitem',
+					text : item.text +' '+ _('Occurrence'),
+					responseStatus : item.responseStatus,
+					beforeShow : function(item, records) {
+						if(isProposeButton) {
+							item.setHandler(this.openProposeNewTimeContent, this);
+						} else {
+							item.setHandler(this.openSendConfirmationContent, this);
+						}
+					},
+					scope : this
+				},{
+					xtype : 'zarafa.conditionalitem',
+					text : item.text +' '+ _('Series'),
+					name : 'recurring',
+					beforeShow : function(item, records) {
+						if(isProposeButton) {
+							item.setVisible(false);
+						} else {
+							item.setHandler(this.openSendConfirmationContent, this);
+						}
+					},
+					responseStatus : item.responseStatus,
+					isProposeButton : isProposeButton,
+					scope : this
+				}],
+				scope : this
+			});
+		}
+	},
+
+	/**
+	 * Opens the Propose New Time Content Panel
+	 * @param {Ext.Button} button The clicked button
+	 * @param {EventObject} eventObject The click event object
+	 * @private
+	 */
+	openProposeNewTimeContent : function(button, eventObject)
+	{
+		if(Ext.isArray(this.records)) {
+			var record = this.records[0];
+		}
+
+		if (record.get('appointment_not_found')) {
+			Ext.MessageBox.show({
+				title: _('Zarafa WebApp'),
+				msg :_('This appointment has been moved or deleted, do you want to continue?'),
+				icon: Ext.MessageBox.WARNING,
+				record: record,
+				fn: this.onProposeNewTimeAppointmentNotFoundConfirmation.createDelegate(this, [record], 1),
+				scope: this,
+				buttons: Ext.MessageBox.YESNO
+			});
+		} else {
+			Zarafa.calendar.Actions.openProposeNewTimeContent(record);
+		}
+	},
+
+	/**
+	 * Callback function for {@link #openProposeNewTimeContent}, which openes a {@link Ext.MessageBox} if
+	 * the appointment is not found in the calendar, but we still wants to propose a new time.
+	 * @param {String} button The button which was clicked by the user
+	 * @param {Zarafa.core.data.MAPIRecord} record The record on which this context
+	 * @private
+	 */
+	onProposeNewTimeAppointmentNotFoundConfirmation : function(button, record)
+	{
+		if (button === 'yes') {
+			Zarafa.calendar.Actions.openProposeNewTimeContent(record);
+		}
+	},
+
+	/**
+	 * Opens a {@link Zarafa.calendar.dialogs.SendMeetingRequestConfirmationContentPanel SendMeetingRequestConfirmationContentPanel}
+	 * if meeting was recurring occurrence then remove the basedate.
+	 * @param {Ext.Button} button button object.
+	 * @param {EventObject} eventObject The click event object.
+	 * @private
+	 */
+	openSendConfirmationContent : function(button, eventObject)
+	{
+		if(Ext.isArray(this.records)) {
+			var record = this.records[0];
+		}
+
+		if (record.get('appointment_not_found')) {
+			Ext.MessageBox.show({
+				title: _('Zarafa WebApp'),
+				msg :_('This appointment has been moved or deleted, do you want to continue?'),
+				icon: Ext.MessageBox.WARNING,
+				record: record,
+				fn: this.onRespondAppointmentNotFoundConfirmation.createDelegate(this, [ button.responseStatus, record ], 1),
+				scope: this,
+				buttons: Ext.MessageBox.YESNO
+			});
+		} else {
+			Zarafa.calendar.Actions.openSendConfirmationContent(record, { 
+					responseType : button.responseStatus,
+					buttonName : button.name
+			});
+		}
+	},
+
+	/**
+	 * Callback function for {@link #openSendConfirmationContent}, which openes a {@link Ext.MessageBox} if
+	 * the appointment is not found in the calendar, but we still want to accept it.
+	 * @param {String} button The button which was clicked by the user
+	 * @param {Zarafa.core.mapi.ResponseStatus} responseType The response type which was selected by the user
+	 * @param {Zarafa.core.data.MAPIRecord} record The record on which this context
+	 * @private
+	 */
+	onRespondAppointmentNotFoundConfirmation : function(button, responseType, record)
+	{
+		if (button === 'yes') {
+			Zarafa.calendar.Actions.openSendConfirmationContent(record, { responseType : responseType });
+		}
 	},
 
 	/**

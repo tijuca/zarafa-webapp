@@ -23,5 +23,13 @@ Zarafa.mail.data.Views = Zarafa.core.Enum.create({
 	 * @property
 	 * @type Number
 	 */
-	SEARCH : 1
+	SEARCH : 1,
+
+	/**
+	 * View all updated batch of mail items from the selected folder(s) in the 'list' view.
+	 * 
+	 * @property
+	 * @type Number
+	 */
+	LIVESCROLL : 2
 });

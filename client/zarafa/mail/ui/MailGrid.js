@@ -98,6 +98,9 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 			scope : this
 		});
 
+		this.mon(this.getView(), 'livescrollstart', this.onLiveScrollStart, this);
+		this.mon(this.getView(), 'beforesort', this.onBeforeSort, this);
+
 		// Add a buffer to the following 2 event handlers. These are influenced by Extjs when a record
 		// is removed from the store. However removing of records isn't performed in batches. This means
 		// that wee need to offload the event handlers attached to removing of records in case that
@@ -108,6 +111,7 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 		this.mon(this.model, 'recordselectionchange', this.onRecordSelectionChange, this);
 
 		this.mon(this.context, 'viewmodechange', this.onContextViewModeChange, this);
+		this.mon(this.context, 'viewchange', this.onContextViewChange, this);
 		this.onContextViewModeChange(this.context, this.context.getCurrentViewMode());
 	},
 
@@ -194,7 +198,10 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 			rowParams.body += String.format('<td style="width: 24px"><div class="grid_compact {0}" style="height: 24px; width: 24px;">{1}</div></td>', meta.css, value);
 
 			// Insertion point for extra icon(s) in the row
-			rowParams.body += container.populateInsertionPoint('context.mail.gridrow',record);
+			var insertions = container.populateInsertionPoint('context.mail.gridrow', record);
+			for (var i = 0; i < insertions.length; i++) {
+				rowParams.body += insertions[i];
+			}
 
 			rowParams.body += '</tr></table>';
 			return 'x-grid3-row-expanded ' + cssClass;
@@ -228,6 +235,23 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 	},
 
 	/**
+	 * Event handler which is fired when the currently active view inside the {@link #context}
+	 * has been updated. This will update the call
+	 * {@link #viewPanel}#{@link Zarafa.core.ui.SwitchViewContentContainer#switchView}
+	 * to make the requested view active.
+	 *
+	 * @param {Zarafa.core.Context} context The context which fired the event.
+	 * @param {Zarafa.mail.data.Views} newView The ID of the selected view.
+	 * @param {Zarafa.mail.data.Views} oldView The ID of the previously selected view.
+	 */
+	onContextViewChange : function(context, newView, oldView)
+	{
+		if(oldView === Zarafa.mail.data.Views.LIVESCROLL) {
+			this.getView().resetScroll();
+		}
+	},
+
+	/**
 	 * Event handler which is fired when the {@link Zarafa.core.Context} fires the
 	 * {@link Zarafa.core.Context#viewmodechange viewmodechange} event. This will check
 	 * where the preview panel is located, and if needed change the
@@ -242,12 +266,18 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 	 */
 	onContextViewModeChange : function(context, newViewMode, oldViewMode)
 	{
-		if (newViewMode !== Zarafa.mail.data.ViewModes.SEARCH) {
-			var compact = newViewMode === Zarafa.mail.data.ViewModes.RIGHT_PREVIEW;
-
-			// The row body must only be enabled in compact view.
-			this.getView().enableRowBody = compact;
-			this.getColumnModel().setCompactView(compact);
+		switch(newViewMode){
+			case Zarafa.mail.data.ViewModes.RIGHT_PREVIEW :
+			case Zarafa.mail.data.ViewModes.NO_PREVIEW :
+			case Zarafa.mail.data.ViewModes.BOTTOM_PREVIEW :
+					var compact = newViewMode === Zarafa.mail.data.ViewModes.RIGHT_PREVIEW;
+					//The row body must only be enabled in compact view.
+					this.getView().enableRowBody = compact;
+					this.getColumnModel().setCompactView(compact);
+				break;
+			case Zarafa.mail.data.ViewModes.SEARCH :
+			case Zarafa.mail.data.ViewModes.LIVESCROLL :
+				break;
 		}
 	},
 
@@ -491,6 +521,31 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 			this.getSelectionModel().selectRecords(records);
 			this.getView().focusRow(index);
 		}
+	},
+
+	/**
+	 * Event handler which triggered when scrollbar gets scrolled more then 90% of it`s height.
+	 * it will be used to start live scroll on {@link Zarafa.core.data.ListModuleStore ListModuleStore}.
+	 * also it will register event on {@link Zarafa.core.data.ListModuleStore ListModuleStore} to get
+	 * updated batch of mails status.
+	 * 
+	 * @param {Number} cursor the cursor contains the last index of record in grid.
+	 * @private
+	 */
+	onLiveScrollStart : function(cursor)
+	{
+		this.model.startLiveScroll(cursor);
+	},
+
+	/**
+	 * Event handler which triggered when header of grid was clicked to apply the sorting
+	 * on {@link Zarafa.mail.ui.MailGrid mailgrid}. it will first stop the 
+	 * {@link Zarafa.core.ContextModel#stopLiveScroll live scroll} and then apply the sorting.
+	 * @private
+	 */
+	onBeforeSort : function()
+	{
+		this.model.stopLiveScroll();
 	}
 });
 

@@ -1259,6 +1259,20 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 			data.busyStatusName = data.busyStatusName.toLowerCase();
 		}else{
 			data.busyStatusName = 'blur';
+
+			if(this.model.showOnlyWorkingHours()) {
+				var day = new Date(data.start*1000).getDay();
+				// if day is Saturday then add two day in current day and get time stamp of Monday
+				if(day === 6) {
+					data.start = new Date(data.start*1000).add(Date.DAY, 2).getTime()/1000;
+				} else if(day === 0) {
+					// if day is Sunday then add one day in current day and get time stamp of Monday
+					data.start = new Date(data.start*1000).add(Date.DAY, 1).getTime()/1000;
+				}
+			}
+			var dayIndex = this.findDayIndexByTimestamp(data.start,true);
+			var timestamp = this.daysMap[dayIndex].timestamp;
+			data.start = timestamp;
 		}
 
 		var startRowTopOffset = 1;
@@ -1318,7 +1332,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @return {Ext.data.Record[]} Filtered list of records
 	 * @private
 	 */
-	filterRecords: function(records){
+	filterRecords : function(records){
 		var filteredRecords = new Array();
 		var periodStart = this.daterange.getStartDate().getTime()/1000;
 		var periodEnd = this.daterange.getDueDate().getTime()/1000;
@@ -1530,7 +1544,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @return {Number} Timestamp
 	 * @private
 	 */
-	findTimestampByTimelineXCoord: function(coordX){
+	findTimestampByTimelineXCoord : function(coordX){
 		var dayIndex = coordX / (this.dayWidth + this.daySpacing);
 		var pixelsPastDayStart = (dayIndex % 1) * (this.dayWidth + this.daySpacing);
 

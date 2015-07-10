@@ -20,6 +20,11 @@
 	cursor : pointer ! important;
 }
 
+.zarafa-dateperiodfield-itemsCls .x-form-element
+{
+	 padding-left: 10px ! important;
+}
+
 .zarafa-navigation-button-open
 {
 	height: 34px;
@@ -47,14 +52,14 @@
 }
 
 .zarafa-grid-header {
-	font: 13px Arial,Tahoma,Helvetical,Sans-Serif !important;
+	font: 13px Arial,Tahoma,Sans-Serif !important;
 	margin-left: 5px;
 }
 
 body
 {
 	color: #000;
-	font-family: Arial,Tahoma,Helvetical,Sans-Serif !important;
+	font-family: Arial,Tahoma,Sans-Serif !important;
 	font-size: 8pt;
 	font-style: normal;
 	font-weight: normal;
@@ -260,6 +265,22 @@ div.zarafa-contact-cardview-selected {
 }
 .zarafa-text-center {
 	text-align : center;
+}
+
+.zarafa-hierarchy-node-cb {
+	margin-right: 6px;
+}
+.zarafa-icon-select-color{
+	height: 12px;
+	width: 12px;
+	border: solid;
+	border-width: 4px 3px 3px 4px;
+	border-color: white;
+	float: right;
+}
+
+.zarafa-hierarchy-node-anchor {
+	margin-left: 4px;
 }
 
 .zarafa-hierarchy-node-unread-count span.zarafa-hierarchy-node-counter {
@@ -776,7 +797,7 @@ body {
 	color: #424244;
 	text-transform: uppercase;
 	font-weight: bold !important;
-	font-family: Arial, Tahoma, Helvetical, Sans-Serif !important;
+	font-family: Arial, Tahoma, Sans-Serif !important;
 }
 /* Style buttons groups body */
 .x-btn-group-mr {
@@ -880,7 +901,7 @@ body {
 	color: #393536 !important;
 	font-weight: normal;
 	font-size: 13px;
-	font-family: Arial, Tahoma, Helvetical, Sans-Serif !important;
+	font-family: Arial, Tahoma, Sans-Serif !important;
 	border-color:transparent;
 }
 .x-panel-footer {
@@ -1017,14 +1038,20 @@ body {
 	background-image: none;
 	border-top: 1px solid #AEAEAE !important;
 }
-/* Remove the border from the button in the footer of the HierarchyTreePanel */
-.zarafa-hierarchy-treepanel-footer-opensharedfolder {
+.zarafa-hierarchy-treepanel-bottombar {
 	border-top:1px solid #AEAEAE;
+	padding: 10px 0;
 }
-.zarafa-hierarchy-treepanel-footer-opensharedfolder .x-btn-small {
-	border: 0px;
-	border-radius:0 0 5px 5px;
+.zarafa-hierarchy-treepanel-bottombar > table {
+	margin: 0 auto;
 }
+.zarafa-hierarchy-treepanel-footer-opensharedfolder {
+	background-color: #f4f4f4;
+}
+.zarafa-hierarchy-treepanel-footer-opensharedfolder.x-btn-over {
+	background-color: #e3e2e3;
+}
+
 .zarafa-hierarchy-treepanel-tbar .x-toolbar {
 	background-color:white !important;
 }
@@ -1269,6 +1296,10 @@ li.x-menu-list-item{
 	border-radius:4px;
 	background-image: none;
 }
+/* selected */
+li.x-menu-item-selected{
+	background-color: #e6e6e7 !important;
+}
 /* mouseover */
 li.x-menu-item-active{
 	background-image: none;
@@ -1299,9 +1330,18 @@ li.x-menu-list-item.x-menu-sep-li {
 	background-color:#ebeaeb;
 	border-color:#d3d2d2;
 }
+.x-mask-row {
+	background-color:#ffffff;
+}
 .x-mask-loading div {
 	border-color:#d3d2d2;
 }
+
+.x-mask-loading-row, .x-mask-loading-row div{
+	background-color: transparent !important;
+	border: none !important;
+}
+
 .x-mask-error {
 	background-image: none;
 	background-color:#ebeaeb;
@@ -1540,6 +1580,7 @@ td.x-date-mp-sep {
 }
 .x-form-item
 {
+	font-family: Arial, Tahoma, Sans-Serif;
 	margin-bottom:2px;
 }
 
@@ -1748,7 +1789,7 @@ td.x-date-mp-sep {
 
 /* Override ExtJS CSS to remove non-standard proprietary fonts */
 .x-box-mc {
-	font-family: "Tahoma","Helvetica","Arial",sans-serif;
+	font-family: Arial, Tahoma, Sans-Serif;
 }
 
 /**

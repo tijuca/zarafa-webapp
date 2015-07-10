@@ -36,16 +36,18 @@ Zarafa.calendar.AppointmentStore = Ext.extend(Zarafa.core.data.ListModuleStore, 
 	 * With recurring appointments, each occurence has the same entryid.
 	 * For those cases, we cannot use the entryid as unique property, instead
 	 * we combine it with the basedate.
-	 * @param {Ext.data.Record} o The record for which the key is requested
+	 * @param {Ext.data.Record} record The record for which the key is requested
 	 * @return {String} The key by which the record must be saved into the {@link Ext.util.MixedCollection}.
 	 * @protected
 	 */
-	getRecordKey : function(o)
+	getRecordKey : function(record)
 	{
-		if (o.isRecurringOccurence()) {
-			return o.id + '' + o.get('basedate');
+		// Check isRecurringOccurence exists because the user could have moved a non-appointment message to
+		// the calendar
+		if ( Ext.isDefined(record.isRecurringOccurence) && record.isRecurringOccurence()) {
+			return record.id + '' + record.get('basedate');
 		} else {
-			return o.id;
+			return record.id;
 		}
 	},
 
@@ -70,7 +72,7 @@ Zarafa.calendar.AppointmentStore = Ext.extend(Zarafa.core.data.ListModuleStore, 
 		}
 
 		// Special case for deleting recurrences
-		if (record.isRecurring()) {
+		if (record.isRecurring && record.isRecurring()) {
 			// Search for all occurences which belong to this recurrence.
 			// Note that 'record' is already removed from the store,
 			// so we don't risk of adding it again into the array.

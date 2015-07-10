@@ -30,7 +30,7 @@
 		<if>
 			<available file="php" filepath="${env.PATH}" />
 			<then>
-				<foreach target="syntax-check" param="file">
+				<foreach target="syntax-check" param="file" parallel="true">
 					<path>
 						<fileset dir=".">
 							<include name="**/*.php"/>
@@ -57,7 +57,7 @@
 		<if>
 			<available file="msgfmt" filepath="${env.PATH}" />
 			<then>
-				<foreach target="msgfmt" param="file">
+				<foreach target="msgfmt" param="file" parallel="true">
 					<path>
 						<fileset dir="${language-folder}">
 							<include name="**/LC_MESSAGES/*.po"/>

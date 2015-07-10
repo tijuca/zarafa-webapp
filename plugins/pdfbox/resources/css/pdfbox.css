@@ -117,3 +117,8 @@ body.ext-ie #ux-pdfbox-navNext {
 	background-color: transparent;
 	filter: alpha(opacity=0);
 }
+
+.pdfbox-warning {
+	color: rgb(236, 0, 0);
+	margin-top: 4px;
+}

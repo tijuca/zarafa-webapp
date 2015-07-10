@@ -36,6 +36,34 @@ Zarafa.core.ui.menu.ConditionalItem = Ext.extend(Ext.menu.Item, {
 	 */
 	multiSelectOnly : false,
 	/**
+	 * Override of {@link Ext.menu.Item#itemTpl} to add the possibility of
+	 * styling the icon.
+	 * @property
+	 * @Type Ext.XTemplate
+	 */
+    itemTpl : new Ext.XTemplate(
+        '<a id="{id}" class="{cls} x-unselectable" hidefocus="true" unselectable="on" href="{href}"',
+            '<tpl if="hrefTarget">',
+                ' target="{hrefTarget}"',
+            '</tpl>',
+         '>',
+             '<img alt="{altText}" src="{icon}" class="x-menu-item-icon {iconCls}" {iconStyle}/>',
+             '<span class="x-menu-item-text">{text}</span>',
+         '</a>'
+    ),
+    /**
+     * Override of {@link Ext.menu.Item#getTemplateArgs} to add the possibility of
+     *  styling the icon.
+     * @return {Object}
+     */
+    getTemplateArgs: function() {
+    	// Get the original template arguments from the original function
+    	var templateArgs = Zarafa.core.ui.menu.ConditionalItem.superclass.getTemplateArgs.call(this);
+    	// Add the argument for the icon style
+    	templateArgs.iconStyle = this.iconBG ? 'style="background-color:'+this.iconBG+';"' : '';
+		return templateArgs;
+	},
+	/**
 	 * @constructor
 	 * @param {Object} config Configuration object
 	 */

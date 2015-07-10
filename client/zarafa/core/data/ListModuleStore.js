@@ -420,6 +420,11 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 			});
 		}
 
+		if(this.restriction.search && (options.actionType === Zarafa.core.Actions['list'] ||
+			options.actionType === Zarafa.core.Actions['updatelist'])) {
+			delete options.params.restriction.search;
+		}
+
 		// remove options that are not needed, although sending it doesn't hurt
 		if (options.actionType == Zarafa.core.Actions['updatesearch'] ||
 			options.actionType == Zarafa.core.Actions['stopsearch']) {
@@ -456,6 +461,57 @@ myStore.reload(lastOptions);
 		} else {
 			Zarafa.core.data.ListModuleStore.superclass.reload.apply(this, arguments);
 		}
+	},
+
+	/**
+	 * Function will be used to issue a update list request to server to retrieve next batch of records,
+	 * this will internally call {@link #load} method but with some different options.
+	 * @param {Object} options options object that must contain restriction to apply for live scroll.
+	 */
+	liveScroll : function(options)
+	{
+		if (!Ext.isObject(options)) {
+			options = {};
+		}
+
+		if (!Ext.isObject(options.params)) {
+			options.params = {};
+		}
+
+		// cancel pending load request when live scroll is started.
+		if (this.isExecuting('list')) {
+			this.proxy.cancelRequests('list');
+		}
+
+		Ext.apply(options, {
+			actionType : Zarafa.core.Actions['updatelist']
+		});
+
+		this.load(options);
+	},
+
+	/**
+	 * Function will be used to reset the {@Ext.data.store#lastOptions}.
+	 */
+	stopLiveScroll : function()
+	{
+		// cancel all pending updatelist request
+		if (this.isExecuting('updatelist')) {
+			this.proxy.cancelRequests('updatelist');
+		}
+
+		// reset the action type in the last options, because 
+		// consecutive requests should use list action type
+		Ext.apply(this.lastOptions, {
+			actionType : Zarafa.core.Actions['list']
+		});
+
+		Ext.apply(this.lastOptions.params.restriction, {
+			start : 0
+		});
+
+		delete this.lastOptions.params.restriction.limit;
+		delete this.lastOptions.add;
 	},
 
 	/**
@@ -556,6 +612,10 @@ myStore.reload(lastOptions);
 			options = {};
 		}
 
+		if (!Ext.isObject(options.params)) {
+			options.params = {};
+		}
+
 		// get search folder entryid
 		var searchFolderEntryId = this.searchFolderEntryId;
 
@@ -573,6 +633,10 @@ myStore.reload(lastOptions);
 
 		Ext.apply(options, {
 			actionType : Zarafa.core.Actions['stopsearch']
+		});
+
+		Ext.apply(options.params, {
+			store_entryid : this.storeEntryId
 		});
 
 		// Send a destroy request -- we are destroying the search folder on the server

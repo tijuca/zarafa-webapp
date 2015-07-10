@@ -72,8 +72,8 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 *
 	 * @param {Zarafa.core.data.IPMRecord} record The original {@link Zarafa.core.data.IPMRecord IPMRecord}.
 	 * @param {String} actionType The action type for the given {@link Zarafa.core.data.IPMRecord record}.
-	 * @param {Zarafa.core.data.IPMRecord} responseRecord The new {@link Zarafa.core.data.IPMRecord IPMRecord}.
 	 * Can be any of the values of {@link Zarafa.mail.data.ActionTypes ActionTypes}.
+	 * @param {Zarafa.core.data.IPMRecord} responseRecord The new {@link Zarafa.core.data.IPMRecord IPMRecord}.
 	 * @private
 	 */
 	createResponseRecord : function(record, actionType, responseRecord)
@@ -104,16 +104,24 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		this.setSourceMessageInfo(record, actionType, responseRecord);
 
 		var attachNum = record.get('attach_num');
-		if(!Ext.isEmpty(attachNum)) {
+		if(!Ext.isEmpty(attachNum) && actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) {
 			responseRecord.addMessageAction('source_attach_num', attachNum);
 		}
 
 		// initialize properties of response record
-		this.initRecordRecipients(responseRecord, record, actionType);
+		if (actionType === Zarafa.mail.data.ActionTypes.EDIT_AS_NEW){
+			this.copyRecordRecipients(responseRecord, record);
+		} else {
+			this.initRecordRecipients(responseRecord, record, actionType);
+		}
+
 		this.initRecordSubject(responseRecord, record, actionType);
 
 		if (actionType === Zarafa.mail.data.ActionTypes.FORWARD_ATTACH) {
 			responseRecord.getAttachmentStore().addEmbeddedAttachment(record);
+		} else if (actionType === Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) {
+			this.copyRecordBody(responseRecord, record);
+			this.initRecordAttachments(responseRecord, record, actionType);
 		} else {
 			this.initRecordBody(responseRecord, record, actionType);
 			this.initRecordAttachments(responseRecord, record, actionType);
@@ -157,6 +165,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 					sourceMessageAction = "0501000067000000";
 				break;
 			case 'forward':
+			case 'forward_attach':
 					sourceMessageAction = "0601000068000000";
 				break;
 		}
@@ -184,19 +193,22 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		{
 			case Zarafa.mail.data.ActionTypes.REPLY:
 			case Zarafa.mail.data.ActionTypes.REPLYALL:
-				subjectPrefix = _('RE');
+				subjectPrefix = _('RE') + ': ';
 				break;
 			case Zarafa.mail.data.ActionTypes.FORWARD:
 			case Zarafa.mail.data.ActionTypes.FORWARD_ATTACH:
-				subjectPrefix = _('FW');
+				subjectPrefix = _('FW') + ': ';
+				break;
+			case Zarafa.mail.data.ActionTypes.EDIT_AS_NEW:
+				subjectPrefix = '';
 				break;
 			default:
 				// FIXME: Error message?
-				subjectPrefix = _('RE');
+				subjectPrefix = _('RE') + ': ';
 				break;
 		}
 
-		record.set('subject', subjectPrefix + ': ' + origRecord.get('normalized_subject'));
+		record.set('subject', subjectPrefix + origRecord.get('normalized_subject'));
 		record.set('normalized_subject', origRecord.get('normalized_subject'));
 	},
 
@@ -300,37 +312,43 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		// of reply-to is unconditional, and we will only be using
 		// this list for the REPLYALL case.
 		var addedRecipientEntryids = new Array();
-		// this line will prevent loged-in user from recipients 
-		addedRecipientEntryids.push(container.getUser().getEntryId());
 
-		// We always need to add the reply-to recipients
-		var replyTo = origRecord.getSubStore('reply-to');
-		replyTo.each(function(recipient) {
-			var recipEntryid = recipient.get('entryid');
-			var recipData = Ext.apply({}, recipient.data);
+		// Determine if we are replying from the sent items folder
+		var defaultFolder = this.getDefaultFolder();
+		var isSentFolder = defaultFolder.getDefaultFolderKey() === 'sent';
 
-			// Create a new recipient containing all data from the original.
-			recipient = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, recipData);
+		// Simply, Don't use reply-to information in case of "sent items"
+		if(!isSentFolder) {
+			// This line will prevent logged-in user from recipients,
+			// When we are in 'sent items', we want to include ourself in TO,CC,BCC
+			var loggedInEntryId = container.getUser().getEntryId();
+			addedRecipientEntryids.push(loggedInEntryId);
 
-			// We have copied the 'rowid' as well, but new recipients
-			// shouldn't have this property as it will be filled in by PHP. 
-			recipient.set('rowid', undefined);
+			// We always need to add the reply-to recipients except "sent items"
+			var replyTo = origRecord.getSubStore('reply-to');
 
-			// Mark the recipient as TO
-			recipient.set('recipient_type', Zarafa.core.mapi.RecipientType.MAPI_TO);
+			replyTo.each(function(recipient) {
+				this.addRecipientToStore(store, recipient, true);
 
-			// Add the recipient to the new store
-			store.add(recipient);
+				var recipEntryid = recipient.get('entryid');
 
-			// Store entryid of added recipient to prevent doubles
-			addedRecipientEntryids.push(recipEntryid);
-		}, this);
+				// Store entryid of added recipient to prevent doubles
+				addedRecipientEntryids.push(recipEntryid);
+			}, this);
+		}
 
 		// When Replying to all recipients, start adding the originals as well
-		if (actionType === Zarafa.mail.data.ActionTypes.REPLYALL) {
+		// If we are replying from "Inbox" then skip this whole logic, as we need only "reply-to" information
+		if (actionType === Zarafa.mail.data.ActionTypes.REPLYALL || (actionType === Zarafa.mail.data.ActionTypes.REPLY && isSentFolder)) {
 			var origStore = origRecord.getRecipientStore();
 
 			origStore.each(function(recipient) {
+				// In case where we are replying from "sent items" folder then
+				// we only skip the CC/BCC recipients, TO recipient needs to be carried forward.
+				if (actionType === Zarafa.mail.data.ActionTypes.REPLY && recipient.get('recipient_type') !== Zarafa.core.mapi.RecipientType.MAPI_TO) {
+					return;
+				}
+
 				var recipEntryid = recipient.get('entryid');
 
 				// Check if entryid is in list of added recipients to prevent doubles.
@@ -346,22 +364,100 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 				}
 
 				if (!recipDuplicate) {
-					var recipData = Ext.apply({}, recipient.data);
-	
-					// Create a new recipient containing all data from the original.
-					recipient = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, recipData);
-
-					// We have copied the 'rowid' as well, but new recipients
-					// shouldn't have this property as it will be filled in by PHP. 
-					recipient.set('rowid', undefined);
-
-					store.add(recipient);
-
+					this.addRecipientToStore(store, recipient, false);
+				
 					// Store entryid of added recipient to prevent doubles
 					addedRecipientEntryids.push(recipEntryid);
 				}
 			}, this);
+
+			// Add myself back as recipient if I am replying in the sent folder and there are no recipients in the TO field.
+			if(isSentFolder && store.find('recipient_type', Zarafa.core.mapi.RecipientType.MAPI_TO) === -1) {
+				this.addRecipientToStore(store, origRecord.getSender(), true);
+			}
 		}
+	},
+
+	/**
+	 * Helper function for Zarafa.mail.MailContextModel.initRecordRecipients, adds a recipient to the store.
+	 *
+	 * @param {Zarafa.core.data.IPMRecipientStore} store recipient store
+	 * @param {Zarafa.core.data.IPMRecipientRecord} recipient which should be added to store
+	 * @param {boolean} to specifies if recipient should be TO or not
+	 * @private
+	 */
+	addRecipientToStore: function(store, recipient, to)
+	{
+		var recipData = Ext.apply({}, recipient.data);
+
+		// Create a new recipient containing all data from the original.
+		recipient = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, recipData);
+		
+		if (to) {
+			recipient.set('recipient_type', Zarafa.core.mapi.RecipientType.MAPI_TO);
+		}
+
+		// We have copied the 'rowid' as well, but new recipients
+		// shouldn't have this property as it will be filled in by PHP. 
+		recipient.set('rowid', undefined);
+
+		store.add(recipient);
+
+	},
+	
+	/**
+	 * Copy the body (both plain text and html) of the {@link Zarafa.core.data.IPMRecord original record}
+	 * to the {@link Zarafa.core.data.IPMRecord new record}.
+	 * The html body will be cleaned, meaning the wrapping div that was added by
+	 * the WebApp backend will be removed. This is necessary because it introduces
+	 * problems when we paste it in TinyMCE.
+	 * 
+	 * @param {Zarafa.core.data.IPMRecord} record The new record
+	 * @param {Zarafa.core.data.IPMRecord} origRecord The original record
+	 * @private
+	 */
+	copyRecordBody : function(record, origRecord)
+	{
+		// We can simply copy the contents of the plain text body
+		record.set('body', origRecord.getBody(false));
+		
+		var htmlBody = origRecord.getBody(true);
+		
+		// Remove the comments
+		htmlBody = htmlBody.replace(/<\!\-\-.*?\-\->/gi, '');
+		
+		// Remove the wrapping div
+		htmlBody = htmlBody.replace(/^\s*<div\s+class=['"]bodyclass['"]\s*>/gi, '');
+		htmlBody = htmlBody.replace(/\s*<\/div\s*>\s*$/gi, '');
+		record.set('html_body', htmlBody);
+	},
+	
+	/**
+	 * Copy the recipients of the {@link Zarafa.core.data.IPMRecord original record}
+	 * to the {@link Zarafa.core.data.IPMRecord new record}.
+	 * 
+	 * @param {Zarafa.core.data.IPMRecord} record The record to initialize
+	 * @param {Zarafa.core.data.IPMRecord} origRecord The original record
+	 * to which the respond is created
+	 * @private
+	 */
+	copyRecordRecipients : function(record, origRecord)
+	{
+		var recipientStore = record.getRecipientStore();
+		var origRecipientStore = origRecord.getRecipientStore();
+
+		origRecipientStore.each(function(recipient) {
+			var recipData = Ext.apply({}, recipient.data);
+
+			// Create a new recipient containing all data from the original.
+			recipient = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, recipData);
+
+			// We have copied the 'rowid' as well, but new recipients
+			// shouldn't have this property as it will be filled in by PHP. 
+			recipient.set('rowid', undefined);
+
+			recipientStore.add(recipient);
+		}, this);
 	},
 
 	/**
@@ -384,6 +480,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		{
 			case Zarafa.mail.data.ActionTypes.FORWARD:
 			case Zarafa.mail.data.ActionTypes.FORWARD_ATTACH:
+			case Zarafa.mail.data.ActionTypes.EDIT_AS_NEW:
 				var origStore = origRecord.getAttachmentStore();
 				origStore.each(function(attach) {
 					store.add(attach.copy());
@@ -496,16 +593,20 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 
 		if (newMode !== oldMode && oldMode === Zarafa.mail.data.DataModes.SEARCH) {
 			this.stopSearch();
+			// stop the live scroll after the search gets stopped.
+			this.stopLiveScroll();
 		}
 
 		switch (newMode) {
 			case Zarafa.mail.data.DataModes.SEARCH:
+			case Zarafa.mail.data.DataModes.LIVESCROLL:
 				break;
 			case Zarafa.mail.data.DataModes.ALL:
 				this.load();
 				break;
 		}
 	},
+
 
 	/**
 	 * Event handler which is executed right before the {@link #folderchange}

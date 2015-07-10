@@ -415,7 +415,7 @@ class PluginManager
 			fclose($handle);
 		}
 
-		$plugindata = $this->extractPluginDataFromXML($xml);
+		$plugindata = $this->extractPluginDataFromXML($xml, $dirname);
 		if ($plugindata) {
 			// Apply the name to the object
 			$plugindata['pluginname'] = $dirname;
@@ -552,6 +552,22 @@ class PluginManager
 			}
 		}
 		return $data;
+	}
+
+	/**
+	 * getPluginVersion
+	 * 
+	 * Function is used to prepare version information array from plugindata.
+	 * 
+	 * @return Array The array of plugins version information.
+	 */
+	function getPluginsVersion()
+	{
+		$versionInfo = Array();
+		foreach ($this->plugindata as $pluginName => $data ) {
+			$versionInfo[$pluginName] = $data["version"];
+		}
+		return $versionInfo;
 	}
 
 	/**
@@ -820,16 +836,18 @@ class PluginManager
 	 * Extracts all the data from the Plugin XML manifest.
 	 *
 	 * @param $xml string XML manifest of plugin
+	 * @param $dirname string name of the directory of the plugin
 	 * @return array Data from XML converted into array that the PluginManager can use.
 	 */
-	function extractPluginDataFromXML($xml)
+	function extractPluginDataFromXML($xml, $dirname)
 	{
-		$this->xmlParser = new XMLParser(array('configfile', 'depends', 'component', 'serverfile', 'clientfile', 'resourcefile'));
+		$this->xmlParser = new XMLParser(array('configfile', 'depends', 'component', 'serverfile', 'clientfile', 'resourcefile', 'version'));
 
 		$plugindata = Array(
 			'components' => Array(),
 			'dependencies' => null,
-			'translationsdir' => null
+			'translationsdir' => null,
+			'version' => null
 		);
 
 		// Parse all XML data
@@ -845,6 +863,12 @@ class PluginManager
 			}
 		}
 
+		// Parse the <info> element
+		if(isset($data["info"]["version"])){
+			$plugindata['version'] = $data["info"]["version"][0];
+		}else {
+			dump('[PLUGIN WARNING] '.$dirname.' Plugin has not specified version information in manifest.xml');
+		}
 
 		// Parse the <config> element
 		if (isset($data['config']) && isset($data['config']['configfile'])) {

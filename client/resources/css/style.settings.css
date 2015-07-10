@@ -26,6 +26,12 @@
 .zarafa-settings-widget .x-panel-bwrap .x-panel-body-noheader {
 	padding:0;
 }
+.zarafa-settings-widget .x-toolbar {
+	margin-left: 0px;
+	border-left: 0px;
+	padding-left: 0px;
+	padding-bottom: 6px;
+}
 .zarafa-settings-category-panel {
 	background-color:#EBEAEB !important;
 	margin-right:10px;
@@ -109,6 +115,7 @@
 }
 .zarafa-settings-favorite-oof
 {
+	margin-top: -4px;
 	background-image: url(../icons/new/oof.png) !important;	
 }
 .x-panel-inline-icon.zarafa-settings-favorite-oof, .x-panel-inline-icon.zarafa-settings-favorite-signatures
@@ -156,4 +163,9 @@
 .zarafa-settings-keyboard-shortcut-row
 {
 	background-color: #EBEAEB;
+}
+
+.zarafa-settings-category-general-liveScroll
+{
+	opacity: 0.50;
 }

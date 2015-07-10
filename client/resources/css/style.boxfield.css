@@ -44,6 +44,29 @@
 	background-position: left -24px;
 }
 
+.x-zarafa-boxfield-item-expand {
+	margin-right: 2px;
+	cursor: pointer;
+	height: 12px;
+	width: 8px;
+	/* The plus.png contains multiple icons, here we dislay the top one */
+	background: url(../images/boxfield/plus.png) no-repeat scroll left 0px;
+	display: block;
+	float: left;
+	position: relative;
+	top: -1px;
+}
+/* Hovering above the plus button when focussed and when not-focussed  */
+.x-zarafa-boxfield-item-focus .x-zarafa-boxfield-item-expand.x-zarafa-boxfield-item-expand-hover, 
+.x-zarafa-boxfield-item-expand-hover {
+	/* On hovering over the plus icon we display the second icon */
+	background-position: left -12px;
+}
+.x-zarafa-boxfield-item-focus .x-zarafa-boxfield-item-expand {
+	/* When item is focussed we display the last icon as plus icon */
+	background-position: left -24px;
+}
+
 .x-zarafa-boxfield li {
 	float: left;
 	margin: 1px 1px 1px 1px;

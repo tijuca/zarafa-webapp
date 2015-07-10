@@ -136,10 +136,10 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 	},
 
 	/**
-	 * Apply a new {@link #emptyText} onto this component
-	 * @param {String} text The new emptyText which should be applied
+	 * Apply a {@link #emptyText} onto this component
+	 * @param {String} text The emptyText which should be applied
 	 */
-	updateEmptyText : function(text)
+	setEmptyText : function(text)
 	{
 		if (Ext.isEmpty(this.getRawValue())) {
 			this.setRawValue(text);

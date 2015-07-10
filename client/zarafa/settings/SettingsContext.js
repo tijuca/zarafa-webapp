@@ -24,6 +24,15 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 		this.registerInsertionPoint('main.maintabbar.right', this.createSettingsMainTab, this);
 		// Register some default categories for the settings
 		this.registerInsertionPoint('context.settings.categories', this.createSettingCategories, this);
+
+		this.addEvents(
+			/**
+			 * Fires when the user press a button in required reload message box.
+			 * @param {String} button The button which user pressed from
+			 * required reload message box
+			 */
+			'afterrequiredreload'
+		);
 	},
 
 	/**
@@ -120,6 +129,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 		Zarafa.settings.SettingsContext.superclass.enable.apply(this, arguments);
 
 		container.on('beforecontextswitch', this.onBeforeContextSwitch, this);
+		this.getModel().getRealSettingsModel().on('save', this.onSaveSettings, this);
 		container.getNavigationBar().collapse();
 	},
 
@@ -132,6 +142,50 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 		container.un('beforecontextswitch', this.onBeforeContextSwitch, this);
 
 		Zarafa.settings.SettingsContext.superclass.disable.apply(this, arguments);
+	},
+
+	/**
+	 * Event handler which shows the warning {@link Zarafa.common.dialogs.MessageBox.addCustomButtons messageBox}
+	 * if updated settings required the webapp to reload.
+	 * @param {Zarafa.settings.SettingsModel} model The model which fired the event.
+	 * @param {Object} param The key-value object containing the action and the corresponding
+	 * settings which were saved to the server.
+	 */
+	onSaveSettings : function(model, param)
+	{
+		if(param.requiresReload) {
+			var message = _('In order for the changes to take effect, please reload WebApp.') +'<br>'+ _('NOTE: Any unsaved changes will be lost.');
+
+			Zarafa.common.dialogs.MessageBox.addCustomButtons({
+				title: _('Zarafa WebApp'),
+				msg : message,
+				icon : Ext.MessageBox.QUESTION,
+				fn : this.reloadWebapp,
+				customButton : [{
+					text : _('Reload'),
+					name : 'reload'
+				}, {
+					text : _('Cancel'),
+					name : 'cancel'
+				}],
+				scope : this
+			});
+		}
+	},
+
+	/**
+	 * Event handler for {@link #onSaveSettings}. This will check if the user
+	 * wishes to reload the webapp or not.
+	 * @param {String} button The button which the user pressed
+	 * @private
+	 */
+	reloadWebapp : function(button)
+	{
+		if(button === 'reload') {
+			this.getModel().getRealSettingsModel().un('save', this.onSaveSettings, this);
+			Zarafa.core.Util.reloadWebapp();
+		}
+		this.fireEvent('afterrequiredreload', this, button);
 	},
 
 	/**
@@ -191,6 +245,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype : 'zarafa.settingsmainpanel',
+			id: 'zarafa-mainpanel-contentpanel-settings',
 			title : this.getDisplayName(),
 			context: this
 		};
@@ -206,7 +261,8 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 1,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-settings'
 		};
 	},
 
@@ -310,7 +366,34 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 			model.discardChanges();
 		}
 
-		container.switchContext(newContext, folder);
+		/*
+		 * if requiresReload config was true then don't directly switch the context 
+		 * register the afterrequiredreload event and then switch the context based on the 
+		 * button pressed by the user from required reload message box.
+		 */
+		if(model.getRealSettingsModel().requiresReload) {
+			this.on('afterrequiredreload', this.onAfterRequiredReload.createDelegate(this, [ folder, newContext ],1), this, {single : true});
+		} else {
+			container.switchContext(newContext, folder);
+		}
+	},
+
+	/**
+	 * Function is used to switch the context if cancel button was pressed from 
+	 * required reload message box.
+	 * 
+	 * @param {Zarafa.core.Context} currentContext The current context.
+	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord} folder The folder to which to
+	 * switch when the user is wishes to switch context.
+	 * @param {Zarafa.core.Context} newContext The context to which to switch
+	 * @param {String} button The button which the user pressed from required reload message box
+	 * @private
+	 */
+	onAfterRequiredReload : function(currentContext, newContextFolder, newContext, button)
+	{
+		if(button === 'cancel') {
+			container.switchContext(newContext, newContextFolder);
+		}
 	}
 });
 

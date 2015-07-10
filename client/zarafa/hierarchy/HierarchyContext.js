@@ -20,8 +20,6 @@ Zarafa.hierarchy.HierarchyContext = Ext.extend(Zarafa.core.Context, {
 
 		Zarafa.hierarchy.HierarchyContext.superclass.constructor.call(this, config);
 
-		this.registerInsertionPoint('main.maintoolbar.new.folder', this.createNewFolderButton, this);
-
 		// Register hierarchy specific dialog types
 		Zarafa.core.data.SharedComponentType.addProperty('hierarchy.dialog.folderselection');
 		Zarafa.core.data.SharedComponentType.addProperty('hierarchy.dialog.folderproperties');
@@ -91,47 +89,6 @@ Zarafa.hierarchy.HierarchyContext = Ext.extend(Zarafa.core.Context, {
 				break;
 		}
 		return component;
-	},
-
-	/**
-	 * Create "New Email" {@link Ext.menu.MenuItem item} for the "New item"
-	 * {@link Ext.menu.Menu menu} in the {@link Zarafa.mail.ui.MailToolbar toolbar}.
-	 * This button should be shown in all {@link Zarafa.core.Context contexts} and
-	 * is used to create a new Email.
-	 *
-	 * @param {Zarafa.core.Context} context (optional) context object that will be used for scoping if this
-	 * method is called from constructor of {@link Zarafa.calendar.ui.MailToolbar MailToolbar}
-	 * @return {Object} The menu item for creating a new Email item
-	 * @static
-	 */
-	createNewFolderButton: function(context)
-	{
-		if(Ext.isEmpty(context) || !(context instanceof Zarafa.core.Context))
-			context = this;
-
-		if(!(context instanceof Zarafa.core.Context))
-			return;
-
-		return [{
-			xtype: 'menuitem',
-			text: _('Folder'),
-			tooltip : _('Folder')+' (Ctrl + Alt + F)',
-			plugins : 'zarafa.menuitemtooltipplugin',
-			iconCls: 'icon_createFolder',
-			newMenuIndex: 1,
-			handler: this.onCreateFolder,
-			scope: this
-		}];
-	},
-
-	/**
-	 * Open the {@link Zarafa.common.dialogs.CreateFolderContentPanel CreateFolderContentPanel} for
-	 * creating a new folder within the Store hierarchy.
-	 * @private
-	 */
-	onCreateFolder : function()
-	{
-		Zarafa.hierarchy.Actions.openCreateFolderContent();
 	}
 });
 

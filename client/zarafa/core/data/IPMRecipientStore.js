@@ -52,6 +52,20 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 	allowResolvingToGABGroups: true,
 
 	/**
+	 * The proxy that handles the expand requests.
+	 * @property
+	 * @type Zarafa.core.data.IPMRecipientResolveProxy
+	 */
+	expandProxy: undefined,
+
+	/**
+	 * The {@link Zarafa.core.data.JsonReader} used for handling expand responses
+	 * @property
+	 * @type Ext.data.DataReader
+	 */
+	expandReader: undefined,
+
+	/**
 	 * @constructor
 	 * @param config Configuration object
 	 */
@@ -98,11 +112,19 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 		Zarafa.core.data.IPMRecipientStore.superclass.constructor.call(this, config);
 
 		this.resolveProxy = new Zarafa.core.data.IPMRecipientResolveProxy();
+		this.expandProxy = new Zarafa.core.data.IPMExpandDistlistProxy();
+
 		this.relayEvents(this.resolveProxy,  ['exception']);
 
 		this.resolveReader = new Ext.data.JsonReader({
 			root: 'result'
 		}, Zarafa.core.data.IPMRecipientResolveRecord);
+
+		this.expandReader = new Zarafa.core.data.JsonReader({
+			root: 'result',
+			id : 'entryid',
+			dynamicRecord : false
+		}, Zarafa.core.data.IPMExpandDistlistRecord);
 
 		this.on({
 			'add' : this.onRecipientAdd,
@@ -350,6 +372,62 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 		}
 
 		this.fireEvent('resolved', this, options.pendingRecords);
+	},
+
+	/**
+	 * Expand the given {@link Zarafa.core.data.IPMRecipientRecord IPMRecipientRecord}
+	 * @param {Zarafa.core.data.IPMRecipientRecord} record The record to expand.
+	 * @param {Boolean} recurse True if we want expand a distribution list in a distribution list.
+	 * @param {Object} options (optional) Additional options
+	 */
+	expand : function(record, recurse, options)
+	{
+		// Setup the parameters that will make up the expand request to the server
+		var parameters = { 
+			entryid: record.get('entryid'),
+			recurse: recurse || false
+		};
+
+		// The arguments that can be used in the callback function
+		var args = Ext.apply({}, options, {
+			actionType: Zarafa.core.Actions['expand'],
+			listRequest : true,
+			recipientType : record.get('recipient_type'),
+			params: parameters
+		});
+
+		this.expandProxy.request(Zarafa.core.Actions['expand'], record, parameters, this.expandReader, this.onExpandResult, this, args);
+	},
+
+	/**
+	 * Callback function from the {@link Zarafa.core.data.IPMExpandDistlistResponseHandler ExpandDistlistResponseHandler},
+	 * which will be called when the response has been read. Each returned expand response will be 
+	 * handled separately. Resulted member record(s) are converted to the recipient record and added to the recipient store.
+	 * @param {Ext.data.Record/Array} records The record or records which have been received from the server.
+	 * @param {Object} options The options object used for the request
+	 * @param {Boolean} success True if the request was successfull.
+	 * @private
+	 */
+	onExpandResult: function(records, options, success)
+	{
+		if (success) {
+			if (!Ext.isArray(records)) {
+				records = [records];
+			}
+
+			var recipients = [];
+
+			for (var i = 0; i < records.length; i++) {
+				var memberRecord = records[i];
+
+				if (!Ext.isEmpty(memberRecord)) {
+					recipients.push(memberRecord.convertToRecipient(options.recipientType));
+				}
+			}
+
+			// Add all the member records into the recipient store
+			this.add(recipients);
+		}
 	},
 
 	/**

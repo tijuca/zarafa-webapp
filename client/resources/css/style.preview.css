@@ -221,3 +221,9 @@ span.zarafa-emailaddress-link:hover {
 	padding: 0px 8px;
 	color: #15428B;
 }
+
+/* contact preview */
+.preview-contact-body {
+	padding: 6px;
+	background-color: #FFFFFF !important;
+}

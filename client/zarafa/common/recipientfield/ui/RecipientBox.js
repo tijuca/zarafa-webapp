@@ -35,6 +35,25 @@ Zarafa.common.recipientfield.ui.RecipientBox = Ext.extend(Zarafa.common.ui.Box, 
 	invalidCls: 'x-zarafa-boxfield-recipient-item-invalid',
 
 	/**
+	 * The {@link Ext.Element} which contains the expand button for this box.
+	 * @property
+	 * @type Ext.Element
+	 */
+	expandBtnEl : undefined,
+
+	/**
+	 * @cfg {String} expandBtnCls The CSS class which will be applied to the {@link #expandBtnEl} when
+	 * the component is rendered.
+	 */
+	expandBtnCls : 'x-zarafa-boxfield-item-expand',
+
+	/**
+	 * @cfg {String} expandBtnHoverCls The CSS class which will be applied to the {@link #expandBtnEl} when
+	 * the cursor is hovering over the button.
+	 */
+	expandBtnHoverCls : 'x-zarafa-boxfield-item-expand-hover',
+
+	/**
 	 * @constructor
 	 * @param config Configuration object
 	 */
@@ -51,6 +70,102 @@ Zarafa.common.recipientfield.ui.RecipientBox = Ext.extend(Zarafa.common.ui.Box, 
 		});
 
 		Zarafa.common.recipientfield.ui.RecipientBox.superclass.constructor.call(this, config);
+	},
+
+	/**
+	 * Setup the buttons of the box. This function will only be called when {@link #enableButtons} is true.
+	 * It is specially overridden to add expand button.
+	 * @override
+	 * @private
+	 */
+	renderButtons: function()
+	{
+		Zarafa.common.recipientfield.ui.RecipientBox.superclass.renderButtons.apply(this, arguments);
+
+		// Render the expand button only if the recipient is distribution list.
+		if(this.record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
+			this.renderExpandButton();
+		}
+	},
+
+	/**
+	 * Function called after the {@link #render rendering} of this component.
+	 * This will hide the {@link #expandBtnEl} when the {@link #editable} flag is false
+	 * @param {Ext.Container} ct The container in which the component is being rendered.
+	 * @override
+	 * @private
+	 */
+	afterRender : function(ct)
+	{
+		Zarafa.common.recipientfield.ui.RecipientBox.superclass.afterRender.call(this, ct);
+
+		if(Ext.isDefined(this.expandBtnEl)){
+			this.expandBtnEl.setVisible(this.editable);
+		}
+	},
+	
+	/**
+	 * Set the {@link #editable} flag, making the box editable or non-editable.
+	 * @param {Boolean} value The new editable status.
+	 * @override
+	 */
+	setEditable : function(value)
+	{
+		Zarafa.common.recipientfield.ui.RecipientBox.superclass.setEditable.call(this, value);
+
+		if (Ext.isDefined(this.expandBtnEl)) {
+			this.expandBtnEl.setVisible(this.editable);
+		}
+	},
+
+	/** 
+	 * Create expand button and sets event listeners on that expand button of the box.
+	 * @private
+	 */
+	renderExpandButton: function()
+	{
+		this.expandBtnEl = this.el.insertFirst({
+			tag : 'span',
+			cls : this.expandBtnCls
+		});
+
+		this.expandBtnEl.addClassOnOver(this.expandBtnHoverCls);
+		this.mon(this.expandBtnEl, 'click', this.onClickExpand, this);
+	},
+
+	/**
+	 * Called when the user has clicked on the expand button of any recipient.
+	 * @private
+	 */
+	onClickExpand: function()
+	{
+		Ext.MessageBox.show({
+			title: _('Zarafa WebApp'),
+			msg :_('Distribution list will be replaced with its members. You will not be able to collapse it again.'),
+			icon: Ext.MessageBox.WARNING,
+			record: this.record,
+			fn: this.doExpand,
+			scope: this,
+			buttons: Ext.MessageBox.OKCANCEL
+		});
+	},
+
+	/**
+	 * Handler called when user press any button from {@link Ext.MessageBox mesagebox}.
+	 * @param {String} buttonClicked The ID of the button pressed,
+	 * here, one of: ok cancel.
+	 * @param {String} text Value of the input field, not useful here
+	 * @private
+	 */
+	doExpand : function(buttonClicked, text)
+	{
+		if (buttonClicked == 'ok') {
+			var store = this.parent.getBoxStore();
+			store.expand(this.record);
+
+			// Remove the distribution list from store
+			Zarafa.common.recipientfield.ui.RecipientBox.superclass.onClickRemove.apply(this, arguments);
+		}
 	},
 
 	/**
@@ -134,6 +249,14 @@ Zarafa.common.recipientfield.ui.RecipientBox = Ext.extend(Zarafa.common.ui.Box, 
 			this.el.removeClass(this.pendingCls);
 			this.el.removeClass(this.ambiguousCls);
 			this.el.removeClass(this.validCls);
+		}
+
+		// When record gets updated by resolve request, it may be possible that it is a DistList.
+		// Render the expand button only if the recipient is distribution list.
+		if(this.record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
+			if (this.enableButtons === true && !Ext.isDefined(this.expandBtnEl)) {
+				this.renderExpandButton();
+			}
 		}
 	}
 });

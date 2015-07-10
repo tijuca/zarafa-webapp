@@ -1,8 +1,11 @@
+/*
+ * #dependsFile client/zarafa/mail/data/ActionTypes.js
+ */
 Ext.namespace('Zarafa.common.ui');
 
 /**
  * @class Zarafa.common.ui.HtmlEditor
- * @extends Ext.ux.TinyMCE
+ * @extends Ext.ux.form.TinyMCETextArea
  * @xtype zarafa.htmleditor
  * 
  * The Zarafa HtmlEditor is a simple override of the TinyMCE provided HtmlEditor.
@@ -103,6 +106,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		Zarafa.common.ui.HtmlEditor.superclass.constructor.call(this, config);
 
 		this.on('initialized', this.onEditorInitialized, this);
+		this.on('beforedestroy', this.onBeforeDestroy, this);
 	},
 
 	/**
@@ -113,6 +117,12 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	 */
 	onEditorInitialized : function(htmlEditor, tinymceEditor)
 	{
+		var server = container.getServerConfig();
+		var clientTimeout = server.getClientTimeout();
+		if (clientTimeout){
+			this.setIdleTimeEventListeners();
+		}
+		
 		tinymceEditor.on('keydown', this.onKeyDown.createDelegate(this), this);
 		tinymceEditor.on('paste', this.onPaste.createDelegate(this), this);
 
@@ -140,7 +150,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		 */
 		var toolbarGroup = tinymceEditor.theme.panel.find(".toolbar-grp")[0]; 
 		var buttonGroup = toolbarGroup.items()[0]; 
-		var firstGroup = buttonGroup.items(); 
+		var firstGroup = buttonGroup.items();
 		var fontFamilyCombo = firstGroup[0]; 
 		var fontSizeCombo = firstGroup[1]; 
 
@@ -160,6 +170,50 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		defaultFormatTask.delay(5);
 	},
 
+	/**
+	 * Set event listeners on the iframe that will reset the 
+	 * {@link Zarafa#idleTime idle time} when the user performs
+	 * an action in the iframe (i.e. click, mousemove, keydown)
+	 * @private
+	 */	
+	setIdleTimeEventListeners : function()
+	{
+		var doc = this.getEditorDocument();
+
+		if ( !doc.addEventListener ) {
+			// User is using a browser that does not support addEventListener.
+			// Probably IE<9 which we don't support.
+			// However there is no reason to create errors for IE<9
+			// Client timeout will still be handled by the backend though,
+			// but the message will only be shown to the user when he tries to
+			// connect to the backend after the session has timed out. 
+			return;
+		}
+
+		doc.addEventListener('click', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+		doc.addEventListener('mousemove', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+		doc.addEventListener('keydown', function(){
+			Zarafa.idleTime = 0;
+		}, true);
+	},
+
+	/**
+	 * Event handler for the beforedestroy event
+	 * The handler will call the remove function the tinyMCE editor, so it can clean up properly.
+	 */
+	onBeforeDestroy : function()
+	{
+		var editor = this.getEditor();
+		// Check if the editor was activated
+		if ( editor ){
+			editor.remove();
+		}
+	},
+	
 	/**
 	 * Event handler is called when content will be pasted in editor. 
 	 * the clipboardData is a read-only property of DataTransfer object, the data 
@@ -266,9 +320,12 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				if(tinymceEditor.selection) {
 					var firstNode = tinymceEditor.getBody().firstChild;
 					var clonedNode;
+					// When using the html editor without a MAPIRecord (e.g. for the signature editor), the getMessageAction
+					// is not defined, so check for it. 
+					var actionType = Ext.isDefined(this.record.getMessageAction) ? this.record.getMessageAction('action_type') : undefined;
 					// We might have different scenarios with regards to content like with-signature, without-signature, response-content etc.
 					// if first node is 'p' than we assume that there is no response-content.
-					if (firstNode.nodeName == 'P') {
+					if (firstNode.nodeName == 'P' && actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) {
 						// Check if no content is there in editor body.
 						// no need to create an element to apply default formatting for the case
 						// where no signature is there in editor at the time of initialization
@@ -277,17 +334,26 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 							clonedNode = firstNode.cloneNode();
 							tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
 						}
-					} else {
+					//For reply, replyall and forward we must add a new element to the top for which we must set the default formatting.
+					//For "edit as new email" this should not be done!
+					} else if (Zarafa.mail.data.ActionTypes.isSendOrForward(actionType)) {
 						// Response-content is there so create an element before Response-content to apply default formatting
 						var bogusHtml = '<br data-mce-bogus="1" />';
 						clonedNode = tinymceEditor.dom.create('p', tinymceEditor.settings.forced_root_block_attrs, bogusHtml);
 						tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
 					}
 
-					// The cursor must have to point to the very first element of the current content to apply the default formatting.
-					tinymceEditor.selection.setCursorLocation(tinymceEditor.getBody().firstChild, 0);
+					//For "Edit as New" messages we don't apply default formatting but go with the formatting in the original message
+					if ( !Ext.isDefined(actionType) || actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW){
+						// The cursor must have to point to the very first element of the current content to apply the default formatting.
+						tinymceEditor.selection.setCursorLocation(tinymceEditor.getBody().firstChild, 0);
 
-					this.composeDefaultFormatting(tinymceEditor);
+						this.composeDefaultFormatting(tinymceEditor);
+					}else{
+						// Set the cursor to the caret position
+						// This will set the correct font and size in the dropdowns of the editor
+						tinymceEditor.selection.setCursorLocation();
+					}
 
 					// HTML styles will be applied while selecting default values from comboboxes.
 					// We need to set those styles into the record to avoid change detection in record.
@@ -410,6 +476,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	onKeyDown : function(event)
 	{
 		var editor = this.getEditor();
+
 		/*
 		 * HACK: for IE and webkit browsers backspace/delete removes default formatting, so we have to
 		 * add it again, so we will set empty content and rest will be handled by BeforeSetContent
@@ -444,10 +511,30 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			}.createDelegate(this)).defer(1);
 		}
 
-		/*
-		 * After press enter if newly created P tag was empty then apply the default formatting.
-		 */
 		if(event.keyCode === Ext.EventObject.ENTER) {
+			/* When want to submit an email, TinyMCE interperts the Ctrl + Enter key as an enter
+			 * thus adding an extra unwanted enter. So we tell the browser to stop processing the
+			 * event and return false prevents this behaviour.
+			 */
+			if (event.ctrlKey) {
+				event.preventDefault();
+				return false;
+			}
+			
+			// Check if we are in a blockquote, and if so break the blockquote, 
+			// so the user can add his comments between the blockquotes.
+			var blockquote = this.inBlockquote(editor);
+			if ( blockquote ){
+				// Prevent normal enter-behaviour as we will handle it
+				event.preventDefault();
+				this.handleEnterInBlockquote();
+				return false;
+			}
+
+
+			/*
+			 * After press enter if newly created P tag was empty then apply the default formatting.
+			 */
 			(function(){
 				var node = editor.selection.getNode();
 				if(node.nodeName == 'P') {
@@ -482,6 +569,100 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		}
 
 		this.fireEvent("keypress", this, Ext.EventObject);
+	},
+	
+	/**
+	 * Checks if the cursor is positioned inside a blockquote
+	 * @param {tinymce.Editor} editor The editor we will check
+	 * @return {DOMElement} The blockquote element if found or false otherwise
+	 */
+	inBlockquote : function(editor)
+	{
+		var blockquoteElement = null;
+		var node = editor.selection.getNode();
+		if ( node.nodeName === 'BLOCKQUOTE' ){
+			blockquoteElement = node;
+		}else{
+			blockquoteElement = editor.dom.getParent(node, 'BLOCKQUOTE', editor.getBody());
+		}
+		
+		return blockquoteElement!==null ? blockquoteElement : false;
+	},
+	
+	/**
+	 * Splits a blockquote DOM element at the position of the cursor
+	 * @param {tinymce.Editor} editor The editor we will work in
+	 * @param {DOMElement} blockquote The blockquote element that must be split.
+	 */
+	splitBlockquote : function(editor, blockquote)
+	{
+		// Add a node where we will split the blockquote
+		editor.selection.setContent('<span id="zarafa-splitter"></span>');
+		var splitElement = editor.dom.get('zarafa-splitter');
+		editor.dom.split(blockquote, splitElement);
+
+		// Add some margin to the blockquotes for readability
+		var firstBlockquoteElement = editor.dom.getPrev(splitElement, 'blockquote');
+		var secondBlockquoteElement = editor.dom.getNext(splitElement, 'blockquote');
+		editor.dom.setStyle(firstBlockquoteElement, 'margin-bottom', '1em');
+		
+		// If the user pressed ENTER at the end of a blockquote, a new blockquote
+		// will not be created, so check if it exists
+		if ( secondBlockquoteElement ){
+			editor.dom.setStyle(secondBlockquoteElement, 'margin-top', '1em');
+			
+			// Remove <br> from the beginning of the new blockquote, as we will have added one
+			var firstChild = secondBlockquoteElement.firstChild;
+			if ( firstChild ){
+				if ( firstChild.nodeName === 'DIV' && editor.dom.hasClass(firstChild, 'bodyclass') ){
+					firstChild = firstChild.firstChild;
+				}
+				if ( firstChild && firstChild.firstChild && firstChild.firstChild.nodeName==='BR' ){
+					editor.dom.remove(firstChild.firstChild);
+	
+					// If the BR was the only child of a SPAN, then we can remove that SPAN 
+					if ( firstChild.nodeName==='SPAN' && editor.dom.isEmpty(firstChild) ){
+						editor.dom.remove(firstChild);
+					}
+				}
+			}
+		}
+
+		// Put a default root block at the caret position
+		var bogusHtml = '<br data-mce-bogus="1" />';
+		var newNode = editor.dom.create('p', editor.settings.forced_root_block_attrs, bogusHtml);
+		editor.dom.replace(newNode, splitElement);
+		editor.selection.select(newNode);
+
+	},
+	
+	/**
+	 * Handles the event when the user presses ENTER when the cursor is positioned
+	 * in a blockquote
+	 */
+	handleEnterInBlockquote : function()
+	{
+		var editor = this.getEditor();
+		var blockquote = this.inBlockquote(editor);
+		
+		// Add an undo snapshot and do all other things in a transact,
+		// so we will add only one undo level for it
+		editor.undoManager.add();
+		editor.undoManager.transact(function(){
+
+			// Use a loop to split all blockquotes we're in, since we might in more
+			// than one when the user replies to a reply or forward.
+			while ( blockquote ){
+				this.splitBlockquote(editor, blockquote);
+				blockquote = this.inBlockquote(editor);
+			}
+
+			// Set the cursor to the caret position
+			// This will set the correct font and size in the dropdowns of the editor
+			var newNode = editor.selection.getNode();
+			editor.selection.setCursorLocation(newNode);
+			this.composeDefaultFormatting(editor);
+		}.createDelegate(this));
 	},
 
 	/**
@@ -607,8 +788,8 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	onBlur : function()
 	{
 		// if container of HtmlEditor, i.e. dialog, is closed then component is
-		// also destroyed and we won't be able to get value/content.
-		if(this.isDestroyed === true) {
+		// also destroyed or removed and we won't be able to get value/content.
+		if(this.isDestroyed === true || this.getEditor().removed ) {
 			return;
 		}
 

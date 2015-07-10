@@ -45,6 +45,7 @@
 						switch($actionType)
 						{
 							case "list":
+							case "updatelist":
 								$this->getDelegateFolderInfo($store);
 								$this->messageList($store, $entryid, $action, $actionType);
 								break;

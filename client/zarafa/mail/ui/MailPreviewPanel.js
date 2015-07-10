@@ -34,7 +34,8 @@ Zarafa.mail.ui.MailPreviewPanel = Ext.extend(Zarafa.core.ui.PreviewPanel, {
 				items : [
 					this.createReplyButton(),
 					this.createReplyAllButton(),
-					this.createForwardButton()
+					this.createForwardButton(),
+					this.createEditAsNewButton()
 				]
 			}
 		});
@@ -59,6 +60,10 @@ Zarafa.mail.ui.MailPreviewPanel = Ext.extend(Zarafa.core.ui.PreviewPanel, {
 			toolbar.replyBtn.setVisible(!isFaultyMessage);
 			toolbar.replyAllBtn.setVisible(!isFaultyMessage);
 			toolbar.forwardBtn.setVisible(!isFaultyMessage);
+			
+			// Only show the "Edit as New Message" button in the toolbar when the item is in the Sent folder
+			var defaultFolder = this.model.getDefaultFolder();
+			toolbar.editAsNewBtn.setVisible(defaultFolder.getDefaultFolderKey()==='sent' && !isFaultyMessage);
 		}
 	},
 
@@ -123,7 +128,27 @@ Zarafa.mail.ui.MailPreviewPanel = Ext.extend(Zarafa.core.ui.PreviewPanel, {
 	},
 
 	/**
-	 * Called when one of the "Reply"/"Reply All"/"Forward" menuitems are clicked.
+	 * Function returns config for the "Edit as New Message" button in preview panel's toolbar
+	 *
+	 * @return {Object} Configuration object of "Edit as New Message" button for the panel toolbar
+	 * @private
+	 */
+	createEditAsNewButton : function()
+	{
+		return {
+			xtype: 'button',
+			tooltip: _('Edit as New Message') + ' (Ctrl + E)',
+			overflowText: _('Edit as New Message'),
+			iconCls: 'icon_editAsNewEmail',
+			ref: 'editAsNewBtn',
+			responseMode: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
+			handler: this.onResponse,
+			scope : this
+		};
+	},
+
+	/**
+	 * Called when one of the "Reply"/"Reply All"/"Forward"/"Edit as New Message" menuitems are clicked.
 	 * @param {Ext.Button} button The button which was clicked
 	 * @private
 	 */

@@ -40,6 +40,31 @@ Zarafa.hierarchy.ui.TreeSorter = Ext.extend(Ext.tree.TreeSorter, {
 	 * which must be used in the comparison between 2 {@link Zarafa.hierarchy.data.MAPIStoreRecord stores}.
 	 */
 	storeProperty : 'mailbox_owner_name',
+	
+	/**
+	 * @cfg {String[]} folderOrder The predefined order for the folders in the hierarchy. It contains default 
+	 * folder keys and container classes.
+	 */
+	folderOrder : [
+		'inbox', 
+		'drafts', 
+		'outbox', 
+		'sent', 
+		'IPF.Note', 
+		'wastebasket', 
+		'junk', 
+		'calendar', 
+		'IPF.Appointment', 
+		'contact', 
+		'IPF.Contact', 
+		'task', 
+		'IPF.Task', 
+		'note', 
+		'IPF.StickyNote', 
+		'journal', 
+		'IPF.Journal', 
+		'IPF.Note.OutlookHomepage'
+	],
 
 	/**
 	 * @constructor
@@ -116,18 +141,49 @@ Zarafa.hierarchy.ui.TreeSorter = Ext.extend(Ext.tree.TreeSorter, {
 	},
 
 	/**
-	 * Helper function for {@link #hierarchySort}, this performs a comparison on a given
-	 * property on 2 records.
+	 * Helper function for {@link #hierarchySort}, this performs a comparison of two records.
+	 * The records (folders) will be ordered based on the preset folder order defined in
+	 * {@link folderOrder}. If this will not result in a order, the records will be ordered
+	 * based on the on a passed property field.
 	 *
 	 * @param {Ext.data.Record} record1 The first record to compare
 	 * @param {Ext.data.Record} record2 The second record to compare
 	 * @param {String} property The property on which the records are compared
 	 * @param {Boolean} descending True if the records must be sorted descending
 	 * @param {Boolean} caseSensitive True if the property values must be compared case-sensitive
+	 * @return {Integer} +1 if record1 should be placed before record 2 in the order, -1 otherwise
 	 * @private
 	 */
 	compareRecordProp : function(record1, record2, property, descending, caseSensitive)
 	{
+		// First look at the folders types, because they have a predefined order
+		var folderKey1 = record1.getDefaultFolderKey();
+		var folderKey2 = record2.getDefaultFolderKey();
+
+		// If the folder is not a default folder, we will sort it by its container class
+		if ( !folderKey1 ){
+			folderKey1 = record1.get('container_class');
+		}
+		if ( !folderKey2 ){
+			folderKey2 = record2.get('container_class');
+		}
+
+		// First check if record1 or record2 are a different default type or type
+		// and if so, sort the records based on that 
+		var index1 = this.folderOrder.indexOf(folderKey1);
+		var index2 = this.folderOrder.indexOf(folderKey2);
+		if ( index1 > -1 ){
+			if ( index2===-1 || index1<index2 ){
+				return descending ? +1 : -1;
+			}else if ( index1 > index2 ) {
+				return descending ? -1 : +1;
+			}
+		}else if ( index2 > -1 ){
+			return descending ? -1 : +1;
+		}
+		
+		// Folders that have the same type will now be sorted based on the passed property
+		
 		// For case insensitive sorting, convert to lowercase, this will correctly position
 		// folders which start with '_' to be sorted first (when converting to uppercase, those
 		// folders are otherwise sorted last.

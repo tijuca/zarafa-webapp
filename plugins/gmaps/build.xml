@@ -187,6 +187,7 @@
 			<fileset dir=".">
 				<include name="resources/**/*.*"/>
 				<include name="php/**/*.php"/>
+				<include name="md5/**/*.js"/>
 				<include name="config.php"/>
 				<!-- exclude the ant script -->
 				<exclude name="build.xml"/>

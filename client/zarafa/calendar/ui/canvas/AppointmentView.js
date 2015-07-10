@@ -38,9 +38,7 @@ Zarafa.calendar.ui.canvas.AppointmentView = Ext.extend(Zarafa.calendar.ui.Appoin
 
 		Ext.applyIf(config, {
 			baseCls : 'zarafa-calendar',
-			itemCls : 'appointment',
-			// FIXME:
-			calendarColorScheme : Zarafa.calendar.ui.ColorSchemes[0]
+			itemCls : 'appointment'
 		});
 
 		Zarafa.calendar.ui.canvas.AppointmentView.superclass.constructor.call(this, config);

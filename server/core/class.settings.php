@@ -352,6 +352,12 @@
 
 			// Check if the settings have been changed.
 			if ($this->settings_string !== $settings) {
+				// Update the Free/Busy range of the login user when user gets login or update the free/busy months from settings.
+				$freeBusyRange = $this->get('zarafa/v1/contexts/calendar/free_busy_range');
+				if(!is_null($freeBusyRange)) {
+					$GLOBALS["operations"]->publishFreeBusy($this->store);
+				}
+
 				$stream = mapi_openproperty($this->store, PR_EC_WEBACCESS_SETTINGS_JSON, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
 				mapi_stream_setsize($stream, strlen($settings));
 				mapi_stream_write($stream, $settings);

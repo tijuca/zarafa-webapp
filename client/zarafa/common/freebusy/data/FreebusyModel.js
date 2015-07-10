@@ -590,10 +590,11 @@ Zarafa.common.freebusy.data.FreebusyModel = Ext.extend(Ext.util.Observable,
 		// to collect the data for the given recipient, the userid is used
 		// in the response to correlate the response to the correct recipientRecord.
 		Ext.each(userRecords, function(userRecord) {
-			if (userRecord.isResolved() || userRecord.attemptedToResolve()) {
+			if (userRecord.isResolved()) {
 				loadData.params.users.push({
 					userid : userRecord.id,
-					entryid : userRecord.get('entryid')
+					entryid : userRecord.get('entryid'),
+					organizer : userRecord.isMeetingOrganizer()
 				});
 			}
 		});

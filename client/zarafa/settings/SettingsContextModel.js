@@ -207,6 +207,8 @@ Zarafa.settings.SettingsContextModel = Ext.extend(Zarafa.core.ContextModel, {
 
 			this.fireEvent('savesettings', this, this.editModel);
 
+			this.realModel.requiresReload = this.editModel.requiresReload;
+
 			this.realModel.beginEdit();
 
 			if (!Ext.isEmpty(this.setlist)) {
@@ -247,6 +249,8 @@ Zarafa.settings.SettingsContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	{
 		var defaults = this.realModel.get(undefined, true);
 		this.editModel.initialize(defaults);
+
+		this.editModel.commit();
 
 		this.dirty = false;
 		delete this.setlist;

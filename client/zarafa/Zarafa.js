@@ -25,6 +25,16 @@ Ext.apply(Zarafa, {
 	 * @private
 	 */
 	readyEvent : new Ext.util.Event(),
+	
+	/**
+	 * The time that the user has not done any action 
+	 * (like mousemove, click, or keypress) in the WebApp.
+	 * 
+	 * @property
+	 * @type Integer
+	 * @private
+	 */
+	idleTime : 0,
 
 	/**
 	 * Adds a listener to be notified when Zarafa is ready. This will be somewhere during {@link Ext.onReady}, when
@@ -608,6 +618,15 @@ Ext.apply(Zarafa, {
 			// Process data that was passed as URL data
 			Zarafa.core.URLActionMgr.execute(urlActionData);
 			delete urlActionData;
+
+			// Start the keepalive to make sure we stay logged into the zarafa-server,
+			// the keepalive is also used to get notifications back to the client.
+			store.startKeepAlive();
+
+			// Post logon succesful to parent.
+			if (window.location !== window.parent.location){ 
+				parent.postMessage('logonSuccesful', '*');
+			}
 		} else {
 			this.setErrorLoadingMask(_('Error'), _('Loading model from server failed'));
 		}
@@ -669,16 +688,89 @@ Ext.apply(Zarafa, {
 		// and allow the Main Viewport to be opened
 		var hierarchyStore = container.getHierarchyStore();
 
-		// Start the keepalive to make sure we stay logged into the zarafa-server,
-		// the keepalive is also used to get notifications back to the client.
-		hierarchyStore.startKeepAlive();
-
 		// For the hierarchy we only need to register the event handler once,
 		// as only during the first time we have to remove the load mask.
 		hierarchyStore.on('load', this.onHierarchyLoad, this, { single: true });
 
 		// Load the folder hierarchy
 		hierarchyStore.load();
+
+		// When a client timeout has been defined, we will start keeping track
+		// of idle time.
+		var server = container.getServerConfig();
+		var clientTimeout = server.getClientTimeout();
+		if (clientTimeout){
+			this.startIdleTimeChecker(clientTimeout);
+		}
+	},
+	
+	/**
+	 * Starts the checking of idle time.
+	 * This function uses original javascript events because we cannot set 
+	 * the useCapture property with ExtJS events.
+	 * See https://developer.mozilla.org/en/docs/Web/API/EventTarget.addEventListener
+	 * 
+	 * @param {Number} clientTimeout The timout time in seconds.
+	 * @private
+	 */
+	startIdleTimeChecker : function(clientTimeout)
+	{
+		if ( !document.addEventListener ) {
+			// User is using a browser that does not support addEventListener.
+			// Probably IE<9 which we don't support.
+			// However there is no reason to create errors for IE<9
+			// Client timeout will still be handled by the backend though,
+			// but the message will only be shown to the user when he tries to
+			// connect to the backend after the session has timed out. 
+			return;
+		}
+		var me = this;
+
+		document.addEventListener('click', function(){
+			me.idleTime = 0;
+		}, true);
+		document.addEventListener('mousemove', function(){
+			me.idleTime = 0;
+		}, true);
+		document.addEventListener('keydown', function(){
+			me.idleTime = 0;
+		}, true);
+		
+		var hierarchyStore = container.getHierarchyStore();
+
+		// Start an interval for increasing the idle time
+		Ext.TaskMgr.start.createDelegate(this, [{
+			run : function(){
+				// Add 5 seconds to the idle time counter
+				this.idleTime += 5;
+				if ( this.idleTime > clientTimeout ){
+					hierarchyStore.sendDestroySession();
+				}
+			},
+			scope : this,
+			interval : 5000 //Run every 5 seconds
+		}]).defer(5000); // Start after 5 seconds
+		
+		// Start an interval for sending keepalive requests
+		// We need this keepalive to keep the connection alive if the user has made an
+		// action in the WebApp without connecting to the server. (like mousemove, click, keydown)
+		// Substracting 5 seconds to account for latency
+		var interval = (clientTimeout-5)*1000;
+		if ( interval < 5000 ){
+			// This one is especially for Sean who was so smart to set a client timeout of 5 seconds
+			// causing keepalive requests to be sent constantly and thereby ddos'ing his own server :-)
+			// Let's never send keepalive requests with an interval lower than 5 seconds.
+			// Anyone who sets a timeout this low deserves to be logged out! (and punished severly)
+			interval = 5000;
+		}
+		
+		Ext.TaskMgr.start.createDelegate(this, [{
+			run : function(){
+				hierarchyStore.sendKeepAlive();
+			},
+			scope : this,
+			interval : interval
+		}]).defer(interval); //Start sending keepalives after interval milliseconds.
 	},
 
 	/**
@@ -747,6 +839,10 @@ Ext.apply(Zarafa, {
 		// Load the welcome view
 		container.getWelcomePanel();
 		this.hideLoadingMask();
+		// Post logon succesful to parent.
+		if (window.location !== window.parent.location) {
+			parent.postMessage('firstLogon', '*');
+		}
 	},
 
 	//

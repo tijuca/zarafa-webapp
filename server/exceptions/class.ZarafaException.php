@@ -1,4 +1,7 @@
 <?php
+
+require_once("mapi/class.baseexception.php");
+
 /**
  * Defines a base exception class for custom zarafa generated exceptions, these exceptions
  * are generated and handled by our application only.

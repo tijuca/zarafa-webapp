@@ -19,7 +19,7 @@ Zarafa.calendar.Actions = {
 		Ext.each(records, function(record) {
 			// If the appointment is a series, then we need to ask the user
 			// if he wants to open the occurence or the series.
-			if (record.isRecurringOccurence()) {
+			if (Ext.isDefined(record.isRecurringOccurence) && record.isRecurringOccurence()) {
 				Zarafa.common.Actions.openRecurringSelectionContent(record, function(button, radio) {
 					// Action cancelled.
 					if (button != 'ok') {

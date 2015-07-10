@@ -13,11 +13,12 @@
 (function($) {
 	var undef,
 		lazyLoading,
+		patchApplied,
 		delayedInits = [],
 		win = window;
 
 	$.fn.tinymce = function(settings) {
-		var self = this, url, base, lang, suffix = "", patchApplied;
+		var self = this, url, base, lang, suffix = "";
 
 		// No match then just ignore the call
 		if (!self.length) {
@@ -69,7 +70,7 @@
 					if (oninit) {
 						// Fire the oninit event ones each editor instance is initialized
 						if (++initCount == editors.length) {
-							if (typeof(func) === "string") {
+							if (typeof func === "string") {
 								scope = (func.indexOf(".") === -1) ? null : tinymce.resolve(func.replace(/\.\w+$/, ""));
 								func = tinymce.resolve(func);
 							}

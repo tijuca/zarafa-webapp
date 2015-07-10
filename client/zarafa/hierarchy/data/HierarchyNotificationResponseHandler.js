@@ -86,7 +86,13 @@ Zarafa.hierarchy.data.HierarchyNotificationResponseHandler = Ext.extend(Zarafa.c
 
 		var mapiStoreRecord = [];
 		for (var i = 0, len = mapiStoreIds.length; i < len; i++) {
-			mapiStoreRecord.push(this.store.getById(mapiStoreIds[i]));
+			var storeRecord = this.store.getById(mapiStoreIds[i]);
+			// We must check if we have a store record, because a keepalive request might be sent before the store loaded.
+			// The notifier that will be sent in the response will trigger this function and because we don't have the 
+			// store record yet, we will eventually end up with a javascript error if we put undefined in the mapiStoreRecord array.
+			if ( Ext.isDefined(storeRecord) ){
+				mapiStoreRecord.push(storeRecord);
+			}
 		}
 
 		this.addNotification(Zarafa.core.data.Notifications.objectModified, mapiStoreRecord, stores);

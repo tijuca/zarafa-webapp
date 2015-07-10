@@ -198,7 +198,7 @@ otherwise the input field at the bottom would only be partially visible when the
 	height: 20px;
 	width: 16px;
 	/* The close.png contains multiple icons, here we dislay the top one */
-	background: url(../icons/cross.png) no-repeat scroll left 1px;
+	background: url(../images/button/close_button.png) no-repeat scroll left 1px;
 	display: block;
 	float: left;
 	position: relative;

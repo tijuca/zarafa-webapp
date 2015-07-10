@@ -83,6 +83,13 @@ Zarafa.settings.SettingsModel = Ext.extend(Ext.util.Observable, {
 	 * @type Array
 	 */
 	resetSettings : undefined,
+	
+	/**
+	 * The property which decide that webapp requires to reload.
+	 * @property
+	 * @type Boolean
+	 */
+	requiresReload : false,
 
 	/**
 	 * @constructor
@@ -393,11 +400,11 @@ Zarafa.settings.SettingsModel = Ext.extend(Ext.util.Observable, {
 			container.getRequest().singleRequest(
 				Zarafa.core.ModuleNames.getListName('settings'),
 				action,
-				{ 'setting' : parameters },
+				{ 'setting' : parameters},
 				new Zarafa.core.data.ProxyResponseHandler({
 					proxy: this,
 					action: Ext.data.Api.actions['update'],
-					options: {action : action, parameters : parameters},
+					options: {action : action, parameters : parameters,'requiresReload' : this.requiresReload },
 					callback:  this.onExecuteComplete,
 					scope : this
 				})
@@ -431,6 +438,7 @@ Zarafa.settings.SettingsModel = Ext.extend(Ext.util.Observable, {
 		this.deleted = [];
 		this.modified = [];
 		this.resetSettings = [];
+		this.requiresReload = false;
 	},
 
 	/**

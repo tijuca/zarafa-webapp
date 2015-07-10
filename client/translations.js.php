@@ -69,15 +69,15 @@ foreach($translations as $domain => $translation_list){
 	}
 	if($pluralForms){
 ?>
-	this.setPluralFormFunc('<?=$domain?>', '<?=$pluralForms?>');
+	this.setPluralFormFunc('<?php echo $domain ?>', '<?php echo $pluralForms?>');
 <?php
 	}else{
 ?>
-	this.setPluralFormFunc('<?=$domain?>');
+	this.setPluralFormFunc('<?php echo $domain ?>');
 <?php
 	}
 ?>
-	this.translations["<?=$domain?>"] = new Object();
+	this.translations["<?php echo $domain ?>"] = new Object();
 <?php
 	for($i=0;$i<count($translations[$domain]);$i++){
 		$translation = $translations[$domain][$i];
@@ -107,17 +107,17 @@ foreach($translations as $domain => $translation_list){
 			// Escape the \n slash to prevent the translation file out breaking.
 			$msgstr = str_replace("\n","\\n", addslashes($translation['msgstr']));
 ?>
-	this.translations["<?=$domain?>"][<?=$context?>"<?=$msgid?>"] = "<?=$msgstr?>";
+	this.translations["<?php echo $domain ?>"][<?php echo $context ?>"<?php echo $msgid ?>"] = "<?php echo $msgstr ?>";
 <?php
 		}else{
 ?>
-	this.translations["<?=$domain?>"][<?=$context?>"<?=$msgid?>"] = new Array();
+	this.translations["<?php echo $domain?>"][<?php echo $context?>"<?php echo $msgid?>"] = new Array();
 <?php
 			for($j=0;$j<count($translation['msgstr']);$j++){
 				// Escape the \n slash to prevent the translation file out breaking.
 				$msgstr = str_replace("\n","\\n", addslashes($translation['msgstr'][$j]));
 ?>
-	this.translations["<?=$domain?>"][<?=$context?>"<?=$msgid?>"][<?=$j?>] = "<?=$msgstr?>";
+	this.translations["<?php echo$domain?>"][<?php echo $context?>"<?php echo $msgid?>"][<?php echo $j?>] = "<?php echo $msgstr?>";
 <?php
 			}
 		}

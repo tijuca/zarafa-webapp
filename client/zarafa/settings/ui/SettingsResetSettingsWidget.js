@@ -113,7 +113,7 @@ Zarafa.settings.ui.SettingsResetSettingsWidget= Ext.extend(Zarafa.settings.ui.Se
 		if(parameters.action === Zarafa.core.Actions['reset']) {
 			this.mun(model, 'save', this.onSettingsSave, this);
 			this.mun(model, 'exception', this.onSettingsException, this);
-			window.location.reload();
+			Zarafa.core.Util.reloadWebapp();
 		}
 	},
 

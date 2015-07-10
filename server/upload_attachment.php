@@ -13,6 +13,8 @@
 	// Get Attachment data from state
 	$attachment_state = new AttachmentState();
 	$attachment_state->open();
+	
+	header('Content-Type: application/json; charset=utf-8');
 
 	try {
 		$newfiles = Array();

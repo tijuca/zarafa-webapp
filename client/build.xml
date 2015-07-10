@@ -25,10 +25,6 @@
 	<property name="ux-all-debugfile" value="ux-all-debug.js"/>
 	<property name="ux-all-file" value="ux-all.js"/>
 
-	<!-- The Jquery distribution files -->
-	<property name="jquery-folder" value="jquery"/>
-	<property name="jquery-file" value="jquery-1.6.2.min.js"/>
-
 	<!-- The TinyMCE distribution files -->
 	<property name="tinymce-folder" value="tinymce"/>
 
@@ -76,11 +72,6 @@
 				<include name="${ux-all-file}"/>
 			</fileset>
 
-			<!-- Delete the Jquery files -->
-			<fileset dir="${target-folder}/${jquery-folder}">
-				<include name="${jquery-file}"/>
-			</fileset>
-
 			<!-- Delete the TinyMCE files -->
 			<fileset dir="${target-folder}/${tinymce-folder}">
 				<include name="**/*.*"/>
@@ -120,11 +111,6 @@
 			<fileset dir="${ux-folder}">
 				<include name="${ux-all-debugfile}"/>
 				<include name="${ux-all-file}"/>
-			</fileset>
-		</copy>
-		<copy todir="${target-folder}/${jquery-folder}">
-			<fileset dir="${jquery-folder}">
-				<include name="${jquery-file}"/>
 			</fileset>
 		</copy>
 		<copy todir="${target-folder}/${tinymce-folder}">
@@ -275,11 +261,6 @@
 				<exclude name="third-party/resources/css/*.*"/>
 			</fileset>
 		</copy>
-	</target>
-
-	<!-- Generate images for the calendar using imagegen -->
-	<target name="calendar-images">
-		<imagegen configfile="${tools-folder}/resources/imagegen/colors.cfg" outdir="resources/images/calendar" resourcedir="${tools-folder}/resources/imagegen/"/>
 	</target>
 
 	<!-- Generate documentation using ext-doc -->

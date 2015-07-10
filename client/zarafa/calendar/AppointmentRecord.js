@@ -205,6 +205,9 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 					type = _('weeks');
 					occSingleDayRank = false;
 				}
+
+				// Append selected week days related information, if any
+				type += _(' on ') + this.prepareWeekDaysString();
 				break;
 			case Zarafa.common.recurrence.data.RecurrenceType.MONTHLY:
 				if (everyn == 1) {
@@ -583,6 +586,11 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 			return false;
 		}
 
+		// If the appointment is recurring and having any exceptions.
+		if (this.isRecurring() && this.get('recurrence_numexcept') > 0) {
+			return true;
+		}
+
 		// Search if the recurring appointment has an exception attachment.
 		var subStore = this.getSubStore('attachments');
 		if (!subStore) {
@@ -754,7 +762,15 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 				// Apply fake ID to prevent is being marked as phantom
 				var organizer = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, props, -1);
 
-				recipientStore.insert(0, organizer);
+				// Act like a dummy store load operation to add organizer in recipient sub store
+				// without any changes being registered.
+				var existingRecords = recipientStore.getRange();
+				existingRecords.push(organizer);
+				recipientStore.loadRecords({records : existingRecords}, undefined, true);
+
+				// Register for an update event of ShadowStore to add organizer every time
+				// when server responded about recipient(s) related changes
+				container.getShadowStore().on('update', this.addOrganizerAfterUpdate, this);
 			}
 
 			// Apply sorting to the RecipientStore as we want
@@ -774,6 +790,23 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 		} else if (recipientStore.getCount() > 0) {
 			// Normal appointments don't have any recipients.
 			recipientStore.removeAll();
+		}
+	},
+
+	/**
+	 * Event handler executed when update event will be fired if a Record has been updated.
+	 * {@link #updateMeetingRecipients} method will be called to add organizer into the recipient sub store,
+	 * while server will send modified recipient set.
+	 * @param {Zarafa.core.data.ShadowStore} store The store from which any record(s) gets updated
+	 * @param {Ext.data.Record} record The Record that was updated
+	 * @param {String} operation The update operation being performed
+	 */
+	addOrganizerAfterUpdate : function(store, record, operation)
+	{
+		if(operation === Ext.data.Record.COMMIT) {
+			// Unregister the update event from shadow store as it will be registered again if there is no organizer found
+			container.getShadowStore().un('update', this.addOrganizerAfterUpdate, this);
+			this.updateMeetingRecipients();
 		}
 	},
 
@@ -866,6 +899,43 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 		}
 
 		return this;
+	},
+
+	/**
+	 * Function is used to convert 'recurrence_weekdays' {@link Zarafa.common.recurrence.data.RecurrenceSubtype subtype}
+	 * property into a comma separated list which contains selected week days. To display weekday information
+	 * as a part of recurring pattern.
+	 * @return {String} A string containing selected week days separated by comma.
+	 */
+	prepareWeekDaysString : function()
+	{
+		var weekDaysObject = new Ext.util.MixedCollection();
+		var weekStart = container.getSettingsModel().get('zarafa/v1/main/week_start');
+		var checkedWeekDays = [];
+
+		// Dynamically prepare an object which contains mapping between day name and its value according to the configured week start setting.
+		for (var i = 0; i < Date.dayNames.length; i++) {
+			weekDaysObject.add({
+				dayName: Date.dayNames[(weekStart + i) % 7],
+				dayValue : Math.pow(2, (weekStart + i) % 7)
+			});
+		};
+
+		// Get the property value from record to prepare array of selected week days.
+		var weekdays = this.get('recurrence_weekdays');
+		weekDaysObject.each(function(dayObject) {
+			if(!!(dayObject.dayValue & weekdays)){
+				checkedWeekDays.push(dayObject.dayName);
+			}
+		});
+
+		// Check if there is more than one days are selected, to append 'and' word before last week day
+		if(checkedWeekDays.length > 1) {
+			var lastWeekDayIndex = checkedWeekDays.length - 1;
+			checkedWeekDays[lastWeekDayIndex] = _('and ') + checkedWeekDays[lastWeekDayIndex];
+		}
+
+		return (checkedWeekDays.length === 2) ? checkedWeekDays.join(" ") : checkedWeekDays.join(", ");
 	}
 });
 

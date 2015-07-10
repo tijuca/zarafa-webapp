@@ -408,7 +408,7 @@ Zarafa.common.ui.SearchBar = Ext.extend(Ext.Panel, {
 	{
 		var useSearchFolder = this.model.supportsSearchFolder();
 
-		this.searchTextfield.updateEmptyText(this.getEmptySearchText(folders[0]));
+		this.searchTextfield.setEmptyText(this.getEmptySearchText(folders[0]));
 		this.toggleComponents(useSearchFolder);
 		this.subfolderCheckbox.setValue(useSearchFolder ? this.subfolders : false);
 	},

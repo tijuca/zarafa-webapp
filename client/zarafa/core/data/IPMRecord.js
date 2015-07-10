@@ -32,6 +32,8 @@ Zarafa.core.data.IPMRecordFields = [
 	{name: 'object_type', type: 'int', defaultValue: Zarafa.core.mapi.ObjectType.MAPI_MESSAGE},
 	{name: 'normalized_subject'},
 	{name: 'last_modification_time', type:'date', dateFormat:'timestamp', defaultValue: null},
+	{name: 'last_verb_execution_time', type:'date', dateFormat:'timestamp', defaultValue: null},
+	{name: 'last_verb_executed', type: 'int'},
 	{name: 'hasattach', type: 'boolean', defaultValue: false},
 	{name: 'display_to'},
 	{name: 'display_cc'},
@@ -273,11 +275,11 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 		var entryid = undefined;
 		var store = undefined;
 
-		var action_type = this.getMessageAction('action_type')
+		var action_type = this.getMessageAction('action_type');
 		var attachNum = this.get('attach_num');
 
 		//FIXME: this would only work if all images are either added or from the original record, but not both
-		if (this.phantom && Zarafa.mail.data.ActionTypes.isSendOrForward(action_type)) {
+		if (this.phantom && (Zarafa.mail.data.ActionTypes.isSendOrForward(action_type) || action_type===Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) ) {
 			entryid = this.getMessageAction('source_entryid');
 			store = this.getMessageAction('source_store_entryid');
 		} else {
@@ -500,15 +502,23 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 	 * Builds URL to download different messages as its respective file format.
 	 * Email message will be downloaded as RFC822-formatted stream with eml extension.
 	 * It uses {@link Zarafa.core.data.IPMRecord IPMRecord} to get store and message entryids.
+	 * But, in the case of downloading all those eml messages in a ZIP, we just need to
+	 * pass 'AllAsZip' argument as true in url.
+	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 * @return {String} URL for downloading message as file.
 	 */
-	getDownloadMessageUrl : function()
+	getDownloadMessageUrl : function(allAsZip)
 	{
 		var url = container.getBaseURL();
 		url = Ext.urlAppend(url, 'load=download_message');
 		url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 		url = Ext.urlAppend(url, 'storeid=' + this.get('store_entryid'));
-		url = Ext.urlAppend(url, 'entryid=' + this.get('entryid'));
+
+		if(!allAsZip){
+			url = Ext.urlAppend(url, 'entryid=' + this.get('entryid'));
+		} else {
+			url = Ext.urlAppend(url, 'AllAsZip=true');
+		}
 		return url;
 	},
 

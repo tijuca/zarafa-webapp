@@ -41,7 +41,10 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 			disabled: true,
 			handler: this.movePrevious,
 			scope: this
-		}), '-', this.beforePageText,
+		}),{
+			xtype : 'tbseparator',
+			ref : 'firstSeparator'
+		}, this.beforePageText,
 		this.inputItem = new Ext.form.NumberField({
 			cls: 'x-tbar-page-number',
 			allowDecimals: false,
@@ -56,7 +59,10 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 			}
 		}), this.afterTextItem = new Ext.Toolbar.TextItem({
 			text: String.format(this.afterPageText, 1)
-		}), '-', this.next = new Ext.Toolbar.Button({
+		}),{
+			xtype : 'tbseparator',
+			ref : 'secondSeparator'
+		}, this.next = new Ext.Toolbar.Button({
 			tooltip: this.nextText,
 			overflowText: this.nextText,
 			iconCls: 'x-tbar-page-next',
@@ -199,6 +205,7 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 		this.prev.setDisabled(ap == 1);
 		this.next.setDisabled(ap == ps);
 		this.last.setDisabled(ap == ps);
+
 		if(this.refresh){
 			this.refresh.enable();
 		}

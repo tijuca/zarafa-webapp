@@ -243,6 +243,19 @@ class Meetingrequest {
 	}
 
 	/**
+	 * Function is used to get the last update counter of meeting request.
+	 * @return Number|Boolean false when last_updatecounter not found else return last_updatecounter.
+	 */
+	function getLastUpdateCounter()
+	{
+		$calendarItemProps = mapi_getprops($this->message, array($this->proptags['last_updatecounter']));
+		if(isset($calendarItemProps) && !empty($calendarItemProps)){
+			return $calendarItemProps[$this->proptags['last_updatecounter']];
+		}
+		return false;
+	}
+
+	/**
 	 * Process an incoming meeting request response. This updates the appointment
 	 * in your calendar to show whether the user has accepted or declined.
 	 */
@@ -2371,7 +2384,15 @@ If it is the first time this attendee has proposed a new date/time, increment th
 			try {
 				// @FIXME this checks delegate has access to resource's calendar folder
 				// but it should use boss' credentials
-				$accessToFolder = $this->checkCalendarWriteAccess($this->store);
+				
+				// If the appointment is created in a public folder, check the write access of the folder.
+				$provider = mapi_getprops($this->store, Array(PR_MDB_PROVIDER));
+				if(isset($provider[PR_MDB_PROVIDER]) && $provider[PR_MDB_PROVIDER] === ZARAFA_STORE_PUBLIC_GUID) {
+					$parentEntryID = mapi_getprops($this->message, Array(PR_PARENT_ENTRYID));
+					$accessToFolder = $this->checkFolderWriteAccess($parentEntryID[PR_PARENT_ENTRYID], $this->store);
+				} else {
+					$accessToFolder = $this->checkCalendarWriteAccess($this->store);
+				}
 				if ($accessToFolder) {
 					$calFolder = mapi_msgstore_openentry($userStore, $userRootProps[PR_IPM_APPOINTMENT_ENTRYID]);
 				}
@@ -2631,8 +2652,12 @@ If it is the first time this attendee has proposed a new date/time, increment th
 			for($i = 0, $len = count($resourceRecipData); $i < $len; $i++){
 				$storeProps = mapi_msgstore_getprops($resourceRecipData[$i]['store'], array(PR_MAILBOX_OWNER_ENTRYID));
 				if (isset($storeProps[PR_MAILBOX_OWNER_ENTRYID])){
+					$start = time() - 7 * 24 * 60 * 60;
+					$range = strtotime("+6 month");
+					$range = $range - (7 * 24 * 60 * 60);
+
 					$pub = new FreeBusyPublish($this->session, $resourceRecipData[$i]['store'], $resourceRecipData[$i]['folder'], $storeProps[PR_MAILBOX_OWNER_ENTRYID]);
-					$pub->publishFB(time() - (7 * 24 * 60 * 60), 6 * 30 * 24 * 60 * 60); // publish from one week ago, 6 months ahead
+					$pub->publishFB($start, $range ); // publish from one week ago, 6 months ahead
 				}
 			}
 		}

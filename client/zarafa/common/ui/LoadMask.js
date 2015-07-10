@@ -15,6 +15,12 @@ Zarafa.common.ui.LoadMask = Ext.extend(Ext.LoadMask, {
 	msg : _('Loading...'),
 
 	/**
+	 * @cfg {Boolean} isLoading it was by default false which represent that loading mask 
+	 * was not warp on dummy row of grid.
+	 */
+	isLoading : false,
+
+	/**
 	 * @cfg {String} failureMsg message that will be displayed in {@link Zarafa.common.ui.LoadMask LoadMask}
 	 * when the {@link Zarafa.core.data.MAPIStore MAPIStore} has fired an exception.
 	 */
@@ -37,8 +43,14 @@ Zarafa.common.ui.LoadMask = Ext.extend(Ext.LoadMask, {
 	 */
 	onLoad : function(store, records, options)
 	{
-		if(options && options.actionType === Zarafa.core.Actions['updatesearch']) {
+		if(options && (options.actionType === Zarafa.core.Actions['updatesearch'])) {
 			// don't do anything here, as we are just updating the search results
+			// so loadmask shoudn't be removed
+			return;
+		}
+
+		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
+			// don't do anything here, as we are just updating the live scroll results
 			// so loadmask shoudn't be removed
 			return;
 		}
@@ -56,9 +68,15 @@ Zarafa.common.ui.LoadMask = Ext.extend(Ext.LoadMask, {
 	 */
 	onBeforeLoad : function(store, options)
 	{
-		if(options && options.actionType === Zarafa.core.Actions['updatesearch']) {
+		if(options && (options.actionType === Zarafa.core.Actions['updatesearch'])) {
 			// don't do anything here, as we are just updating the search results
 			// so loadmask shoudn't be shown
+			return;
+		}
+
+		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
+			// don't do anything here, as we are just updating the live scroll results
+			// so loadmask shoudn't be removed
 			return;
 		}
 

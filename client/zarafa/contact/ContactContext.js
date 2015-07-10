@@ -138,6 +138,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			// Bid for create/view dialog for opening contact/distlist records
 			case Zarafa.core.data.SharedComponentType['common.create']:
 			case Zarafa.core.data.SharedComponentType['common.view']:
+			case Zarafa.core.data.SharedComponentType['common.preview']:
 				if (record instanceof Zarafa.core.data.IPMRecord && record.isMessageClass([ 'IPM.Contact', 'IPM.DistList' ], true)) {
 					bid = 1;
 				// If the guid of the entryid indicates this record comes from the Contact Provider 
@@ -223,6 +224,9 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 					}
 				}
 				break;
+			case Zarafa.core.data.SharedComponentType['common.preview']:
+				component = Zarafa.contact.ui.ContactPreviewPanel;
+				break;
 			case Zarafa.core.data.SharedComponentType['contact.dialog.contact.namedetails']:
 				component = Zarafa.contact.dialogs.ContactNameContentPanel;
 				break;
@@ -282,10 +286,12 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			context : this,
 			items : [{
 				xtype : 'panel',
+				id: 'zarafa-navigationpanel-contacts-navigation',
 				title : _('My Contacts'),
 				cls: 'zarafa-context-navigation-block',
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
+					id: 'zarafa-navigationpanel-contacts-navigation-tree',
 					model : this.getModel(),
 					IPMFilter : 'IPF.Contact',
 					hideDeletedFolders : true,
@@ -327,6 +333,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		// create object of ContactMainPanel that will create the views
 		return {
 			xtype : 'zarafa.contactmainpanel',
+			id: 'zarafa-mainpanel-contentpanel-contacts',
 			context : this
 		};
 	},
@@ -342,6 +349,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		var items = container.populateInsertionPoint('main.maintoolbar.view.contact', this) || [];
 		
 		var defaultItems = [{
+			id: 'zarafa-maintoolbar-view-contacts-businesscards',
 			text: _('Business Cards'),
 			overflowText: _('Business Cards'),
 			iconCls: 'contact_card_view',
@@ -352,6 +360,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}, /*{
 			// TODO: implement these views, they are now the same as the BUSINESS_CARDS view
+			id: 'zarafa-maintoolbar-view-contacts-addresscards',
 			text: _('Address Cards'),
 			overflowText: _('Address Cards'),
 			iconCls: 'contact_card_view',
@@ -361,6 +370,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		}, {
+			id: 'zarafa-maintoolbar-view-contacts-detailedaddresscards',
 			text: _('Detailed Address Cards'),
 			overflowText: _('Detailed Address Cards'),
 			iconCls: 'contact_card_view',
@@ -371,6 +381,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			handler : this.onContextSelectView,
 			scope : this
 		}, */{
+			id: 'zarafa-maintoolbar-view-contacts-phonlist',
 			text: _('Phone List'),
 			overflowText: _('Phone List'),
 			iconCls: 'contact_list_view',
@@ -381,6 +392,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}/*, {
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-contacts-listbycategory',
 			text: _('List By Category'),
 			overflowText: _('List By Category'),
 			iconCls: 'contact_list_view',
@@ -391,6 +403,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}, {
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-contacts-listbycompany',
 			text: _('List By Company'),
 			overflowText: _('List By Company'),
 			iconCls: 'contact_list_view',
@@ -401,6 +414,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}, {
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-contacts-listbylocation',
 			text: _('List By Location'),
 			overflowText: _('List By Location'),
 			iconCls: 'contact_list_view',
@@ -411,6 +425,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			scope : this
 		}, {
 			// TODO: functionality is not completely implemented
+			id: 'zarafa-maintoolbar-view-contacts-listallcontacts',
 			text: _('List All Contacts'),
 			overflowText: _('List All Contacts'),
 			iconCls: 'contact_list_view',
@@ -450,6 +465,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 	{
 		return {
 			xtype : 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-contact',
 			text : _('Contact'),
 			tooltip : _('Contact')+' (Ctrl + Alt + C)',
 			plugins : 'zarafa.menuitemtooltipplugin',
@@ -494,6 +510,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		
 		var defaultItems = [{
 			xtype:'zarafa.conditionalitem',
+			id: 'zarafa-maintoolbar-print-selectedcontact',
 			overflowText: _('Print selected contact'),
 			iconCls: 'icon_print_single_contact',
 			tooltip : _('Print selected contact') + ' (Ctrl + P)',
@@ -537,6 +554,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		//create new Distribution list buttton, as we don't want support create Distribution list function in Milestone 6 launch
 		return {
 			xtype: 'menuitem',
+			id: 'zarafa-maintoolbar-newitem-distlist',
 			tooltip : _('Distribution list')+' (Ctrl + Alt + D)',
 			plugins : 'zarafa.menuitemtooltipplugin',
 			text: _('Distribution list'),
@@ -561,7 +579,8 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		return {
 			text: this.getDisplayName(),
 			tabOrderIndex: 4,
-			context: this.getName()
+			context: this.getName(),
+			id: 'mainmenu-button-contacts'
 		};
 	},
 

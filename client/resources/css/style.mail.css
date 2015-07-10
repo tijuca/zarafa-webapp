@@ -75,3 +75,23 @@ A.zarafa_attachment, A.zarafa_attachment:link, A.zarafa_attachment:active, A.zar
 {
 	font-weight : bold;
 }
+
+.x-btn-text-icon .x-btn-small .x-btn-text.icon_editAsNewEmail {
+	padding-left: 22px;
+	background-position: 1px center;
+}
+
+/*
+ * Override extjs class for the mail panel tool bar.
+ */
+.btn-width {
+	width : 15px !important;
+}
+
+.x-btn-small {
+	min-width: 15px !important;
+}
+
+.btn-margin-right {
+	margin-right: 0px !important;
+}

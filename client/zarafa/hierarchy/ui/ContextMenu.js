@@ -33,7 +33,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 
 		Ext.applyIf(config, {
 			items : [
-				this.createContextMenuItems()
+				this.createContextMenuItems(config)
 			],
 			defaults : {
 				xtype: 'zarafa.conditionalitem',
@@ -46,12 +46,13 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	
 	/**
 	 * Create the Action context menu items.
+	 * @param {Object} config Configuration object for the {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu}
 	 * @return {Zarafa.core.ui.menu.ConditionalItem[]} The list of Action context menu items
 	 * @private
 	 *
 	 * Note: All handlers are called within the scope of {@link Zarafa.hierarchy.ui.ContextMenu HierarchyContextMenu}
 	 */
-	createContextMenuItems : function()
+	createContextMenuItems : function(config)
 	{
 		return [{
 			text : _('Open'),
@@ -73,7 +74,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			handler : this.onContextCopyMoveFolder,
 			beforeShow : function(item, record) {
 				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_READ;
-				if (!access || record.isIPMSubTree() || record.isDefaultFolder()) {
+				if (!access || record.isIPMSubTree() || record.isRSSFolder() || record.isDefaultFolder()) {
 					item.setDisabled(true);
 				} else {
 					item.setDisabled(false);
@@ -85,7 +86,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			handler : this.onContextItemRenameFolder,
 			beforeShow : function(item, record) {
 				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_MODIFY;
-				if (!access || record.isIPMSubTree() || record.isDefaultFolder() || !this.contextTree || !this.contextNode) {
+				if (!access || record.isIPMSubTree() || record.isRSSFolder() || record.isDefaultFolder() || !this.contextTree || !this.contextNode) {
 					item.setDisabled(true);
 				} else {
 					item.setDisabled(false);
@@ -126,7 +127,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			handler : this.onContextItemDeleteFolder,
 			beforeShow : function(item, record) {
 				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_DELETE;
-				if (!access || record.isIPMSubTree() || record.isDefaultFolder() || record.getMAPIStore().isArchiveStore()) {
+				if (!access || record.isIPMSubTree() || record.isDefaultFolder() || record.isRSSFolder() || record.getMAPIStore().isArchiveStore()) {
 					item.setDisabled(true);
 				} else {
 					item.setDisabled(false);
@@ -211,6 +212,25 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 				}
 			}
 		}, {
+			text : _('Select color'),
+			iconCls : 'icon-select-color',
+			beforeShow : function(item, record) {
+				var folderEntryId = this.contextNode.id;
+				var contextModel = this.contextTree.model;
+				if (!this.contextTree.colored || !Ext.isDefined(contextModel)) {
+					item.setDisabled(true);
+				} else {
+					item.setDisabled(false);
+					
+					// Store the color of the chosen color scheme, so we can use it later 
+					// to build a icon (more precisely just a div with a background color)
+					// in the context menu
+					var colorScheme = contextModel.getColorScheme(folderEntryId);
+					item.iconBG = colorScheme.base;
+				}
+			},
+			menu : this.createSelectColorSubmenu(config)
+		}, {
 			text : _('Properties'),
 			handler : this.onContextItemProperties,
 			iconCls : 'icon_openMessageOptions',
@@ -222,6 +242,41 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 				}
 			}
 		}];
+	},
+	
+	/**
+	 * Creates the submenu for the color select menu item
+	 * Because this function is called before the parent constructor
+	 * is called, the configuration properties are not yet set and
+	 * we must get them from the passed configuration object
+	 * 
+	 * @param {Object} config Configuration object for the {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu}
+	 * @return {Object[]} An array with configuration objects for 
+	 * {@link Zarafa.core.ui.menu.ConditionalItem menu items}
+	 * @private 
+	 */
+	createSelectColorSubmenu : function(config)
+	{
+		var items = [];
+		var contextModel = config.contextTree.model;
+		if ( !contextModel ){
+			return items;
+		}
+		var colorSchemes = contextModel.colorScheme;
+		var folderNodeColorTheme = config.contextNode.getFolder().colorTheme;
+		Ext.each(colorSchemes, function(colorScheme){
+			items.push({
+				xtype: 'zarafa.conditionalitem',
+				text : colorScheme.displayName,
+				ctCls : folderNodeColorTheme===colorScheme.name ? 'x-menu-item-selected':'',
+				iconCls : 'icon-select-color color-'+colorScheme.name,
+				colorSchemeName : colorScheme.name,
+				handler : this.onContextItemSelectColor.createDelegate(this),
+				iconBG : colorScheme.header
+			});
+		}, this);
+		
+		return items;
 	},
 
 	/**
@@ -332,6 +387,40 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 		this.records.save();
 	},
 
+	/**
+	 * Fires when a color is selected from the {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu}
+	 * Saves the new color to the settings and calls doLayout on the context to re-render.
+	 * 
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The menu item that was clicked on
+	 */
+	onContextItemSelectColor : function(item)
+	{
+		var contextModel = this.contextTree.model;
+		var folder = item.getRecords();
+		var store = contextModel.getStore();
+		
+		// Find the color scheme of the chosen color
+		var colorSchemeName = item.colorSchemeName;
+		var colorScheme = Zarafa.core.ColorSchemes.getColorScheme(colorSchemeName);
+		
+		// And set the color scheme for this folder
+		contextModel.setColorScheme(folder.get('entryid'), colorScheme);
+
+		// Update the colors of the Color Indicator in hierarchy tree
+		var treeNodeui = this.contextNode.getUI();
+		if (treeNodeui.colorIndicator) {
+			treeNodeui.colorIndicator.style.backgroundColor = colorScheme.base;
+		}
+
+		// Update the colors of the hierarchy tree
+		this.contextTree.updateAll();
+
+		// Now let's repaint the calendar view by sending a 'fake' load event for the store.
+		if (store && store.lastOptions && !store.isExecuting('list')) {
+			store.fireEvent('load', store, store.getRange(), store.lastOptions);
+		}
+	},
+	
 	/**
 	 * Fires on selecting 'Properties' menu option from {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu}
 	 * Opens {@link Zarafa.hierarchy.dialogs.FolderPropertiesContent FolderPropertiesContent}

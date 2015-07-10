@@ -75,6 +75,12 @@
 								 */
 								$this->sendFeedback(true);
 								break;
+							case "destroysession":
+								// This actiontype should never get this far, but should already have been
+								// intercepted by the Session class.
+								// Nevertheless implement processing here for unforeseen cases.
+								$this->sendFeedback(true);
+								break;
 							case "list":
 								$this->hierarchyList();
 								break;
@@ -351,11 +357,11 @@
 						if($e->getCode() == MAPI_E_NOT_FOUND) {
 							$e->setDisplayMessage(_("User could not be resolved."));
 						} else {
-							if ($action["folder_type"] == "all") {
-								$e->setDisplayMessage(_("You have insufficient privileges to open this store."));
-							} else {
-								$e->setDisplayMessage(_("You have insufficient privileges to open this folder."));
+							$folderType = $action["folder_type"];
+							if ($folderType == "all") {
+								$folderType = 'entire inbox';
 							}
+							$e->setDisplayMessage(sprintf(_('You have insufficient privileges to open this %1$s folder. The folder owner can set these using the \'permissions\'-tab of the folder properties (right click the %1$s folder > properties > permissions).'),$folderType));
 						}
 						break;
 				}

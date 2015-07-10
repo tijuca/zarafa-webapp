@@ -50,23 +50,6 @@ Zarafa.core.data.RecordFactory.addListenerToObjectType(Zarafa.core.mapi.ObjectTy
  */
 Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	/**
-	 * The object containing the definition
-	 * @property
-	 * @type Object
-	 * @deprecated Use colorTheme
-	 */
-	colorScheme : undefined,
-
-	/**
-	 * The name of the color theme which must be used for displaying this
-	 * folder (when displaying multiple {@link Zarafa.hierarchy.data.MAPIFolderRecord folders}
-	 * simultaneously).
-	 * @property
-	 * @type String
-	 */
-	colorTheme : '',
-
-	/**
 	 * Usually called by the {@link Ext.data.Store} which owns the Record.
 	 * Commits all changes made to the Record since either creation, or the last commit operation.
 	 * <p>Developers should subscribe to the {@link Ext.data.Store#update} event
@@ -179,6 +162,14 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 		}
 
 		return false;
+	},
+
+	/**
+	 * @return {Boolean} true if the folder is the RSS feeds folder else false.
+	 */
+	isRSSFolder : function()
+	{
+		return Zarafa.core.ContainerClass.isClass(this.get('container_class'), 'IPF.Note.OutlookHomepage', true) && this.getParentFolder().isIPMSubTree();
 	},
 
 	/**
@@ -357,42 +348,6 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 		}
 
 		return rs;
-	},
-
-	/**
-	 * @return {String} The theme name which must be used when applying styles to this MAPI folder.
-	 */
-	getColorTheme : function()
-	{
-		return this.colorTheme;
-	},
-
-	/**
-	 * @param {String} colorTheme The theme name which must be applies tot this MAPI folder.
-	 */
-	setColorTheme : function(colorTheme)
-	{
-		this.colorTheme = colorTheme;
-	},
-
-	/**
-	 * @return {Object} The color definition of this MAPI folder.
-	 * @deprecated. Use {@link #getColorTheme}.
-	 */
-	getColorScheme : function()
-	{
-		return this.colorScheme;
-	},
-
-	/**
-	 * Set the colorScheme for this folder
-	 * @param {Object} colorScheme The colorScheme to apply to this MAPI folder
-	 * @deprecated. Use {@link #setColorTheme}.
-	 */
-	setColorScheme : function(colorScheme)
-	{
-		this.colorScheme = colorScheme;
-		this.setColorTheme(colorScheme.name);
 	},
 
 	/**

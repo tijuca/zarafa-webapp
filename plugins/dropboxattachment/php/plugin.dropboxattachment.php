@@ -89,7 +89,6 @@ class Plugindropboxattachment extends Plugin {
 						'dropbox' => Array(
 							'enable'            => PLUGIN_DROPBOXATTACHMENT_USER_DEFAULT_ENABLE,
 						)
-
 					)
 				)
 			)

@@ -29,8 +29,7 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 					boxLabel : _('Enable Keyboard Shortcuts'),
 					name : 'zarafa/v1/main/keycontrols_enabled',
 					listeners : {
-						change : this.enableKeyboardShortcuts,
-						check : this.displayWarning,
+						check : this.enableKeyboardShortcuts,
 						scope : this
 					},
 					flex : 1
@@ -123,38 +122,28 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 	{
 		settingsModel.set(this.keyShortcutsCheck.name, this.keyShortcutsCheck.getValue());
 	},
-
+	
 	/**
-	 * event handler which is fired when the value of "Enable Keyboard Shortcuts" checkbox has been changed.
-	 * @param {Ext.form.CheckBox} field The field which fired the event
-	 * @param {Mixed} check The new value for the field
-	 * @private
-	 */
-	enableKeyboardShortcuts : function(field, check)
-	{
-		if (this.model) {
-			if (this.model.get(field.name) !== check) {
-				this.model.set(field.name, check);
-			}
-		}
-	},
-
-	/**
-	 * Event handler which is fired when the value of checkbox has been changed.
-	 * This will inform the user that this setting requires a reload of the
-	 * webapp to become active.
+	 * Event handler which is fired when the checkbox is checked or unchecked.
+	 * If the checkbox value has been changed it displays a warning which, 
+	 * informs the user that he needs to reload the WebApp.
+	 *
 	 * @param {Ext.form.CheckBox} checkbox Checkbox element from which the event originated
 	 * @param {Boolean} check State of the checkbox
 	 * @private
 	 */
-	displayWarning : function(checkbox, check)
+	enableKeyboardShortcuts : function(checkbox, value)
 	{
-		if (this.model.get(checkbox.name) !== check) {
+		if (this.model.get(checkbox.name) !== value) {
+			this.model.set(checkbox.name, value);
+		}
+		// If settingsmodel has been modified, display a warning
+		if(!Ext.isEmpty(this.model.modified)) {
 			this.keyShortcutWarning.setValue(_('This change requires a reload of the WebApp'));
+			this.model.requiresReload = true;
 		} else {
 			this.keyShortcutWarning.reset();
 		}
-		this.model.requiresReload = true;
 	}
 });
 

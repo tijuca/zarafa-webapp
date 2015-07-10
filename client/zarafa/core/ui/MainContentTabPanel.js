@@ -168,7 +168,7 @@ Zarafa.core.ui.MainContentTabPanel = Ext.extend(Ext.TabPanel, {
 		Zarafa.core.ui.MainContentTabPanel.superclass.onRender.call(this, ct, position);
 
 		// insert add button into the edge element
-		var edge = this.edge.update('<span class=\'x-tab-add\'></span>');
+		var edge = this.edge.update('<span id="zarafa-mainpanel-addtabbutton" class=\'x-tab-add\'></span>');
 		this.mon(edge, 'click', this.onTabAddClick, this);
 
 		// set tooltip on add button
