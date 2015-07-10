@@ -140,7 +140,7 @@ Description: Zarafa WebApp personal inbox plugin
 
 Package: zarafa-webapp-pdfbox
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}), libjs-pdf
 Description: Zarafa WebApp PDF viewer plugin
  This package is a plugin for zarafa-webapp, a web interface for the
  Zarafa groupware suite ZCP.

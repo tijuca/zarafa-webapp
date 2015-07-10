@@ -1,0 +1,2 @@
+# Source                                      # Target
+usr/share/javascript/pdf/build/pdf.worker.js  usr/share/zarafa-webapp/plugins/pdfbox/pdfjs/pdf.min.worker.js
