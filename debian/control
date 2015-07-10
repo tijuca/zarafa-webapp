@@ -9,7 +9,6 @@ Build-Depends: ant,
   debhelper (>= 8.0.0),
   libjs-extjs,
   libjs-jac,
-  libjs-jquery,
   libjs-prettify,
   libxml2-utils,
   php5-cli
