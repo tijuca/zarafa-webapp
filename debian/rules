@@ -15,14 +15,6 @@ override_dh_auto_clean:
 
 override_dh_auto_build:
 	# linking some stuff from other packages
-	# libjs-prettify -> tools/resources/ext-doc/template/ext/resources/prettify/
-	cd tools/resources/ext-doc/template/ext/resources/ ;\
-		rm -rf prettify ;\
-		ln -s /usr/share/javascript/prettify
-	# libjs-prettify -> tools/resources/ext-doc/template/dot/resources/prettify/
-	cd tools/resources/ext-doc/template/dot/resources/ ;\
-		rm -rf prettify ;\
-		ln -s usr/share/javascript/prettify
 	# libjs-jac
 	cd plugins/xmpp/ ;\
 		rm -rf jsjac ;\
