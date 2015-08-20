@@ -15,7 +15,12 @@ Standards-Version: 3.9.6
 
 Package: zarafa-webapp
 Architecture: all
-Depends: ${misc:Depends}, php5-mapi (>= 7.1.11), zarafa-contacts (>= 7.1.11), php-gettext
+Depends: ${misc:Depends},
+ apache2,
+ libapache2-mod-php5,
+ php-gettext,
+ php5-mapi (>= 7.1.11),
+ zarafa-contacts (>= 7.1.11)
 Description: New and improved WebApp for the Zarafa Collaboration Platform
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Zarafa Collaboration Platform through a modern web
