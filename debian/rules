@@ -59,7 +59,7 @@ override_dh_auto_install:
 	cp -a deploy/* deploy/.htaccess $(INSTDIR)$(WABASE)/
 
 	# echo version
-	dpkg-parsechangelog | grep Version | sed -e 's/^Version: //g' > $(INSTDIR)$(WABASE)/version
+	dpkg-parsechangelog --show-field Version > $(INSTDIR)$(WABASE)/version
 
 	rm -rf $(INSTDIR)$(WABASE)/debian $(INSTDIR)/zarafa-webapp.spec
 
