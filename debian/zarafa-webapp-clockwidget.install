@@ -1,0 +1,4 @@
+# source                                # target
+deploy/plugins/clockwidget/js           usr/share/zarafa-webapp/plugins/clockwidget
+deploy/plugins/clockwidget/resources    usr/share/zarafa-webapp/plugins/clockwidget
+deploy/plugins/clockwidget/manifest.xml usr/share/zarafa-webapp/plugins/clockwidget
