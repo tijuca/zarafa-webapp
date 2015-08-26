@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                    # target
+deploy/plugins/statslogging/config.php   => etc/zarafa/webapp/config-statslogging.php
+
+deploy/plugins/statslogging/js              usr/share/zarafa-webapp/plugins/statslogging
+deploy/plugins/statslogging/php             usr/share/zarafa-webapp/plugins/statslogging
+deploy/plugins/statslogging/manifest.xml    usr/share/zarafa-webapp/plugins/statslogging
