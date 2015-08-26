@@ -1,0 +1,4 @@
+# source                               # target
+deploy/plugins/quickitems/js           usr/share/zarafa-webapp/plugins/quickitems
+deploy/plugins/quickitems/resources    usr/share/zarafa-webapp/plugins/quickitems
+deploy/plugins/quickitems/manifest.xml usr/share/zarafa-webapp/plugins/quickitems
