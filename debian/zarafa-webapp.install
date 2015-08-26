@@ -1,0 +1,16 @@
+#!/usr/bin/dh-exec
+# source                     # target
+deploy/config.php.dist    => etc/zarafa/webapp/config.php
+deploy/zarafa-webapp.conf    etc/apache2/sites-available
+
+deploy/client                usr/share/zarafa-webapp
+deploy/mapi                  usr/share/zarafa-webapp
+#deploy/plugins              usr/share/zarafa-webapp
+deploy/server                usr/share/zarafa-webapp
+
+deploy/.htaccess             usr/share/zarafa-webapp
+deploy/defaults.php          usr/share/zarafa-webapp
+deploy/debug.php.dist        usr/share/zarafa-webapp
+deploy/index.php             usr/share/zarafa-webapp
+deploy/init.php              usr/share/zarafa-webapp
+deploy/zarafa.php            usr/share/zarafa-webapp

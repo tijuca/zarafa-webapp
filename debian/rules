@@ -1,8 +1,4 @@
 #!/usr/bin/make -f
-INSTDIR=$(CURDIR)/debian/zarafa-webapp
-WABASE=/usr/share/zarafa-webapp
-WACONFBASE=/etc/zarafa/webapp
-APACHECONFBASE=/etc/apache2/sites-available
 
 export DH_VERBOSE=1
 
@@ -24,35 +20,16 @@ override_dh_auto_build:
 	mkdir $(CURDIR)/debian/tmp
 	cp -a $(CURDIR)/deploy $(CURDIR)/debian/tmp/
 
-override_dh_auto_install:
-	install -d -m 755 $(INSTDIR)$(WABASE)
-	install -d -m 755 $(INSTDIR)$(APACHECONFBASE)
-	install -d -m 755 $(INSTDIR)$(WACONFBASE)
-	# user/group 33 is always www-data
-	install -d -m 755 -o 33 -g 33 $(INSTDIR)/var/lib/zarafa-webapp/tmp
-
-	cp -a deploy/* deploy/.htaccess $(INSTDIR)$(WABASE)/
-
-	# echo version
-	dpkg-parsechangelog --show-field Version > $(INSTDIR)$(WABASE)/version
-
-	rm -rf $(INSTDIR)$(WABASE)/debian $(INSTDIR)/zarafa-webapp.spec
-
-	mv $(INSTDIR)$(WABASE)/config.php.dist $(INSTDIR)$(WACONFBASE)/config.php
-	ln -sf $(WACONFBASE)/config.php $(INSTDIR)$(WABASE)/config.php
-
-	rm $(INSTDIR)$(WABASE)/debug.php.dist
-	find $(INSTDIR)$(WABASE) -name \*debug\* -print0 | xargs -0 rm
-
-	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
-
 override_dh_install:
 	dh_install
-	# remove Facebook & Twitter things
-	rm -rf $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/plugins/*
 	# remove empty folders, please note README.source
 	rm -rf $(CURDIR)/debian/zarafa-webapp-files/usr/share/zarafa-webapp/plugins/files/js/external
-	rm -rf $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/plugins
+	# figure out package version
+	dpkg-parsechangelog --show-field Version > \
+		$(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/version
+	# remove files named *debug*.js
+	find $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/zarafa-webapp/tmp
+	chown www-data:www-data $(CURDIR)/debian/zarafa-webapp/var/lib/zarafa-webapp/tmp
