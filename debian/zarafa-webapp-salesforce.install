@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec
+# source                                  # target
+deploy/plugins/salesforce/config.php   => etc/zarafa/webapp/config-salesforce.php
+
+deploy/plugins/salesforce/js              usr/share/zarafa-webapp/plugins/salesforce
+deploy/plugins/salesforce/php             usr/share/zarafa-webapp/plugins/salesforce
+deploy/plugins/salesforce/resources       usr/share/zarafa-webapp/plugins/salesforce
+deploy/plugins/salesforce/manifest.xml    usr/share/zarafa-webapp/plugins/salesforce
