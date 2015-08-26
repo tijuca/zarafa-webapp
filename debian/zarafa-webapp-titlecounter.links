@@ -1,0 +1,2 @@
+# source                                    # target
+/etc/zarafa/webapp/config-titlecounter.php  usr/share/zarafa-webapp/plugins/titlecounter/config.php

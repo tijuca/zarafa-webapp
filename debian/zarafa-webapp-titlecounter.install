@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                    # target
+deploy/plugins/titlecounter/config.php   => etc/zarafa/webapp/config-titlecounter.php
+
+deploy/plugins/titlecounter/js              usr/share/zarafa-webapp/plugins/titlecounter
+deploy/plugins/titlecounter/php             usr/share/zarafa-webapp/plugins/titlecounter
+deploy/plugins/titlecounter/manifest.xml    usr/share/zarafa-webapp/plugins/titlecounter
