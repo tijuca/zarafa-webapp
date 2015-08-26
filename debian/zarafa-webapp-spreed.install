@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec
+# source                              # target
+deploy/plugins/spreed/config.php   => etc/zarafa/webapp/config-spreed.php
+
+deploy/plugins/spreed/js              usr/share/zarafa-webapp/plugins/spreed
+deploy/plugins/spreed/php             usr/share/zarafa-webapp/plugins/spreed
+deploy/plugins/spreed/resources       usr/share/zarafa-webapp/plugins/spreed
+deploy/plugins/spreed/manifest.xml    usr/share/zarafa-webapp/plugins/spreed

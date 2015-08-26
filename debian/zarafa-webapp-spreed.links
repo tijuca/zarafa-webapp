@@ -1,0 +1,2 @@
+# source                              # target
+/etc/zarafa/webapp/config-spreed.php  usr/share/zarafa-webapp/plugins/spreed/config.php
