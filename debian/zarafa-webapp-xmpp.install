@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec
+# source                            # target
+deploy/plugins/xmpp/config.php   => etc/zarafa/webapp/config-xmpp.php
+
+deploy/plugins/xmpp/js              usr/share/zarafa-webapp/plugins/xmpp
+deploy/plugins/xmpp/php             usr/share/zarafa-webapp/plugins/xmpp
+deploy/plugins/xmpp/resources       usr/share/zarafa-webapp/plugins/xmpp
+deploy/plugins/xmpp/manifest.xml    usr/share/zarafa-webapp/plugins/xmpp
