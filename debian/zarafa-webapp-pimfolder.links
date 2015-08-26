@@ -1,0 +1,2 @@
+# source                                 # target
+/etc/zarafa/webapp/config-pimfolder.php  usr/share/zarafa-webapp/plugins/pimfolder/config.php
