@@ -1,0 +1,2 @@
+# source                                  # target
+/etc/zarafa/webapp/config-contactfax.php  usr/share/zarafa-webapp/plugins/contactfax/config.php
