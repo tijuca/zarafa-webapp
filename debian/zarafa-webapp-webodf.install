@@ -1,0 +1,9 @@
+#!/usr/bin/dh-exec
+# source                              # target
+deploy/plugins/webodf/config.php   => etc/zarafa/webapp/config-webodf.php
+
+deploy/plugins/webodf/js              usr/share/zarafa-webapp/plugins/webodf
+deploy/plugins/webodf/lib             usr/share/zarafa-webapp/plugins/webodf
+deploy/plugins/webodf/php             usr/share/zarafa-webapp/plugins/webodf
+deploy/plugins/webodf/resources       usr/share/zarafa-webapp/plugins/webodf
+deploy/plugins/webodf/manifest.xml    usr/share/zarafa-webapp/plugins/webodf
