@@ -1,0 +1,2 @@
+# source                             # target
+/etc/zarafa/webapp/config-files.php  usr/share/zarafa-webapp/plugins/files/config.php
