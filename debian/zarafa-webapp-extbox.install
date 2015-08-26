@@ -1,0 +1,9 @@
+#!/usr/bin/dh-exec
+# source                              # target
+deploy/plugins/extbox/config.php   => etc/zarafa/webapp/config-extbox.php
+
+deploy/plugins/extbox/js              usr/share/zarafa-webapp/plugins/extbox
+deploy/plugins/extbox/lightbox        usr/share/zarafa-webapp/plugins/extbox
+deploy/plugins/extbox/php             usr/share/zarafa-webapp/plugins/extbox
+deploy/plugins/extbox/resources       usr/share/zarafa-webapp/plugins/extbox
+deploy/plugins/extbox/manifest.xml    usr/share/zarafa-webapp/plugins/extbox
