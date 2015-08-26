@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                    # target
+deploy/plugins/zperformance/config.php   => etc/zarafa/webapp/config-zperformance.php
+
+deploy/plugins/zperformance/js               usr/share/zarafa-webapp/plugins/zperformance
+deploy/plugins/zperformance/php              usr/share/zarafa-webapp/plugins/zperformance
+deploy/plugins/zperformance/manifest.xml     usr/share/zarafa-webapp/plugins/zperformance

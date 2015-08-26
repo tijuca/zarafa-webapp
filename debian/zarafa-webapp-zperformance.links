@@ -1,0 +1,2 @@
+# source                                   # target
+/etc/zarafa/webapp/config-zperformance.php usr/share/zarafa-webapp/plugins/zperformance/config.php

@@ -1,12 +1,8 @@
 #!/usr/bin/make -f
 INSTDIR=$(CURDIR)/debian/zarafa-webapp
-WADEB=$(CURDIR)/debian/zarafa-webapp
 WABASE=/usr/share/zarafa-webapp
 WACONFBASE=/etc/zarafa/webapp
 APACHECONFBASE=/etc/apache2/sites-available
-WA=$(WADEB)$(WABASE)
-PACKAGES=\
-zperformance
 
 export DH_VERBOSE=1
 
@@ -49,19 +45,6 @@ override_dh_auto_install:
 	find $(INSTDIR)$(WABASE) -name \*debug\* -print0 | xargs -0 rm
 
 	mv $(INSTDIR)$(WABASE)/zarafa-webapp.conf $(INSTDIR)$(APACHECONFBASE)/
-
-	# packaging of plugins
-	for i in ${PACKAGES}; do \
-		P=$(CURDIR)/debian/zarafa-webapp-$$i$(WABASE)/plugins ; \
-		Q=$(CURDIR)/debian/zarafa-webapp-$$i$(WACONFBASE) ; \
-		mkdir -v -p $$P; \
-		mv -v -f $(WA)/plugins/$$i $$P/ ; \
-		if [ -f $$P/$$i/config.php ]; then \
-			mkdir -v -p $$Q; \
-			mv -v -f $$P/$$i/config.php $$Q/config-$$i.php ; \
-			ln -sf $(WACONFBASE)/config-$$i.php $$P/$$i/config.php ; \
-		fi \
-	done
 
 override_dh_install:
 	dh_install
