@@ -1,0 +1,3 @@
+# source                             # target
+deploy/plugins/oauthlib/php          usr/share/zarafa-webapp/plugins/oauthlib
+deploy/plugins/oauthlib/manifest.xml usr/share/zarafa-webapp/plugins/oauthlib
