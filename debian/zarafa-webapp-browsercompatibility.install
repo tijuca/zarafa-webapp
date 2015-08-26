@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                            # target
+deploy/plugins/browsercompatibility/config.php   => etc/zarafa/webapp/config-browsercompatibility.php
+
+deploy/plugins/browsercompatibility/js              usr/share/zarafa-webapp/plugins/browsercompatibility
+deploy/plugins/browsercompatibility/php             usr/share/zarafa-webapp/plugins/browsercompatibility
+deploy/plugins/browsercompatibility/manifest.xml    usr/share/zarafa-webapp/plugins/browsercompatibility
