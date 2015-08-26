@@ -1,0 +1,10 @@
+#!/usr/bin/dh-exec
+# source                              # target
+deploy/plugins/pdfbox/config.php   => etc/zarafa/webapp/config-pdfbox.php
+
+deploy/plugins/pdfbox/js              usr/share/zarafa-webapp/plugins/pdfbox
+deploy/plugins/pdfbox/pdfbox          usr/share/zarafa-webapp/plugins/pdfbox
+deploy/plugins/pdfbox/pdfjs           usr/share/zarafa-webapp/plugins/pdfbox
+deploy/plugins/pdfbox/php             usr/share/zarafa-webapp/plugins/pdfbox
+deploy/plugins/pdfbox/resources       usr/share/zarafa-webapp/plugins/pdfbox
+deploy/plugins/pdfbox/manifest.xml    usr/share/zarafa-webapp/plugins/pdfbox

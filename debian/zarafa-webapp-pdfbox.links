@@ -1,2 +1,3 @@
-# Source                                      # Target
+# source                                      # target
+/etc/zarafa/webapp/config-pdfbox.php          usr/share/zarafa-webapp/plugins/pdfbox/config.php
 usr/share/javascript/pdf/build/pdf.worker.js  usr/share/zarafa-webapp/plugins/pdfbox/pdfjs/pdf.min.worker.js
