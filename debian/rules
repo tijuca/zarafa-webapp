@@ -48,6 +48,8 @@ override_dh_auto_build:
 	rm -f client/tinymce/license.txt
 	# now let's build the stuff
 	ant deploy deploy-plugins
+	mkdir $(CURDIR)/debian/tmp
+	cp -a $(CURDIR)/deploy $(CURDIR)/debian/tmp/
 
 override_dh_auto_install:
 	install -d -m 755 $(INSTDIR)$(WABASE)
