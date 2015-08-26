@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec
+# source                                # target
+deploy/plugins/sugarcrm/config.php   => etc/zarafa/webapp/config-sugarcrm.php
+
+deploy/plugins/sugarcrm/js              usr/share/zarafa-webapp/plugins/sugarcrm
+deploy/plugins/sugarcrm/php             usr/share/zarafa-webapp/plugins/sugarcrm
+deploy/plugins/sugarcrm/resources       usr/share/zarafa-webapp/plugins/sugarcrm
+deploy/plugins/sugarcrm/manifest.xml    usr/share/zarafa-webapp/plugins/sugarcrm
