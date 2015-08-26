@@ -6,7 +6,6 @@ WACONFBASE=/etc/zarafa/webapp
 APACHECONFBASE=/etc/apache2/sites-available
 WA=$(WADEB)$(WABASE)
 PACKAGES=\
-webappmanual \
 webodf \
 xmpp \
 zdeveloper \
