@@ -6,7 +6,8 @@ Uploaders: Carsten Schoenert <c.schoenert@t-online.de>
 Build-Depends: ant,
   ant-optional,
   default-jdk,
-  debhelper (>= 8.0.0),
+  debhelper (>= 9.0.0),
+  dh-exec,
   libjs-jac,
   libxml2-utils,
   php5-cli
