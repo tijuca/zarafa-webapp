@@ -1,3 +1,82 @@
+zarafa-webapp (2.1.0~beta1-1) experimental; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [9f82148] switch to format 3.0 (quilt)
+  * [fad8453] debian/control: adding some needed Builds-Depends
+  * [913774f] debian/control: increase Standards-Version
+  * [5a4d600] debian/control: change Section for source package
+  * [47cbb07] debian/control: remove duplicated Section field
+  * [5d2f214] debian/control: additional Build-Depends for JS things
+  * [56e5797] debian/rules: adding some linking to external packages
+  * [447aff1] debian/rules: fixing some lintian issues
+  * [7a6c96d] debian/control: adding a package dependency on libjs-jac
+  * [2cd294b] debian/copyright: starting rework of the copyright infos
+  * [21ad476] debian/rules: add missed installation for titelcounter
+  * [a170558] remove package *-facebook[widget] and *-twidget
+
+  [ Jelle van der Waa ]
+  * [6aebeca] Add Object.js file
+  * [84881d4] Add missing license for various files
+  * [8aba5db] pdfjs license is from Mozilla
+  * [52de9e5] Add salesforce external dependency copyright notice
+
+  [ Carsten Schoenert ]
+  * [346497b] debian/copyright: more rework
+  * [e1fe0d7] debian/watch: adding a watch file
+  * [13f09fa] doing linking to libjs-jac the right way
+  * [5a1c805] d/c-u-t.sh: adding helper script to create cleaned upstream source
+  * [01c8fc1] lintian: adding override for symlinking
+
+  [ Jelle van der Waa ]
+  * [ea0d7d3] Resolve lintian package-contains-broken-symlink
+  * [2c39ef3] debian/control: extend descriptions of WebApp plugins.
+
+  [ Carsten Schoenert ]
+  * [41fc720] debian/rules: remove some empty folders from packages
+  * [daa15a1] Imported Upstream version 2.1.0~beta1
+  * [ad06b8f] jquery isn't shipped anymore, no build-dep needed
+  * [73201b5] libjs-extjs isn't a build-dep anymore
+  * [33293b2] libjs-prettify isn't a build-dep anymore
+  * [c25b69e] create-upstream-tarball.sh: update due upstream changes
+  * [3c8d159] adding needed changes to package z-w-pdfbox
+  * [9b96e7e] debian/rules: remove the license file from tinymce
+  * [794be70] debian/rules: move package names into ${PACKAGES}
+  * [3a28e19] debian/changelog: fix month acronym in old release
+  * [27f353a] debhelper: increase debhelper version to 9
+  * [61a4e0c] zarafa-webapp: add some more dependencies
+  * [f453dfd] lintian: fix wrong phrased LGPL description
+  * [9b12af3] debian/rules: use proper dpkg-parsechangelog command
+  * [6c0a011] rebuild patch queue from patch-queue branch
+  * [fa2652d] debian/rules: copy deploy/ to debian/tmp/ for dh usage
+  * [e2e7f7e] z-w-browsercompatibility: switch to dh template usage
+  * [a6b972e] z-w-clockwidget: switch to dh template usage
+  * [d5d7e1e] z-w-contactfax: switch to dh template usage
+  * [19569e6] z-w-dropboxattachment: switch to dh template usage
+  * [b1627c5] z-w-extbox: switch to dh template usage
+  * [e0a72a1] z-w-feedback: switch to dh template usage
+  * [5516be7] z-w-files: switch to dh template usage
+  * [7ce319e] z-w-folderwidgets: switch to dh template usage
+  * [96c044d] z-w-gmaps: switch to dh template usage
+  * [c12d041] z-w-oauthlib: switch to dh template usage
+  * [79f47bd] z-w-pdfbox: switch to dh template usage
+  * [596adbd] z-w-pimfolder: switch to dh template usage
+  * [60eacd7] z-w-quickitems: switch to dh template usage
+  * [63a7416] z-w-salesforce: switch to dh template usage
+  * [c02e64d] z-w-shellgame: switch to dh template usage
+  * [b1ade55] z-w-spreed: switch to dh template usage
+  * [c8f79cf] z-w-statslogging: switch to dh template usage
+  * [bfd82cb] z-w-sugarcrm: switch to dh template usage
+  * [04e0969] z-w-titlecounter: switch to dh template usage
+  * [f55f831] z-w-webappmanual: switch to dh template usage
+  * [4fe747f] z-w-webodf: switch to dh template usage
+  * [0e1dfe3] z-w-xmpp: switch to dh template usage
+  * [e6f512e] z-w-zdeveloper: switch to dh template usage
+  * [3056837] z-w-zperformance: switch to dh template usage
+  * [9fbac53] zarafa-webapp: switch to dh template usage
+  * [28f3294] debian/zarafa-webapp.postrm: adding directory purging
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 13 Sep 2015 20:07:21 +0200
+
 zarafa-webapp (2.0.2-1) unstable; urgency=low
 
   * Current release
