@@ -14,6 +14,10 @@ Files: client/zarafa/Object.js
 Copyright: 2012, Mozilla Contributors
 License: CC-BY-SA-2.5
 
+Files: client/tinymce-plugins/powerpaste/*
+Copyright: 2015, Ephox Corporation
+License: GPL-3
+
 Files: client/third-party/iconcombobox/*
 Copyright: 2008, Ing. Jozef Sakáloš
 License: LGPL-3
