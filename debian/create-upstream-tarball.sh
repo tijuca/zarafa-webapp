@@ -11,9 +11,11 @@
 FILTER="\
 client/tinymce/jquery.tinymce.min.js \
 client/tinymce/plugins/media/moxieplayer.swf \
+client/tinymce-plugins/powerpaste/flash \
 plugins/files/js/external/uxmediapak.js \
 plugins/files/resources/flash/player.swf \
 plugins/pdfbox/pdfjs/pdf.min.worker.js \
+plugins/spreed/php/dat/legacy \
 server/PEAR/JSON.php \
 "
 OPTIONS="--sign-tags --verbose"
