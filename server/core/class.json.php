@@ -1,6 +1,6 @@
 <?php
-	require_once("server/PEAR/JSON.php");
-	require_once('server/exceptions/class.JSONException.php');
+	require_once(__DIR__ . '/../PEAR/JSON.php');
+	require_once(__DIR__ . '/../exceptions/class.JSONException.php');
 
 	/**
 	 * A static JSON handling class that will fire JSONException when any error occurs in JSON parsing.

@@ -108,7 +108,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 			parent_entryid : folder.get('entryid'),
 			icon_index : Zarafa.core.mapi.IconIndex['task_normal'],
 			subject : this.get('subject'),
-			body : this.get('body'),
+			body : this.getBody(false),
 			importance : this.get('importance'),
 			owner : defaultStore.isPublicStore() ? container.getUser().getFullName() : defaultStore.get('mailbox_owner_name')
 		});

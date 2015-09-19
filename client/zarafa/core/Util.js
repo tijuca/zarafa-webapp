@@ -726,6 +726,26 @@ Zarafa.core.Util =
 	 */
 	reloadWebapp : function()
 	{
+		this.disableLeaveRequester();
 		window.location.reload();
+	},
+
+	/**
+	 * Function is use to register onbeforeunload event to show confirm dialog
+	 * when user trying to leave the page.
+	 */
+	enableLeaveRequester : function()
+	{
+		window.onbeforeunload = function () {
+			return _('Your changes will be lost if you leave this page now.');
+		};
+	},
+
+	/**
+	 * Function is use to deregistering onbeforeunload event.
+	 */
+	disableLeaveRequester : function()
+	{
+		window.onbeforeunload = null;
 	}
 };

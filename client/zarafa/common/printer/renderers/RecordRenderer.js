@@ -65,7 +65,7 @@ Zarafa.common.printer.renderers.RecordRenderer = Ext.extend(Zarafa.common.printe
 		}
 
 		// add printer specific tags
-		data['attachment_names'] = record.getAttachmentNames();
+		data['attachment_names'] = Ext.util.Format.htmlEncode(record.getAttachmentNames());
 
 		return data;
 	},

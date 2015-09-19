@@ -34,6 +34,7 @@ Zarafa.common.ui.contactpanel.ContactBody = Ext.extend(Ext.form.FormPanel, {
 			xtype: 'zarafa.contactbody',
 			border : false,
 			header :  true,
+			autoScroll : true,
 			unstyled : true,
 			autoWidth : true,
 			headerCfg : {
@@ -41,69 +42,68 @@ Zarafa.common.ui.contactpanel.ContactBody = Ext.extend(Ext.form.FormPanel, {
 			},
 			items : [{
 				xtype:'fieldset',
-				title: 'Name',
+				title: _('Name'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Full name'),
 					name : 'display_name'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Company'),
 					name : 'company_name'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Job Title'),
 					name : 'title'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('File as'),
 					name : 'fileas'
 				}]
 			}, {
 				xtype:'fieldset',
-				title: 'Phone Numbers',
+				title: _('Phone Numbers'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Business'),
 					name : 'business_telephone_number'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Home'),
 					name : 'home_telephone_number'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Business Fax'),
 					name : 'business_fax_number'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Mobile'),
 					name : 'cellular_telephone_number'
 				}]
 			}, {
 				xtype:'fieldset',
-				title: 'Email',
+				title: _('Email'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Email'),
 					name : 'email_address_1'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Display name'),
 					name : 'email_address_display_name_1'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Webpage'),
 					name : 'webpage'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('IM Address'),
 					name : 'im'
 				}]
 			}, {
 				xtype:'fieldset',
-				title: 'Address',
+				title: _('Address'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Business'),
 					name : 'business_address'
 				}]

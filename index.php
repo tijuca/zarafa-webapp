@@ -10,8 +10,8 @@
 	}
 
 	include_once("init.php");
-	include_once("config.php");
-	include_once("defaults.php");
+	require_once("config.php");
+	require_once("defaults.php");
 	require_once("server/core/class.webappsession.php");
 	
 	ob_start();
@@ -41,6 +41,7 @@
 	require_once("server/core/constants.php");
 	require_once("server/core/class.conversion.php");
 	require_once("server/core/class.mapisession.php");
+	require_once("server/core/class.properties.php");
 	require_once("server/core/class.entryid.php");
 
 	require_once("server/core/class.settings.php");
@@ -76,13 +77,13 @@
 		if (!isset($_SERVER['REMOTE_USER'])){
 			// The user requests to logout. We should destroy the
 			// session, and redirect the user to the logon page.
-			$actionURI = '?load=logon';
+			$actionURI = '';
 
 			$phpsession->destroy();
 
 			$user = sanitizeGetValue('user', '', USERNAME_REGEX);
 			if ($user) {
-				$actionURI .= '&user=' . rawurlencode($user);
+				$actionURI .= '?user=' . rawurlencode($user);
 			}
 
 			// Redirect the user, this will reload the page
@@ -339,6 +340,9 @@
 			switch($GLOBALS["hresult"]) {
 				case MAPI_E_LOGON_FAILED:
 				case MAPI_E_UNCONFIGURED:
+					// Print error message to error_log of webserver
+					error_log('zarafa-webapp user: ' . $username . ': authentication failure at MAPI');
+
 					// destroy the session so another login attempt will not use preserved data
 					$phpsession->destroy();
 					break;

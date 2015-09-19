@@ -53,8 +53,10 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 
 		var fontSizesAsString = "";
 		for(var key in fontSizes) {
-			fontSizesAsString += fontSizes[key] + "pt,"
+			fontSizesAsString += fontSizes[key] + "pt,";
 		}
+
+		var powerpasteConfig = container.getServerConfig().getPowerpasteConfig();
 
 		config = Ext.applyIf(config, {
 			xtype: 'zarafa.tinymcetextarea',
@@ -63,8 +65,19 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			readOnly: false,
 			tinyMCEConfig :{
 				delta_height: 1,
-				plugins: ["advlist paste emoticons directionality lists link image charmap searchreplace textcolor"],
-				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat" ,
+				plugins: ["advlist emoticons directionality lists link image charmap searchreplace textcolor"],
+
+				// Add the powerpaste as an external plugin so we can update tinymce by just replacing
+				// the contents of its folder without removing the powerpaste plugin
+				// Note: the path is relative to the path of tinymce
+				external_plugins: {
+					powerpaste: "../tinymce-plugins/powerpaste/plugin.min.js"
+				},
+				powerpaste_word_import: powerpasteConfig.powerpaste_word_import,
+				powerpaste_html_import: powerpasteConfig.powerpaste_html_import,
+				powerpaste_allow_local_images: powerpasteConfig.powerpaste_allow_local_images,
+
+				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat",
 				extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],table[style|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|width],tbody,tr[style|class],td[style|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style|br]br',
 				paste_data_images : true,
 				valid_children : '+body[style]',
@@ -75,6 +88,8 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				browser_spellcheck : true,
 				menubar : false,
 				statusbar : false,
+				// Set our own class on anchor's to override TinyMCE's default anchor class.
+				visual_anchor_class : 'zarafa_tinymce_anchor',
 				/*
 				 * Using capital latter because value of forced_root_block config option used to compare
 				 * node name at many places in tinymce library(specially in createNewTextBlock function
@@ -90,6 +105,9 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			defaultFontSize : Zarafa.common.ui.htmleditor.Fonts.getDefaultFontSize()
 		});
 
+		// Give plugins the option to change the tinyMCE configuration
+		container.populateInsertionPoint('common.htmleditor.tinymceconfig', {scope: this, config: config.tinyMCEConfig});
+		
 		this.addEvents(
 			/**
 			 * @event valuecorrection
@@ -125,6 +143,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		
 		tinymceEditor.on('keydown', this.onKeyDown.createDelegate(this), this);
 		tinymceEditor.on('paste', this.onPaste.createDelegate(this), this);
+		tinymceEditor.on('mousedown', this.onMouseDown.createDelegate(this), this);
 
 		var listeners = {
 			'blur' : this.onBlur,
@@ -392,7 +411,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		var node = editor.selection.getNode();
 		editor.dom.add(node, 'br');
 		var parentNode = editor.dom.getParent(node, 'p');
-		if(parentNode.lastChild.nodeName == 'BR') {
+		if(parentNode && parentNode.lastChild.nodeName == 'BR') {
 			parentNode.removeChild(parentNode.lastChild);
 		}
 
@@ -467,6 +486,19 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		if (value !== correctedValue) {
 			editor.fireEvent('valuecorrection', editor, correctedValue, value);
 		}
+	},
+
+	/**
+	 * Function is called when mouse is clicked in the editor.
+	 * Editor mousedown event needs to be relayed for the document element of WebApp page,
+	 * to hide the context-menu.
+	 * TODO : Try to use {@link Ext.util.Observable#relayEvents}.
+	 * Tried the same but the event doesn't bubbled up to the document element.
+	 * @param {Object} event The event object
+	 */
+	onMouseDown : function(event)
+	{
+		Ext.getDoc().fireEvent('mousedown');
 	},
 
 	/**

@@ -14,12 +14,12 @@ Zarafa.contact.data.ContactDetailsParser = Ext.extend(Object, {
 	/**
 	 * @cfg {Array} prefixOptions prefix options array in the form of [[displayText]]
 	 */
-	prefixOptions : Zarafa.contact.data.config.Prefix,
+	prefixOptions : undefined,
 
 	/**
 	 * @cfg {Array} suffixOptions suffix options array in the form of [[displayText]]
 	 */
-	suffixOptions : Zarafa.contact.data.config.Suffix,
+	suffixOptions : undefined,
 
 	/**
 	 * @cfg {HexValue} CR carriage return value in form of 8-bit hex value
@@ -53,7 +53,8 @@ Zarafa.contact.data.ContactDetailsParser = Ext.extend(Object, {
 	constructor : function(config)
 	{
 		config = config || {};
-
+		this.prefixOptions = Zarafa.contact.data.config.Prefix;
+		this.suffixOptions = Zarafa.contact.data.config.Suffix;
 		Ext.apply(this, config);
 		Zarafa.contact.data.ContactDetailsParser.superclass.constructor.call(this, config);
 	},

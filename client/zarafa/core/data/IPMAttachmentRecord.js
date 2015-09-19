@@ -100,7 +100,7 @@ Zarafa.core.data.IPMAttachmentRecord = Ext.extend(Ext.data.Record, {
 	 */
 	isTmpFile : function()
 	{
-		return this.get('attach_num') == -1;
+		return this.get('attach_num') <= -1;
 	},
 
 	/**
@@ -208,7 +208,14 @@ Zarafa.core.data.IPMAttachmentRecord = Ext.extend(Ext.data.Record, {
 		if(!this.isTmpFile()) {
 			// Embedded attachment is saved in message so use attach_num and entryids of parent record to open the record
 			var parentRecord = this.store.getParentRecord();
-			var parentAttachNum = this.getParentAttachNum(parentRecord);
+			var parentAttachNum = [];
+
+			// Don't go for attachNum property of parent in case the parent record is an exception of meeting request.
+			// Because, exception of meeting request it self is an attachment.
+			if(!Ext.isFunction(parentRecord.isRecurringException) || (Ext.isFunction(parentRecord.isRecurringException) && !parentRecord.isRecurringException())){
+				parentAttachNum = this.getParentAttachNum(parentRecord);
+			}
+
 			// always pass attach_num as an array
 			var attachNum = parentAttachNum.concat(this.get('attach_num'));
 			var parentRecordEntryId = parentRecord.get('entryid');

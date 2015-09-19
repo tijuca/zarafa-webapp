@@ -25,8 +25,11 @@
 	<property name="ux-all-debugfile" value="ux-all-debug.js"/>
 	<property name="ux-all-file" value="ux-all.js"/>
 
-	<!-- The TinyMCE distribution files -->
-	<property name="tinymce-folder" value="tinymce"/>
+    <!-- The TinyMCE distribution files -->
+    <property name="tinymce-folder" value="tinymce"/>
+
+    <!-- The TinyMCE external plugins files -->
+    <property name="tinymce-plugins-folder" value="tinymce-plugins"/>
 
 	<!-- The Ext-Mod distribution files -->
 	<property name="extjs-mod-folder" value="extjs-mod"/>
@@ -72,10 +75,15 @@
 				<include name="${ux-all-file}"/>
 			</fileset>
 
-			<!-- Delete the TinyMCE files -->
-			<fileset dir="${target-folder}/${tinymce-folder}">
-				<include name="**/*.*"/>
-			</fileset>
+            <!-- Delete the TinyMCE files -->
+            <fileset dir="${target-folder}/${tinymce-folder}">
+                <include name="**/*.*"/>
+            </fileset>
+
+            <!-- Delete the TinyMCE external plugins -->
+            <fileset dir="${target-folder}/${tinymce-plugins-folder}">
+                <include name="**/*.*"/>
+            </fileset>
 
 			<!-- Delete the Extjs-mod files -->
 			<fileset dir="${target-folder}/${extjs-mod-folder}">
@@ -113,11 +121,16 @@
 				<include name="${ux-all-file}"/>
 			</fileset>
 		</copy>
-		<copy todir="${target-folder}/${tinymce-folder}">
-			<fileset dir="${tinymce-folder}">
-				<include name="**/*.*"/>
-			</fileset>
-		</copy>
+        <copy todir="${target-folder}/${tinymce-folder}">
+            <fileset dir="${tinymce-folder}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+        <copy todir="${target-folder}/${tinymce-plugins-folder}">
+            <fileset dir="${tinymce-plugins-folder}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
 	</target>
 
 	<!-- Concatenates JavaScript files with automatic dependency generation -->

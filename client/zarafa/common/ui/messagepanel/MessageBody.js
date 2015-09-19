@@ -59,7 +59,30 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 		}
 		
 	},
-	
+
+	/**
+	 * Set event listeners on the iframe that will relay the 
+	 * event when the user performs click within iframe.
+	 * @private
+	 */
+	setRelayEventListeners : function()
+	{
+		var iframeWindow = this.getEl().dom.contentWindow;
+		var iframeDocument = iframeWindow.document;
+
+		iframeDocument.addEventListener('mousedown', this.onMouseDown.createDelegate(this), true);
+	},
+
+	/**
+	 * Function is called when mouse is clicked in the editor.
+	 * iframe mousedown event needs to be relayed for the document element of WebApp page,
+	 * to hide the context-menu.
+	 */
+	onMouseDown : function()
+	{
+		Ext.getDoc().fireEvent('mousedown');
+	},
+
 	/**
 	 * Set event listeners on the iframe that will reset the 
 	 * {@link Zarafa#idleTime idle time} when the user performs
@@ -122,7 +145,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 			if (!body) {
 				body = '';
 			} else  if (html === false) {
-				body = this.plaintextTemplate.applyTemplate({ body: body });
+				body = this.plaintextTemplate.applyTemplate({ body: Ext.util.Format.htmlEncode(body) });
 			}
 		}
 
@@ -316,6 +339,9 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 			// Wait for the iframe to load before calling setIdleTimeEventListeners()
 			this.getEl().on('load', this.setIdleTimeEventListeners, this);
 		}
+
+		// Wait for the iframe to load before calling setRelayEventListeners()
+		this.getEl().on('load', this.setRelayEventListeners, this);
 
 		this.wrap = this.el.wrap({cls: 'preview-body'});
 		this.resizeEl = this.positionEl = this.wrap;

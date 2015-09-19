@@ -53,12 +53,8 @@ Zarafa.note.ui.NoteMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.notemainpanel',
-			layout: 'zarafa.collapsible',
+			layout: 'fit',
 			items: [{
-				xtype : 'zarafa.searchbar',
-				searchFields : Zarafa.note.data.SearchFields,
-				context : config.context
-			},{
 				xtype : 'zarafa.switchviewcontentcontainer',
 				ref: 'viewPanel',
 				layout : 'card',

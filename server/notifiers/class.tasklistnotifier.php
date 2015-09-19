@@ -1,5 +1,5 @@
 <?php
-	require_once('server/notifiers/class.listnotifier.php');
+	require_once(__DIR__ . '/class.listnotifier.php');
 
 	/**
 	 * TaskListNotifier

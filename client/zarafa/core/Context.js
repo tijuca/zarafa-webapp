@@ -242,18 +242,6 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		return this.current_view_mode;
 	},
 
-	
-	// TODO : Advance Search
-	getLastView : function()
-	{
-		return this.oldView;
-	},
-	// TODO : Advance Search
-	getLastViewMode : function()
-	{
-		return this.oldViewMode;
-	},
-
 	/**
 	 * Obtain the {@link Zarafa.core.ContextModel mode} which is associated
 	 * to this context.
@@ -352,8 +340,6 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		var searching = model && model.isSearching();
 		var scrolling = model && model.isLiveScrolling();
 
-		// True when search is performed but liveScroll is not..
-		var isOnlySearching = (searching && !scrolling);
 		/*
 		 * True when live scroll is performed and and current view mode should not be 
 		 * one of the main view mode (NO_PREVIEW, RIGHT_PREVIEW, BOTTOM_PREVIEW).
@@ -368,7 +354,7 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		 */
 		var isSearchingAndScrolling = (scrolling && searching && Zarafa.mail.data.ViewModes.isMainViewMode(this.oldViewMode));
 
-		return Ext.apply(state, isOnlySearching || isOnlyScrolling || isSearchingAndScrolling ?{
+		return Ext.apply(state, isOnlyScrolling || isSearchingAndScrolling ?{
 			current_view : this.oldView,
 			current_view_mode : this.oldViewMode
 		} : {

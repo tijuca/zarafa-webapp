@@ -20,10 +20,9 @@ Zarafa.calendar.ui.AppointmentPreviewPanel = Ext.extend(Ext.Panel, {
 			xtype: 'zarafa.appointmentpreviewpanel',
 			border : false,
 			bodyCfg: {
-				cls : 'preview-contact-body'
+				cls : 'preview-body'
 			},
 			layout : 'fit',
-			autoScroll : true,
 			items : [{
 				xtype: 'zarafa.appointmentbody'
 			}]

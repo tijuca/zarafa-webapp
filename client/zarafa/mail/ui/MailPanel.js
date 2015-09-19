@@ -84,7 +84,7 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 				ref: '../viewPanel',
 				layout : 'card',
 				lazyItems : this.initViews(config.context)
-			}],			
+			}],
 			tbar : {
 				xtype: 'zarafa.mailpaneltoolbar',
 				id: 'zarafa-main-content-mail-toolbar',
@@ -93,6 +93,13 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 				paging : container.populateInsertionPoint('context.mail.toolbar.paging', this),
 				items : container.populateInsertionPoint('context.mail.toolbar.item', this),
 				context : config.context
+			},
+			listeners : {
+				render : function(panel)
+				{
+					this.topToolbar = panel.getTopToolbar();
+				},
+				scope : this
 			}
 		};
 	},

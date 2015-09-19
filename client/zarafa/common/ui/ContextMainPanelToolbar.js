@@ -48,6 +48,18 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		// Built up the items array
 		var items = [];
 
+		items = items.concat({
+			xtype : 'zarafa.searchfield',
+			boxMinWidth: 100,
+			ref : 'searchTextfield',
+			listeners: {
+				render : function(field){
+					this.onModelFolderChange(this.model);
+				},
+				scope : this
+			}
+		});
+
 		if (!Ext.isEmpty(config.paging)) {
 			items = items.concat(config.paging);
 		}
@@ -56,16 +68,10 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		// and we add our own default pagination toolbar.
 		items.push({
 			xtype: 'zarafa.paging',
-            style : 'border-style : none',
+			style : 'border-style : none',
 			ref : 'pagesToolbar',
 			pageSize : container.getSettingsModel().get('zarafa/v1/main/page_size'),
 			store : config.model ? config.model.getStore() : undefined
-		});
-
-		// We fill everything up to the right
-		items.push({
-			xtype: 'tbfill',
-			ref : 'tabFill'
 		});
 
 		// We add the default buttons
@@ -77,6 +83,7 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 			ref : 'copyButton',
 			nonEmptySelectOnly: true,
 			handler: this.onCopyMove,
+			model : config.model,
 			scope: this
 		},{
 			xtype: 'zarafa.toolbarbutton',
@@ -86,6 +93,7 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 			iconCls: 'icon_delete',
 			nonEmptySelectOnly: true,
 			handler: this.onDelete,
+			model : config.model,
 			scope: this
 		}]);
 
@@ -101,12 +109,105 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		// Update configuration
 		Ext.applyIf(config, {
 			xtype : 'zarafa.contextmainpaneltoolbar',
-            ref : 'contextMainPanelToolbar',
+			ref : 'contextMainPanelToolbar',
 			items : items,
 			enableOverflow : true
 		});
 
 		Zarafa.common.ui.ContextMainPanelToolbar.superclass.constructor.call(this, config);
+		this.initEvent();
+	},
+
+	/**
+	 * Initialize Events
+	 */
+	initEvent : function()
+	{
+		this.on('afterlayout', this.onAfterLayout, this, {delay : 2});
+
+		this.mon(this.model, {
+			folderchange : this.onModelFolderChange,
+			scope : this
+		});
+
+		this.mon(this.searchTextfield,{
+			beforestart : this.onBeforeStart,
+			scope : this
+		});
+	},
+
+	/**
+	 * Event handler which will be called when the {@link #model} fires the
+	 * {@link Zarafa.core.ContextModel#folderchange} event. This will determine
+	 * if the selected folders support 'search folders' and update the UI accordingly.
+	 * @param {Zarafa.core.ContextModel} model this context model.
+	 * @param {Array} folders selected folders as an array of {Zarafa.hierarchy.data.MAPIFolderRecord Folder} objects.
+	 * @private
+	 */
+	onModelFolderChange : function(model, folders)
+	{
+		var folder = model.getDefaultFolder();
+		var emptyText = this.searchTextfield.getEmptySearchText(folder);
+		this.searchTextfield.setEmptyText(emptyText);
+	},
+
+	/**
+	 * Event handler triggers after the layout gets render.
+	 * it will set the search text field width dynamically.
+	 * @param {Zarafa.common.ui.ContextMainPanelToolbar} toolbar The toolbar which triggers the event.
+	 * @param {Ext.Layout} layout The ContainerLayout implementation for this container
+	 */
+	onAfterLayout : function(toolbar, layout)
+	{
+		var width = this.getWidth();
+
+		var itemWidth = 0;
+		Ext.each(toolbar.items.items, function(item, index, array){
+			if(!item.isXType('zarafa.searchfield') && item.rendered) {
+				if(item.isVisible()) {
+					itemWidth += item.getWidth();
+				} else if(Ext.isDefined(item.xtbHidden) && item.xtbHidden) {
+					itemWidth += item.xtbWidth;
+				}
+			}
+		}, this);
+
+		if(width > itemWidth) {
+			Ext.each(toolbar.items.items, function(item, index, array){
+				if(!item.isVisible() && Ext.isDefined(item.xtbHidden) && item.xtbHidden) {
+					layout.unhideItem(item);
+				}
+			}, this);
+		}
+
+		toolbar.searchTextfield.setWidth(width - (itemWidth));
+	},
+
+	/**
+	 * Event handler triggered when {@link Zarafa.common.ui.SearchField#beforestart} is fire.
+	 * function is used to create the {@link Zarafa.common.search.dialogs.SearchContentPanel searchcontentpanel}
+	 * which contains search result.
+	 * @param {Zarafa.common.ui.SearchField} SearchField object of search field component.
+	 */
+	onBeforeStart : function(searchField)
+	{
+		if(Ext.isEmpty(searchField.getValue())) {
+			container.getNotifier().notify('error.search', _('Error'), searchField.errorMsgEmpty);
+			return false;
+		}
+
+		if(!searchField.isRenderedSearchPanel()) {
+			var componentType = Zarafa.core.data.SharedComponentType['common.search'];
+			Zarafa.core.data.UIFactory.openLayerComponent(componentType, [], {
+				'searchText' : searchField.getValue(),
+				'context' : container.getContextByName('advancesearch'),
+				'parentContext' : container.getCurrentContext(),
+				'parentSearchField' : searchField
+			});
+			searchField.renderedSearchPanel = true;
+		}
+
+		return true;
 	},
 
 	/**

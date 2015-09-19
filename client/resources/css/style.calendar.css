@@ -306,6 +306,7 @@
 .zarafa-calendar-tabarea
 {
 	position: absolute;
+	cursor: pointer;
 }
 
 .zarafa-calendar-tabarea .zarafa-calendar-tab div
@@ -330,7 +331,8 @@
 .zarafa-calendar-tabarea .zarafa-calendar-tab-background .zarafa-calendar-tab-rightside
 {
 	width: 32px;
-	border-top-right-radius: 5px 5px;
+	border-top-right-radius: 5px;
+	opacity: 0.99;
 	transform: skewX(30deg);
 	-ms-transform: skewX(30deg);
 	margin-left: -20px;

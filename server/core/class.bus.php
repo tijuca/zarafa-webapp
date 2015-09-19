@@ -1,5 +1,5 @@
 <?php
-	require('server/exceptions/class.BusException.php');
+	require(__DIR__ . '/../exceptions/class.BusException.php');
 
 	/**
 	* Generic event bus with subscribe/notify architecture

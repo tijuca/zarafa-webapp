@@ -229,8 +229,6 @@ class DownloadMessage
 					$messageProps = mapi_getprops($this->message, array(PR_SUBJECT, PR_EC_IMAP_EMAIL, PR_MESSAGE_CLASS));
 
 					$stream = $this->getEmlStream($messageProps);
-
-					// Set the file length
 					$stat = mapi_stream_stat($stream);
 
 					// Get the stream

@@ -274,30 +274,28 @@ class DownloadAttachment
 				$filename = $props[PR_DISPLAY_NAME];
 			}
 
-			// Set content type, but only get it when disposition type is inline, otherwise it will be default to application/octet-stream
-			if($this->contentDispositionType !== 'attachment') {
-				if(isset($props[PR_ATTACH_MIME_TAG])) {
-					$contentType = $props[PR_ATTACH_MIME_TAG];
-				} else {
-					// Parse the extension of the filename to get the content type
-					if(strrpos($filename, '.') !== false) {
-						$extension = strtolower(substr($filename, strrpos($filename, '.')));
-						if (is_readable('mimetypes.dat')) {
-							$fh = fopen('mimetypes.dat', 'r');
-							$ext_found = false;
+			// Set content type if avaliable, otherwise it will be default to application/octet-stream
+			if(isset($props[PR_ATTACH_MIME_TAG])) {
+				$contentType = $props[PR_ATTACH_MIME_TAG];
+			} else {
+				// Parse the extension of the filename to get the content type
+				if(strrpos($filename, '.') !== false) {
+					$extension = strtolower(substr($filename, strrpos($filename, '.')));
+					if (is_readable('mimetypes.dat')) {
+						$fh = fopen('mimetypes.dat', 'r');
+						$ext_found = false;
 
-							while (!feof($fh) && !$ext_found) {
-								$line = fgets($fh);
-								preg_match('/(\.[a-z0-9]+)[ \t]+([^ \t\n\r]*)/i', $line, $result);
+						while (!feof($fh) && !$ext_found) {
+							$line = fgets($fh);
+							preg_match('/(\.[a-z0-9]+)[ \t]+([^ \t\n\r]*)/i', $line, $result);
 
-								if ($extension == $result[1]) {
-									$ext_found = true;
-									$contentType = $result[2];
-								}
+							if ($extension == $result[1]) {
+								$ext_found = true;
+								$contentType = $result[2];
 							}
-
-							fclose($fh);
 						}
+
+						fclose($fh);
 					}
 				}
 			}

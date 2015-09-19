@@ -180,9 +180,11 @@ Zarafa.core.ModuleNames =
 	},
 
 	/**
-	 * TODO : Advance Search comments
+	 * Modul information for advance search.
+	 * @property
+	 * @type Mixed
 	 */
-	'ADVANCESEARCH' : {
+	'IPM.SEARCH' : {
 		list : 'advancedsearchlistmodule',
 		item : 'createmailitemmodule'
 	},

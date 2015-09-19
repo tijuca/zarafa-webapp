@@ -4,17 +4,21 @@
 	* This file is used to upload an file.
 	*/
 	// required to handle php errors
-	require_once('server/exceptions/class.ZarafaErrorException.php');
+	require_once(__DIR__ . '/exceptions/class.ZarafaErrorException.php');
 	// required to send data in JSON
-	require_once('server/core/class.json.php');
+	require_once(__DIR__ . '/core/class.json.php');
 	// Include backwards compatibility
-	require_once('server/sys_get_temp_dir.php');
+	require_once(__DIR__ . '/sys_get_temp_dir.php');
 
 	// Get Attachment data from state
 	$attachment_state = new AttachmentState();
 	$attachment_state->open();
-	
-	header('Content-Type: application/json; charset=utf-8');
+
+	// For legacy browsers we don't send the Content-type header, because we use a form to do the upload in those browsers
+	// instead of ajax communication. The header would trigger the browser's Download dialog
+	if ( !preg_match('/(?i)msie [1-9]/',$_SERVER['HTTP_USER_AGENT'])){
+		header('Content-Type: application/json; charset=utf-8');
+	}	
 
 	try {
 		$newfiles = Array();

@@ -64,18 +64,49 @@ Zarafa.common.attachment.ui.AttachmentDownloader = Ext.extend(Ext.Component, {
 	 */
 	downloadMessageAsZip : function(records)
 	{
-		var url = records[0].getDownloadMessageUrl(true);
+		// Get the total size of all the messages which is requested to be included in ZIP
+		var totalSize = 0;
+		Ext.each(records, function(record) {
+			totalSize += record.get('message_size');
+		}, this);
 
-		var iframeBody = Ext.getDom(this.getEl()).contentDocument.body;
-		var form = Ext.DomHelper.append( iframeBody || Ext.getBody(), {tag : 'form', action : url, method : 'POST'}, true);
+		// Check if total size of eml is more than 30 MB, avoid ZIP creation as the request will
+		// be timed out by the time while preparing eml for next message and there is no
+		// technical provision to detect request-time-out exception.
+		// 31457280 byte is equivalent to 30MB.
+		if (totalSize < 31457280) {
+			var url = records[0].getDownloadMessageUrl(true);
 
-		// Create and append input elements containing entryid as its value
-		for (var i = 0; i < records.length; i++) {
-			Ext.DomHelper.append(form, {tag : 'input', type : 'hidden', name : 'entryids[]', value : records[i].get('entryid')});
+			var iframeBody = Ext.getDom(this.getEl()).contentDocument.body;
+			var form = Ext.DomHelper.append( iframeBody || Ext.getBody(), {tag : 'form', action : url, method : 'POST'}, true);
+
+			// Create and append input elements containing entryid as its value
+			for (var i = 0; i < records.length; i++) {
+				Ext.DomHelper.append(form, {tag : 'input', type : 'hidden', name : 'entryids[]', value : records[i].get('entryid')});
+			}
+
+			// In IE10 and IE9 beforeunload will be called while submitting form.
+			// So prevent this situation by disable leave requester which prevent the requester dialog to appear.
+			if(Ext.isIE10 || Ext.isIE9) {
+				Zarafa.core.Util.disableLeaveRequester();
+			}
+
+			// Submit the form to send a POST request
+			form.dom.submit();
+
+			// Enable leave requester back if user browser is IE10 or IE9.
+			if(Ext.isIE10 || Ext.isIE9) {
+				Zarafa.core.Util.enableLeaveRequester();
+			}
+
+		} else {
+			container.getNotifier().notify(
+				'error.attachment',
+				_('Attachment error'),
+				_('Cannot create ZIP, The allowed maximum size is 30 MB.')
+			);
+			return;
 		}
-
-		// Submit the form to send a POST request
-		form.dom.submit();
 	},
 
 	/**

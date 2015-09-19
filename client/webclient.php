@@ -1,5 +1,5 @@
 <?php
-include("client/loader.php");
+include(__DIR__ . '/loader.php');
 
 $loader = new FileLoader();
 
@@ -15,6 +15,7 @@ $version = trim(file_get_contents('version'));
 	<head>
 		<meta name="Generator" content="Zarafa WebApp v<?php echo$version?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>Zarafa WebApp</title>
 		<link rel="icon" href="client/resources/images/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="client/resources/images/favicon.ico" type="image/x-icon">
@@ -70,14 +71,36 @@ $version = trim(file_get_contents('version'));
 
 		<script type="text/javascript">
 			user = {
-				username		: "<?php echo addslashes($GLOBALS["mapisession"]->getUserName()) ?>",
-				fullname		: "<?php echo addslashes($GLOBALS["mapisession"]->getFullName()) ?>",
-				entryid			: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserEntryid()) ?>",
-				email_address		: "<?php echo addslashes($GLOBALS["mapisession"]->getEmailAddress()) ?>",
-				smtp_address		: "<?php echo addslashes($GLOBALS["mapisession"]->getSMTPAddress()) ?>",
-				search_key		: "<?php echo bin2hex($GLOBALS["mapisession"]->getSearchKey()) ?>",
-				user_image		: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserImage()) ?>",
-				sessionid		: "<?php echo $GLOBALS["mapisession"]->getSessionID() ?>"
+				username					: "<?php echo addslashes($GLOBALS["mapisession"]->getUserName()) ?>",
+				fullname					: "<?php echo addslashes($GLOBALS["mapisession"]->getFullName()) ?>",
+				entryid						: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserEntryid()) ?>",
+				email_address				: "<?php echo addslashes($GLOBALS["mapisession"]->getEmailAddress()) ?>",
+				smtp_address				: "<?php echo addslashes($GLOBALS["mapisession"]->getSMTPAddress()) ?>",
+				search_key					: "<?php echo bin2hex($GLOBALS["mapisession"]->getSearchKey()) ?>",
+				user_image					: "<?php echo bin2hex($GLOBALS["mapisession"]->getUserImage()) ?>",
+				sessionid					: "<?php echo $GLOBALS["mapisession"]->getSessionID() ?>",
+				given_name					: "<?php echo addslashes($GLOBALS["mapisession"]->getGivenName()) ?>",
+				initials					: "<?php echo addslashes($GLOBALS["mapisession"]->getInitials()) ?>",
+				surname						: "<?php echo addslashes($GLOBALS["mapisession"]->getSurname()) ?>",
+				street_address				: "<?php echo addslashes($GLOBALS["mapisession"]->getStreetAddress()) ?>",
+				locality					: "<?php echo addslashes($GLOBALS["mapisession"]->getLocality()) ?>",
+				state_or_province			: "<?php echo addslashes($GLOBALS["mapisession"]->getStateOrProvince()) ?>",
+				postal_code					: "<?php echo addslashes($GLOBALS["mapisession"]->getPostalCode()) ?>",
+				country						: "<?php echo addslashes($GLOBALS["mapisession"]->getCountry()) ?>",
+				title						: "<?php echo addslashes($GLOBALS["mapisession"]->getTitle()) ?>",
+				company_name				: "<?php echo addslashes($GLOBALS["mapisession"]->getCompanyName()) ?>",
+				department_name				: "<?php echo addslashes($GLOBALS["mapisession"]->getDepartmentName()) ?>",
+				office_location				: "<?php echo addslashes($GLOBALS["mapisession"]->getOfficeLocation()) ?>",
+				assistant					: "<?php echo addslashes($GLOBALS["mapisession"]->getAssistant()) ?>",
+				assistant_telephone_number	: "<?php echo addslashes($GLOBALS["mapisession"]->getAssistantTelephoneNumber()) ?>",
+				office_telephone_number		: "<?php echo addslashes($GLOBALS["mapisession"]->getOfficeTelephoneNumber()) ?>",
+				business_telephone_number	: "<?php echo addslashes($GLOBALS["mapisession"]->getBusinessTelephoneNumber()) ?>",
+				business2_telephone_number	: "<?php echo addslashes($GLOBALS["mapisession"]->getBusiness2TelephoneNumber()) ?>",
+				primary_fax_number			: "<?php echo addslashes($GLOBALS["mapisession"]->getPrimaryFaxNumber()) ?>",
+				home_telephone_number		: "<?php echo addslashes($GLOBALS["mapisession"]->getHomeTelephoneNumber()) ?>",
+				home2_telephone_number		: "<?php echo addslashes($GLOBALS["mapisession"]->getHome2TelephoneNumber()) ?>",
+				mobile_telephone_number		: "<?php echo addslashes($GLOBALS["mapisession"]->getMobileTelephoneNumber()) ?>",
+				pager_telephone_number		: "<?php echo addslashes($GLOBALS["mapisession"]->getPagerTelephoneNumber()) ?>"
 			};
 		</script>
 
@@ -103,9 +126,12 @@ $version = trim(file_get_contents('version'));
 				freebusy_load_end_offset : <?php echo FREEBUSY_LOAD_END_OFFSET ?>,
 				client_timeout 			: <?php echo defined('CLIENT_TIMEOUT') && is_numeric(CLIENT_TIMEOUT) && CLIENT_TIMEOUT>0 ? CLIENT_TIMEOUT : 'false' ?>,
 				version_info			: <?php echo getPluginsVersionInfo() ?>,
+				contact_prefix			: <?php echo CONTACT_PREFIX ? CONTACT_PREFIX : 'undefined' ?>,
+				contact_suffix			: <?php echo CONTACT_SUFFIX ? CONTACT_SUFFIX : 'undefined' ?>,
 				color_schemes			: <?php echo COLOR_SCHEMES ?>,
 				additional_color_schemes: <?php echo defined('ADDITIONAL_COLOR_SCHEMES') ? ADDITIONAL_COLOR_SCHEMES : 'undefined' ?>,
-				maximum_eml_files_in_zip: <?php echo MAX_EML_FILES_IN_ZIP ?>
+				maximum_eml_files_in_zip: <?php echo MAX_EML_FILES_IN_ZIP ?>,
+				powerpaste: <?php echo json_encode(Array('powerpaste_word_import' => POWERPASTE_WORD_IMPORT, 'powerpaste_html_import' => POWERPASTE_HTML_IMPORT, 'powerpaste_allow_local_images' => POWERPASTE_ALLOW_LOCAL_IMAGES)); ?> 
 			};
 		</script>
 

@@ -50,12 +50,12 @@
 /**
  * uses PEAR error managemt
  */
-require_once 'PEAR.php';
+require_once __DIR__ . '/../PEAR.php';
 
 /**
  * uses XML_Parser to unserialize document
  */
-require_once 'XML/Parser.php';
+require_once __DIR__ .'/Parser.php';
 
 /**
  * option: Convert nested tags to array or object

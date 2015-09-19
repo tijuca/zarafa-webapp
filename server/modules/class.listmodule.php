@@ -184,6 +184,15 @@
 					}
 				}
 
+				// Allowing to hook in just before the data sent away to be sent to the client
+				$GLOBALS['PluginManager']->triggerHook('server.module.listmodule.list.after', array(
+					'moduleObject' =>& $this,
+					'store' => $store,
+					'entryid' => $entryid,
+					'action' => $action,
+					'data' =>& $data
+				));
+
 				// unset will remove the value but will not regenerate array keys, so we need to
 				// do it here
 				$data["item"] = array_values($data["item"]);
@@ -293,7 +302,12 @@
 				$folderEntryid = bin2hex($entryid);
 				if($this->sessionData['searchOriginalEntryids'][0] !== $folderEntryid) {
 					$this->sessionData['searchOriginalEntryids'][0] = $folderEntryid;
-					mapi_folder_setsearchcriteria($searchFolder, $this->searchRestriction, $entryids, $subfolder_flag);
+					/*
+					 * FIXME : use $entryids instead of $entryid parameter, to use $entryids  we have to refine 
+					 * this check if (!empty($this->sessionData['searchOriginalEntryids'])). due to this check 
+					 * $entryids contains the old folder not newly changed folder.
+					 */
+					mapi_folder_setsearchcriteria($searchFolder, $this->searchRestriction, array($entryid), $subfolder_flag);
 				}
 			}
 

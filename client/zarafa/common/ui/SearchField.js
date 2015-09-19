@@ -18,6 +18,19 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 	searchIndicatorClass : 'zarafa-tbar-loading',
 
 	/**
+	 * @cfg {Boolean} renderedSearchPanel The renderedSearchPanel indicates that 
+	 * {@link Zarafa.advancesearch.dialogs.SearchContentPanel search content panel} 
+	 * was rendered or not. it will gets true if {@link Zarafa.advancesearch.dialogs.SearchContentPanel search content panel} 
+	 * renders else false.
+	 */
+	renderedSearchPanel : false,
+
+	/**
+	 * @cfg {String} errorMsgEmpty The error text to display if the search query is empty.
+	 */
+	errorMsgEmpty : _('Please enter text to start search.'),
+
+	/**
 	 * @constructor
 	 * @param {Object} config Configuration object
 	 */
@@ -148,6 +161,24 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 	},
 
 	/**
+	 * Obtain the {@link Zarafa.common.ui.SearchField#emptyText emptyText} string
+	 * which must be applied to {@link #this.searchTextfield}.
+	 * 
+	 * @param {Zarafa.core.data.MAPIFolder} folder The folder which will be searched through.
+	 * @return {String} The emptyText string to be applied
+	 * @private
+	 */
+	getEmptySearchText : function(folder)
+	{
+		if(folder) {
+			var folderName = folder.get('display_name');
+			var userName = folder.getMAPIStore().get('mailbox_owner_name');
+			var emptyText = String.format(_('Search in "{0} - {1}"'), folderName, userName);
+			return emptyText;
+		}
+	},
+
+	/**
 	 * Update this component to display that this component is
 	 * currently busy searching. This will show the first trigger
 	 * which can be used for stopping the search.
@@ -161,7 +192,7 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 	/**
 	 * Update this component to display that this component is currently
 	 * no longer searching.
-	 * @param {Boolean} complete True if the search was completed rather then cancelled,
+	 * @param {Boolean} complete True if the search was completed rather then canceled,
 	 * this means that the first trigger must remain visible to allow the user to stop
 	 * the search.
 	 */
@@ -171,6 +202,15 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 		if (complete !== true) {
 			this.getTrigger(0).hide();
 		}
+	},
+
+	/**
+	 * Function was used to identify that search panel was rendered or not.
+	 * @return {Boolean} return true when search panel was rendered else false.
+	 */
+	isRenderedSearchPanel : function()
+	{
+		return this.renderedSearchPanel;
 	}
 });
 

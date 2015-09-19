@@ -65,7 +65,7 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 			],
 			buttonAlign: 'left',
 			buttons: [{
-				text: _('Create new folder'),
+				text: _('New folder'),
 				handler: this.onCreateFolder,
 				scope: this,
 				ref: '../createFolderButton',
@@ -210,7 +210,7 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 	onCreateFolder : function()
 	{
 		var folder = this.hierarchyTree.getSelectionModel().getSelectedNode().getFolder();
-		Zarafa.hierarchy.Actions.openCreateFolderContent(folder, {'modal': true});
+		Zarafa.hierarchy.Actions.openCreateFolderContent(folder);
 		this.mon(this.hierarchyTree, 'append', this.onTreeAppend, this, {delay: 10});
 	},
 

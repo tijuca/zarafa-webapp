@@ -6,7 +6,7 @@ Ext.namespace('Zarafa.calendar.dialogs');
  * @xtype zarafa.appointmenttoolbar
  */
 Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar, {
-	// Insertion points for this class
+	// Insertion points for this class, insertion points are registered in {Zarafa.core.ui.Toolbar}
 	/**
 	 * @insert context.calendar.appointmentcontentpanel.toolbar.actions
 	 * Insertion point for the Actions buttons in the Appointment ContentPanel Toolbar
@@ -429,10 +429,6 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			}
 
 			if (contentReset === true || record.isModifiedSinceLastUpdate('meeting')) {
-				// add meeting request related buttons
-				var appointmentToolbarButtons = container.populateInsertionPoint('context.calendar.appointmentcontentpanel.toolbar.actions', this);
-				this.insert(0, {xtype: 'zarafa.buttongroup', items: appointmentToolbarButtons, ref :'meetingrequestbuttons'});
-
 				switch (record.get('meeting')) {
 					case Zarafa.core.mapi.MeetingStatus.NONMEETING:
 					default:
@@ -443,7 +439,6 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 						this.checkNames.setVisible(false);
 						this.inviteAttendees.setVisible(true);
 						this.cancelInvitation.setVisible(false);
-						this.meetingrequestbuttons.setVisible(false);
 						break;
 					case Zarafa.core.mapi.MeetingStatus.MEETING:
 						this.sendInvitation.setVisible(true);
@@ -453,7 +448,6 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 						this.checkNames.setVisible(true);
 						this.inviteAttendees.setVisible(false);
 						this.cancelInvitation.setVisible(true);
-						this.meetingrequestbuttons.setVisible(false);
 						break;
 					case Zarafa.core.mapi.MeetingStatus.MEETING_RECEIVED:
 					case Zarafa.core.mapi.MeetingStatus.MEETING_CANCELED:
@@ -465,8 +459,6 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 						this.checkNames.setVisible(false);
 						this.inviteAttendees.setVisible(false);
 						this.cancelInvitation.setVisible(false);
-						// Show buttongroup only if it has buttons.
-						this.meetingrequestbuttons.setVisible(this.meetingrequestbuttons.hasVisibleButtons());
 						break;
 				}
 

@@ -117,9 +117,6 @@ Zarafa.core.HTMLParser = (function() {
 				return content;
 			}
 
-			// convert all breaklines
-			content = Zarafa.core.HTMLParser.br2nl(content);
-
 			//----- remove tags but preserve the content ----
 
 			// remove all select / options tags
@@ -135,7 +132,7 @@ Zarafa.core.HTMLParser = (function() {
 			// tags related to table
 			content = content.replace(/<[\/]?(?:table)[^>]*>/gim, '\n\n');
 			content = content.replace(/<[\/]?(?:caption|tr)[^>]*>/gim, '\n');
-			content = content.replace(/<[\/]?(?:th|td)[^>]*>/gim, '\t');
+			content = content.replace(/<[^\/]?(?:th|td)[^>]*>/gim, '<br />');
 
 			// remove anchor tag by preserving the links, links will be added after content of anchor tag in between <> signs
 			content = content.replace(/<a[^>]* href=[\'\"]?([^\s\'\">]*)[^>]*>([\s\S]*?)<\/a[^>]*>/gim, '$2 &lt;$1&gt;');
@@ -152,20 +149,28 @@ Zarafa.core.HTMLParser = (function() {
 			content = content.replace(/<!--[\s\S]*?-->/gim, '');
 
 			// we have processed tags which are usefull for plain text conversion so now remove all remaining tags
-			content = Zarafa.core.HTMLParser.stripUnwantedTags(content);
+			content = Zarafa.core.HTMLParser.stripUnwantedTags(content, ['br']);
 
 			// decode html entities
 			content = Zarafa.core.HTMLParser.entityDecode(content);
 
+			// remove unnecessary space
+			content = content.replace(/^\s*$/gm, '');
+
+			// add <br> in line which hasn't <br> at end of line
+			content = content.replace(/(.*[^<>\n]$)/gm, '$1 <br />');
+
+			// remove extra line breaks
+			content = content.replace(/\n/gm, '');
+
+			// convert all breaklines
+			content = Zarafa.core.HTMLParser.br2nl(content);
+
 			// remove remaining html entities
 			content = content.replace(/[&][#0-9a-z]*[;]/gim, '');
 
-			// remove extra line breaks, this will also check if any line contains only spaces in between two line breaks
-			// and will remove that line also
-			content = content.replace(/\s*?\n(\s*?\n)+/gm, '\n\n');
-
-			// remove tabs from the end of the lines
-			content = content.replace(/\t*$/gm, '');
+			// remove breaklines from the end of the lines
+			content = content.replace(/\n(?!\n)$/gm, '');
 
 			return content;
 		},

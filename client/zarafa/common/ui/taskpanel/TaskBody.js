@@ -34,6 +34,7 @@ Zarafa.common.ui.taskpanel.TaskBody = Ext.extend(Ext.form.FormPanel, {
 			xtype: 'zarafa.taskbody',
 			border : false,
 			header :  true,
+			autoScroll : true,
 			unstyled : true,
 			autoWidth : true,
 			headerCfg : {
@@ -41,63 +42,56 @@ Zarafa.common.ui.taskpanel.TaskBody = Ext.extend(Ext.form.FormPanel, {
 			},
 			items : [{
 				xtype:'fieldset',
-				title: 'Task',
+				title: _('Task'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Subject'),
 					name : 'subject'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Start Date'),
 					ref : '../startDate'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('End Date'),
 					ref : '../endDate'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Status'),
 					ref : '../taskStatusPreview',
 					name : 'status'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Priority'),
 					ref : '../taskImportancePreview',
 					name : 'importance'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('% Complete'),
 					name : 'percent_complete'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Owner'),
 					name : 'owner'
 				}]
 			}, {
 				xtype:'fieldset',
-				title: 'Details',
+				title: _('Details'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Date Complete'),
 					name : 'date_completed'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Total Work'),
 					name : 'totalwork'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Actual Work'),
 					name : 'actualwork'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Mileage'),
 					name : 'mileage'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Billing Information'),
 					name : 'billing_information'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Companies'),
 					name : 'companies'
 				}]
@@ -134,14 +128,12 @@ Zarafa.common.ui.taskpanel.TaskBody = Ext.extend(Ext.form.FormPanel, {
 		this.taskImportancePreview.setValue(Zarafa.core.mapi.Importance.getDisplayName(record.get('importance')));
 
 		var startDate = record.get('startdate');
-		var startDateUpdate = false;
 		if (Ext.isDate(startDate)) {
 			startDate = startDate.toUTC(); // The startdate is an UTC representation
 			this.startDate.setValue(startDate);
 		}
 
 		var dueDate = record.get('duedate');
-		var dueDateUpdate = false;
 		if (Ext.isDate(dueDate)) {
 			dueDate = dueDate.toUTC(); // The duedate is an UTC representation
 			this.endDate.setValue(dueDate);

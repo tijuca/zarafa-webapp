@@ -574,7 +574,7 @@ Zarafa.common.ui.grid.Renderers = {
 				name = Ext.util.Format.htmlEncode(record.get('display_name'));
 				subject = Ext.util.Format.htmlEncode(record.get('fileas'));
 				//TODO: try to get an emailadress from other fields if this field is empty
-				body = Ext.util.Format.htmlEncode(record.get('email_address'));
+				body = Ext.util.Format.htmlEncode(record.get('email_address_1'));
 				break;
 			case 'IPM.Task':
 				name = Ext.util.Format.htmlEncode(record.get('subject'));
@@ -596,7 +596,7 @@ Zarafa.common.ui.grid.Renderers = {
 		return ''+
 			'<table cellpadding=0 cellspacing=0 style="width:100%" class="messageclass-data mc-'+messageClass.toLowerCase().replace('.', '')+'">' + 
 				'<tr>' +
-					'<td class="icon ' + Zarafa.common.ui.IconClass.getIconClass(record) + '"></td>' +
+					'<td class="x-grid3-col x-grid3-cell x-grid3-td-0 icon ' + Zarafa.common.ui.IconClass.getIconClass(record) + '"></td>' +
 					'<td class="name"><div class="padding">' + name + '</div></td>' +
 					'<td class="subject-body"><div class="padding">' + ( subject ? '<span class="subject">'+subject+'</span>' : '' ) + ( body ? '<span class="body">'+body+'</span>' : '' ) + '</div></td>' +
 				'</tr>' +
@@ -615,40 +615,12 @@ Zarafa.common.ui.grid.Renderers = {
 	{
 		p.css = 'search-date';
 
-		var messageClass = record.get('message_class');
-		if ( messageClass.substr(0, 'IPM.Schedule'.length) === 'IPM.Schedule' ){
-			messageClass = 'IPM.Schedule';
-		}
-
-		var date = '';
-
-		switch (messageClass) {
-			case 'IPM.Contact':
-			case 'IPM.DistList':
-				// No need to display a date for contacts
-				break;
-			case 'IPM.Task':
-				date = record.get('duedate');
-				break;
-			case 'IPM.StickyNote':
-				date = record.get('creation_time');
-				break;
-			case 'IPM.Appointment':
-			case 'IPM.Schedule':
-				date = record.get('appointment_startdate');
-				break;
-			default:
-			//case 'IPM.Note':
-				date = record.get('message_delivery_time');
-				break;
-		}
-		
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-		date = Ext.isDate(date) ? date.format(_('d/m/Y')) : '';
+		var date = Ext.isDate(value) ? value.format(_('d/m/Y')) : '';
 		
 		// TODO: make insertionpoint for other icons (reuse mail grid insertionpoint???)
 		return '<table cellpadding=0 cellspacing=0 style="width:100%"><tr>' + 
-					'<td class="date">' + date + '</td>' +
+					'<td class="date"><div>' + date + '</div></td>' +
 					( record.get('hasattach') ? '<td class="icon_attachment" style="width:22px"></td>' : '' ) +
 				'</tr></table>';
 	}

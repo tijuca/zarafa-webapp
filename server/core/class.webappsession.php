@@ -1,10 +1,10 @@
 <?php
 
 //Includes. Will probably already be included.
-include_once("config.php");
-include_once("defaults.php");
-include_once("server/util.php");
-require_once("server/core/class.json.php");
+include_once(__DIR__ . '/../../config.php');
+include_once(__DIR__ . '/../../defaults.php');
+include_once(__DIR__ . '/../util.php');
+require_once(__DIR__ . '/class.json.php');
  
 /**
  * A class with helper functions for the PHP session

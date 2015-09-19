@@ -358,34 +358,36 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	applyCSSClassNames : function()
 	{
 		var contextModel = container.getCurrentContext().getModel();
-		var colorScheme = contextModel.getColorScheme(this.folder.get('entryid'));
-		
-		// Background
-		this.tabBackground.dom.className = this.getClassName('tab', 'background');
-		
-		this.tabLeft.dom.className = this.getClassName('tab-leftside');
-		this.tab.dom.className = this.getClassName('tab-body');
-		this.tabRight.dom.className = this.getClassName('tab-rightside');
-		this.tabLeft.applyStyles({
-			'background-color' : colorScheme.header
-		});
-		this.tab.applyStyles({
-			'background-color' : colorScheme.header
-		});
-		this.tabRight.applyStyles({
-			'background-color' : colorScheme.header
-		});
+		if (contextModel instanceof Zarafa.calendar.CalendarContextModel) {
+			var colorScheme = contextModel.getColorScheme(this.folder.get('entryid'));
+			
+			// Background
+			this.tabBackground.dom.className = this.getClassName('tab', 'background');
+			
+			this.tabLeft.dom.className = this.getClassName('tab-leftside');
+			this.tab.dom.className = this.getClassName('tab-body');
+			this.tabRight.dom.className = this.getClassName('tab-rightside');
+			this.tabLeft.applyStyles({
+				'background-color' : colorScheme.header
+			});
+			this.tab.applyStyles({
+				'background-color' : colorScheme.header
+			});
+			this.tabRight.applyStyles({
+				'background-color' : colorScheme.header
+			});
 
-		// Contents
-		this.tabContents.dom.className = this.getClassName('tab', 'contents');
-		this.mergeIcon.dom.className = this.getClassName('tab-icon', 'merge');
-		this.tabText.dom.className = this.getClassName('tab-title');
-		this.closeIcon.dom.className = this.getClassName('tab-icon', 'close');
-		this.separateIcon.dom.className = this.getClassName('tab-icon', 'separate');
+			// Contents
+			this.tabContents.dom.className = this.getClassName('tab', 'contents');
+			this.mergeIcon.dom.className = this.getClassName('tab-icon', 'merge');
+			this.tabText.dom.className = this.getClassName('tab-title');
+			this.closeIcon.dom.className = this.getClassName('tab-icon', 'close');
+			this.separateIcon.dom.className = this.getClassName('tab-icon', 'separate');
 
-		// Call setSelected to force the classed to be updated accordingly
-		if (this.selected) {
-			this.setSelected(this.selected, this.active, true);
+			// Call setSelected to force the classed to be updated accordingly
+			if (this.selected) {
+				this.setSelected(this.selected, this.active, true);
+			}
 		}
 	},
 
@@ -488,6 +490,9 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 		this.mon(this.mergeIcon, 'click', this.onMerge, this);
 		this.mon(this.separateIcon, 'click', this.onSeparate, this);
 		this.mon(this.closeIcon, 'click', this.onClose, this);
+		this.mon(this.tabLeft, 'click', this.onClick, this);
+		this.mon(this.tabRight, 'click', this.onClick, this);
+		this.mon(this.tab, 'click', this.onClick, this);
 		this.mon(this.tabText, 'click', this.onClick, this);
 
 		// We use the TextMetrics to calculate the width and height for the

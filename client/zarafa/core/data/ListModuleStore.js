@@ -67,6 +67,27 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	folder : undefined,
 
 	/**
+	 * used in synchronizing {@link Zarafa.core.data.ListModuleStore store} which indicate true after deleting {@link Zarafa.core.data.IPMRecords[] records}
+	 * from {@link Zarafa.core.data.ListModuleStore store}.
+	 * @property
+	 * @type Boolean
+	 */
+	syncStore : false,
+
+	/**
+	 * @cfg {Number} which is hold number of records loaded in {@link Zarafa.core.data.ListModuleStore store}
+	 */
+	totalLoadedRecord : undefined,
+
+	/**
+	 * The LoadMask object which will be shown when the {@link Zarafa.core.data.ListModuleStore store}
+	 * is being delete records, and the dialog is waiting for the server to respond with the desired data.
+	 * @property
+	 * @type Zarafa.common.ui.LoadMask
+	 */
+	loadMask : undefined,
+
+	/**
 	 * @cfg {String} preferredMessageClass message class that will be used to derive module name
 	 * that should be used when requesting data using {@link Zarafa.core.data.IPMProxy IPMProxy).
 	 */
@@ -162,6 +183,8 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 			 */
 			'stopsearch'
 		);
+
+		this.totalLoadedRecord = container.getSettingsModel().get('zarafa/v1/main/page_size');
 
 		Zarafa.core.data.ListModuleStore.superclass.constructor.call(this, config);
 
@@ -402,10 +425,15 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 			restriction : this.restriction
 		});
 
+		// Apply the search restriction only when search is performed, remove otherwise, if any
 		if(this.restriction.search) {
-			options.params.restriction = Ext.apply(options.params.restriction || {}, {
-				search : this.restriction.search
-			});
+			if(!this.isAdvanceSearchStore()) {
+				delete options.params.restriction.search;
+			} else {
+				options.params.restriction = Ext.apply(options.params.restriction || {}, {
+					search : this.restriction.search
+				});
+			}
 		}
 
 		// search specific parameters
@@ -418,11 +446,6 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 				use_searchfolder : this.useSearchFolder,
 				subfolders : this.subfolders
 			});
-		}
-
-		if(this.restriction.search && (options.actionType === Zarafa.core.Actions['list'] ||
-			options.actionType === Zarafa.core.Actions['updatelist'])) {
-			delete options.params.restriction.search;
 		}
 
 		// remove options that are not needed, although sending it doesn't hurt
@@ -464,6 +487,15 @@ myStore.reload(lastOptions);
 	},
 
 	/**
+	 * Helper function to detect if {@link #this} is the {@link Zarafa.advancesearch.AdvanceSearchStore AdvanceSearchStore} or not.
+	 * @return {Boolean} True if this is refered to an instance of {@link Zarafa.advancesearch.AdvanceSearchStore AdvanceSearchStore}, false otherwise.
+	 */
+	isAdvanceSearchStore : function()
+	{
+		return this.preferredMessageClass === "IPM.Search";
+	},
+
+	/**
 	 * Function will be used to issue a update list request to server to retrieve next batch of records,
 	 * this will internally call {@link #load} method but with some different options.
 	 * @param {Object} options options object that must contain restriction to apply for live scroll.
@@ -495,6 +527,8 @@ myStore.reload(lastOptions);
 	 */
 	stopLiveScroll : function()
 	{
+		var restriction = this.lastOptions.params.restriction;
+
 		// cancel all pending updatelist request
 		if (this.isExecuting('updatelist')) {
 			this.proxy.cancelRequests('updatelist');
@@ -506,11 +540,13 @@ myStore.reload(lastOptions);
 			actionType : Zarafa.core.Actions['list']
 		});
 
-		Ext.apply(this.lastOptions.params.restriction, {
+		Ext.apply(restriction, {
 			start : 0
 		});
 
-		delete this.lastOptions.params.restriction.limit;
+		if(Ext.isDefined(restriction)){
+			delete restriction.limit;
+		}
 		delete this.lastOptions.add;
 	},
 
@@ -670,6 +706,26 @@ myStore.reload(lastOptions);
 	loadRecords : function(data, options, success, metaData)
 	{
 		if(success !== false) {
+			var restriction = undefined;
+			if (Ext.isDefined(options.params) && Ext.isDefined(options.params.restriction)) {
+				restriction = options.params.restriction;
+			}
+
+			var pageSize = container.getSettingsModel().get('zarafa/v1/main/page_size');
+			// update total loaded record
+			if (restriction) {
+				this.totalLoadedRecord = restriction.start ? restriction.start + restriction.limit : pageSize;
+
+				// If store data is synchronized then update start and delete limit
+				if (this.syncStore) {
+
+					// Pagination and Infinite Scroll handle page information based on start and limit
+					restriction.start = this.totalLoadedRecord - pageSize;
+					delete restriction.limit;
+					delete this.lastOptions.add;
+					this.syncStore= false;
+				}
+			}
 			if(metaData) {
 				if(metaData.search_meta) {
 					this.updateSearchInfo(metaData.search_meta, metaData.page);
@@ -741,7 +797,68 @@ myStore.reload(lastOptions);
 		} else {
 			delete this.searchUpdateTimer;
 		}
+	},
+
+	/**
+	 * Function is used as a callback for 'destroy' action, we have overridden it to
+	 * update {@link Zarafa.core.data.ListModuleStore store} with new {@link Zarafa.core.data.IPMRecords[] records} after
+	 * delete record(s) in {@link Zarafa.core.data.ListModuleStore store}.
+	 * This will check if scrollbar is disappear and total number of records is more than total loaded records then
+	 * synchronize {@link Zarafa.core.data.ListModuleStore store} with as many numbers of new {@link Zarafa.core.data.IPMRecords[] records} as deleted
+	 * @param {Boolean} success success status of request.
+	 * @param {Zarafa.core.data.IPMRecord} records that are returned by the proxy after processing it
+	 */
+	onDestroyRecords : function (success, records)
+	{
+		if (!this.syncStore) {
+			var contentPanel = container.getContentPanel();
+			if (Ext.isFunction(contentPanel.getGridPanel)) {
+				var grid = contentPanel.getGridPanel();
+				var gridView = grid.getView();
+
+				// If scrollbar is disappear then load new records
+				if (!gridView.scroller.isScrollable()) {
+					if (this.totalLoadedRecord < this.totalLength) {
+						var options = {
+							add : true,
+							actionType : Zarafa.core.Actions['list']
+						};
+
+						// load store with as many new records as deleted before scrollbar has disappeared
+						// For that sets start and limit base on remaining number of records.
+						// For example if we have 11 remaining records left then start = 11 and limit = page_size - 11
+						Ext.applyIf(options, this.lastOptions);
+						var limit = container.getSettingsModel().get('zarafa/v1/main/page_size');
+						options.params.restriction.limit = limit - this.getCount();
+						options.params.restriction.start = this.getCount();
+						this.syncStore = true;
+						if (this.loadMask) {
+							this.loadMask.hide();
+							this.loadMask = undefined;
+						}
+						this.load(options);
+					}
+				}
+			}
+		}
+	},
+
+	/**
+	 * If {@link #loadMask} is not undefined, this function will display the {@link #loadMask}.
+	 * @protected
+	 */
+	showLoadMask : function ()
+	{
+		if (!this.loadMask) {
+			var contentPanel = container.getContentPanel();
+			if (Ext.isFunction(contentPanel.getGridPanel)) {
+				var grid = contentPanel.getGridPanel();
+				this.loadMask = grid.loadMask;
+				this.loadMask.show();
+			}
+		}
 	}
+
 });
 
 Ext.reg('zarafa.listmodulestore', Zarafa.core.data.ListModuleStore);

@@ -167,6 +167,19 @@ Ext.ux.PdfBox = (function(){
 						},
 						scope: this
 					});
+				}).catch(function(reason) {
+					self.close();
+
+					var msg = _("Unable to open PDF");
+					if (reason.name === "InvalidPDFException") {
+						msg = _("Unable to open corrupted PDF");
+					}
+					Ext.MessageBox.show({
+						title: _('Zarafa WebApp'),
+						msg: msg,
+						icon: Ext.MessageBox.ERROR,
+						buttons: Ext.MessageBox.OK
+					});
 				});
 		},
 		

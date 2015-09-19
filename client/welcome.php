@@ -1,5 +1,5 @@
 <?php
-include("client/loader.php");
+include(__DIR__ . '/loader.php');
 
 $loader = new FileLoader();
 
@@ -15,6 +15,7 @@ $version = trim(file_get_contents('version'));
 	<head>
 		<meta name="Generator" content="Zarafa WebApp v<?php echo $version?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>Zarafa WebApp</title>
 		<link rel="icon" href="client/resources/images/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="client/resources/images/favicon.ico" type="image/x-icon">

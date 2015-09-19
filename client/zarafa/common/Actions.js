@@ -585,6 +585,13 @@ Zarafa.common.Actions = {
 		if(!Ext.isEmpty(saveRecords)) {
 			store.save(saveRecords);
 		}
+
+		// If number of delete records equal to total loaded records then show load mask until server send success response.
+		if(store.totalLoadedRecord) {
+			if (records.length === store.totalLoadedRecord) {
+				store.showLoadMask();
+			}
+		}
 	},
 
 	/**
@@ -802,5 +809,24 @@ Zarafa.common.Actions = {
 		if(record) {
 			Zarafa.core.data.UIFactory.openViewRecord(record, config);
 		}
+	},
+
+	/**
+	 * Open a Panel in which the {@link Zarafa.core.data.IPMRecord record}
+	 * can be viewed, or further edited.
+	 *
+	 * @param {Zarafa.core.data.IPMRecord} records The records to open
+	 * @param {Object} config (optional) Configuration object used to create
+	 * the Content Panel.
+	 */
+	openMessageContent : function(records, config)
+	{
+		Ext.each(records, function(record) {
+			if (record.isUnsent() && !record.isFaultyMessage()) {
+				Zarafa.core.data.UIFactory.openCreateRecord(record, config);
+			} else {
+				Zarafa.core.data.UIFactory.openViewRecord(record, config);
+			}
+		});
 	}
 };

@@ -154,6 +154,12 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 		Zarafa.common.ui.PagingToolbar.superclass.bindStore.apply(this, arguments);
 
 		if(this.store) {
+			this.mon(this.store, 'search', function(){
+				// Reset the page size so the pagination toolbar (if shown) will work correctly.
+				// It might have changed when the user sorted the search results.
+				this.pageSize = container.getSettingsModel().get('zarafa/v1/main/page_size');
+			}, this);
+			
 			this.mon(this.store, 'beforeupdatesearch', this.updateInfo, this);
 		} else {
 			this.mun(this.store, 'beforeupdatesearch', this.updateInfo, this);

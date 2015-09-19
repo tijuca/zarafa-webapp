@@ -230,7 +230,7 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 
 		if (!record.get('allow_disable')) {
 			// Add CSS class that this plugin cannot be disabled
-			p.css += ' zarafa-settings-pluginavailable-fixed'
+			p.css += ' zarafa-settings-pluginavailable-fixed';
 			// Add message that this plugin cannot be disabled
 			value += ' <span>' + _('This plugin cannot be disabled') + '</span>';
 		}
@@ -253,7 +253,7 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 			return Ext.grid.CheckboxSelectionModel.prototype.renderer.apply(this, arguments);
 		} else {
 			// Add CSS class that this plugin cannot be disabled
-			p.css += ' zarafa-settings-pluginavailable-fixed'
+			p.css += ' zarafa-settings-pluginavailable-fixed';
 			return '';
 		}
 	},

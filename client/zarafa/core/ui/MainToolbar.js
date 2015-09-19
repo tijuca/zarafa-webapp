@@ -331,7 +331,9 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 								return this.context.getModel().getSelectedRecords();
 							}
 						},
-						items : Zarafa.core.Util.uniqueArray(menu, 'text')
+						items : Zarafa.core.Util.uniqueArray(menu, 'text'),
+						// Override this function so the menu will not be destroyed when hidden.
+						onMenuHide: Ext.emptyFn
 					},
 					listeners : {
 						render : this.onRenderPrintButton

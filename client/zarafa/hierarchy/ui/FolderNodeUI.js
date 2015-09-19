@@ -69,7 +69,7 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 			href = a.href ? a.href : Ext.isGecko ? "" : "#",
 			buf = '<li class="x-tree-node">' +
 				(cb ?'<div class="zarafa-icon-select-color" style="background-color:'+ scheme.base+'">'+'</div>' : '')+
-				'<div ext:tree-node-id="' + n.id + '" class="x-tree-node-el x-tree-node-leaf x-unselectable" unselectable="on">' +
+				'<div ext:tree-node-id="' + n.id + '" class="x-tree-node-el x-tree-node-leaf x-unselectable zarafa-hierarchy-node" unselectable="on">' +
 					// indent space
 					'<span class="x-tree-node-indent">' + this.indentMarkup + "</span>" +
 					// expand icon
@@ -126,7 +126,10 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 		var elNode = Ext.get(this.elNode);
 		var iconNode = Ext.get(this.iconNode);
 		var containerNode = Ext.get(this.wrap);
-
+		var textNode = Ext.get(this.textNode);
+		if (cb) {
+			textNode.addClass('zarafa-hierarchy-node-color');
+		}
 		if (!Ext.isEmpty(a.cls)) {
 			elNode.addClass(a.cls);
 		}
