@@ -185,6 +185,38 @@
 		clearClass : function()
 		{
 			this.dom.className = '';
+		},
+
+		/**
+		 * Fires specified event for {@link Ext.Element element}.
+		 * @param {String} e The event name
+		 */
+		fireEvent : function(eventName)
+		{
+			var HTMLEvts = /^(scroll|resize|load|unload|abort|error)$/,
+				mouseEvts = /^(click|dblclick|mousedown|mouseup|mouseover|mouseout|contextmenu)$/,
+				UIEvts = /^(focus|blur|select|change|reset|keypress|keydown|keyup)$/,
+				onPref = /^on/;
+
+			eventName = eventName.toLowerCase();
+			eventName.replace(onPref, '');
+			var evt;
+			if (mouseEvts.test(eventName)) {
+				var b = this.getBox(),
+					x = b.x + b.width / 2,
+					y = b.y + b.height / 2;
+				evt = document.createEvent("MouseEvents");
+				evt.initMouseEvent(eventName, true, true, window, (eventName=='dblclick')?2:1, x, y, x, y, false, false, false, false, 0, null);
+			} else if (UIEvts.test(eventName)) {
+				evt = document.createEvent("UIEvents");
+				evt.initUIEvent(eventName, true, true, window, 0);
+			} else if (HTMLEvts.test(eventName)) {
+				evt = document.createEvent("HTMLEvents");
+				evt.initEvent(eventName, true, true);
+			}
+			if (evt) {
+				this.dom.dispatchEvent(evt);
+			}
 		}
 	});
 })();

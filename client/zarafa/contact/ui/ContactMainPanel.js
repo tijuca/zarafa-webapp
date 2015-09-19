@@ -54,12 +54,8 @@ Zarafa.contact.ui.ContactMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPane
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.contactmainpanel',
-			layout: 'zarafa.collapsible',
+			layout: 'fit',
 			items: [{
-				xtype : 'zarafa.searchbar',
-				searchFields : Zarafa.contact.data.SearchFields,
-				context : config.context
-			},{
 				xtype: 'zarafa.switchviewcontentcontainer',
 				ref: 'viewPanel',
 				layout : 'card',

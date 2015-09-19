@@ -3,8 +3,8 @@
 	 * BusyTime Module
 	*/
 	
-	require_once("mapi/class.recurrence.php");
-	require_once("class.appointmentlistmodule.php");
+	require_once(__DIR__ . '/../../mapi/class.recurrence.php');
+	require_once(__DIR__ . '/class.appointmentlistmodule.php');
 	
 	class BusyTimeListModule extends AppointmentListModule
 	{

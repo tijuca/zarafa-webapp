@@ -53,12 +53,8 @@ Zarafa.calendar.ui.CalendarMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 
 		config = Ext.applyIf(config, {
 			xtype : 'zarafa.calendarmainpanel',
-			layout: 'zarafa.collapsible',
+			layout: 'fit',
 			items: [{
-				xtype : 'zarafa.searchbar',
-				searchFields : Zarafa.calendar.data.SearchFields,
-				context : config.context
-			},{
 				xtype: 'zarafa.switchviewcontentcontainer',
 				ref: 'viewPanel',
 				layout : 'card',

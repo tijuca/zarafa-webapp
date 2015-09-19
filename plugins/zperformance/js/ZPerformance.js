@@ -238,6 +238,51 @@ Zarafa.plugins.zperformance.ZPerformancePlugin = Ext.extend(Zarafa.core.Plugin, 
 		this.measureStore(store, {
 			actionType : Zarafa.core.Actions['list']
 		}, limit);
+	},
+
+	/**
+	 * Measure the performance of opening emails
+	 *
+	 * @param {Number} limit The number of measurements to execute
+	 * over which the average will have to be calculated. Since we use
+	 * the inbox, we are limited by 50 emails by default.
+	 */
+	measureMails : function(limit)
+	{
+		var mail = container.getContextByName('mail');
+		var inboxStore = mail.getModel().getStore();
+		if (inboxStore.getCount() < limit ){
+			console.log('Not enough emails in Inbox to measure average open time, try decreasing the limit');
+			return;
+		}
+
+		var measurements = [];
+
+		var callback = function(store) { 
+			if (Ext.isDate(store.startdate)) {
+				// Add the new loadtime to the table
+				var enddate = new Date();
+				measurements.push(enddate.getTime() - store.startdate.getTime());
+			}
+
+			if (limit--) {
+				// We haven't reached the limit yet, reload the store again.
+				store.startdate = new Date();
+				store.open(store.getAt(limit), {forceLoad: true});
+			} else {
+				// We have reached the limit, start calculating
+				// the average load time.
+				var avg = 0;
+				for (var i = 0; i < measurements.length; i++) {
+					avg += measurements[i];
+				}
+				console.log((avg / measurements.length) + 'ms');
+
+				store.un('open', callback);
+			}
+		};
+		inboxStore.on('open', callback);
+		inboxStore.open(inboxStore.getAt(0), {forceLoad: true});
 	}
 });
 

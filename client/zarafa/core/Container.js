@@ -136,6 +136,8 @@ Zarafa.core.Container = Ext.extend(Ext.util.Observable, {
 	doLogout : function(preserveUser, preserveSession)
 	{
 		var user = ((preserveUser === true) ? ('&user=' + this.getUser().getUserName())  : '');
+
+		Zarafa.core.Util.disableLeaveRequester();
 		if (preserveSession !== true) {
 			window.location = 'index.php?logout' + user;
 		} else {
@@ -178,7 +180,7 @@ Zarafa.core.Container = Ext.extend(Ext.util.Observable, {
 	{
 		this.userRecord = new Zarafa.core.data.User(userData);
 	},
-
+	
 	/**
 	 * Obtain the versioning data for the WebApp environment
 	 * @return {Zarafa.core.data.Version} The version data of the WebApp environment
@@ -305,6 +307,15 @@ Zarafa.core.Container = Ext.extend(Ext.util.Observable, {
 	getMainPanel : function()
 	{
 		return this.mainPanel || (this.mainPanel = new Zarafa.core.ui.MainViewport());
+	},
+
+	/**
+	 * Resturns the applications main toolbar
+	 * @return {Zarafa.core.ui.MainToolbar} then application main tool bar
+	 */
+	getMainToolbar : function()
+	{
+		return this.getMainPanel().mainToolbar;
 	},
 
 	/**

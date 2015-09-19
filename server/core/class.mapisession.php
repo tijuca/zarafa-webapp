@@ -1,5 +1,7 @@
 <?php
 
+	require_once( __DIR__ . '/class.properties.php');
+	
 	/**
 	 * MAPI session handling
 	 *
@@ -104,9 +106,11 @@
 					}
 				}
 
-				$mapi_version = preg_split('/-/', phpversion('mapi'));
+				// Add the SVN revision number to the version
+				$mapi_version = str_replace('-', '.', phpversion('mapi'));
 
-				if (version_compare($mapi_version[0], '7.2.0', '>=')) {
+				// phpmapi function mapi_logon_zarafa expects extra parameters from version 7.2.0 SVN revision 46424
+				if (version_compare($mapi_version, '7.2.0.46424', '>=')) {
 					$webapp_version = 'WebApp-'.trim(file_get_contents('version'));
 					$browser_version = $_SERVER['HTTP_USER_AGENT'];
 					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass,1,$webapp_version,$browser_version);
@@ -169,7 +173,11 @@
 
 				// receive userdata
 				// TODO: 0x8C9E0102 represents an LDAP jpegPhoto and should get a named property PR_EMS_AB_THUMBNAIL_PHOTO
-				$user_props = mapi_getprops($user, array(PR_DISPLAY_NAME, PR_SMTP_ADDRESS, PR_EMAIL_ADDRESS, PR_SEARCH_KEY, 0x8C9E0102));
+				$user_props = array(PR_DISPLAY_NAME, PR_SMTP_ADDRESS, PR_EMAIL_ADDRESS, PR_SEARCH_KEY, 0x8C9E0102, PR_ASSISTANT_TELEPHONE_NUMBER);
+				$properties = new properties();
+				$user_props = array_merge($user_props, $properties->getAddressBookItemMailuserProperties());
+				
+				$user_props = mapi_getprops($user, $user_props);
 
 				if (is_array($user_props) && isset($user_props[PR_DISPLAY_NAME]) && isset($user_props[PR_SMTP_ADDRESS])){
 					$this->session_info["userentryid"] = $store_props[PR_USER_ENTRYID];
@@ -179,6 +187,29 @@
 					$this->session_info["searchkey"] = $user_props[PR_SEARCH_KEY];
 					$this->session_info["userimage"] = isset($user_props[-1935802110]) ? base64_encode($user_props[-1935802110]) : "";
 					$this->session_info["userimage"] = strlen($this->session_info["userimage"]) > 0 ? "data:image/png;base64," . $this->session_info["userimage"] : "" ;
+
+					$this->session_info["given_name"] = isset($user_props[PR_GIVEN_NAME]) ? $user_props[PR_GIVEN_NAME] : '';
+					$this->session_info["initials"] = isset($user_props[PR_INITIALS]) ? $user_props[PR_INITIALS] : '';
+					$this->session_info["surname"] = isset($user_props[PR_SURNAME]) ? $user_props[PR_SURNAME] : '';
+					$this->session_info["street_address"] = isset($user_props[PR_STREET_ADDRESS]) ? $user_props[PR_STREET_ADDRESS] : '';
+					$this->session_info["locality"] = isset($user_props[PR_LOCALITY]) ? $user_props[PR_LOCALITY] : '';
+					$this->session_info["state_or_province"] = isset($user_props[PR_STATE_OR_PROVINCE]) ? $user_props[PR_STATE_OR_PROVINCE] : '';
+					$this->session_info["postal_code"] = isset($user_props[PR_POSTAL_CODE]) ? $user_props[PR_POSTAL_CODE] : '';
+					$this->session_info["country"] = isset($user_props[PR_COUNTRY]) ? $user_props[PR_COUNTRY] : '';
+					$this->session_info["title"] = isset($user_props[PR_TITLE]) ? $user_props[PR_TITLE] : '';
+					$this->session_info["company_name"] = isset($user_props[PR_COMPANY_NAME]) ? $user_props[PR_COMPANY_NAME] : '';
+					$this->session_info["department_name"] = isset($user_props[PR_DEPARTMENT_NAME]) ? $user_props[PR_DEPARTMENT_NAME] : '';
+					$this->session_info["office_location"] = isset($user_props[PR_OFFICE_LOCATION]) ? $user_props[PR_OFFICE_LOCATION] : '';
+					$this->session_info["assistant"] = isset($user_props[PR_ASSISTANT]) ? $user_props[PR_ASSISTANT] : '';
+					$this->session_info["assistant_telephone_number"] = isset($user_props[PR_ASSISTANT_TELEPHONE_NUMBER]) ? $user_props[PR_ASSISTANT_TELEPHONE_NUMBER] : '';
+					$this->session_info["office_telephone_number"] = isset($user_props[PR_BUSINESS_TELEPHONE_NUMBER]) ? $user_props[PR_BUSINESS_TELEPHONE_NUMBER] : '';
+					$this->session_info["business_telephone_number"] = isset($user_props[PR_BUSINESS_TELEPHONE_NUMBER]) ? $user_props[PR_BUSINESS_TELEPHONE_NUMBER] : '';
+					$this->session_info["business2_telephone_number"] = isset($user_props[PR_BUSINESS2_TELEPHONE_NUMBER]) ? $user_props[PR_BUSINESS2_TELEPHONE_NUMBER] : '';
+					$this->session_info["primary_fax_number"] = isset($user_props[PR_PRIMARY_FAX_NUMBER]) ? $user_props[PR_PRIMARY_FAX_NUMBER] : '';
+					$this->session_info["home_telephone_number"] = isset($user_props[PR_HOME_TELEPHONE_NUMBER]) ? $user_props[PR_HOME_TELEPHONE_NUMBER] : '';
+					$this->session_info["home2_telephone_number"] = isset($user_props[PR_HOME2_TELEPHONE_NUMBER]) ? $user_props[PR_HOME2_TELEPHONE_NUMBER] : '';
+					$this->session_info["mobile_telephone_number"] = isset($user_props[PR_MOBILE_TELEPHONE_NUMBER]) ? $user_props[PR_MOBILE_TELEPHONE_NUMBER] : '';
+					$this->session_info["pager_telephone_number"] = isset($user_props[PR_PAGER_TELEPHONE_NUMBER]) ? $user_props[PR_PAGER_TELEPHONE_NUMBER] : '';
 				}
 
 				$this->userDataRetrieved = true;
@@ -323,6 +354,34 @@
 
 			return array_key_exists("userimage",$this->session_info)? $this->session_info["userimage"]:false;
 		}
+
+		 /**
+		  * Magic method to get properties from the session_info. When a method of this class if called
+		  * and there is no method of this name defined this function will be called
+		  * It creates getter methods for the properties stored in $session_info using the following syntax:
+		  * getSomeUserProperty() will look return a property called some_user_property if it exists and
+		  * throw an exception otherwise.
+		  * @param string $methodName The name of the method that was called
+		  * @param array $arguments The arguments that were passed in the call 
+		  * @return String The requested property if it exists
+		  * @throws Exception
+		  */
+		 public function __call($methodName, $arguments)
+		 {
+		 	if ( !preg_match('/^get(.+)$/', $methodName, $matches) ){
+		 		// We don't know this function, so let's throw an error
+		 		throw new Exception('Method ' . $methodName . ' does not exist');
+		 	}else{
+		 		$this->retrieveUserData();
+		 		$propertyName = strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1_$2', $matches[1]));
+				if ( !array_key_exists($propertyName, $this->session_info) ){
+			 		// We don't know this function, so let's throw an error
+			 		throw new Exception('Method ' . $methodName . ' does not exist '.$propertyName);
+				}else{
+					return $this->session_info[$propertyName];
+				}
+		 	}
+		 }
 
 		/**
 		 * Get current user's search key

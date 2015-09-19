@@ -20,10 +20,9 @@ Zarafa.task.ui.TaskPreviewPanel = Ext.extend(Ext.Panel, {
 			xtype: 'zarafa.taskpreviewpanel',
 			border : false,
 			bodyCfg: {
-				cls : 'preview-contact-body'
+				cls : 'preview-body'
 			},
 			layout : 'fit',
-			autoScroll : true,
 			items : [{
 				xtype: 'zarafa.taskbody'
 			}]

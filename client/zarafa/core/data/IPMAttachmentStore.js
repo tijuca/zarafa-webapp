@@ -14,7 +14,7 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	id : null,
 
 	/**
-	 * @cfg {Zarafa.core.ObjectType} attachmentRecordType to create a custom {Zarafa.core.data.IPMAttachmentRecord} 
+	 * @cfg {Zarafa.core.ObjectType} attachmentRecordType to create a custom {Zarafa.core.data.IPMAttachmentRecord}
 	 */
 	attachmentRecordType : Zarafa.core.mapi.ObjectType.MAPI_ATTACH,
 
@@ -49,6 +49,14 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			'datachanged' : this.onAttachmentsChange,
 			'scope' : this
 		});
+
+		// add the custom events of the Attachmentstore to the EventDispatcher
+		Zarafa.core.data.ZarafaCustomEventDispatcher.addEvents(
+			'attachmentstorebeforecheck',
+			'attachmentstorebeforeupload',
+			'attachmentstorebeforedestroyrecord',
+			'attachmentstorebeforegetbaseurl'
+		);
 	},
 
 	/**
@@ -141,7 +149,14 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		// If all the attachments are requested to be downloaded in a ZIP, then there is no need to
 		// send 'attach_num' property.
 		if(!allAsZip || (allAsZip && isSubMessage)){
-			var attachNum = attachmentRecord.getParentAttachNum(parentRecord);
+
+			var attachNum = [];
+			// Don't go for attachNum property of parent in case the parent record is an exception of meeting request.
+			// Because, exception of meeting request it self is an attachment.
+			if(!Ext.isFunction(parentRecord.isRecurringException) || (Ext.isFunction(parentRecord.isRecurringException) && !parentRecord.isRecurringException())) {
+				attachNum = attachmentRecord.getParentAttachNum(parentRecord);
+			}
+
 			if (attachmentRecord.get('attach_num') != -1) {
 				// add attachment number of parent sub messages
 				attachNum.push(attachmentRecord.get('attach_num'));
@@ -163,7 +178,14 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		}
 
 		url = Ext.urlAppend(url, 'dialog_attachments=' + this.getId());
-		return url;
+
+		// fire the 'attachmentstorebeforegetbaseurl' event.
+		var eventData = {
+			url: url
+		};
+		Zarafa.core.data.ZarafaCustomEventDispatcher.fireEvent('attachmentstorebeforegetbaseurl', this, attachmentRecord, allAsZip, eventData);
+
+		return eventData.url;
 	},
 
 	/**
@@ -187,8 +209,8 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 					break;
 				case 'reply':
 				case 'replyall':
-					// @TODO: Need to check for inline images, whether we
-					// should pass entryid or any need in future.
+				// @TODO: Need to check for inline images, whether we
+				// should pass entryid or any need in future.
 			}
 		}
 
@@ -197,7 +219,7 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 
 	/**
 	 * Builds and returns attachment URL to upload files.
-	 * @return {String} URL for downloading attachments
+	 * @return {String} URL for uploading attachments
 	 * @private
 	 */
 	getUploadAttachmentUrl : function()
@@ -233,6 +255,19 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			return false;
 		}
 
+		// fire the 'beforeuploadcheck' event.
+		var eventData = {
+			handledfiles: [],
+			checkfailed: false
+		};
+		Zarafa.core.data.ZarafaCustomEventDispatcher.fireEvent('attachmentstorebeforecheck', this, files, options, eventData);
+
+		// do a fast check if one of the plugins failed checking the files
+		// error handling (notifying the used for example is handled by the plugin)
+		if(eventData.checkfailed) {
+			return false;
+		}
+
 		var server = container.getServerConfig();
 		// Maximum number of attachments that can be uploaded in message.
 		var max_attachments = server.getMaxAttachments();
@@ -243,21 +278,21 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 
 		/**
 		 * Here all three checks are regarding maximum upload attachments in message.
-		 * 
+		 *
 		 * first check is check's that maximum number of attachments are possible to attach in single message.
 		 * by default there is no limit for number of attachments in message.
-		 * 
+		 *
 		 * second check is check's that each attachment should not be more than 30 MB size.
-		 * 
+		 *
 		 * third check is check's that total maximum attachment size in single message.
 		 * by default there is no limit for maximum attachments in message.
 		 */
 		// 1) Check for the total number of attachments
 		if (Ext.isDefined(max_attachments)) {
-			if ((this.getCount() + files.length) >= max_attachments) {
+			if ((this.getCount() + files.length - eventData.handledfiles.length) >= max_attachments) {
 				container.getNotifier().notify('error.attachment', _('Attachment error'),
-								String.format(_('Cannot upload attachment, only {0} attachments are allowed to be added to the message'), max_attachments),
-								options);
+					String.format(_('Cannot upload attachment, only {0} attachments are allowed to be added to the message'), max_attachments),
+					options);
 				return false;
 			}
 		}
@@ -270,6 +305,11 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			var file = files[i];
 			var fileSize = file.fileSize || file.size;
 
+			// check if file was already handled by any other plugin
+			if(eventData.handledfiles.indexOf(file) !== -1) {
+				continue; // skip already handled files
+			}
+
 			// Update totalPostSize
 			totalPostSize += fileSize;
 
@@ -280,9 +320,9 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			if (Ext.isDefined(max_attachment_size)) {
 				if (fileSize > max_attachment_size) {
 					container.getNotifier().notify('error.attachment', _('Attachment error'),
-									String.format(_('Cannot upload attachment, attachment is {0} while the allowed maximum is {1}.'),
-										      Ext.util.Format.fileSize(fileSize), Ext.util.Format.fileSize(max_attachment_size)),
-									options);
+						String.format(_('Cannot upload attachment, attachment is {0} while the allowed maximum is {1}.'),
+							Ext.util.Format.fileSize(fileSize), Ext.util.Format.fileSize(max_attachment_size)),
+						options);
 					return false;
 				}
 			}
@@ -292,9 +332,9 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		if (Ext.isDefined(max_attachment_total_size)) {
 			if (totalSize > max_attachment_total_size) {
 				container.getNotifier().notify('error.attachment', _('Attachment error'),
-								String.format(_('Cannot upload attachment, the total attachment size is {0} while the allowed maximum is {1}'),
-									      Ext.util.Format.fileSize(totalSize), Ext.util.Format.fileSize(max_attachment_total_size)),
-								options);
+					String.format(_('Cannot upload attachment, the total attachment size is {0} while the allowed maximum is {1}'),
+						Ext.util.Format.fileSize(totalSize), Ext.util.Format.fileSize(max_attachment_total_size)),
+					options);
 				return false;
 			}
 		}
@@ -306,11 +346,11 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 
 		/**
 		 * Here both the checks are for post request size in single message,
-		 * 
-		 * first check is check that user can not 
-		 * able to send post request more then 31 MB size in single request. 
+		 *
+		 * first check is check that user can not
+		 * able to send post request more then 31 MB size in single request.
 		 * max_post_size has default configuration in php ini(Apache) settings.
-		 * 
+		 *
 		 * second check is check that user can not able to send post request
 		 * more then 20 files in single request. max_file_uploads has default
 		 * configuration in php ini (Apache) settings.
@@ -319,9 +359,9 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		if(Ext.isDefined(max_post_size)) {
 			if (totalPostSize > max_post_size) {
 				container.getNotifier().notify('error.attachment', _('Attachment error'),
-								String.format(_('Cannot upload attachment, total attachment is {0} while the allowed maximum attachment in single request is {1}.'),
-										Ext.util.Format.fileSize(totalPostSize), Ext.util.Format.fileSize(max_post_size)),
-								options);
+					String.format(_('Cannot upload attachment, total attachment is {0} while the allowed maximum attachment in single request is {1}.'),
+						Ext.util.Format.fileSize(totalPostSize), Ext.util.Format.fileSize(max_post_size)),
+					options);
 				return false;
 			}
 		}
@@ -331,9 +371,9 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		if(Ext.isDefined(max_file_uploads)) {
 			if (totalFilesUploads > max_file_uploads) {
 				container.getNotifier().notify('error.attachment', _('Attachment error'),
-								String.format(_('Cannot upload attachment, total attachments are {0} files while the maximum {1} files are allowed in single request.'),
-										 totalFilesUploads , max_file_uploads),
-								options);
+					String.format(_('Cannot upload attachment, total attachments are {0} files while the maximum {1} files are allowed in single request.'),
+						totalFilesUploads , max_file_uploads),
+					options);
 				return false;
 			}
 		}
@@ -345,7 +385,7 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	 * Upload the given files to the server, this will generate new
 	 * {@link Zarafa.core.data.IPMAttachmentRecord attachment records} and
 	 * add those to the store.
-	 * @param {FilesArray/String[]} files The array of file objects to upload
+	 * @param {FileList/String} files The array of file objects to upload
 	 * @param {Ext.form.BasicForm} form (optional) If only filenames were provided in files
 	 * argument, then this form must be the form which contains all file input elements
 	 * @param {Boolean} isHidden if isHidden is true it will hide the attachments.
@@ -355,14 +395,32 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	uploadFiles : function(files, form, isHidden, params)
 	{
 		var attachments = [];
+		var uploadFiles = [];
 		var isFileList = Zarafa.supportsFilesAPI() && files instanceof FileList;
+
+		// fire the 'attachmentstorebeforeupload' event.
+		// the eventhandler can not directly remove the handled files from the "files" FileList as this property is read
+		// only. So we have to check the eventData for handled files.
+		var eventData = {
+			handledfiles: []
+		};
+		Zarafa.core.data.ZarafaCustomEventDispatcher.fireEvent('attachmentstorebeforeupload', this, files, form, isHidden, params, eventData);
 
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
 
+			// check if file was already handled by any other plugin
+			if(eventData.handledfiles.indexOf(file) !== -1) {
+				continue; // skip already handled files
+			}
+
+			var attach;
 			if (isFileList) {
+				// add the file to the upload parameters
+				uploadFiles.push(file);
+
 				// Create an attachment record, with all the passed data, use record factory so default values will be applied
-				var attach = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(this.attachmentRecordType, {
+				attach = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(this.attachmentRecordType, {
 					'name' : file['name'],
 					'size' : file['size'],
 					'filetype' : file['type'],
@@ -372,7 +430,7 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			} else {
 				// If the file is a String, it is the file name including a fake path
 				// ('C:\fakepath\<filename>') which must be stripped of its silly path.
-				var attach = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(this.attachmentRecordType, {
+				attach = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(this.attachmentRecordType, {
 					'name' : Ext.util.Format.basename(file),
 					'hidden' : Ext.isDefined(isHidden) ? isHidden : false
 				});
@@ -396,8 +454,8 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 		// the files into the data so it can be added to the request.
 		// Otherwise we expect the form object to hold the files.
 		if (isFileList) {
-			data['attachments'] = files;
-		};
+			data['attachments'] = uploadFiles;
+		}
 
 		var options = {
 			'params' : data,
@@ -409,9 +467,12 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			this.addToBatch(++this.batchCounter);
 		}
 
-		var action = Ext.data.Api.actions['create'];
-		var callback = this.createCallback(action, attachments, false);
-		this.proxy.request(action, attachments, options.params, this.reader, callback, this, options);
+		// if the user has only uploaded files that where handled by external plugins then this array is empty
+		if(attachments.length > 0) {
+			var action = Ext.data.Api.actions['create'];
+			var callback = this.createCallback(action, attachments, false);
+			this.proxy.request(action, attachments, options.params, this.reader, callback, this, options);
+		}
 	},
 
 	/**
@@ -484,9 +545,15 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 			'requestUrl' : this.getUploadAttachmentUrl()
 		};
 
+		// fire the 'attachmentstorebeforedestroyrecord' event that can change the event options.
+		var eventData = {
+			options: options
+		};
+		Zarafa.core.data.ZarafaCustomEventDispatcher.fireEvent('attachmentstorebeforedestroyrecord', this, record, eventData);
+
 		var action = Ext.data.Api.actions['destroy'];
 		var callback = this.createCallback(action, record, false);
-		this.proxy.request(action, record, options.params, this.reader, callback, this, options);
+		this.proxy.request(action, record, options.params, this.reader, callback, this, eventData.options);
 	},
 
 	/**

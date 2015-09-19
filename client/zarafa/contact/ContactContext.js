@@ -72,6 +72,18 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 		Zarafa.core.data.SharedComponentType.addProperty('contact.dialog.contact.addressdetails');
 		Zarafa.core.data.SharedComponentType.addProperty('contact.dialog.contact.phonedetails');
 		Zarafa.core.data.SharedComponentType.addProperty('contact.dialog.distlist.externalmember');
+
+		// If additional prefix added by user in config.php file than append it into existing prefix's list
+		var prefix = container.getServerConfig().getContactPrefix();
+		if (Ext.isDefined(prefix) && Ext.isArray(prefix)) {
+			Zarafa.contact.data.config.Prefix = Zarafa.contact.data.config.Prefix.concat(prefix);
+		}
+
+		// If additional suffix added by user in config.php file than append it into existing suffix's list
+		var suffix = container.getServerConfig().getContactSuffix();
+		if (Ext.isDefined(suffix) && Ext.isArray(suffix)) {
+			Zarafa.contact.data.config.Suffix = Zarafa.contact.data.config.Suffix.concat(suffix);
+		}
 	},
 
 	/**

@@ -64,7 +64,7 @@ Zarafa.task.Actions = {
 	 * Handler for {@link Zarafa.core.data.IPMStore store} open event. Converts the opened record
 	 * to a task and opens it as editable record.
 	 *
-	 * @param {Zarafa.core.data.IPMStore store} store The store of the record.
+	 * @param {Zarafa.core.data.IPMStore} store The store of the record.
 	 * @param {Zarafa.core.data.IPMRecord} record The record which will be converted to a task
 	 * @param {Zarafa.task.TaskContextModel} model Used to create a new task record
 	 */

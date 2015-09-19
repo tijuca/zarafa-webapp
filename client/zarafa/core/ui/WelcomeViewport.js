@@ -131,6 +131,8 @@ Zarafa.core.ui.WelcomeViewport = Ext.extend(Ext.Viewport, {
 			destroy : true,
 			reference : this.savingEl
 		});
+
+		Zarafa.core.Util.disableLeaveRequester();
 		window.location.reload();
 	},
 

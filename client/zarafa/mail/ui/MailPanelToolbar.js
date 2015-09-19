@@ -31,51 +31,11 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 		// information.
 		config.paging = config.paging || [];
 		config.paging.push({
-			xtype : 'zarafa.advancesearchfield',
-			ref : 'searchTextfield',
-			boxMinWidth: 100,
-			listeners: {
-				render : function(field){
-					var folder = this.model.getDefaultFolder();
-					field.setEmptyText(field.getEmptySearchText(folder));
-				},
-				scope : this
-			}
-		},{
 			xtype: 'tbtext',
 			ref: 'loadedMailInfo',
 			style : 'margin-left : 10px'
 		});
 		Zarafa.mail.ui.MailPanelToolbar.superclass.constructor.call(this, config);
-		this.initEvents();
-	},
-
-	/**
-	 * initializes the events.
-	 * @private
-	 */
-	initEvents : function()
-	{
-		this.mon(this.model, {
-			folderchange : this.onModelFolderChange,
-			scope : this
-		});
-		
-	},
-
-	/**
-	 * Event handler which will be called when the {@link #model} fires the
-	 * {@link Zarafa.core.ContextModel#folderchange} event. This will determine
-	 * if the selected folders support 'search folders' and update the UI accordingly.
-	 * @param {Zarafa.core.ContextModel} model this context model.
-	 * @param {Array} folders selected folders as an array of {Zarafa.hierarchy.data.MAPIFolderRecord Folder} objects.
-	 * @private
-	 */
-	onModelFolderChange : function(model, folders)
-	{
-		var folder = model.getDefaultFolder();
-		var emptyText = this.searchTextfield.getEmptySearchText(folder);
-		this.searchTextfield.setEmptyText(emptyText);
 	},
 
 	/**
@@ -107,7 +67,6 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 	{
 		Zarafa.mail.ui.MailPanelToolbar.superclass.initComponent.call(this);
 
-		this.tabFill.setVisible(false);
 		if(container.getSettingsModel().get('zarafa/v1/contexts/mail/enable_live_scroll')) {
 			this.pagesToolbar.setVisible(false);
 			if(this.model) {
@@ -135,6 +94,14 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 			this.loadedMailInfo.setVisible(false);
 		}
 	},
+
+	/**
+	 * Event handler triggers after the layout gets render.
+	 * it will set the search text field width dynamically.
+	 * @param {Zarafa.common.ui.ContextMainPanelToolbar} toolbar The toolbar which triggers the event.
+	 * @param {Ext.Layout} layout The ContainerLayout implementation for this container
+	 */
+	onAfterLayout : Ext.emptyFn,
 
 	/**
 	 * Event handler which trigged whenever {@link Zarafa.core.data.MAPIStore MAPIStore}'s

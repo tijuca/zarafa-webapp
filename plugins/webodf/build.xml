@@ -151,7 +151,7 @@
 
 	<target name="syntax-check">
 		<echo message="validating ${file}"/>
-		<exec executable="php" failonerror="true">
+		<exec executable="php" failonerror="true" logError="true">
 			<arg value="-l"/>
 			<arg value="${file}"/>
 		</exec>
@@ -165,7 +165,7 @@
 		<if>
 			<available file="xmllint" filepath="${env.PATH}" />
 			<then>
-				<exec executable="xmllint" output="${target-folder}/${plugin-folder}/manifest.xml" failonerror="true">
+				<exec executable="xmllint" output="${target-folder}/${plugin-folder}/manifest.xml" failonerror="true" logError="true">
 					<arg value="--valid"/>
 					<arg value="--path"/>
 					<arg value="${root-folder}/server"/>

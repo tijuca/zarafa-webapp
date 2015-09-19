@@ -203,6 +203,15 @@
 						unset($data['props']['html_body']);
 						unset($data['props']['isHTML']);
 
+						$GLOBALS['PluginManager']->triggerHook('server.module.createmailitemmodule.aftersave', array(
+							'data' => &$data,
+							'entryid' => $props[PR_ENTRYID],
+							'action' =>$action,
+							'properties' => $this->properties,
+							'messageProps' => $messageProps,
+							'parententryid' => $parententryid,
+						));
+
 						$this->addActionData('update', array('item' => $data));
 					}
 				}

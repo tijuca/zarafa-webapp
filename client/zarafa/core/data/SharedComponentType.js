@@ -36,6 +36,11 @@ Zarafa.core.data.SharedComponentType = Zarafa.core.Enum.create({
 	 * @property
 	 * @type Number
 	 */
-	'common.contextmenu' : 4
+	'common.contextmenu' : 4,
+
+	/**
+	 * A dialog that views search result
+	 */
+	'common.search' : 5
 });
 

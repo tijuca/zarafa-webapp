@@ -79,6 +79,12 @@ if(!defined('MAX_EML_FILES_IN_ZIP')) define('MAX_EML_FILES_IN_ZIP', 50);
 if(!defined('PASSWORD_KEY')) define('PASSWORD_KEY','a75356b0d1b81b7');
 if(!defined('PASSWORD_IV')) define('PASSWORD_IV','b3f5a483');
 
+// CONTACT_PREFIX used for contact name
+if (!defined('CONTACT_PREFIX')) define('CONTACT_PREFIX', false);
+
+// CONTACT_SUFFIX used for contact name
+if (!defined('CONTACT_SUFFIX')) define('CONTACT_SUFFIX', false);
+
 // Color schemes used for the calendars
 if (!defined('COLOR_SCHEMES')) define('COLOR_SCHEMES', json_encode(array(
 	array(
@@ -162,6 +168,11 @@ if (!defined('COLOR_SCHEMES')) define('COLOR_SCHEMES', json_encode(array(
 		'base' => '#bdc3c7'
 	)
 )));
+
+// Defaults for powerpaste
+if(!defined('POWERPASTE_WORD_IMPORT')) define('POWERPASTE_WORD_IMPORT', 'merge');
+if(!defined('POWERPASTE_HTML_IMPORT')) define('POWERPASTE_HTML_IMPORT', 'merge');
+if(!defined('POWERPASTE_ALLOW_LOCAL_IMAGES')) define('POWERPASTE_ALLOW_LOCAL_IMAGES', true);
 
 /*
  * The following options are taken from the debug.php

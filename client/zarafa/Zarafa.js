@@ -87,8 +87,11 @@ Ext.apply(Zarafa, {
 		// Use native json handling of browser for performance benefit
 		Ext.USE_NATIVE_JSON = true;
 
+		//show confirm dialog before user leave the page.
+		Zarafa.core.Util.enableLeaveRequester();
+
 		// When the browser is unloading, all active requests will be aborted.
-		window.onbeforeunload = function() {
+		window.onunload = function () {
 			container.getRequest().paralyze(Zarafa.core.data.ParalyzeReason.BROWSER_RELOADING);
 		};
 
@@ -106,7 +109,7 @@ Ext.apply(Zarafa, {
 		// Set the user object
 		container.setUser(user);
 		delete user;
-
+		
 		// Set the version object
 		container.setVersion(version);
 		delete version;
@@ -625,7 +628,7 @@ Ext.apply(Zarafa, {
 
 			// Post logon succesful to parent.
 			if (window.location !== window.parent.location){ 
-				parent.postMessage('logonSuccesful', '*');
+				window.parent.postMessage('logonSuccesful', '*');
 			}
 		} else {
 			this.setErrorLoadingMask(_('Error'), _('Loading model from server failed'));
@@ -841,7 +844,7 @@ Ext.apply(Zarafa, {
 		this.hideLoadingMask();
 		// Post logon succesful to parent.
 		if (window.location !== window.parent.location) {
-			parent.postMessage('firstLogon', '*');
+			window.parent.postMessage('firstLogon', '*');
 		}
 	},
 

@@ -5,45 +5,45 @@
 	*/
 
 	// Include files
-	include("init.php");
-	include("config.php");
-	include("defaults.php");
-	include("server/util.php");
-	include("server/gettext.php");
+	require_once("init.php");
+	require_once("config.php");
+	require_once("defaults.php");
+	require_once("server/util.php");
+	require_once("server/gettext.php");
 
-	require("mapi/mapi.util.php");
-	require("mapi/mapicode.php");
-	require("mapi/mapidefs.php");
-	require("mapi/mapitags.php");
-	require("mapi/mapiguid.php");
-	require("mapi/class.baseexception.php");
-	require("mapi/class.mapiexception.php");
+	require_once("mapi/mapi.util.php");
+	require_once("mapi/mapicode.php");
+	require_once("mapi/mapidefs.php");
+	require_once("mapi/mapitags.php");
+	require_once("mapi/mapiguid.php");
+	require_once("mapi/class.baseexception.php");
+	require_once("mapi/class.mapiexception.php");
 
-	require("server/exceptions/class.ZarafaException.php");
-	require("server/exceptions/class.ZarafaErrorException.php");
-	require("server/core/class.json.php");
-	require("server/core/class.conversion.php");
-	require("server/core/class.mapisession.php");
-	require("server/core/class.entryid.php");
+	require_once("server/exceptions/class.ZarafaException.php");
+	require_once("server/exceptions/class.ZarafaErrorException.php");
+	require_once("server/core/class.json.php");
+	require_once("server/core/class.conversion.php");
+	require_once("server/core/class.mapisession.php");
+	require_once("server/core/class.entryid.php");
 
-	include("server/core/constants.php");
+	require_once("server/core/constants.php");
 
-	include("server/core/class.webappsession.php");
-	include("server/core/class.state.php");
-	include("server/core/class.attachmentstate.php");
-	include("server/core/class.jsonrequest.php");
-	include("server/notifiers/class.notifier.php");
-	include("server/modules/class.module.php");
-	include("server/modules/class.listmodule.php");
-	include("server/modules/class.itemmodule.php");
-	include("server/core/class.dispatcher.php");
-	include("server/core/class.operations.php");
-	include("server/core/class.properties.php");
-	include("server/core/class.bus.php");
-	include("server/core/class.settings.php");
-	include("server/core/class.language.php");
-	include("server/core/class.pluginmanager.php");
-	include("server/core/class.plugin.php");
+	require_once("server/core/class.webappsession.php");
+	require_once("server/core/class.state.php");
+	require_once("server/core/class.attachmentstate.php");
+	require_once("server/core/class.jsonrequest.php");
+	require_once("server/notifiers/class.notifier.php");
+	require_once("server/modules/class.module.php");
+	require_once("server/modules/class.listmodule.php");
+	require_once("server/modules/class.itemmodule.php");
+	require_once("server/core/class.dispatcher.php");
+	require_once("server/core/class.operations.php");
+	require_once("server/core/class.properties.php");
+	require_once("server/core/class.bus.php");
+	require_once("server/core/class.settings.php");
+	require_once("server/core/class.language.php");
+	require_once("server/core/class.pluginmanager.php");
+	require_once("server/core/class.plugin.php");
 
 	ob_start();
 	setlocale(LC_CTYPE, "en_US.UTF-8");

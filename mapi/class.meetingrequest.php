@@ -1752,13 +1752,20 @@ If it is the first time this attendee has proposed a new date/time, increment th
 			}
 		}
 
-		$entryid = $this->getDefaultFolderEntryID(PR_IPM_APPOINTMENT_ENTRYID, $store);
-		if ($entryid === false) {
-			$entryid = $this->getBaseEntryID(PR_IPM_APPOINTMENT_ENTRYID, $store);
-		}
+		// If the store is a public folder, the calendar folder is the PARENT_ENTRYID of the calendar item
+		$provider = mapi_getprops($store, array(PR_MDB_PROVIDER));
+		if(isset($provider[PR_MDB_PROVIDER]) && $provider[PR_MDB_PROVIDER] === ZARAFA_STORE_PUBLIC_GUID) {
+			$entryid = mapi_getprops($this->message, array(PR_PARENT_ENTRYID));
+			$entryid = $entryid[PR_PARENT_ENTRYID];
+		} else {
+			$entryid = $this->getDefaultFolderEntryID(PR_IPM_APPOINTMENT_ENTRYID, $store);
+			if ($entryid === false) {
+				$entryid = $this->getBaseEntryID(PR_IPM_APPOINTMENT_ENTRYID, $store);
+			}
 
-		if ($entryid === false) {
-			return false;
+			if ($entryid === false) {
+				return false;
+			}
 		}
 
 		return $this->checkFolderWriteAccess($entryid, $store);
@@ -2385,14 +2392,7 @@ If it is the first time this attendee has proposed a new date/time, increment th
 				// @FIXME this checks delegate has access to resource's calendar folder
 				// but it should use boss' credentials
 				
-				// If the appointment is created in a public folder, check the write access of the folder.
-				$provider = mapi_getprops($this->store, Array(PR_MDB_PROVIDER));
-				if(isset($provider[PR_MDB_PROVIDER]) && $provider[PR_MDB_PROVIDER] === ZARAFA_STORE_PUBLIC_GUID) {
-					$parentEntryID = mapi_getprops($this->message, Array(PR_PARENT_ENTRYID));
-					$accessToFolder = $this->checkFolderWriteAccess($parentEntryID[PR_PARENT_ENTRYID], $this->store);
-				} else {
-					$accessToFolder = $this->checkCalendarWriteAccess($this->store);
-				}
+				$accessToFolder = $this->checkCalendarWriteAccess($this->store);
 				if ($accessToFolder) {
 					$calFolder = mapi_msgstore_openentry($userStore, $userRootProps[PR_IPM_APPOINTMENT_ENTRYID]);
 				}

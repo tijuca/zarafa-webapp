@@ -270,17 +270,28 @@ div.zarafa-contact-cardview-selected {
 .zarafa-hierarchy-node-cb {
 	margin-right: 6px;
 }
-.zarafa-icon-select-color{
+
+.zarafa-icon-select-color {
 	height: 12px;
 	width: 12px;
 	border: solid;
 	border-width: 4px 3px 3px 4px;
 	border-color: white;
 	float: right;
+	position: absolute;
+	right: 2px;
+}
+
+.zarafa-hierarchy-node {
+	line-height: 19px;
 }
 
 .zarafa-hierarchy-node-anchor {
 	margin-left: 4px;
+}
+
+.zarafa-hierarchy-node-color {
+	margin-right: 10px;
 }
 
 .zarafa-hierarchy-node-unread-count span.zarafa-hierarchy-node-counter {
@@ -836,6 +847,9 @@ body {
 	background: -ms-linear-gradient(top, rgba(222,222,222,1) 0%,rgba(222,222,222,0.2) 16%,rgba(222,222,222,0) 20%,rgba(228,228,228,0) 89%,rgba(229,229,229,0) 100%) !important; /* IE10+ */
 	background: linear-gradient(to bottom, rgba(222,222,222,1) 0%,rgba(222,222,222,0.2) 16%,rgba(222,222,222,0) 20%,rgba(228,228,228,0) 89%,rgba(229,229,229,0) 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dedede', endColorstr='#00e5e5e5',GradientType=0 ) !important; /* IE6-9 */
+
+	/* fix for zoom-in/zoom-out bug */
+	top: 28px !important;
 }
 .zarafa-bottomtoolbar.x-toolbar {
 	background-color : #DFE0DF !important;

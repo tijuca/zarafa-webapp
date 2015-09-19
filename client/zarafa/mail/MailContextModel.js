@@ -573,8 +573,67 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 			// Prefix the signature with newline, using font stylings from settings
 			sigDetails['content'] = sigDetails['content'];
 		}
+		
+		// Parse the signature to replace the templates
+		sigDetails['content'] = this.replaceSignatureTemplates(sigDetails['content']);
 
 		return sigDetails['content'];
+	},
+	
+	/**
+	 * Replaces the templates in a signature
+	 * @param {String} signatureContent The text of the signature (can be html or plain text)
+	 * @return {String} The text of the signature with template holders replaced by their value
+	 */
+	replaceSignatureTemplates : function(signatureContent)
+	{
+		// First check if there are template holders in the signature
+		// otherwise we can return immediately
+		if ( !/{%.*}/gi.test(signatureContent) ){
+			return signatureContent;
+		}
+		
+		// TODO: The user information should be updated, so we will always have
+		// the latest data
+
+		// Get the user information
+		var user = container.getUser();
+		// Map the template holders to their data
+		var map = {
+			firstname		: user.getFirstName(),
+			initials		: user.getInitials(),
+			lastname		: user.getLastName(),
+			displayname		: user.getDisplayName(),
+			title			: user.getTitle(),
+			company			: user.getCompany(),
+			department		: user.getDepartment(),
+			office			: user.getOffice(),
+			assistant		: user.getAssistant(),
+			phone			: user.getPhone(),
+			primary_email	: user.getSMTPAddress(),
+			address			: user.getAddress(),
+			city			: user.getCity(),
+			state			: user.getState(),
+			zipcode			: user.getZipCode(),
+			country			: user.getCountry(),
+			phone_business	: user.getPhoneBusiness(),
+			phone_business2	: user.getPhoneBusiness2(),
+			phone_fax		: user.getFax(),
+			phone_assistant	: user.getPhoneAssistant(),
+			phone_home		: user.getPhoneHome(),
+			phone_home2		: user.getPhoneHome2(),
+			phone_mobile	: user.getPhoneMobile(),
+			phone_pager		: user.getPhonePager()
+		};
+		
+		Ext.iterate(map, function(key, value){
+			if ( !Ext.isDefined(value) ){
+				value = '';
+			}
+			signatureContent = signatureContent.replace(new RegExp('{%'+key+'}', 'gi'), value);
+		});
+		
+		return signatureContent;
 	},
 
 	/**

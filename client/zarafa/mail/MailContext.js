@@ -62,7 +62,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		this.registerInsertionPoint('context.settings.categories', this.createSettingCategories, this);
 
 		// Register insertion point to insert toolbar buttons on the right side of menu.
-		var toolbarButtons = new Zarafa.mail.ui.MailPreviewPanelToolbarButtons({model: this.getModel()});
+		var toolbarButtons = new Zarafa.common.ui.PreviewPanelToolbarButtons({model: this.getModel()});
 		this.registerInsertionPoint('previewpanel.toolbar.right', toolbarButtons.getToolbarButtons, toolbarButtons);
 
 		// Extend the Contact and AddressBook context with email buttons
@@ -75,7 +75,6 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		Zarafa.core.data.SharedComponentType.addProperty('mail.dialog.options');
 		Zarafa.core.data.SharedComponentType.addProperty('mail.dialog.flags');
 		Zarafa.core.data.SharedComponentType.addProperty('mail.contextmenu.flags');
-		Zarafa.core.data.SharedComponentType.addProperty('search.create');
 	},
 
 	/**
@@ -221,9 +220,6 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		}
 
 		switch (type) {
-			case Zarafa.core.data.SharedComponentType['search.create']:
-					bid = 0;
-				break;
 			case Zarafa.core.data.SharedComponentType['common.create']:
 			case Zarafa.core.data.SharedComponentType['common.view']:
 			case Zarafa.core.data.SharedComponentType['common.preview']:
@@ -299,9 +295,6 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	{
 		var component;
 		switch (type) {
-			case Zarafa.core.data.SharedComponentType['search.create']:
-				component = Zarafa.common.search.dialogs.SearchContentPanel;
-				break;
 			case Zarafa.core.data.SharedComponentType['common.create']:
 				component = Zarafa.mail.dialogs.MailCreateContentPanel;
 				break;

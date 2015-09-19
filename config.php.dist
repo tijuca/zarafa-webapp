@@ -108,7 +108,7 @@
 	// Additional color schemes for the calendars can be added by uncommenting and editing the following define.
 	// The format is the same as the format of COLOR_SCHEMES which is defined in default.php
 	// To change the default colors, COLOR_SCHEMES can also be defined here.
-	// 
+	// Note: Every color should have a unique name, because it is used to identify the color
 	// define('ADDITIONAL_COLOR_SCHEMES', json_encode(array(
 	// 		array(
 	//			'name' => 'pink',
@@ -116,6 +116,19 @@
 	//			'base' => '#ff0099'
 	//		)
 	// )));
+
+	// Additional Prefix for the Contact name can be added by uncommenting and editing the following define.
+	// define('CONTACT_PREFIX', json_encode(array(
+	//  	array(_('Er.')),
+	//  	array(_('Gr.'))
+	// )));
+
+	// Additional Suffix for the Contact name can be added by uncommenting and editing the following define.
+	// define('CONTACT_SUFFIX', json_encode(array(
+	//  	array(_('A')),
+	//  	array(_('B'))
+	// )));
+
 
 	/**************************************\
 	* Memory usage and timeouts            *
@@ -169,6 +182,15 @@
 		}
 	}
 
+	/**************************************\
+	* Powerpaste                           *
+	\**************************************/
+
+	// Options for TinyMCE's powerpaste plugin, see http://docs.ephox.com/display/tinyMCEPlugins/Configuration+Options
+	// for more details.
+	define('POWERPASTE_WORD_IMPORT', 'merge');
+	define('POWERPASTE_HTML_IMPORT', 'merge');
+	define('POWERPASTE_ALLOW_LOCAL_IMAGES', true);
 
 	/**************************************\
 	* Debugging                            *

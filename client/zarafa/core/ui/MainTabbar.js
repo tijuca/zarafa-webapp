@@ -40,6 +40,9 @@ Zarafa.core.ui.MainTabBar = Ext.extend(Ext.Toolbar, {
 			id: 'zarafa-mainmenu',
 			cls : 'zarafa-maintabbar',
 			defaultType: 'zarafa.maintab',
+			height: 28,
+			boxMaxHeight: 28,
+			boxMinHeight: 28,
 			defaults: {
 				height:20
 			}

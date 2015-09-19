@@ -129,11 +129,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	suspendData : undefined,
 
-	/*	*
-	 * TODO : Advance Search
-	 */
-	advanceSearchStore : undefined,
-
 	/**
 	 * @constructor
 	 * @param {Object} config Configuration object
@@ -145,11 +140,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 		Ext.applyIf(config, {
 			stateful : true
 		});
-
-		// create advance search store to perform the advance search.
-		if(!Ext.isDefined(config.advanceSearchStore)) {
-			config.advanceSearchStore = new Zarafa.common.search.data.SearchStore();
-		}
 
 		this.addEvents(
 			/**
@@ -326,9 +316,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 		// Disable ContextModel
 		this.enabled = false;
 
-		// Stop the search, don't reload the store,
-		// as we want the store to be emptied.
-		this.stopSearch();
 		this.stopLiveScroll();
 		this.store.cancelLoadRequests();
 		this.store.removeAll(true);
@@ -344,10 +331,10 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 * @param {Object} options The options object which is used for loading the store
 	 * @private
 	 */
-	onBeforeLoad : function(store, options)
+	onBeforeLoad : function (store, options)
 	{
-		if(options && options.actionType === Zarafa.core.Actions['updatesearch']) {
-			// don't do anything here, as we are just updating the search results
+		if (options && (options.actionType === Zarafa.core.Actions['updatesearch'] || options.actionType === Zarafa.core.Actions['updatelist'])) {
+			// don't do anything here, as we are just updating the search results or updating list using infinite scrolling.
 			// so selection shouldn't be changed
 			return;
 		}
@@ -516,15 +503,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	},
 
 	/**
-	 * Gets the {@link Zarafa.common.search.data.SearchStore AdvanceSearchStore}.
-	 * @return {Zarafa.core.data.IPMStore} store object.
-	 */
-	getAdvanceSearchStore : function()
-	{
-		return this.advanceSearchStore;
-	},
-
-	/**
 	 * Adds a folder to the selected folder list.
 	 * This function automatically causes the store to
 	 * reload its contents. This method triggers the
@@ -628,7 +606,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	onFolderChange : function(model, folders)
 	{
 		// Stop the search
-		this.stopSearch();
 
 		// Stop the live scroll.
 		this.stopLiveScroll();
@@ -829,7 +806,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	reload : function()
 	{
-		var lastOptions = this.getActiveStore().lastOptions;
+		var lastOptions = this.store.lastOptions;
 
 		// If live scroll is performed and search is not then stop the live scroll.
 		if(!this.isBusySearching && this.isBusyScrolling){
@@ -840,7 +817,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 			this.suspendLoad = true;
 			this.suspendData = lastOptions;
 		} else {
-			this.getActiveStore().reload();
+			this.store.reload();
 		}
 	},
 
@@ -988,7 +965,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	startLiveScroll : function(cursor)
 	{
-		var store = this.getActiveStore();
 		/*
 		 * don't do anything if live scroll is not enabled just simply return.
 		 */
@@ -999,16 +975,14 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 
 		if (this.fireEvent('beforelivescrollstart', this, cursor) !== false) {
 			this.isBusyScrolling = true;
-			// TODO : Advance Search use advance search store
-			store.on('exception', this.onLiveScrollException, this);
+			this.store.on('exception', this.onLiveScrollException, this);
 			if(this.fireEvent('livescrollstart', this, cursor) !== false) {
 				var options = {
 					restriction: {}
 				};
 				options.restriction['start'] = cursor;
 				options.restriction['limit'] = container.getSettingsModel().get('zarafa/v1/main/page_size');
-				// TODO : Advance Search use advance search store
-				store.liveScroll({
+				this.store.liveScroll({
 					folder : [this.getDefaultFolder()],
 					params : options,
 					add : true
@@ -1024,10 +998,9 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	stopLiveScroll : function()
 	{
 		if (this.isBusyScrolling && this.fireEvent('beforelivescrollstop', this) !== false) {
-			var store = this.getActiveStore();
-			store.stopLiveScroll();
+			this.store.stopLiveScroll();
 
-			store.un('exception', this.onLiveScrollException, this);
+			this.store.un('exception', this.onLiveScrollException, this);
 			this.isBusyScrolling = false;
 			this.fireEvent('livescrollstop', this);
 		}
@@ -1049,8 +1022,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	onLiveScrollException : function(proxy, type, action, options, response, args)
 	{
-		var store = this.getActiveStore();
-		store.un('exception', this.onLiveScrollException, this);
+		this.store.un('exception', this.onLiveScrollException, this);
 		this.stopLiveScroll();
 	},
 
@@ -1063,10 +1035,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	startSearch : function(restriction, subfolders, options)
 	{
-		// FIXME : after the adding advance search text field in all the context 
-		// this check gets removed. right now normal search perform on context store 
-		// and advance search has own store.
-		var store = Ext.isDefined(options) && Ext.isDefined(options.store) ? options.store : this.store;
 		var folder = Ext.isDefined(options) && Ext.isDefined(options.folder)? options.folder : this.getDefaultFolder();
 
 		var useSearchFolder = this.supportsSearchFolder();
@@ -1080,19 +1048,19 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 			this.isBusySearching = true;
 			this.fireEvent('searchstart', this, restriction, subfolders);
 
-			store.on('exception', this.onSearchException, this);
+			this.store.on('exception', this.onSearchException, this);
 			if (useSearchFolder) {
 				// only required when using a search folder
-				store.on('beforeupdatesearch', this.onSearchUpdate, this);
+				this.store.on('beforeupdatesearch', this.onSearchUpdate, this);
 			} else {
 				// if we are not using search folder then also after completion of search we need to fire 'searchfinished' event
-				store.on('load', function() {
+				this.store.on('load', function() {
 					this.fireEvent('searchfinished', this);
 				}, this, {single : true});
 			}
 
 			// send request to store to start search
-			store.search({
+			this.store.search({
 				// search in multiple folders not supported at the moment
 				folder : folder,
 				useSearchFolder : useSearchFolder,
@@ -1106,20 +1074,16 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 * Stop {@link Zarafa.core.data.ListModuleStore#stopSearch searching} in the {@link #store}
 	 * and fire the {@link #searchstop} event.
 	 */
-	stopSearch : function(options)
+	stopSearch : function()
 	{
 		if (this.isBusySearching && this.fireEvent('beforesearchstop', this) !== false) {
 
-			// FIXME : after the adding advance search text field in all the context 
-			// this check gets removed. right now normal search perform on context store 
-			// and advance search has own store.
-			var store = Ext.isDefined(options) && Ext.isDefined(options.store) ? options.store : this.store;
-
+			
 			// send request to store to stop search
-			store.stopSearch({});
+			this.store.stopSearch({});
 
-			store.un('exception', this.onSearchException, this);
-			store.un('beforeupdatesearch', this.onSearchUpdate, this);
+			this.store.un('exception', this.onSearchException, this);
+			this.store.un('beforeupdatesearch', this.onSearchUpdate, this);
 
 			this.isBusySearching = false;
 			this.isBusyScrolling = false;
@@ -1166,31 +1130,12 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	onSearchException : function(proxy, type, action, options, response, args)
 	{
-		var store = this.getActiveStore();
-		store.un('exception', this.onSearchException, this);
-		store.un('beforeupdatesearch', this.onSearchUpdate, this);
+		this.store.un('exception', this.onSearchException, this);
+		this.store.un('beforeupdatesearch', this.onSearchUpdate, this);
 
 		this.stopSearch();
 
 		this.fireEvent('searchexception', this, proxy, type, action, options, response, args)
-	},
-
-	/**
-	 * Function is used to get the store of active tab.
-	 * it will check that active item is {@link Zarafa.common.search.dialogs.SearchContentPanel SearchContentPanel}
-	 * then use {@link Zarafa.common.search.data.SearchStore AdvanceSearchStore} has active store else use 
-	 * respective context model store.
-	 * @return {Zarafa.core.data.IPMStore} return {@link Zarafa.common.search.data.SearchStore AdvanceSearchStore} or
-	 * respective context model store.
-	 */
-	getActiveStore : function()
-	{
-		var activeTab = container.getTabPanel().getActiveTab();
-		if(activeTab.name === 'advancesearchtab') {
-			return this.getAdvanceSearchStore();
-		} else {
-			return this.getStore();
-		}
 	},
 
 	/**

@@ -1,5 +1,5 @@
 <?php
-	require_once("server/PEAR/XML/Unserializer.php");
+	require_once(__DIR__ . '/../PEAR/XML/Unserializer.php');
 
 	/**
 	* XML Parser

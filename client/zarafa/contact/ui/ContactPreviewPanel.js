@@ -20,10 +20,9 @@ Zarafa.contact.ui.ContactPreviewPanel = Ext.extend(Ext.Panel, {
 			xtype: 'zarafa.contactpreviewpanel',
 			border : false,
 			bodyCfg: {
-				cls : 'preview-contact-body'
+				cls : 'preview-body'
 			},
 			layout : 'fit',
-			autoScroll : true,
 			items : [{
 				xtype: 'zarafa.contactbody'
 			}]

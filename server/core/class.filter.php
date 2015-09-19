@@ -1,5 +1,5 @@
 <?php
-	require_once('htmlfilter.php');
+	require_once(__DIR__ . '/htmlfilter.php');
 
 	/**
 	 * Filters text messages for various uses

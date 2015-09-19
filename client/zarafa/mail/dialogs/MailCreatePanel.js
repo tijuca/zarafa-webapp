@@ -226,6 +226,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				name: 'subject',
 				enableKeyEvents : true,
 				value: undefined,
+				height: 22,
 				listeners: {
 					change : this.onChange,
 					scope : this

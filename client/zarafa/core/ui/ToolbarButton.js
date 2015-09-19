@@ -55,7 +55,7 @@ Zarafa.core.ui.ToolbarButton = Ext.extend(Ext.Button, {
 
 		Zarafa.core.ui.ToolbarButton.superclass.constructor.call(this, config);
 
-		var model = container.getCurrentContext().getModel();
+		var model = this.model || container.getCurrentContext().getModel();
 		if (Ext.isDefined(model)) {
 			this.onRecordSelectionChange(model, model.getSelectedRecords());
 			this.mon(model, 'recordselectionchange', this.onRecordSelectionChange, this);

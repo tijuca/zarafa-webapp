@@ -12,12 +12,12 @@
 	* @package core
 	*/
 
-	include_once("server/core/class.filter.php");
-	include_once("mapi/class.recurrence.php");
-	include_once("mapi/class.taskrecurrence.php");
-	include_once("mapi/class.meetingrequest.php");
-	include_once("mapi/class.taskrequest.php");
-	include_once("mapi/class.freebusypublish.php");
+	include_once(__DIR__ . '/../core/class.filter.php');
+	include_once(__DIR__ . '/../../mapi/class.recurrence.php');
+	include_once(__DIR__ . '/../../mapi/class.taskrecurrence.php');
+	include_once(__DIR__ . '/../../mapi/class.meetingrequest.php');
+	include_once(__DIR__ . '/../../mapi/class.taskrequest.php');
+	include_once(__DIR__ . '/../../mapi/class.freebusypublish.php');
 
 	class Operations
 	{
@@ -1994,6 +1994,9 @@
 						if (isset($recips['remove']) && !empty($recips['remove'])) {
 							$deletedRecipients = $deletedRecipients ? $deletedRecipients : array();
 							$deletedRecipients = array_merge($deletedRecipients, $this->createRecipientList($recips['remove'], 'remove'));
+							if (isset($action['message_action']['send_update']) && $action['message_action']['send_update'] != 'all') {
+								$modifiedRecipients = $modifiedRecipients ? $modifiedRecipients : array();
+							}
 						}
 					}
 				}
@@ -2283,7 +2286,9 @@
 					$message = $this->saveMessage($store, $entryid, $storeprops[PR_IPM_OUTBOX_ENTRYID], $props, $messageProps, $recipients, $attachments, array(), $copyFromMessage, $copyAttachments, $copyRecipients, $copyInlineAttachmentsOnly, true, true);
 				}
 
-				if($message) {
+				if ($message) {
+					$this->convertInlineImage($message);
+			
 					// Allowing to hook in just before the data sent away to be sent to the client
 					$GLOBALS['PluginManager']->triggerHook('server.core.operations.submitmessage', array(
 						'moduleObject' => $this,
@@ -4063,6 +4068,87 @@
 			}
 
 			return $items;
+		}
+		
+		/**
+		 * Convert inline image <img src="data:image/mimetype;.date> links in HTML email
+		 * to CID embedded images. Which are supported in major mail clients or
+		 * providers such as outlook.com or gmail.com
+		 *
+		 * The WebApp now extracts the base64 image, saves it as hidden attachment,
+		 * replace the img src tag with the 'cid' which corresponds with the attachments
+		 * cid.
+		 *
+		 * @param {MAPIMessage} $message the distribution list message
+		 */
+		function convertInlineImage($message)
+		{
+			$stream = mapi_openproperty($message, PR_HTML, IID_IStream, 0, MAPI_MODIFY);
+			$stat = mapi_stream_stat($stream);
+			mapi_stream_seek($stream, 0, STREAM_SEEK_SET);
+			$body = '';
+			for ($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
+				$body .= mapi_stream_read($stream, BLOCK_SIZE);
+			}
+
+			// Only load the DOM if the HTML contains a data:image.
+			if (strpos($body, "data:image") !== false) {
+				$doc = new DOMDocument();
+				// TinyMCE does not generate valid HTML, so we must supress warnings.
+				@$doc->loadHTML($body);
+				$images = $doc->getElementsByTagName('img');
+				$saveChanges = false;
+
+				foreach ($images as $image) {
+					$src = $image->getAttribute('src');
+
+					if(strpos($src, "data:image") !== false) {
+						$saveChanges = true;
+
+						// Extract mime type data:image/jpeg;
+						$firstOffset = strpos($src, '/') + 1;
+						$endOffset = strpos($src, ';');
+						$mimeType = substr($src, $firstOffset , $endOffset - $firstOffset);
+
+						$dataPosition = strpos($src, ",");
+						// Extract encoded data
+						$rawImage = base64_decode(substr($src, $dataPosition + 1, strlen($src)));
+
+						$uniqueId =  uniqid();
+						$image->setAttribute('src', 'cid:' . $uniqueId);
+						// TinyMCE adds an extra inline image for some reason, remove it.
+						$image->setAttribute('data-mce-src', '');
+
+						// Create hidden attachment with CID
+						$inlineImage = mapi_message_createattach($message);
+						$props = Array(PR_ATTACH_FILENAME => 'inline.txt',
+							PR_ATTACH_METHOD => ATTACH_BY_VALUE,
+							PR_ATTACH_CONTENT_ID => $uniqueId,
+							PR_ATTACHMENT_HIDDEN => true,
+							PR_ATTACH_FLAGS => 4,
+							PR_ATTACH_MIME_TAG => 'image/' . $mimeType
+						);
+						mapi_setprops($inlineImage, $props);
+
+						$stream = mapi_openproperty($inlineImage, PR_ATTACH_DATA_BIN, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
+						mapi_stream_setsize($stream, strlen($rawImage));
+						mapi_stream_write($stream, $rawImage);
+						mapi_stream_commit($stream);
+						mapi_savechanges($inlineImage);
+					}
+				}
+
+				if ($saveChanges) {
+					// Write the <img src="cid:data"> changes to the HTML property
+					$body = $doc->saveHTML();
+					$stream = mapi_openproperty($message, PR_HTML, IID_IStream, 0, MAPI_MODIFY);
+					mapi_stream_setsize($stream, strlen($body));
+					mapi_stream_write($stream, $body);
+					mapi_stream_commit($stream);
+					mapi_savechanges($message);
+				}
+			}
+
 		}
 	}
 ?>

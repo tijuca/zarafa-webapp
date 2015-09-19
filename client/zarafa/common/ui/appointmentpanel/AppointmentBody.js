@@ -34,6 +34,7 @@ Zarafa.common.ui.appointmentpanel.AppointmentBody = Ext.extend(Ext.form.FormPane
 			xtype: 'zarafa.appointmentbody',
 			border : false,
 			header :  true,
+			autoScroll : true,
 			unstyled : true,
 			autoWidth : true,
 			headerCfg : {
@@ -41,29 +42,26 @@ Zarafa.common.ui.appointmentpanel.AppointmentBody = Ext.extend(Ext.form.FormPane
 			},
 			items : [{
 				xtype:'fieldset',
-				title: 'Appointment',
+				title : _('Appointment'),
+				defaults: {
+					xtype : 'displayfield'
+				},
 				items : [{
-					xtype : 'displayfield',
 					fieldLabel : _('Subject'),
 					name : 'subject'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Location'),
 					name : 'location'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Label'),
 					ref : '../labelPreview'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('Start Date'),
 					ref : '../startDate'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('End Date'),
 					ref : '../endDate'
 				}, {
-					xtype : 'displayfield',
 					fieldLabel : _('All Day Event'),
 					name : 'alldayevent'
 				}]
@@ -99,14 +97,12 @@ Zarafa.common.ui.appointmentpanel.AppointmentBody = Ext.extend(Ext.form.FormPane
 		this.labelPreview.setValue(Zarafa.core.mapi.AppointmentLabels.getDisplayName(record.get('label')));
 
 		var startDate = record.get('startdate');
-		var startDateUpdate = false;
 		if (Ext.isDate(startDate)) {
 			startDate = startDate.toUTC(); // The startdate is an UTC representation
 			this.startDate.setValue(startDate);
 		}
 
 		var dueDate = record.get('duedate');
-		var dueDateUpdate = false;
 		if (Ext.isDate(dueDate)) {
 			dueDate = dueDate.toUTC(); // The duedate is an UTC representation
 			this.endDate.setValue(dueDate);

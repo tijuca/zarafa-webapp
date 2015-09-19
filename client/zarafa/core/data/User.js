@@ -94,5 +94,181 @@ Zarafa.core.data.User = Ext.extend(Object, {
 	getSessionId : function()
 	{
 		return this.meta.sessionid;
+	},
+	
+	/**
+	 * @return {String} The first name for this user
+	 */
+	getFirstName : function()
+	{
+		return this.meta.given_name;
+	},
+	
+	/**
+	 * @return {String} The initials for this user
+	 */
+	getInitials : function()
+	{
+		return this.meta.initials;
+	},
+	
+	/**
+	 * @return {String} The surname for this user
+	 */
+	getLastName : function()
+	{
+		return this.meta.surname;
+	},
+	
+	/**
+	 * @return {String} The street address for this user
+	 */
+	getAddress : function()
+	{
+		return this.meta.street_address;
+	},
+	
+	/**
+	 * @return {String} The city for this user
+	 */
+	getCity : function()
+	{
+		return this.meta.locality;
+	},
+	
+	/**
+	 * @return {String} The state or province for this user
+	 */
+	getState : function()
+	{
+		return this.meta.state_or_province;
+	},
+	
+	/**
+	 * @return {String} The zipcode for this user
+	 */
+	getZipCode : function()
+	{
+		return this.meta.postal_code;
+	},
+	
+	/**
+	 * @return {String} The country for this user
+	 */
+	getCountry : function()
+	{
+		return this.meta.country;
+	},
+	
+	/**
+	 * @return {String} The title for this user
+	 */
+	getTitle : function()
+	{
+		return this.meta.title;
+	},
+	
+	/**
+	 * @return {String} The company for this user
+	 */
+	getCompany : function()
+	{
+		return this.meta.company_name;
+	},
+	
+	/**
+	 * @return {String} The department for this user
+	 */
+	getDepartment : function()
+	{
+		return this.meta.department_name;
+	},
+	
+	/**
+	 * @return {String} The office location for this user
+	 */
+	getOffice : function()
+	{
+		return this.meta.office_location;
+	},
+	
+	/**
+	 * @return {String} The assistent for this user
+	 */
+	getAssistant : function()
+	{
+		return this.meta.assistant;
+	},
+	
+	/**
+	 * @return {String} The business phone number for this user
+	 */
+	getPhone : function()
+	{
+		return this.getPhoneBusiness();
+	},
+	
+	/**
+	 * @return {String} The business phone number for this user
+	 */
+	getPhoneBusiness : function()
+	{
+		return this.meta.business_telephone_number || this.meta.office_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The second business phone number for this user
+	 */
+	getPhoneBusiness2 : function()
+	{
+		return this.meta.business2_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The fax number for this user
+	 */
+	getFax : function()
+	{
+		return this.meta.primary_fax_number;
+	},
+	
+	/**
+	 * @return {String} The phone number of the assistant for this user
+	 */
+	getPhoneAssistant : function()
+	{
+		return this.meta.assistant_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The home phone number for this user
+	 */
+	getPhoneHome : function()
+	{
+		return this.meta.home_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The second home phone number for this user
+	 */
+	getPhoneHome2 : function()
+	{
+		return this.meta.home2_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The mobile phone number for this user
+	 */
+	getPhoneMobile : function()
+	{
+		return this.meta.mobile_telephone_number;
+	},
+	
+	/**
+	 * @return {String} The pager phone number for this user
+	 */
+	getPhonePager : function()
+	{
+		return this.meta.pager_telephone_number;
 	}
 });

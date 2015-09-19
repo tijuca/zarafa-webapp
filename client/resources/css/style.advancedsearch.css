@@ -34,6 +34,11 @@
 	background-position: 1px center;
 }
 
+.advance_search
+{
+	background-position: -35px center !important;
+}
+
 /*
 .zarafa-searchgrid td.subject-body span.subject{
 	padding-right: 20px;
@@ -41,4 +46,11 @@
 */
 .zarafa-searchgrid td.subject-body span.body{
 	opacity: 0.5;
+}
+
+/*
+Search ToolBox
+*/
+.zarafa-search-toolbox {
+	background-color: #F4F4F4;
 }

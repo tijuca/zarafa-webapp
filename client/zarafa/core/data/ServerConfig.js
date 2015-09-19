@@ -136,5 +136,29 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	getAdditionalColorSchemes : function()
 	{
 		return this.meta.additional_color_schemes;
+	},
+
+	/**
+	 * @return {Array} returns the contact prefix defined in config.php.
+	 */
+	getContactPrefix: function ()
+	{
+		return this.meta.contact_prefix;
+	},
+
+	/**
+	 * @return {Array} returns the contact suffix defined in config.php.
+	 */
+	getContactSuffix: function ()
+	{
+		return this.meta.contact_suffix;
+	},
+
+	/**
+	 * @return {Array} returns the powerpaste config defined in config.php.
+	 */
+	getPowerpasteConfig: function ()
+	{
+		return this.meta.powerpaste;
 	}
 });

@@ -129,7 +129,7 @@
 				$properties["proposednewtime"] = PR_PROPOSEDNEWTIME;
 				$properties["proposednewtime_start"] = PR_PROPOSEDNEWTIME_START;
 				$properties["proposednewtime_end"] = PR_PROPOSEDNEWTIME_END;
-
+				$properties["creation_time"] = PR_CREATION_TIME;
 				$this->mapping[$this->storeMapping]['recipient'] = getPropIdsFromStrings($this->store, $properties);
 			}
 
@@ -403,6 +403,7 @@
 				$properties["private"] = "PT_BOOLEAN:PSETID_Common:0x8506";
 				$properties["categories"] = "PT_MV_STRING8:PS_PUBLIC_STRINGS:Keywords";
 				$properties["last_modification_time"] = PR_LAST_MODIFICATION_TIME;
+				$properties["creation_time"] = PR_CREATION_TIME;
 				// Conflict properties
 				$properties["conflictitems"] = PR_CONFLICT_ITEMS;
 				$properties["deleted_on"] = PR_DELETED_ON;
@@ -581,7 +582,6 @@
 				$properties["categories"] = "PT_MV_STRING8:PS_PUBLIC_STRINGS:Keywords";
 				$properties["sensitivity"] = PR_SENSITIVITY;
 				$properties["private"] = "PT_BOOLEAN:PSETID_Common:0x8506";
-
 				$properties["deleted_on"] = PR_DELETED_ON;
 
 				$this->mapping[$this->storeMapping]['abcontact'] = getPropIdsFromStrings($this->store, $properties);
@@ -621,7 +621,7 @@
 				$properties["private"] = "PT_BOOLEAN:PSETID_Common:0x8506";
 				// Conflict properties
 				$properties["conflictitems"] = PR_CONFLICT_ITEMS;
-
+				$properties["creation_time"] = PR_CREATION_TIME;
 				$properties["deleted_on"] = PR_DELETED_ON;
 
 				$this->mapping[$this->storeMapping]['distlist'] = getPropIdsFromStrings($this->store, $properties);
@@ -824,6 +824,7 @@
 				$properties["received_by_search_key"] = PR_RECEIVED_BY_SEARCH_KEY;
 				$properties["message_delivery_time"] = PR_MESSAGE_DELIVERY_TIME;
 				$properties["last_modification_time"] = PR_LAST_MODIFICATION_TIME;
+				$properties["creation_time"] = PR_CREATION_TIME;
 				$properties["last_verb_executed"] = PR_LAST_VERB_EXECUTED;
 				$properties["last_verb_execution_time"] = PR_LAST_VERB_EXECUTION_TIME;
 				$properties["hasattach"] = PR_HASATTACH;
@@ -889,6 +890,11 @@
 				// Archiver property
 				$properties["stubbed"] = "PT_BOOLEAN:PSETID_Archive:stubbed";
 
+				// Allowing to hook in and add more properties
+				$GLOBALS['PluginManager']->triggerHook("server.core.properties.mailproperties", array(
+					'properties' =>& $properties
+				));
+
 				$this->mapping[$this->storeMapping]['mail'] = getPropIdsFromStrings($this->store, $properties);
 			}
 
@@ -943,8 +949,8 @@
 				$properties["message_flags"] = PR_MESSAGE_FLAGS;
 				$properties["message_size"] = PR_MESSAGE_SIZE;
 				$properties["last_modification_time"] = PR_LAST_MODIFICATION_TIME;
-				$properties["subject"] = PR_SUBJECT;
 				$properties["creation_time"] = PR_CREATION_TIME;
+				$properties["subject"] = PR_SUBJECT;
 				$properties["color"] = "PT_LONG:PSETID_Note:0x8B00";
 				$properties["categories"] = "PT_MV_STRING8:PS_PUBLIC_STRINGS:Keywords";
 				// Conflict properties
@@ -992,6 +998,7 @@
 				$properties["importance"] = PR_IMPORTANCE;
 				$properties["sensitivity"] = PR_SENSITIVITY;
 				$properties["last_modification_time"] = PR_LAST_MODIFICATION_TIME;
+				$properties["creation_time"] = PR_CREATION_TIME;
 				$properties["hasattach"] = PR_HASATTACH;
 				$properties["complete"] = "PT_BOOLEAN:PSETID_Task:0x811c";
 				$properties["duedate"] = "PT_SYSTIME:PSETID_Task:0x8105";
