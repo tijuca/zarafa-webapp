@@ -13,6 +13,8 @@ override_dh_auto_build:
 	cd plugins/xmpp/ ;\
 		rm -rf jsjac ;\
 		ln -s /usr/share/javascript/jsjac
+	# remove not needed sabredav files
+	rm -rf plugins/files/php/Files/sabredav/vendor/sabre
 	# remove the license files within tinymce-plugins/
 	rm  client/tinymce/license.txt \
 	    client/tinymce-plugins/powerpaste/License.txt \
