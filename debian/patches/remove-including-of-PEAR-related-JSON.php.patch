@@ -1,5 +1,5 @@
 From: Carsten Schoenert <c.schoenert@t-online.de>
-Date: Mon, 24 Aug 2015 10:02:00 +0200
+Date: Thu, 17 Sep 2015 15:32:15 +0200
 Subject: remove including of PEAR related JSON.php
 
 ---
@@ -8,22 +8,22 @@ Subject: remove including of PEAR related JSON.php
  2 files changed, 2 deletions(-)
 
 diff --git a/server/class.configcheck.php b/server/class.configcheck.php
-index 01eceaf..ffbe7e9 100644
+index b1660d0..ffbe7e9 100644
 --- a/server/class.configcheck.php
 +++ b/server/class.configcheck.php
 @@ -1,5 +1,4 @@
  <?php
--require_once('PEAR/JSON.php');
+-require_once(__DIR__ . '/PEAR/JSON.php');
  
  /**
   * This class will check the server configuration and it stops the 
 diff --git a/server/core/class.json.php b/server/core/class.json.php
-index 042803c..1b45f7b 100644
+index 2103293..c1ee846 100644
 --- a/server/core/class.json.php
 +++ b/server/core/class.json.php
 @@ -1,5 +1,4 @@
  <?php
--	require_once("server/PEAR/JSON.php");
- 	require_once('server/exceptions/class.JSONException.php');
+-	require_once(__DIR__ . '/../PEAR/JSON.php');
+ 	require_once(__DIR__ . '/../exceptions/class.JSONException.php');
  
  	/**
