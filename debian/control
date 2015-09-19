@@ -93,7 +93,8 @@ Description: Zarafa WebApp Feedback plugin
 
 Package: zarafa-webapp-files
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
+ php5-curl
 Description: Zarafa WebApp files plugin
  This package is a plugin for zarafa-webapp, a web interface for the
  Zarafa groupware suite ZCP.
