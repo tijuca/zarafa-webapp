@@ -152,9 +152,9 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 	{
 		var activeItem = container.getTabPanel().getActiveTab().getActiveItem();
 		var topToolbar = activeItem.getTopToolbar();
+		var parentSearchField;
 
-		if(Ext.isDefined(topToolbar)) {
-			var parentSearchField = topToolbar.searchTextfield;
+		if(Ext.isDefined(topToolbar) && Ext.isDefined(parentSearchField = topToolbar.searchTextfield)) {
 			this.searchContentPanel.setParentSearchField(parentSearchField);
 			parentSearchField.renderedSearchPanel = true;
 			this.reinitializeEvents();

@@ -150,7 +150,7 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 					checked : !isPersonalFolder,
 					ref : '../currentFolderRadio',
 					inputValue : 'current_folder',
-					boxLabel : _('Current folder'),
+					boxLabel : _('Current folder') + ' ('+defaultFolder.getDisplayName()+')',
 					listeners : {
 						check : this.onRadioCheck,
 						scope : this
@@ -592,8 +592,14 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 		var defaultStore = folders[0].getMAPIStore();
 		var currentFolderRadio = this.folderRadioGroup.panel.currentFolderRadio;
 		var allFoldersRadio = this.folderRadioGroup.panel.allFoldersRadio;
+		
+		// Change the label of the current folder radio button to show the name of the current folder
+		currentFolderRadio.boxLabel = _('Current folder') + ' ('+model.getDefaultFolder().getDisplayName()+')';
+		if(currentFolderRadio.rendered){
+			currentFolderRadio.wrap.child('.x-form-cb-label').update(currentFolderRadio.boxLabel);
+		}
 
-		if( defaultStore.isSharedStore() || defaultStore.isPublicStore()) {
+		if( Ext.isDefined(defaultStore) && ( defaultStore.isSharedStore() || defaultStore.isPublicStore()) ) {
 			allFoldersRadio.disable();
 
 			// Need to prevent firing 'check' event of 'current folder' radio button to

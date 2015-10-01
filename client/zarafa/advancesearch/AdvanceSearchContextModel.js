@@ -60,7 +60,8 @@ Zarafa.advancesearch.AdvanceSearchContextModel = Ext.extend(Zarafa.core.ContextM
 	 */
 	createResponseRecord : function(record, actionType, responseRecord)
 	{
-		return this.getParentModel().createResponseRecord(record, actionType, responseRecord);
+		var mailContextModel = container.getContextByName('mail').getModel();
+		return mailContextModel.createResponseRecord(record, actionType, responseRecord);
 	},
 
 	/**
@@ -76,6 +77,12 @@ Zarafa.advancesearch.AdvanceSearchContextModel = Ext.extend(Zarafa.core.ContextM
 			folder = folders[0];
 		} else{
 			folder = folders;
+		}
+		
+		// Check if we can use this folder
+		if ( !( folder instanceof Zarafa.core.data.IPFRecord && Ext.isDefined(folder.getMAPIStore()) ) ){
+			// Don't change the default folder
+			return;
 		}
 
 		if(Ext.isDefined(folder) && !folder.isIPMSubTree()) {
