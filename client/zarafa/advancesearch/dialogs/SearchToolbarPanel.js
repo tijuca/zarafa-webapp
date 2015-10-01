@@ -126,7 +126,8 @@ Zarafa.advancesearch.dialogs.SearchToolbarPanel = Ext.extend(Ext.Panel, {
 	 */
 	onResponse : function(button)
 	{
-		Zarafa.mail.Actions.openCreateMailResponseContent(this.record, this.model.getParentModel(), button.responseMode);
+		var mailContextModel = container.getContextByName('mail').getModel();
+		Zarafa.mail.Actions.openCreateMailResponseContent(this.record, mailContextModel, button.responseMode);
 	}
 });
 

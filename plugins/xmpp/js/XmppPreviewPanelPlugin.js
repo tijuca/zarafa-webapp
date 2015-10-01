@@ -152,12 +152,12 @@ Zarafa.plugins.xmpp.XmppPreviewPanelPlugin = Ext.extend(Zarafa.core.Plugin, {
 //		this.rosterManager.addListener('presencechanged', this.onPresenceChanged, this);
 
 		// Insertion point
-		this.registerInsertionPoint('previewpanel.toolbar.right', function(insertionPointName, panel, model) {
+		this.registerInsertionPoint('previewpanel.toolbar.right', function(insertionPointName, obj) {
 			
 			return {
 				xtype : 'zarafa.xmpp.previewpanelbutton',
-				panel : panel,
-				model : model
+				panel : obj.scope,
+				model : obj.model
 			};
 			
 		}, this);

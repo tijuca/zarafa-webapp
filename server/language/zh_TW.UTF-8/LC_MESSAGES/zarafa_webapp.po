@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-16 00:47+0100\n"
+"POT-Creation-Date: 2015-09-10 00:48+0200\n"
 "PO-Revision-Date: 2013-02-18 13:13+0200\n"
 "Last-Translator: Evan <evan@ulink.com.tw>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,62 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: client/zarafa/Zarafa.js:205
+#: client/zarafa/Zarafa.js:218
 msgid "The server reported an unknown error on your request."
 msgstr "對於你的請求，系統發生一個未知的錯誤"
 
-#: client/zarafa/Zarafa.js:209
+#: client/zarafa/Zarafa.js:222
 msgid "The server reported an unspecified error on your request."
 msgstr "對於你的請求，系統發生一個未指定的錯誤"
 
-#: client/zarafa/Zarafa.js:213 client/zarafa/Zarafa.js:215
-#: client/zarafa/Zarafa.js:251 client/zarafa/Zarafa.js:408
-#: client/zarafa/Zarafa.js:612 client/zarafa/common/rules/ui/RulesGrid.js:276
+#: client/zarafa/Zarafa.js:226 client/zarafa/Zarafa.js:228
+#: client/zarafa/Zarafa.js:264 client/zarafa/Zarafa.js:421
+#: client/zarafa/Zarafa.js:634 client/zarafa/common/rules/ui/RulesGrid.js:276
 #: client/zarafa/common/rules/ui/RulesGrid.js:292
 #: client/zarafa/common/rules/ui/RulesGrid.js:312
 #: client/zarafa/common/rules/ui/RulesGrid.js:317
 #: client/zarafa/common/rules/ui/RulesGrid.js:349
 #: client/zarafa/common/rules/ui/RulesGrid.js:354
-#: client/zarafa/common/ui/SearchBar.js:297
-#: client/zarafa/common/ui/SearchBar.js:302
+#: client/zarafa/common/ui/ContextMainPanelToolbar.js:195
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesPermissionTab.js:294
 #: client/zarafa/calendar/Actions.js:102 client/zarafa/calendar/Actions.js:148
 #: client/zarafa/calendar/Actions.js:294 client/zarafa/calendar/Actions.js:310
-#: plugins/files/js/data/ResponseHandler.js:60
-#: plugins/files/js/data/ResponseHandler.js:67
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:286
-#: plugins/nuxeo/js/settings/SettingsWidget.js:133
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:287
+#: plugins/nuxeo/js/settings/SettingsWidget.js:134
 msgid "Error"
 msgstr "錯誤"
 
 # 90%
-#: client/zarafa/Zarafa.js:238
+#: client/zarafa/Zarafa.js:251
 msgid "The session has expired, reauthentication is required."
 msgstr "作業階段已終止,需要重新認証"
 
-#: client/zarafa/Zarafa.js:243
+#: client/zarafa/Zarafa.js:256
 msgid ""
 "The session in the current browser window has been closed from another "
 "browser window or tab."
 msgstr "在此瀏覽器視窗的session已被其他瀏覽器視窗或頁籤關閉"
 
-#: client/zarafa/Zarafa.js:254 client/zarafa/Zarafa.js:712
-#: client/zarafa/common/Actions.js:556 client/zarafa/common/Actions.js:732
+#: client/zarafa/Zarafa.js:267 client/zarafa/Zarafa.js:807
+#: client/zarafa/common/Actions.js:563 client/zarafa/common/Actions.js:746
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:214
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:272
+#: client/zarafa/common/recipientfield/ui/RecipientBox.js:143
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:161
 #: client/zarafa/common/recurrence/dialogs/RecurrenceContentPanel.js:146
-#: client/zarafa/common/attachment/ui/AttachmentDownloader.js:88
+#: client/zarafa/common/attachment/ui/AttachmentDownloader.js:204
 #: client/zarafa/common/ui/ContextMainPanelToolbar.js:34
-#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:278
+#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:306
 #: client/zarafa/hierarchy/Actions.js:25 client/zarafa/hierarchy/Actions.js:36
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:89
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:97
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:105
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:121
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:131
-#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:196
-#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:219
-#: client/zarafa/hierarchy/ui/ContextMenu.js:286
-#: client/zarafa/hierarchy/ui/ContextMenu.js:313
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:198
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:221
+#: client/zarafa/hierarchy/ui/ContextMenu.js:341
+#: client/zarafa/hierarchy/ui/ContextMenu.js:368
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:509
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:627
 #: client/zarafa/core/ui/MessageContentPanel.js:335
@@ -82,253 +81,262 @@ msgstr "在此瀏覽器視窗的session已被其他瀏覽器視窗或頁籤關�
 #: client/zarafa/core/ui/MessageContentPanel.js:425
 #: client/zarafa/core/ui/RecordContentPanel.js:412
 #: client/zarafa/core/ui/RecordContentPanel.js:661
-#: client/zarafa/settings/SettingsContext.js:56
-#: client/zarafa/settings/SettingsContext.js:152
-#: client/zarafa/settings/SettingsContext.js:318
+#: client/zarafa/settings/SettingsContext.js:65
+#: client/zarafa/settings/SettingsContext.js:159
+#: client/zarafa/settings/SettingsContext.js:328
 #: client/zarafa/settings/ui/SettingsCopyrightWidget.js:27
 #: client/zarafa/settings/ui/SettingsTreePanel.js:234
 #: client/zarafa/addressbook/ui/ABMultiUserSelectionPanel.js:206
 #: client/zarafa/addressbook/ui/ABUserSelectionPanel.js:140
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:794
 #: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:254
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:310
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:420
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:316
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:426
 #: client/zarafa/calendar/ui/CalendarPanel.js:578
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:409
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:451
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:372
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:392
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:443
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:479
+#: plugins/pdfbox/pdfbox/pdfbox.js:178
 #: plugins/zpush/js/settings/ZpushSettingsWidget.js:181
-#: plugins/titlecounter/js/TitleCounter.js:31
+#: plugins/titlecounter/js/TitleCounter.js:33
+#: plugins/titlecounter/js/TitleCounter.js:35
 msgid "Zarafa WebApp"
 msgstr "Zarafa WebApp"
 
-#: client/zarafa/Zarafa.js:255
+#: client/zarafa/Zarafa.js:268
 msgid "Do you wish to be redirected to the logon page?"
 msgstr "您要重新連到登入畫面嗎？"
 
-#: client/zarafa/Zarafa.js:280
+#: client/zarafa/Zarafa.js:293
 msgid "Session expired"
 msgstr "連線愈時"
 
-#: client/zarafa/Zarafa.js:280
+#: client/zarafa/Zarafa.js:293
 msgid "Reauthentication required, click here to go to back to logon page."
 msgstr "需要重新認証，請點選這裡回到登入畫面"
 
-#: client/zarafa/Zarafa.js:312
+#: client/zarafa/Zarafa.js:325
 msgid "Connection problem"
 msgstr "連線問題"
 
 # 75%
-#: client/zarafa/Zarafa.js:313
+#: client/zarafa/Zarafa.js:326
 msgid "Could not connect to server, retrying in {0} second(s)"
 msgstr "無法連線到伺服器，{0}秒後重試連線"
 
-#: client/zarafa/Zarafa.js:313
+#: client/zarafa/Zarafa.js:326
 msgid "Click to retry now"
 msgstr "現在點擊重試"
 
-#: client/zarafa/Zarafa.js:383
+#: client/zarafa/Zarafa.js:396
 msgid "Connection restored"
 msgstr "連線回復"
 
-#: client/zarafa/Zarafa.js:383
+#: client/zarafa/Zarafa.js:396
 msgid "Connection with server has been restored"
 msgstr "已連線到伺服器"
 
 #. TRANSLATORS: Example: HTTP 404
-#: client/zarafa/Zarafa.js:405
+#: client/zarafa/Zarafa.js:418
 msgid "HTTP {0}"
 msgstr "HTTP {0}"
 
-#: client/zarafa/Zarafa.js:409
+#: client/zarafa/Zarafa.js:422
 msgid "Invalid data received from the server"
 msgstr "伺服器接收到無效的數據"
 
-#: client/zarafa/Zarafa.js:480
+#: client/zarafa/Zarafa.js:493
 msgid "Missing store"
 msgstr "遺失的儲存庫"
 
-#: client/zarafa/Zarafa.js:481
+#: client/zarafa/Zarafa.js:494
 msgid "The default store is missing from the hierarchy."
 msgstr ""
 
-#: client/zarafa/Zarafa.js:483 client/zarafa/Zarafa.js:556
+#: client/zarafa/Zarafa.js:496 client/zarafa/Zarafa.js:569
 msgid ""
 "Not all functionality of WebApp might be working properly because of this."
 msgstr ""
 
 # 100%
-#: client/zarafa/Zarafa.js:499
+#: client/zarafa/Zarafa.js:512
 msgctxt "hierarchy.foldername"
 msgid "Inbox"
 msgstr "收件夾"
 
-#: client/zarafa/Zarafa.js:502
+#: client/zarafa/Zarafa.js:515
 msgctxt "hierarchy.foldername"
 msgid "Outbox"
 msgstr "寄件匣"
 
-#: client/zarafa/Zarafa.js:505
+#: client/zarafa/Zarafa.js:518
 msgctxt "hierarchy.foldername"
 msgid "Sent Items"
 msgstr "寄件備份"
 
 # 92%
-#: client/zarafa/Zarafa.js:508
+#: client/zarafa/Zarafa.js:521
 msgctxt "hierarchy.foldername"
 msgid "Deleted items"
 msgstr "刪除郵件"
 
 # 100%
-#: client/zarafa/Zarafa.js:511
+#: client/zarafa/Zarafa.js:524
 msgctxt "hierarchy.foldername"
 msgid "Calendar"
 msgstr "行事曆"
 
 # 100%
-#: client/zarafa/Zarafa.js:514
+#: client/zarafa/Zarafa.js:527
 msgctxt "hierarchy.foldername"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: client/zarafa/Zarafa.js:517
+#: client/zarafa/Zarafa.js:530
 msgctxt "hierarchy.foldername"
 msgid "Drafts"
 msgstr "草稿"
 
 # 100%
-#: client/zarafa/Zarafa.js:520
+#: client/zarafa/Zarafa.js:533
 msgctxt "hierarchy.foldername"
 msgid "Journal"
 msgstr "日誌"
 
 # 100%
-#: client/zarafa/Zarafa.js:523
+#: client/zarafa/Zarafa.js:536
 msgctxt "hierarchy.foldername"
 msgid "Notes"
 msgstr "筆記"
 
 # 100%
-#: client/zarafa/Zarafa.js:526
+#: client/zarafa/Zarafa.js:539
 msgctxt "hierarchy.foldername"
 msgid "Tasks"
 msgstr "任務"
 
-#: client/zarafa/Zarafa.js:529
+#: client/zarafa/Zarafa.js:542
 msgctxt "hierarchy.foldername"
 msgid "Junk E-mail"
 msgstr "垃圾郵件"
 
-#: client/zarafa/Zarafa.js:552
+#: client/zarafa/Zarafa.js:565
 msgid "Missing folders"
 msgstr "遺失的資料夾"
 
-#: client/zarafa/Zarafa.js:554
+#: client/zarafa/Zarafa.js:567
 msgid "The following required folder is missing in the hierarchy: {0}"
 msgid_plural "The following required folders are missing in the hierarchy: {0}"
 msgstr[0] ""
 
-#: client/zarafa/Zarafa.js:612
+#: client/zarafa/Zarafa.js:634
 msgid "Loading model from server failed"
 msgstr "伺服器載入模組失敗"
 
-#: client/zarafa/Zarafa.js:713
+#: client/zarafa/Zarafa.js:808
 msgid "Out of Office currently on. Would you like to turn it off?"
 msgstr "不在辦公室已啟動，您要關閉嗎？"
 
-#: client/zarafa/Zarafa.js:730
+#: client/zarafa/Zarafa.js:825
 msgid "Out of office off"
 msgstr "關閉不在辦公室"
 
-#: client/zarafa/Zarafa.js:730
+#: client/zarafa/Zarafa.js:825
 msgid "Out of office has been turned off"
 msgstr "不在辦公室已關閉"
 
-#: client/zarafa/task/TaskContext.js:231
+#: client/zarafa/task/TaskContext.js:239
 msgid "My Tasks"
 msgstr "我的任務"
 
-#: client/zarafa/task/TaskContext.js:242
+#: client/zarafa/task/TaskContext.js:251
 msgid "Open Shared Tasks"
 msgstr "開啟共用任務"
 
-#: client/zarafa/task/TaskContext.js:274 client/zarafa/task/TaskContext.js:275
+#: client/zarafa/task/TaskContext.js:285 client/zarafa/task/TaskContext.js:286
 msgid "Simple Tasks"
 msgstr "簡單任務"
 
-#: client/zarafa/task/TaskContext.js:283 client/zarafa/task/TaskContext.js:284
+#: client/zarafa/task/TaskContext.js:295 client/zarafa/task/TaskContext.js:296
 msgid "Active Tasks"
 msgstr "活動的任務"
 
-#: client/zarafa/task/TaskContext.js:292 client/zarafa/task/TaskContext.js:293
+#: client/zarafa/task/TaskContext.js:305 client/zarafa/task/TaskContext.js:306
 msgid "Next Seven Days"
 msgstr "下週"
 
 # 92%
-#: client/zarafa/task/TaskContext.js:301
+#: client/zarafa/task/TaskContext.js:315
 msgid "Overdue Tasks"
 msgstr "過期任務"
 
-#: client/zarafa/task/TaskContext.js:302
+#: client/zarafa/task/TaskContext.js:316
 msgid "OverDue Tasks"
 msgstr "過期任務"
 
-#: client/zarafa/task/TaskContext.js:310 client/zarafa/task/TaskContext.js:311
+#: client/zarafa/task/TaskContext.js:325 client/zarafa/task/TaskContext.js:326
 msgid "Completed Tasks"
 msgstr "完成的任務"
 
-#: client/zarafa/task/TaskContext.js:351 client/zarafa/task/TaskContext.js:353
+#: client/zarafa/task/TaskContext.js:367 client/zarafa/task/TaskContext.js:369
 #: client/zarafa/task/dialogs/TaskGeneralTab.js:25
 #: client/zarafa/task/dialogs/TaskEditContentPanel.js:23
 #: client/zarafa/common/data/FolderContentTypes.js:82
 #: client/zarafa/common/data/FolderContentTypes.js:105
-#: client/download_message.php:163
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:45
+#: client/download_message.php:310
 msgid "Task"
 msgstr "任務"
 
-#: client/zarafa/task/TaskContext.js:374 client/zarafa/task/TaskContext.js:376
-#: client/zarafa/task/TaskContext.js:378
+#: client/zarafa/task/TaskContext.js:391 client/zarafa/task/TaskContext.js:393
+#: client/zarafa/task/TaskContext.js:395
 msgid "Print selected task"
 msgstr "列印此任務"
 
-#: client/zarafa/task/TaskContext.js:384 client/zarafa/task/TaskContext.js:386
-#: client/zarafa/task/TaskContext.js:388
+#: client/zarafa/task/TaskContext.js:401 client/zarafa/task/TaskContext.js:404
+#: client/zarafa/task/TaskContext.js:406
 msgid "Print task list"
 msgstr "列印任務清單"
 
-#: client/zarafa/task/TaskContext.js:405
+#: client/zarafa/task/TaskContext.js:423
 #: client/zarafa/task/dialogs/TaskToolbar.js:109
 #: client/zarafa/task/dialogs/TaskToolbar.js:111
 #: client/zarafa/task/ui/TaskContextMenu.js:64
-#: client/zarafa/common/Actions.js:258 client/zarafa/common/Actions.js:281
-#: client/zarafa/common/Actions.js:283
+#: client/zarafa/common/Actions.js:265 client/zarafa/common/Actions.js:288
+#: client/zarafa/common/Actions.js:290 client/zarafa/note/NoteContext.js:320
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:87
 #: client/zarafa/note/dialogs/NoteEditToolbar.js:89
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:91
-#: client/zarafa/note/ui/NoteContextMenu.js:68
-#: client/zarafa/mail/MailContext.js:548
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:121
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:123
-#: client/zarafa/mail/ui/MailGridContextMenu.js:88
+#: client/zarafa/note/ui/NoteContextMenu.js:66
+#: client/zarafa/mail/MailContext.js:615
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:131
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:133
+#: client/zarafa/mail/ui/MailGridContextMenu.js:101
 #: client/zarafa/core/ui/MainToolbar.js:318
-#: client/zarafa/contact/ContactContext.js:520
+#: client/zarafa/contact/ContactContext.js:549
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:75
 #: client/zarafa/contact/dialogs/ContactToolbar.js:85
 #: client/zarafa/contact/dialogs/ContactToolbar.js:87
 #: client/zarafa/contact/ui/ContactContextMenu.js:60
-#: client/zarafa/calendar/CalendarContext.js:672
+#: client/zarafa/calendar/CalendarContext.js:696
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:130
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:132
 msgid "Print"
 msgstr "列印"
 
-#: client/zarafa/task/TaskContext.js:405
+#: client/zarafa/task/TaskContext.js:423
 msgid "No task selected"
 msgstr "沒有選擇的任務"
 
-#: client/zarafa/task/TaskContext.js:439
-#: client/zarafa/task/ui/TaskMainPanel.js:71
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:64
+#: client/zarafa/task/TaskContext.js:463
+msgid "Create task"
+msgstr ""
+
+#: client/zarafa/task/TaskContext.js:490
+#: client/zarafa/task/ui/TaskMainPanel.js:67
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:208
 #: plugins/folderwidgets/js/TasksWidget.js:130
 #: server/core/class.operations.php:720
 msgid "Tasks"
@@ -349,17 +357,20 @@ msgid "Creating an item"
 msgstr ""
 
 #: client/zarafa/task/dialogs/TaskDetailTab.js:25
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:75
 #: client/zarafa/contact/dialogs/ContactDetailTab.js:24
 msgid "Details"
 msgstr "詳細"
 
 #: client/zarafa/task/dialogs/TaskDetailTab.js:59
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:80
 msgid "Date Complete"
 msgstr "完成日期"
 
 #: client/zarafa/task/dialogs/TaskDetailTab.js:93
 #: client/zarafa/task/ui/TaskGridColumnModel.js:214
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:23
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:83
 #: mapi/class.taskrequest.php:902
 msgid "Total Work"
 msgstr "全部工作"
@@ -367,6 +378,7 @@ msgstr "全部工作"
 #: client/zarafa/task/dialogs/TaskDetailTab.js:101
 #: client/zarafa/task/ui/TaskGridColumnModel.js:221
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:24
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:86
 #: mapi/class.taskrequest.php:903
 msgid "Actual Work"
 msgstr "實際工作"
@@ -374,6 +386,7 @@ msgstr "實際工作"
 #: client/zarafa/task/dialogs/TaskDetailTab.js:116
 #: client/zarafa/task/ui/TaskGridColumnModel.js:242
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:28
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:89
 #: mapi/class.taskrequest.php:912
 msgid "Mileage"
 msgstr "里程數"
@@ -381,6 +394,7 @@ msgstr "里程數"
 #: client/zarafa/task/dialogs/TaskDetailTab.js:124
 #: client/zarafa/task/ui/TaskGridColumnModel.js:249
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:27
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:92
 #: mapi/class.taskrequest.php:911
 msgid "Billing Information"
 msgstr "帳目資訊"
@@ -388,6 +402,7 @@ msgstr "帳目資訊"
 #: client/zarafa/task/dialogs/TaskDetailTab.js:147
 #: client/zarafa/task/data/SearchFields.js:24
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:26
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:95
 msgid "Companies"
 msgstr "公司"
 
@@ -400,7 +415,7 @@ msgid "Create Unassigned Copy"
 msgstr "建立未指定的副本"
 
 #: client/zarafa/task/dialogs/TaskGeneralTab.js:67
-#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:168
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:203
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:42
 #: client/zarafa/mail/Actions.js:252
 #: client/zarafa/mail/dialogs/MailCreatePanel.js:146
@@ -408,8 +423,9 @@ msgstr "建立未指定的副本"
 #: client/zarafa/mail/data/Templates.js:37
 #: client/zarafa/mail/data/Templates.js:71
 #: client/zarafa/mail/ui/MailGridColumnModel.js:96
-#: client/zarafa/mail/ui/MailGridColumnModel.js:175
+#: client/zarafa/mail/ui/MailGridColumnModel.js:181
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:70
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:298
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:210
 #: plugins/quickitems/js/QuickMailWidget.js:53
 msgid "To"
@@ -424,9 +440,11 @@ msgstr "收件人"
 #: client/zarafa/common/reminder/dialogs/ReminderGrid.js:47
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:435
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:41
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:50
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:50
 #: client/zarafa/note/ui/NoteGridColumnModel.js:46
 #: client/zarafa/note/attachitem/AttachNoteColumnModel.js:51
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:218
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:221
 #: client/zarafa/mail/printer/MailRenderer.js:28
 #: client/zarafa/mail/settings/SettingsOofWidget.js:52
 #: client/zarafa/mail/data/Templates.js:42
@@ -445,7 +463,7 @@ msgstr "收件人"
 #: plugins/quickitems/js/QuickMailWidget.js:68
 #: plugins/quickitems/js/QuickTaskWidget.js:47
 #: plugins/quickitems/js/QuickAppointmentWidget.js:47
-#: mapi/class.taskrequest.php:880 server/core/class.operations.php:3471
+#: mapi/class.taskrequest.php:880 server/core/class.operations.php:3595
 msgid "Subject"
 msgstr "主旨"
 
@@ -466,11 +484,11 @@ msgstr "結束日期"
 #: client/zarafa/task/printer/TaskRenderer.js:31
 #: client/zarafa/task/ui/TaskGridColumnModel.js:207
 #: client/zarafa/task/attachitem/AttachTaskColumnModel.js:69
-#: client/zarafa/settings/data/SettingsDefaultValues.js:120
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:59
+#: client/zarafa/settings/data/SettingsDefaultValues.js:128
 #: plugins/xmpp/js/XmppWidget.js:33
 #: plugins/zpush/js/settings/ZpushSettingsWidget.js:95
 #: plugins/facebook/js/FbEventSelectionGrid.js:26
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:46
 #: mapi/class.taskrequest.php:886
 msgid "Status"
 msgstr "狀態"
@@ -478,10 +496,12 @@ msgstr "狀態"
 #: client/zarafa/task/dialogs/TaskGeneralTab.js:183
 #: client/zarafa/task/printer/TaskRenderer.js:29
 #: client/zarafa/task/printer/TaskListViewRenderer.js:31
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:63
 msgid "Priority"
 msgstr "優先性"
 
 #: client/zarafa/task/dialogs/TaskGeneralTab.js:204
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:67
 msgid "% Complete"
 msgstr "% 完成"
 
@@ -498,6 +518,7 @@ msgstr "提醒"
 #: client/zarafa/task/ui/TaskGridColumnModel.js:141
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:25
 #: client/zarafa/common/delegates/data/DelegatePermissionProfiles.js:12
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:70
 #: client/zarafa/hierarchy/data/PermissionProfiles.js:15
 #: client/zarafa/addressbook/dialogs/ABGroupGeneralTab.js:66
 #: plugins/folderwidgets/js/TasksWidget.js:53 mapi/class.taskrequest.php:906
@@ -515,7 +536,7 @@ msgstr "當任務完成時，傳送一份狀態報告給我"
 #: client/zarafa/task/dialogs/TaskGeneralTab.js:325
 #: client/zarafa/task/printer/TaskRenderer.js:43
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:49
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:240
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:245
 #: client/zarafa/mail/printer/MailRenderer.js:35
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:399
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:412
@@ -524,6 +545,7 @@ msgstr "當任務完成時，傳送一份狀態報告給我"
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:499
 #: client/zarafa/calendar/printer/MeetingRenderer.js:50
 #: plugins/spreed/js/dialogs/SpreedSetupPanel.js:238
+#: client/download_attachment.php:88
 msgid "Attachments"
 msgstr "附件"
 
@@ -563,16 +585,16 @@ msgstr "儲存此聯絡人並關閉對話框"
 #: client/zarafa/task/ui/TaskContextMenu.js:91
 #: client/zarafa/common/rules/dialogs/RulesWordsEditPanel.js:50
 #: client/zarafa/common/rules/ui/RulesGrid.js:74
-#: client/zarafa/common/ui/ContextMainPanelToolbar.js:80
-#: client/zarafa/common/ui/ContextMainPanelToolbar.js:81
+#: client/zarafa/common/ui/ContextMainPanelToolbar.js:90
+#: client/zarafa/common/ui/ContextMainPanelToolbar.js:91
+#: client/zarafa/common/ui/PreviewPanelToolbarButtons.js:51
+#: client/zarafa/common/ui/PreviewPanelToolbarButtons.js:52
 #: client/zarafa/note/dialogs/NoteEditToolbar.js:68
-#: client/zarafa/note/ui/NoteContextMenu.js:84
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:99
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:101
+#: client/zarafa/note/ui/NoteContextMenu.js:82
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:102
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:104
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:101
-#: client/zarafa/mail/ui/MailPreviewPanelToolbarButtons.js:44
-#: client/zarafa/mail/ui/MailPreviewPanelToolbarButtons.js:45
-#: client/zarafa/mail/ui/MailGridContextMenu.js:186
+#: client/zarafa/mail/ui/MailGridContextMenu.js:210
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:67
 #: client/zarafa/contact/dialogs/ContactToolbar.js:65
 #: client/zarafa/contact/ui/ContactContextMenu.js:76
@@ -598,8 +620,8 @@ msgid "Add Attachment"
 msgstr "新增附件"
 
 #: client/zarafa/task/dialogs/TaskToolbar.js:92
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:110
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:112
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:113
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:115
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:104
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:106
 msgid "Add attachment"
@@ -627,15 +649,15 @@ msgstr "列印此郵件"
 
 #: client/zarafa/task/dialogs/TaskToolbar.js:121
 #: client/zarafa/task/dialogs/TaskToolbar.js:123
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:120
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:122
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:123
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:125
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:142
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:144
 msgid "Check names"
 msgstr "檢查名稱"
 
 #: client/zarafa/task/dialogs/TaskToolbar.js:124
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:123
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:126
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:145
 msgid "Check all recipient names"
 msgstr "檢查所有收件者名稱"
@@ -683,12 +705,13 @@ msgstr "取消此任務指派者"
 #: client/zarafa/common/categories/dialogs/CategoriesContentPanel.js:34
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:46
 #: client/zarafa/note/dialogs/NoteEditToolbar.js:79
+#: client/zarafa/note/printer/NoteRenderer.js:24
 #: client/zarafa/note/data/SearchFields.js:12
-#: client/zarafa/note/ui/NoteContextMenu.js:76
+#: client/zarafa/note/ui/NoteContextMenu.js:74
 #: client/zarafa/note/ui/NoteGridColumnModel.js:58
 #: client/zarafa/mail/dialogs/MailOptionsMiscPanel.js:35
 #: client/zarafa/mail/ui/MailGridColumnModel.js:108
-#: client/zarafa/mail/ui/MailGridContextMenu.js:165
+#: client/zarafa/mail/ui/MailGridContextMenu.js:188
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:87
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:98
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:100
@@ -700,7 +723,7 @@ msgstr "取消此任務指派者"
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:228
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:230
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:105
-#: client/zarafa/calendar/ui/CalendarContextMenu.js:102
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:140
 msgid "Categories"
 msgstr "類別"
 
@@ -816,6 +839,7 @@ msgstr "l jS F Y"
 #: client/zarafa/common/reminder/dialogs/ReminderPanel.js:46
 #: client/zarafa/common/reminder/dialogs/ReminderPanel.js:54
 #: client/zarafa/common/ui/messagepanel/SentInfoLinks.js:71
+#: client/zarafa/note/printer/NoteRenderer.js:23
 #: client/zarafa/mail/printer/MailRenderer.js:24
 #: client/zarafa/mail/data/Templates.js:34
 #: client/zarafa/mail/data/Templates.js:67
@@ -827,10 +851,10 @@ msgstr "l jS F Y"
 #: client/zarafa/contact/attachitem/AttachContactRenderer.js:201
 #: client/zarafa/calendar/MeetingRequestRecord.js:161
 #: client/zarafa/calendar/MeetingRequestRecord.js:163
-#: client/zarafa/calendar/AppointmentRecord.js:322
-#: client/zarafa/calendar/AppointmentRecord.js:324
-#: client/zarafa/calendar/AppointmentRecord.js:404
-#: client/zarafa/calendar/AppointmentRecord.js:406
+#: client/zarafa/calendar/AppointmentRecord.js:325
+#: client/zarafa/calendar/AppointmentRecord.js:327
+#: client/zarafa/calendar/AppointmentRecord.js:407
+#: client/zarafa/calendar/AppointmentRecord.js:409
 #: client/zarafa/calendar/printer/WorkWeekViewRenderer.js:118
 #: client/zarafa/calendar/printer/WeekViewRenderer.js:122
 #: client/zarafa/calendar/printer/MeetingRenderer.js:27
@@ -871,6 +895,8 @@ msgstr "結束日期"
 #: client/zarafa/task/data/SearchFields.js:30
 #: client/zarafa/task/ui/TaskGridColumnModel.js:123
 #: client/zarafa/task/attachitem/AttachTaskRenderer.js:19
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:53
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:59
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:25
 #: mapi/class.taskrequest.php:881
 msgid "Start Date"
@@ -949,7 +975,7 @@ msgstr "依開始日期排序"
 #: client/zarafa/common/ui/DatePeriodField.js:57
 #: client/zarafa/common/ui/grid/Renderers.js:295
 #: client/zarafa/common/ui/grid/Renderers.js:311
-#: client/zarafa/common/ui/grid/Renderers.js:327
+#: client/zarafa/common/ui/grid/Renderers.js:335
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesPermissionTab.js:196
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesPermissionTab.js:226
 #: client/zarafa/mail/data/MailFlags.js:49
@@ -994,6 +1020,7 @@ msgid "Sensitivity"
 msgstr "敏感度"
 
 #: client/zarafa/task/ui/TaskGridColumnModel.js:187
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:53
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:106
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:478
 #: client/zarafa/contact/printer/ContactRenderer.js:27
@@ -1008,14 +1035,15 @@ msgid "Sort by: Company"
 msgstr "依公司排序"
 
 #: client/zarafa/task/ui/TaskGridColumnModel.js:193
-#: client/zarafa/mail/ui/MailGridColumnModel.js:127
-#: client/zarafa/mail/ui/MailGridColumnModel.js:193
+#: client/zarafa/note/printer/NoteRenderer.js:23
+#: client/zarafa/mail/ui/MailGridColumnModel.js:131
+#: client/zarafa/mail/ui/MailGridColumnModel.js:203
 msgid "Modified"
 msgstr ""
 
 #: client/zarafa/task/ui/TaskGridColumnModel.js:198
-#: client/zarafa/mail/ui/MailGridColumnModel.js:132
-#: client/zarafa/mail/ui/MailGridColumnModel.js:198
+#: client/zarafa/mail/ui/MailGridColumnModel.js:138
+#: client/zarafa/mail/ui/MailGridColumnModel.js:210
 msgid "Sort by: Modified"
 msgstr ""
 
@@ -1030,7 +1058,6 @@ msgstr "依完成日期排序"
 
 #: client/zarafa/task/ui/TaskGridColumnModel.js:212
 #: client/zarafa/task/attachitem/AttachTaskColumnModel.js:73
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:51
 msgid "Sort by: Status"
 msgstr "依狀態排序"
 
@@ -1075,21 +1102,21 @@ msgstr "依帳目資訊排序"
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:453
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:113
 #: client/zarafa/hierarchy/dialogs/FolderSizePanel.js:103
-#: client/zarafa/mail/ui/MailGridColumnModel.js:134
+#: client/zarafa/mail/ui/MailGridColumnModel.js:140
 msgid "Size"
 msgstr "大小"
 
 #: client/zarafa/task/ui/TaskGridColumnModel.js:261
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:454
-#: client/zarafa/mail/ui/MailGridColumnModel.js:138
+#: client/zarafa/mail/ui/MailGridColumnModel.js:144
 msgid "Sort by: Size"
 msgstr "依大小排序"
 
 #: client/zarafa/task/ui/TaskContextMenu.js:53
 #: client/zarafa/common/reminder/dialogs/ReminderGridContextMenu.js:51
 #: client/zarafa/note/ui/NoteContextMenu.js:60
-#: client/zarafa/hierarchy/ui/ContextMenu.js:57
-#: client/zarafa/mail/ui/MailGridContextMenu.js:73
+#: client/zarafa/hierarchy/ui/ContextMenu.js:58
+#: client/zarafa/mail/ui/MailGridContextMenu.js:78
 #: client/zarafa/contact/ui/ContactContextMenu.js:54
 #: client/zarafa/calendar/ui/CalendarContextMenu.js:78
 msgid "Open"
@@ -1126,9 +1153,9 @@ msgid "New item"
 msgstr "新增項目"
 
 #: client/zarafa/common/KeyMapping.js:81
-#: client/zarafa/core/ui/MainToolbar.js:386
-#: client/zarafa/core/ui/MainToolbar.js:387
-#: client/zarafa/core/ui/MainToolbar.js:388
+#: client/zarafa/core/ui/MainToolbar.js:389
+#: client/zarafa/core/ui/MainToolbar.js:390
+#: client/zarafa/core/ui/MainToolbar.js:391
 #: client/extjs-mod/Translations.js:170
 msgid "Refresh"
 msgstr "重新整理"
@@ -1217,130 +1244,130 @@ msgstr ""
 msgid "Delete selected item"
 msgstr "{0} 選擇項目"
 
-#: client/zarafa/common/Actions.js:258
+#: client/zarafa/common/Actions.js:265
 msgid "Printing of multiple items has not been implemented."
 msgstr "尚未執行的項目"
 
-#: client/zarafa/common/Actions.js:281
+#: client/zarafa/common/Actions.js:288
 msgid "Printing of this item is not yet available"
 msgstr "尚未完成的項目"
 
-#: client/zarafa/common/Actions.js:281
+#: client/zarafa/common/Actions.js:288
 msgid "Item type: "
 msgstr "項目種類"
 
-#: client/zarafa/common/Actions.js:283
+#: client/zarafa/common/Actions.js:290
 msgid "Printing of this view is not yet available"
 msgstr "尚未完成的畫面"
 
-#: client/zarafa/common/Actions.js:395 client/zarafa/common/Actions.js:437
+#: client/zarafa/common/Actions.js:402 client/zarafa/common/Actions.js:444
 msgid "Recurring Message"
 msgstr "訊息通知"
 
-#: client/zarafa/common/Actions.js:396
+#: client/zarafa/common/Actions.js:403
 msgid ""
 "This is a recurring message. Do you want to open only this occurrence or the "
 "series?"
 msgstr "訊息通知，您要開啟此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:400 client/zarafa/common/Actions.js:442
+#: client/zarafa/common/Actions.js:407 client/zarafa/common/Actions.js:449
 msgid "Recurring Appointment"
 msgstr "約會通知"
 
-#: client/zarafa/common/Actions.js:401
+#: client/zarafa/common/Actions.js:408
 msgid ""
 "This is a recurring appointment. Do you want to open only this occurrence or "
 "the series?"
 msgstr "約會通知，您要開啟此通知或序列嗎?"
 
 # 80%
-#: client/zarafa/common/Actions.js:403 client/zarafa/common/Actions.js:445
+#: client/zarafa/common/Actions.js:410 client/zarafa/common/Actions.js:452
 msgid "Recurring Meeting Request"
 msgstr "重覆的會議邀請"
 
-#: client/zarafa/common/Actions.js:404
+#: client/zarafa/common/Actions.js:411
 msgid ""
 "This is a recurring meeting request. Do you want to open only this "
 "occurrence or the series?"
 msgstr "會議通知請求，您要開啟此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:407 client/zarafa/common/Actions.js:449
+#: client/zarafa/common/Actions.js:414 client/zarafa/common/Actions.js:456
 msgid "Recurring Task Request"
 msgstr "任務通知請求"
 
-#: client/zarafa/common/Actions.js:408
+#: client/zarafa/common/Actions.js:415
 msgid ""
 "This is a recurring task request. Do you want to open only this occurrence "
 "or the series?"
 msgstr "任務通知請求，您要開啟此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:413
+#: client/zarafa/common/Actions.js:420
 msgid "Open this occurrence"
 msgstr "開啟通知"
 
-#: client/zarafa/common/Actions.js:418
+#: client/zarafa/common/Actions.js:425
 msgid "Open the series"
 msgstr "打開序列"
 
-#: client/zarafa/common/Actions.js:438
+#: client/zarafa/common/Actions.js:445
 msgid ""
 "This is a recurring message. Do you want to delete only this occurrence or "
 "the series?"
 msgstr "訊息通知，您要刪除此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:443
+#: client/zarafa/common/Actions.js:450
 msgid ""
 "This is a recurring appointment. Do you want to delete only this occurrence "
 "or the series?"
 msgstr "約會通知，您要刪除此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:446
+#: client/zarafa/common/Actions.js:453
 msgid ""
 "This is a recurring meeting request. Do you want to delete only this "
 "occurrence or the series?"
 msgstr "會議通知，您要刪除此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:450
+#: client/zarafa/common/Actions.js:457
 msgid ""
 "This is a recurring task request. Do you want to delete only this occurrence "
 "or the series?"
 msgstr "任務通知，您要刪除此通知或序列嗎?"
 
-#: client/zarafa/common/Actions.js:455
+#: client/zarafa/common/Actions.js:462
 msgid "Delete this occurrence"
 msgstr "刪除此通知"
 
-#: client/zarafa/common/Actions.js:460
+#: client/zarafa/common/Actions.js:467
 msgid "Delete the series"
 msgstr "刪除此序列"
 
-#: client/zarafa/common/Actions.js:479
+#: client/zarafa/common/Actions.js:486
 msgid "Confirm Delete"
 msgstr "確定刪除"
 
-#: client/zarafa/common/Actions.js:480
+#: client/zarafa/common/Actions.js:487
 msgid "This \"{0}\" meeting was already accepted."
 msgstr "已接受 \"{0}\" 會議"
 
-#: client/zarafa/common/Actions.js:481
+#: client/zarafa/common/Actions.js:488
 msgid "You have not responded to the meeting request \"{0}\"."
 msgstr "您尚未回復會議的請求 \"{0}\" "
 
-#: client/zarafa/common/Actions.js:491
+#: client/zarafa/common/Actions.js:498
 msgid "Delete and send a response to the meeting organizer"
 msgstr "刪除並回復給會議組織人員"
 
-#: client/zarafa/common/Actions.js:496
+#: client/zarafa/common/Actions.js:503
 msgid "Delete without sending"
 msgstr "刪除不發送"
 
-#: client/zarafa/common/Actions.js:557
+#: client/zarafa/common/Actions.js:564
 msgid ""
 "A cancellation message will be sent to all recipients, do you wish to "
 "continue?"
 msgstr "取消郵件將發送給所有接收者，你是否要繼續?"
 
-#: client/zarafa/common/Actions.js:732
+#: client/zarafa/common/Actions.js:746
 msgid ""
 "The sender of this message has asked to be notified when you read this "
 "message. Do you wish to notify the sender?"
@@ -1382,12 +1409,13 @@ msgstr "確定"
 #: client/zarafa/common/delegates/dialogs/DelegatePermissionContentPanel.js:42
 #: client/zarafa/common/recipientfield/ui/EditRecipientContentPanel.js:60
 #: client/zarafa/common/recipientfield/ui/ViewRecipientContentPanel.js:61
-#: client/zarafa/common/dialogs/CopyMovePanel.js:67
+#: client/zarafa/common/dialogs/CopyMovePanel.js:88
 #: client/zarafa/common/checknames/dialogs/CheckNamesContentPanel.js:42
 #: client/zarafa/common/categories/dialogs/CategoriesContentPanel.js:46
 #: client/zarafa/common/rules/dialogs/RulesWordsEditContentPanel.js:44
 #: client/zarafa/common/rules/dialogs/RulesEditContentPanel.js:41
 #: client/zarafa/common/recurrence/dialogs/RecurrenceContentPanel.js:48
+#: client/zarafa/common/attachment/dialogs/MixAttachItemContentPanel.js:35
 #: client/zarafa/common/attachment/dialogs/AttachItemPanel.js:79
 #: client/zarafa/common/attachment/dialogs/LegacyFileSelectionContentPanel.js:50
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:55
@@ -1401,7 +1429,7 @@ msgstr "確定"
 #: client/zarafa/contact/dialogs/DistlistExternalMemberContentPanel.js:86
 #: client/zarafa/contact/dialogs/ContactAddressContentPanel.js:58
 #: client/zarafa/contact/dialogs/ContactPhoneContentPanel.js:55
-#: client/zarafa/settings/SettingsContext.js:160
+#: client/zarafa/settings/SettingsContext.js:167
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:68
 #: client/zarafa/addressbook/ui/ABMultiUserSelectionPanel.js:87
 #: client/zarafa/addressbook/ui/ABUserSelectionPanel.js:39
@@ -1409,67 +1437,30 @@ msgstr "確定"
 #: client/zarafa/calendar/dialogs/ProposeNewTimeContentPanel.js:44
 #: client/zarafa/calendar/dialogs/SendMeetingRequestConfirmationContentPanel.js:46
 #: plugins/facebookwidget/js/FBWidget.js:89
-#: plugins/files/js/settings/SettingsResetWidget.js:66
-#: plugins/files/js/settings/ui/AccountEditPanel.js:41
 #: plugins/spreed/js/dialogs/EditSpreedParticipantContentPanel.js:134
 #: client/extjs-mod/Translations.js:177 client/extjs-mod/Translations.js:283
 msgid "Cancel"
 msgstr "取消"
 
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:45
+#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:52
 msgid "This delegate has the following permissions"
 msgstr "此代理人具有以下權限"
 
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:51
-#: client/zarafa/common/data/FolderContentTypes.js:74
-#: client/zarafa/common/data/FolderContentTypes.js:99
-#: client/zarafa/calendar/CalendarContext.js:726
-#: client/zarafa/calendar/KeyMapping.js:53
-#: client/zarafa/calendar/settings/SettingsCalendarCategory.js:30
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:352
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:354
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:355
-#: client/zarafa/calendar/ui/CalendarMainPanel.js:69
-#: server/core/class.operations.php:704
-msgid "Calendar"
-msgstr "行事曆"
+#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:60
+msgid "Delegate can see my private items."
+msgstr "代理人可以看到我私人項目"
 
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:54
+#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:81
 msgid "Delegate receives copies of meeting-related messages sent to me."
 msgstr "代理人接收到與會議相關的訊息發送副本給我"
 
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:65
-#: client/zarafa/common/data/FolderContentTypes.js:97
-#: server/core/class.operations.php:712
-msgid "Inbox"
-msgstr "收件夾"
-
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:66
-#: client/zarafa/contact/ContactContext.js:604
-#: client/zarafa/contact/ui/ContactMainPanel.js:70
-#: server/core/class.operations.php:708
-msgid "Contacts"
-msgstr "聯絡人"
-
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:67
-#: client/zarafa/common/data/FolderContentTypes.js:103
-#: client/zarafa/note/NoteContext.js:392
-#: client/zarafa/note/ui/NoteMainPanel.js:69
-#: client/zarafa/contact/dialogs/DistlistNotesTab.js:25
-#: client/zarafa/addressbook/dialogs/ABGroupGeneralTab.js:77
-#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:142
-#: server/core/class.operations.php:716
-msgid "Notes"
-msgstr "筆記"
-
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:68
-#: client/zarafa/common/data/FolderContentTypes.js:78
-msgid "Journal"
-msgstr "日誌"
-
-#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:72
-msgid "Delegate can see my private items."
-msgstr "代理人可以看到我私人項目"
+#: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:125
+#: client/zarafa/hierarchy/data/PermissionProfiles.js:27
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:514
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:586
+#: plugins/quickitems/js/QuickContactWidget.js:181
+msgid "Other"
+msgstr "其他"
 
 #: client/zarafa/common/delegates/data/DelegatePermissionProfiles.js:15
 #: client/zarafa/hierarchy/data/PermissionProfiles.js:18
@@ -1512,8 +1503,6 @@ msgstr "權限"
 #: client/zarafa/common/sendas/ui/SendAsGrid.js:90
 #: client/zarafa/common/sendas/ui/SendAsPanel.js:200
 #: client/zarafa/common/checknames/dialogs/CheckNamesPanel.js:120
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:95
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:97
 msgid "Alert"
 msgstr "警告"
 
@@ -1529,6 +1518,7 @@ msgstr "代理人不存在"
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:384
 #: client/zarafa/common/sendas/ui/SendAsGrid.js:60
 #: client/zarafa/common/checknames/dialogs/CheckNamesPanel.js:62
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:45
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:73
 #: client/zarafa/hierarchy/dialogs/SharedFolderPanel.js:63
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:154
@@ -1540,7 +1530,6 @@ msgstr "代理人不存在"
 #: client/zarafa/addressbook/dialogs/ABUserGeneralTab.js:50
 #: client/zarafa/calendar/dialogs/TrackingTab.js:52
 #: plugins/facebook/js/FbEventSelectionGrid.js:25
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:53
 #: client/extjs-mod/Translations.js:344
 msgid "Name"
 msgstr "名稱"
@@ -1627,7 +1616,7 @@ msgid "Restore From {0}"
 msgstr ""
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:47
-#: client/zarafa/common/ui/grid/GridView.js:31
+#: client/zarafa/common/ui/grid/GridView.js:39
 #: client/zarafa/note/ui/NoteIconView.js:49
 #: client/zarafa/contact/ui/ContactCardView.js:57
 #: client/zarafa/addressbook/ui/AddressBookGrid.js:33
@@ -1657,6 +1646,7 @@ msgstr ""
 # 75%
 # 100%
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:145
+#: client/download_message.php:266
 #, fuzzy
 msgid "Messages"
 msgstr "郵件"
@@ -1664,6 +1654,7 @@ msgstr "郵件"
 # 85%
 # 100%
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:156
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:131
 #, fuzzy
 msgid "Folders"
 msgstr "資料夾"
@@ -1683,7 +1674,6 @@ msgstr[0] ""
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:385
 #: client/zarafa/contact/dialogs/DistlistMemberGridColumnModel.js:51
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:57
 msgid "Sort by: Name"
 msgstr "依名稱排序"
 
@@ -1709,29 +1699,30 @@ msgid "Sort by: Item Count"
 msgstr ""
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:429
-#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:166
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:201
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:45
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:114
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:113
 #: client/zarafa/mail/printer/MailRenderer.js:22
 #: client/zarafa/mail/data/Templates.js:26
 #: client/zarafa/mail/data/Templates.js:58
 #: client/zarafa/mail/ui/MailGridColumnModel.js:90
-#: client/zarafa/mail/ui/MailGridColumnModel.js:169
+#: client/zarafa/mail/ui/MailGridColumnModel.js:175
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:64
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:291
 #: plugins/folderwidgets/js/MailWidget.js:64
 msgid "From"
 msgstr "寄件者"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:430
 #: client/zarafa/mail/ui/MailGridColumnModel.js:94
-#: client/zarafa/mail/ui/MailGridColumnModel.js:173
+#: client/zarafa/mail/ui/MailGridColumnModel.js:179
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:68
 msgid "Sort by: From"
 msgstr "依寄件者排序"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:447
 #: client/zarafa/mail/ui/MailGridColumnModel.js:115
-#: client/zarafa/mail/ui/MailGridColumnModel.js:181
+#: client/zarafa/mail/ui/MailGridColumnModel.js:187
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:81
 #: client/zarafa/core/mapi/MeetingStatus.js:57
 #: plugins/folderwidgets/js/MailWidget.js:69
@@ -1739,8 +1730,8 @@ msgid "Received"
 msgstr "接收"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:448
-#: client/zarafa/mail/ui/MailGridColumnModel.js:119
-#: client/zarafa/mail/ui/MailGridColumnModel.js:185
+#: client/zarafa/mail/ui/MailGridColumnModel.js:121
+#: client/zarafa/mail/ui/MailGridColumnModel.js:193
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:85
 msgid "Sort by: Received"
 msgstr "依收到者排序"
@@ -1772,6 +1763,7 @@ msgstr "編輯收件者"
 
 #: client/zarafa/common/recipientfield/ui/EditRecipientContentPanel.js:44
 #: client/zarafa/common/recipientfield/ui/ViewRecipientContentPanel.js:45
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:91
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:297
 msgid "Display name"
 msgstr "顯示名稱"
@@ -1786,22 +1778,28 @@ msgstr "電子郵件地址"
 msgid "View recipient"
 msgstr "瀏覽收件者"
 
+#: client/zarafa/common/recipientfield/ui/RecipientBox.js:144
+msgid ""
+"Distribution list will be replaced with its members. You will not be able to "
+"collapse it again."
+msgstr ""
+
 #: client/zarafa/common/freebusy/ui/FreebusyContextMenu.js:57
-#: client/zarafa/common/ui/grid/Renderers.js:445
+#: client/zarafa/common/ui/grid/Renderers.js:453
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:139
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:21
 msgid "Required Attendee"
 msgstr "必要的與會者"
 
 #: client/zarafa/common/freebusy/ui/FreebusyContextMenu.js:65
-#: client/zarafa/common/ui/grid/Renderers.js:448
+#: client/zarafa/common/ui/grid/Renderers.js:456
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:145
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:22
 msgid "Optional Attendee"
 msgstr "可選擇的與會者"
 
 #: client/zarafa/common/freebusy/ui/FreebusyContextMenu.js:73
-#: client/zarafa/common/ui/grid/Renderers.js:450
+#: client/zarafa/common/ui/grid/Renderers.js:458
 #: client/zarafa/calendar/Actions.js:223
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:23
 msgid "Resource"
@@ -1826,8 +1824,8 @@ msgstr "隱藏未工作小時"
 #: client/zarafa/common/ui/DateTimePeriodField.js:27
 #: client/zarafa/common/ui/TimePeriodField.js:16
 #: client/zarafa/common/ui/DateTimeField.js:41
-#: client/zarafa/calendar/AppointmentRecord.js:235
-#: client/zarafa/calendar/AppointmentRecord.js:239
+#: client/zarafa/calendar/AppointmentRecord.js:238
+#: client/zarafa/calendar/AppointmentRecord.js:242
 #: client/zarafa/calendar/printer/DaysViewRenderer.js:88
 #: client/zarafa/calendar/ui/AppointmentView.js:16
 #: client/zarafa/calendar/ui/CalendarPanel.js:127
@@ -1861,6 +1859,7 @@ msgstr "繁忙"
 #: client/zarafa/common/freebusy/ui/FreebusyPanel.js:266
 #: client/zarafa/core/mapi/ResponseStatus.js:66
 #: client/zarafa/core/mapi/BusyStatus.js:61
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:103
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:245
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:247
 msgid "Tentative"
@@ -1878,29 +1877,39 @@ msgstr "不在辦公室"
 msgid "No Information"
 msgstr "無相關資訊"
 
-#: client/zarafa/common/dialogs/CopyMovePanel.js:55
+# 90%
+# 100%
+#: client/zarafa/common/dialogs/CopyMovePanel.js:68
+#: client/zarafa/hierarchy/KeyMapping.js:28
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:70
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:72
+#, fuzzy
+msgid "New folder"
+msgstr "新資料夾"
+
+#: client/zarafa/common/dialogs/CopyMovePanel.js:76
 msgid "Copy"
 msgstr "複製"
 
-#: client/zarafa/common/dialogs/CopyMovePanel.js:61
+#: client/zarafa/common/dialogs/CopyMovePanel.js:82
 msgid "Move"
 msgstr "移動"
 
-#: client/zarafa/common/dialogs/CopyMovePanel.js:94
+#: client/zarafa/common/dialogs/CopyMovePanel.js:115
 msgid "Destination folder"
 msgstr "目前資料夾"
 
-#: client/zarafa/common/dialogs/CopyMovePanel.js:121
+#: client/zarafa/common/dialogs/CopyMovePanel.js:142
 msgid "There is {0} message selected."
 msgid_plural "There are {0} messages selected."
 msgstr[0] "選擇了{0} 封郵件"
 
-#: client/zarafa/common/dialogs/CopyMovePanel.js:123
+#: client/zarafa/common/dialogs/CopyMovePanel.js:144
 msgid "Folder '{0}' selected."
 msgstr "選擇了 '{0}' 資料夾"
 
 #: client/zarafa/common/dialogs/CopyMoveContentPanel.js:45
-#: client/zarafa/hierarchy/ui/ContextMenu.js:71
+#: client/zarafa/hierarchy/ui/ContextMenu.js:72
 msgid "Copy/Move Folder"
 msgstr "複製/移動資料夾"
 
@@ -1940,8 +1949,8 @@ msgid "Here you can setup your alias email addresses."
 msgstr ""
 
 #: client/zarafa/common/sendas/ui/SendAsPanel.js:71
-#: client/zarafa/core/ui/MainToolbar.js:376
-#: client/zarafa/core/ui/MainToolbar.js:377
+#: client/zarafa/core/ui/MainToolbar.js:378
+#: client/zarafa/core/ui/MainToolbar.js:379
 #: client/zarafa/settings/ui/SettingsAddressBookWidget.js:42
 #: client/zarafa/addressbook/dialogs/ABUserSelectionContentPanel.js:50
 #: client/zarafa/addressbook/dialogs/AddressBookContentPanel.js:35
@@ -1968,6 +1977,8 @@ msgid "Select an address to use"
 msgstr "選擇一個位址"
 
 #: client/zarafa/common/checknames/dialogs/CheckNamesPanel.js:66
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:83
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:88
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:270
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:278
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:616
@@ -2034,11 +2045,17 @@ msgid "Select one..."
 msgstr "選擇一個..."
 
 #: client/zarafa/common/rules/dialogs/UserSelectionLink.js:19
-#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:411
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:446
 msgid "and"
 msgstr "和"
 
-#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:270
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:162
+msgid ""
+"Distribution lists are not supported in rules, would you like to replace the "
+"distribution list with its members?"
+msgstr ""
+
+#: client/zarafa/common/rules/dialogs/UserSelectionLink.js:305
 #: client/zarafa/common/rules/dialogs/WordSelectionLink.js:19
 msgid "or"
 msgstr "或"
@@ -2094,12 +2111,11 @@ msgstr "收件夾規則"
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:82
 #: plugins/facebook/js/FbEventSelectionGrid.js:38
 #: plugins/facebookwidget/js/FBWidget.js:83
-#: plugins/files/js/settings/ui/AccountEditPanel.js:35
 #: plugins/quickitems/js/QuickContactWidget.js:132
 #: plugins/quickitems/js/QuickNoteWidget.js:49
 #: plugins/quickitems/js/QuickTaskWidget.js:98
 #: plugins/quickitems/js/QuickAppointmentWidget.js:111
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:87
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:88
 msgid "Save"
 msgstr "儲存"
 
@@ -2111,11 +2127,11 @@ msgstr "添加條件"
 msgid "Remove condition"
 msgstr "移除條件"
 
-#: client/zarafa/common/rules/dialogs/RulesConditionContainer.js:349
+#: client/zarafa/common/rules/dialogs/RulesConditionContainer.js:352
 msgid "Unknown condition"
 msgstr "未知條件"
 
-#: client/zarafa/common/rules/dialogs/RulesConditionContainer.js:350
+#: client/zarafa/common/rules/dialogs/RulesConditionContainer.js:353
 msgid "This condition for the current rule is unknown"
 msgstr "現有規則未知此條件"
 
@@ -2155,15 +2171,22 @@ msgstr ""
 msgid "includes these words in the subject ..."
 msgstr "主旨包含這些字"
 
+# 84%
+# 100%
 #: client/zarafa/common/rules/data/ConditionProfiles.js:20
+#, fuzzy
+msgid "includes these words in the body ..."
+msgstr "主旨包含這些字"
+
+#: client/zarafa/common/rules/data/ConditionProfiles.js:23
 msgid "has importance ..."
 msgstr "has importance ..."
 
-#: client/zarafa/common/rules/data/ConditionProfiles.js:23
+#: client/zarafa/common/rules/data/ConditionProfiles.js:26
 msgid "is sent to ..."
 msgstr "傳送到..."
 
-#: client/zarafa/common/rules/data/ConditionProfiles.js:26
+#: client/zarafa/common/rules/data/ConditionProfiles.js:29
 msgid "is sent only to me"
 msgstr "只傳送給自己"
 
@@ -2219,6 +2242,7 @@ msgid "Time"
 msgstr "時間"
 
 #: client/zarafa/common/recurrence/dialogs/RecurrencePanel.js:94
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:65
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:354
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:28
 #: plugins/quickitems/js/QuickAppointmentWidget.js:90
@@ -2249,13 +2273,16 @@ msgstr "重複範圍"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/common/recurrence/dialogs/RecurrencePanel.js:208
 #: client/zarafa/common/recurrence/dialogs/RecurrencePanel.js:308
 #: client/zarafa/common/ui/DateTimePeriodField.js:22
 #: client/zarafa/common/ui/DatePeriodField.js:17
 #: client/zarafa/common/ui/DateTimeField.js:36
-#: client/zarafa/calendar/AppointmentRecord.js:242
-#: client/zarafa/calendar/AppointmentRecord.js:244
+#: client/zarafa/common/ui/grid/Renderers.js:619
+#: client/zarafa/calendar/AppointmentRecord.js:245
+#: client/zarafa/calendar/AppointmentRecord.js:247
 #: plugins/quickitems/js/QuickTaskWidget.js:74
 #: client/extjs-mod/Translations.js:182 client/extjs-mod/Translations.js:313
 #: client/extjs-mod/Translations.js:347
@@ -2288,7 +2315,7 @@ msgstr[0] "{0} 天"
 
 #: client/zarafa/common/recurrence/dialogs/RecurrencePanel.js:349
 #: client/zarafa/common/ui/DurationField.js:56
-#: client/zarafa/common/ui/grid/Renderers.js:357
+#: client/zarafa/common/ui/grid/Renderers.js:365
 #: client/extjs-mod/Ext.util.Format.js:75
 msgid "{0} hour"
 msgid_plural "{0} hours"
@@ -2358,7 +2385,7 @@ msgid "Regenerate new task {A} year(s) after each task is completed"
 msgstr "Regenerate new task {A} year(s) after each task is completed"
 
 #: client/zarafa/common/recurrence/data/DayData.js:8
-#: client/zarafa/calendar/CalendarContext.js:443
+#: client/zarafa/calendar/CalendarContext.js:452
 msgid "Day"
 msgstr "天"
 
@@ -2395,26 +2422,75 @@ msgstr "最後"
 msgid "Mail and Post"
 msgstr "郵件和郵箱"
 
+#: client/zarafa/common/data/FolderContentTypes.js:74
+#: client/zarafa/common/data/FolderContentTypes.js:99
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:194
+#: client/zarafa/calendar/CalendarContext.js:751
+#: client/zarafa/calendar/KeyMapping.js:53
+#: client/zarafa/calendar/settings/SettingsCalendarCategory.js:30
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:352
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:354
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:355
+#: client/zarafa/calendar/ui/CalendarMainPanel.js:65
+#: server/core/class.operations.php:704
+msgid "Calendar"
+msgstr "行事曆"
+
 #: client/zarafa/common/data/FolderContentTypes.js:76
 #: client/zarafa/common/data/FolderContentTypes.js:101
-#: client/zarafa/contact/ContactContext.js:453
-#: client/zarafa/contact/ContactContext.js:454
+#: client/zarafa/contact/ContactContext.js:481
+#: client/zarafa/contact/ContactContext.js:482
 #: client/zarafa/contact/dialogs/ContactContentPanel.js:29
-#: client/download_message.php:157
+#: client/download_message.php:304
 msgid "Contact"
 msgstr "聯絡人"
+
+#: client/zarafa/common/data/FolderContentTypes.js:78
+msgid "Journal"
+msgstr "日誌"
 
 #: client/zarafa/common/data/FolderContentTypes.js:80
 #: client/zarafa/note/dialogs/NoteEditContentPanel.js:22
 msgid "Note"
 msgstr "筆記"
 
+#: client/zarafa/common/data/FolderContentTypes.js:97
+#: server/core/class.operations.php:712
+msgid "Inbox"
+msgstr "收件夾"
+
+#: client/zarafa/common/data/FolderContentTypes.js:103
+#: client/zarafa/note/NoteContext.js:454
+#: client/zarafa/note/ui/NoteMainPanel.js:65
+#: client/zarafa/contact/dialogs/DistlistNotesTab.js:25
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:215
+#: client/zarafa/addressbook/dialogs/ABGroupGeneralTab.js:77
+#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:142
+#: server/core/class.operations.php:716
+msgid "Notes"
+msgstr "筆記"
+
 #: client/zarafa/common/data/FolderContentTypes.js:107
 msgid "Entire Inbox"
 msgstr "全部收件夾"
 
+#: client/zarafa/common/attachment/dialogs/MixAttachItemPanel.js:51
+msgid ""
+"These attachments have an unsupported file type and can not be added to the "
+"ZIP file:"
+msgstr ""
+
+#: client/zarafa/common/attachment/dialogs/MixAttachItemPanel.js:66
+msgid "Would you like to continue downloading without adding these files?"
+msgstr ""
+
+#: client/zarafa/common/attachment/dialogs/MixAttachItemPanel.js:72
+msgid ""
+"Always continue download of ZIP files without adding unsupported file types."
+msgstr ""
+
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:43
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:170
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:171
 #: client/zarafa/mail/printer/MailRenderer.js:26
 #: client/zarafa/mail/data/Templates.js:40
 #: client/zarafa/mail/data/Templates.js:75
@@ -2422,7 +2498,7 @@ msgid "Cc"
 msgstr "副本"
 
 #: client/zarafa/common/attachment/dialogs/AttachItemBaseRenderer.js:44
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:195
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:197
 #: client/zarafa/mail/printer/MailRenderer.js:27
 msgid "Bcc"
 msgstr "密件副本"
@@ -2437,6 +2513,16 @@ msgstr "重要性"
 #: client/zarafa/common/attachment/dialogs/AttachItemContentPanel.js:56
 msgid "Insert item"
 msgstr ""
+
+#: client/zarafa/common/attachment/dialogs/MixAttachItemContentPanel.js:23
+#: client/zarafa/mail/ui/MailGridContextMenu.js:91
+msgid "Download as ZIP"
+msgstr ""
+
+#: client/zarafa/common/attachment/dialogs/MixAttachItemContentPanel.js:31
+#: client/zarafa/core/ui/WelcomeViewport.js:64
+msgid "Continue"
+msgstr "繼續"
 
 #: client/zarafa/common/attachment/dialogs/AttachItemPanel.js:36
 msgid "Look in:"
@@ -2461,7 +2547,7 @@ msgid "Attach Item"
 msgstr ""
 
 #: client/zarafa/common/attachment/dialogs/AttachItemPanel.js:256
-#: client/zarafa/mail/MailContext.js:548
+#: client/zarafa/mail/MailContext.js:615
 msgid "No message selected"
 msgstr "沒有選擇的郵件"
 
@@ -2510,16 +2596,59 @@ msgstr "預覽"
 msgid "Download"
 msgstr "下載"
 
+#: client/zarafa/common/attachment/ui/AttachmentContextMenu.js:68
+msgid "Download all as ZIP"
+msgstr ""
+
+#: client/zarafa/common/attachment/ui/AttachmentDownloader.js:105
+#: client/zarafa/core/data/IPMAttachmentStore.js:293
+#: client/zarafa/core/data/IPMAttachmentStore.js:322
+#: client/zarafa/core/data/IPMAttachmentStore.js:334
+#: client/zarafa/core/data/IPMAttachmentStore.js:361
+#: client/zarafa/core/data/IPMAttachmentStore.js:373
+msgid "Attachment error"
+msgstr "附件錯誤"
+
+#: client/zarafa/common/attachment/ui/AttachmentDownloader.js:106
+msgid "Cannot create ZIP, The allowed maximum size is 30 MB."
+msgstr ""
+
 #: client/zarafa/common/ui/LoadMask.js:15
 msgid "Loading..."
 msgstr "讀取中..."
 
-#: client/zarafa/common/ui/LoadMask.js:21
+#: client/zarafa/common/ui/LoadMask.js:27
 msgid "Failed"
 msgstr "失敗"
 
+#: client/zarafa/common/ui/CommonViewButtons.js:38
+#: client/zarafa/common/ui/CommonViewButtons.js:40
+#: client/zarafa/mail/MailContext.js:534 client/zarafa/mail/MailContext.js:536
+msgid "No preview"
+msgstr "關閉預覽"
+
+#: client/zarafa/common/ui/CommonViewButtons.js:48
+#: client/zarafa/common/ui/CommonViewButtons.js:50
+#: client/zarafa/mail/MailContext.js:544 client/zarafa/mail/MailContext.js:546
+msgid "Right preview"
+msgstr "右側預覽"
+
+#: client/zarafa/common/ui/CommonViewButtons.js:58
+#: client/zarafa/common/ui/CommonViewButtons.js:60
+#: client/zarafa/mail/MailContext.js:554 client/zarafa/mail/MailContext.js:556
+msgid "Bottom preview"
+msgstr "底部預覽"
+
+#: client/zarafa/common/ui/SearchField.js:31
+msgid "Please enter text to start search."
+msgstr "請輸入欲搜尋的文字"
+
+#: client/zarafa/common/ui/SearchField.js:176
+msgid "Search in \"{0} - {1}\""
+msgstr ""
+
 #: client/zarafa/common/ui/DraggableDataView.js:149
-#: client/zarafa/calendar/ui/AbstractCalendarView.js:1618
+#: client/zarafa/calendar/ui/AbstractCalendarView.js:1641
 msgid "{0} selected item"
 msgid_plural "{0} selected items"
 msgstr[0] "{0} 選擇項目"
@@ -2532,10 +2661,10 @@ msgstr[0] "{0} 選擇項目"
 msgid "End time"
 msgstr "結束時間"
 
-#: client/zarafa/common/ui/ContextMainPanelToolbar.js:72
-#: client/zarafa/common/ui/ContextMainPanelToolbar.js:73
-#: client/zarafa/mail/ui/MailPreviewPanelToolbarButtons.js:36
-#: client/zarafa/mail/ui/MailPreviewPanelToolbarButtons.js:37
+#: client/zarafa/common/ui/ContextMainPanelToolbar.js:80
+#: client/zarafa/common/ui/ContextMainPanelToolbar.js:81
+#: client/zarafa/common/ui/PreviewPanelToolbarButtons.js:43
+#: client/zarafa/common/ui/PreviewPanelToolbarButtons.js:44
 msgid "Copy/Move"
 msgstr "複製/移動"
 
@@ -2543,57 +2672,33 @@ msgstr "複製/移動"
 msgid "Root"
 msgstr "Root"
 
-#: client/zarafa/common/ui/SearchBar.js:42
-msgid "Please enter text to start search."
-msgstr "請輸入欲搜尋的文字"
-
-#: client/zarafa/common/ui/SearchBar.js:48
-msgid "Please select search option from combobox."
-msgstr "請選擇欲搜尋的功能"
-
-#: client/zarafa/common/ui/SearchBar.js:84
-msgid "Search in"
-msgstr "搜尋"
-
-#: client/zarafa/common/ui/SearchBar.js:104
-msgid "subfolders"
-msgstr "子資料夾"
-
-#: client/zarafa/common/ui/SearchBar.js:260
-msgid "Search in folder"
-msgstr "搜尋資料夾"
-
-#. TRANSLATORS: This will indicate in which folder the user will be searching, e.g. Search in 'Inbox' */
-#: client/zarafa/common/ui/SearchBar.js:263
-msgid "Search in '{0}'"
-msgstr "搜尋 '{0}'"
-
 # 76%
-#: client/zarafa/common/ui/grid/GridPanel.js:275
+#: client/zarafa/common/ui/grid/GridPanel.js:308
 msgid "{0} selected row"
 msgid_plural "{0} selected rows"
 msgstr[0] "{0} 選擇項目"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-#: client/zarafa/common/ui/grid/Renderers.js:327
+#: client/zarafa/common/ui/grid/Renderers.js:335
 msgid "l d/m/Y G:i"
 msgstr "l d/m/Y G:i"
 
-#: client/zarafa/common/ui/grid/Renderers.js:374
+#: client/zarafa/common/ui/grid/Renderers.js:382
 #: client/zarafa/core/mapi/BusyStatus.js:57
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:46
 msgid "Unknown"
 msgstr "未知的"
 
 # 88%
-#: client/zarafa/common/ui/grid/Renderers.js:443
+#: client/zarafa/common/ui/grid/Renderers.js:451
 msgid "Meeting Organizer"
 msgstr "會議主席"
 
-#: client/zarafa/common/ui/grid/Renderers.js:501
+#: client/zarafa/common/ui/grid/Renderers.js:509
 msgid "Now"
 msgstr "現在"
 
-#: client/zarafa/common/ui/grid/Renderers.js:507
+#: client/zarafa/common/ui/grid/Renderers.js:515
 msgid "{0} overdue"
 msgstr "{0} 過期"
 
@@ -2611,6 +2716,98 @@ msgstr "一般"
 #: client/zarafa/core/mapi/Importance.js:44
 msgid "High"
 msgstr "高"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:50
+msgid "Full name"
+msgstr ""
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:56
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:115
+#: client/zarafa/contact/printer/ContactRenderer.js:25
+#: client/zarafa/contact/ui/ContactGridColumnModel.js:111
+#: client/zarafa/contact/attachitem/AttachContactRenderer.js:22
+#: client/zarafa/contact/attachitem/AttachContactColumnModel.js:68
+msgid "Job Title"
+msgstr "工作職稱"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:59
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:124
+#: client/zarafa/contact/data/SearchFields.js:15
+#: client/zarafa/addressbook/ui/GABColumnModel.js:58
+#: client/zarafa/addressbook/ui/GABPersonalColumnModel.js:44
+msgid "File as"
+msgstr "檔案為"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:64
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:183
+msgid "Phone Numbers"
+msgstr "電話號碼"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:69
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:107
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:193
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:347
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:448
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:580
+#: client/zarafa/contact/printer/ContactRenderer.js:41
+#: client/zarafa/settings/data/SettingsDefaultValues.js:114
+#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:68
+#: plugins/quickitems/js/QuickContactWidget.js:165
+msgid "Business"
+msgstr "公司"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:72
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:210
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:484
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:574
+#: client/zarafa/contact/printer/ContactRenderer.js:42
+#: client/zarafa/contact/ui/ContactCardView.js:176
+#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:105
+#: plugins/quickitems/js/QuickContactWidget.js:173
+msgid "Home"
+msgstr "住家"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:75
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:227
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:460
+#: client/zarafa/contact/printer/ContactRenderer.js:44
+#: client/zarafa/contact/ui/ContactGridColumnModel.js:100
+#: client/zarafa/contact/attachitem/AttachContactRenderer.js:46
+msgid "Business Fax"
+msgstr "公司傳真"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:78
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:244
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:508
+#: client/zarafa/contact/printer/ContactRenderer.js:43
+#: client/zarafa/contact/ui/ContactCardView.js:175
+#: client/zarafa/contact/attachitem/AttachContactRenderer.js:35
+#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:122
+#: plugins/quickitems/js/QuickContactWidget.js:81
+#: plugins/quickitems/js/QuickContactWidget.js:177
+msgid "Mobile"
+msgstr "行動電話"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:94
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:308
+#: client/zarafa/contact/ui/ContactGridColumnModel.js:201
+#: client/zarafa/contact/attachitem/AttachContactRenderer.js:59
+msgid "Webpage"
+msgstr "網站"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:97
+#: client/zarafa/contact/dialogs/ContactGeneralTab.js:318
+#: client/zarafa/contact/printer/ContactRenderer.js:34
+#: client/zarafa/contact/ui/ContactGridColumnModel.js:195
+#: client/zarafa/contact/attachitem/AttachContactRenderer.js:25
+msgid "IM Address"
+msgstr "IM"
+
+#: client/zarafa/common/ui/contactpanel/ContactBody.js:102
+#: client/zarafa/contact/data/SearchFields.js:27
+#: client/zarafa/addressbook/dialogs/ABUserGeneralTab.js:155
+msgid "Address"
+msgstr "地址"
 
 #: client/zarafa/common/ui/messagepanel/ExtraInfoContextMenu.js:32
 msgid "Download Pictures"
@@ -2773,7 +2970,17 @@ msgctxt "mail.previewpanel"
 msgid "Received for {0}."
 msgstr "收到 {0}"
 
-#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:279
+#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:166
+msgctxt "mail.previewpanel"
+msgid "You replied to this message on {0}."
+msgstr ""
+
+#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:173
+msgctxt "mail.previewpanel"
+msgid "You forwarded this message on {0}."
+msgstr ""
+
+#: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:307
 msgid ""
 "We are going to try to fix a corrupted mail message, do you wish to continue?"
 msgstr ""
@@ -2810,41 +3017,93 @@ msgctxt "mail.previewpanel"
 msgid "Bcc"
 msgstr "密件副本"
 
+# 87%
+#: client/zarafa/common/ui/taskpanel/TaskBody.js:56
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:62
+#: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:26
+#, fuzzy
+msgid "End Date"
+msgstr "結束日期"
+
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:45
+#: client/zarafa/calendar/CalendarContext.js:605
+#: client/zarafa/calendar/CalendarContext.js:607
+#: client/zarafa/calendar/dialogs/AppointmentPanel.js:82
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:65
+#: client/download_message.php:298
+msgid "Appointment"
+msgstr "約會"
+
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:53
+#: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:77
+#: client/zarafa/addressbook/ui/GABColumnModel.js:95
+#: client/zarafa/calendar/dialogs/AppointmentTab.js:259
+#: client/zarafa/calendar/printer/MeetingRenderer.js:24
+#: client/zarafa/calendar/data/SearchFields.js:28
+#: client/zarafa/calendar/ui/CalendarGridColumnModel.js:80
+#: client/zarafa/calendar/ui/CalendarPanel.js:105
+#: plugins/facebook/js/FbEventSelectionGrid.js:29
+msgid "Location"
+msgstr "位置"
+
+#: client/zarafa/common/ui/appointmentpanel/AppointmentBody.js:56
+#: client/zarafa/calendar/dialogs/AppointmentTab.js:276
+#: client/zarafa/calendar/ui/CalendarGridColumnModel.js:126
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:156
+msgid "Label"
+msgstr "標籤"
+
 #: client/zarafa/note/KeyMapping.js:28
 msgid "New note"
 msgstr ""
 
-#: client/zarafa/note/NoteContext.js:213
+#: client/zarafa/note/NoteContext.js:224
 msgid "My Notes"
 msgstr "我的筆記"
 
-#: client/zarafa/note/NoteContext.js:224
+#: client/zarafa/note/NoteContext.js:236
 msgid "Open Shared Notes"
 msgstr "開啟共用筆記"
 
-#: client/zarafa/note/NoteContext.js:256 client/zarafa/note/NoteContext.js:258
+#: client/zarafa/note/NoteContext.js:270 client/zarafa/note/NoteContext.js:272
 msgid "Sticky note"
 msgstr "便條"
 
-#: client/zarafa/note/NoteContext.js:281 client/zarafa/note/NoteContext.js:282
+# 78%
+# 84%
+# 100%
+#: client/zarafa/note/NoteContext.js:297 client/zarafa/note/NoteContext.js:299
+#: client/zarafa/note/NoteContext.js:301
+#, fuzzy
+msgid "Print selected note"
+msgstr "列印此任務"
+
+# 75%
+# 100%
+#: client/zarafa/note/NoteContext.js:320
+#, fuzzy
+msgid "No note selected"
+msgstr "沒有選擇的任務"
+
+#: client/zarafa/note/NoteContext.js:338 client/zarafa/note/NoteContext.js:339
 msgid "Icons"
 msgstr "圖示"
 
-#: client/zarafa/note/NoteContext.js:290 client/zarafa/note/NoteContext.js:291
+#: client/zarafa/note/NoteContext.js:348 client/zarafa/note/NoteContext.js:349
 msgid "List view"
 msgstr "列表檢視"
 
-#: client/zarafa/note/NoteContext.js:299 client/zarafa/note/NoteContext.js:300
+#: client/zarafa/note/NoteContext.js:358 client/zarafa/note/NoteContext.js:359
 msgid "List Last Seven Days"
 msgstr "最近七天"
 
-#: client/zarafa/note/NoteContext.js:309 client/zarafa/note/NoteContext.js:310
-#: client/zarafa/contact/ContactContext.js:384
-#: client/zarafa/contact/ContactContext.js:385
+#: client/zarafa/note/NoteContext.js:369 client/zarafa/note/NoteContext.js:370
+#: client/zarafa/contact/ContactContext.js:408
+#: client/zarafa/contact/ContactContext.js:409
 msgid "List By Category"
 msgstr "依類別列表"
 
-#: client/zarafa/note/NoteContext.js:319 client/zarafa/note/NoteContext.js:320
+#: client/zarafa/note/NoteContext.js:380 client/zarafa/note/NoteContext.js:381
 msgid "List By Color"
 msgstr "依顏色"
 
@@ -2877,40 +3136,40 @@ msgstr "設定類別"
 msgid "Open the categories dialog."
 msgstr "開啟類別對話框"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:92
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:90
 msgid "Print this note"
 msgstr "列印此筆記"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:100
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:101
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:98
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:99
 #: client/zarafa/note/ui/NoteGridColumnModel.js:64
 msgid "Color"
 msgstr "顏色"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:106
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:104
 #: client/zarafa/mail/data/MailFlags.js:17
 #: client/zarafa/core/mapi/NoteColor.js:33
 msgid "Blue"
 msgstr "藍色"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:106
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:104
 #: client/zarafa/mail/data/MailFlags.js:27
-#: client/zarafa/core/mapi/NoteColor.js:36
+#: client/zarafa/core/mapi/NoteColor.js:36 defaults.php:127
 msgid "Green"
 msgstr "綠色"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:106
-#: client/zarafa/core/mapi/NoteColor.js:39
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:104
+#: client/zarafa/core/mapi/NoteColor.js:39 defaults.php:92
 msgid "Pink"
 msgstr "粉紅色"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:106
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:104
 #: client/zarafa/mail/data/MailFlags.js:22
-#: client/zarafa/core/mapi/NoteColor.js:46
+#: client/zarafa/core/mapi/NoteColor.js:46 defaults.php:117
 msgid "Yellow"
 msgstr "黃色"
 
-#: client/zarafa/note/dialogs/NoteEditToolbar.js:106
+#: client/zarafa/note/dialogs/NoteEditToolbar.js:104
 #: client/zarafa/core/mapi/NoteColor.js:42
 msgid "White"
 msgstr "白色"
@@ -2924,7 +3183,7 @@ msgid "Loading Notes"
 msgstr "載入筆記中"
 
 #: client/zarafa/note/ui/NoteGridColumnModel.js:52
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:322
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:323
 msgid "Created"
 msgstr ""
 
@@ -2935,15 +3194,6 @@ msgstr "依建立日期排序"
 #: client/zarafa/note/ui/NoteGridColumnModel.js:66
 msgid "Sort by: Color"
 msgstr "依顏色排序"
-
-# 90%
-# 100%
-#: client/zarafa/hierarchy/KeyMapping.js:28
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:69
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:71
-#, fuzzy
-msgid "New folder"
-msgstr "新資料夾"
 
 #: client/zarafa/hierarchy/KeyMapping.js:40
 msgid "Open shared folder/store"
@@ -2964,11 +3214,6 @@ msgstr "沒有足夠的權限來開啟這個文件夾，你想要從此階層移
 #: client/zarafa/hierarchy/Actions.js:37
 msgid "Not enough permissions to open this folder."
 msgstr "沒有足夠的權限來開啟這個文件夾"
-
-#: client/zarafa/hierarchy/HierarchyContext.js:117
-#: client/zarafa/hierarchy/HierarchyContext.js:118
-msgid "Folder"
-msgstr "資料夾"
 
 # 78%
 #: client/zarafa/hierarchy/dialogs/SharedFolderContentPanel.js:42
@@ -2997,19 +3242,9 @@ msgid "You must specify a username."
 msgstr "你必須指定一個使用者名稱"
 
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:72
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:176
 msgid "Type"
 msgstr "類型"
-
-#: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:77
-#: client/zarafa/addressbook/ui/GABColumnModel.js:95
-#: client/zarafa/calendar/dialogs/AppointmentTab.js:259
-#: client/zarafa/calendar/printer/MeetingRenderer.js:24
-#: client/zarafa/calendar/data/SearchFields.js:28
-#: client/zarafa/calendar/ui/CalendarGridColumnModel.js:80
-#: client/zarafa/calendar/ui/CalendarPanel.js:105
-#: plugins/facebook/js/FbEventSelectionGrid.js:29
-msgid "Location"
-msgstr "位置"
 
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:82
 #: plugins/facebook/js/FbEventSelectionGrid.js:30
@@ -3033,7 +3268,7 @@ msgid "Select Folder"
 msgstr "選擇資料夾"
 
 #: client/zarafa/hierarchy/dialogs/FolderSizePanel.js:56
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:271
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:272
 msgid "Folder Name"
 msgstr "資料夾名稱"
 
@@ -3099,8 +3334,6 @@ msgstr "資料夾大小"
 #: client/zarafa/core/ui/MainContentTabPanel.js:119
 #: plugins/folderwidgets/js/AbstractFolderWidget.js:186
 #: plugins/twidget/js/Twidget.js:304
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:35
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:61
 msgid "Close"
 msgstr "關閉"
 
@@ -3186,11 +3419,11 @@ msgstr "任務項目"
 msgid "Select where to place the folder"
 msgstr "選擇放置資料夾的位置"
 
-#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:197
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:199
 msgid "You must specify a name."
 msgstr "您必須指定一個名字"
 
-#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:220
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:222
 msgid "You must select a destination folder."
 msgstr "您必須選擇一個目標資料夾"
 
@@ -3203,19 +3436,19 @@ msgid "Show subfolders"
 msgstr "顯示子資料夾"
 
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesContentPanel.js:24
-#: client/zarafa/hierarchy/ui/ContextMenu.js:214
+#: client/zarafa/hierarchy/ui/ContextMenu.js:234
 msgid "Properties"
 msgstr "屬性"
 
 # 100%
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME". */
-#: client/zarafa/hierarchy/data/MAPIFolderRecord.js:214
+#: client/zarafa/hierarchy/data/MAPIFolderRecord.js:205
 msgid "{0} in {1}"
 msgstr "{0} 在 {1}"
 
 # 100%
 #. TRANSLATORS: Displayed on top of a tree with folders: "FOLDERNAME of USERNAME". */
-#: client/zarafa/hierarchy/data/MAPIFolderRecord.js:217
+#: client/zarafa/hierarchy/data/MAPIFolderRecord.js:208
 msgid "{0} of {1}"
 msgstr "{0} 的 {1}"
 
@@ -3227,91 +3460,90 @@ msgstr "完全控制"
 msgid "No rights"
 msgstr "沒有權限"
 
-#: client/zarafa/hierarchy/data/PermissionProfiles.js:27
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:514
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:586
-#: plugins/quickitems/js/QuickContactWidget.js:181
-msgid "Other"
-msgstr "其他"
-
-#: client/zarafa/hierarchy/data/HierarchyStore.js:760
+#: client/zarafa/hierarchy/data/HierarchyStore.js:774
 msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
 msgstr[0] "有{0}未讀的郵件在資料夾中{1}"
 
-#: client/zarafa/hierarchy/data/HierarchyStore.js:762
+#: client/zarafa/hierarchy/data/HierarchyStore.js:776
 msgid "New Mail"
 msgstr "新郵件"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:83
+#: client/zarafa/hierarchy/ui/ContextMenu.js:84
 msgid "Rename Folder"
 msgstr "重新命名資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:95
+#: client/zarafa/hierarchy/ui/ContextMenu.js:96
 msgid "New Folder"
 msgstr "新資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:109
+#: client/zarafa/hierarchy/ui/ContextMenu.js:110
 msgid "Mark All Messages Read"
 msgstr "標記所有郵件為讀取"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:124
+#: client/zarafa/hierarchy/ui/ContextMenu.js:125
 msgid "Delete Folder"
 msgstr "刪除資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:136
+#: client/zarafa/hierarchy/ui/ContextMenu.js:137
 msgid "Empty folder"
 msgstr "空的資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:151
+#: client/zarafa/hierarchy/ui/ContextMenu.js:152
 msgid "Add to favorites folder"
 msgstr "新增至我的最愛資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:165
+#: client/zarafa/hierarchy/ui/ContextMenu.js:166
 msgid "Close store"
 msgstr "關閉收存"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:177
+#: client/zarafa/hierarchy/ui/ContextMenu.js:178
 msgid "Close folder"
 msgstr "關閉資料夾"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:191
-#: client/zarafa/settings/SettingsContext.js:157
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:56
+#: client/zarafa/hierarchy/ui/ContextMenu.js:192
+#: client/zarafa/settings/SettingsContext.js:164
 msgid "Reload"
 msgstr "刷新"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:203
+#: client/zarafa/hierarchy/ui/ContextMenu.js:204
 msgid "Restore items"
 msgstr "回復項目"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:281
+# 76%
+# 100%
+#: client/zarafa/hierarchy/ui/ContextMenu.js:215
+#, fuzzy
+msgid "Select color"
+msgstr "選擇資料夾"
+
+#: client/zarafa/hierarchy/ui/ContextMenu.js:336
 msgid ""
 "Are you sure you want to permanently delete all the items and subfolders in "
 "the \"{0}\" folder?"
 msgstr "您確定要永久刪除\"{0}\"資料夾中所有項目及子資料夾?"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:283
+#: client/zarafa/hierarchy/ui/ContextMenu.js:338
 msgid ""
 "Are you sure you want to delete the folder \"{0}\" and move all of its "
 "contents into the Deleted Items folder?"
 msgstr "您確定要刪除此文件夾\"{0}\"並將所有文件夾中的資料移至已刪除的郵件?"
 
-#: client/zarafa/hierarchy/ui/ContextMenu.js:314
+#: client/zarafa/hierarchy/ui/ContextMenu.js:369
 msgid "Are you sure you want to empty {0}?"
 msgstr "您確定要清空{0}?"
 
-#: client/zarafa/hierarchy/ui/HierarchyTreePanel.js:71
+#: client/zarafa/hierarchy/ui/HierarchyTreePanel.js:65
 msgid "Show all folders"
 msgstr "顯示所有資料夾"
 
-#: client/zarafa/mail/MailContextModel.js:123
-#: client/zarafa/mail/MailContextModel.js:191
+#: client/zarafa/mail/MailContextModel.js:131
+#: client/zarafa/mail/MailContextModel.js:200
 msgid "FW"
 msgstr "轉寄"
 
-#: client/zarafa/mail/MailContextModel.js:187
-#: client/zarafa/mail/MailContextModel.js:195
+#: client/zarafa/mail/MailContextModel.js:196
+#: client/zarafa/mail/MailContextModel.js:207
 msgid "RE"
 msgstr "回覆"
 
@@ -3326,17 +3558,23 @@ msgstr "新郵件"
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:55
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:56
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:57
-#: client/zarafa/mail/ui/MailPreviewPanel.js:78
-#: client/zarafa/mail/ui/MailPreviewPanel.js:79
-#: client/zarafa/mail/ui/MailGridContextMenu.js:97
+#: client/zarafa/mail/ui/MailPreviewPanel.js:80
+#: client/zarafa/mail/ui/MailPreviewPanel.js:81
+#: client/zarafa/mail/ui/MailGridContextMenu.js:110
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:50
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:51
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:40
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:41
 msgid "Reply"
 msgstr "回覆"
 
 #: client/zarafa/mail/KeyMapping.js:44 client/zarafa/mail/KeyMapping.js:57
-#: client/zarafa/mail/KeyMapping.js:69 client/zarafa/mail/KeyMapping.js:83
-#: client/zarafa/mail/KeyMapping.js:95 client/zarafa/mail/MailContext.js:582
-#: client/zarafa/mail/settings/SettingsMailCategory.js:30
-#: client/zarafa/mail/ui/MailPanel.js:95
+#: client/zarafa/mail/KeyMapping.js:69 client/zarafa/mail/KeyMapping.js:81
+#: client/zarafa/mail/KeyMapping.js:95 client/zarafa/mail/KeyMapping.js:107
+#: client/zarafa/mail/MailContext.js:650
+#: client/zarafa/mail/settings/SettingsMailCategory.js:44
+#: client/zarafa/mail/ui/MailPanel.js:91
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:187
 msgid "Mail"
 msgstr "郵件"
 
@@ -3351,55 +3589,61 @@ msgstr "回覆所有人"
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:75
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:76
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:77
-#: client/zarafa/mail/ui/MailPreviewPanel.js:118
-#: client/zarafa/mail/ui/MailPreviewPanel.js:119
-#: client/zarafa/mail/ui/MailGridContextMenu.js:115
+#: client/zarafa/mail/ui/MailPreviewPanel.js:120
+#: client/zarafa/mail/ui/MailPreviewPanel.js:121
+#: client/zarafa/mail/ui/MailGridContextMenu.js:128
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:68
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:69
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:58
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:59
 msgid "Forward"
 msgstr "轉寄"
 
-#: client/zarafa/mail/KeyMapping.js:82
-msgid "Toggle read/unread"
+#: client/zarafa/mail/KeyMapping.js:80
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:85
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:86
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:87
+#: client/zarafa/mail/ui/MailPreviewPanel.js:140
+#: client/zarafa/mail/ui/MailPreviewPanel.js:141
+#: client/zarafa/mail/ui/MailGridContextMenu.js:146
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:77
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:78
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:67
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:68
+msgid "Edit as New Message"
 msgstr ""
 
 #: client/zarafa/mail/KeyMapping.js:94
+msgid "Toggle read/unread"
+msgstr ""
+
+#: client/zarafa/mail/KeyMapping.js:106
 msgid "Toggle red/complete flag"
 msgstr ""
 
-#: client/zarafa/mail/MailContext.js:306
+#: client/zarafa/mail/MailContext.js:367
 msgid "My Mail"
 msgstr "我的郵件"
 
-#: client/zarafa/mail/MailContext.js:317
+#: client/zarafa/mail/MailContext.js:379
 msgid "Open Shared Mails"
 msgstr "開啟共用郵件"
 
-#: client/zarafa/mail/MailContext.js:336 client/zarafa/mail/MailContext.js:338
+#: client/zarafa/mail/MailContext.js:399 client/zarafa/mail/MailContext.js:401
 msgid "Email message"
 msgstr "郵件訊息"
 
-#: client/zarafa/mail/MailContext.js:358 client/zarafa/mail/MailContext.js:390
-#: client/zarafa/mail/MailContext.js:392
+#: client/zarafa/mail/MailContext.js:421 client/zarafa/mail/MailContext.js:453
+#: client/zarafa/mail/MailContext.js:455
 msgid "Send E-mail"
 msgstr "傳送電子郵件"
 
-#: client/zarafa/mail/MailContext.js:393
+#: client/zarafa/mail/MailContext.js:456
 msgid "Create a new email message addressed to this recipient."
 msgstr "建立新的電子郵件給此收件人"
 
-#: client/zarafa/mail/MailContext.js:470 client/zarafa/mail/MailContext.js:472
-msgid "No preview"
-msgstr "關閉預覽"
-
-#: client/zarafa/mail/MailContext.js:479 client/zarafa/mail/MailContext.js:481
-msgid "Right preview"
-msgstr "右側預覽"
-
-#: client/zarafa/mail/MailContext.js:488 client/zarafa/mail/MailContext.js:490
-msgid "Bottom preview"
-msgstr "底部預覽"
-
-#: client/zarafa/mail/MailContext.js:526 client/zarafa/mail/MailContext.js:528
-#: client/zarafa/mail/MailContext.js:530
+#: client/zarafa/mail/MailContext.js:593 client/zarafa/mail/MailContext.js:595
+#: client/zarafa/mail/MailContext.js:597
 msgid "Print single e-mail"
 msgstr "列印單一電子郵件"
 
@@ -3472,53 +3716,57 @@ msgstr ""
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:65
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:66
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:67
-#: client/zarafa/mail/ui/MailPreviewPanel.js:98
-#: client/zarafa/mail/ui/MailPreviewPanel.js:99
-#: client/zarafa/mail/ui/MailGridContextMenu.js:106
+#: client/zarafa/mail/ui/MailPreviewPanel.js:100
+#: client/zarafa/mail/ui/MailPreviewPanel.js:101
+#: client/zarafa/mail/ui/MailGridContextMenu.js:119
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:59
+#: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:60
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:49
+#: client/zarafa/advancesearch/ui/SearchResultPreviewPanel.js:50
 msgid "Reply All"
 msgstr "回覆所有人"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:86
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:96
 msgid "Delete this item."
 msgstr "刪除此項目"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:88
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:98
 msgid "Delete mail"
 msgstr ""
 
 # 76%
 # 100%
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:89
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:99
 #, fuzzy
 msgid "Delete this mail."
 msgstr "刪除此項目"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:109
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:111
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:152
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:119
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:121
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:154
-#: client/zarafa/mail/ui/MailGridContextMenu.js:194
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:156
+#: client/zarafa/mail/ui/MailGridContextMenu.js:218
 msgid "Options"
 msgstr "選項"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:112
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:155
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:122
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:157
 msgid "Open options dialog"
 msgstr "開啟選項對話框"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:124
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:134
 msgid "Print this email"
 msgstr "列印此郵件"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:131
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:133
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:162
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:141
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:143
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:164
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:166
 msgid "Set flag"
 msgstr "設定旗標"
 
-#: client/zarafa/mail/dialogs/ShowMailToolbar.js:134
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:165
+#: client/zarafa/mail/dialogs/ShowMailToolbar.js:144
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:167
 msgid "Set flag on this email"
 msgstr "設定旗標在此郵件"
 
@@ -3538,110 +3786,110 @@ msgstr "追蹤選項"
 msgid "Request a read receipt for this message."
 msgstr "要求此封郵件的讀取回條"
 
-#: client/zarafa/mail/dialogs/MailCreatePanel.js:76
+#: client/zarafa/mail/dialogs/MailCreatePanel.js:74
 msgid "No send as address configured!"
 msgstr ""
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:76
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:77
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:57
 #: plugins/quickitems/js/QuickMailWidget.js:96
 msgid "Send"
 msgstr "傳送"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:77
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:80
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:78
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:81
 msgid "Send email"
 msgstr "傳送郵件"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:81
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:82
 msgid "Send email to recipients"
 msgstr "傳送郵件給收件人"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:88
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:90
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:91
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:93
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:94
 msgid "Save email"
 msgstr "儲存郵件"
 
 # 76%
 # 100%
 # 94%
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:102
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:105
 #, fuzzy
 msgid "Delete this mail"
 msgstr "刪除此項目"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:113
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:116
 msgid "Add attachments to this email"
 msgstr "新增附件到此郵件"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:130
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:132
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:133
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:135
 msgid "Add signature"
 msgstr "新增簽名"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:133
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:136
 msgid "Add signature to this mail"
 msgstr "新增簽名到此郵件"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:172
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:174
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:176
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:202
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:204
 msgid "High priority"
 msgstr "高優先性"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:175
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:177
 msgid "Mark this mail as high priority"
 msgstr ""
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:185
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:187
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:189
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:215
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:217
 msgid "Low priority"
 msgstr "低優先性"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:188
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:190
 msgid "Mark this mail as low priority"
 msgstr ""
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:198
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:200
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:202
 msgid "Set read receipt"
 msgstr "設定讀取回條"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:201
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:203
 msgid "Request read receipt from recipients"
 msgstr "要求收件人讀取回條"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:210
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:212
 msgid "Show bcc"
 msgstr "顯示密件副本"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:212
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:214
 msgid "Show Bcc"
 msgstr "顯示密件副本"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:213
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:215
 msgid ""
 "Show Bcc field in which you can specify the people who will recieve this "
 "message"
 msgstr "顯示密件副本欄位以便指定使用者收到此封郵件"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:222
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:224
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:226
 msgid "Show From"
 msgstr "顯示寄件者"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:225
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:227
 msgid ""
 "Show From field, If you have delegate access to another person's account, "
 "you can send e-mail that looks like that came from them by entering their "
 "name into the From field"
 msgstr "顯示寄件者欄位，如果你委派給其他人，你可以選擇傳送郵件的寄件者"
 
-#: client/zarafa/mail/dialogs/MailCreateToolbar.js:273
+#: client/zarafa/mail/dialogs/MailCreateToolbar.js:275
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:80
 msgid "No signatures configured"
 msgstr "沒有設定簽名檔"
@@ -3650,11 +3898,11 @@ msgstr "沒有設定簽名檔"
 #: client/zarafa/mail/printer/MailRenderer.js:24
 #: client/zarafa/mail/data/Templates.js:32
 #: client/zarafa/mail/data/Templates.js:65
-#: client/zarafa/mail/ui/MailGridColumnModel.js:121
-#: client/zarafa/mail/ui/MailGridColumnModel.js:187
+#: client/zarafa/mail/ui/MailGridColumnModel.js:123
+#: client/zarafa/mail/ui/MailGridColumnModel.js:195
 #: client/zarafa/mail/attachitem/AttachMailRenderer.js:19
 #: client/zarafa/core/ui/MessageContentPanel.js:38
-#: server/core/class.operations.php:3472
+#: server/core/class.operations.php:3596
 msgid "Sent"
 msgstr "已傳送"
 
@@ -3794,7 +4042,7 @@ msgstr "紅色"
 msgid "Orange"
 msgstr "橘色"
 
-#: client/zarafa/mail/data/MailFlags.js:37
+#: client/zarafa/mail/data/MailFlags.js:37 defaults.php:162
 msgid "Purple"
 msgstr "紫色"
 
@@ -3819,7 +4067,11 @@ msgstr "主旨或寄件者"
 msgid "To or cc"
 msgstr "收件人或副本"
 
-#: client/zarafa/mail/ui/MailGrid.js:123
+#: client/zarafa/mail/ui/MailPanelToolbar.js:19
+msgid "Loaded {0} of {1}"
+msgstr ""
+
+#: client/zarafa/mail/ui/MailGrid.js:127
 #: plugins/folderwidgets/js/MailWidget.js:45
 msgid "Loading mail"
 msgstr "載入郵件中"
@@ -3830,44 +4082,48 @@ msgid "Sort by: Importance"
 msgstr "依重要性排序"
 
 #: client/zarafa/mail/ui/MailGridColumnModel.js:100
-#: client/zarafa/mail/ui/MailGridColumnModel.js:179
+#: client/zarafa/mail/ui/MailGridColumnModel.js:185
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:74
 msgid "Sort by: To"
 msgstr "依收件者排序"
 
-#: client/zarafa/mail/ui/MailGridColumnModel.js:125
-#: client/zarafa/mail/ui/MailGridColumnModel.js:191
+#: client/zarafa/mail/ui/MailGridColumnModel.js:129
+#: client/zarafa/mail/ui/MailGridColumnModel.js:201
 msgid "Sort by: Sent"
 msgstr "依傳送排序"
 
-#: client/zarafa/mail/ui/MailGridColumnModel.js:146
-#: client/zarafa/mail/ui/MailGridColumnModel.js:205
+#: client/zarafa/mail/ui/MailGridColumnModel.js:152
+#: client/zarafa/mail/ui/MailGridColumnModel.js:217
 msgid "Sort by: Flag Status"
 msgstr "依旗標狀態排序"
 
-#: client/zarafa/mail/ui/MailGridColumnModel.js:166
+#: client/zarafa/mail/ui/MailGridColumnModel.js:172
 msgid "Sort by: Icon Index"
 msgstr "依圖示排序"
 
-#: client/zarafa/mail/ui/MailGridContextMenu.js:80
-msgid "Save email as file"
+#: client/zarafa/mail/ui/MailGridContextMenu.js:85
+msgid "Download as files"
 msgstr ""
 
-#: client/zarafa/mail/ui/MailGridContextMenu.js:124
-msgid "Forward as attachment"
+#: client/zarafa/mail/ui/MailGridContextMenu.js:137
+msgid "Forward as Attachment"
 msgstr ""
 
-#: client/zarafa/mail/ui/MailGridContextMenu.js:143
+#: client/zarafa/mail/ui/MailGridContextMenu.js:166
 msgid "Mark Read"
 msgstr "標示已閱讀"
 
-#: client/zarafa/mail/ui/MailGridContextMenu.js:154
+#: client/zarafa/mail/ui/MailGridContextMenu.js:177
 msgid "Mark Unread"
 msgstr "標示未閱讀"
 
-#: client/zarafa/mail/ui/MailGridContextMenu.js:180
+#: client/zarafa/mail/ui/MailGridContextMenu.js:204
 msgid "Move to Junk Folder"
 msgstr "移動到垃圾郵件資料夾"
+
+#: client/zarafa/mail/ui/MailGridContextMenu.js:276
+msgid "max. "
+msgstr ""
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/core/DateRange.js:604 client/zarafa/core/DateRange.js:624
@@ -3890,14 +4146,18 @@ msgstr "Y"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/core/DateRange.js:618
 #: client/zarafa/calendar/ui/AbstractCalendarDaysView.js:38
-#: client/zarafa/calendar/ui/canvas/CalendarBoxView.js:351
+#: client/zarafa/calendar/ui/canvas/CalendarBoxView.js:350
 msgid "jS"
 msgstr "jS"
 
 #: client/zarafa/core/DateRange.js:618
-#: client/zarafa/calendar/CalendarContextModel.js:493
+#: client/zarafa/calendar/CalendarContextModel.js:501
 msgid "F Y"
 msgstr "F Y"
+
+#: client/zarafa/core/Util.js:740
+msgid "Your changes will be lost if you leave this page now."
+msgstr ""
 
 #: client/zarafa/core/mapi/ResponseStatus.js:60
 msgid "Meeting organiser"
@@ -3912,12 +4172,12 @@ msgid "Not responded"
 msgstr "不回應"
 
 #: client/zarafa/core/mapi/ResponseStatus.js:68
-#: mapi/class.meetingrequest.php:1888
+#: mapi/class.meetingrequest.php:1908
 msgid "Accepted"
 msgstr "接受"
 
 #: client/zarafa/core/mapi/ResponseStatus.js:70
-#: mapi/class.meetingrequest.php:1892
+#: mapi/class.meetingrequest.php:1912
 msgid "Declined"
 msgstr "拒絕"
 
@@ -3927,8 +4187,8 @@ msgid "Meeting"
 msgstr "會議"
 
 #: client/zarafa/core/mapi/MeetingStatus.js:60
-#: mapi/class.meetingrequest.php:1258 mapi/class.meetingrequest.php:1266
-#: mapi/class.meetingrequest.php:3021
+#: mapi/class.meetingrequest.php:1271 mapi/class.meetingrequest.php:1279
+#: mapi/class.meetingrequest.php:3046
 msgid "Canceled"
 msgstr "取消"
 
@@ -3949,13 +4209,12 @@ msgid "deferred"
 msgstr "延期"
 
 #: client/zarafa/core/mapi/BusyStatus.js:59
-#: plugins/files/php/class.filesaccountmodule.php:334
 msgid "Free"
 msgstr "空閒"
 
 #: client/zarafa/core/mapi/Sensitivity.js:49
 #: client/zarafa/core/mapi/AppointmentLabels.js:116
-#: client/zarafa/settings/data/SettingsDefaultValues.js:118
+#: client/zarafa/settings/data/SettingsDefaultValues.js:126
 msgid "Personal"
 msgstr "個人的"
 
@@ -3974,7 +4233,7 @@ msgid "Work"
 msgstr "工作"
 
 #: client/zarafa/core/mapi/AppointmentLabels.js:118
-#: client/zarafa/settings/data/SettingsDefaultValues.js:111
+#: client/zarafa/settings/data/SettingsDefaultValues.js:119
 msgid "Holiday"
 msgstr "假日"
 
@@ -4009,72 +4268,44 @@ msgid "Phone Interview"
 msgstr "電話面試"
 
 #: client/zarafa/core/data/IPMAttachmentRecord.js:27
-#: client/download_message.php:99 plugins/nuxeo/php/class.nuxeomodule.php:571
+#: client/download_message.php:178 client/download_message.php:243
+#: plugins/nuxeo/php/class.nuxeomodule.php:571
 #: server/modules/class.contactitemmodule.php:347
-#: server/core/class.operations.php:2612
+#: server/core/class.operations.php:2664
 msgid "Untitled"
 msgstr ""
 
-#: client/zarafa/core/data/IPMAttachmentRecord.js:268
-msgid "Download a large file attachment: "
-msgstr ""
-
-#: client/zarafa/core/data/IPMAttachmentRecord.js:272
-#: client/zarafa/core/data/IPMRecord.js:321
-msgid "Filename"
-msgstr ""
-
-#: client/zarafa/core/data/IPMAttachmentRecord.js:273
-#: client/zarafa/core/data/IPMRecord.js:322
-msgid "Filesize"
-msgstr ""
-
-#: client/zarafa/core/data/IPMAttachmentRecord.js:274
-#: client/zarafa/core/data/IPMRecord.js:323
-msgid "Download link"
-msgstr ""
-
-#: client/zarafa/core/data/IPMAttachmentStore.js:279
-#: client/zarafa/core/data/IPMAttachmentStore.js:309
-#: client/zarafa/core/data/IPMAttachmentStore.js:318
-#: client/zarafa/core/data/IPMAttachmentStore.js:330
-#: client/zarafa/core/data/IPMAttachmentStore.js:357
-#: client/zarafa/core/data/IPMAttachmentStore.js:369
-msgid "Attachment error"
-msgstr "附件錯誤"
-
-#: client/zarafa/core/data/IPMAttachmentStore.js:280
+#: client/zarafa/core/data/IPMAttachmentStore.js:294
 msgid ""
 "Cannot upload attachment, only {0} attachments are allowed to be added to "
 "the message"
 msgstr "無法上傳附件，只有{0}可以附加到此郵件"
 
-#: client/zarafa/core/data/IPMAttachmentStore.js:310
-#: client/zarafa/core/data/IPMAttachmentStore.js:319
+#: client/zarafa/core/data/IPMAttachmentStore.js:323
 msgid ""
 "Cannot upload attachment, attachment is {0} while the allowed maximum is {1}."
 msgstr ""
 
-#: client/zarafa/core/data/IPMAttachmentStore.js:331
+#: client/zarafa/core/data/IPMAttachmentStore.js:335
 msgid ""
 "Cannot upload attachment, the total attachment size is {0} while the allowed "
 "maximum is {1}"
 msgstr "無法上傳附件，全部附件大小{0}只允許最大{1}"
 
-#: client/zarafa/core/data/IPMAttachmentStore.js:358
+#: client/zarafa/core/data/IPMAttachmentStore.js:362
 msgid ""
 "Cannot upload attachment, total attachment is {0} while the allowed maximum "
 "attachment in single request is {1}."
 msgstr ""
 
-#: client/zarafa/core/data/IPMAttachmentStore.js:370
+#: client/zarafa/core/data/IPMAttachmentStore.js:374
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
-#: client/zarafa/core/data/IPMRecord.js:187
+#: client/zarafa/core/data/IPMRecord.js:189
 msgid "{0} on behalf of {1}"
 msgstr "{0} 代表 {1} "
 
@@ -4088,35 +4319,31 @@ msgid ""
 "following settings before continuing."
 msgstr ""
 
-#: client/zarafa/core/ui/WelcomeViewport.js:64
-msgid "Continue"
-msgstr "繼續"
-
 #: client/zarafa/core/ui/WelcomeViewport.js:110
 #: client/zarafa/core/ui/RecordContentPanel.js:79
 #: client/zarafa/settings/ui/SettingsCategory.js:191
 msgid "Saving"
 msgstr "儲存中"
 
-#: client/zarafa/core/ui/MainTabbar.js:76
+#: client/zarafa/core/ui/MainTabbar.js:80
 msgid "You are logged on as {0}"
 msgstr "你已登入為 {0}"
 
-#: client/zarafa/core/ui/MainTabbar.js:80
+#: client/zarafa/core/ui/MainTabbar.js:85
 msgid "Logout"
 msgstr "登出"
 
-#: client/zarafa/core/ui/MainViewport.js:108
-#: client/zarafa/today/TodayContext.js:108
+#: client/zarafa/core/ui/MainViewport.js:109
+#: client/zarafa/today/TodayContext.js:110
 msgid "Zarafa"
 msgstr "Zarafa"
 
-#: client/zarafa/core/ui/MainToolbar.js:250
+#: client/zarafa/core/ui/MainToolbar.js:249
 msgid "Switch view"
 msgstr "切換檢視"
 
-#: client/zarafa/core/ui/MainToolbar.js:404
-#: client/zarafa/core/ui/MainToolbar.js:405
+#: client/zarafa/core/ui/MainToolbar.js:407
+#: client/zarafa/core/ui/MainToolbar.js:408
 msgid "Advanced find"
 msgstr "進階搜尋"
 
@@ -4157,12 +4384,12 @@ msgstr "要傳送沒有主旨的郵件嗎?"
 msgid "Not all recipients could be resolved"
 msgstr "不是所有收件人地址能夠解析成功"
 
-#: client/zarafa/core/ui/NavigationPanel.js:146
-#: client/zarafa/core/ui/NavigationPanel.js:185
+#: client/zarafa/core/ui/NavigationPanel.js:153
+#: client/zarafa/core/ui/NavigationPanel.js:192
 msgid "Folders List"
 msgstr "資料夾列表"
 
-#: client/zarafa/core/ui/NavigationPanel.js:150
+#: client/zarafa/core/ui/NavigationPanel.js:157
 msgid "All Folders"
 msgstr "所有資料夾"
 
@@ -4209,70 +4436,77 @@ msgstr ""
 msgid "New distribution list"
 msgstr "列印通訊群組列表"
 
-#: client/zarafa/contact/ContactContext.js:285
+#: client/zarafa/contact/ContactContext.js:302
 msgid "My Contacts"
 msgstr "我的聯絡人"
 
-#: client/zarafa/contact/ContactContext.js:297
+#: client/zarafa/contact/ContactContext.js:315
 msgid "Open Shared Contacts"
 msgstr "開啟共用聯絡人"
 
-#: client/zarafa/contact/ContactContext.js:345
-#: client/zarafa/contact/ContactContext.js:346
+#: client/zarafa/contact/ContactContext.js:365
+#: client/zarafa/contact/ContactContext.js:366
 msgid "Business Cards"
 msgstr "商務名片"
 
-#: client/zarafa/contact/ContactContext.js:355
-#: client/zarafa/contact/ContactContext.js:356
+#: client/zarafa/contact/ContactContext.js:376
+#: client/zarafa/contact/ContactContext.js:377
 msgid "Address Cards"
 msgstr "地址名片"
 
-#: client/zarafa/contact/ContactContext.js:364
-#: client/zarafa/contact/ContactContext.js:365
-#: client/zarafa/contact/ContactContext.js:367
+#: client/zarafa/contact/ContactContext.js:386
+#: client/zarafa/contact/ContactContext.js:387
+#: client/zarafa/contact/ContactContext.js:389
 msgid "Detailed Address Cards"
 msgstr "詳細地址名片"
 
-#: client/zarafa/contact/ContactContext.js:374
-#: client/zarafa/contact/ContactContext.js:375
+#: client/zarafa/contact/ContactContext.js:397
+#: client/zarafa/contact/ContactContext.js:398
 msgid "Phone List"
 msgstr "電話列表"
 
-#: client/zarafa/contact/ContactContext.js:394
-#: client/zarafa/contact/ContactContext.js:395
+#: client/zarafa/contact/ContactContext.js:419
+#: client/zarafa/contact/ContactContext.js:420
 msgid "List By Company"
 msgstr "依公司列表"
 
-#: client/zarafa/contact/ContactContext.js:404
-#: client/zarafa/contact/ContactContext.js:405
+#: client/zarafa/contact/ContactContext.js:430
+#: client/zarafa/contact/ContactContext.js:431
 msgid "List By Location"
 msgstr "依位置列表"
 
-#: client/zarafa/contact/ContactContext.js:414
-#: client/zarafa/contact/ContactContext.js:415
+#: client/zarafa/contact/ContactContext.js:441
+#: client/zarafa/contact/ContactContext.js:442
 msgid "List All Contacts"
 msgstr "列出所有聯絡人"
 
-#: client/zarafa/contact/ContactContext.js:480
+#: client/zarafa/contact/ContactContext.js:508
 msgid "Add to contacts"
 msgstr ""
 
-#: client/zarafa/contact/ContactContext.js:497
-#: client/zarafa/contact/ContactContext.js:499
-#: client/zarafa/contact/ContactContext.js:501
+#: client/zarafa/contact/ContactContext.js:526
+#: client/zarafa/contact/ContactContext.js:528
+#: client/zarafa/contact/ContactContext.js:530
 msgid "Print selected contact"
 msgstr "列印選擇的聯絡人"
 
-#: client/zarafa/contact/ContactContext.js:520
+#: client/zarafa/contact/ContactContext.js:549
 msgid "No contact selected"
 msgstr "沒有選擇的聯絡人"
 
-#: client/zarafa/contact/ContactContext.js:540
-#: client/zarafa/contact/ContactContext.js:542 client/download_message.php:160
+#: client/zarafa/contact/ContactContext.js:570
+#: client/zarafa/contact/ContactContext.js:572 client/download_message.php:307
 msgid "Distribution list"
 msgstr "通訊群組"
 
-#: client/zarafa/contact/Actions.js:228
+#: client/zarafa/contact/ContactContext.js:635
+#: client/zarafa/contact/ui/ContactMainPanel.js:66
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:201
+#: server/core/class.operations.php:708
+msgid "Contacts"
+msgstr "聯絡人"
+
+#: client/zarafa/contact/Actions.js:235
 #: client/zarafa/contact/dialogs/DistlistMembersTab.js:27
 #: client/zarafa/contact/printer/DistlistRenderer.js:24
 #: client/zarafa/contact/attachitem/AttachDistlistRenderer.js:20
@@ -4341,81 +4575,9 @@ msgstr "請輸入有效的電子郵件地址"
 msgid "Full Name"
 msgstr "全名"
 
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:115
-#: client/zarafa/contact/printer/ContactRenderer.js:25
-#: client/zarafa/contact/ui/ContactGridColumnModel.js:111
-#: client/zarafa/contact/attachitem/AttachContactRenderer.js:22
-#: client/zarafa/contact/attachitem/AttachContactColumnModel.js:68
-msgid "Job Title"
-msgstr "工作職稱"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:124
-#: client/zarafa/contact/data/SearchFields.js:15
-#: client/zarafa/addressbook/ui/GABColumnModel.js:58
-#: client/zarafa/addressbook/ui/GABPersonalColumnModel.js:44
-msgid "File as"
-msgstr "檔案為"
-
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:154
 msgid "Photo"
 msgstr "相片"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:183
-msgid "Phone Numbers"
-msgstr "電話號碼"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:193
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:347
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:448
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:580
-#: client/zarafa/contact/printer/ContactRenderer.js:41
-#: client/zarafa/settings/data/SettingsDefaultValues.js:106
-#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:68
-#: plugins/quickitems/js/QuickContactWidget.js:165
-msgid "Business"
-msgstr "公司"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:210
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:484
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:574
-#: client/zarafa/contact/printer/ContactRenderer.js:42
-#: client/zarafa/contact/ui/ContactCardView.js:176
-#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:105
-#: plugins/quickitems/js/QuickContactWidget.js:173
-msgid "Home"
-msgstr "住家"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:227
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:460
-#: client/zarafa/contact/printer/ContactRenderer.js:44
-#: client/zarafa/contact/ui/ContactGridColumnModel.js:100
-#: client/zarafa/contact/attachitem/AttachContactRenderer.js:46
-msgid "Business Fax"
-msgstr "公司傳真"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:244
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:508
-#: client/zarafa/contact/printer/ContactRenderer.js:43
-#: client/zarafa/contact/ui/ContactCardView.js:175
-#: client/zarafa/contact/attachitem/AttachContactRenderer.js:35
-#: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:122
-#: plugins/quickitems/js/QuickContactWidget.js:81
-#: plugins/quickitems/js/QuickContactWidget.js:177
-msgid "Mobile"
-msgstr "行動電話"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:308
-#: client/zarafa/contact/ui/ContactGridColumnModel.js:201
-#: client/zarafa/contact/attachitem/AttachContactRenderer.js:59
-msgid "Webpage"
-msgstr "網站"
-
-#: client/zarafa/contact/dialogs/ContactGeneralTab.js:318
-#: client/zarafa/contact/printer/ContactRenderer.js:34
-#: client/zarafa/contact/ui/ContactGridColumnModel.js:195
-#: client/zarafa/contact/attachitem/AttachContactRenderer.js:25
-msgid "IM Address"
-msgstr "IM"
 
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:337
 msgid "Addresses"
@@ -4726,11 +4888,6 @@ msgstr "電子郵件地址"
 #: client/zarafa/contact/data/SearchFields.js:24
 msgid "Phone number"
 msgstr "電話號碼"
-
-#: client/zarafa/contact/data/SearchFields.js:27
-#: client/zarafa/addressbook/dialogs/ABUserGeneralTab.js:155
-msgid "Address"
-msgstr "地址"
 
 #: client/zarafa/contact/data/ContactConfig.js:14
 msgid "Dr."
@@ -5089,85 +5246,85 @@ msgstr ""
 msgid "Distribution List Name"
 msgstr "通訊群組"
 
-#: client/zarafa/settings/SettingsContext.js:57
-#: client/zarafa/settings/SettingsContext.js:319
+#: client/zarafa/settings/SettingsContext.js:66
+#: client/zarafa/settings/SettingsContext.js:329
 msgid "Do you wish to apply the changes?"
 msgstr "你要套用此改變嗎?"
 
-#: client/zarafa/settings/SettingsContext.js:147
-msgid "The Changes you have done, requires to reload webapp to take effects,"
+#: client/zarafa/settings/SettingsContext.js:156
+msgid "In order for the changes to take effect, please reload WebApp."
 msgstr ""
 
-#: client/zarafa/settings/SettingsContext.js:149
-msgid "Would you like to reload the webapp?"
+#: client/zarafa/settings/SettingsContext.js:156
+msgid "NOTE: Any unsaved changes will be lost."
 msgstr ""
 
-#: client/zarafa/settings/SettingsContext.js:364
+#: client/zarafa/settings/SettingsContext.js:402
 #: client/zarafa/settings/ui/SettingsTreePanel.js:47
 msgid "Settings"
 msgstr "設定"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:107
+#: client/zarafa/settings/data/SettingsDefaultValues.js:115
 msgid "Competition"
 msgstr "競爭"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:108
+#: client/zarafa/settings/data/SettingsDefaultValues.js:116
 msgid "Favorites"
 msgstr "我的最愛"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:109
+#: client/zarafa/settings/data/SettingsDefaultValues.js:117
 msgid "Gifts"
 msgstr "禮物"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:110
+#: client/zarafa/settings/data/SettingsDefaultValues.js:118
 msgid "Goals/Objectives"
 msgstr "目標/宗旨"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:112
+#: client/zarafa/settings/data/SettingsDefaultValues.js:120
 msgid "Holiday Cards"
 msgstr "假日卡片"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:113
+#: client/zarafa/settings/data/SettingsDefaultValues.js:121
 msgid "Hot Contacts"
 msgstr "最近聯絡人"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:114
+#: client/zarafa/settings/data/SettingsDefaultValues.js:122
 msgid "Ideas"
 msgstr "理念"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:115
+#: client/zarafa/settings/data/SettingsDefaultValues.js:123
 msgid "International"
 msgstr "國際的"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:116
+#: client/zarafa/settings/data/SettingsDefaultValues.js:124
 msgid "Key Customer"
 msgstr "重要客戶"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:117
+#: client/zarafa/settings/data/SettingsDefaultValues.js:125
 msgid "Miscellaneous"
 msgstr "其他"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:119
+#: client/zarafa/settings/data/SettingsDefaultValues.js:127
 msgid "Phone Calls"
 msgstr "電話呼叫"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:121
+#: client/zarafa/settings/data/SettingsDefaultValues.js:129
 msgid "Strategies"
 msgstr "策略"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:122
+#: client/zarafa/settings/data/SettingsDefaultValues.js:130
 msgid "Suppliers"
 msgstr "供應商"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:123
+#: client/zarafa/settings/data/SettingsDefaultValues.js:131
 msgid "Time & Expenses"
 msgstr "時間與費用"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:124
+#: client/zarafa/settings/data/SettingsDefaultValues.js:132
 msgid "VIP"
 msgstr "VIP"
 
-#: client/zarafa/settings/data/SettingsDefaultValues.js:125
+#: client/zarafa/settings/data/SettingsDefaultValues.js:133
 msgid "Waiting"
 msgstr "等待中"
 
@@ -5178,6 +5335,36 @@ msgstr "進階"
 #: client/zarafa/settings/ui/SettingsAdvancedCategory.js:31
 msgid "Advanced settings"
 msgstr "進階設定"
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:37
+msgid "Inbox navigation"
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:42
+msgid "I want to navigate through my items by using."
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:54
+msgid "Infinite Scroll "
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:54
+msgid "(WebApp automatically loads additional items when you scroll down)"
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:59
+msgid "Pagination "
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:59
+msgid ""
+"(WebApp displays items on pages and you can use navigation controls to "
+"navigate)"
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsInboxNavigationWidget.js:68
+msgid "Load {A} items per page."
+msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:28
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:36
@@ -5196,18 +5383,15 @@ msgid ""
 msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:56
-#: plugins/files/js/settings/SettingsResetWidget.js:54
 msgid ""
 "WebApp will automatically restart in order for these changes to take effect"
 msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:65
-#: plugins/files/js/settings/SettingsResetWidget.js:63
 msgid "Reset"
 msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:92
-#: plugins/files/js/settings/SettingsResetWidget.js:88
 msgid "Webapp is reloading, Please wait."
 msgstr ""
 
@@ -5219,11 +5403,11 @@ msgstr "我的最愛設定"
 msgid "Plugins"
 msgstr "模組"
 
-#: client/zarafa/settings/ui/SettingsPluginsWidget.js:69
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:80
 msgid "Available plugins"
 msgstr "有效的模組"
 
-#: client/zarafa/settings/ui/SettingsPluginsWidget.js:83
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:94
 msgid ""
 "The following plugins are available in the WebApp. It is possible to select "
 "and/or deselect different plugins to indicate which plugins should be "
@@ -5231,11 +5415,11 @@ msgid ""
 "in order for the changes to take effect."
 msgstr ""
 
-#: client/zarafa/settings/ui/SettingsPluginsWidget.js:95
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:106
 msgid "No plugins available"
 msgstr ""
 
-#: client/zarafa/settings/ui/SettingsPluginsWidget.js:100
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:111
 #: client/zarafa/settings/ui/SettingsAccountWidget.js:50
 #: client/zarafa/addressbook/dialogs/ABItemGrid.js:34
 #: client/zarafa/addressbook/dialogs/ABGroupGeneralTab.js:52
@@ -5245,7 +5429,11 @@ msgstr ""
 msgid "Display Name"
 msgstr "顯示名稱"
 
-#: client/zarafa/settings/ui/SettingsPluginsWidget.js:217
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:117
+msgid "Version"
+msgstr ""
+
+#: client/zarafa/settings/ui/SettingsPluginsWidget.js:235
 msgid "This plugin cannot be disabled"
 msgstr ""
 
@@ -5331,7 +5519,7 @@ msgstr ""
 msgid "Enable Keyboard Shortcuts"
 msgstr ""
 
-#: client/zarafa/settings/ui/SettingsKeyShortcutWidget.js:153
+#: client/zarafa/settings/ui/SettingsKeyShortcutWidget.js:142
 #: client/zarafa/settings/ui/SettingsAccountWidget.js:124
 msgid "This change requires a reload of the WebApp"
 msgstr "需要重新載入WebApp"
@@ -5375,6 +5563,77 @@ msgstr "語言"
 #: client/zarafa/settings/ui/SettingsAccountWidget.js:86
 msgid "Startup folder"
 msgstr "開始資料夾"
+
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:72
+msgid "Search tools"
+msgstr ""
+
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:143
+msgid "All My folders"
+msgstr ""
+
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:153
+msgid "Current folder"
+msgstr ""
+
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:238
+msgid "Date range"
+msgstr ""
+
+#: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:275
+msgid "Select a date range"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:9
+msgid "All dates"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:12
+msgid "Past week"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:15
+msgid "Past 2 weeks"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:18
+msgid "Past month"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:21
+msgid "Past 6 month"
+msgstr ""
+
+#: client/zarafa/advancesearch/data/DateRangeFields.js:24
+msgid "Past year"
+msgstr ""
+
+#: client/zarafa/advancesearch/ui/SearchGridColumnModel.js:39
+msgid "Search results - \"{0}\""
+msgstr ""
+
+#: client/zarafa/advancesearch/ui/SearchGridColumnModel.js:49
+#: client/zarafa/calendar/ui/CalendarPanel.js:102
+msgid "Date"
+msgstr "日期"
+
+#: client/zarafa/advancesearch/ui/SearchGridColumnModel.js:54
+msgid "Sort by: Date"
+msgstr ""
+
+#: client/zarafa/advancesearch/ui/SearchGrid.js:109
+msgid "Loading Search results"
+msgstr ""
+
+#: client/zarafa/advancesearch/ui/SearchGrid.js:341
+msgid "Sorting not possible"
+msgstr ""
+
+#: client/zarafa/advancesearch/ui/SearchGrid.js:342
+msgid ""
+"The search results could not be sorted because the number of items is higher "
+"than {0}. Narrow down your results by specifying your input."
+msgstr ""
 
 #: client/zarafa/addressbook/dialogs/ABItemGrid.js:44
 msgid "Account"
@@ -5476,8 +5735,6 @@ msgid "You must select a user."
 msgstr "你必須選擇一個使用者"
 
 #: client/zarafa/addressbook/ui/AddressBookContextMenu.js:52
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:45
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:46
 msgid "Select"
 msgstr "選擇"
 
@@ -5523,72 +5780,67 @@ msgstr "類型名稱"
 msgid "Show Names from the"
 msgstr "顯示名稱從"
 
-#: client/zarafa/calendar/CalendarContext.js:346
+#: client/zarafa/calendar/CalendarContext.js:351
 msgid "My Calendars"
 msgstr "我的行事曆"
 
-#: client/zarafa/calendar/CalendarContext.js:359
-msgid "Open Shared Calendars"
+# 76%
+# 100%
+#: client/zarafa/calendar/CalendarContext.js:365
+#, fuzzy
+msgid "Add Shared Calendar"
 msgstr "開啟共用行事曆"
 
-#: client/zarafa/calendar/CalendarContext.js:451
+#: client/zarafa/calendar/CalendarContext.js:462
 msgid "Workweek"
 msgstr "工作週"
 
-#: client/zarafa/calendar/CalendarContext.js:459
+#: client/zarafa/calendar/CalendarContext.js:472
 msgid "Week"
 msgstr "週"
 
-#: client/zarafa/calendar/CalendarContext.js:467
+#: client/zarafa/calendar/CalendarContext.js:482
 msgid "Month"
 msgstr "月"
 
-#: client/zarafa/calendar/CalendarContext.js:478
+#: client/zarafa/calendar/CalendarContext.js:495
 msgid "List"
 msgstr "列表"
 
-#: client/zarafa/calendar/CalendarContext.js:524
-#: client/zarafa/calendar/CalendarContext.js:525
+#: client/zarafa/calendar/CalendarContext.js:543
+#: client/zarafa/calendar/CalendarContext.js:545
 #: client/extjs-mod/Translations.js:175
 msgid "Today"
 msgstr "今天"
 
-#: client/zarafa/calendar/CalendarContext.js:584
-#: client/zarafa/calendar/CalendarContext.js:586
-#: client/zarafa/calendar/dialogs/AppointmentPanel.js:82
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:65
-#: client/download_message.php:151
-msgid "Appointment"
-msgstr "約會"
-
-#: client/zarafa/calendar/CalendarContext.js:607
-#: client/zarafa/calendar/CalendarContext.js:609
+#: client/zarafa/calendar/CalendarContext.js:629
+#: client/zarafa/calendar/CalendarContext.js:631
 msgid "Meeting request"
 msgstr "會議要求"
 
-#: client/zarafa/calendar/CalendarContext.js:630
-#: client/zarafa/calendar/CalendarContext.js:632
-#: client/zarafa/calendar/CalendarContext.js:634
+#: client/zarafa/calendar/CalendarContext.js:653
+#: client/zarafa/calendar/CalendarContext.js:655
+#: client/zarafa/calendar/CalendarContext.js:657
 msgid "Print selected appointment"
 msgstr "列印選擇的約會"
 
-#: client/zarafa/calendar/CalendarContext.js:641
-#: client/zarafa/calendar/CalendarContext.js:643
-#: client/zarafa/calendar/CalendarContext.js:644
+#: client/zarafa/calendar/CalendarContext.js:665
+#: client/zarafa/calendar/CalendarContext.js:667
+#: client/zarafa/calendar/CalendarContext.js:668
 msgid "Print overview"
 msgstr "預覽列印"
 
-#: client/zarafa/calendar/CalendarContext.js:672
+#: client/zarafa/calendar/CalendarContext.js:696
 msgid "No appointment selected"
 msgstr "沒有選擇的約會"
 
 #: client/zarafa/calendar/MeetingRequestRecord.js:155
-#: client/zarafa/calendar/AppointmentRecord.js:316
+#: client/zarafa/calendar/AppointmentRecord.js:319
 msgid "When"
 msgstr "當"
 
 #: client/zarafa/calendar/MeetingRequestRecord.js:166
-#: client/zarafa/calendar/AppointmentRecord.js:327
+#: client/zarafa/calendar/AppointmentRecord.js:330
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:20
 msgid "Where"
 msgstr "哪裡"
@@ -5636,51 +5888,55 @@ msgstr "週"
 msgid "weeks"
 msgstr "週"
 
-#: client/zarafa/calendar/AppointmentRecord.js:211
+#: client/zarafa/calendar/AppointmentRecord.js:210
+msgid " on "
+msgstr ""
+
+#: client/zarafa/calendar/AppointmentRecord.js:214
 #: mapi/class.recurrence.php:552
 msgid "month"
 msgstr "月"
 
-#: client/zarafa/calendar/AppointmentRecord.js:214
+#: client/zarafa/calendar/AppointmentRecord.js:217
 #: mapi/class.recurrence.php:555
 msgid "months"
 msgstr "月"
 
-#: client/zarafa/calendar/AppointmentRecord.js:221
+#: client/zarafa/calendar/AppointmentRecord.js:224
 #: mapi/class.recurrence.php:563
 msgid "year"
 msgstr "年"
 
-#: client/zarafa/calendar/AppointmentRecord.js:225
+#: client/zarafa/calendar/AppointmentRecord.js:228
 #: mapi/class.recurrence.php:567
 msgid "years"
 msgstr "年"
 
 # 81%
 # 77%
-#: client/zarafa/calendar/AppointmentRecord.js:256
+#: client/zarafa/calendar/AppointmentRecord.js:259
 msgid "Occurs every {0} effective {1} from {2} to {3}."
 msgstr "Occurs every %s effective %s for %s occurences."
 
 # 77%
 # 79%
-#: client/zarafa/calendar/AppointmentRecord.js:258
+#: client/zarafa/calendar/AppointmentRecord.js:261
 msgid "Occurs every {0} {1} effective {2} from {3} to {4}."
 msgstr "Occurs every %s %s effective %s for %s occurences"
 
 # 80%
-#: client/zarafa/calendar/AppointmentRecord.js:262
+#: client/zarafa/calendar/AppointmentRecord.js:265
 msgid "Occurs every {0} effective {1}."
 msgstr "Occurs every %s effective %s."
 
 # 80%
 # 85%
-#: client/zarafa/calendar/AppointmentRecord.js:264
+#: client/zarafa/calendar/AppointmentRecord.js:267
 msgid "Occurs every {0} {1} effective {2}."
 msgstr "Occurs every %s effective %s."
 
 # 76%
-#: client/zarafa/calendar/AppointmentRecord.js:270
+#: client/zarafa/calendar/AppointmentRecord.js:273
 msgid "Occurs every {0} effective {1} for {2} occurence from {3} to {4}."
 msgid_plural ""
 "Occurs every {0} effective {1} for {2} occurences from {3} to {4}."
@@ -5688,49 +5944,56 @@ msgstr[0] "Occurs every %s effective %s for %s occurences from %s to %s."
 
 # 76%
 # 88%
-#: client/zarafa/calendar/AppointmentRecord.js:273
+#: client/zarafa/calendar/AppointmentRecord.js:276
 msgid "Occurs every {0} {1} effective {2} for {3} occurence from {4} to {5}."
 msgid_plural ""
 "Occurs every {0} {1} effective {2} for {3} occurences {4} to {5}."
 msgstr[0] "Occurs every %s effective %s for %s occurences from %s to %s."
 
 # 81%
-#: client/zarafa/calendar/AppointmentRecord.js:278
+#: client/zarafa/calendar/AppointmentRecord.js:281
 msgid "Occurs every {0} effective {1} for {2} occurence."
 msgid_plural "Occurs every {0} effective {1} for {2} occurences."
 msgstr[0] "Occurs every %s effective %s for %s occurences."
 
 # 77%
-#: client/zarafa/calendar/AppointmentRecord.js:281
+#: client/zarafa/calendar/AppointmentRecord.js:284
 msgid "Occurs every {0} {1} effective {2} for {3} occurence."
 msgid_plural "Occurs every {0} {1} effective {2} for {3} occurences."
 msgstr[0] "Occurs every %s %s effective %s for %s occurences"
 
 # 76%
-#: client/zarafa/calendar/AppointmentRecord.js:288
+#: client/zarafa/calendar/AppointmentRecord.js:291
 msgid "Occurs every {0} effective {1} until {2} from {3} to {4}."
 msgstr "Occurs every %s effective %s for %s occurences from %s to %s."
 
 # 76%
 # 86%
-#: client/zarafa/calendar/AppointmentRecord.js:290
+#: client/zarafa/calendar/AppointmentRecord.js:293
 msgid "Occurs every {0} {1} effective {2} until {3} from {4} to {5}."
 msgstr "Occurs every %s effective %s for %s occurences from %s to %s."
 
 # 78%
-#: client/zarafa/calendar/AppointmentRecord.js:294
+#: client/zarafa/calendar/AppointmentRecord.js:297
 msgid "Occurs every {0} effective {1} until {2}."
 msgstr "Occurs every %s effective %s until %s"
 
 # 78%
 # 86%
-#: client/zarafa/calendar/AppointmentRecord.js:296
+#: client/zarafa/calendar/AppointmentRecord.js:299
 msgid "Occurs every {0} {1} effective {2} until {3}."
 msgstr "Occurs every %s effective %s until %s"
 
-#: client/zarafa/calendar/AppointmentRecord.js:402
+#: client/zarafa/calendar/AppointmentRecord.js:405
 msgid "New Meeting Time Proposed"
 msgstr "建議新的會議時間"
+
+# 75%
+# 100%
+#: client/zarafa/calendar/AppointmentRecord.js:935
+#, fuzzy
+msgid "and "
+msgstr "和"
 
 #: client/zarafa/calendar/Actions.js:102
 msgid ""
@@ -5827,14 +6090,14 @@ msgstr "無法單一修改附件"
 #: plugins/sugarcrm/js/data/SugarCRMResponseHandler.js:21
 #: plugins/spreed/js/SpreedPlugin.js:650
 #: plugins/dropboxattachment/js/dialogs/AttachmentTreePanel.js:89
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:107
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:128
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:160
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:185
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:206
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:237
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:265
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:306
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:108
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:129
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:161
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:186
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:207
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:238
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:266
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:307
 #: plugins/nuxeo/js/settings/SettingsCategory.js:56
 msgid "Warning"
 msgstr "警告"
@@ -5896,6 +6159,7 @@ msgid "Response"
 msgstr "回應"
 
 #: client/zarafa/calendar/dialogs/ProposeNewTimeContentPanel.js:28
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:121
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:289
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:291
 msgid "Propose New Time"
@@ -6003,12 +6267,6 @@ msgctxt "calendar.dialog"
 msgid "Invitations have not been sent for this meeting."
 msgstr "此會議邀請尚未傳送"
 
-#: client/zarafa/calendar/dialogs/AppointmentTab.js:276
-#: client/zarafa/calendar/ui/CalendarGridColumnModel.js:126
-#: client/zarafa/calendar/ui/CalendarContextMenu.js:118
-msgid "Label"
-msgstr "標籤"
-
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:445
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:98
 msgid "Busy Status"
@@ -6052,29 +6310,29 @@ msgctxt "calendar.dialog"
 msgid "Resources have been planned."
 msgstr "資源已被預約"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:311
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:317
 msgid ""
 "An update message will be sent to all recipients, do you wish to continue?"
 msgstr "更新的郵件會傳送到所有收件人，你想要繼續嗎?"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:368
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:374
 msgid "Send update to attendees"
 msgstr "傳送更新給與會者"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:369
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:375
 msgid ""
 "You have made changes to the list of attendees, Choose one of the following"
 msgstr "您已經更改了與會者列表，請選擇下列選項"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:383
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:389
 msgid "Send updates to only added or deleted attendees."
 msgstr "傳送更新到新增加或移除的與會者"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:388
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:394
 msgid "Send updates to all attendees."
 msgstr "傳送更新到所有與會者"
 
-#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:421
+#: client/zarafa/calendar/dialogs/AppointmentContentPanel.js:427
 msgid ""
 "One or more attendees you have invited are busy. Are you sure to invite?"
 msgstr "你邀請的一個或多個與會者已繁忙。你確定要邀請?"
@@ -6215,6 +6473,26 @@ msgstr ""
 msgid "Show busy dates as bold in the date picker"
 msgstr "在日期選擇上顯示粗體的繁忙日期"
 
+#: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:21
+msgid "Free/busy information is used by people sending meeting requests, "
+msgstr ""
+
+#: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:22
+msgid "to determine when you are available for meetings."
+msgstr ""
+
+#: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:25
+msgid "Free/Busy permission"
+msgstr ""
+
+#: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:33
+msgid "Publish {A} month(s) of Calendar free/busy information on the server."
+msgstr ""
+
+#: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:53
+msgid "You can only publish a free/busy period from 1 to 36 months."
+msgstr ""
+
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:42
 msgid "Sort by: All Day"
 msgstr "依全天事件排序"
@@ -6327,18 +6605,9 @@ msgid "Sort by: Sensitivity"
 msgstr "依敏感性排序"
 
 #: client/zarafa/calendar/ui/CalendarPanel.js:35
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:100
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:105
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:150
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:155
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:160
 #: client/extjs-mod/Translations.js:288 client/extjs-mod/Translations.js:292
 msgid "Loading"
 msgstr "載入中"
-
-#: client/zarafa/calendar/ui/CalendarPanel.js:102
-msgid "Date"
-msgstr "日期"
 
 # 80%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -6372,9 +6641,39 @@ msgstr "新增約會"
 msgid "New Meeting Request"
 msgstr "新增會議"
 
-#: client/zarafa/calendar/ui/CalendarContextMenu.js:109
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:94
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:223
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:225
+msgid "Accept"
+msgstr "接受"
+
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:112
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:267
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:269
+msgid "Decline"
+msgstr "拒絕"
+
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:147
 msgid "Show as"
 msgstr "顯示成"
+
+# 80%
+# 100%
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:365
+#, fuzzy
+msgid "Occurrence"
+msgstr "週期"
+
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:377
+msgid "Series"
+msgstr ""
+
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:410
+#: client/zarafa/calendar/ui/CalendarContextMenu.js:452
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:444
+#: client/zarafa/calendar/ui/MeetingRequestButtons.js:480
+msgid "This appointment has been moved or deleted, do you want to continue?"
+msgstr "此約會已搬移或刪除，您要繼續嗎？"
 
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:161
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:163
@@ -6397,11 +6696,6 @@ msgstr "會議要求已過期"
 msgid "No Response Required"
 msgstr "不需要回應"
 
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:223
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:225
-msgid "Accept"
-msgstr "接受"
-
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:226
 msgid "Accept Meeting Request"
 msgstr "接受會議邀請"
@@ -6409,11 +6703,6 @@ msgstr "接受會議邀請"
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:248
 msgid "Tentatively Accept Meeting Request"
 msgstr "暫時接受會議邀請"
-
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:267
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:269
-msgid "Decline"
-msgstr "拒絕"
 
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:270
 msgid "Decline Meeting Request"
@@ -6448,10 +6737,32 @@ msgid ""
 "be deleted."
 msgstr "你的行事曆已自動更新。此會議邀請將會刪除"
 
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:444
-#: client/zarafa/calendar/ui/MeetingRequestButtons.js:480
-msgid "This appointment has been moved or deleted, do you want to continue?"
-msgstr "此約會已搬移或刪除，您要繼續嗎？"
+# 89%
+# 100%
+# 84%
+#: client/zarafa/calendar/ui/CalendarViewDropZone.js:356
+#, fuzzy
+msgid "a meeting request"
+msgstr "新增會議"
+
+# 93%
+# 100%
+# 80%
+#: client/zarafa/calendar/ui/CalendarViewDropZone.js:356
+#, fuzzy
+msgid "an appointment"
+msgstr "新增約會"
+
+#: client/zarafa/calendar/ui/CalendarViewDropZone.js:358
+msgid "Insufficient privileges"
+msgstr ""
+
+# 79%
+# 100%
+#: client/zarafa/calendar/ui/CalendarViewDropZone.js:359
+#, fuzzy
+msgid "You have insufficient privileges to move "
+msgstr "您沒有足夠的權限複製資料夾"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/calendar/ui/TimeStripView.js:176
@@ -6482,11 +6793,25 @@ msgstr "位置"
 msgid "l"
 msgstr "l"
 
-# 87%
-#: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:26
-#, fuzzy
-msgid "End Date"
-msgstr "結束日期"
+#: plugins/pdfbox/pdfbox/pdfbox.js:173
+msgid "Unable to open PDF"
+msgstr ""
+
+#: plugins/pdfbox/pdfbox/pdfbox.js:175
+msgid "Unable to open corrupted PDF"
+msgstr ""
+
+#: plugins/pdfbox/pdfbox/pdfbox.js:208
+msgid "The password you entered is incorrect, please try again."
+msgstr ""
+
+#: plugins/pdfbox/pdfbox/pdfbox.js:211
+msgid "Your PDF file is password protected"
+msgstr ""
+
+#: plugins/pdfbox/pdfbox/pdfbox.js:212
+msgid "Please enter the password to preview the file."
+msgstr ""
 
 #: plugins/pdfbox/js/PdfBoxPlugin.js:79
 msgid "PDF Box Plugin"
@@ -6911,236 +7236,6 @@ msgstr "不支援的瀏覽器"
 msgid "Browser Compatibility Plugin"
 msgstr ""
 
-#: plugins/smime/js/SmimePlugin.js:77
-msgid "Sign"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:79
-msgid "Sign message"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:80
-msgid ""
-"Ensure the authenticity of the message by adding a digital signature to this "
-"message. Any changes to the message will invalidate the signature."
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:98
-msgid "Encrypt"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:100
-msgid "Encrypt message"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:101
-msgid ""
-"Ensure the privacy of the message by encrypting its contents. Only the "
-"recipient of the message will be able to open it."
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:138
-msgid "What's going on with my mail?"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:343 plugins/smime/js/SmimePlugin.js:409
-#: plugins/smime/js/dialogs/PassphraseWindow.js:108
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:133
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:135
-msgid "S/MIME Message"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:395
-msgid "SMIME Message"
-msgstr ""
-
-#: plugins/smime/js/SmimePlugin.js:440
-msgid "S/MIME Plugin"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:18
-msgid ""
-"WebApp can verify digital signatures of emails. A successful verification "
-"reassures you that the message has not been tampered with and validates the "
-"identity of the sender."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:19
-msgid ""
-"You are seeing this message because the verification of the digital signature"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:19
-msgid " has failed"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:19
-msgid " for this message."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:20
-msgid "What caused this issue?"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:22
-msgid "What should I do?"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:23
-msgid ""
-"You can continue to work. However, you should keep in mind that the identity "
-"and the authenticity of the message content could not be verified."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:24
-msgid ""
-"You can contact your helpdesk or system administrator if you are not sure "
-"what to do next."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:39
-msgid ""
-"WebApp can verify digital signatures of emails. A successful verification "
-"reassures you "
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:40
-msgid ""
-"that the message has not been tampered with and validates the identity of "
-"the sender."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:41
-msgid ""
-"The verification of the digital signature was successful for this email "
-"message."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:44
-msgid "WebApp could not find a public certificate for the recipient."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:47
-msgid ""
-"The identity of the sender and authenticity of the message content have been "
-"verified, but the certificate used to sign the message expired on [d-m-Y]."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:50
-msgid "The digital signature could not be verified for unknown reasons."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:53
-msgid ""
-"The digital certificate used to sign this message has been revoked (i.e. the "
-"sender has marked it as compromised)"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:56
-msgid ""
-"The verification service of the certificate authority that signed the "
-"sender’s certificate is not available. The validity of the certificate could "
-"not be verified."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:59
-msgid ""
-"The revocation status of the digital certificate used to sign this email is "
-"unknown (Server is unavaliable or certificate does not support OCSP). The "
-"validity of the certificate could not be verified."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:62
-msgid ""
-"The revocation status of the digital certificate used to sign this email is "
-"disabled. The validity of the certificate could not be verified."
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:78
-msgid "Signature verified succesfully"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:80
-msgid "Could not verify signature, missing public certificate"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:82
-msgid "Signature verification succesfull, but certificate is expired"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:84
-msgid "Signature could not be verified"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:86
-msgid "Certificate has been revoked"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:88
-msgid "Verification with Certificate Authority failed"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:90
-msgid "Message decrypted succesfully"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:92
-msgid "Message decryption failed"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:94
-msgid "Please unlock your certificate"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:96
-msgid "Certificate does not support OCSP or OCSP check failed"
-msgstr ""
-
-#: plugins/smime/js/SmimeText.js:98
-msgid "Signature verified (revocation status unknown)"
-msgstr ""
-
-#: plugins/smime/js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
-msgstr ""
-
-#: plugins/smime/js/dialogs/PassphraseWindow.js:36
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:56
-msgid "Certificate passphrase"
-msgstr ""
-
-#: plugins/smime/js/dialogs/PassphraseWindow.js:45
-msgid "Submit"
-msgstr ""
-
-#: plugins/smime/js/dialogs/PassphraseWindow.js:108
-msgid "Password incorrect"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:40
-msgid "S/MIME Settings"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:48
-msgid "Private certificate"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:62
-msgid "Upload"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:95
-msgid "Passphrase is empty"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeWidget.js:97
-msgid "No certificate selected"
-msgstr ""
-
-#: plugins/smime/js/settings/SettingsSmimeCategory.js:28
-msgid "S/MIME"
-msgstr ""
-
 #: plugins/facebook/js/FbIntegrationPanel.js:37
 #: plugins/facebook/js/FbIntegrationPanel.js:86
 msgid "Logout from Facebook"
@@ -7177,61 +7272,63 @@ msgstr "開始時間"
 msgid "End Time"
 msgstr "結束時間"
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:131
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:331
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:342
-#: plugins/spreedwebrtc/js/dialogs/SpreedContentPanel.js:24
-msgid "Spreed WebRTC"
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:142
+msgid "Zarafa Web Meetings"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:147
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:148
-msgid "Start Spreed chat"
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:158
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:159
+msgid "Start Web Meetings Video Call"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:168
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:169
-msgid "Send Spreed Message"
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:179
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:180
+msgid "Send Web Meetings Text Message"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:285
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:296
 msgid "New chat message from "
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:288
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:299
 msgid "Missed call from "
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:292
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:303
 msgid "Incoming call from "
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:295
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:306
 msgid " is busy"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:298
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:309
 msgid " rejected your call"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:301
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:312
 msgid " does not pick up"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:565
-msgid "SpreedWebRTC Plugin"
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:342
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:353
+msgid "Web Meetings"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/Presence.js:213
+#: plugins/spreedwebrtc/js/SpreedWebRTCPlugin.js:580
+msgid "Web Meetings Plugin"
+msgstr ""
+
+#: plugins/spreedwebrtc/js/Presence.js:225
 msgid "Spreed"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/Presence.js:220
-msgid "XMPP"
+#: plugins/spreedwebrtc/js/Presence.js:1005
+msgid "SpreedPresence Plugin"
 msgstr ""
 
-#: plugins/spreedwebrtc/js/Presence.js:999
-msgid "SpreedPresence Plugin"
+#: plugins/spreedwebrtc/js/dialogs/SpreedContentPanel.js:24
+msgid "Zarafa web meetings"
 msgstr ""
 
 #: plugins/folderwidgets/js/TasksWidget.js:48
@@ -7287,7 +7384,6 @@ msgstr "找不到寄件人資訊"
 
 #: plugins/twidget/js/Twidget.js:90
 #: plugins/nuxeo/js/settings/SettingsWidget.js:38
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:159
 msgid "Username"
 msgstr "使用者名稱"
 
@@ -7311,7 +7407,7 @@ msgstr "回饋?"
 msgid "Feedback Plugin"
 msgstr ""
 
-#: plugins/titlecounter/js/TitleCounter.js:42
+#: plugins/titlecounter/js/TitleCounter.js:43
 msgid "Title Counter Plugin"
 msgstr ""
 
@@ -7332,172 +7428,6 @@ msgstr "Site name to track the activity"
 #: plugins/clockwidget/js/ClockWidget.js:386
 msgid "Clock"
 msgstr "時鐘"
-
-#: plugins/files/js/FilesContext.js:153 plugins/files/js/FilesContext.js:180
-msgid "Files"
-msgstr ""
-
-#: plugins/files/js/FilesPlugin.js:129
-msgid "{0} Plugin"
-msgstr ""
-
-#: plugins/files/js/settings/SettingsResetWidget.js:27
-#: plugins/files/js/settings/SettingsResetWidget.js:35
-#: plugins/files/js/settings/SettingsResetWidget.js:58
-msgid "Reset Files settings"
-msgstr ""
-
-#: plugins/files/js/settings/SettingsResetWidget.js:32
-msgid "Resets Files settings to their original defaults"
-msgstr ""
-
-#: plugins/files/js/settings/SettingsResetWidget.js:52
-msgid ""
-"Your Files's settings will be restored to their default condition. Are you "
-"sure you want to reset all Files settings?"
-msgstr ""
-
-#: plugins/files/js/settings/SettingsAccountWidget.js:20
-msgid "Manage Accounts"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:95
-msgid "This account uses the following Backend:"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:99
-msgid "Backend version"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureVersionInfoPanel.js:104
-msgid "Storage server version"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:133
-msgid "Account Information"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:142
-msgid "Account name"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:150
-msgid "Account type"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:161
-msgid "Select backend..."
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:175
-msgid "Account Configuration"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditPanel.js:231
-msgid "Update"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:145
-msgid "Your current storage usage"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:149
-msgid "Used storage"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:154
-msgid "Free storage"
-msgstr ""
-
-#: plugins/files/js/settings/ui/FeatureQuotaInfoPanel.js:159
-msgid "Total storage size"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountEditContentPanel.js:26
-msgid "Edit Account"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:40
-msgid "ID"
-msgstr ""
-
-# 84%
-# 100%
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:44
-#, fuzzy
-msgid "Sort by: ID"
-msgstr "依ISDN排序"
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:59
-msgid "Backend"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:64
-msgid "Sort by: Backend"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:67
-msgid "Features"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:71
-msgid "Shows all available features of the backend."
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:75
-msgid "Show quota information"
-msgstr ""
-
-# 75%
-# 100%
-#: plugins/files/js/settings/ui/AccountGridColumnModel.js:80
-#, fuzzy
-msgid "Show version information"
-msgstr "版本資訊"
-
-#: plugins/files/js/settings/ui/AccountGrid.js:43
-msgid "Add Account"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGrid.js:48
-msgid "Remove Account"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGrid.js:66
-msgid "Loading accounts"
-msgstr ""
-
-#: plugins/files/js/settings/ui/AccountGrid.js:90
-msgid "No account created!"
-msgstr ""
-
-# 75%
-# 100%
-#: plugins/files/js/settings/ui/AccountGrid.js:171
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:212
-#, fuzzy
-msgid "Confirm deletion"
-msgstr "確定刪除"
-
-#: plugins/files/js/settings/ui/AccountGrid.js:172
-msgid "Do you really want to delete the account \"{0}\"?"
-msgstr ""
-
-# 75%
-# 76%
-# 100%
-# 94%
-#: plugins/files/js/settings/ui/FeatureQuotaInfoContentPanel.js:26
-#, fuzzy
-msgid "Quota Information"
-msgstr "無相關資訊"
-
-# 94%
-# 100%
-#: plugins/files/js/settings/ui/FeatureVersionInfoContentPanel.js:26
-#, fuzzy
-msgid "Version Information"
-msgstr "版本資訊"
 
 #: plugins/extbox/js/ExtBoxPlugin.js:79
 msgid "Extbox Plugin"
@@ -7560,7 +7490,7 @@ msgstr ""
 msgid "Example Plugin"
 msgstr ""
 
-#: plugins/zperformance/js/ZPerformance.js:247
+#: plugins/zperformance/js/ZPerformance.js:292
 msgid "ZPerformance"
 msgstr "ZPerformance"
 
@@ -10021,7 +9951,7 @@ msgstr ""
 
 # 86%
 # 100%
-#: plugins/webodf/js/WebOdfBox.js:455
+#: plugins/webodf/js/WebOdfBox.js:448
 #, fuzzy
 msgid "Page {0} of {1}"
 msgstr "頁{A} of {0}"
@@ -10098,7 +10028,7 @@ msgstr ""
 
 #: plugins/nuxeo/js/NuxeoPlugin.js:154
 #: plugins/nuxeo/js/dialogs/PathChooserContentPanel.js:27
-#: plugins/nuxeo/js/settings/SettingsWidget.js:81
+#: plugins/nuxeo/js/settings/SettingsWidget.js:82
 msgid "Nuxeo destination path"
 msgstr ""
 
@@ -10106,111 +10036,123 @@ msgstr ""
 msgid "Nuxeo Plugin"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:60
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:61
 msgid "Set as default"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:62
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:63
 msgid "Set default folder"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:63
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:64
 msgid "Set selected folder as default"
 msgstr ""
 
 # 78%
 # 100%
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:72
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:73
 #, fuzzy
 msgid "Create a new folder"
 msgstr "建立新資料夾"
 
 # 92%
 # 100%
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:78
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:80
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:79
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:81
 #, fuzzy
 msgid "Delete folder"
 msgstr "刪除資料夾"
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:81
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:82
 msgid "Delete the selected folder"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:89
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:90
 msgid "Store file"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:90
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:91
 msgid "Store file to the selected folder."
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:108
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:161
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:109
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:162
 msgid "You have to choose a folder!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:144
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:145
 msgid "Uploaded"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:144
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:145
 msgid "Attachment successfully stored in nuxeo"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:146
+# 76%
+# 84%
+# 80%
+# 100%
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:147
+#, fuzzy
 msgid "Upload Failed"
-msgstr ""
+msgstr "載入規則"
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:146
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:147
 msgid "Attachment could not be stored in nuxeo! Error:"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:181
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:182
 msgid "Default folder changed"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:181
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:182
 msgid "New default folder: "
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:186
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:187
 #: plugins/nuxeo/js/settings/SettingsCategory.js:57
 msgid "Default folder does not exist in Nuxeo!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:207
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:208
 msgid "You have to choose a folder to delete!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:212
+# 75%
+# 100%
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:213
+#, fuzzy
+msgid "Confirm deletion"
+msgstr "確定刪除"
+
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:213
 msgid "Are you sure?"
 msgstr ""
 
 # 85%
 # 100%
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:252
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:253
 #, fuzzy
 msgid "Deleted"
 msgstr "刪除"
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:252
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:253
 msgid "Directory deleted!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:266
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:267
 msgid "You have to choose a parent folder!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:271
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:272
 msgid "Please enter a foldername"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:287
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:288
 msgid "Foldername contains invalid characters!"
 msgstr ""
 
-#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:322
+#: plugins/nuxeo/js/dialogs/PathChooserPanel.js:323
 msgid "Directory created!"
 msgstr ""
 
@@ -10223,7 +10165,6 @@ msgid "Use Zarafa credentials for Nuxeo"
 msgstr ""
 
 #: plugins/nuxeo/js/settings/SettingsWidget.js:47
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:167
 msgid "Password"
 msgstr ""
 
@@ -10235,11 +10176,11 @@ msgstr ""
 msgid "No default destination path chosen"
 msgstr ""
 
-#: plugins/nuxeo/js/settings/SettingsWidget.js:64
+#: plugins/nuxeo/js/settings/SettingsWidget.js:65
 msgid "Choose path"
 msgstr ""
 
-#: plugins/nuxeo/js/settings/SettingsWidget.js:134
+#: plugins/nuxeo/js/settings/SettingsWidget.js:135
 msgid "Storagepath contains invalid characters!"
 msgstr ""
 
@@ -10247,11 +10188,11 @@ msgstr ""
 msgid "Nuxeo Error"
 msgstr ""
 
-#: client/extjs-mod/Ext.form.VTypes.js:24
+#: client/extjs-mod/Ext.form.VTypes.js:26
 msgid "Value must be between 0% to 100%"
 msgstr ""
 
-#: client/extjs-mod/Ext.form.VTypes.js:38
+#: client/extjs-mod/Ext.form.VTypes.js:40
 msgid "Number must be higher than zero"
 msgstr ""
 
@@ -10656,34 +10597,86 @@ msgstr "這個欄位只有字母和_"
 msgid "This field should only contain letters, numbers and _"
 msgstr "這個欄位只有字母、數字和_"
 
-#: client/welcome.php:40 client/webclient.php:40
+#: defaults.php:97
+msgid "Charm pink"
+msgstr ""
+
+#: defaults.php:102
+msgid "Cadmium red"
+msgstr ""
+
+#: defaults.php:107
+msgid "Apricot"
+msgstr ""
+
+#: defaults.php:112
+msgid "California"
+msgstr ""
+
+#: defaults.php:122
+msgid "Soft green"
+msgstr ""
+
+#: defaults.php:132
+msgid "Mint"
+msgstr ""
+
+#: defaults.php:137
+msgid "Pearl aqua"
+msgstr ""
+
+#: defaults.php:142
+msgid "Sky blue"
+msgstr ""
+
+#: defaults.php:147
+msgid "Baby blue"
+msgstr ""
+
+#: defaults.php:152
+msgid "Zarafa blue"
+msgstr ""
+
+#: defaults.php:157
+msgid "Mauve"
+msgstr ""
+
+#: defaults.php:167
+msgid "Silver sand"
+msgstr ""
+
+#: client/welcome.php:41 client/webclient.php:41
 msgid "Loading Zarafa WebApp ..."
 msgstr "載入Zarafa WebApp..."
 
-#: client/download_message.php:127
+#: client/download_message.php:162
 #, php-format
 msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
+#: client/download_message.php:257 client/download_attachment.php:509
+msgid "ZIP is not created successfully"
+msgstr ""
+
 # 90%
 # 100%
-#: client/download_message.php:154
+#: client/download_message.php:301
 #, fuzzy
 msgid "Sticky Note"
 msgstr "便條"
 
 # 92%
 # 100%
-#: client/download_message.php:166
+#: client/download_message.php:313
 #, fuzzy
 msgid "Task Request"
 msgstr "任務要求:"
 
-#: client/download_message.php:188
+#: client/download_message.php:349
 msgid "Could not find message, either it has been moved or deleted."
 msgstr ""
 
-#: client/download_message.php:251
+#: client/download_message.php:412 client/download_attachment.php:627
 msgid "Operation failed"
 msgstr ""
 
@@ -10711,17 +10704,16 @@ msgstr "您已自動登出"
 msgid "Logon"
 msgstr "登入"
 
-#: client/largefile/download.php:88
-msgid "This file does not exist any more."
+#: client/download_attachment.php:547
+msgid "Attachments can not be downloaded"
 msgstr ""
 
-#: client/largefile/upload.php:44 server/upload_attachment.php:223
-msgid "Could not upload attachment."
+# 82%
+# 100%
+#: client/download_attachment.php:564
+#, fuzzy
+msgid "Could not find attachment."
 msgstr "無法上傳附件"
-
-#: client/largefile/upload.php:45
-msgid "Large file backend not initialized."
-msgstr ""
 
 #: plugins/sugarcrm/php/class.sugarcrmmodule.php:76
 msgid "Authentication class not found for SugarCRM"
@@ -10731,69 +10723,16 @@ msgstr "Authentication class not found for SugarCRM"
 msgid "This version of Zarafa doesn't support this functionality."
 msgstr "此Zarafa版本不支援此功能"
 
-#: plugins/smime/php/class.pluginsmimemodule.php:79
-msgid "No certificate avaliable"
+#: plugins/spreedwebrtc/php/class.turnauth.php:58
+#, php-format
+msgid "Accessing the Zarafa web meetings TURN authentication service failed."
 msgstr ""
 
-#: plugins/smime/php/class.pluginsmimemodule.php:85
-msgid "Private certificate is not valid yet, unable to sign email"
-msgstr ""
-
-#: plugins/smime/php/class.pluginsmimemodule.php:87
-msgid "Private certificate has been expired, unable to sign email"
-msgstr ""
-
-#: plugins/smime/php/class.pluginsmimemodule.php:89
-msgid "Private certificate does not match email address"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:127
-msgid "Missing public certificates for the following recipients: "
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:127
-msgid ". Please contact your system administrator for details"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:385
-msgid "Private key can't be used to sign email"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:389
-msgid "Certificate email address doesn't match WebApp account "
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:393
-msgid "Certificate was expired on "
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:393
-#: plugins/smime/php/plugin.smime.php:397
-msgid "Certificate has not been imported"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:397
-msgid "Certificate is not yet valid "
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:400
-msgid "Certificate is revoked"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:403
-msgid "Unable to read public certificate"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:406
-msgid "Unable to decrypt certificate"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:416
-msgid "Certificate is already stored on the server"
-msgstr ""
-
-#: plugins/smime/php/plugin.smime.php:437
-msgid "Certificate uploaded"
+#: plugins/spreedwebrtc/php/class.turnauth.php:68
+#, php-format
+msgid ""
+"Accessing the Zarafa web meetings TURN authentication service failed. HTTP "
+"code %s."
 msgstr ""
 
 #: plugins/statslogging/php/class.pluginstatsloggingmodule.php:78
@@ -10809,129 +10748,6 @@ msgstr ""
 msgctxt "plugin_statslogging"
 msgid "Cannot create log file for user interface statistics logging plugin."
 msgstr "Cannot create log file for user interface statistics logging plugin"
-
-#: plugins/files/php/class.filesaccountmodule.php:312
-#: plugins/files/php/class.filesaccountmodule.php:360
-msgid "Unknown account ID"
-msgstr ""
-
-#: plugins/files/php/class.filesaccountmodule.php:320
-msgid "Feature \"Quota Information\" is not supported by this backend!"
-msgstr ""
-
-#: plugins/files/php/class.filesaccountmodule.php:333
-msgid "Used"
-msgstr ""
-
-#: plugins/files/php/class.filesaccountmodule.php:368
-msgid "Feature \"Version Information\" is not supported by this backend!"
-msgstr ""
-
-#: plugins/files/php/Files/Core/class.accountstore.php:178
-msgid "Account is ready to use."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:104
-msgid ""
-"With this backend, you can connect to any webdav server (e.g. Owncloud)."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:127
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:130
-msgid "Server address"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:134
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:138
-msgid "Server port"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:142
-msgid "Use SSL"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:152
-msgid "Webdav base path"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:176
-msgid "Use Zarafa credentials"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:805
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:510
-msgid "Unknown error"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:809
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:514
-msgid "Unauthorized. Wrong username or password."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:812
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:517
-msgid "File-server is not reachable. Wrong IP entered?"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:815
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:520
-msgid "You don't have enough permissions for this operation."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:818
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:523
-msgid "File is not available any more."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:821
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:526
-msgid "Connection to server timed out. Retry later."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:824
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:529
-msgid "This file is locked by another user."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:827
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:532
-msgid "The request failed due to failure of a previous request."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:830
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:535
-msgid "File-server encountered a problem. Wrong IP entered?"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:833
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:538
-msgid ""
-"Could not write to temporary directory. Contact the server administrator."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:836
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:541
-msgid ""
-"Could not retrieve list of server features. Contact the server administrator."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/Webdav/class.backend.php:839
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:544
-msgid "PHP-Curl is not available. Contact your system administrator"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:105
-msgid "With this backend, you can connect to any ftp server."
-msgstr ""
-
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:145
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:152
-msgid "FTP User"
-msgstr ""
-
-#: plugins/files/php/Files/Backend/FTP/class.backend.php:159
-msgid "User Zarafa credentials"
-msgstr ""
 
 #: plugins/spreed/php/class.spreedmodule.php:222
 msgid ""
@@ -10996,11 +10812,11 @@ msgstr ""
 msgid "Internal Nuxeo error."
 msgstr ""
 
-#: mapi/class.meetingrequest.php:1896
+#: mapi/class.meetingrequest.php:1916
 msgid "Tentatively accepted"
 msgstr "暫時接受"
 
-#: mapi/class.meetingrequest.php:1902
+#: mapi/class.meetingrequest.php:1922
 msgid "New Time Proposed"
 msgstr "建議新時間"
 
@@ -11118,6 +10934,10 @@ msgstr "Occurs every %s effective %s until %s"
 msgid "Occurs every %s %s effective %s until %s."
 msgstr "Occurs every %s %s effective %s until %s"
 
+#: server/upload_attachment.php:229
+msgid "Could not upload attachment."
+msgstr "無法上傳附件"
+
 #: server/util.php:132
 msgid "GB"
 msgstr "GB"
@@ -11134,114 +10954,114 @@ msgstr "KB"
 msgid "B"
 msgstr "B"
 
-#: server/modules/class.hierarchymodule.php:261
+#: server/modules/class.hierarchymodule.php:267
 msgid "Could not load the hierarchy."
 msgstr "無法讀取階層"
 
-#: server/modules/class.hierarchymodule.php:265
+#: server/modules/class.hierarchymodule.php:271
 msgid "Could not load folder properties."
 msgstr "無法讀取資料夾屬性"
 
-#: server/modules/class.hierarchymodule.php:270
+#: server/modules/class.hierarchymodule.php:276
 msgid "You have insufficient privileges to delete folder."
 msgstr "您沒有足夠的權限刪除資料夾"
 
-#: server/modules/class.hierarchymodule.php:272
+#: server/modules/class.hierarchymodule.php:278
 msgid "Could not delete folder."
 msgstr "無法刪除資料夾"
 
-#: server/modules/class.hierarchymodule.php:282
+#: server/modules/class.hierarchymodule.php:288
 msgid "You have insufficient privileges to copy folder."
 msgstr "您沒有足夠的權限複製資料夾"
 
-#: server/modules/class.hierarchymodule.php:284
+#: server/modules/class.hierarchymodule.php:290
 msgid "Could not copy folder."
 msgstr "無法複製資料夾"
 
-#: server/modules/class.hierarchymodule.php:289
+#: server/modules/class.hierarchymodule.php:295
 msgid "You have insufficient privileges to move this folder."
 msgstr "您沒有足夠的權限移動資料夾"
 
-#: server/modules/class.hierarchymodule.php:291
+#: server/modules/class.hierarchymodule.php:297
 msgid "Could not move folder."
 msgstr "無法移動資料夾"
 
-#: server/modules/class.hierarchymodule.php:296
+#: server/modules/class.hierarchymodule.php:302
 msgid "You have insufficient privileges to delete items."
 msgstr "您沒有足夠的權限刪除項目"
 
-#: server/modules/class.hierarchymodule.php:298
+#: server/modules/class.hierarchymodule.php:304
 msgid "Could not empty folder."
 msgstr "無法清空資料夾"
 
-#: server/modules/class.hierarchymodule.php:302
+#: server/modules/class.hierarchymodule.php:308
 msgid "Could not perform action correctly."
 msgstr "無法正確執行操作"
 
-#: server/modules/class.hierarchymodule.php:306
+#: server/modules/class.hierarchymodule.php:312
 msgid "Could not add folder to favorites."
 msgstr "無法新增資料夾到我的最愛"
 
-#: server/modules/class.hierarchymodule.php:313
+#: server/modules/class.hierarchymodule.php:319
 msgid "You have insufficient privileges to set permissions for this folder."
 msgstr "您沒有足夠的權限設定此資料夾權限"
 
-#: server/modules/class.hierarchymodule.php:315
+#: server/modules/class.hierarchymodule.php:321
 msgid "Could not set folder permissions."
 msgstr "無法設定資料夾權限"
 
-#: server/modules/class.hierarchymodule.php:320
+#: server/modules/class.hierarchymodule.php:326
 msgid "You have insufficient privileges to rename this folder."
 msgstr "您沒有足夠的權限重新命名此資料夾"
 
-#: server/modules/class.hierarchymodule.php:323
-#: server/modules/class.hierarchymodule.php:338
+#: server/modules/class.hierarchymodule.php:329
+#: server/modules/class.hierarchymodule.php:344
 msgid "A folder with this name already exists. Use another name."
 msgstr "資料夾名稱已存在.請重新命名"
 
-#: server/modules/class.hierarchymodule.php:326
+#: server/modules/class.hierarchymodule.php:332
 msgid "Could not rename folder."
 msgstr "無法重新命名資料夾"
 
-#: server/modules/class.hierarchymodule.php:335
+#: server/modules/class.hierarchymodule.php:341
 msgid "You have insufficient privileges to create this folder."
 msgstr "您沒有足夠的權限新增資料夾"
 
-#: server/modules/class.hierarchymodule.php:341
+#: server/modules/class.hierarchymodule.php:347
 msgid "Could not create folder."
 msgstr "無法新增資料夾"
 
-#: server/modules/class.hierarchymodule.php:347
+#: server/modules/class.hierarchymodule.php:353
 msgid "Could not close shared folder."
 msgstr "無法關閉分享資料夾"
 
-#: server/modules/class.hierarchymodule.php:352
+#: server/modules/class.hierarchymodule.php:358
 msgid "User could not be resolved."
 msgstr "使用者無法辨析"
 
-#: server/modules/class.hierarchymodule.php:355
-msgid "You have insufficient privileges to open this store."
-msgstr "您沒有足夠的權限開啟此儲存空間"
+#: server/modules/class.hierarchymodule.php:364
+#, php-format
+msgid ""
+"You have insufficient privileges to open this %1$s folder. The folder owner "
+"can set these using the 'permissions'-tab of the folder properties (right "
+"click the %1$s folder > properties > permissions)."
+msgstr ""
 
-#: server/modules/class.hierarchymodule.php:357
-msgid "You have insufficient privileges to open this folder."
-msgstr "您沒有足夠的權限開啟此資料夾"
-
-#: server/modules/class.hierarchymodule.php:667
+#: server/modules/class.hierarchymodule.php:673
 #: server/modules/class.delegatesmodule.php:263
 msgid "Unknown user/group"
 msgstr "未知 使用者/群組"
 
 # 85%
-#: server/modules/class.hierarchymodule.php:668
+#: server/modules/class.hierarchymodule.php:674
 msgid "unknown"
 msgstr "未知的"
 
-#: server/modules/class.hierarchymodule.php:886
+#: server/modules/class.hierarchymodule.php:892
 msgid "Could not move folder"
 msgstr "無法移動資料夾"
 
-#: server/modules/class.hierarchymodule.php:888
+#: server/modules/class.hierarchymodule.php:894
 msgid "Could not copy folder"
 msgstr "無法複製資料夾"
 
@@ -11313,11 +11133,15 @@ msgstr "您不能在此資料夾上作搜尋"
 msgid "Error in search, please try again."
 msgstr "搜尋錯誤,請重試"
 
-#: server/modules/class.module.php:193
+#: server/modules/class.module.php:165
+msgid "Error in distribution list expansion."
+msgstr ""
+
+#: server/modules/class.module.php:197
 msgid "The message store has exceeded its hard quota limit."
 msgstr "訊息儲存空間已超過硬體配置空間"
 
-#: server/modules/class.module.php:194 server/modules/class.module.php:200
+#: server/modules/class.module.php:198 server/modules/class.module.php:204
 msgid ""
 "To reduce the amount of data in this message store, select some items that "
 "you no longer need, delete them and cleanup your Deleted Items folder."
@@ -11325,15 +11149,15 @@ msgstr ""
 "請選擇欲刪除的檔案來增加儲存空間的大小you no longer need, delete them and "
 "cleanup your Deleted Items folder."
 
-#: server/modules/class.module.php:199
+#: server/modules/class.module.php:203
 msgid "The message store has exceeded its soft quota limit."
 msgstr "訊息儲存空間已超過軟體配置空間"
 
-#: server/modules/class.module.php:423
+#: server/modules/class.module.php:427
 msgid "Could not process request data properly."
 msgstr "無法正確處理資料"
 
-#: server/modules/class.module.php:424
+#: server/modules/class.module.php:428
 #, php-format
 msgid "Unknown action type specified - %s"
 msgstr "未知的操作類型 - %s"
@@ -11398,11 +11222,11 @@ msgstr "此'%s'已被預約。你必須選擇其他時間或是其他資源"
 msgid "Meeting was not scheduled."
 msgstr "沒有安排會議"
 
-#: server/modules/class.appointmentitemmodule.php:231
+#: server/modules/class.appointmentitemmodule.php:244
 msgid "Meeting could not be sent."
 msgstr "無法發送會議"
 
-#: server/modules/class.appointmentitemmodule.php:233
+#: server/modules/class.appointmentitemmodule.php:246
 msgid "Meeting could not be saved."
 msgstr "無法儲存會議"
 
@@ -11424,32 +11248,32 @@ msgstr "無法列出代理人清單"
 msgid "Private Appointment"
 msgstr "私人約會"
 
-#: server/modules/class.maillistmodule.php:93
+#: server/modules/class.maillistmodule.php:94
 #: server/modules/class.listmodule.php:127
 msgid "You have insufficient privileges to see the contents of this folder."
 msgstr "您沒有足夠的權限來查看該資料夾中的內容"
 
-#: server/modules/class.maillistmodule.php:95
+#: server/modules/class.maillistmodule.php:96
 #: server/modules/class.listmodule.php:129
 msgid "Could not load the contents of this folder."
 msgstr "無法讀取資料夾內容"
 
-#: server/modules/class.maillistmodule.php:100
+#: server/modules/class.maillistmodule.php:101
 msgid ""
 "You have insufficient privileges to perform search operation in this folder."
 msgstr "您沒有足夠的權限搜尋此資料夾"
 
-#: server/modules/class.maillistmodule.php:102
-#: server/modules/class.listmodule.php:220
-#: server/modules/class.listmodule.php:231
+#: server/modules/class.maillistmodule.php:103
+#: server/modules/class.listmodule.php:234
+#: server/modules/class.listmodule.php:245
 msgid "Error in search, please try again"
 msgstr "搜尋錯誤,請重試"
 
-#: server/modules/class.maillistmodule.php:106
+#: server/modules/class.maillistmodule.php:107
 msgid "Could not update search results."
 msgstr "無法更新的搜索結果"
 
-#: server/modules/class.maillistmodule.php:110
+#: server/modules/class.maillistmodule.php:111
 msgid "Could not stop search operation."
 msgstr "無法停止搜索操作"
 
@@ -11481,72 +11305,72 @@ msgstr "您沒有足夠的權限執行此動作"
 msgid "Could not resolve user."
 msgstr ""
 
-#: server/modules/class.itemmodule.php:247
-#: server/core/class.operations.php:3334
+#: server/modules/class.itemmodule.php:265
+#: server/core/class.operations.php:3458
 msgid "Task Accepted:"
 msgstr "確認任務"
 
-#: server/modules/class.itemmodule.php:249
-#: server/core/class.operations.php:3337 server/core/class.operations.php:3391
+#: server/modules/class.itemmodule.php:267
+#: server/core/class.operations.php:3461 server/core/class.operations.php:3515
 msgid "Task Declined:"
 msgstr "拒絕任務"
 
-#: server/modules/class.itemmodule.php:287
+#: server/modules/class.itemmodule.php:305
 msgid "You have insufficient privileges to open this message."
 msgstr "您沒有足夠權限開啟此訊息"
 
 # 78%
-#: server/modules/class.itemmodule.php:289
+#: server/modules/class.itemmodule.php:307
 msgid "Could not open message."
 msgstr "無法開啟儲存庫"
 
-#: server/modules/class.itemmodule.php:298
+#: server/modules/class.itemmodule.php:316
 msgid "You have insufficient privileges to decline this Meeting Request"
 msgstr "您沒有足夠權限拒絕此會議請求"
 
-#: server/modules/class.itemmodule.php:301
+#: server/modules/class.itemmodule.php:319
 msgid "You have insufficient privileges to accept this Meeting Request"
 msgstr "您沒有足夠權限接受此會議請求"
 
 # 78%
 # 82%
-#: server/modules/class.itemmodule.php:304
+#: server/modules/class.itemmodule.php:322
 msgid "Could not copy message"
 msgstr "無法複製郵件"
 
 # 78%
 # 82%
-#: server/modules/class.itemmodule.php:307
+#: server/modules/class.itemmodule.php:325
 msgid "Could not move message"
 msgstr "無法搬移郵件"
 
-#: server/modules/class.itemmodule.php:313
-#: server/modules/class.itemmodule.php:335
+#: server/modules/class.itemmodule.php:331
+#: server/modules/class.itemmodule.php:353
 msgid "You have insufficient privileges to save items in this folder"
 msgstr "您沒有足夠權限儲存此資料夾項目"
 
 # 78%
-#: server/modules/class.itemmodule.php:318
+#: server/modules/class.itemmodule.php:336
 msgid "Could not save message"
 msgstr "無法儲存郵件"
 
-#: server/modules/class.itemmodule.php:328
+#: server/modules/class.itemmodule.php:346
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr "您沒有足夠權限搬移此行事曆項目"
 
-#: server/modules/class.itemmodule.php:340
+#: server/modules/class.itemmodule.php:358
 msgid "Could not resolve conflict."
 msgstr "無法解決衝突"
 
-#: server/modules/class.itemmodule.php:345
+#: server/modules/class.itemmodule.php:363
 msgid "You have insufficient privileges to attach item as an attachment."
 msgstr "你沒有權限新增附件到此項目"
 
-#: server/modules/class.itemmodule.php:347
+#: server/modules/class.itemmodule.php:365
 msgid "Could not attach item as an attachment."
 msgstr "Could not attach item as an attachment."
 
-#: server/modules/class.itemmodule.php:352
+#: server/modules/class.itemmodule.php:370
 msgid ""
 "You have insufficient privileges to reclaim the ownership for the Task "
 "Request."
@@ -11554,31 +11378,31 @@ msgstr ""
 "You have insufficient privileges to reclaim the ownership for the "
 "TaskRequest."
 
-#: server/modules/class.itemmodule.php:354
+#: server/modules/class.itemmodule.php:372
 msgid "Could not reclaim the ownership for the Task Request."
 msgstr "Could not reclaim the ownership for the Task Request."
 
-#: server/modules/class.itemmodule.php:359
+#: server/modules/class.itemmodule.php:377
 msgid "You have insufficient privileges to accept this Task Request."
 msgstr "You have insufficient privileges to accept this Task Request."
 
-#: server/modules/class.itemmodule.php:361
+#: server/modules/class.itemmodule.php:379
 msgid "Could not accept Task Request."
 msgstr "Could not accept Task Request."
 
-#: server/modules/class.itemmodule.php:366
+#: server/modules/class.itemmodule.php:384
 msgid "You have insufficient privileges to decline this Task Request."
 msgstr "You have insufficient privileges to decline this Task Request."
 
-#: server/modules/class.itemmodule.php:368
+#: server/modules/class.itemmodule.php:386
 msgid "Could not decline Task Request."
 msgstr "Could not decline Task Request."
 
-#: server/modules/class.itemmodule.php:464
+#: server/modules/class.itemmodule.php:482
 msgid "Conflicts with another appointment."
 msgstr "Conflicts with another appointment."
 
-#: server/modules/class.itemmodule.php:466
+#: server/modules/class.itemmodule.php:484
 #, php-format
 msgid ""
 "%s occurrence of this recurring appointment conflicts with other appointment."
@@ -11620,23 +11444,23 @@ msgstr ""
 msgid "%1$s of %2$s"
 msgstr "%1$s of %2$s"
 
-#: server/core/class.operations.php:3340
+#: server/core/class.operations.php:3464
 msgid "Task Request:"
 msgstr "任務要求:"
 
-#: server/core/class.operations.php:3350 server/core/class.operations.php:3392
+#: server/core/class.operations.php:3474 server/core/class.operations.php:3516
 msgid "Task Updated:"
 msgstr "任務更新:"
 
-#: server/core/class.operations.php:3350 server/core/class.operations.php:3392
+#: server/core/class.operations.php:3474 server/core/class.operations.php:3516
 msgid "Task Completed:"
 msgstr "任務完成:"
 
-#: server/core/class.operations.php:3470
+#: server/core/class.operations.php:3594
 msgid "Your message did not reach some or all of the intended recipients"
 msgstr "Your message did not reach some or all of the intended recipients"
 
-#: server/core/class.operations.php:3473
+#: server/core/class.operations.php:3597
 msgid "The following recipient(s) could not be reached"
 msgstr "The following recipient(s) could not be reached"
 
@@ -11664,17 +11488,17 @@ msgstr "Can't add data to bus, same action type is present in bus"
 msgid "Response data requested from bus but it doesn't have any data."
 msgstr "Response data requested from bus but it doesn't have any data."
 
-#: server/core/class.settings.php:109 server/core/class.settings.php:144
-#: server/core/class.settings.php:186 server/core/class.settings.php:226
-#: server/core/class.settings.php:343 server/core/class.settings.php:447
+#: server/core/class.settings.php:110 server/core/class.settings.php:145
+#: server/core/class.settings.php:187 server/core/class.settings.php:227
+#: server/core/class.settings.php:344 server/core/class.settings.php:455
 msgid "Settings object is not initialized"
 msgstr ""
 
-#: server/core/class.settings.php:261
+#: server/core/class.settings.php:262
 msgid "Error opening settings property"
 msgstr "Error opening settings property"
 
-#: server/core/class.settings.php:278
+#: server/core/class.settings.php:279
 msgid "Error retrieving existing settings"
 msgstr "Error retrieving existing settings"
 
