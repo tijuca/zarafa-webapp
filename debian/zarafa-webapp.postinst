@@ -1,16 +1,85 @@
 #!/bin/sh
 
+# postinst script for zarafa-webapp
+# see: dh_installdeb(1)
+
+# summary of how this script can be called:
+#                           --- $1 ---          --- $2 ---     --- $3 ---               --- $4 ---
+#            <new-postinst> 'configure'         <most-recently-configured-version>
+#            <old-postinst> 'abort-upgrade'     <new version>
+#   <conflictor's-postinst> 'abort-remove'      'in-favour'     <package>                <new-version>
+#                <postinst> 'abort-remove'
+# <deconfigured's-postinst> 'abort-deconfigure' 'in-favour'     <failed-install-package> <version>     'removing' <conflicting-package> <version>
+#
+# for details, see http://www.debian.org/doc/debian-policy/ or the
+# debian-policy package
+
 set -e
+#set -x # uncomment for verbose output
 
-if [ ! -e  /etc/apache2/sites-available/zarafa-webapp ]; then
-        ln -sf  /etc/apache2/sites-available/zarafa-webapp.conf /etc/apache2/sites-available/zarafa-webapp 
-fi
+PACKAGE_NAME="zarafa-webapp"
+PACKAGE_ETC_FOLDER="/etc/zarafa/webapp"
+PACKAGE_VAR_FOLDER="/var/lib/zarafa-webapp/tmp"
 
-# enable zarafa-webapp for apache
-if [ -x "`which a2ensite`" ]; then
-	# no error, file may have been renamed
-	a2ensite zarafa-webapp || true
-fi
+case "$1" in
+    configure)
+        # check permissions on /var/lib/zarafa-webapp/tmp
+        #dpkg-statoverride --add --update www-data www-data 0750 ${PACKAGE_VAR_FOLDER}
+
+        # check first for snakeoil key and certificate
+        echo "Updating default SSL certificate settings, if any..." >&2
+        test -d ${PACKAGE_ETC_FOLDER}/certs || mkdir ${PACKAGE_ETC_FOLDER}/certs
+        if  [ ! -e "/etc/ssl/certs/ssl-cert-snakeoil.pem" ] || \
+            [ ! -e "/etc/ssl/private/ssl-cert-snakeoil.key" ];
+        then
+            echo "Create snakeoil CA and key ..." >&2
+            make-ssl-cert generate-default-snakeoil
+        fi
+
+        # linking server key if not available and needed
+        if [ ! -f "${PACKAGE_ETC_FOLDER}/certs/server.key" ]; then
+            echo "Linking 'server.key' for zarafa-webapp ..." >&2
+            ln -s /etc/ssl/private/ssl-cert-snakeoil.key ${PACKAGE_ETC_FOLDER}/certs/server.key
+        fi
+        # linking certificate if not available and needed
+        if [ ! -f "${PACKAGE_ETC_FOLDER}/certs/ca.pem"  ]; then
+            echo "Linking 'ca.pem' for zarafa-webapp ..." >&2
+            ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem ${PACKAGE_ETC_FOLDER}/certs/ca.pem
+        fi
+
+        ### Apache2.4
+        # processing zarafa-webapp for apache2
+        if [ -e /usr/share/apache2/apache2-maintscript-helper ]; then
+            . /usr/share/apache2/apache2-maintscript-helper
+
+            if [ ! -e "/etc/apache2/mods-enabled/ssl.load" ]; then
+                apache2_invoke enmod ssl || exit $?
+            fi
+            if [ ! -e "/etc/apache2/mods-enabled/rewrite.load" ]; then
+                apache2_invoke enmod rewrite || exit $?
+            fi
+        # Enabeling of Apache2 website configuration is done by dh-apache2
+        # no special action needed
+        fi
+
+        # TODO support other webserver too
+        ### lighttpd
+        #if [ -x "`which lighty-enable-mod`" ] ; then
+        #    echo "Add link for Lighttpd config file"
+        #    ln -fs ${PACKAGE_ETC_FOLDER}lighttpd.conf /etc/lighttpd/conf-available/50-zarafa-webapp.conf
+        #    # We enabled it
+        #    lighty-enable-mod zarafa-webapp fastcgi-php
+        #fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
 
 #DEBHELPER#
 
