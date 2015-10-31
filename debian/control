@@ -16,7 +16,7 @@ Standards-Version: 3.9.6
 Package: zarafa-webapp
 Architecture: all
 Depends: ${misc:Depends},
- apache2,
+ apache2 | http,
  libapache2-mod-php5,
  php-gettext,
  php5-mapi (>= 7.1.11),
