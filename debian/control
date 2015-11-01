@@ -8,6 +8,7 @@ Build-Depends: ant,
   ant-optional,
   default-jdk,
   debhelper (>= 9.0.0),
+  dh-apache2,
   dh-exec,
   libxml2-utils,
   php5-cli
@@ -22,6 +23,7 @@ Depends: ${misc:Depends},
  php5-mapi (>= 7.1.11),
  ssl-cert,
  zarafa-contacts (>= 7.1.11)
+Recommends: ${misc:Recommends}
 Description: New and improved WebApp for the Zarafa Collaboration Platform
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Zarafa Collaboration Platform through a modern web

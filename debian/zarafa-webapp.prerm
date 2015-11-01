@@ -8,12 +8,8 @@ PACKAGE_NAME="zarafa-webapp"
 
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-
-        ### Apache2
-        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
-            . /usr/share/apache2/apache2-maintscript-helper
-            apache2_invoke disconf ${PACKAGE_NAME}.conf || exit $?
-        fi
+        ### Apache2 website deconfiguration is done by dh-apache2
+        ### no special action needed
     ;;
 
     *)
