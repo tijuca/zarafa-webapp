@@ -24,7 +24,8 @@ Depends: ${misc:Depends},
  php5-mapi (>= 7.1.11),
  ssl-cert,
  zarafa-contacts (>= 7.1.11)
-Recommends: ${misc:Recommends}
+Recommends: ${misc:Recommends},
+  zarafa-server
 Description: New and improved WebApp for the Zarafa Collaboration Platform
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Zarafa Collaboration Platform through a modern web
