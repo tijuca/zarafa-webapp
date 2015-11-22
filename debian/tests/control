@@ -1,3 +1,6 @@
 Tests: smoke
-Depends: python-nose 
+Depends: chromedriver,
+ phantomjs,
+ python-nose,
+ python-selenium
 Restrictions: allow-stderr
