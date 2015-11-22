@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+set -x
+
+cat <<EOF | debconf-set-selections
+zarafa zarafa-server/mysql/method select unix socket
+zarafa zarafa-server/missing-db-package-error select abort
+zarafa zarafa-server/internal/reconfiguring boolean true
+zarafa zarafa-server/internal/skip-preseed boolean false
+zarafa zarafa-server/dbconfig-upgrade boolean true
+zarafa zarafa-server/dbconfig-install boolean true
+zarafa zarafa-server/dbconfig-reinstall boolean true
+zarafa zarafa-server/db/app-user string zarafa-server
+zarafa zarafa-server/mysql/admin-user string root
+zarafa zarafa-server/database-type select mysql
+zarafa zarafa-server/db/dbname string zarafaserver
+EOF
+
+apt-get -y install mariadb-server
+apt-get -y install zarafa-webapp zarafa-utils
+
+zarafa-admin  -c mailtest -p r00tme \
+              -e admin@example.com -f "Mail test user" -a 1 | grep -qs "User created."
+
+
+cd debian/tests
+export AUTH_USER='mailtest'
+export AUTH_PASS='r00tme'
+nosetests
+
+echo 'Smoke test of zarafa server succesful'
+exit 0
