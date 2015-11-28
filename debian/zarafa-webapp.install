@@ -13,4 +13,5 @@ deploy/defaults.php           usr/share/zarafa-webapp
 deploy/debug.php.dist         usr/share/zarafa-webapp
 deploy/index.php              usr/share/zarafa-webapp
 deploy/init.php               usr/share/zarafa-webapp
+deploy/robots.txt             usr/share/zarafa-webapp
 deploy/zarafa.php             usr/share/zarafa-webapp
