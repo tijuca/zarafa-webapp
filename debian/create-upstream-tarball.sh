@@ -35,7 +35,7 @@ cat << EOF
 Usage: ${0##*/} FILE
 
     [FILE]  The upstream source file from Zarafa named like
-            'webapp-VERSION.SVN_ID.tar.gz'.
+            'webapp-VERSION.tar.gz'.
 
 EOF
 }
@@ -62,8 +62,8 @@ cd ${TMPDIR}
 tar -xzf $1
 # getting directory there the source is exctracted
 SOURCEDIR=`ls -D . | grep *webapp*`
-NAME=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $1"-"$2}'`
-VERSION=`echo ${SOURCEDIR%.*} | awk -F "-" '{print $3}'`
+NAME=`echo ${SOURCEDIR} | awk -F "-" '{print $1"-"$2}'`
+VERSION=`echo ${SOURCEDIR} | awk -F "-" '{print $3}'`
 FINALNAME="${NAME}_${VERSION}"
 
 # uncomment for debugging

@@ -11,7 +11,7 @@ to be already downloaded. You can use uscan to download the upstream source.
 The created *.orig.tar.xz will be placed one folder above the repository. Use
 the script like:
 
-  $ debian/create-upstream-tarball.sh /path/to/webapp-VERSION.SVN_ID.tar.gz
+  $ debian/create-upstream-tarball.sh /path/to/webapp-VERSION.tar.gz
 
 The created cleaned *.orig.tar.xz can be used to be imported with
 git-buildpackage.
