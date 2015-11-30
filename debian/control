@@ -10,6 +10,7 @@ Build-Depends: ant,
   debhelper (>= 9.0.0),
   dh-apache2,
   dh-exec,
+  gettext,
   liblocale-msgfmt-perl,
   libxml2-utils,
   php5-cli
