@@ -4,26 +4,28 @@ Subject: remove including of PEAR related JSON.php
 
 ---
  server/class.configcheck.php | 1 -
- server/core/class.json.php   | 1 -
- 2 files changed, 2 deletions(-)
+ server/core/class.json.php   | 3 +--
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/server/class.configcheck.php b/server/class.configcheck.php
-index b1660d0..ffbe7e9 100644
+index 0439c83..ffbe7e9 100644
 --- a/server/class.configcheck.php
 +++ b/server/class.configcheck.php
 @@ -1,5 +1,4 @@
  <?php
--require_once(__DIR__ . '/PEAR/JSON.php');
+-require_once(dirname(__FILE__) . '/PEAR/JSON.php');
  
  /**
   * This class will check the server configuration and it stops the 
 diff --git a/server/core/class.json.php b/server/core/class.json.php
-index 2103293..c1ee846 100644
+index faf8b93..c1ee846 100644
 --- a/server/core/class.json.php
 +++ b/server/core/class.json.php
-@@ -1,5 +1,4 @@
+@@ -1,6 +1,5 @@
  <?php
--	require_once(__DIR__ . '/../PEAR/JSON.php');
- 	require_once(__DIR__ . '/../exceptions/class.JSONException.php');
+-	require_once(dirname(__FILE__) . '/../PEAR/JSON.php');
+-	require_once(dirname(__FILE__) . '/../exceptions/class.JSONException.php');
++	require_once(__DIR__ . '/../exceptions/class.JSONException.php');
  
  	/**
+ 	 * A static JSON handling class that will fire JSONException when any error occurs in JSON parsing.

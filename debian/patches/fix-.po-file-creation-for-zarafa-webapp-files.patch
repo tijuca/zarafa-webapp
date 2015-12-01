@@ -1,0 +1,41 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Mon, 30 Nov 2015 19:11:58 +0100
+Subject: fix *.po file creation for zarafa-webapp-files
+
+Without a proper environment variable there wont be found the needed
+tool msgfmt. And the a correct path for the language files is needed
+too. And finaly we need to copy then new files to the deploy folder.
+---
+ plugins/files/build.xml | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/plugins/files/build.xml b/plugins/files/build.xml
+index 2592c69..9d0a0c4 100644
+--- a/plugins/files/build.xml
++++ b/plugins/files/build.xml
+@@ -1,8 +1,10 @@
+ <project default="all">
++
++	<property environment="env"/>
+ 	<property name="root-folder" value="${basedir}/../../"/>
+ 	<property name="tools-folder" value="${root-folder}/tools/"/>
+ 	<property name="target-folder" value="${root-folder}/deploy/plugins"/>
+-	<property name="language-folder" value="${basedir}/language"/>
++	<property name="language-folder" value="${basedir}/languages"/>
+ 
+ 	<import file="${tools-folder}/antutil.xml"/>
+ 
+@@ -260,6 +262,13 @@
+ 						</fileset>
+ 					</path>
+ 				</foreach>
++				<!-- copy new files -->
++				<copy todir="${target-folder}/${plugin-folder}">
++					<fileset dir=".">
++						<include name="languages/**/*.mo"/>
++						<include name="languages/**/*.txt"/>
++					</fileset>
++				</copy>
+ 			</then>
+ 			<else>
+ 				<echo message="WARNING: msgfmt not available, not generating *.mo files for translations"/>
