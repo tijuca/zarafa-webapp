@@ -42,29 +42,44 @@
 		 *
 		 * @param string $entryid entryid of distribution list.
 		 * @param array $data an array of members in the distribution list.
-		 * @param boolean $recurse true if we want to expand a distribution list in distribution lists.
+		 * @param boolean $isRecurse true if we want to expand a distribution list in distribution lists.
 		 * @return array $data an array of members in the distribution list.
 		 */
-		function expandDist($entryid, $data = Array(), $recurse = False)
+		function expandDist($entryid, $data = Array(), $isRecurse = false)
 		{
-			$abentry = mapi_ab_openentry($this->addrbook, $entryid);
-			$table = mapi_folder_getcontentstable($abentry, MAPI_DEFERRED_ERRORS);
-			$rows = mapi_table_queryrows($table, $this->recipientProperties, 0, (ABITEMDETAILS_MAX_NUM_DISTLIST_MEMBERS > 0) ? ABITEMDETAILS_MAX_NUM_DISTLIST_MEMBERS : 0x7fffffff);
+			// Check the given entryid is shared folder distlist
+			$isExternalDistList = false;
+			if($GLOBALS['entryid']->hasContactProviderGUID(bin2hex($entryid))){
+				$isExternalDistList = $GLOBALS["operations"]->isExternalDistList($entryid);
+			}
+			if (!$isExternalDistList) {
+				$abentry = mapi_ab_openentry($this->addrbook, $entryid);
+				$table = mapi_folder_getcontentstable($abentry, MAPI_DEFERRED_ERRORS);
+				$rows = mapi_table_queryrows($table, $this->recipientProperties, 0, (ABITEMDETAILS_MAX_NUM_DISTLIST_MEMBERS > 0) ? ABITEMDETAILS_MAX_NUM_DISTLIST_MEMBERS : 0x7fffffff);
+				/*
+				 * To prevent loading a huge list that the browser cannot handle, it is possible to
+				 * limit the maximum number of shown items. Note that when the table doesn't
+				 * contain the requested number of rows, it will not give any errors and simply
+				 * return what is available.
+				 * When the limit is 0 or below, then no limit is applied and we use 0x7fffffff
+				 * to indicate we want to have all rows from the table.
+				 */
+				for ($i = 0, $len = count($rows); $i < $len; $i++) {
+					$memberProps = Conversion::mapMAPI2XML($this->recipientProperties, $rows[$i]);
+					if ($memberProps['props']['object_type'] == MAPI_DISTLIST && $isRecurse == True) {
+						$data = array_merge($data, $this->expandDist(hex2bin($memberProps['entryid']), $data, $isRecurse, false));
+					} else {
+						$data[] = $memberProps;
+					}
+				}
+			} else {
 
-			/*
-			 * To prevent loading a huge list that the browser cannot handle, it is possible to 
-			 * limit the maximum number of shown items. Note that when the table doesn't
-			 * contain the requested number of rows, it will not give any errors and simply
-			 * return what is available.
-			 * When the limit is 0 or below, then no limit is applied and we use 0x7fffffff
-			 * to indicate we want to have all rows from the table.
-			 */
-			for($i = 0, $len = count($rows); $i < $len; $i++){
-				$memberProps = Conversion::mapMAPI2XML($this->recipientProperties, $rows[$i]);
-				if($memberProps['props']['object_type'] == MAPI_DISTLIST && $recurse == True) {
-					$data = array_merge($data, $this->expandDist(hex2bin($memberProps['entryid']), $data, $recurse));
-				} else {
-					$data["results"][] = $memberProps;
+				// Expand shared folder distlist
+				$members = $GLOBALS['operations']->expandExternalDistList(bin2hex($entryid));
+				$recipients = array();
+				foreach ($members as $recipient) {
+					$recipients['props'] = $recipient;
+					array_push($data, $recipients);
 				}
 			}
 			return $data;
@@ -85,7 +100,7 @@
 			$this->recipientProperties = $GLOBALS["properties"]->getRecipientProperties();
 
 			if($entryid) {
-				$data = $this->expandDist($entryid, array(), $action['recurse']);
+				$data["results"] = $this->expandDist($entryid, array(), $action['recurse']);
 				$this->addActionData("expand", $data);
 				$GLOBALS["bus"]->addData($this->getResponseData());
 			}

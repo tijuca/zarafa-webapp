@@ -85,6 +85,7 @@
 				<include name="*.dist"/>
 				<include name="*.conf"/>
 				<include name="*.php"/>
+				<include name="robots.txt"/>
 				<exclude name="config.php"/>
 				<exclude name="debug.php"/>
 			</fileset>

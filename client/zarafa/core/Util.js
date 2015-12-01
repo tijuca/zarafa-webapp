@@ -8,6 +8,12 @@ Ext.namespace('Zarafa.core');
 Zarafa.core.Util =
 {
 	/**
+	 * @cfg {Boolean} skipRequester This flag specifies if confirm dialog will skip.
+	 * If it is true then confirm dialog will not show otherwise it will show.
+	 */
+	skipRequester : false,
+
+	/**
 	 * Sort an array of objects
 	 *
 	 * @param {Array} list The array of objects which must be sorted
@@ -736,9 +742,7 @@ Zarafa.core.Util =
 	 */
 	enableLeaveRequester : function()
 	{
-		window.onbeforeunload = function () {
-			return _('Your changes will be lost if you leave this page now.');
-		};
+		window.onbeforeunload = this.onBeforeUnload.createDelegate(this);
 	},
 
 	/**
@@ -747,5 +751,20 @@ Zarafa.core.Util =
 	disableLeaveRequester : function()
 	{
 		window.onbeforeunload = null;
+	},
+
+	/**
+	 * Function which is show confirm dialog when user trying to leave the page.
+	 * It will also check the value of {#Zarafa.core.Util.skipRequester skipRequester}
+	 * If it's true then it will not show the confirm dialog.
+	 */
+	onBeforeUnload : function()
+	{
+		if(!this.skipRequester) {
+			return _('Your changes will be lost if you leave this page now.');
+		} else {
+			this.skipRequester = false;
+			return;
+		}
 	}
 };

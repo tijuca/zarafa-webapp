@@ -39,8 +39,20 @@ Zarafa.contact.printer.DistlistRenderer = Ext.extend(Zarafa.common.printer.rende
 	 */
 	prepareData: function(record) {
 		var data = Zarafa.contact.printer.DistlistRenderer.superclass.prepareData.apply(this, arguments);
-
 		data.members = Ext.pluck(record.getMemberStore().getRange(), 'data');
+
+		// HTML Encode all properties of the members
+		for (var i = 0; i < data.members.length; i++) {
+			// Make an explicit copy of the member, otherwise we
+			// will save the escaped data to the distlist.
+			data.members[i] = Ext.apply({}, data.members[i]);
+			var member = data.members[i];
+			for (var key in member) {
+				if(Ext.isString(member[key])) {
+					member[key] = Ext.util.Format.htmlEncode(member[key]);
+				}
+			}
+		}
 
 		return data;
 	}

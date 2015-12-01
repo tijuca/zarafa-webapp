@@ -454,6 +454,12 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 				delete options.params.restriction;
 		}
 
+		// remove search restriction when we already have a search folder entryid, otherwise the Operation::getTable() function
+		// will restrict the search folder which removes some search results.
+		if (options.actionType == Zarafa.core.Actions['list'] && Ext.isArray(options.params.restriction.search) && Ext.isDefined(this.searchFolderEntryId) && this.useSearchFolder) {
+			delete options.params.restriction.search;
+		}
+
 		return Zarafa.core.data.ListModuleStore.superclass.load.call(this, options);
 	},
 
@@ -518,6 +524,15 @@ myStore.reload(lastOptions);
 		Ext.apply(options, {
 			actionType : Zarafa.core.Actions['updatelist']
 		});
+
+		/*
+		 * If the search was done using a search folder, we do not need to apply a restriction and
+		 * therefore remove the search restriction. Otherwise this would cause an restriction on the
+		 * search folder itself.
+		 */
+		if (Ext.isDefined(this.searchFolderEntryId) && this.useSearchFolder) {
+			delete this.restriction.search;
+		}
 
 		this.load(options);
 	},

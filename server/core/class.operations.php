@@ -12,12 +12,12 @@
 	* @package core
 	*/
 
-	include_once(__DIR__ . '/../core/class.filter.php');
-	include_once(__DIR__ . '/../../mapi/class.recurrence.php');
-	include_once(__DIR__ . '/../../mapi/class.taskrecurrence.php');
-	include_once(__DIR__ . '/../../mapi/class.meetingrequest.php');
-	include_once(__DIR__ . '/../../mapi/class.taskrequest.php');
-	include_once(__DIR__ . '/../../mapi/class.freebusypublish.php');
+	include_once(dirname(__FILE__) . '/../core/class.filter.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.recurrence.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.taskrecurrence.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.meetingrequest.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.taskrequest.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.freebusypublish.php');
 
 	class Operations
 	{
@@ -2749,7 +2749,7 @@
 		{
 			$attachmentTable = mapi_message_getattachmenttable($copyFromMessage);
 			if ($attachmentTable && isset($attachments['dialog_attachments'])) {
-				$existingAttachments = mapi_table_queryallrows($attachmentTable, array(PR_ATTACH_NUM, PR_ATTACH_SIZE, PR_ATTACH_LONG_FILENAME, PR_ATTACHMENT_HIDDEN, PR_DISPLAY_NAME, PR_ATTACH_METHOD));
+				$existingAttachments = mapi_table_queryallrows($attachmentTable, array(PR_ATTACH_NUM, PR_ATTACH_SIZE, PR_ATTACH_LONG_FILENAME, PR_ATTACHMENT_HIDDEN, PR_DISPLAY_NAME, PR_ATTACH_METHOD, PR_ATTACH_CONTENT_ID));
 				$deletedAttachments = $attachment_state->getDeletedAttachments($attachments['dialog_attachments']);
 
 				$plainText = $this->isPlainText($message);
@@ -2765,6 +2765,7 @@
 					$isSafeSender = $this->isSafeSender($copyFromMessage);
 				}
 
+				$body = false;
 				foreach($existingAttachments as $props) {
 					// check if this attachment is "deleted"
 
@@ -2794,6 +2795,22 @@
 						 * original mail.
 						 */
 						continue;
+					}
+
+					/**
+					 * If the inline attachment is referenced with an content-id,
+					 * manually check if it's still referenced in the body otherwise remove it
+					 */
+					if($isInlineAttachment) {
+						// Cache body, so we stream it once
+						if($body === false) {
+							$body = getMessageHTMLBody($message);
+						}
+
+						$contentID = $props[PR_ATTACH_CONTENT_ID];
+						if(strpos($body, $contentID) === false) {
+							continue;
+						}
 					}
 
 					/**
@@ -3175,6 +3192,103 @@
 			}
 
 			return $recipients;
+		}
+
+		/**
+		 * Function which is get store of external resource from entryid.
+		 * @param string $entryid entryid of the shared folder record
+		 * @return object/boolean $store store of shared folder if found otherwise false
+		 */
+		function getOtherStoreFromEntryid($entryid)
+		{
+			// Get all external user from settings
+			$otherUsers = $GLOBALS['mapisession']->retrieveOtherUsersFromSettings();
+
+			// Fetch the store of each external user and
+			// find the record with given entryid
+			foreach ($otherUsers as $sharedUser => $values) {
+				$userEntryid = mapi_msgstore_createentryid($GLOBALS['mapisession']->getDefaultMessageStore(), $sharedUser);
+				$store = $GLOBALS['mapisession']->openMessageStore($userEntryid);
+				if ($GLOBALS['entryid']->hasContactProviderGUID($entryid)) {
+					$entryid = $GLOBALS["entryid"]->unwrapABEntryIdObj($entryid);
+				}
+				$record = mapi_msgstore_openentry($store, hex2bin($entryid));
+				if ($record) {
+					return $store;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Function which is use to check the distribution list belongs to any external folder or not.
+		 * @param string $entryid entryid of distribution list
+		 * @return boolean true if distribution list from external folder otherwise false.
+		 */
+		function isExternalDistList($entryid)
+		{
+			try {
+				if (!$GLOBALS['entryid']->hasContactProviderGUID(bin2hex($entryid))) {
+					$entryid = $GLOBALS['entryid']->wrapABEntryIdObj(bin2hex($entryid), MAPI_DISTLIST);
+					$entryid = hex2bin($entryid);
+				}
+				$abentry = mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), $entryid);
+			} catch (MAPIException $e) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Get object type from distlist type of member of distribution list.
+		 * @param integer $distlistType distlist type of distribution list
+		 * @return integer $objectType object type of distribution list
+		 */
+		function getObjectTypeFromDistlistType($distlistType)
+		{
+			$objectType = '';
+			switch ($distlistType) {
+				case DL_DIST :
+				case DL_DIST_AB :
+					$objectType = MAPI_DISTLIST;
+				case DL_USER :
+				case DL_USER2 :
+				case DL_USER3 :
+				case DL_USER_AB :
+				default:
+					$objectType = MAPI_MAILUSER;
+			}
+			return $objectType;
+		}
+
+		/**
+		 * Function which fetches all members of an external folder's distribution list.
+		 *
+		 * @param $distlistEntryid entryid of distribution list
+		 * @return array $members all members of a distribution list.
+		 */
+		function expandExternalDistList($distlistEntryid)
+		{
+			$properties = $GLOBALS['properties']->getDistListProperties();
+
+			// Get store of distribution list
+			$sharedStore = $this->getOtherStoreFromEntryid($distlistEntryid);
+			if ($GLOBALS['entryid']->hasContactProviderGUID($distlistEntryid)) {
+				$distlistEntryid = hex2bin($GLOBALS["entryid"]->unwrapABEntryIdObj($distlistEntryid));
+			}
+			$distlist = $this->openMessage($sharedStore, $distlistEntryid);
+
+			// Expand distribution list
+			$distlistMembers = $this->getMembersFromDistributionList($sharedStore, $distlist, $properties);
+			$members = array();
+
+			// Set object type property into each member of distribution list
+			foreach ($distlistMembers as $recip) {
+				$distlistType = $recip["props"]["distlist_type"];
+				$recip["props"]['object_type'] = $this->getObjectTypeFromDistlistType($distlistType);
+				array_push($members, $recip['props']);
+			}
+			return $members;
 		}
 
 		/**
@@ -4079,17 +4193,11 @@
 		 * replace the img src tag with the 'cid' which corresponds with the attachments
 		 * cid.
 		 *
-		 * @param {MAPIMessage} $message the distribution list message
+		 * @param MAPIMessage $message the distribution list message
 		 */
 		function convertInlineImage($message)
 		{
-			$stream = mapi_openproperty($message, PR_HTML, IID_IStream, 0, MAPI_MODIFY);
-			$stat = mapi_stream_stat($stream);
-			mapi_stream_seek($stream, 0, STREAM_SEEK_SET);
-			$body = '';
-			for ($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
-				$body .= mapi_stream_read($stream, BLOCK_SIZE);
-			}
+			$body = getMessageHTMLBody($message);
 
 			// Only load the DOM if the HTML contains a data:image.
 			if (strpos($body, "data:image") !== false) {

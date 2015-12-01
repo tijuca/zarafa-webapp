@@ -1,5 +1,5 @@
 <?php
-	require(__DIR__ . '/../exceptions/class.SettingsException.php');
+	require(dirname(__FILE__) . '/../exceptions/class.SettingsException.php');
 
 	/**
 	 * Generic settings class

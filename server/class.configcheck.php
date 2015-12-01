@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/PEAR/JSON.php');
+require_once(dirname(__FILE__) . '/PEAR/JSON.php');
 
 /**
  * This class will check the server configuration and it stops the 

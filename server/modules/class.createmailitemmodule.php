@@ -139,6 +139,57 @@
 							$this->setReplyForwardInfo($action);
 						}
 
+						/**
+						 * Before sending a message check the message is saved message if true then
+						 * Check the list of recipients in saved message if
+						 * there are any external distribution lists then expand it,
+						 * and add the members of distribution lists in recipients and remove the distribution lists from recipients
+						 */
+						$message = $GLOBALS['operations']->openMessage($store, $entryid);
+						$newRecipients = array();
+						if (!empty($message)) {
+
+							// Get recipients of saved message
+							$savedRecipients = $GLOBALS['operations']->getRecipientsInfo($store, $message);
+							if (!empty($savedRecipients)) {
+								$remove = array();
+								if (!empty($action["recipients"]["remove"])) {
+									$remove = $action["recipients"]["remove"];
+								}
+								$savedRecipients = $this->getMembersFromRecipientDistlists($savedRecipients, $remove, true);
+								$newRecipients = $savedRecipients["add"];
+								$removeRecipients = $savedRecipients["remove"];
+								if (!empty($remove)) {
+									$action["recipients"]["remove"] = array_merge($action["recipients"]["remove"], $removeRecipients);
+								} else {
+									$action["recipients"]["remove"] = $removeRecipients;
+								}
+							}
+						}
+
+						/**
+						 * If the message has recipients list that is not saved then
+						 * Check the list of unsaved recipients if
+						 * there are any external distribution lists then expand it
+						 * and add the members of distribution lists in recipients
+						 */
+						if (!empty($recipients) && !empty($recipients["add"])) {
+							$addRecipients = $recipients["add"];
+
+							$addRecipients = $this->getMembersFromRecipientDistlists($addRecipients, array(), false);
+							if (!empty($newRecipients)) {
+								$newRecipients = array_merge($newRecipients, $addRecipients["add"]);
+							} else {
+								$newRecipients = $addRecipients["add"];
+							}
+						}
+
+						// add members of distribution list into recipients list of message
+						if (!empty($newRecipients)) {
+							$action["recipients"]["add"] = $newRecipients;
+						}
+
+
 						$result = $GLOBALS['operations']->submitMessage($store, $entryid, Conversion::mapXML2MAPI($this->properties, $action['props']), $messageProps, isset($action['recipients']) ? $action['recipients'] : array(), isset($action['attachments']) ? $action['attachments'] : array(), $copyFromMessage, $copyAttachments, false, $copyInlineAttachmentsOnly);
 
 						// If draft is sent from the drafts folder, delete notification
@@ -161,7 +212,7 @@
 						$mapiProps = Conversion::mapXML2MAPI($this->properties, $action['props']);
 
 						/*
-						 * PR_SENT_REPRESENTING_ENTRYID and PR_SENT_REPRESENTING_SEARCH_KEY properties needs to be deleted while user removes 
+						 * PR_SENT_REPRESENTING_ENTRYID and PR_SENT_REPRESENTING_SEARCH_KEY properties needs to be deleted while user removes
 						 * any previously configured recipient from FROM field.
 						 * This property was simply ignored by Conversion::mapXML2MAPI function
 						 * as it is configured with empty string in request.
@@ -180,7 +231,7 @@
 
 						$attachNum = !empty($action['attach_num']) ? $action['attach_num'] : false;
 
-						// If embedded message is being saved currently than we need to obtain all the 
+						// If embedded message is being saved currently than we need to obtain all the
 						// properties of 'embedded' message instead of simple message and send it in response
 						if($attachNum) {
 							$message = $GLOBALS['operations']->openMessage($store, $props[PR_ENTRYID], $attachNum);
@@ -228,6 +279,69 @@
 
 				$this->sendFeedback($result ? true : false, array(), true);
 			}
+		}
+
+		/**
+		 * Function which is check the recipients list and if found any distribution list
+		 * which is belongs to external distribution list,
+		 * then expand the distribution list and return the new recipients list
+		 * @param array $recipients array of recipients either saved or add
+		 * @param array $remove array of recipients that was removed
+		 * @param boolean $isSaved True if message is saved message otherwise false
+		 * @return array $newRecipients a list of recipients as XML array structure
+		 */
+		function getMembersFromRecipientDistlists($recipients, $remove, $isSaved)
+		{
+			$addRecipients = array();
+			$removeRecipients = array();
+			if (!empty($recipients)) {
+				foreach ($recipients as $recipientItem) {
+					$recipientItem = $isSaved ? $recipientItem["props"] : $recipientItem;
+					$recipientEntryid = $recipientItem["entryid"];
+
+					// Expand the distribution list only if the recipient is distribution list
+					// and also verify that the distribution list belongs to any external folder
+					if ($recipientItem['address_type'] == 'MAPIPDL') {
+						$isExternalDistList = $GLOBALS["operations"]->isExternalDistList(hex2bin($recipientEntryid));
+
+						if ($isExternalDistList) {
+							$existInRemove = false;
+							if (!empty($remove)) {
+
+								// verify that the distribution list which is going to expand is not,
+								// removed by user before sending the message
+								// if it was removed by user then no need to expand
+								foreach ($remove as $removeItem) {
+									$existInRemove = array_search($recipientEntryid, $removeItem);
+									if ($existInRemove) {
+										break;
+									}
+								}
+							}
+
+							// Expand the distribution list and if the distribution list was saved then,
+							// remove the distribution list after expanding it.
+							if (!$existInRemove) {
+								$recipientItems = $GLOBALS["operations"]->expandExternalDistList($recipientEntryid);
+								foreach ($recipientItems as $recipient) {
+
+									// set recipient type of each members as per the distribution list recipient type
+									$recipient['recipient_type'] = $recipientItem['recipient_type'];
+									array_push($addRecipients, $recipient);
+								}
+								if ($isSaved) {
+									array_push($removeRecipients, $recipientItem);
+								}
+							}
+						}
+					} else if (!$isSaved) {
+						array_push($addRecipients, $recipientItem);
+					}
+				}
+			}
+			$newRecipients["add"] = $addRecipients;
+			$newRecipients["remove"] = $removeRecipients;
+			return $newRecipients;
 		}
 
 		/**

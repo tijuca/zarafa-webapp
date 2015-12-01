@@ -7,6 +7,8 @@
 	// Include files
 	require_once("init.php");
 	require_once("config.php");
+	// Load json class, so json_encode is avaliable for PHP < 5.3
+	require_once("server/core/class.json.php");
 	require_once("defaults.php");
 	require_once("server/util.php");
 	require_once("server/gettext.php");
@@ -21,7 +23,6 @@
 
 	require_once("server/exceptions/class.ZarafaException.php");
 	require_once("server/exceptions/class.ZarafaErrorException.php");
-	require_once("server/core/class.json.php");
 	require_once("server/core/class.conversion.php");
 	require_once("server/core/class.mapisession.php");
 	require_once("server/core/class.entryid.php");

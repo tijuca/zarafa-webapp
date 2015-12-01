@@ -1,6 +1,6 @@
 <?php
 
-	require_once( __DIR__ . '/class.properties.php');
+	require_once( dirname(__FILE__) . '/class.properties.php');
 	
 	/**
 	 * MAPI session handling
@@ -111,7 +111,7 @@
 
 				// phpmapi function mapi_logon_zarafa expects extra parameters from version 7.2.0 SVN revision 46424
 				if (version_compare($mapi_version, '7.2.0.46424', '>=')) {
-					$webapp_version = 'WebApp-'.trim(file_get_contents('version'));
+					$webapp_version = 'WebApp-'.trim(file_get_contents(BASE_PATH . 'version'));
 					$browser_version = $_SERVER['HTTP_USER_AGENT'];
 					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass,1,$webapp_version,$browser_version);
 				}

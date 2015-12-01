@@ -1,5 +1,5 @@
 <?php
-	include_once(__DIR__ . '/../../mapi/class.recurrence.php');
+	include_once(dirname(__FILE__) . '/../../mapi/class.recurrence.php');
 	
 	/**
 	 * Appointment ItemModule

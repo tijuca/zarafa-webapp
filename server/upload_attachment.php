@@ -4,11 +4,11 @@
 	* This file is used to upload an file.
 	*/
 	// required to handle php errors
-	require_once(__DIR__ . '/exceptions/class.ZarafaErrorException.php');
+	require_once(dirname(__FILE__) . '/exceptions/class.ZarafaErrorException.php');
 	// required to send data in JSON
-	require_once(__DIR__ . '/core/class.json.php');
+	require_once(dirname(__FILE__) . '/core/class.json.php');
 	// Include backwards compatibility
-	require_once(__DIR__ . '/sys_get_temp_dir.php');
+	require_once(dirname(__FILE__) . '/sys_get_temp_dir.php');
 
 	// Get Attachment data from state
 	$attachment_state = new AttachmentState();

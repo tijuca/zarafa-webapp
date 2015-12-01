@@ -764,8 +764,13 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 
 				// Act like a dummy store load operation to add organizer in recipient sub store
 				// without any changes being registered.
-				var existingRecords = recipientStore.getRange();
+				var existingRecords = [];
+				recipientStore.each(function(rec){
+					// Copy the record to get a separate instance instead of referring the same instance.
+					existingRecords.push(rec.copy());
+				});
 				existingRecords.push(organizer);
+
 				recipientStore.loadRecords({records : existingRecords}, undefined, true);
 
 				// Register for an update event of ShadowStore to add organizer every time

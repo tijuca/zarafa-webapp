@@ -38,7 +38,7 @@ Zarafa.calendar.Actions = {
 			} else {
 				Zarafa.core.data.UIFactory.openViewRecord(record, config);
 			}
-		});
+		}, this);
 	},
 
 	/**

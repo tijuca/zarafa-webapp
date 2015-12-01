@@ -164,7 +164,23 @@ Zarafa.core.plugins.AutoSaveMessagePlugin = Ext.extend(Object, {
 	messageAutoSave : function()
 	{
 		if (this.record) {
-			this.field.saveRecord();
+
+			// Check if the response received after resolve-attempt is ambiguous or not, if this is the case then "check names" dialog is still opened,
+			// just halt the auto-saving mechanism until user select any record from suggestion.
+			var recipientSubStore = this.record.getSubStore('recipients');
+			var ambiguityDetected = false;
+			recipientSubStore.each(function(record){
+				if(record.resolveAttemptAmbiguous) {
+					ambiguityDetected = true;
+				}
+			});
+
+			if(!ambiguityDetected){
+				this.field.saveRecord();
+			} else {
+				this.resetMessageAutoSaveTimer();
+				this.startMessageAutoSaveTimer();
+			}
 		}
 	},
 

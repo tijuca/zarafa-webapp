@@ -701,7 +701,7 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 		 * The other issues is that we are not using defaultValue config for editor field.
 		 * So to avoid this situation we are setting initial editor's value in to record.
 		 */
-		record.set('content', this.contentField.getValue());
+		record.set('content', this.contentField.getRawValue());
 	},
 
 	/**
@@ -748,7 +748,7 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 		var record = this.selectedSignature;
 		if (record) {
 			record.set(this.nameField.name, this.nameField.getValue());
-			record.set(this.contentField.name, this.contentField.getValue());
+			record.set(this.contentField.name, this.contentField.getRawValue());
 			record.set('isHTML', this.contentField.isHtmlEditor(), true);
 			record.commit();
 
@@ -768,6 +768,10 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 		var record = this.selectedSignature;
 		if (record) {
 			this.nameField.setValue(record.get(this.nameField.name));
+
+			// First, remove all the content form editor to avoid conflict in changes before reset the content
+			// as saved in record at its original value.
+			this.contentField.setValue("");
 			this.contentField.setValue(record.get(this.contentField.name));
 
 			// We just reset the signature, reset the dirty flag
@@ -804,7 +808,9 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 			// all fields.
 			if (this.dirtySelectedSignature !== true) {
 				this.onFieldChange(this.nameField, this.nameField.getValue());
-				this.onFieldChange(this.contentField, this.contentField.getValue());
+				// It is required to detect the changes by comparing Raw value as tinyMCE changes some code
+				// automatically to achieve cross browser compatibility for similar content formatting.
+				this.onFieldChange(this.contentField, this.contentField.getRawValue());
 			}
 
 			return this.dirtySelectedSignature;

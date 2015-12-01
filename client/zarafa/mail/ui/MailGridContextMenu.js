@@ -64,6 +64,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 		});
 
 		Zarafa.mail.ui.MailGridContextMenu.superclass.constructor.call(this, config);
+		this.mon(this.model.getStore(),'load',this.onLoad,this);
 	},
 
 	/**
@@ -202,6 +203,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 			xtype: 'zarafa.conditionalitem',
 			text : _('Move to Junk Folder'),
 			iconCls : 'icon_junk',
+			beforeShow : this.onMoveToJunkBeforeShow,
 			handler: this.onContextItemJunk,
 			scope: this
 		},{
@@ -340,6 +342,23 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	},
 
 	/**
+	 * Event handler which determines if the 'Move to Junk Folder' menu item should be visible or not.
+	 * If context menu is opened in the "Junk Items" folder, it will not show the menu item.
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
+	 * @param {Zarafa.core.data.IPMRecord[]} records The records which must be checked
+	 * to see if the item must be enabled or disabled.
+	 * @private
+	 */
+	onMoveToJunkBeforeShow : function(item, records)
+	{
+		if ( this.model ){
+			var defaultFolder = this.model.getDefaultFolder();
+			item.setVisible(!defaultFolder.isSpecialFolder('junk'));
+		}
+	},
+	
+	/**
 	 * Event handler which determines if the Read Flag button must be shown.
 	 * There are two kind of read flag buttons which can both make use of this
 	 * function (Mark as Read and Mark as Unread buttons).
@@ -420,6 +439,32 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 		Zarafa.mail.Actions.openMailOptionsContent(this.records, {
 			autoSave : true
 		});
+	},
+
+	/**
+	 * Event handler for the load event of {@link Zarafa.mail.MailStore store}
+	 * When we have {@link Zarafa.mail.ui.MailGridContextMenu contextmenu} open
+	 * and if we receive a new email then store and sub store of the selected records
+	 * are not accessible anymore,so we have to get a new records by the entryid of the old records.
+	 * @param {Zarafa.mail.MailStore} store This store
+	 * @param {Zarafa.core.data.IPMRecord[]} records loaded record set
+	 * @param {Object} options the options (parameters) with which the load was invoked.
+	 * @private
+	 */
+	onLoad : function (store, records, options)
+	{
+		var newRecords = [];
+		Ext.each(this.records, function (record) {
+			record = store.getById(record.id);
+			if(record) {
+				newRecords.push(record);
+			} else {
+				// If the selected record is not in the store anymore then destroy context menu
+				this.destroy();
+			}
+		}, this);
+
+		this.records = newRecords;
 	}
 });
 

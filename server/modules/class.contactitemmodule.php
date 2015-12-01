@@ -32,6 +32,12 @@
 			$data = array();
 
 			if($entryid) {
+
+				// Check if given entryid is shared folder distlist then
+				// get the store of distlist for fetching it's members.
+				if ($GLOBALS["operations"]->isExternalDistList($entryid)) {
+					$store = $GLOBALS['operations']->getOtherStoreFromEntryid(bin2hex($entryid));
+				}
 				if($store) {
 					$message = $GLOBALS['operations']->openMessage($store, $entryid);
 				} else {

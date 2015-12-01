@@ -845,12 +845,6 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     /**
      * Fix stupid css declarations which lead to vulnerabilities
      * in IE.
-     *
-     * Also remove "position" attribute, as it can easily be set
-     * to "fixed" or "absolute" with "left" and "top" attributes
-     * of zero, taking over the whole content frame.  It can also
-     * be set to relative and move itself anywhere it wants to,
-     * displaying content in areas it shouldn't be allowed to touch.
      */
     $match   = Array('/\/\*.*\*\//',
                     '/expression/i',
@@ -858,9 +852,8 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
                     '/binding/i',
                     '/include-source/i',
                     '/javascript/i',
-                    '/script/i',
-                    '/position/i');
-    $replace = Array('','idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy', '');
+		    '/script/i');
+    $replace = Array('','idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy');
     $contentNew = preg_replace($match, $replace, $contentTemp);
     if ($contentNew !== $contentTemp) {
         // insecure css declarations are used. From now on we don't care
@@ -1240,6 +1233,10 @@ function magicHTML($body, $id) {
                 'title'=>'"'._("This external link will open in a new window").'"'
                 ),
             "/^base$/i" =>
+            Array('target'=>'"_blank"',
+                'title'=>'"'._("This external link will open in a new window").'"'
+                ),
+            "/^area$/i" =>
             Array('target'=>'"_blank"',
                 'title'=>'"'._("This external link will open in a new window").'"'
                 )
