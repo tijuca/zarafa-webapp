@@ -12,7 +12,7 @@
 		</classpath>
 	</typedef>
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${tools-folder}/lib/ant-contrib-1.0b3.jar"/>
 		</classpath>
@@ -132,13 +132,16 @@
 				<if>
 					<available file="php" type="dir" />
 					<then>
-						<foreach target="syntax-check" param="file">
-							<path>
-								<fileset dir=".">
-									<include name="**/*.php"/>
-								</fileset>
-							</path>
-						</foreach>
+						<for param="file" parallel="true">
+							<fileset dir=".">
+								<include name="**/*.php"/>
+							</fileset>
+							<sequential>
+								<antcall target="syntax-check">
+									<param name="file" value="@{file}"/>
+								</antcall>
+							</sequential>
+						</for>
 					</then>
 				</if>
 			</then>

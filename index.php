@@ -11,6 +11,8 @@
 
 	include_once("init.php");
 	require_once("config.php");
+	// Load json class, so json_encode is avaliable for PHP <= 5.3
+	require_once("server/core/class.json.php");
 	require_once("defaults.php");
 	require_once("server/core/class.webappsession.php");
 	
@@ -37,7 +39,6 @@
 	require_once("server/util.php");
 	include_once("server/gettext.php");
 
-	require_once("server/core/class.json.php");
 	require_once("server/core/constants.php");
 	require_once("server/core/class.conversion.php");
 	require_once("server/core/class.mapisession.php");

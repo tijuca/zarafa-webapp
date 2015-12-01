@@ -857,9 +857,18 @@
 								// if more then one delegates info is stored then find index of 
 								// current user
 								$userEntryId = $GLOBALS['mapisession']->getUserEntryID();
-								$userIndex = array_search($userEntryId, $localFreeBusyFolderProps[PR_SCHDINFO_DELEGATE_ENTRYIDS]);
 
-								if($userIndex !== false && $localFreeBusyFolderProps[PR_DELEGATES_SEE_PRIVATE][$userIndex] === 1) {
+								$userFound = false;
+								$seePrivate = false;
+								foreach($localFreeBusyFolderProps[PR_SCHDINFO_DELEGATE_ENTRYIDS] as $key => $entryId) {
+									if ($GLOBALS['entryid']->compareABEntryIds(bin2hex($userEntryId), bin2hex($entryId))) {
+										$userFound = true;
+										$seePrivate = $localFreeBusyFolderProps[PR_DELEGATES_SEE_PRIVATE][$key];
+										break;
+									}
+								}
+
+								if($userFound !== false && $seePrivate === 1) {
 									// if delegate has permission then don't hide the item
 									$private = false;
 								}

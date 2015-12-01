@@ -428,7 +428,7 @@
 			$objType = str_pad($objType, 2, '0', STR_PAD_LEFT);
 			$objType = str_pad($objType, 8, '0', STR_PAD_RIGHT);
 
-			return '00000000' + self::MUIDZCSAB + $objType + '00000000' + $entryId;
+			return '00000000'.self::MUIDZCSAB.$objType.'00000000'.$entryId;
 		}
 
 		/**
@@ -436,7 +436,7 @@
 		 * @param {String} abEntryId wrapped entryid
 		 * @return {Object} unwrapped entryid
 		 */
-		private function unwrapABEntryIdObj($abEntryId)
+		public function unwrapABEntryIdObj($abEntryId)
 		{
 			// Remove ulVersion (8 char), muid (32 char), ulObjType (8 char) and ulOffset (8 char)
 			return substr($abEntryId, 56);

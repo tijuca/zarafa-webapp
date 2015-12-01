@@ -71,6 +71,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 			items : [{
 				xtype : 'textfield',
 				fieldLabel : _('Name'),
+				cls: 'form-field-name',
 				ref : '../newNameField',
 				listeners : {
 					scope : this,
@@ -82,6 +83,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 			},{
 				xtype : 'combo',
 				fieldLabel : _('Folder contains'),
+				cls: 'form-field-folder-contains',
 				typeAhead : true,
 				triggerAction : 'all',
 				lazyRender : true,
@@ -103,6 +105,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 			},{
 				xtype : 'zarafa.hierarchytree',
 				fieldLabel : _('Select where to place the folder'),
+				cls: 'form-field-hierarchy',
 				border: true,
 				forceLayout : true,
 				anchor : '100% 65%',

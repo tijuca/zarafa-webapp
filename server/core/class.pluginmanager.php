@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/class.xmlparser.php');
+require_once(dirname(__FILE__) . '/class.xmlparser.php');
 
 define('TYPE_PLUGIN', 1);
 define('TYPE_MODULE', 2);

@@ -1,5 +1,5 @@
 <?php
-	require(__DIR__ . '/../exceptions/class.DispatcherException.php');
+	require(dirname(__FILE__) . '/../exceptions/class.DispatcherException.php');
 
 	/**
 	* On-demand module loader

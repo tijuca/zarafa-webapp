@@ -1,5 +1,5 @@
 <?php
-	require_once(__DIR__ . '/../../mapi/class.recurrence.php');
+	require_once(dirname(__FILE__) . '/../../mapi/class.recurrence.php');
 
 	/**
 	 * Appointment Module

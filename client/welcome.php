@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/loader.php');
+include(dirname(__FILE__) . '/loader.php');
 
 $loader = new FileLoader();
 

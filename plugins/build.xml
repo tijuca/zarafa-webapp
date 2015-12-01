@@ -12,7 +12,7 @@
 		</classpath>
 	</typedef>
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${tools-folder}/lib/ant-contrib-1.0b3.jar"/>
 		</classpath>
@@ -65,15 +65,17 @@
 
 	<!-- Execute the given action on all plugins -->
 	<target name="execute">
-		<foreach target="execute-plugin" param="plugin" parallel="true">
-			<path>
-				<dirset dir="${plugins-folder}">
-					<include name="*"/>
-				</dirset>
-			</path>
-
-		</foreach>
-
+		<for param="plugin" parallel="true">
+			<dirset dir="${plugins-folder}">
+				<include name="*"/>
+			</dirset>
+			<sequential>
+				<antcall target="execute-plugin">
+					<param name="action" value="deploy"/>
+					<param name="plugin" value="@{plugin}"/>
+				</antcall>
+			</sequential>
+		</for>
 	</target>
 
 	<!-- Execute the given action on the given plugin -->

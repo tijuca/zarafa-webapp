@@ -129,6 +129,13 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 	 * the {@link Zarafa.core.data.UIFactoryLayer UIFactoryLayer}.
 	 */
 	removeRecordOnCancel : false,
+	
+	/**
+	 * If set to true when the component is layed out, the loading mask will be displayed
+	 * @property
+	 * @type Boolean
+	 */
+	showLoadMaskOnStart : false,
 
 	/**
 	 * @constructor
@@ -224,6 +231,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			'updaterecord' : this.onUpdateRecord,
 			'writerecord' : this.onWriteRecord,
 			'exceptionrecord' : this.onExceptionRecord,
+			'afterlayout' : this.onAfterLayout,
 			'scope' : this
 		});
 	},
@@ -333,7 +341,27 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			// and unlikely to be available anywhere else, while a real Record can
 			// be displayed in many UI components.
 			if (this.recordComponentPlugin.allowWrite === true) {
+				
+				// Check if the record is created but not saved on the server yet, but is attached to a store.
+				// In that case we must wait until the record is saved before we can start working with it.
+				// This can happen when creating a quick appointment in the calendar. (Select a timeslot,
+				// start typing, press [ENTER], immediately double-click on the appointment)
+				// (The store_entryid must be checked because the jasmine tests create filled in phantom records
+				// that are not being saved. But these records don't have a store_entryid)
+				if ( record.phantom === true && Ext.isDefined(record.store) && record.store.isSaving ){
+					// Show a loading mask either immediately or when the panel has been layed out)
+					if ( this.el ){
+						this.displayLoadMask();
+					}else {
+						this.showLoadMaskOnStart = true;
+					}
+					record.store.on('save', Ext.createDelegate(this.onStoreSave, this, [record]), this, {single: true});
+					
+					return;
+				}
+
 				if (this.isModal()) {
+					
 					this.modalRecord = record;
 					record = record.copy('modal-' + record.id);
 
@@ -344,6 +372,24 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 
 			this.recordComponentPlugin.setRecord(record, cheapCopy);
 		}
+	},
+	
+	/**
+	 * Event listener that is used when the panel is opened with a record that is being saved.
+	 * This can happen when the user creates a quick appointment and opens it before the save
+	 * request has returned. When the record has been saved it will call setRecord again,
+	 * so it will create a copy with all the necessary entryids.
+
+	 * @param {Zarafa.core.data.MAPIRecord} record The record that is being saved
+	 */
+	onStoreSave : function(record)
+	{
+		// Hide the loading mask (or make sure we don't show it)
+		this.showLoadMaskOnStart = false;
+		if ( this.el ){
+			this.hideLoadMask();
+		}
+		this.setRecord(record);
 	},
 
 	/**
@@ -429,6 +475,17 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 	{
 		if (btn === 'yes') {
 			Zarafa.common.Actions.deleteRecords(this.modalRecord || this.record);
+		}
+	},
+	
+	/**
+	 * Event handler that will make sure that the loadmask is shown when the panel is rendered
+	 * and the {#link showLoadMaskOnStart} property has been set to true.
+	 */
+	onAfterLayout : function()
+	{
+		if ( this.showLoadMaskOnStart === true ) {
+			this.displayLoadMask();
 		}
 	},
 

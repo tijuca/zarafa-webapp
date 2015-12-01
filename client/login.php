@@ -3,9 +3,11 @@
 
 	$url = '?logon';
 	foreach($_GET as $key => $value) {
+		$key = sanitizeValue($key, '', STRING_REGEX);
 		if(!empty($key) && !in_array($key, array('logon', 'load'))){
 			$url.= '&' . $key;
 			if(!empty($value)) {
+				$value = sanitizeGetValue($key, '', STRING_REGEX);
 				$url.= '=' . urlencode($value);
 			}
 		}

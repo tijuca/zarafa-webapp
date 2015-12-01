@@ -1,5 +1,5 @@
 <?php
-	require(__DIR__ . '/../exceptions/class.SearchException.php');
+	require(dirname(__FILE__) . '/../exceptions/class.SearchException.php');
 
 	/**
 	 * Module

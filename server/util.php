@@ -485,8 +485,8 @@
 
 	/**
 	 * Function will be used to decode smime messages and convert it to normal messages
-	 * @param {MAPIStore} $store user's store
-	 * @param {MAPIMessage} $message smime message
+	 * @param MAPIStore $store user's store
+	 * @param MAPIMessage $message smime message
 	 */
 	function parse_smime($store, $message)
 	{
@@ -550,5 +550,23 @@
 				mapi_message_deleteattach($message, $attnum);
 			}
 		}
+	}
+
+	/**
+	 * Function to retrieve the HTML body (PR_HTML) of a message.
+	 *
+	 * @param MAPIMessage $message message
+	 * @return String $body the HTML body of a message
+	 */
+	function getMessageHTMLBody($message)
+	{
+		$body = '';
+		$stream = mapi_openproperty($message, PR_HTML, IID_IStream, 0, 0);
+		$stat = mapi_stream_stat($stream);
+		mapi_stream_seek($stream, 0, STREAM_SEEK_SET);
+		for ($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
+			$body .= mapi_stream_read($stream, BLOCK_SIZE);
+		}
+		return $body;
 	}
 ?>

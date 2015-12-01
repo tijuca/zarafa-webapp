@@ -1,5 +1,5 @@
 <?php
-	require_once(__DIR__ . '/class.listnotifier.php');
+	require_once(dirname(__FILE__) . '/class.listnotifier.php');
 
 	/**
 	 * MailListNotifier

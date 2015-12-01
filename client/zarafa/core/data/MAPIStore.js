@@ -33,6 +33,14 @@ Zarafa.core.data.MAPIStore = Ext.extend(Ext.data.GroupingStore, {
 	 * @private
 	 */
 	filterScope : undefined,
+	
+	/**
+	 * Set to true when the {Zarafa.core.data.MAPIStore} starts saving, set to false when done.
+	 * @property
+	 * @type Boolean
+	 * @private
+	 */
+	isSaving : false,
 
 	/**
 	 * @constructor
@@ -81,6 +89,9 @@ Zarafa.core.data.MAPIStore = Ext.extend(Ext.data.GroupingStore, {
 		this.on('add', this.onAdd, this);
 		this.on('remove', this.onRemove, this);
 		this.on('write', this.onWrite, this);
+
+		this.on('beforesave', function(){ this.isSaving = true; }, this);
+		this.on('save', function(){ this.isSaving = false; }, this);
 	},
 
 	/**
