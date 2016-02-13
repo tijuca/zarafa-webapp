@@ -33,8 +33,16 @@
 
 			if($entryid) {
 
-				// Check if given entryid is shared folder distlist then
-				// get the store of distlist for fetching it's members.
+				/* Check if given entryid is shared folder distlist then
+				* get the store of distlist for fetching it's members.
+				*
+				* FIXME: isExternalDistList is broken and also returns true for normal contacts
+				* in a shared store when we already have the valid $store. Which causes a
+				* performance issue. A simple hack could be checking if $action['store_entryid'] is set.
+				*
+				* FIXME: isExternalDistList is also true when viewing the details of a shared contact
+				* in a new mail. Therefore we have to rename it to something more meaningful.
+				*/
 				if ($GLOBALS["operations"]->isExternalDistList($entryid)) {
 					$store = $GLOBALS['operations']->getOtherStoreFromEntryid(bin2hex($entryid));
 				}

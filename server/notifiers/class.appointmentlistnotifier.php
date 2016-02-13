@@ -72,7 +72,18 @@
 							$this->addNotificationActionData("newobject", $data);
 						} else {
 							$data = $GLOBALS["operations"]->getMessageProps($store, $message, $properties);
-							$this->addNotificationActionData("update", array( "item" => array($data) ));
+							/**
+							 * We dose't need these properties in AppointmentListNotifier,
+							 * because if we send this properties in AppointmentListNotifier
+							 * webapp use this properties and try to re-draw appointment in calender
+							 * which look annoying when user drag and drop same appointment frequently
+							 * in calender (related to WA-8897).
+							 */
+							unset($data['props']['startdate']);
+							unset($data['props']['duedate']);
+							unset($data['props']['commonstart']);
+							unset($data['props']['commonend']);
+							$this->addNotificationActionData("update", array( "item" => array($data)));
 						}
 
 						$GLOBALS["bus"]->addData($this->createNotificationResponseData());

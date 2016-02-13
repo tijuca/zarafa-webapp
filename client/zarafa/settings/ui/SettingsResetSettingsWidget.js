@@ -26,15 +26,17 @@ Zarafa.settings.ui.SettingsResetSettingsWidget= Ext.extend(Zarafa.settings.ui.Se
 
 		Ext.applyIf(config, {
 			title : _('Reset WebApp settings'),
-			layout : 'form',
+			layout : 'column',
 			items : [{
 				xtype : 'displayfield',
+				columnWidth : 1,
 				hideLabel : true,
 				value : _('Resets WebApp\'s settings to their original defaults')
 			},{
 				xtype : 'button',
 				text : _('Reset WebApp settings'),
-				width : 150,
+				columnWidth : 1,
+				autoWidth : true,
 				handler : this.onResetSettings,
 				scope : this
 			}]
@@ -51,7 +53,7 @@ Zarafa.settings.ui.SettingsResetSettingsWidget= Ext.extend(Zarafa.settings.ui.Se
 	 */
 	onResetSettings : function()
 	{
-		var message = _('Your WebApp\'s settings will be restored to their default condition. Are you sure you want to reset all WebApp settings?');
+		var message = _('Your WebApp settings will be restored to their default condition. Are you sure you want to reset all WebApp settings?');
 		message += '<br/><br/>';
 		message += _('WebApp will automatically restart in order for these changes to take effect');
 		message += '<br/>';

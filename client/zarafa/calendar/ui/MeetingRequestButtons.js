@@ -163,6 +163,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Remove From Calendar'),
 				text: _('Remove From Calendar')
 			},
+			cls: 'tb-calendar-btn-remove',
 			iconCls : 'icon_remove_from_calendar',
 			handler : this.onRemoveFromCalendar,
 			scope: this
@@ -184,6 +185,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Not Current'),
 				text: _('Meeting Request is out of date')
 			},
+			cls: 'tb-calendar-btn-not-current',
 			iconCls : 'icon_notcurrent_meeting_request',
 			handler : this.onNotCurrent,
 			scope: this
@@ -204,6 +206,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('No Response Required'),
 				text: _('No Response Required')
 				},
+			cls: 'tb-calendar-btn-no-response-required',
 			iconCls : 'icon_no_response_required',
 			handler : this.onNoResponseRequired,
 			scope: this
@@ -225,6 +228,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Accept'),
 				text: _('Accept Meeting Request')
 			},
+			cls: 'tb-calendar-btn-accept',
 			iconCls: 'icon_accept_meeting_request',
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_ACCEPTED,
 			handler: this.openSendConfirmationContent,
@@ -247,6 +251,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Tentative'),
 				text: _('Tentatively Accept Meeting Request')
 			},
+			cls: 'tb-calendar-btn-tentative',
 			iconCls : 'icon_tentative_meeting_request',
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_TENTATIVE,
 			handler: this.openSendConfirmationContent,
@@ -269,6 +274,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Decline'),
 				text: _('Decline Meeting Request')
 			},
+			cls: 'tb-calendar-btn-decline',
 			iconCls : 'icon_decline_meeting_request',
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_DECLINED,
 			handler: this.openSendConfirmationContent,
@@ -291,6 +297,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Propose New Time'),
 				text: _('Propose New Time for Meeting Request')
 			},
+			cls: 'tb-calendar-btn-propose-new-time',
 			iconCls : 'icon_newtime_meeting_request',
 			handler : this.openProposeNewTimeContent,
 			scope: this
@@ -312,6 +319,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('View All Proposals'),
 				text: _('View All Proposals')
 			},
+			cls: 'tb-calendar-btn-view-all-proposals',
 			iconCls : 'icon_view_all_meeting_request',
 			handler : this.viewAllProposals,
 			scope : this
@@ -333,6 +341,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Accept Proposal'),
 				text: _('Accept Proposed Time')
 			},
+			cls: 'tb-calendar-btn-accept-proposal',
 			iconCls : 'icon_accept_proposal',
 			handler : this.acceptProposal,
 			scope: this
@@ -354,6 +363,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Calendar'),
 				text: _('Calendar')
 			},
+			cls: 'tb-calendar-btn-calendar',
 			iconCls : 'icon_calender',
 			handler : this.showMeetingInCalendar,
 			scope: this

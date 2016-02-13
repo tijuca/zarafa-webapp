@@ -56,6 +56,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				title: _('Save'),
 				text: _('Save note') + ' (Ctrl + S)'
 			},
+			cls: 'tb-notes-btn-save',
 			iconCls : 'icon_save',
 			handler : this.onSaveButton,
 			scope : this
@@ -68,6 +69,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				title: _('Delete'),
 				text: _('Delete this note')
 			},
+			cls: 'tb-notes-btn-delete',
 			iconCls : 'icon_delete',
 			handler : this.onDeleteButton,
 			scope : this
@@ -79,6 +81,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				title : _('Categories'),
 				text : _('Open the categories dialog.')
 			},
+			cls: 'tb-notes-btn-categories',
 			iconCls : 'icon_categories',
 			handler : this.onOpenCategories,
 			scope : this
@@ -89,6 +92,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				title: _('Print'),
 				text: _('Print this note')
 			},
+			cls: 'tb-notes-btn-print',
 			iconCls : 'icon_print',
 			handler : this.onPrintRecord,
 			scope : this
@@ -98,6 +102,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			fieldLabel : _('Color'),
 			overflowText : _('Color'),
 			ref : 'colorCombo',
+			cls: 'tb-notes-combo-color',
 			store : {
 				xtype : 'arraystore',
 				fields: ['icon_index', 'name'],

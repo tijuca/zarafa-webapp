@@ -158,7 +158,7 @@ Zarafa.core.HTMLParser = (function() {
 			content = content.replace(/^\s*$/gm, '');
 
 			// add <br> in line which hasn't <br> at end of line
-			content = content.replace(/(.*[^<>\n]$)/gm, '$1 <br />');
+			content = content.replace(/(.*[^<>\n]$)/gm, '$1<br />');
 
 			// remove extra line breaks
 			content = content.replace(/\n/gm, '');

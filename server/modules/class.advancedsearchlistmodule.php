@@ -15,7 +15,13 @@
 			$this->properties = array_merge($this->properties, $GLOBALS["properties"]->getContactListProperties());
 			$this->properties = array_merge($this->properties, $GLOBALS["properties"]->getStickyNoteListProperties());
 			$this->properties = array_merge($this->properties, $GLOBALS["properties"]->getTaskListProperties());
-			$this->properties = array_merge($this->properties, array('body' => PR_BODY, 'html_body' => PR_HTML, 'appointment_startdate' => "PT_SYSTIME:PSETID_Appointment:0x820d", "creation_time" => PR_CREATION_TIME, "duedate" => "PT_SYSTIME:PSETID_Task:0x8105"));
+			$this->properties = array_merge($this->properties, array(
+					'body' => PR_BODY,
+					'html_body' => PR_HTML,
+					'startdate' => "PT_SYSTIME:PSETID_Appointment:0x820d",
+					'duedate' => "PT_SYSTIME:PSETID_Appointment:0x820e",
+					'creation_time' => PR_CREATION_TIME,
+					"task_duedate" => "PT_SYSTIME:PSETID_Task:0x8105"));
 			$this->properties = getPropIdsFromStrings($GLOBALS["mapisession"]->getDefaultMessageStore(), $this->properties);
 
 			parent::ListModule($id, $data);
