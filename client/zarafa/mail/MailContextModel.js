@@ -112,7 +112,11 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		if (actionType === Zarafa.mail.data.ActionTypes.EDIT_AS_NEW){
 			this.copyRecordRecipients(responseRecord, record);
 		} else {
-			this.initRecordRecipients(responseRecord, record, actionType);
+			var mapiFolderStore = this.getDefaultFolder().getMAPIFolderStore();
+			var folderIndex = mapiFolderStore.find('entryid', record.get('parent_entryid'));
+			var folder = mapiFolderStore.getAt(folderIndex);
+			var isSentFolder = folder.getDefaultFolderKey() === 'sent';
+			this.initRecordRecipients(responseRecord, record, actionType, isSentFolder);
 		}
 
 		this.initRecordSubject(responseRecord, record, actionType);
@@ -296,9 +300,10 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 * to which the respond is created
 	 * @param {Zarafa.mail.data.ActionTypes} actionType The actionType used
 	 * for this response.
+	 * @param {Boolean} isSentFolder it should be true if {@link Zarafa.core.data.IPMRecord record} belong in sent folder.
 	 * @private
 	 */
-	initRecordRecipients : function(record, origRecord, actionType)
+	initRecordRecipients : function(record, origRecord, actionType, isSentFolder)
 	{
 		// When forwarding, we don't need to copy any recipients
 		if (actionType === Zarafa.mail.data.ActionTypes.FORWARD || actionType === Zarafa.mail.data.ActionTypes.FORWARD_ATTACH) {
@@ -312,10 +317,6 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		// of reply-to is unconditional, and we will only be using
 		// this list for the REPLYALL case.
 		var addedRecipientEntryids = new Array();
-
-		// Determine if we are replying from the sent items folder
-		var defaultFolder = this.getDefaultFolder();
-		var isSentFolder = defaultFolder.getDefaultFolderKey() === 'sent';
 
 		// Simply, Don't use reply-to information in case of "sent items"
 		if(!isSentFolder) {
@@ -379,7 +380,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	},
 
 	/**
-	 * Helper function for Zarafa.mail.MailContextModel.initRecordRecipients, adds a recipient to the store.
+	 * Helper function for {@link Zarafa.mail.MailContextModel#initRecordRecipients}, adds a recipient to the store.
 	 *
 	 * @param {Zarafa.core.data.IPMRecipientStore} store recipient store
 	 * @param {Zarafa.core.data.IPMRecipientRecord} recipient which should be added to store

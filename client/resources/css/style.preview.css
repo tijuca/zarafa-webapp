@@ -194,6 +194,10 @@
 	margin : 2px 0;
 }
 
+.preview-recipient-data {
+	word-wrap: break-word;
+}
+
 span.zarafa-emailaddress-link {
 	color: #000000;
 	text-decoration: none;

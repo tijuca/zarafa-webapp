@@ -428,7 +428,7 @@
 			$objType = str_pad($objType, 2, '0', STR_PAD_LEFT);
 			$objType = str_pad($objType, 8, '0', STR_PAD_RIGHT);
 
-			return '00000000'.self::MUIDZCSAB.$objType.'00000000'.$entryId;
+			return '00000000' . self::MUIDZCSAB . $objType . '00000000' . $entryId;
 		}
 
 		/**

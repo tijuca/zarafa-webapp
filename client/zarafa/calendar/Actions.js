@@ -323,7 +323,7 @@ Zarafa.calendar.Actions = {
 		context.switchView(Zarafa.calendar.data.Views.BLOCKS, Zarafa.calendar.data.ViewModes.DAYS);
 
 		// define which date range to load
-		var appointmentDate = record.get('appointment_basedate') || record.get('appointment_startdate');
+		var appointmentDate = record.get('appointment_startdate') || record.get('appointment_basedate');
 		model.setDataMode(Zarafa.calendar.data.DataModes.DAY);
 		model.setDate(appointmentDate);
 

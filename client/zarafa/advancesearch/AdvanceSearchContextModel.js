@@ -61,7 +61,6 @@ Zarafa.advancesearch.AdvanceSearchContextModel = Ext.extend(Zarafa.core.ContextM
 	createResponseRecord : function(record, actionType, responseRecord)
 	{
 		var mailContextModel = container.getContextByName('mail').getModel();
-		
 		return mailContextModel.createResponseRecord(record, actionType, responseRecord);
 	},
 

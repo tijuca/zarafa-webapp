@@ -53,7 +53,7 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 					searchDate = record.get('message_delivery_time') || record.get('last_modification_time');
 					break;
 				case 'IPM.Task':
-					searchDate = record.get('duedate');
+					searchDate = record.get('task_duedate');
 					break;
 				case 'IPM.StickyNote':
 					searchDate = record.get('creation_time');
@@ -65,7 +65,7 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 				case 'IPM.Schedule.Meeting':
 				case 'IPM.Schedule.Meeting.Request':
 				case 'IPM.Schedule.Meeting.Canceled':
-					searchDate = record.get('appointment_startdate');
+					searchDate = record.get('startdate');
 			}
 
 			// update the record in the store, bypass setting dirty flag,

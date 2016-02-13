@@ -68,7 +68,7 @@ Zarafa.common.ui.messagepanel.RecipientLinks = Ext.extend(Ext.DataView, {
 							'<tpl for=".">' +
 								'<span viewIndex="{viewIndex}" class="zarafa-emailaddress-link zarafa-recipient-link">' +
 									'<tpl if="!Ext.isEmpty(values.display_name)">' +
-										'{display_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)}&nbsp;' +
+										'{display_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)} ' +
 									'</tpl>' +
 									'<tpl if="!Ext.isEmpty(values.smtp_address)">' +
 										'&lt;{smtp_address:htmlEncode}&gt;' +
@@ -78,7 +78,7 @@ Zarafa.common.ui.messagepanel.RecipientLinks = Ext.extend(Ext.DataView, {
 									'</tpl>' +
 								'</span>' +
 								'<tpl if="xindex &gt; 0 && xindex != xcount">' +
-									'<span>;&nbsp;</span>' +
+									'<span>; </span>' +
 								'</tpl>' +
 							'</tpl>' +
 						'</div>' +

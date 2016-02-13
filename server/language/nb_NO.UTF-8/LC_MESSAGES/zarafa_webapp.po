@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-21 00:23+0200\n"
-"PO-Revision-Date: 2015-10-20 22:10+0200\n"
+"POT-Creation-Date: 2015-12-01 00:23+0100\n"
+"PO-Revision-Date: 2015-11-25 08:14+0200\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nb\n"
@@ -175,7 +175,7 @@ msgstr "Side {A} av {0}"
 
 #: client/extjs-mod/Translations.js:162
 msgid "Displaying messages {0} - {1} of {2}"
-msgstr "Vis meldinger {0} - {1} av {2}"
+msgstr "Viser melding {0} - {1} av {2}"
 
 #: client/extjs-mod/Translations.js:163
 msgid "No messages to display"
@@ -251,21 +251,268 @@ msgstr "Greit"
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:66
 #: plugins/files/js/ui/UploadPanel.js:82
 #: plugins/spreed/js/dialogs/EditSpreedParticipantContentPanel.js:134
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:70
 msgid "Cancel"
 msgstr "Avbryt"
 
 #: client/extjs-mod/Translations.js:178
 msgid "{0} (Spacebar)"
-msgstr "{0} (Mellomrom)"
+msgstr "{0} (Mellomromstast)"
 
 #: client/extjs-mod/Translations.js:179
 msgid "This date is before the minimum date"
-msgstr "Denne datoen ligger før startdatoen"
+msgstr "Denne datoen er før startdatoen"
 
 #: client/extjs-mod/Translations.js:180
 msgid "This date is after the maximum date"
 msgstr "Denne datoen er etter sluttdatoen"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -357,7 +604,7 @@ msgstr "Vennligst oppgi en URL for lenken"
 
 #: client/extjs-mod/Translations.js:198
 msgid "Bold (Ctrl+B) text"
-msgstr "Fet (Ctrl-B) tekst"
+msgstr "Fet tekst (Ctrl-B)"
 
 #: client/extjs-mod/Translations.js:199
 msgid "Make the selected text bold."
@@ -615,6 +862,88 @@ msgstr "{0} er ikke et gyldig tidspunkt"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/extjs-mod/Translations.js:334
 #: client/zarafa/calendar/AppointmentRecord.js:238
 #: client/zarafa/calendar/AppointmentRecord.js:242
@@ -688,12 +1017,12 @@ msgstr "Dette feltet kan kun inneholde bokstaver, tall og _"
 # 87%
 #: client/zarafa/addressbook/dialogs/ABEmailAddressTab.js:24
 msgid "E-mail Addresses"
-msgstr "E-post adresser"
+msgstr "E-postadresser"
 
 # 81%
 #: client/zarafa/addressbook/dialogs/ABEmailAddressTab.js:32
 msgid "E-mail addresses"
-msgstr "E-post adresser"
+msgstr "E-postadresser"
 
 #: client/zarafa/addressbook/dialogs/ABGroupDetailContentPanel.js:24
 msgid "Group details"
@@ -762,7 +1091,7 @@ msgstr "Medlemmer"
 #: client/zarafa/common/sendas/ui/SendAsGrid.js:64
 #: plugins/spreed/js/dialogs/EditSpreedParticipantContentPanel.js:76
 msgid "Email Address"
-msgstr "E-post adresse"
+msgstr "E-postadresse"
 
 #: client/zarafa/addressbook/dialogs/ABItemGrid.js:44
 msgid "Account"
@@ -880,7 +1209,7 @@ msgstr "Leder"
 
 #: client/zarafa/addressbook/dialogs/ABUserOrganizationTab.js:79
 msgid "Direct reports"
-msgstr ""
+msgstr "Direkte underordnede"
 
 # 92%
 #: client/zarafa/addressbook/dialogs/ABUserPhoneTab.js:49
@@ -993,6 +1322,14 @@ msgstr "Personsøker"
 #: plugins/pdfbox/pdfbox/pdfbox.js:178
 #: plugins/titlecounter/js/TitleCounter.js:33
 #: plugins/titlecounter/js/TitleCounter.js:35
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:201
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:224
+#: client/zarafa/core/ui/RecordContentPanel.js:455
+#: client/zarafa/core/ui/RecordContentPanel.js:715
+#: client/zarafa/core/ui/RecordContentPanel.js:456
+#: client/zarafa/core/ui/RecordContentPanel.js:716
+#: client/zarafa/core/ui/RecordContentPanel.js:458
+#: client/zarafa/core/ui/RecordContentPanel.js:718
 msgid "Zarafa WebApp"
 msgstr "Zarafa WebApp"
 
@@ -1211,7 +1548,7 @@ msgstr "Videresend"
 #: client/zarafa/advancesearch/dialogs/SearchToolbarPanel.js:80
 #: client/zarafa/mail/ui/MailGridContextMenu.js:147
 msgid "Edit as New Message"
-msgstr "Rediger som ny"
+msgstr "Rediger som ny melding"
 
 #: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:72
 msgid "Search tools"
@@ -1235,7 +1572,7 @@ msgstr "Gjeldende mappe"
 #: client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js:72
 #: plugins/files/js/ui/FilesFileInfo.js:121
 msgid "Type"
-msgstr ""
+msgstr "Mappen inneholder:"
 
 #: client/zarafa/advancesearch/dialogs/SearchToolBoxPanel.js:187
 #: client/zarafa/mail/KeyMapping.js:44 client/zarafa/mail/KeyMapping.js:57
@@ -1369,10 +1706,12 @@ msgstr ""
 #: plugins/files/js/dialogs/FilesUploadContentPanel.js:270
 #: plugins/files/js/ui/UploadPanel.js:183
 #: plugins/files/js/ui/UploadPanel.js:212
+#: client/zarafa/calendar/Actions.js:134 client/zarafa/calendar/Actions.js:180
+#: client/zarafa/calendar/Actions.js:326 client/zarafa/calendar/Actions.js:342
 msgid "Error"
 msgstr "Feil"
 
-#: client/zarafa/calendar/Actions.js:102
+#: client/zarafa/calendar/Actions.js:102 client/zarafa/calendar/Actions.js:134
 msgid ""
 "Could not accept proposal as this meeting is not available in calendar; It "
 "may have been moved or deleted."
@@ -1380,7 +1719,7 @@ msgstr ""
 "Kunne ikke akseptere forslaget fordi møtet ikke er tilgjengelig i "
 "kalenderen; møte kan ha blitt flyttet eller slettet."
 
-#: client/zarafa/calendar/Actions.js:148
+#: client/zarafa/calendar/Actions.js:148 client/zarafa/calendar/Actions.js:180
 msgid ""
 "Could not view proposal as this meeting is not available in calendar; It may "
 "have been moved or deleted."
@@ -1390,34 +1729,36 @@ msgstr ""
 
 #: client/zarafa/calendar/Actions.js:207
 #: client/zarafa/core/mapi/AppointmentLabels.js:120
+#: client/zarafa/calendar/Actions.js:239
 msgid "Required"
-msgstr "Nødvendig"
+msgstr "Må komme"
 
 # 75%
-#: client/zarafa/calendar/Actions.js:215
+#: client/zarafa/calendar/Actions.js:215 client/zarafa/calendar/Actions.js:247
 msgid "Optional"
-msgstr "Valgfritt"
+msgstr "Valgfri"
 
 #: client/zarafa/calendar/Actions.js:223
 #: client/zarafa/calendar/attachitem/AttachCalendarRenderer.js:23
 #: client/zarafa/common/freebusy/ui/FreebusyContextMenu.js:73
 #: client/zarafa/common/ui/grid/Renderers.js:458
+#: client/zarafa/calendar/Actions.js:255
 msgid "Resource"
 msgstr "Ressurs"
 
 # 78%
-#: client/zarafa/calendar/Actions.js:294
+#: client/zarafa/calendar/Actions.js:294 client/zarafa/calendar/Actions.js:326
 msgid "Could not open store."
 msgstr "Kunne ikke åpne e-postboksen."
 
-#: client/zarafa/calendar/Actions.js:310
+#: client/zarafa/calendar/Actions.js:310 client/zarafa/calendar/Actions.js:342
 msgid "Could not open default calendar folder."
 msgstr "Kunne ikke åpne standard kalendermappe."
 
 #: client/zarafa/calendar/AppointmentRecord.js:189
 #: mapi/class.recurrence.php:528
 msgid "workday"
-msgstr "hverdag"
+msgstr "arbeidsdag"
 
 #: client/zarafa/calendar/AppointmentRecord.js:192
 #: mapi/class.recurrence.php:531
@@ -1465,67 +1806,313 @@ msgstr "år"
 
 #: client/zarafa/calendar/AppointmentRecord.js:259
 msgid "Occurs every {0} effective {1} from {2} to {3}."
-msgstr ""
+msgstr "Inntreffer hver {0} med start {1} fra {2} til {3}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:261
 msgid "Occurs every {0} {1} effective {2} from {3} to {4}."
-msgstr ""
+msgstr "Inntreffer hver {0} {1} med start {2} fra {3} til {4}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:265
 msgid "Occurs every {0} effective {1}."
-msgstr ""
+msgstr "Inntreffer hver {0} med start {1}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:267
 msgid "Occurs every {0} {1} effective {2}."
-msgstr ""
+msgstr "Inntreffer hver {0} {1} med start {2}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:273
 msgid "Occurs every {0} effective {1} for {2} occurence from {3} to {4}."
 msgid_plural ""
 "Occurs every {0} effective {1} for {2} occurences from {3} to {4}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver {0} med start {1}, {2} gang fra {3} til {4}."
+msgstr[1] "Inntreffer hver {0} med start {1}, {2} ganger fra {3} til {4}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:276
 msgid "Occurs every {0} {1} effective {2} for {3} occurence from {4} to {5}."
 msgid_plural ""
 "Occurs every {0} {1} effective {2} for {3} occurences {4} to {5}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver {0} {1} med start {2}, {3} gang fra {4} til {5}."
+msgstr[1] "Inntreffer hver {0} {1} med start {2}, {3} ganger fra {4} til {5}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:281
 msgid "Occurs every {0} effective {1} for {2} occurence."
 msgid_plural "Occurs every {0} effective {1} for {2} occurences."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver {0} med start {1}, {2} gang."
+msgstr[1] "Inntreffer hver {0} med start {1}, {2} ganger."
 
 #: client/zarafa/calendar/AppointmentRecord.js:284
 msgid "Occurs every {0} {1} effective {2} for {3} occurence."
 msgid_plural "Occurs every {0} {1} effective {2} for {3} occurences."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver {0} {1} med start {2}, {3} gang."
+msgstr[1] "Inntreffer hver {0} {1} med start {2}, {3} ganger."
 
 #: client/zarafa/calendar/AppointmentRecord.js:291
 msgid "Occurs every {0} effective {1} until {2} from {3} to {4}."
-msgstr ""
+msgstr "Inntreffer hver {0} med start fra {1} til {2} fra {3} til {4}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:293
 msgid "Occurs every {0} {1} effective {2} until {3} from {4} to {5}."
-msgstr ""
+msgstr "Inntreffer hver {0} {1} med start {2} til {3} fra {4} til {5}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:297
 msgid "Occurs every {0} effective {1} until {2}."
-msgstr ""
+msgstr "Inntreffer hver {0} med start {1} til {2}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:299
 msgid "Occurs every {0} {1} effective {2} until {3}."
-msgstr ""
+msgstr "Inntreffer hver {0} {1} med start {2} til {3}."
 
 #: client/zarafa/calendar/AppointmentRecord.js:319
 #: client/zarafa/calendar/MeetingRequestRecord.js:155
 msgid "When"
 msgstr "Når"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -1975,7 +2562,7 @@ msgid ""
 "for details."
 msgstr ""
 "{0} deltakere har foreslått et nytt tidspunkt for dette møte. Klikk på "
-"Planlegging arkfanen for detaljer."
+"arkfanen Planlegging for detaljer."
 
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:28
 msgctxt "calendar.dialog"
@@ -2117,13 +2704,95 @@ msgstr "Advarsel"
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:117
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:123
 msgid "Attachments cannot be modified for a single occurence"
-msgstr ""
+msgstr "Vedlegg kan ikke endres for en enkelt gjentakelse"
 
 #: client/zarafa/calendar/dialogs/AppointmentTab.js:795
 msgid ""
 "Do you want to update the location \"{0}\" with the new location \"{1}\"?"
-msgstr "Vil du oppdatere stedet \"{0}\" med det nye stedet \"{1}\"?"
+msgstr "Vil du oppdatere stedet \"{0}\" med nytt sted \"{1}\"?"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -2196,7 +2865,7 @@ msgstr "Lagre & lukke"
 # 78%
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:72
 msgid "Save appointment and close dialog"
-msgstr "Lagre avtale og lukk dialog"
+msgstr "Lagre avtale og lukk dialogboksen"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:80
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:82
@@ -2292,7 +2961,7 @@ msgstr "Kontroller alle mottakere"
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:170
 #: client/zarafa/task/dialogs/TaskToolbar.js:151
 msgid "Open the recurrence dialog"
-msgstr "Åpne regelmessighet dialogen"
+msgstr "Åpne dialogboksen Regelmessighet"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:178
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:179
@@ -2313,7 +2982,7 @@ msgstr "Avbryt invitasjonen"
 # 85%
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:193
 msgid "Cancel to invitation"
-msgstr "Avbryt invitasjonen"
+msgstr "Avslå invitasjonen"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:202
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:204
@@ -2324,7 +2993,7 @@ msgstr "Høy prioritet"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:205
 msgid "Mark this appointment as high priority"
-msgstr "Marker denne avtalen med høy viktighet"
+msgstr "Marker denne avtalen med høy prioritet"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:215
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:217
@@ -2335,7 +3004,7 @@ msgstr "Lav prioritet"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:218
 msgid "Mark this appointment as low priority"
-msgstr "Marker denne avtalen med lav viktighet"
+msgstr "Marker denne avtalen med lav prioritet"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:228
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:230
@@ -2373,7 +3042,7 @@ msgstr "Kategorier"
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:231
 #: client/zarafa/task/dialogs/TaskToolbar.js:189
 msgid "Open the categories dialog"
-msgstr "Åpne kategori dialogen"
+msgstr "Åpne dialogboksen Kategori"
 
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:238
 #: client/zarafa/calendar/dialogs/AppointmentToolbar.js:240
@@ -2486,7 +3155,7 @@ msgstr "Rediger svaret før sending."
 
 #: client/zarafa/calendar/dialogs/SendMeetingRequestConfirmationPanel.js:75
 msgid "Send the response now."
-msgstr "Send svaret nå."
+msgstr "Send svar nå."
 
 #: client/zarafa/calendar/dialogs/SendMeetingRequestConfirmationPanel.js:81
 msgid "Don't send a response."
@@ -2525,7 +3194,7 @@ msgstr "Ny møteinvitasjon"
 
 #: client/zarafa/calendar/KeyMapping.js:52
 msgid "Switch calendar range back and forth"
-msgstr ""
+msgstr "Bytt kalenderområde frem og tilbake"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/calendar/printer/MeetingRenderer.js:27
@@ -2598,6 +3267,88 @@ msgstr "Viktighet"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #: client/zarafa/calendar/printer/WeekViewRenderer.js:68
 #: client/zarafa/common/ui/grid/Renderers.js:295
 #: client/zarafa/common/ui/grid/Renderers.js:311
@@ -2606,6 +3357,88 @@ msgstr "Viktighet"
 msgid "l d/m/Y"
 msgstr "l, d.m.Y"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -2710,7 +3543,7 @@ msgstr "Vis opptatte dager med fet skrift i datovelgeren"
 #: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:21
 msgid "Free/busy information is used by people sending meeting requests, "
 msgstr ""
-"Ledig/opptatt informasjon brukes når noen sender deg en møteinvitasjon. "
+"Ledig/opptatt informasjon brukes når noen sender deg en møteinvitasjon, "
 
 #: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:22
 msgid "to determine when you are available for meetings."
@@ -2722,7 +3555,7 @@ msgstr "Ledig/opptatt tillatelser"
 
 #: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:33
 msgid "Publish {A} month(s) of Calendar free/busy information on the server."
-msgstr "Publiser {A} måneder med ledig/opptatt informasjon fra server."
+msgstr "Publiser {A} måned(er) med ledig/opptatt informasjon fra server."
 
 #: client/zarafa/calendar/settings/SettingsFreeBusyWidget.js:53
 msgid "You can only publish a free/busy period from 1 to 36 months."
@@ -2780,7 +3613,7 @@ msgstr "jS"
 #: client/zarafa/common/ui/DraggableDataView.js:149
 msgid "{0} selected item"
 msgid_plural "{0} selected items"
-msgstr[0] "{0} valgte element"
+msgstr[0] "{0} valgt element"
 msgstr[1] "{0} valgte elementer"
 
 # 93%
@@ -2889,7 +3722,7 @@ msgstr "Opprettet på"
 # 84%
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:114
 msgid "Sort by: Created On"
-msgstr "Sorter på: opprettet"
+msgstr "Sorter på: opprettet på"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:119
 msgid "Due By"
@@ -2925,19 +3758,19 @@ msgstr "Sorter på: ressurser"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:157
 msgid "Recurring Startdate"
-msgstr ""
+msgstr "Regelmessig startdato"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:159
 msgid "Sort by: Recurring Startdate"
-msgstr ""
+msgstr "Sorter på: regelmessig startdato"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:164
 msgid "Recurring Enddate"
-msgstr ""
+msgstr "Regelmessig sluttdato"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:166
 msgid "Sort by: Recurring Enddate"
-msgstr ""
+msgstr "Sorter på: regelmessig sluttdato"
 
 # 77%
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:171
@@ -2946,7 +3779,7 @@ msgstr "Regelmessig mønster"
 
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:173
 msgid "Sort by: Recurring Pattern"
-msgstr ""
+msgstr "Sorter på: regelmessig mønster"
 
 # 77%
 #: client/zarafa/calendar/ui/CalendarGridColumnModel.js:180
@@ -2991,7 +3824,7 @@ msgstr "Lagre endringer og send en oppdatering til alle mottakere"
 
 #: client/zarafa/calendar/ui/CalendarPanel.js:629
 msgid "Open meeting request with changes"
-msgstr ""
+msgstr "Åpne møteinvitasjonen med endringene"
 
 # 84%
 #: client/zarafa/calendar/ui/CalendarViewDropZone.js:356
@@ -3049,7 +3882,7 @@ msgstr "Møteinvitasjon har gått ut på dato"
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:204
 #: client/zarafa/calendar/ui/MeetingRequestButtons.js:205
 msgid "No Response Required"
-msgstr "Svar ikke nødvendig"
+msgstr "Svar er ikke nødvendig"
 
 # 89%
 # 77%
@@ -3168,7 +4001,7 @@ msgstr ""
 
 #: client/zarafa/common/Actions.js:420
 msgid "Open this occurrence"
-msgstr "Åpne kun denne"
+msgstr "Åpne kun denne ene"
 
 #: client/zarafa/common/Actions.js:425
 msgid "Open the series"
@@ -3367,7 +4200,7 @@ msgstr "Feil med vedlegg"
 
 #: client/zarafa/common/attachment/ui/AttachmentDownloader.js:106
 msgid "Cannot create ZIP, The allowed maximum size is 30 MB."
-msgstr "Kunne ikke lage ZIP, Største tillate størrelse er 30MB."
+msgstr "Kunne ikke lage ZIP, største tillate størrelse er 30 MB."
 
 #: client/zarafa/common/attachment/ui/UploadAttachmentComponent.js:160
 msgid "Picture format is not supported. "
@@ -3501,6 +4334,7 @@ msgstr "Representanten kan se mine private elementer."
 #: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:81
 msgid "Delegate receives copies of meeting-related messages sent to me."
 msgstr ""
+"Representanten får kopier av e-post sendt til meg som er relevant for møtet."
 
 #: client/zarafa/common/delegates/dialogs/DelegatePermissionPanel.js:125
 #: client/zarafa/contact/dialogs/ContactGeneralTab.js:514
@@ -3636,7 +4470,7 @@ msgstr "Skjul ikke-arbeidstid"
 #: client/zarafa/common/freebusy/ui/SuggestionListPanel.js:43
 #: client/zarafa/common/freebusy/ui/SuggestionListPanel.js:45
 msgid "No freebusy information available for this date"
-msgstr "Ingen freebusy informasjon er tilgjengelig for denne datoen"
+msgstr "Ingen opptatt/ledig informasjon er tilgjengelig for denne datoen"
 
 #: client/zarafa/common/freebusy/ui/SuggestionListView.js:27
 #: client/zarafa/common/recipientfield/ui/RecipientField.js:88
@@ -3738,7 +4572,7 @@ msgstr "Skriv ut valgt notat"
 
 #: client/zarafa/common/KeyMapping.js:258
 msgid "Open copy/move dialog"
-msgstr "Åpne kopier/flytte dialog"
+msgstr "Åpne dialogboksen Kopier/flytt"
 
 # 77%
 # 84%
@@ -3767,7 +4601,7 @@ msgid ""
 "collapse it again."
 msgstr ""
 "Distribusjonslisten vil bli erstattet med alle dens medlemmer. Du vil ikke "
-"kunne skjule den igjen."
+"kunne klappe den sammen igjen."
 
 #: client/zarafa/common/recipientfield/ui/RecipientContextMenu.js:42
 msgid "Edit Recipient"
@@ -3788,7 +4622,7 @@ msgstr "Ukedag"
 
 #: client/zarafa/common/recurrence/data/DayData.js:10
 msgid "Weekend Day"
-msgstr "Helg"
+msgstr "Helgedag"
 
 #: client/zarafa/common/recurrence/data/DayRankData.js:8
 msgid "1st"
@@ -3848,6 +4682,8 @@ msgid ""
 "This will discard any exceptions which might have been made for this "
 "recurring series. Do you wish to continue?"
 msgstr ""
+"Dette vil forkaste alle unntak som har blitt gjort for denne regelmessige "
+"serien. Vil du fortsette?"
 
 #: client/zarafa/common/recurrence/dialogs/RecurrenceContentPanel.js:218
 msgid "Task Recurrence"
@@ -3930,7 +4766,7 @@ msgstr[1] "Det er {0} påminnelser"
 #: client/zarafa/common/reminder/dialogs/ReminderContentPanel.js:29
 #: server/modules/class.reminderlistmodule.php:209
 msgid "Reminders"
-msgstr "Påminnelse"
+msgstr "Påminnelser"
 
 #: client/zarafa/common/reminder/dialogs/ReminderGrid.js:52
 msgid "Due In"
@@ -4039,11 +4875,11 @@ msgstr "Sorter på: slettet på"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:396
 msgid "Item Count"
-msgstr "Elementantall"
+msgstr "Antall elementer"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:397
 msgid "Sort by: Item Count"
-msgstr "Sorter på: elementantall"
+msgstr "Sorter på: antall elementer"
 
 #: client/zarafa/common/restoreitem/dialogs/RestoreItemPanel.js:430
 #: client/zarafa/mail/attachitem/AttachMailColumnModel.js:68
@@ -4263,11 +5099,11 @@ msgstr "Vennligst velg en regel."
 
 #: client/zarafa/common/rules/ui/RulesGrid.js:317
 msgid "Rule already has highest priority."
-msgstr "Regel har allerede høyeste prioritet."
+msgstr "Regelen har allerede høyeste prioritet."
 
 #: client/zarafa/common/rules/ui/RulesGrid.js:354
 msgid "Rule already has lowest priority."
-msgstr "Regel har allerede laveste prioritet."
+msgstr "Regelen har allerede laveste prioritet."
 
 #: client/zarafa/common/sendas/dialogs/SendAsEditContentPanel.js:27
 msgid "Add/Edit recipient"
@@ -4288,7 +5124,7 @@ msgstr "Vennligst velg et \"Send som\" valg."
 
 #: client/zarafa/common/sendas/ui/SendAsPanel.js:43
 msgid "Here you can setup your alias email addresses."
-msgstr "Her kan du sette opp din e-post alias."
+msgstr "Her kan du sette opp dit e-post alias."
 
 #: client/zarafa/common/sendas/ui/SendAsPanel.js:97
 msgid "View"
@@ -4470,15 +5306,15 @@ msgstr "Vedlegg"
 
 #: client/zarafa/common/ui/messagepanel/ExtraInfoContextMenu.js:32
 msgid "Download Pictures"
-msgstr "Last ned bilder"
+msgstr "Last ned bildene"
 
 #: client/zarafa/common/ui/messagepanel/ExtraInfoContextMenu.js:39
 msgid "Add Sender to Safe Senders List"
-msgstr "Legg avsender til godkjent liste"
+msgstr "Legg avsender til listen over sikre avsendere"
 
 #: client/zarafa/common/ui/messagepanel/ExtraInfoContextMenu.js:44
 msgid "Add Domain to Safe Senders List"
-msgstr "Legg avsender-domene til godkjent liste"
+msgstr "Legg avsender-domenet til listen over sikre avsendere"
 
 #. TRANSLATORS: This sentence is given in the Email previewpanel, and indicates with which
 #. importance the message was sent. For example:
@@ -4622,7 +5458,7 @@ msgstr "Mottatt for {0}."
 #: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:166
 msgctxt "mail.previewpanel"
 msgid "You replied to this message on {0}."
-msgstr "Du svarte på denne meldingen på {0}."
+msgstr "Du svarte på denne meldingen {0}."
 
 #: client/zarafa/common/ui/messagepanel/ExtraInfoLinks.js:173
 msgctxt "mail.previewpanel"
@@ -5075,7 +5911,7 @@ msgstr "Sr."
 # 85%
 #: client/zarafa/contact/data/SearchFields.js:21
 msgid "Email address"
-msgstr "E-post adresse"
+msgstr "E-postadresse"
 
 # 84%
 #: client/zarafa/contact/data/SearchFields.js:24
@@ -5191,7 +6027,7 @@ msgstr "Kontroller telefonnummer"
 
 #: client/zarafa/contact/dialogs/ContactPhonePanel.js:53
 msgid "Country/Region code"
-msgstr "Lands-/områdenummer"
+msgstr "Lands-/områdenr."
 
 #: client/zarafa/contact/dialogs/ContactPhonePanel.js:58
 msgid "City/Area code"
@@ -5208,7 +6044,7 @@ msgstr "Direktenr."
 # 82%
 #: client/zarafa/contact/dialogs/ContactToolbar.js:57
 msgid "Save contact and close dialog"
-msgstr "Lagre kontakten og lukk dialog"
+msgstr "Lagre kontakten og lukk dialogboksen"
 
 #: client/zarafa/contact/dialogs/ContactToolbar.js:67
 msgid "Delete contact"
@@ -5239,7 +6075,7 @@ msgstr "Skriv ut denne kontakten"
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:101
 #: client/zarafa/note/dialogs/NoteEditToolbar.js:80
 msgid "Open the categories dialog."
-msgstr "Åpne kategori dialogen."
+msgstr "Åpne dialogboksen Kategori."
 
 # 76%
 # 79%
@@ -5253,7 +6089,7 @@ msgstr "Distribusjonsliste"
 
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:56
 msgid "Save distribution list and close dialog"
-msgstr "Lagre distribusjonsliste og lukk dialog"
+msgstr "Lagre distribusjonsliste og lukk dialogboksen"
 
 #: client/zarafa/contact/dialogs/DistlistContentPanelToolbar.js:65
 msgid "Delete Distributionlist"
@@ -5285,7 +6121,7 @@ msgstr "Vennligst skriv inn en gyldig e-postadresse!"
 
 #: client/zarafa/contact/dialogs/DistlistMemberGridColumnModel.js:55
 msgid "E-mail Address"
-msgstr "E-post adresse"
+msgstr "E-postadresse"
 
 #: client/zarafa/contact/dialogs/DistlistMembersTab.js:69
 msgid "Select Members"
@@ -5726,7 +6562,7 @@ msgstr "Pågående"
 #: client/zarafa/mail/dialogs/MailFlagsPanel.js:130
 #: mapi/class.taskrequest.php:889
 msgid "Complete"
-msgstr "Komplett"
+msgstr "Ferdig"
 
 #: client/zarafa/core/mapi/TaskStatus.js:60 mapi/class.taskrequest.php:890
 msgid "Wait for other person"
@@ -5734,7 +6570,7 @@ msgstr "Venter på annen person"
 
 #: client/zarafa/core/mapi/TaskStatus.js:62
 msgid "deferred"
-msgstr "utsatt"
+msgstr "Utsatt"
 
 #: client/zarafa/core/plugins/ContentWindowLayerPlugin.js:73
 #: client/zarafa/core/ui/MainContentTabPanel.js:119
@@ -5786,7 +6622,7 @@ msgstr "Sendt"
 
 #: client/zarafa/core/ui/MessageContentPanel.js:38
 msgid "Sent successfully"
-msgstr "Sendt med suksess"
+msgstr "Meldingen ble sendt"
 
 # 80%
 #: client/zarafa/core/ui/MessageContentPanel.js:335
@@ -5845,14 +6681,21 @@ msgid "Saved successfully"
 msgstr "Vellykket lagring"
 
 #: client/zarafa/core/ui/RecordContentPanel.js:142
+#: client/zarafa/core/ui/RecordContentPanel.js:149
 msgid "Zarafa Content Panel"
 msgstr "Zarafa innholdspanel"
 
 #: client/zarafa/core/ui/RecordContentPanel.js:413
+#: client/zarafa/core/ui/RecordContentPanel.js:456
+#: client/zarafa/core/ui/RecordContentPanel.js:457
+#: client/zarafa/core/ui/RecordContentPanel.js:459
 msgid "This item has been changed. Are you sure you want to delete it?"
 msgstr "Elementet har blitt endret. Er du sikker på at du vil slette det?"
 
 #: client/zarafa/core/ui/RecordContentPanel.js:662
+#: client/zarafa/core/ui/RecordContentPanel.js:716
+#: client/zarafa/core/ui/RecordContentPanel.js:717
+#: client/zarafa/core/ui/RecordContentPanel.js:719
 msgid ""
 "You are going to lose all unsaved changes. Are you sure you want to close "
 "this window?"
@@ -5880,7 +6723,7 @@ msgstr "Legg til miniprogram"
 msgid "No widgets installed."
 msgstr "Ingen miniprogram er installert."
 
-#: client/zarafa/core/Util.js:740
+#: client/zarafa/core/Util.js:740 client/zarafa/core/Util.js:764
 msgid "Your changes will be lost if you leave this page now."
 msgstr "Dine endringer vil gå tapt om du forlater siden nå."
 
@@ -5907,8 +6750,8 @@ msgstr "Du har ikke tilstrekkelige tillatelse til å kunne åpne denne mappen."
 #: client/zarafa/hierarchy/data/HierarchyStore.js:774
 msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
-msgstr[0] "Det er {0} ulest melding i mappe {1}"
-msgstr[1] "Det er {0} uleste meldinger i mappe {1}"
+msgstr[0] "Det er {0} ulest melding i mappen {1}"
+msgstr[1] "Det er {0} uleste meldinger i mappen {1}"
 
 # 87%
 #: client/zarafa/hierarchy/data/HierarchyStore.js:776
@@ -5923,7 +6766,7 @@ msgstr "{0} i {1}"
 #. TRANSLATORS: Displayed on top of a tree with folders: "FOLDERNAME of USERNAME". */
 #: client/zarafa/hierarchy/data/MAPIFolderRecord.js:208
 msgid "{0} of {1}"
-msgstr "{0} av {1}"
+msgstr "{0} til {1}"
 
 #: client/zarafa/hierarchy/data/PermissionProfiles.js:12
 msgid "Full control"
@@ -5938,39 +6781,48 @@ msgid "Create New Folder"
 msgstr "Lag ny mappe"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:84
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:85
 msgid "Folder contains"
 msgstr "Mappen inneholder"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:92
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:94
 msgid "Calendar Items"
 msgstr "Kalenderelementer"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:93
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:95
 msgid "Mail and Post Items"
 msgstr "E-post og innlegg"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:94
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:96
 msgid "Contacts Items"
 msgstr "Kontaktelementer"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:95
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:97
 msgid "Note Items"
 msgstr "Notatelementer"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:96
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:98
 msgid "Task Items"
 msgstr "Oppgaveelementer"
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:105
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:107
 msgid "Select where to place the folder"
 msgstr "Velg hvor du vil plassere mappen"
 
 # 85%
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:199
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:202
 msgid "You must specify a name."
 msgstr "Du må oppgi et navn."
 
 #: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:222
+#: client/zarafa/hierarchy/dialogs/CreateFolderPanel.js:225
 msgid "You must select a destination folder."
 msgstr "Du må velge målmappe."
 
@@ -6270,7 +7122,7 @@ msgstr "Melding lot seg ikke lagre."
 
 #: client/zarafa/mail/dialogs/MailCreateContentPanel.js:139
 msgid "Message Saved at {0}."
-msgstr "Melding lagret på {0}."
+msgstr "Melding lagret klokken {0}"
 
 #: client/zarafa/mail/dialogs/MailCreateContentPanel.js:139
 msgid "g:i A"
@@ -6331,7 +7183,7 @@ msgstr "Alternativer"
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:157
 #: client/zarafa/mail/dialogs/ShowMailToolbar.js:122
 msgid "Open options dialog"
-msgstr "Åpne alternativerdialogen"
+msgstr "Åpne dialogboksen Meldingsalternativer"
 
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:164
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:166
@@ -6387,9 +7239,9 @@ msgid ""
 "you can send e-mail that looks like that came from them by entering their "
 "name into the From field"
 msgstr ""
-"Vis \"Fra\"-felt, hvis du har tilgang til en annen bruker sin konto, som "
+"Vis \"Fra\"-felt. Hvis du har tilgang til en annen bruker sin konto, som "
 "såkalt Representant, så kan du sende e-post som om det var de som sendte "
-"den, ved å bruke dem sin adresse i \"Fra\"-feltet."
+"den, ved å bruke deres adresse i \"Fra\"-feltet"
 
 #: client/zarafa/mail/dialogs/MailCreateToolbar.js:275
 #: client/zarafa/mail/settings/SettingsSignaturesWidget.js:80
@@ -6475,11 +7327,11 @@ msgstr "Min e-post"
 
 #: client/zarafa/mail/MailContext.js:379
 msgid "Open Shared Mails"
-msgstr "Åpne delte e-post"
+msgstr "Åpne delt e-post"
 
 #: client/zarafa/mail/MailContext.js:399 client/zarafa/mail/MailContext.js:401
 msgid "Email message"
-msgstr "E-post melding"
+msgstr "E-postmelding"
 
 #: client/zarafa/mail/MailContext.js:421 client/zarafa/mail/MailContext.js:453
 #: client/zarafa/mail/MailContext.js:455
@@ -6497,11 +7349,15 @@ msgstr "Skriv ut enkelt e-post"
 
 #: client/zarafa/mail/MailContextModel.js:131
 #: client/zarafa/mail/MailContextModel.js:200
+#: client/zarafa/mail/MailContextModel.js:135
+#: client/zarafa/mail/MailContextModel.js:204
 msgid "FW"
 msgstr "FW"
 
 #: client/zarafa/mail/MailContextModel.js:196
 #: client/zarafa/mail/MailContextModel.js:207
+#: client/zarafa/mail/MailContextModel.js:200
+#: client/zarafa/mail/MailContextModel.js:211
 msgid "RE"
 msgstr "RE"
 
@@ -6662,7 +7518,7 @@ msgstr "Sorter på: ikonindeks"
 #: client/zarafa/mail/ui/MailGridContextMenu.js:85
 #: client/zarafa/mail/ui/MailGridContextMenu.js:86
 msgid "Download as files"
-msgstr "Last ned som filer"
+msgstr "Last ned som fil"
 
 #: client/zarafa/mail/ui/MailGridContextMenu.js:137
 #: client/zarafa/mail/ui/MailGridContextMenu.js:138
@@ -6697,7 +7553,7 @@ msgstr "Laster inn e-post"
 # 76%
 #: client/zarafa/mail/ui/MailPanelToolbar.js:19
 msgid "Loaded {0} of {1}"
-msgstr "Lastet {0} av {1}"
+msgstr "Lastet inn {0} av {1}"
 
 #: client/zarafa/note/dialogs/NoteEditToolbar.js:54
 msgid "Save Note"
@@ -6767,7 +7623,7 @@ msgstr "Ikoner"
 
 #: client/zarafa/note/NoteContext.js:348 client/zarafa/note/NoteContext.js:349
 msgid "List view"
-msgstr ""
+msgstr "Listevisning"
 
 #: client/zarafa/note/NoteContext.js:358 client/zarafa/note/NoteContext.js:359
 msgid "List Last Seven Days"
@@ -6775,7 +7631,7 @@ msgstr "Vis siste syv dager"
 
 #: client/zarafa/note/NoteContext.js:380 client/zarafa/note/NoteContext.js:381
 msgid "List By Color"
-msgstr ""
+msgstr "Vis etter farge"
 
 #: client/zarafa/note/ui/NoteGridColumnModel.js:52
 #: plugins/files/js/dialogs/SaveToFilesTreePanel.js:280
@@ -7035,7 +7891,9 @@ msgstr "{0} av e-postboks er brukt."
 
 #: client/zarafa/settings/ui/SettingsQuotaInfoWidget.js:117
 msgid "You have exceeded hard quota, you can not send or recieve mails."
-msgstr "Du har oversteget din hard-kvote, du kan ikke sende eller motta e-post."
+msgstr ""
+"Du har oversteget din hard-kvotegrense, du kan ikke sende eller motta "
+"e-post."
 
 #: client/zarafa/settings/ui/SettingsQuotaInfoWidget.js:120
 msgid "At {0} you won't be able to send mails."
@@ -7046,8 +7904,8 @@ msgid ""
 "You can not send mails as you have exceeded soft quota, at {0} you won't be "
 "able to recieve mails."
 msgstr ""
-"Du kan ikke sende e-post fordi du har oversteget din myk-kvote, på {0} så "
-"vil du ikke kunne motta e-post."
+"Du kan ikke sende e-post fordi du har oversteget din myk-kvotegrense, på {0} "
+"så vil du heller ikke kunne motta e-post."
 
 #: client/zarafa/settings/ui/SettingsQuotaInfoWidget.js:126
 msgid "At {0} you won't be able to send or recieve mails."
@@ -7055,15 +7913,18 @@ msgstr "På {0} så vil du ikke kunne sende eller motta e-post."
 
 #: client/zarafa/settings/ui/SettingsQuotaInfoWidget.js:129
 msgid "You can not send mails as you have exceeded soft quota."
-msgstr "Du har oversteget din myk-kvote, du kan ikke sende e-post."
+msgstr "Du har oversteget din myk-kvotegrense, så du kan ikke sende e-post."
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:28
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:36
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:60
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:37
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:62
 msgid "Reset WebApp settings"
 msgstr "Tilbakestill WebApp"
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:33
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:34
 msgid "Resets WebApp's settings to their original defaults"
 msgstr "Tilbakestill WebApp innstillinger til de originale"
 
@@ -7077,6 +7938,7 @@ msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:56
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:54
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:58
 msgid ""
 "WebApp will automatically restart in order for these changes to take effect"
 msgstr ""
@@ -7085,11 +7947,13 @@ msgstr ""
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:65
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:63
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:67
 msgid "Reset"
 msgstr "Tilbakestill"
 
 #: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:92
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:88
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:94
 msgid "Webapp is reloading, Please wait."
 msgstr "WebApp lastes inn, vennligst vent."
 
@@ -7141,7 +8005,7 @@ msgstr "Forfallssdato"
 #: client/zarafa/task/attachitem/AttachTaskColumnModel.js:77
 #: client/zarafa/task/ui/TaskGridColumnModel.js:133
 msgid "Sort by: Due Date"
-msgstr "Sorter på: forfallsato"
+msgstr "Sorter på: forfallsdato"
 
 #: client/zarafa/task/attachitem/AttachTaskColumnModel.js:81
 #: client/zarafa/task/printer/TaskListViewRenderer.js:32
@@ -7195,7 +8059,7 @@ msgstr "Lagre oppgave"
 
 #: client/zarafa/task/dialogs/TaskToolbar.js:71
 msgid "Save task and close dialog"
-msgstr "Lagre oppgave og lukk dialog"
+msgstr "Lagre oppgave og lukk dialogboksen"
 
 # 81%
 #: client/zarafa/task/dialogs/TaskToolbar.js:82
@@ -7234,7 +8098,7 @@ msgstr "Avbryt tildeling"
 
 #: client/zarafa/task/dialogs/TaskToolbar.js:177
 msgid "Cancel assigned attendee for this task"
-msgstr ""
+msgstr "Avbryt tildelt mottaker for denne oppgaven"
 
 # 76%
 #: client/zarafa/task/dialogs/TaskToolbar.js:199
@@ -7261,7 +8125,7 @@ msgstr "Totalt tid"
 
 #: client/zarafa/task/printer/TaskRenderer.js:34
 msgid "{totalwork} hours"
-msgstr ""
+msgstr "{totaltid} timer"
 
 #: client/zarafa/task/printer/TaskRenderer.js:35
 msgid "Actual work"
@@ -7269,7 +8133,7 @@ msgstr "Faktisk tid"
 
 #: client/zarafa/task/printer/TaskRenderer.js:35
 msgid "{actualwork} hours"
-msgstr ""
+msgstr "{faktisktid} timer"
 
 #: client/zarafa/task/TaskContext.js:239
 msgid "My Tasks"
@@ -7648,7 +8512,7 @@ msgstr "Logg inn i Facebook"
 
 #: plugins/facebook/js/FbIntegrationPanel.js:124
 msgid "List events for selected period from Facebook"
-msgstr ""
+msgstr "Vis hendelser fra Facebook for valgt periode"
 
 #: plugins/facebookwidget/js/FBWidget.js:51
 #: plugins/facebookwidget/js/FBWidget.js:127
@@ -7664,7 +8528,7 @@ msgstr "Konfigurer miniprogram"
 
 #: plugins/facebookwidget/js/FBWidget.js:74
 msgid "Site name to track the activity"
-msgstr ""
+msgstr "Navn på siden du ønsker å følge"
 
 #: plugins/feedback/js/jiratrigger.js:97
 msgid "Feedback?"
@@ -7988,7 +8852,7 @@ msgstr "På {0} så vil du ikke kunne lagre filer på serveren."
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:35
 #: plugins/files/js/settings/SettingsFilesResetSettingsWidget.js:58
 msgid "Reset Files settings"
-msgstr ""
+msgstr "Tilbakestill Filer innstillinger"
 
 # 86%
 # 100%
@@ -8001,10 +8865,12 @@ msgid ""
 "Your Files's settings will be restored to their default condition. Are you "
 "sure you want to reset all Files settings?"
 msgstr ""
+"Dine Filer innstillinger tilbakestiller til de originale. Vil du virkelig "
+"tilbakestille?"
 
 #: plugins/files/js/settings/SettingsFilesVersionWidget.js:24
 msgid "Files Backend"
-msgstr ""
+msgstr "Filer serverdel"
 
 # 85%
 #: plugins/files/js/settings/SettingsFilesVersionWidget.js:30
@@ -8070,15 +8936,15 @@ msgstr "Økt er oppdatert!"
 
 #: plugins/files/js/settings/SettingsFilesWidget.js:234
 msgid "Settings applied successfully."
-msgstr ""
+msgstr "Endringer vellykket utført."
 
 #: plugins/files/js/settings/SettingsFilesWidget.js:236
 msgid "Session update failed!"
-msgstr ""
+msgstr "Oppdatering av økt feilet!"
 
 #: plugins/files/js/settings/SettingsFilesWidget.js:236
 msgid "Session update failed, please log in again."
-msgstr ""
+msgstr "Oppdatering av økt feilet, vennligst logg inn igjen."
 
 # 76%
 #: plugins/files/js/ui/FilesFileGridColumnModel.js:67
@@ -8303,11 +9169,11 @@ msgstr "Flytt meldingen til {0}"
 
 #: plugins/pimfolder/js/PimPlugin.js:176
 msgid "Personal Inbox Manager"
-msgstr ""
+msgstr "Personlig innboks manager"
 
 #: plugins/pimfolder/js/PimPluginSettingsWidget.js:39
 msgid "Personal Inbox Management Settings"
-msgstr ""
+msgstr "Personlig innboks manager innstillinger"
 
 #: plugins/pimfolder/js/PimPluginSettingsWidget.js:50
 msgid "Select another folder"
@@ -8441,7 +9307,7 @@ msgstr "Kanskje vi skal være raskere."
 
 #: plugins/shellgame/js/ShellGamePlayFieldPanel.js:201
 msgid "That took strength, perseverence and a whole lot of brains."
-msgstr ""
+msgstr "Det krevde en del styrke, utholdenhet og intelligens."
 
 #: plugins/shellgame/js/ShellGamePlayFieldPanel.js:202
 msgid "Good going!"
@@ -8605,11 +9471,11 @@ msgstr "Jeg visste ikke at noen kunne synke så lavt."
 
 #: plugins/shellgame/js/ShellGamePlayFieldPanel.js:244
 msgid "LOSER!"
-msgstr "Taper!"
+msgstr "Du tapte!"
 
 #: plugins/shellgame/js/ShellGamePlayFieldPanel.js:245
 msgid "OOOOO, so close! Not really."
-msgstr "Åå, så nærme! Egentlig ikke."
+msgstr "Å, så nærme! Men egentlig ikke."
 
 #: plugins/shellgame/js/ShellGamePlayFieldPanel.js:246
 msgid "I pity the fool!"
@@ -8830,7 +9696,7 @@ msgstr "Fulfulde"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:60
 msgid "Gaelic; Scottish Gaelic"
-msgstr ""
+msgstr "Gælisk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:61
 msgid "Galician"
@@ -9002,7 +9868,7 @@ msgstr "Latvisk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:103
 msgid "Limburgan; Limburger; Limburgish"
-msgstr ""
+msgstr "Limburgisk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:104
 msgid "Lingala"
@@ -9018,7 +9884,7 @@ msgstr "Luba-Katanga"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:107
 msgid "Luxembourgish; Letzeburgesch"
-msgstr ""
+msgstr "Luxemburgsk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:108
 msgid "Macedonian"
@@ -9074,11 +9940,11 @@ msgstr "Navajo; Navaho"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:121
 msgid "Ndebele, North; North Ndebele"
-msgstr ""
+msgstr "Ndebele, North; North Ndebele"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:122
 msgid "Ndebele, South; South Ndebele"
-msgstr ""
+msgstr "Ndebele, South; South Ndebele"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:123
 msgid "Ndonga"
@@ -9106,7 +9972,7 @@ msgstr "Norsk bokmål; bokmål, norsk;"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:129
 msgid "Occitan;  Provençal"
-msgstr ""
+msgstr "Occitan;  Provençal"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:130
 msgid "Ojibwa"
@@ -9122,7 +9988,7 @@ msgstr "Oromo"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:133
 msgid "Ossetian; Ossetic"
-msgstr ""
+msgstr "Ossetisk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:134
 msgid "Pali"
@@ -9146,7 +10012,7 @@ msgstr "Portugisisk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:139
 msgid "Pushto"
-msgstr ""
+msgstr "Paschto"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:140
 msgid "Quechua"
@@ -9222,7 +10088,7 @@ msgstr "Sør-sotho"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:158
 msgid "Spanish; Castilian"
-msgstr ""
+msgstr "Spansk; kastiljansk"
 
 #: plugins/spreed/js/data/SpreedLanguages.js:159
 msgid "Sundanese"
@@ -10534,7 +11400,7 @@ msgstr "Atlanterhavet/Sør-Georgia"
 
 #: plugins/spreed/js/data/SpreedTimezones.js:885
 msgid "Atlantic/St Helena"
-msgstr "Atlanterhavet/St. Helena"
+msgstr "Atlanterhavet/St Helena"
 
 #: plugins/spreed/js/data/SpreedTimezones.js:888
 msgid "Atlantic/Stanley"
@@ -11025,7 +11891,7 @@ msgstr "Rediger deltaker"
 # 92%
 #: plugins/spreed/js/dialogs/SpreedParticipantContextMenu.js:26
 msgid "Email Message"
-msgstr "E-post melding"
+msgstr "E-postmelding"
 
 #: plugins/spreed/js/dialogs/SpreedSetupContentPanel.js:23
 #: plugins/spreed/js/SpreedPlugin.js:67 plugins/spreed/js/SpreedPlugin.js:86
@@ -11053,7 +11919,7 @@ msgstr "Sett opp møte"
 
 #: plugins/spreed/js/dialogs/SpreedToolBar.js:41
 msgid "Setup meeting with provided details"
-msgstr ""
+msgstr "Sett opp møte med de oppgitte detaljene"
 
 # 92%
 #: plugins/spreed/js/SpreedPlugin.js:68 plugins/spreed/js/SpreedPlugin.js:87
@@ -11063,7 +11929,7 @@ msgstr "Spreed møte"
 
 #: plugins/spreed/js/SpreedPlugin.js:653
 msgid "Returned url is empty"
-msgstr ""
+msgstr "Returnert URL er tom"
 
 #: plugins/spreed/js/SpreedPlugin.js:665
 msgid "Spreed Plugin"
@@ -11071,7 +11937,7 @@ msgstr "Spreed plugin"
 
 #: plugins/statslogging/js/StatsLogging.js:568
 msgid "Statistics Logging"
-msgstr ""
+msgstr "Statistikk logging"
 
 #: plugins/sugarcrm/js/SugarCRMPlugin.js:33
 msgid "Archive to SugarCRM"
@@ -11083,7 +11949,7 @@ msgstr "SugarCRM Plugin"
 
 #: plugins/titlecounter/js/TitleCounter.js:43
 msgid "Title Counter Plugin"
-msgstr ""
+msgstr "Uleste e-post teller"
 
 #: plugins/twidget/js/Twidget.js:71
 msgid "No sender info found."
@@ -11091,11 +11957,11 @@ msgstr "Fant ingen avsenderinfo."
 
 #: plugins/twidget/js/Twidget.js:288
 msgid "Maximum results"
-msgstr ""
+msgstr "Maksimalt antall resultater"
 
 #: plugins/twidget/js/Twidget.js:298
 msgid "Include retweets"
-msgstr ""
+msgstr "Inkluder retweets"
 
 #: plugins/twidget/js/Twidget.js:333
 msgid "Twidget"
@@ -11127,7 +11993,7 @@ msgstr "Vis"
 
 #: plugins/xmpp/js/XmppNotificationPlugin.js:95
 msgid "XMPP Notification Plugin"
-msgstr ""
+msgstr "XMPP beskjed Plugin"
 
 #: plugins/xmpp/js/XmppPlugin.js:324 plugins/xmpp/js/XmppWidget.js:268
 msgid "Chat"
@@ -11139,7 +12005,7 @@ msgstr "XMPP Plugin"
 
 #: plugins/xmpp/js/XmppPreviewPanelPlugin.js:187
 msgid "XMPP Preview Panel Plugin"
-msgstr ""
+msgstr "XMPP forhåndsvisning panel plugin"
 
 #: plugins/zdeveloper/js/ZDeveloper.js:38
 msgid "INSERT"
@@ -11199,7 +12065,7 @@ msgstr "Logg inn"
 
 #: client/login.php:63
 msgid "Logon failed, please check your name/password."
-msgstr "Logg inn feilet, vennligst sjekk ditt brukernavn/passord."
+msgstr "Pålogging mislyktes, vennligst sjekk ditt brukernavn/passord."
 
 #: client/login.php:66
 msgid "Cannot connect to the zarafa server."
@@ -11207,7 +12073,7 @@ msgstr "Kunne ikke koble til Zarafa server."
 
 #: client/login.php:69
 msgid "Logon failed, another session already exists."
-msgstr "Logg inn feilet, en annen økt finnes allerede."
+msgstr "Pålogging mislyktes, en annen økt finnes allerede."
 
 #: client/login.php:76
 msgid "You have been automatically logged out"
@@ -11215,7 +12081,7 @@ msgstr "Du har blitt automatisk logget ut"
 
 #: client/login.php:89
 msgid "Logon"
-msgstr "Logg inn"
+msgstr "Login"
 
 #: client/webclient.php:41 client/welcome.php:41
 msgid "Loading Zarafa WebApp ..."
@@ -11276,7 +12142,7 @@ msgstr "Du har ikke tilstrekkelige rettigheter til å åpne dette objektet."
 
 #: mapi/class.mapiexception.php:27
 msgid "Logon Failed. Please check your name/password."
-msgstr "Logg inn feilet. Vennligst sjekk ditt brukernavn/passord."
+msgstr "Pålogging mislyktes. Vennligst sjekk ditt brukernavn/passord."
 
 # 83%
 #: mapi/class.mapiexception.php:29
@@ -11285,7 +12151,7 @@ msgstr "Kunne ikke koble til Zarafa server."
 
 #: mapi/class.mapiexception.php:31
 msgid "Can not open object with provided id."
-msgstr ""
+msgstr "Kan ikke åpne objektet med den oppgitte id."
 
 #: mapi/class.mapiexception.php:33
 msgid "There are no recipients in the message."
@@ -11314,75 +12180,75 @@ msgstr "Ny tid foreslått"
 
 #: mapi/class.recurrence.php:577 mapi/class.recurrence.php:578
 msgid "d-m-Y"
-msgstr "d.m.Å"
+msgstr "d.m.Y"
 
 #: mapi/class.recurrence.php:593
 #, php-format
 msgid "Occurs every %s effective %s from %s to %s."
-msgstr ""
+msgstr "Inntreffer hver %s med start fra %s fra %s til %s."
 
 #: mapi/class.recurrence.php:595
 #, php-format
 msgid "Occurs every %s %s effective %s from %s to %s."
-msgstr ""
+msgstr "Inntreffer hver %s %s med start fra %s fra %s til %s."
 
 #: mapi/class.recurrence.php:599
 #, php-format
 msgid "Occurs every %s effective %s."
-msgstr ""
+msgstr "Inntreffer hver %s med start fra %s."
 
 #: mapi/class.recurrence.php:601
 #, php-format
 msgid "Occurs every %s %s effective %s."
-msgstr ""
+msgstr "Inntreffer hver %s %s med start fra %s."
 
 #: mapi/class.recurrence.php:608
 #, php-format
 msgid "Occurs every %s effective %s for %s occurence from %s to %s."
 msgid_plural "Occurs every %s effective %s for %s occurences from %s to %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver %s med start fra %s, %s gang fra %s til %s."
+msgstr[1] "Inntreffer hver %s med start fra %s, %s ganger fra %s til %s."
 
 #: mapi/class.recurrence.php:611
 #, php-format
 msgid "Occurs every %s %s effective %s for %s occurence from %s to %s."
 msgid_plural "Occurs every %s %s effective %s for %s occurences %s to %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver %s %s med start fra %s, %s gang fra %s til %s."
+msgstr[1] "Inntreffer hver %s %s med start fra %s, %s ganger fra %s til %s."
 
 #: mapi/class.recurrence.php:616
 #, php-format
 msgid "Occurs every %s effective %s for %s occurence."
 msgid_plural "Occurs every %s effective %s for %s occurences."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver %s med start %s, %s gang."
+msgstr[1] "Inntreffer hver %s med start %s, %s ganger."
 
 #: mapi/class.recurrence.php:619
 #, php-format
 msgid "Occurs every %s %s effective %s for %s occurence."
 msgid_plural "Occurs every %s %s effective %s for %s occurences."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inntreffer hver %s %s med start %s, %s gang."
+msgstr[1] "Inntreffer hver %s %s med start %s, %s ganger."
 
 #: mapi/class.recurrence.php:627
 #, php-format
 msgid "Occurs every %s effective %s until %s from %s to %s."
-msgstr ""
+msgstr "Inntreffer hver %s med start fra %s til %s fra %s til %s."
 
 #: mapi/class.recurrence.php:629
 #, php-format
 msgid "Occurs every %s %s effective %s until %s from %s to %s."
-msgstr ""
+msgstr "Inntreffer hver %s %s med start fra %s til %s fra %s til %s."
 
 #: mapi/class.recurrence.php:633
 #, php-format
 msgid "Occurs every %s effective %s until %s."
-msgstr ""
+msgstr "Inntreffer hver %s med start fra %s til %s."
 
 #: mapi/class.recurrence.php:635
 #, php-format
 msgid "Occurs every %s %s effective %s until %s."
-msgstr ""
+msgstr "Inntreffer hver %s %s med start fra %s til %s."
 
 #: mapi/class.taskrequest.php:881 mapi/class.taskrequest.php:882
 msgid "%A, %B %d, %Y"
@@ -11399,7 +12265,7 @@ msgstr "timer"
 #: plugins/files/php/class.filesmodule.php:298
 #: plugins/files/php/class.filesmodule.php:299
 msgid "Unknown type - cannot save this file to the Files backend!"
-msgstr ""
+msgstr "Ukjent filtype - kan ikke lagre denne til Files serverdelen!"
 
 #: plugins/files/php/Files/ftp_backend.php:170
 msgid "Wrong username or password."
@@ -11411,7 +12277,7 @@ msgstr "Serveren kan ikke nås. Feil IP-adresse skrevet inn?"
 
 #: plugins/files/php/Files/ftp_backend.php:200
 msgid "Unparsable server response."
-msgstr ""
+msgstr "Uforståelig svar fra server."
 
 #: plugins/files/php/Files/webdav_backend.php:659
 msgid "Unknown error"
@@ -11445,21 +12311,24 @@ msgstr "Denne filen er låst av en annen bruker."
 
 #: plugins/files/php/Files/webdav_backend.php:668
 msgid "The request failed due to failure of a previous request."
-msgstr ""
+msgstr "Forespørselen feilet pga tidligere feilet forespørsel."
 
 #: plugins/files/php/Files/webdav_backend.php:669
 msgid "File-server encountered a problem. Wrong IP entered?"
 msgstr ""
+"Files-serveren støtte på et problem. Har du skrevet inn feil IP adresse?"
 
 #: plugins/files/php/Files/webdav_backend.php:670
 msgid ""
 "Could not write to temporary directory. Contact the server administrator."
-msgstr ""
+msgstr "Kunne ikke skrive til midlertidig mappe. Kontakt serveradministratoren."
 
 #: plugins/files/php/Files/webdav_backend.php:671
 msgid ""
 "Could not retrieve list of server features. Contact the server administrator."
 msgstr ""
+"Kunne ikke hente listen over serveregenskaper. Kontakt "
+"serveradministratoren."
 
 #: plugins/files/php/Files/webdav_backend.php:672
 msgid "PHP-Curl is not available. Contact your system administrator"
@@ -11467,7 +12336,7 @@ msgstr "PHP-Curl er ikke installert. Kontakt din systemansvarlig"
 
 #: plugins/files/php/proxy.php:65 plugins/files/php/proxy.php:68
 msgid "File backend not responding. Please try again later."
-msgstr ""
+msgstr "Fil-serverdel svarte ikke. Vennligst forsøk igjen senere."
 
 #: plugins/files/php/proxy.php:143 plugins/files/php/proxy.php:146
 msgid "This file is no longer available. Please clear the cache."
@@ -11478,6 +12347,8 @@ msgid ""
 "You need at least one other participant to set-up a Spreed Meeting, select "
 "or add another participant to continue."
 msgstr ""
+"Du trenger minst en annen deltaker for å sette opp et Spreed-møte, velg "
+"eller legg til en annen deltaker for å fortsette."
 
 #: plugins/spreed/php/class.spreedmodule.php:226
 #, php-format
@@ -11485,6 +12356,8 @@ msgid ""
 "Too many participants. You are not allowed to add more than %d other "
 "participants with this version of Spreed."
 msgstr ""
+"For mange deltakere. Du kan bare legge til %d andre deltakere med denne "
+"versjonen av Spreed."
 
 #: plugins/spreed/php/class.spreedmodule.php:230
 msgid "The timezone you specified is incorrect, please select another option."
@@ -11495,16 +12368,16 @@ msgctxt "plugin_statslogging"
 msgid ""
 "Cannot create directory for log file for user interface statistics logging "
 "plugin."
-msgstr ""
+msgstr "Kunne ikke lage mapper for logfiler Brukerstatistikk-pluginen."
 
 #: plugins/statslogging/php/class.pluginstatsloggingmodule.php:86
 msgctxt "plugin_statslogging"
 msgid "Cannot create log file for user interface statistics logging plugin."
-msgstr ""
+msgstr "Kunne ikke lage logfiler for Brukerstatistikk-pluginen."
 
 #: plugins/sugarcrm/php/class.sugarcrmmodule.php:76
 msgid "Authentication class not found for SugarCRM"
-msgstr ""
+msgstr "Autentiseringsklassen for SugarCRM ble ikke funnet"
 
 #: plugins/sugarcrm/php/class.sugarcrmmodule.php:78
 msgid "This version of Zarafa doesn't support this functionality."
@@ -11513,10 +12386,12 @@ msgstr "Denne versjonen av Zarafa støtter ikke denne funksjonaliteten."
 #: server/core/class.bus.php:272
 msgid "Can't add data to bus, same action type is present in bus"
 msgstr ""
+"Kan ikke legge til data på bus, samme handlingstype er allerede tilstede på "
+"busen."
 
 #: server/core/class.bus.php:293
 msgid "Response data requested from bus but it doesn't have any data."
-msgstr ""
+msgstr "Svardata forespurt fra bus, men den har ingen data."
 
 #: server/core/class.dispatcher.php:47
 #, php-format
@@ -11526,7 +12401,7 @@ msgstr "Ukjent modul '%s' med id '%s'"
 #: server/core/class.dispatcher.php:47 server/core/class.dispatcher.php:77
 msgid ""
 "Server encountered some problem, so it was not able to handle the request."
-msgstr ""
+msgstr "Serveren støtte på et problem, så din forespørsel kunne ikke behandles."
 
 #: server/core/class.dispatcher.php:77
 #, php-format
@@ -11535,11 +12410,11 @@ msgstr "Ukjent Notifier '%s'"
 
 #: server/core/class.json.php:49
 msgid "The maximum stack depth has been exceeded"
-msgstr ""
+msgstr "Den maksimale stakkdybden har blitt oversteget"
 
 #: server/core/class.json.php:52
 msgid "Control character error, possibly incorrectly encoded"
-msgstr ""
+msgstr "Kontrolltegnfeil, trolig feil omkoding"
 
 #: server/core/class.json.php:55
 msgid "Invalid or malformed JSON"
@@ -11556,7 +12431,7 @@ msgstr "JSON feil: - %s"
 
 #: server/core/class.json.php:66 server/core/class.json.php:74
 msgid "Some problem encountered when encoding/decoding JSON data."
-msgstr ""
+msgstr "Et problem oppstod ved omkoding/dekoding av JSON data."
 
 #: server/core/class.json.php:74
 msgid "JSON Error: - Unknown Error"
@@ -11609,15 +12484,15 @@ msgstr "De følgende mottakere kunne ikke nåes"
 #: server/core/class.settings.php:186 server/core/class.settings.php:226
 #: server/core/class.settings.php:343 server/core/class.settings.php:453
 msgid "Settings object is not initialized"
-msgstr ""
+msgstr "Objektinnstillingen ble ikke initialisert"
 
 #: server/core/class.settings.php:261
 msgid "Error opening settings property"
-msgstr ""
+msgstr "Feil ved åpning av innstillingsegenskaper"
 
 #: server/core/class.settings.php:278
 msgid "Error retrieving existing settings"
-msgstr ""
+msgstr "Feil ved henting av eksisterende innstillinger"
 
 #: server/core/htmlfilter.php:1233 server/core/htmlfilter.php:1237
 #: server/core/htmlfilter.php:1241
@@ -11626,11 +12501,11 @@ msgstr "Denne eksterne lenken vil bli åpnet i et nytt vindu"
 
 #: server/exceptions/class.ZarafaErrorException.php:32
 msgid "Action is not performed correctly."
-msgstr ""
+msgstr "Handlingen ble ikke korrekt utført."
 
 #: server/modules/class.addressbookitemmodule.php:144
 msgid "Could not handle this type of object."
-msgstr ""
+msgstr "Kunne ikke håndtere denne typen objekt."
 
 #: server/modules/class.addressbookitemmodule.php:152
 msgid "Could not open this object."
@@ -11638,21 +12513,25 @@ msgstr "Kunne ikke åpne dette objektet."
 
 #: server/modules/class.appointmentitemmodule.php:132
 msgid "Could not open occurrence."
-msgstr ""
+msgstr "Kunne ikke åpne forekomstserien."
 
 #: server/modules/class.appointmentitemmodule.php:133
 msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
+"Kunne ikke åpne forekomstserien, den aktuelle forekomstserien er trolig "
+"slettet."
 
 #: server/modules/class.appointmentitemmodule.php:200
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "
 "reminder to save the change"
 msgstr ""
+"Kan ikke sette at påminnelsen skal komme før den forrige forekomsten. "
+"Nullstill påminnelsen for å lagre endringen"
 
 #: server/modules/class.appointmentitemmodule.php:202
 msgid "Two occurrences cannot occur on the same day"
-msgstr ""
+msgstr "To forekomster kan ikke skje på samme dag"
 
 #: server/modules/class.appointmentitemmodule.php:206
 #, php-format
@@ -11662,6 +12541,10 @@ msgid ""
 "enter the name as a required or optional attendee or talk to your "
 "administrator about giving you permission to schedule '%s'."
 msgstr ""
+"Du markerte '%s' som en Ressurs. Du kan ikke planlegge et møte med '%s' "
+"fordi du har ikke tilstrekkelig med rettigheter for den kontoen. Bruk et av "
+"valgene Nødvendig eller Valgfri, eller snakk med administrator om å få "
+"rettigheter til å planlegge '%s' som en Ressurs."
 
 #: server/modules/class.appointmentitemmodule.php:209
 #, php-format
@@ -11678,6 +12561,8 @@ msgid ""
 "'%s' has declined your meeting because it is recurring. You must book each "
 "meeting separately with this resource."
 msgstr ""
+"'%s' har avslått din møteinvitasjon fordi den er regelmessig. Du må bestille "
+"hvert møte separat med denne ressursen."
 
 #: server/modules/class.appointmentitemmodule.php:215
 #, php-format
@@ -11685,10 +12570,12 @@ msgid ""
 "'%s' is already booked for this specified time. You must use another time or "
 "find another resource."
 msgstr ""
+"'%s' er allerede reservert for dette tidspunktet. Du må oppgi et annet "
+"tidspunkt eller finne en annen ressurs."
 
 #: server/modules/class.appointmentitemmodule.php:218
 msgid "Meeting was not scheduled."
-msgstr ""
+msgstr "Møte ble ikke planlagt."
 
 #: server/modules/class.appointmentitemmodule.php:244
 msgid "Meeting could not be sent."
@@ -11732,7 +12619,7 @@ msgstr "Kunne ikke hente liste med representanter."
 
 #: server/modules/class.hierarchymodule.php:267
 msgid "Could not load the hierarchy."
-msgstr ""
+msgstr "Kunne ikke laste hierarkiet."
 
 #: server/modules/class.hierarchymodule.php:271
 msgid "Could not load folder properties."
@@ -11778,7 +12665,7 @@ msgstr "Kunne ikke tømme mappe."
 
 #: server/modules/class.hierarchymodule.php:308
 msgid "Could not perform action correctly."
-msgstr ""
+msgstr "Kunne ikke utføre handlingen korrekt."
 
 #: server/modules/class.hierarchymodule.php:312
 msgid "Could not add folder to favorites."
@@ -11793,7 +12680,7 @@ msgstr ""
 
 #: server/modules/class.hierarchymodule.php:321
 msgid "Could not set folder permissions."
-msgstr ""
+msgstr "Kunne ikke sette mapperettigheter."
 
 # 80%
 #: server/modules/class.hierarchymodule.php:326
@@ -11836,6 +12723,9 @@ msgid ""
 "can set these using the 'permissions'-tab of the folder properties (right "
 "click the %1$s folder > properties > permissions)."
 msgstr ""
+"Du har ikke tilstrekkelige rettigheter til å åpne denne %1$s mappe. Eieren "
+"til mappen kan sette disse rettighetene ved å gå på arkfanen 'Rettigheter' "
+"til mappen (høyreklikk på %1$s mappen > Egenskaper -> Rettigheter)."
 
 #: server/modules/class.hierarchymodule.php:674
 msgid "unknown"
@@ -11912,10 +12802,12 @@ msgid ""
 "You have insufficient privileges to reclaim the ownership for the Task "
 "Request."
 msgstr ""
+"Du har ikke tilstrekkelig rettigheter til å ta eierskap for denne "
+"oppgaveforespørselen."
 
 #: server/modules/class.itemmodule.php:372
 msgid "Could not reclaim the ownership for the Task Request."
-msgstr ""
+msgstr "Kunne ikke ta tilbake eierskap for denne oppgaveforespørselen."
 
 # 98%
 # 89%
@@ -11956,7 +12848,10 @@ msgid_plural ""
 "%s occurrences of this recurring appointment conflicts with other "
 "appointments."
 msgstr[0] ""
+"%s forekomst av denne regelmessige avtalen er i konflikt med andre avtaler."
 msgstr[1] ""
+"%s forekomster av denne regelmessige avtalen er i konflikt med andre "
+"avtaler."
 
 # 80%
 #: server/modules/class.listmodule.php:127
@@ -11979,7 +12874,7 @@ msgstr "Feil ved søk, forsøk igjen"
 #: server/modules/class.maillistmodule.php:101
 msgid ""
 "You have insufficient privileges to perform search operation in this folder."
-msgstr ""
+msgstr "Du har ikke tilstrekkelige rettigheter til å kunne søke i denne mappen."
 
 #: server/modules/class.maillistmodule.php:107
 msgid "Could not update search results."
@@ -12051,11 +12946,11 @@ msgstr ""
 
 #: server/modules/class.module.php:152
 msgid "Could not cancel Meeting Request invitations."
-msgstr ""
+msgstr "Kunne ikke avbryte møteinvitasjonene."
 
 #: server/modules/class.module.php:159
 msgid "You can not continue search operation on this folder."
-msgstr ""
+msgstr "Du kan ikke fortsette å søke i denne mappen."
 
 # 97%
 #: server/modules/class.module.php:161
@@ -12068,26 +12963,29 @@ msgstr "Feil ved distribusjonslisteutvidelse."
 
 #: server/modules/class.module.php:197
 msgid "The message store has exceeded its hard quota limit."
-msgstr ""
+msgstr "E-postboksen har oversteget hard-kvotegrensen."
 
 #: server/modules/class.module.php:198 server/modules/class.module.php:204
 msgid ""
 "To reduce the amount of data in this message store, select some items that "
 "you no longer need, delete them and cleanup your Deleted Items folder."
 msgstr ""
+"For å redusere mengden data i denne e-postboksen, velg noen elementer som du "
+"ikke lenger trenger, slett dem, og tøm deretter din Slettede Elementer "
+"mappe."
 
 #: server/modules/class.module.php:203
 msgid "The message store has exceeded its soft quota limit."
-msgstr ""
+msgstr "E-postboksen har oversteget myk-kvotegrensen."
 
 #: server/modules/class.module.php:427
 msgid "Could not process request data properly."
-msgstr ""
+msgstr "Kunne ikke behandle forespørselen skikkelig."
 
 #: server/modules/class.module.php:428
 #, php-format
 msgid "Unknown action type specified - %s"
-msgstr ""
+msgstr "Ukjent handlingstype oppgitt - %s"
 
 #: server/modules/class.reminderlistmodule.php:90
 #: server/modules/class.reminderlistmodule.php:92
@@ -12101,10 +12999,12 @@ msgstr "Kan ikke lukke påminnelsen. Du kan bli påminnet igjen."
 
 # 76%
 #: server/modules/class.resolvenamesmodule.php:397
+#: server/modules/class.resolvenamesmodule.php:402
 msgid "You have insufficient privileges to perform this action."
 msgstr "Du har ikke tilstrekkelige rettigheter til å utføre denne handlingen."
 
 #: server/modules/class.resolvenamesmodule.php:399
+#: server/modules/class.resolvenamesmodule.php:404
 msgid "Could not resolve user."
 msgstr "Kunne ikke finne bruker."
 
@@ -12141,133 +13041,14 @@ msgstr "KB"
 msgid "B"
 msgstr "B"
 
-#~ msgid "Z-Push Devices"
-#~ msgstr "Z-Push enheter"
+#: client/zarafa/calendar/dialogs/AppointmentToolbar.js:193
+msgid "Convert this meeting request to an appointment by removing attendees"
+msgstr "Endre denne møteinvitasjon om til en avtale ved å fjerne deltakerene"
 
-#~ msgid "Devices"
-#~ msgstr "Enheter"
-
-#~ msgid "Device ID"
-#~ msgstr "Enhet ID"
-
-#~ msgid "Device"
-#~ msgstr "Enhet"
-
-#~ msgid "Device Info"
-#~ msgstr "Enhetinfo"
-
-#~ msgid "Device Mobile Operator"
-#~ msgstr "Mobiloperatør"
-
-# 77%
-#~ msgid "Device OS"
-#~ msgstr "Enhet OS"
-
-#~ msgid "Last Update"
-#~ msgstr "Forrige oppdatering"
-
-#~ msgid "Wipe Device"
-#~ msgstr "Slett enhet"
-
-#~ msgid "MDM"
-#~ msgstr "MDM"
-
-# 89%
-#~ msgid "Zarafa Web Meetings"
-#~ msgstr "Zarafa webmøte"
-
-#~ msgid " is busy"
-#~ msgstr " er opptatt"
-
-#~ msgid " does not pick up"
-#~ msgstr " svarer ikke"
-
-#~ msgid "Web Meetings"
-#~ msgstr "Webmøte"
-
-#~ msgid "Web Meetings Plugin"
-#~ msgstr "Webmøte plugin"
-
-#~ msgid "Spreed"
-#~ msgstr "Spreed"
-
-#~ msgid "SpreedPresence Plugin"
-#~ msgstr "SpreedPresence Plugin"
-
-#~ msgid "Zarafa web meetings"
-#~ msgstr "Zarafa webmøte"
-
-#~ msgid "Nuxeo"
-#~ msgstr "Nuxeo"
-
-#~ msgid "Preparing..."
-#~ msgstr "Forbereder..."
-
-#~ msgid "Preparing email for upload... please wait."
-#~ msgstr "Forbereder e-post for opplasting … vennligst vent"
-
-#~ msgid "Preparing"
-#~ msgstr "Forbereder"
-
-# 80%
-#~ msgid "Preparing attachment for upload... please wait."
-#~ msgstr "Forbereder vedlegg for opplasting … vennligst vent."
-
-#~ msgid "Nuxeo destination path"
-#~ msgstr "Nuxeo målbane"
-
-#~ msgid "Nuxeo Plugin"
-#~ msgstr "Nuxeo Plugin"
-
-#~ msgid "Set as default"
-#~ msgstr "Sett som standard"
-
-#~ msgid "Set default folder"
-#~ msgstr "Sett standardmappe"
-
-#~ msgid "Set selected folder as default"
-#~ msgstr "Sett valgte mappe som standard"
-
-# 92%
-#~ msgid "Delete folder"
-#~ msgstr "Slett mappe"
-
-#~ msgid "Delete the selected folder"
-#~ msgstr "Slett den valgte mappen"
-
-#~ msgid "Store file"
-#~ msgstr "Lagre fil"
-
-#~ msgid "Store file to the selected folder."
-#~ msgstr "Lagre fil i den valgte mappen."
-
-# 80%
-#~ msgid "New default folder: "
-#~ msgstr "Ny standardmappe: "
-
-# 85%
-#~ msgid "Deleted"
-#~ msgstr "Slettet"
-
-#~ msgid "Directory deleted!"
-#~ msgstr "Mappe slettet!"
-
-# 80%
-#~ msgid "You have to choose a parent folder!"
-#~ msgstr "Du må velge en opphavsmappe!"
-
-#~ msgid "Foldername contains invalid characters!"
-#~ msgstr "Mappenavnet inneholder ugyldige tegn!"
-
-#~ msgid "Choose path"
-#~ msgstr "Velg bane"
-
-# 77%
-#~ msgid "Storagepath contains invalid characters!"
-#~ msgstr "Lagringssti inneholder ugyldige tegn!"
-
-#~ msgid "Nuxeo Error"
-#~ msgstr "Nuxeo feil"
-
-#~ msgid "Problem With CURLOPT_HTTPHEADER"
-#~ msgstr "Problemer med CURLOPT_HTTPHEADER"
+#: client/zarafa/settings/ui/SettingsResetSettingsWidget.js:56
+msgid ""
+"Your WebApp settings will be restored to their default condition. Are you "
+"sure you want to reset all WebApp settings?"
+msgstr ""
+"Dine WebApp innstillinger vil bli satt tilbake til de opprinnelige. Vil du "
+"gjøre dette?"

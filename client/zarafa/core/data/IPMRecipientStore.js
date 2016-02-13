@@ -129,7 +129,6 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 		this.on({
 			'add' : this.onRecipientAdd,
 			'update' : this.onRecipientUpdate,
-			'load' : this.onRecipientLoad,
 			'exception' : this.onResolveException,
 			scope: this
 		});
@@ -432,7 +431,7 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 
 	/**
 	 * Event handler which is fired when a recipient is added to this store, when {@link #autoResolve}
-	 * is enabled, the records will directly be resolved.
+	 * is enabled and the records are dirty, the records will directly be resolved.
 	 * @param {Zarafa.core.data.IPMRecipientStore} store The store which fired the event
 	 * @param {Zarafa.core.data.IPMRecipientRecord[]} records The records which were added
 	 * @private
@@ -440,8 +439,13 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 	onRecipientAdd : function(store, records)
 	{
 		if (this.autoResolve) {
-			this.resolve(records);
-		}
+            Ext.each(records,function(record){
+                    if(record.dirty){
+                        this.resolve(records);
+                        return false;
+                    }
+            },this);
+        }
 	},
 
 	/**
@@ -455,20 +459,6 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 	{
 		if (this.autoResolve) {
 			this.resolve(records);
-		}
-	},
-
-	/**
-	 * Event handler which is fired when the store has been loaded, when {@link #autoResolve}
-	 * is enabled, all records inside the store will be resolved. 
-	 * @param {Zarafa.core.data.IPMRecipientStore} store The store which fired the event
-	 * @param {Zarafa.core.data.IPMRecipientRecord[]} records The records which were added
-	 * @private
-	 */
-	onRecipientLoad : function(store, records)
-	{
-		if (this.autoResolve) {
-			this.resolve();
 		}
 	},
 

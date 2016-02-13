@@ -42,6 +42,7 @@
 	require_once("server/core/constants.php");
 	require_once("server/core/class.conversion.php");
 	require_once("server/core/class.mapisession.php");
+	require_once("server/core/class.operations.php");
 	require_once("server/core/class.properties.php");
 	require_once("server/core/class.entryid.php");
 
@@ -184,6 +185,9 @@
 			header('Location: index.php', true, 303);
 			exit;
 		}
+
+		// Create global operations object
+		$GLOBALS["operations"] = new Operations();
 
 		// Create globals settings object
 		$GLOBALS["settings"] = new Settings();

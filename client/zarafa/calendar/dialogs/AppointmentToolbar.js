@@ -60,7 +60,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				text: _('Send invitation to recipients') + ' (Ctrl + ENTER)'
 			},
 			iconCls: 'icon_sendEmail',
-			cls: 'button_sendMail',
+			cls: 'button_sendMail tb-calendar-btn-send',
 			ref: 'sendInvitation',
 			handler: this.onSendButton,
 			scope: this
@@ -71,6 +71,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Save & Close'),
 				text: _('Save appointment and close dialog') + ' (Ctrl + S)'
 			},
+			cls: 'tb-calendar-btn-save-close',
 			iconCls: 'icon_saveEmail',
 			ref : 'saveAppointment',
 			handler: this.onSaveButton,
@@ -82,6 +83,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Save'),
 				text: _('Save without sending an invitation to recipients') + ' (Ctrl + S)'
 			},
+			cls: 'tb-calendar-btn-save',
 			iconCls: 'icon_saveEmail',
 			ref : 'saveMeeting',
 			handler: this.onSaveButton,
@@ -93,6 +95,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Delete'),
 				text: _('Delete this appointment')
 			},
+			cls: 'tb-calendar-btn-delete',
 			iconCls : 'icon_delete',
 			ref: 'deleteAppointment',
 			handler : this.onDeleteButton,
@@ -106,6 +109,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Add attachment'),
 				text: _('Add attachments to this appointment')
 			},
+			cls: 'tb-calendar-btn-add-attachment',
 			iconCls : 'icon_attachment'
 		},{
 			// FIXME: Remove after WA-4880 is implemented
@@ -116,6 +120,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title : _('Cannot add attachment'),
 				text : _('Attachments cannot be modified for a single occurence')
 			},
+			cls: 'tb-calendar-btn-occurence-attachment',
 			iconCls : 'icon_attachment',
 			handler : function() {
 				Ext.MessageBox.show({
@@ -132,6 +137,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Print'),
 				text: _('Print this appointment')
 			},
+			cls: 'tb-calendar-btn-print',
 			iconCls : 'icon_print',
 			handler: function() {
 				Zarafa.common.Actions.openPrintDialog(this.record);
@@ -144,6 +150,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Check names'),
 				text: _('Check all recipient names')
 			},
+			cls: 'tb-calendar-btn-checknames',
 			iconCls: 'icon_checkNames',
 			ref: 'checkNames',
 			handler: this.onCheckNamesButton,
@@ -169,6 +176,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Recurrence'),
 				text: _('Open the recurrence dialog')
 			},
+			cls: 'tb-calendar-btn-recurrence',
 			iconCls: 'icon_recurrence',
 			ref: 'recurrence',
 			handler : this.onSetRecurrence,
@@ -181,6 +189,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Invite attendees'),
 				text: _('Invite attendees for this appointment')
 			},
+			cls: 'tb-calendar-btn-ivite-attendees',
 			iconCls: 'icon_invite_attendees',
 			ref: 'inviteAttendees',
 			handler: this.onSetMeetingRequest,
@@ -190,9 +199,10 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			text: _('Cancel invitation'),
 			tooltip: {
 				title: _('Cancel invitation'),
-				text: _('Cancel to invitation')
+				text: _('Convert this meeting request to an appointment by removing attendees')
 			},
 			overflowText: _('Cancel invitation'),
+			cls: 'tb-calendar-btn-cancel',
 			iconCls: 'icon_cancel_meeting_request',
 			ref: 'cancelInvitation',
 			handler: this.onCancelMeetingRequest,
@@ -204,6 +214,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('High priority'),
 				text: _('Mark this appointment as high priority')
 			},
+			cls: 'tb-calendar-btn-high-priority',
 			iconCls: 'icon_setHighPriority',
 			ref: 'highPriority',
 			toggleGroup: 'priorityGroup',
@@ -217,6 +228,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Low priority'),
 				text: _('Mark this appointment as low priority')
 			},
+			cls: 'tb-calendar-btn-low-priority',
 			iconCls: 'icon_setLowPriority',
 			ref: 'lowPriority',
 			toggleGroup: 'priorityGroup',
@@ -230,6 +242,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Categories'),
 				text: _('Open the categories dialog')
 			},
+			cls: 'tb-calendar-btn-categories',
 			iconCls: 'icon_categories',
 			handler: this.onCategories,
 			scope: this
@@ -240,6 +253,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Private'),
 				text: _('Mark this appointment as private')
 			},
+			cls: 'tb-calendar-btn-private',
 			iconCls: 'icon_private',
 			ref: 'setPrivate',
 			toggleGroup: 'privateGroup',

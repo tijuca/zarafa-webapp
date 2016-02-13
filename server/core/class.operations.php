@@ -2686,14 +2686,24 @@
 							if(isset($addedInlineAttachmentCidMapping[ $tmpname ])){
 								$cid = $addedInlineAttachmentCidMapping[ $tmpname ];
 							}
-
+							
+							// If a .p7m file was manually uploaded by the user, we must change the mime type because
+							// otherwise mail applications will think the containing email is an encrypted email.
+							// That will make Outlook crash, and it will make WebApp show the original mail as encrypted
+							// without showing the attachment 
+							$mimeType = $fileinfo["type"];
+							$smimeTags = array('multipart/signed', 'application/pkcs7-mime', 'application/x-pkcs7-mime');
+							if ( in_array($mimeType, $smimeTags) ) {
+								$mimeType = "application/octet-stream";
+							}
+							
 							// Set attachment properties
 							$props = Array(
 								PR_ATTACH_LONG_FILENAME => $fileinfo["name"],
 								PR_DISPLAY_NAME => $fileinfo["name"],
 								PR_ATTACH_METHOD => ATTACH_BY_VALUE,
 								PR_ATTACH_DATA_BIN => "",
-								PR_ATTACH_MIME_TAG => $fileinfo["type"],
+								PR_ATTACH_MIME_TAG => $mimeType,
 								PR_ATTACHMENT_HIDDEN => !empty($cid) ? true : false
 							);
 
@@ -3198,6 +3208,11 @@
 		 * Function which is get store of external resource from entryid.
 		 * @param string $entryid entryid of the shared folder record
 		 * @return object/boolean $store store of shared folder if found otherwise false
+		 *
+		 * FIXME: this function is pretty inefficient, since it opens the store for every
+		 * shared user in the worst case. Might be that we could extract the guid from
+		 * the $entryid and compare it and fetch the guid from the userentryid.
+		 * C++ has a GetStoreGuidFromEntryId() function.
 		 */
 		function getOtherStoreFromEntryid($entryid)
 		{
@@ -3212,10 +3227,12 @@
 				if ($GLOBALS['entryid']->hasContactProviderGUID($entryid)) {
 					$entryid = $GLOBALS["entryid"]->unwrapABEntryIdObj($entryid);
 				}
-				$record = mapi_msgstore_openentry($store, hex2bin($entryid));
-				if ($record) {
-					return $store;
-				}
+				try {
+					$record = mapi_msgstore_openentry($store, hex2bin($entryid));
+					if ($record) {
+						return $store;
+					}
+				} catch (MAPIException $e) { }
 			}
 			return false;
 		}
@@ -3224,6 +3241,10 @@
 		 * Function which is use to check the distribution list belongs to any external folder or not.
 		 * @param string $entryid entryid of distribution list
 		 * @return boolean true if distribution list from external folder otherwise false.
+		 *
+		 * FIXME: this function is broken and returns true if the user is a contact in a shared store.
+		 * Also research if we cannot just extract the GUID and compare it with our own GUID.
+		 * FIXME This function should be renamed, because it's also meant for normal shared folder contacts.
 		 */
 		function isExternalDistList($entryid)
 		{
