@@ -8,7 +8,7 @@ deploy/mapi                   usr/share/zarafa-webapp
 #deploy/plugins               usr/share/zarafa-webapp
 deploy/server                 usr/share/zarafa-webapp
 
-deploy/.htaccess              usr/share/zarafa-webapp
+deploy/.htaccess              etc/zarafa/webapp
 deploy/defaults.php           usr/share/zarafa-webapp
 deploy/debug.php.dist         usr/share/zarafa-webapp
 deploy/index.php              usr/share/zarafa-webapp
