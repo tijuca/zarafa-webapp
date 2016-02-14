@@ -62,21 +62,6 @@ Description: Zarafa WebApp fax plugin
  Expand the new "create mail" dialog with contact's fax number in the To:
  field of the email.
 
-Package: zarafa-webapp-dropboxattachment
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Dropbox attachment plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Add the feature that a user can attach files from DropBox to an email.
- The Dropbox attachment plugin is a simple integration for Zarafa WebApp. It
- allows you to send e-mails with attachments that come from your Dropbox
- account. You can browse your Dropbox from within WebApp, so you do not have to
- install the Dropbox client locally. These files are not downloaded to your
- local computer; instead, the attachments are downloaded by the server hosting
- WebApp, so this makes it suitable for use from public computers.
-
 Package: zarafa-webapp-extbox
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
@@ -86,16 +71,6 @@ Description: Zarafa WebApp image preview plugin
  .
  Makes it possible to preview mail image attachments, this will open the image
  in a lightbox.
-
-Package: zarafa-webapp-feedback
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Feedback plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Feedback collector plugin for zarafa-webapp. Adds a 'got feedback' button to
- the main menubar so all users can directly give feedback to Zarafa.
 
 Package: zarafa-webapp-files
 Architecture: all
@@ -171,71 +146,6 @@ Description: Zarafa WebApp quick items plugin
  Quick Items plugin for zarafa-webapp. Adds special widgets to the WebApp which
  makes it easier to create new mails, appointments, contacts, tasks and notes.
 
-Package: zarafa-webapp-salesforce
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Salesforce plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Integrates Salesforce into the zarafa-webapp environment. Saleforce.com is a
- global cloud computing company known for customer relationship management
- (CRM).
-
-Package: zarafa-webapp-shellgame
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp shell game plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Shell game plugin for zarafa-webapp. A simple shell game widget for
- zarafa-webapp.
-
-Package: zarafa-webapp-spreed
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Spreed plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Zarafa Spreed Integration for zarafa-webapp, allows you to set-up a conference
- call from within emails, contact groups or single contact cards. Start a
- Spreed meeting from an e-mail conversation in Zarafa WebApp or select
- participants from the Zarafa address book.
- .
-  * Attachments from the e-mails are automatically converted to either
-    presentation material or downloadable files.
-  * Any participant in an e-mail conversation can be invited by selecting
-    multiple e-mails.
-  * Service provided by Spreed is free of cost for meetings of up to three
-    participants.
-  * Immediately join the meeting and you can talk to and see each other, and
-    you have access to presentations, whiteboards, chat.
-  * Everything is web browser based, so there's no need to install additional
-    plug-ins (although Adobe Flash is required for the Spreed service).
-
-Package: zarafa-webapp-statslogging
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp statistics plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- User interface statistics logging plugin for zarafa-webapp. Logs user
- interface usage to an unique file per user session in the file specified in
- the plugin's configuration file.
-
-Package: zarafa-webapp-sugarcrm
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp SugarCRM plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- zarafa-webapp archive plugin for zarafa-webapp to archive emails directly to
- SugarCRM.
-
 Package: zarafa-webapp-titlecounter
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
@@ -286,13 +196,3 @@ Description: Zarafa WebApp developer plugin
  .
  Developer plugin for zarafa-webapp, exposes insertion points visually in the
  zarafa-webapp. Plugin is mostly useful for plugin developers.
-
-Package: zarafa-webapp-zperformance
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp performance monitoring plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Performance monitoring plugin for zarafa-webapp. Development tool to measure
- the loading performance of several WebApp stores.
