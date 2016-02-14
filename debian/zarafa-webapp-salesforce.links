@@ -1,2 +1,0 @@
-# source                                  # target
-/etc/zarafa/webapp/config-salesforce.php  usr/share/zarafa-webapp/plugins/salesforce/config.php
