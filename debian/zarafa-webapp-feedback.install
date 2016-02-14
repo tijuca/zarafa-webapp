@@ -1,7 +1,0 @@
-#!/usr/bin/dh-exec
-# source                                # target
-deploy/plugins/feedback/config.php   => etc/zarafa/webapp/config-feedback.php
-
-deploy/plugins/feedback/js              usr/share/zarafa-webapp/plugins/feedback
-deploy/plugins/feedback/php             usr/share/zarafa-webapp/plugins/feedback
-deploy/plugins/feedback/manifest.xml    usr/share/zarafa-webapp/plugins/feedback
