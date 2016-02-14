@@ -44,15 +44,6 @@ Files: client/zarafa/common/ui/CompositeField.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
 License: AGPL-3
 
-Files: plugins/dropboxattachment/js/ABOUT.js
-Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-           2012, Ben Tadiar, https://github.com/benthedesigner/dropbox
-License: MIT/X11 and AGPL-3
-
-Files: plugins/dropboxattachment/php/Dropbox/*
-Copyright: 2012, Ben Tadiar
-License: MIT
-
 Files: plugins/extbox/js/ABOUT.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
 License: AGPL-3
@@ -60,11 +51,6 @@ License: AGPL-3
 Files: plugins/extbox/lightbox/*
 Copyright: 2006-2009, Lokesh Dhakar <lokesh.dhakar@gmail.com>
 License: MIT/X11
-
-Files: plugins/feedback/js/ABOUT.js
-Copyright: 2013, jQuery Foundation and other contributors "
-           2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-License: MIT/X11 and AGPL-3
 
 Files: plugins/files/js/ABOUT.js
 Copyright: 2007-2010, Active Group, Inc.
@@ -97,47 +83,13 @@ Files: plugins/pdfbox/pdfbox/pdfbox.js
 Copyright: 2006-2009, http://extjs.com
 License: MIT/X11
 
-Files: plugins/salesforce/php/Httpful/*
-Copyright: 2012, Nate Good
-License: MIT
-Comment:
- Full upstream source available under https://github.com/nategood/httpful
-
-Files: plugins/spreed/js/ABOUT.js
-Copyright: The PHP Group, and covered
-           2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-           1999-2000, 2002, Edd Dumbill <edd@usefulinc.com>
-License: BSD-3 and AGPL-3
-
 Files: plugins/pdfbox/js/*
-       plugins/spreed/php/class.spreedmodule.php
 Copyright: 2005-2015, Zarafa B.V. and its licensors
-License: AGPL-3
-
-Files: plugins/spreed/php/inc/*
-Copyright: 2005-2015, Zarafa B.V. and its licensors
-License: AGPL-3
-
-Files: plugins/spreed/php/inc/lib/*
-Copyright: 1999, 2000, 2002, Edd Dumbill
-License: BSD-3
-
-Files: plugins/sugarcrm/js/ABOUT.js
-Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-License: AGPL-3
-
-Files: plugins/sugarcrm/php/inc/*
-Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
 License: AGPL-3
 
 Files: plugins/titlecounter/js/ABOUT.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
 License: AGPL-3
-
-Files: plugins/twidget/js/ABOUT.js
-Copyright: 2013, CodeSmith Tools, LLC.
-           2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
-License: AGPL-3 and LGPL
 
 Files: plugins/webodf/js/*
 Copyright: 2012, KO GmbH <@kogmbh.com><
@@ -916,10 +868,6 @@ License: CC-BY-SA-2.5
   No warranties are given. The license may not give you all of the permissions
   necessary for your intended use. For example, other rights such as
   publicity, privacy, or moral rights may limit how you use the material.
-
-License: LGPL
- On Debian systems, the complete text of the GNU General Public License can be
- found in the file `/usr/share/common-licenses/LGPL'.
 
 License: LGPL-2.1+
  On Debian systems, the complete text of version 2.1 of the GNU General Lesser
