@@ -1,2 +1,0 @@
-# source                                    # target
-/etc/zarafa/webapp/config-statslogging.php  usr/share/zarafa-webapp/plugins/statslogging/config.php
