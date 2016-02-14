@@ -1,4 +1,0 @@
-# source                              # target
-deploy/plugins/shellgame/js           usr/share/zarafa-webapp/plugins/shellgame
-deploy/plugins/shellgame/resources    usr/share/zarafa-webapp/plugins/shellgame
-deploy/plugins/shellgame/manifest.xml usr/share/zarafa-webapp/plugins/shellgame
