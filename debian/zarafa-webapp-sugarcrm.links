@@ -1,2 +1,0 @@
-# source                                # target
-/etc/zarafa/webapp/config-sugarcrm.php  usr/share/zarafa-webapp/plugins/sugarcrm/config.php
