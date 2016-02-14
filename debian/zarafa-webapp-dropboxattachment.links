@@ -1,2 +1,0 @@
-# source                                         # target
-/etc/zarafa/webapp/config-dropboxattachment.php  usr/share/zarafa-webapp/plugins/dropboxattachment/config.php

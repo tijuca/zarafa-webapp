@@ -1,8 +1,0 @@
-#!/usr/bin/dh-exec
-# source                                         # target
-deploy/plugins/dropboxattachment/config.php   => etc/zarafa/webapp/config-dropboxattachment.php
-
-deploy/plugins/dropboxattachment/js               usr/share/zarafa-webapp/plugins/dropboxattachment
-deploy/plugins/dropboxattachment/php              usr/share/zarafa-webapp/plugins/dropboxattachment
-deploy/plugins/dropboxattachment/resources        usr/share/zarafa-webapp/plugins/dropboxattachment
-deploy/plugins/dropboxattachment/manifest.xml     usr/share/zarafa-webapp/plugins/dropboxattachment
