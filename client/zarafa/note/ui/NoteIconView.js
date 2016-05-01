@@ -70,8 +70,9 @@ Zarafa.note.ui.NoteIconView = Ext.extend(Zarafa.common.ui.DraggableDataView, {
 		return new Ext.XTemplate(
 			'<div style="height: 100%; width: 100%; overflow: auto;">',
 				'<tpl for=".">',
-					'<div class="zarafa-note-iconview-thumb {icon_index:this.getTheme}">',
-						'<span class="zarafa-note-iconview-subject">{subject:htmlEncode}</span>',
+					'<div class="zarafa-note-iconview-thumb">',
+						'<div class="zarafa-note-iconview-icon {icon_index:this.getTheme}"></div>',
+						'<div class="zarafa-note-iconview-subject">{subject:this.encodeSubject}</div>',
 					'</div>',
 				'</tpl>',
 			'</div>',
@@ -79,26 +80,26 @@ Zarafa.note.ui.NoteIconView = Ext.extend(Zarafa.common.ui.DraggableDataView, {
 				getTheme : function(iconIndex)
 				{
 					switch (iconIndex) {
-					case 768:
-						return 'notelargeicon_blue';
-						break;
-					case 769:
-						return 'notelargeicon_green';
-						break;
-					case 770:
-						return 'notelargeicon_pink';
-						break;
-					case 771:
-						return 'notelargeicon_yellow';
-						break;
-					case 772:
-						return 'notelargeicon_white';
-						break;
-					default:
-						// FIXME: Is this a valid default
-						return 'notelargeicon_yellow';
-						break;
+						case 768:
+							return 'icon_note_blue_large';
+						case 769:
+							return 'icon_note_green_large';
+						case 770:
+							return 'icon_note_pink_large';
+						case 771:
+							return 'icon_note_yellow_large';
+						case 772:
+							return 'icon_note_white_large';
+						default:
+							return 'icon_note_yellow_large';
 					}
+				},
+				encodeSubject : function(subject)
+				{
+					// the subject of notes is already 'ellipsed' but since the 2015 redesign
+					// this subject is too large to fit (because of the increased font-size)
+					// so we make it a little shorter here.
+					return Ext.util.Format.ellipsis(Ext.util.Format.htmlEncode(subject), 20);
 				}
 			}
 		);

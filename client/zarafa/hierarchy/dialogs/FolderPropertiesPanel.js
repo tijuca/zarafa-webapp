@@ -26,6 +26,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPanel = Ext.extend(Ext.Panel, {
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.folderpropertiespanel',
+			cls : 'zarafa-folderproperties tabpanel-container',
 			border : false,
 			layout : 'fit',
 			deferredRender : false,

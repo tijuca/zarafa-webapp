@@ -53,7 +53,7 @@ Zarafa.plugins.files.ui.UploadButton = Ext.extend(Ext.SplitButton, {
 				},
 				{
 					text: dgettext('plugin_files', 'Create folder'),
-					iconCls : 'icon_createFolder',
+					iconCls : 'icon_folder_create',
 					action:'folder', 
 					handler: function() { 
 						Zarafa.plugins.files.data.Actions.createFolder(this.model); 

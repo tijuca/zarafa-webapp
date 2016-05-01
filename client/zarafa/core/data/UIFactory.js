@@ -33,7 +33,7 @@ Zarafa.core.data.UIFactory = {
 			for (var i = 0, len = this.layers.length; i < len; i++) {
 				if (this.layers[i].index > index) {
 					this.layers.splice(i, 0, layer);
-					return
+					return;
 				}
 			}
 

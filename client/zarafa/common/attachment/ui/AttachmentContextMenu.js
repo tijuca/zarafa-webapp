@@ -60,13 +60,13 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 			beforeShow : this.onPreviewBeforeShow
 		}, {
 			text : _('Download'),
-			iconCls : 'icon_attachment_download',
+			iconCls : 'icon_saveaseml',
 			scope : this,
 			handler : this.onDownloadItem,
 			beforeShow : this.onDownloadBeforeShow
 		}, {
 			text : _('Download all as ZIP'),
-			iconCls : 'icon_attachment_download_zip',
+			iconCls : 'icon_saveemlaszip',
 			scope : this,
 			handler : this.onDownloadAllAsZip,
 			beforeShow : this.onDownloadZipBeforeShow

@@ -110,6 +110,7 @@ Zarafa.settings.ui.SettingsAddressBookWidget = Ext.extend(Zarafa.settings.ui.Set
 	 */
 	onABComboRender : function(cmp)
 	{
+		/*jslint unused: false*/
 		var loadMask = new Zarafa.common.ui.LoadMask(cmp.wrap, {
 			store : this.store,
 			msgCls : 'x-mask-loading x-mask-loading-combo',
@@ -153,7 +154,7 @@ Zarafa.settings.ui.SettingsAddressBookWidget = Ext.extend(Zarafa.settings.ui.Set
 		this.model = settingsModel;
 
 		var hierarchyStore = this.store;
-		if (hierarchyStore.getCount() == 0) {
+		if (hierarchyStore.getCount() === 0) {
 			this.mon(hierarchyStore, 'load', this.onHierarchyStoreLoad, this, { single: true });
 		} else {
 			this.onHierarchyStoreLoad(hierarchyStore);

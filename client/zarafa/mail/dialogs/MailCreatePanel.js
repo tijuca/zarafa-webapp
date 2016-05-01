@@ -31,11 +31,10 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				align: 'stretch'
 			},
 			border : false,
-			bodyStyle: 'background-color: inherit; padding: 3px;',
+			cls: 'zarafa-mailcreatepanel',
+			bodyStyle: 'background-color: inherit;',
 			defaults: {
-				border: false,
-				labelLength: 100,
-				style: 'padding-bottom: 2px'
+				border: false
 			},
 			items: [
 				this.initMessageFormPanel(config)
@@ -98,9 +97,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 	 */
 	initMessageFormPanel : function(config)
 	{
-		var items = [];
-
-		items.push({
+		return [{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
 			ref: 'fromField',
@@ -109,7 +106,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			autoHeight: true,
 			items: [{
 				xtype: 'splitbutton',
-				width: 100,
+				autoHeight: true,
 				text: _('From') + ':',
 				handler: this.onSelectUser,
 				menu: new Ext.menu.Menu({
@@ -135,15 +132,15 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				boxLimit : 1
 			}]
 		},{
-			xtype: 'zarafa.compositefield',
+			xtype: 'zarafa.resizablecompositefield',
 			hideLabel: true,
 			cls: 'zarafa-mailcreatepanel-field-to',
 			anchor: '100%',
-			autoHeight: true,
+			autoHeight: false,
 			items: [{
 				xtype: 'button',
-				width: 100,
 				text: _('To') + ':',
+				autoHeight: true,
 				handler: function() {
 					Zarafa.mail.Actions.openRecipientSelectionContent(this.record, {
 						defaultRecipientType : Zarafa.core.mapi.RecipientType.MAPI_TO
@@ -160,14 +157,14 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			}]
 		},
 		{
-			xtype: 'zarafa.compositefield',
+			xtype: 'zarafa.resizablecompositefield',
 			hideLabel: true,
 			cls: 'zarafa-mailcreatepanel-field-cc',
 			anchor: '100%',
-			autoHeight: true,
+			autoHeight: false,
 			items: [{
 				xtype: 'button',
-				width: 100,
+				autoHeight: true,
 				text: _('Cc') + ':',
 				handler: function() {
 					Zarafa.mail.Actions.openRecipientSelectionContent(this.record, {
@@ -185,15 +182,15 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			}]
 		},
 		{
-			xtype: 'zarafa.compositefield',
+			xtype: 'zarafa.resizablecompositefield',
 			ref: 'bccField',
 			hideLabel: true,
 			cls: 'zarafa-mailcreatepanel-field-bcc',
 			anchor: '100%',
-			autoHeight: true,
+			autoHeight: false,
 			items: [{
 				xtype: 'button',
-				width: 100,
+				autoHeight: true,
 				text: _('Bcc') + ':',
 				handler: function() {
 					Zarafa.mail.Actions.openRecipientSelectionContent(this.record, {
@@ -211,37 +208,27 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			}]
 		},
 		{
-			xtype: 'zarafa.compositefield',
-			hideLabel: true,
+			xtype: 'textfield',
 			cls: 'zarafa-mailcreatepanel-field-subject',
-			anchor: '100%',
-			items: [{
-				xtype: 'label',
-				width: 100,
-				text: _('Subject') + ':',
-				name: 'label_subject'
-			},{
-				xtype: 'textfield',
-				flex: 1,
-				name: 'subject',
-				enableKeyEvents : true,
-				value: undefined,
-				height: 22,
-				listeners: {
-					change : this.onChange,
-					scope : this
-				}
-			}]
+			name: 'subject',
+			enableKeyEvents : true,
+			value: undefined,
+			height: 36,
+			emptyText: _('Subject') + ':',
+			listeners: {
+				change : this.onChange,
+				scope : this
+			}
 		},{
-			xtype: 'zarafa.compositefield',
+			xtype: 'zarafa.resizablecompositefield',
 			hideLabel: true,
 			cls: 'zarafa-mailcreatepanel-field-attachments',
 			anchor: '100%',
 			autoHeight: true,
 			items: [{
 				xtype: 'zarafa.attachmentbutton',
+				autoHeight: true,
 				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-				width: 100,
 				text: _('Attachments') + ':'
 			},{
 				xtype: 'zarafa.attachmentfield',
@@ -265,9 +252,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				valuecorrection : this.onBodyValueCorrection,
 				scope : this
 			}
-		});
-
-		return items;
+		}];
 	},
 
 	/**
@@ -294,7 +279,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				// the body has changed from outside this dialog, we must write the newValue of body
 				// into the editorField.
 				var body = record.getBody(this.editorField.isHtmlEditor());
-				var newValue = this.editorField.getRawValue();
+				var newValue = this.editorField.getValue();
 
 				// Overwrite newVlaue of editor only if it is not being same as well as not worked on currently.
 				if (body !== newValue && !this.editorField.getEditor().hasFocus || (newValue === this.editorField.getEditor().originalValue)) {
@@ -336,7 +321,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 		record.beginEdit();
 		this.getForm().updateRecord(record);
 
-		record.setBody(this.editorField.getRawValue(), this.editorField.isHtmlEditor());
+		record.setBody(this.editorField.getValue(), this.editorField.isHtmlEditor());
 
 		record.endEdit();
 	},
@@ -366,7 +351,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 
 		record.beginEdit();
 
-		record.setBody(newValue, this.editorField.isHtmlEditor());
+		record.setBody(this.editorField.getValue(), this.editorField.isHtmlEditor());
 
 		record.endEdit();
 	},

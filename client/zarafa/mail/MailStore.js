@@ -29,6 +29,8 @@ Zarafa.mail.MailStore = Ext.extend(Zarafa.core.data.ListModuleStore, {
 		});
 
 		Zarafa.mail.MailStore.superclass.constructor.call(this, config);
+	
+		Zarafa.core.PresenceManager.registerStore(this, ['sender', 'received_by', 'sent_representing']);	
 	},
 
 	/**

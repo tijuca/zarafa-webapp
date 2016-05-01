@@ -216,7 +216,7 @@ Zarafa.core.data.RestrictionFactory = {
 	 * creates RES_BITMASK restriction which is used to check property's value after applying bitmask.
 	 * @param {String} propTag property tag of property whose size of value should be checked.
 	 * @param {Number} bitMaskType type of bitmask to be applied.
-	 * @param {Number} bitMaskValue value that should be compared after apllying bitmask to original value.
+	 * @param {Number} bitMaskValue value that should be compared after applying bitmask to original value.
 	 * @return {Array} RES_BITMASK restriction.
 	 */
 	dataResBitmask : function(propTag, bitMaskType, bitMaskValue) {

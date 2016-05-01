@@ -437,25 +437,12 @@ Ext.apply(Zarafa, {
 	hideLoadingMask : function()
 	{
 		var loadingMask = Ext.get('loading-mask');
-		var loading = Ext.get('loading');
 
-		if (loadingMask && loading) {
-			//  Hide loading message
-			loading.fadeOut({
-				duration: 0.2,
-				remove: true
-			});
-
+		if ( loadingMask ) {
 			// Hide loading mask
-			loadingMask.setOpacity(0.9);
-			loadingMask.shift({
-				xy: loading.getXY(),
-				width: loading.getWidth(),
-				height: loading.getHeight(),
-				remove: true,
-				duration: 2,
-				opacity: 0.1,
-				easing: 'bounceOut'
+			loadingMask.fadeOut({
+				duration: 1,
+				remove: true
 			});
 		}
 	},
@@ -614,6 +601,9 @@ Ext.apply(Zarafa, {
 			// store of the user, but the context will have its own loadmask for that.
 			// The user is at least allowed to see the Hierarchy and press buttons.
 			this.hideLoadingMask();
+
+			// Remove resize event listener of loading page
+			window.removeEventListener('resize', onResize);
 
 			// Register webapp to handle mailto urls
 			this.registerMailto();
@@ -802,13 +792,42 @@ Ext.apply(Zarafa, {
 	 */
 	checkOof : function()
 	{
+		var oof = false;
+		
+		// Check if we are using ZCP < 7.2.1. If so, we must use the old oof behavior
+		// where don't have a time span but only in or out.
+		var versionObject = container.getVersion();
+		var zcpVersion = versionObject.getZCP();
+		var useOldOofVersion = versionObject.versionCompare(zcpVersion, '7.2.1') === -1;
+
 		if (container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/set') === true) {
+			if ( useOldOofVersion ){
+				oof = true;
+			} else {
+				var oofFrom = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/from');
+				var oofUntil = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/until');
+				var date = new Date().getTime()/1000;
+
+				// Check if current date fall within the time span of OOF start-date and end-date, if configured.
+				if (oofFrom <= date) {
+					// Check if end-date is configured, no need to check otherwise
+					if(oofUntil === 0 || oofUntil > date) {
+						oof = true;
+					} else {
+						// Current date falls out of the configured time span, so disable the OOF
+						container.getSettingsModel().set('zarafa/v1/contexts/mail/outofoffice/set', false);
+					}
+				}
+			}
+		}
+
+		if ( oof ){
 			Ext.MessageBox.confirm(
 				_('Zarafa WebApp'),
 				_('Out of Office currently on. Would you like to turn it off?'),
 				this.onOofConfirm,
-				this);
-			return;
+				this
+			);
 		}
 	},
 

@@ -188,20 +188,22 @@ Zarafa.calendar.ui.CalendarViewDropZone = Ext.extend(Ext.dd.DropZone, {
 			// day.
 			this.initDate = this.calendar.screenLocationToDate(e.getPageX(), e.getPageY());
 
+			var dueDate, startDate;
+
 			// Now we start detecting the range which should be selected by default.
 			if (this.snapMode === Zarafa.calendar.data.SnapModes.DAY) {
 				// For the snapMode DAY, the initDate will have been rounded to
 				// the start of the day (but for safety we ensure that it will be anyway),
 				// the dueDate will always be exactly 1 day after the start. This way
 				// we select a single day by default.
-				var startDate = this.initDate.clearTime(true);
-				var dueDate = startDate.add(Date.DAY, 1);
+				startDate = this.initDate.clearTime(true);
+				dueDate = startDate.add(Date.DAY, 1);
 			} else {
 				// For the snapMode ZOOMLEVEL we must select a region the size of the zoomLevel.
 				// This is easiest down by using floor() for the initDate to obtain the start,
 				// and then add the zoomLevel to it to obtain the dueDate.
-				var startDate = this.initDate.clone().floor(Date.MINUTE, zoomLevel);
-				var dueDate = startDate.add(Date.MINUTE, zoomLevel);
+				startDate = this.initDate.clone().floor(Date.MINUTE, zoomLevel);
+				dueDate = startDate.add(Date.MINUTE, zoomLevel);
 			}
 
 			this.initDateRange = new Zarafa.core.DateRange({ startDate : startDate, dueDate : dueDate }); 
@@ -223,20 +225,15 @@ Zarafa.calendar.ui.CalendarViewDropZone = Ext.extend(Ext.dd.DropZone, {
 		Ext.EventManager.on(Ext.getDoc(), 'keyup', this.onDragKeyUp, this);
 
 		// Update the proxy
-		this.proxy.setShowTime(this.snapMode === Zarafa.calendar.data.SnapModes.ZOOMLEVEL);
+		this.proxy.setShowTime(this.selectingSnapMode === Zarafa.calendar.data.SnapModes.ZOOMLEVEL);
 		this.proxy.setDateRange(this.dateRange);
 		this.updateProxy(e.getXY(), data.selections);
 
-		// If the DragZone is placed on the same calendar as this DropZone,
+		// DragZone is placed on the same calendar or different calendar DropZone,
 		// we will disable the default proxy of the DragZone and activate
 		// our own as replacement.
-		// FIXME: At some point we want to drop an appointment from a different
-		// calendar on a specific time. When we support that, this if-statement
-		// can be removed and we will always use our own proxy.
-		if (dd.calendar === this.calendar) {
-			dd.proxy.hide();
-			this.proxy.setVisible(true);
-		}
+        dd.proxy.hide();
+        this.proxy.setVisible(true);
 	},
 
 	/**
@@ -399,12 +396,13 @@ Zarafa.calendar.ui.CalendarViewDropZone = Ext.extend(Ext.dd.DropZone, {
 
 		if(Ext.isDate(overDate)){
 
+			var snapMode;
 			// Determine what snapMode we should use to determine what changes 
 			// need to be made to the start and due date. 
 			if (this.state === DragStates.DRAGGING){
-				var snapMode = this.draggingSnapMode;
+				snapMode = this.draggingSnapMode;
 			} else {
-				var snapMode = this.selectingSnapMode;
+				snapMode = this.selectingSnapMode;
 			}
 
 			if (snapMode === Zarafa.calendar.data.SnapModes.DAY ) {

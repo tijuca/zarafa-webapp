@@ -30,7 +30,6 @@ Zarafa.calendar.printer.WorkWeekViewRenderer = Ext.extend(Zarafa.calendar.printe
 	 * @return {String} The HTML fragment to place inside the print window's <body> element
 	 */
 	generateBodyTemplate: function(context) {
-		var data;
 		var html = '';
 
 		// +--------------------------------------------+

@@ -90,6 +90,7 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 		}
 		var items = [];
 		items.push.apply(items, northComponents);
+
 		items.push({
 				xtype: 'container',
 				ref: 'centerPanel',
@@ -102,6 +103,7 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 				activeItem: 0,
 				items: centerComponents
 			});
+
 		items.push.apply(items, southComponents);
 
 		// Add CSS class to every item
@@ -153,11 +155,11 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 			ownerTitle: _('Folders List'),
 			cls: 'zarafa-navigationpanel-centerpanel-allfolders',
 			items : [{
+				layout: 'fit',
 				cls: 'zarafa-context-navigation-block',
-				title : _('All Folders'),
 				items: this.getFolderListPanel()
 			}]
-		}
+		};
 	},
 
 	/**
@@ -171,7 +173,7 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 			enableItemDrop : true,
 			showAllFoldersDefaultValue : true,
 			deferredLoading : true
-		}
+		};
 	},
 
 	/**
@@ -298,6 +300,21 @@ Zarafa.core.ui.NavigationPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 	onResizePanel : function(adjWidth, adjHeight, rawWidth, rawHeight)
 	{
 		this.doLayout();
+	},
+
+	/**
+	 * Override saveState to check if a user moves to the settingsContext,
+	 * where the hierarchybar is disabled, which should not be saved to state.
+	 *
+	 * Since otherwise logging out from Settings breaks.
+	 *
+	 * @private
+	 */
+	saveState : function()
+	{
+		if (container.getCurrentContext().getName() !== "settings") {
+			Zarafa.core.ui.NavigationPanel.superclass.saveState.apply(this);
+		}
 	}
 });
 Ext.reg('zarafa.navigationpanel', Zarafa.core.ui.NavigationPanel);

@@ -6,17 +6,17 @@
 
 /**
 * Set this to let zarafa.php exports the XML
-* but please note that you must create the DEBUG_XMLOUT_DIR directory and that
+* but please note that you must create the DEBUG_JSONOUT_DIR directory and that
 * it is writable by PHP
 */
-define("DEBUG_XMLOUT", true);
-define("DEBUG_XMLOUT_DIR", "debug_xml/");
-define("DEBUG_XMLOUT_GZIP", false);
+define("DEBUG_JSONOUT", true);
+define("DEBUG_JSONOUT_DIR", "debug_xml/");
+define("DEBUG_JSONOUT_GZIP", false);
 define("DEBUG_PLUGINS", true);
 define("DEBUG_PLUGINS_DISABLE_CACHE", false);
 
 // dump file, must be writable
-define("DEBUG_DUMP_FILE", "debug.txt");
+define("DEBUG_DUMP_FILE", BASE_PATH . 'debug.txt');
 
 // The different value types for the DEBUG_LOADER config option
 // This can be any of the following values:
@@ -62,12 +62,12 @@ if (DEBUG_SHOW_SERVER){
 }
 
 /**
- * Obtain the current svn version
+ * Obtain the current Git working branch
  */
-function svnversion()
+function gitversion()
 {
-	if (is_dir('.svn')) {
-		return trim(@shell_exec("svnversion ."));
+	if (is_dir('.git')) {
+		return trim(@shell_exec("git symbolic-ref --short HEAD || git rev-parse --short HEAD ."));
 	} else {
 		return '';
 	}
@@ -141,7 +141,7 @@ $_debug_propList = false;
 function dump_json($json, $prefix){
 	global $debug_json_id;
 
-	if (DEBUG_XMLOUT && is_dir(DEBUG_XMLOUT_DIR)) {
+	if (DEBUG_JSONOUT && is_dir(DEBUG_JSONOUT_DIR)) {
 		if (!isset($debug_json_id) || empty($debug_json_id)) {
 			$debug_json_id = strftime("%Y%m%d%H%M%S").uniqid("_");
 		}
@@ -149,8 +149,8 @@ function dump_json($json, $prefix){
 		$data = json_decode($json, true);
 		$data = var_export($data, true);
 
-		$fh = fopen(DEBUG_XMLOUT_DIR . $prefix . "_" . $debug_json_id . ".json" . (DEBUG_XMLOUT_GZIP ? ".gz" : ""), "w");
-		fwrite($fh, (DEBUG_XMLOUT_GZIP ? gzencode($data) : $data));
+		$fh = fopen(DEBUG_JSONOUT_DIR . $prefix . "_" . $debug_json_id . ".json" . (DEBUG_JSONOUT_GZIP ? ".gz" : ""), "w");
+		fwrite($fh, (DEBUG_JSONOUT_GZIP ? gzencode($data) : $data));
 		fclose($fh);
 	}
 }

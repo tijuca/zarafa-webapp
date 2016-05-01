@@ -27,7 +27,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 * {@cfg {Number} appointmentRadius The radius which must be applied to the appointment body
 	 * to generate a nicely rounded rectangular.
 	 */
-	appointmentRadius : 5,
+	appointmentRadius : 0,
 
 	/**
 	 * @cfg {Number} lineHeight The textheight for the text which will be rendered
@@ -37,7 +37,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	/**
 	 * @cfg {Number} bodyTextTopOffset The offset from the top of the appointment used to render the text in the body
 	 */
-	bodyTextTopOffset: 2,
+	bodyTextTopOffset: 4,
 
 	/**
 	 * @cfg {Number} bodyTextBottomOffset The offset from the bottom of the appointment until where the text in the body can be rendered.
@@ -100,7 +100,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeaderStartHandle: function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length == 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
 			return false;
 
 		var position = this.getEventHeaderPosition(event);
@@ -109,7 +109,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			right	: (this.bounds.left + this.dragHandleWidth),
 			top		: this.bounds.top,
 			bottom	: this.bounds.bottom
-		}
+		};
 
 		return this.isEventOverElement(position, element);
 	},
@@ -122,7 +122,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeaderDueHandle : function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length == 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
 			return false;
 
 		var position = this.getEventHeaderPosition(event);
@@ -131,7 +131,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			right	: this.bounds.right,
 			top		: this.bounds.top,
 			bottom	: this.bounds.bottom
-		}
+		};
 
 		return this.isEventOverElement(position, element);
 	},
@@ -144,7 +144,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeader : function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length == 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
 			return false;
 
 		var position = this.getEventHeaderPosition(event);
@@ -160,7 +160,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverBodyStartHandle : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -184,7 +184,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverBodyDueHandle : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -208,7 +208,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverBody : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -358,34 +358,40 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			return;
 		}
 
+		var colorScheme = this.getAppointmentColorScheme();
+
+		// Check if we have a light or dark color
+		// We use the startcolorappointment property because colorschemes of labeled appointments don't have the base property!
+		var isDarkColor = Zarafa.core.ColorSchemes.getLuma(colorScheme.startcolorappointment) < 155;
+		var fontColor = this.isActive() && isDarkColor ? 'white' : 'black';
+
 		// First start drawing all icons
 		var icons = this.iconRenderer();
 		var clipX = 0;
 		var clipY = y;
+		var img;
 		for (var i = 0, len = icons.length; i < len; i++) {
-			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon']();
-			context.drawImage(img, x+clipX, clipY + this.bodyTextTopOffset + Math.ceil((this.lineHeight - img.height) / 2));
+			img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon' + (this.isActive() && isDarkColor?'Active':'')]();
+			context.drawImage(img, x+clipX, clipY + this.bodyTextTopOffset);
 			clipX += img.width + this.iconSpacing;
 		}
 		//add icon height to the clipping rectangle height
 		if(icons.length>0) {
-			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[0]) + 'Icon']();
+			img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[0]) + 'Icon']();
 			clipY += img.height;
 		}
+
 		// Create a gradient that fades out gradually near the right border.
 		var gradient = context.createLinearGradient(x, y, x + width, y);
-
-		var colorScheme = this.getAppointmentColorScheme();
-
 		// Start fading out to transparent from 12 pixels from the right border.
 		var stop = Math.min(1, Math.max(0.1, (width - 12) / width));
-		gradient.addColorStop(0, this.isActive() ? 'black' : '#666666');
-		gradient.addColorStop(stop, this.isActive() ? 'black' : '#666666');
-		gradient.addColorStop(1, 'rgba(0,0,0,0)');
+		gradient.addColorStop(0, fontColor);
+		gradient.addColorStop(stop, fontColor);
+		gradient.addColorStop(1, colorScheme.startcolorappointment);
 		context.fillStyle = gradient;
 
 		context.lineWidth = 1;
-		context.setFont('8pt Arial');
+		context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
 
 		// Draw text using simple wrapping.
 		var textHeight = context.drawWrappedText(this.mainRenderedText, x, y + this.lineHeight, width, this.lineHeight, maxHeight, clipX, clipY);
@@ -393,7 +399,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		// subText.
 		if ((textHeight + this.lineHeight) < maxHeight) {
 			context.lineWidth = 1;
-			context.setFont('8pt Arial');
+			context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
 
 			// Draw text using simple wrapping.
 			context.drawWrappedText(this.subRenderedText, x, y + this.lineHeight + textHeight, width, this.lineHeight, maxHeight - textHeight);
@@ -406,6 +412,13 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	layoutInHeader : function()
 	{
+		var colorScheme = this.getAppointmentColorScheme();
+
+		// Check if we have a light or dark color
+		// We use the startcolorappointment property because colorschemes of labeled appointments don't have the base property!
+		var isDarkColor = Zarafa.core.ColorSchemes.getLuma(colorScheme.startcolorappointment) < 155;
+		var fontColor = this.isActive() && isDarkColor ? 'white' : 'black';
+
 		// Get the bounds of the header from the parent calendar.
 		this.bounds = this.parentView.dateRangeToHeaderBounds(this.getDateRange(), this.slot, 1, true);
 		var width = this.bounds.right - this.bounds.left;
@@ -417,85 +430,85 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		context.translate(this.bounds.left, this.bounds.top);
 		context.lineWidth = 1;
 
-		var colorScheme = this.getAppointmentColorScheme();
-		var appointmentOpacity = 1;
+		var appointmentOpacity = 0.8;
 		if(!this.isActive()){
 			appointmentOpacity = this.opacityNonActiveAppointment;
 		}
 
-		var gradient = context.createLinearGradient(0, 0, 0, height);
-		gradient.addColorStop(0, context.convertHexRgbToDecRgba(colorScheme.startcolorappointment, appointmentOpacity));
-		gradient.addColorStop(1, context.convertHexRgbToDecRgba(colorScheme.endcolorappointment, appointmentOpacity));
-		context.fillStyle = gradient;
+		context.fillStyle = 'white';
+		context.fillRect(0,0, width, height-1);
 
-		var leftRadius = this.bounds.firstBox ? this.appointmentRadius : 1;
-		var rightRadius = this.bounds.lastBox ? this.appointmentRadius : 1;
-
-		context.roundedRect2(0, 0, width, height, leftRadius, rightRadius, rightRadius, leftRadius);
-		context.fill();
+		var stripWidth = this.getStripWidth();
+		context.fillStyle = colorScheme.startcolorappointment;
+		context.globalAlpha = appointmentOpacity;
+		context.fillRect(stripWidth+1, 1, width-2-stripWidth, height-3);
 
 		var busyStatus = this.getBusyStatus();
-		var stripWidth = this.getStripWidth();
-		var lineWidth = context.lineWidth;
 
-		if (stripWidth > 0) {
-			// Set the global alpha to allow the fill of the inner strip to be transparent, this will be reset after
-			context.globalAlpha = appointmentOpacity;
-			switch (busyStatus) {
-				case Zarafa.core.mapi.BusyStatus.FREE:
-					context.fillStyle = 'white';
-					break;
-				case Zarafa.core.mapi.BusyStatus.TENTATIVE:
-					// For tentative we use an image to only show parts of the background. This
-					// image should not be transparent otherwise the color behind that will show
-					// in the places where it should not be shown. So we reset the alpha for this.
-					context.globalAlpha = 1;
-					context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
-					break;
-				case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
-					context.fillStyle = 'purple';
-					break;
-			}
+		// Dimimensions of the busybox
+		var busyBoxLeft = 1;
+		var busyBoxTop = 1;
+		var busyBoxWidth = stripWidth;
+		var busyBoxHeight = height -3;
 
-			context.roundedRect2(lineWidth, lineWidth, stripWidth, height - (2 * lineWidth), leftRadius - lineWidth, 0, 0, leftRadius - lineWidth);
-			context.fill();
-			// Reset the global alpha to 1 to draw without transparency again
-			context.globalAlpha = 1;
+		switch (busyStatus) {
+			case Zarafa.core.mapi.BusyStatus.FREE:
+				// The busybox is already white, so do nothing here
+				break;
+			case Zarafa.core.mapi.BusyStatus.TENTATIVE:
+				// First 
+				context.fillStyle = colorScheme.startcolorappointment;
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				// Then use a striped image to cover part of the background with white.
+				context.globalAlpha = 1;
+				context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+			case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
+				// Draw the busy status box in purple
+				context.fillStyle = '#912787';
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+			default :
+				// Draw the busy status box in zarafa blue
+				context.fillStyle = '#0f70bd';
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
 		}
 
-		context.strokeStyle = colorScheme.border;
-		context.roundedRect2((lineWidth / 2), (lineWidth / 2), width - lineWidth, height - lineWidth, leftRadius, rightRadius, rightRadius, leftRadius);
-		context.stroke();
-
 		var x = this.leftPadding + stripWidth;
+
+		context.globalAlpha = this.isActive() ? 1.0 : this.opacityNonActiveAppointment;
 
 		// First start drawing all icons
 		var icons = this.iconRenderer();
 		for (var i = 0, len = icons.length; i < len; i++) {
-			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon']();
-			context.drawImage(img, x, 4 + Math.ceil((img.height - this.lineHeight) / 2));
+			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon' + (this.isActive() && isDarkColor?'Active':'')]();
+			context.drawImage(img, x, 6);
 			x += img.width + 5;
 		}
 
-		var stop = Math.min(1, Math.max(0.1, (width - x) / width));
-		gradient = context.createLinearGradient(0, 0, width, 0);
-		gradient.addColorStop(0, this.isActive() ? 'black' : colorScheme.border);
-		gradient.addColorStop(stop, this.isActive() ? 'black' : colorScheme.border);
-		gradient.addColorStop(1, 'rgba(0,0,0,0)');
+		// Start fading out to transparent from 12 pixels from the right border.
+		var stop = Math.min(1, Math.max(0.1, (width - 12) / width));
+		var gradient = context.createLinearGradient(0, 0, width, 0);
+		gradient.addColorStop(0, fontColor);
+		gradient.addColorStop(stop, fontColor);
+		gradient.addColorStop(1, this.isActive() ? 'rgba(255, 255, 255, 0)' : 'rgba(0, 0, 0, 0)');
 		context.fillStyle = gradient;
 
 		context.save();
+
+		// Create a clip on the appointment, so the text will never be drawn outside of it
+		context.rect(x, 0, width - x, height);
 		context.clip();
 		context.lineWidth = 1;
-		context.setFont('8pt Arial');
-		context.drawText(this.mainRenderedText, x, height - 6);
+		context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
+		context.drawText(this.mainRenderedText, x, height - 8);
 
 		// Update the X position with the text we just drawn
 		x += context.textWidth(this.mainRenderedText + ' ');
 
-		context.lineWidth = 1;
-		context.setFont('8pt Arial');
-		context.drawText(this.subRenderedText, x, height - 6);
+		context.drawText(this.subRenderedText, x, height - 8);
 
 		context.restore();
 
@@ -516,7 +529,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	drawBodyElement : function(context, bound)
 	{
 		var busyStatus = this.getBusyStatus();
-		var width = bound.right - bound.left;
+		var width = bound.right - bound.left - 2;  // -2 to have it within the vertical day lines
 		var height = bound.bottom - bound.top;
 		var realHeight = this.parentView.getRangeVerticalHeight(this.getDateRange());
 
@@ -526,124 +539,83 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		context.lineWidth = 1;
 
 		var colorScheme = this.getAppointmentColorScheme();
-		var appointmentOpacity = 1;
+		var appointmentOpacity = 0.8;
 		if(!this.isActive()){
 			appointmentOpacity = this.opacityNonActiveAppointment;
 		}
 
-		var gradient = context.createLinearGradient(0, 0, width, 0);
-		gradient.addColorStop(0, context.convertHexRgbToDecRgba(colorScheme.startcolorappointment, appointmentOpacity));
-		gradient.addColorStop(1, context.convertHexRgbToDecRgba(colorScheme.endcolorappointment, appointmentOpacity));
-		context.fillStyle = gradient;
-
-		var topRadius = bound.firstBox ? this.appointmentRadius : 1;
-		var bottomRadius = bound.lastBox ? this.appointmentRadius : 1;
+		context.globalAlpha = appointmentOpacity;
+		context.fillStyle = colorScheme.startcolorappointment;
 
 		var stripWidth = this.getStripWidth();
+		
 		// The outer strip is the attached bar that shows the duration of the appointment when it is
 		// shorter than the resolution of the calendar view.
 		var showOuterStrip = (realHeight + 1) < height;
+		
 		// The inner strip is the bar that shows duration of the appointment when the resolution is
 		// small enough to show it inside the body of the appointment.
 		var showInnerStrip = !showOuterStrip && stripWidth > 0;
 
-		var left = showOuterStrip ? stripWidth : 0;
-		var textLeft = left + showInnerStrip ? stripWidth : 0;
+		var textLeft = stripWidth;
 
-		context.fillStyle = gradient;
-		if (bound.firstBox){
-			// When the first box of the appointment is drawn we have to consider the outer strip.
-			// If there is an outer strip we should not have a curved top left corner.
-			context.roundedRect2(left, 0, width - left, height, showOuterStrip ? 0 : topRadius, topRadius, bottomRadius, bottomRadius);
-		} else {
-			context.roundedRect2(left, 0, width - left, height, topRadius, topRadius, bottomRadius, bottomRadius);
-		}
-		context.fill();
+		context.fillRect(stripWidth + 1, 1, width - stripWidth, height);
 
-		if (showInnerStrip) {
-			// Set the global alpha to allow the fill of the inner strip to be transparent, this will be reset after
-			context.globalAlpha = appointmentOpacity;
-			switch (busyStatus) {
-				case Zarafa.core.mapi.BusyStatus.FREE:
-					context.fillStyle = 'white';
-					break;
-				case Zarafa.core.mapi.BusyStatus.TENTATIVE:
-					// For tentative we use an image to only show parts of the background. This
-					// image should not be transparent otherwise the color behind that will show
-					// in the places where it should not be shown. So we reset the alpha for this.
-					context.globalAlpha = 1;
-					context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
-					break;
-				case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
-					context.fillStyle = 'purple';
-					break;
-			}
-
-			context.roundedRect2(left, 0, stripWidth, height, topRadius, 0, 0, bottomRadius);
-			context.fill();
-			// Reset the global alpha to 1 to draw without transparency again
+		// Dimimensions of the busybox
+		var busyBoxLeft = 1;
+		var busyBoxTop = 1;
+		var busyBoxWidth = stripWidth;
+		var busyBoxHeight = height -1;
+		
+		if ( showInnerStrip ) {
+			// Draw a white line around the appointment for inner strips
+			context.strokeStyle = 'white';
+			// If you are wondering about the additions of 0.5, please read http://stackoverflow.com/a/8696641
 			context.globalAlpha = 1;
-		}
-
-		context.save();
-		if (showOuterStrip) {
-			var stripHeight = realHeight;
-
-			// Set the global alpha to allow the fill of the outer strip to be transparent, this will be reset after
+			context.strokeRect(0.5, 0.5, width, height);
 			context.globalAlpha = appointmentOpacity;
-			switch (busyStatus) {
-				case Zarafa.core.mapi.BusyStatus.FREE:
-					context.fillStyle = 'white';
-					break;
-				case Zarafa.core.mapi.BusyStatus.TENTATIVE:
-					context.fillStyle = colorScheme.startcolorappointment;
-					context.fillRect(0, 0, stripWidth, stripHeight);
-
-					// For tentative we use an image to only show parts of the background. This
-					// image should not be transparent otherwise the color behind that will show
-					// in the places where it should not be shown. So we reset the alpha for this.
-					context.globalAlpha = 1;
-					context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
-					break;
-				case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
-					context.fillStyle = 'purple';
-					break;
-			}
-
-			context.fillRect(0, 0, stripWidth, stripHeight);
-			// Reset the global alpha to 1 to draw without transparency again
-			context.globalAlpha = 1;
-
-			context.translate(0.5, 0.5);
-
-			context.beginPath();
-			context.moveTo(0, 0);
-
-			context.lineTo(width - 1 - topRadius, 0);
-			context.arc(width - 1 - topRadius, topRadius, topRadius, 1.5 * Math.PI, 0 * Math.PI, false);
-			context.lineTo(width - 1, height - 1 - bottomRadius);
-			context.arc(width - 1 - bottomRadius, height - 1 - bottomRadius, bottomRadius, 0 * Math.PI, 0.5 * Math.PI, false);
-			context.lineTo(bottomRadius + left, height - 1);
-			context.arc(bottomRadius + left, height - 1 - bottomRadius, bottomRadius, 0.5 * Math.PI, 1 * Math.PI, false);
-			context.lineTo(left, stripHeight);
-			context.lineTo(0, stripHeight);
-			context.closePath();
-
-		} else {
-			var lineWidth = context.lineWidth;
-			context.roundedRect2(left + (lineWidth / 2), (lineWidth / 2), width - lineWidth, height - lineWidth,
-								 topRadius - (lineWidth / 2), topRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2));
+		} else if ( showOuterStrip ) {
+			busyBoxHeight = realHeight - 1;
 		}
 
-		context.strokeStyle = colorScheme.border;
-		context.stroke();
-		context.restore();
+		switch (busyStatus) {
+			case Zarafa.core.mapi.BusyStatus.FREE:
+				// First draw the outline of the busystatus box in the same color as the appointment
+				context.strokeStyle = context.convertHexRgbToDecRgba(colorScheme.startcolorappointment);
+				context.strokeRect(busyBoxLeft + 0.5, busyBoxTop + 0.5, busyBoxWidth-1, busyBoxHeight-1);
+				// Then fill the box with white in the same opacity as the appointment
+				context.fillStyle = 'white';
+				busyBoxLeft += 1;
+				busyBoxTop += 1;
+				busyBoxWidth -= 1;
+				busyBoxHeight -= 2;
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+			case Zarafa.core.mapi.BusyStatus.TENTATIVE:
+				// First draw the busystatus box background in the same color as the appointment
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				// Then use a striped image to cover part of the background with white.
+				context.globalAlpha = 1;
+				context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+			case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
+				// Draw the busystatus box in purple
+				context.fillStyle = '#912787';
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+			default :
+				// Draw the busystatus box in the same color as the appointment
+				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
+				break;
+		}
 
-		var lineWidth = context.lineWidth;
-		context.roundedRect2(left + (lineWidth / 2), (lineWidth / 2), width - lineWidth, height - lineWidth,
-							 topRadius - (lineWidth / 2), topRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2), bottomRadius - (lineWidth / 2));
+		// Create a clip on the appointment, so the text will never be drawn outside of it
+		context.beginPath();
+		context.rect(stripWidth + 1, 1, width - stripWidth - 2, height-1);
 		context.clip();
 
+		context.globalAlpha = this.isActive() ? 1.0 : this.opacityNonActiveAppointment;
 		this.drawBodyText(
 			context,
 			textLeft + this.leftPadding,
@@ -651,6 +623,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			width - textLeft - this.leftPadding,
 			height - this.bodyTextTopOffset - this.bodyTextBottomOffset
 		);
+		
 		context.restore();
 	},
 
@@ -689,7 +662,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			this.getAdjustedDateRange(),
 			this.slot,
 			this.slotCount,
-			true
+			false
 		);
 
 		// Draw the body elements to match the bounds

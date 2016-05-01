@@ -33,7 +33,6 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			items: [ this.createPanel() ],
 			buttons: [{
 				text: _('Ok'),
@@ -76,8 +75,9 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 				listeners : {
 					scope : this,
 					specialkey : function(field, e) {
-						if (e.getKey() == e.ENTER)
+						if (e.getKey() == e.ENTER) {
 							this.onSubmit();
+						}
 					}
 				}
 			},{
@@ -196,7 +196,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSubmit : function()
 	{
-		if (this.newNameField.getValue().trim().length == 0) {
+		if (this.newNameField.getValue().trim().length === 0) {
 			Ext.MessageBox.show({
 				title: _('Zarafa WebApp'),
 				msg: _("You must specify a name."),

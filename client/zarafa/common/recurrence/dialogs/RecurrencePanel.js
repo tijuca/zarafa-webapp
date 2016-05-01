@@ -52,7 +52,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			anchor: '100%',
-			height: 90,
+			height: 100,
 			items: [{
 				xtype: 'displayfield',
 				ref: '../timeperiodLabel',
@@ -71,7 +71,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 					layout: 'hbox',
 					defaultPeriod : 30,
 					defaultPeriodType : Date.MINUTE,
-					flex: 0.6,
+					flex: 0.7,
 					spacerConfig: {
 						width: 5
 					},
@@ -84,7 +84,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 					width: 5
 				},{
 					xtype: 'container',
-					flex: 0.4,
+					flex: 0.3,
 					border: false,
 					style: 'background-color: inherit;',
 					items: [{
@@ -116,7 +116,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 			},
 			title: _('Recurrence pattern'),
 			anchor: '100%',
-			height: 125,
+			height: 150,
 			items: [{
 				xtype: 'radiogroup',
 				ref: '../recurrencePatternSelect',
@@ -197,7 +197,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 			items: [{
 				xtype: 'panel',
 				layout: 'form',
-				columnWidth: 0.4,
+				columnWidth: 0.5,
 				border: false,
 				items: [{
 					xtype: 'datefield',
@@ -216,7 +216,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 				xtype: 'panel',
 				layout: 'form',
 				ref: '../endPatternPanel',
-				columnWidth: 0.6,
+				columnWidth: 0.5,
 				border: false,
 				bodyStyle: 'background-color: inherit;',
 				defaults: {
@@ -617,7 +617,7 @@ Zarafa.common.recurrence.dialogs.RecurrencePanel = Ext.extend(Ext.Panel, {
 				record.set('recurrence_term', radio.endTerm);
 				return false;
 			}
-		})
+		});
 
 		switch (record.get('recurrence_term')) {
 			case Zarafa.common.recurrence.data.RecurrenceEnd.NEVER:

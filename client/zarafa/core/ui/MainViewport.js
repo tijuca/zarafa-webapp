@@ -54,9 +54,7 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 					this.createTopbarContainer(),
 					this.createNavigationPanel(),
 					this.createTodayPanel(),
-					this.createContentContainer(),
-					this.createBottomBar()
-				]
+					this.createContentContainer()				]
 			}]
 		});
 		
@@ -181,38 +179,25 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 			name : 'main.topbar',
 			region: 'north',
 			layout: 'border',
-			height: 84,
+			height: 36+54,
 			items: [
 				new Zarafa.core.ui.MainTabBar({
 					name : 'main.maintabbar',
 					region: 'center',
-					height: 28,
+					height: 36,
+					boxMinHeight: 36,
+					boxMaxHeight: 36,
 					ref : '../../mainTabBar'
 				}),
 				new Zarafa.core.ui.MainToolbar({
 					name : 'main.toolbar',
 					region: 'south',
-					height: 56,
+					height: 54,
+					boxMinHeight: 54,
+					boxMaxHeight: 54,
 					ref : '../../mainToolbar'
 				})
 			]
-		});
-	},
-
-	/**
-	 * Create a {@link Ext.Container Container} that will add a small bar at the bottom to give the
-	 * user an visual clue of where the application ends.
-	 * @return {Ext.Container} Container
-	 * @private
-	 */
-	createBottomBar : function()
-	{
-		return new Ext.Container({
-			name : 'main.bottombar',
-			region: 'south',
-			ref: 'bottomBar',
-			height: 8,
-			cls: 'zarafa-bottombar'
 		});
 	}
 });

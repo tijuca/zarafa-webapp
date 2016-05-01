@@ -44,11 +44,11 @@ Zarafa.core.ui.notifier.ConsolePlugin = Ext.extend(Zarafa.core.ui.notifier.Notif
 
 		var str = title + ': ' + message;
 
-		if (category.indexOf('info') == 0) {
+		if (category.indexOf('info') === 0) {
 			console.info(str);
-		} else if (category.indexOf('warning') == 0) {
+		} else if (category.indexOf('warning') === 0) {
 			console.warn(str);
-		} else if (category.indexOf('error') == 0) {
+		} else if (category.indexOf('error') === 0) {
 			console.error(str);
 		} else {
 			console.log(str);

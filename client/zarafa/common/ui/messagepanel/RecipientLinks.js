@@ -67,15 +67,18 @@ Zarafa.common.ui.messagepanel.RecipientLinks = Ext.extend(Ext.DataView, {
 						'<div class="preview-recipient-data" style="max-height: {this.maxHeight}px">' +
 							'<tpl for=".">' +
 								'<span viewIndex="{viewIndex}" class="zarafa-emailaddress-link zarafa-recipient-link">' +
-									'<tpl if="!Ext.isEmpty(values.display_name)">' +
-										'{display_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)} ' +
-									'</tpl>' +
-									'<tpl if="!Ext.isEmpty(values.smtp_address)">' +
-										'&lt;{smtp_address:htmlEncode}&gt;' +
-									'</tpl>' +
-									'<tpl if="Ext.isEmpty(values.smtp_address) && !Ext.isEmpty(values.email_address)">' +
-										'&lt;{email_address:htmlEncode}&gt;' +
-									'</tpl>' +
+									'<span class="zarafa-presence-status {[Zarafa.core.data.PresenceStatus.getCssClass(values.presence_status)]}">'+
+										'<span class="zarafa-presence-status-icon"></span>' +
+										'<tpl if="!Ext.isEmpty(values.display_name)">' +
+											'{display_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)} ' +
+										'</tpl>' +
+										'<tpl if="!Ext.isEmpty(values.smtp_address)">' +
+											'&lt;{smtp_address:htmlEncode}&gt;' +
+										'</tpl>' +
+										'<tpl if="Ext.isEmpty(values.smtp_address) && !Ext.isEmpty(values.email_address)">' +
+											'&lt;{email_address:htmlEncode}&gt;' +
+										'</tpl>' +
+									'</span>' +
 								'</span>' +
 								'<tpl if="xindex &gt; 0 && xindex != xcount">' +
 									'<span>; </span>' +
@@ -234,6 +237,51 @@ Zarafa.common.ui.messagepanel.RecipientLinks = Ext.extend(Ext.DataView, {
 			// a bad move, but lets not disappoint the caller.
 			Zarafa.common.ui.messagepanel.RecipientLinks.superclass.update.apply(this, arguments);
 		}
+	},
+	
+	/**
+	 * Function that is called to refresh a single node of this DataView. Overwritten
+	 * because all {@link Zarafa.common.ui.messagepanel.RecipientLinks RecipientLinks} (To,
+	 * CC, BCC) share a single store for which only records with the correct {@link #recipientType}
+	 * are shown. Therfore we might not have rendered nodes for all records and we must
+	 * keep that in mind.
+	 * @param {Zarafa.core.data.IPMRecipientStore} store The store that holds the updated record
+	 * @param {Zarafa.core.data.IPMRecipientRecord} record The record that was updated
+	 * @private
+	 */
+	onUpdate : function(store, record)
+	{
+		if ( record.get('recipient_type') !== this.recipientType ){
+			// We didn't render a node for this record, so we cannot update it
+			return;
+		}
+		
+        var index = this.store.indexOf(record);
+
+        // Get the index when regarding only records with our recipientType
+        // This is the major difference from the original function. Because
+        // we do not render all recipients in the store but only those that
+        // have the same recipient_type as this DataView, we must calculate
+        // the index of the record a little differently.
+        var filteredIndex = -1;
+        Ext.each(this.store.getRange(), function(rec){
+        	if ( rec.get('recipient_type') === this.recipientType ){
+        		filteredIndex++;
+        	}
+        }, this);
+        
+        if(index > -1){
+            var sel = this.isSelected(filteredIndex),
+                original = this.all.elements[filteredIndex],
+                node = this.bufferRender([record], index)[0];
+
+            this.all.replaceElement(filteredIndex, node, true);
+            if(sel){
+                this.selected.replaceElement(original, node);
+                this.all.item(filteredIndex).addClass(this.selectedClass);
+            }
+            this.updateIndexes(filteredIndex, filteredIndex);
+        }
 	},
 
 	/**

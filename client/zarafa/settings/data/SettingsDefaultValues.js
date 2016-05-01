@@ -90,12 +90,13 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 							'default_font_size' : 2,
 
 							/**
-							 * zarafa/v1/main/keycontrols_enabled
-							 * Enable or disable keycontrols
+							 * zarafa/v1/main/keycontrols
+							 * Keycontrol options, possible values are
+							 * {@link Zarafa.settings.data.KeyboardSettings}.
 							 * @property
-							 * @type Boolean
+							 * @type String
 							 */
-							'keycontrols_enabled' : false,
+							'keycontrols': Zarafa.settings.data.KeyboardSettings.NO_KEYBOARD_SHORTCUTS,
 
 							/**
 							 * zarafa/v1/main/page_size
@@ -518,7 +519,19 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 									 * @property
 									 * @type String
 									 */
-									'subject' : ''
+									'subject' : '',
+									/**
+									 * zarafa/v1/contexts/mail/outofoffice/from
+									 * @property
+									 * @type String
+									 */
+									'from' : '',
+									/**
+									 * zarafa/v1/contexts/mail/outofoffice/until
+									 * @property
+									 * @type String
+									 */
+									'until' : ''
 								},
 
 								/**
@@ -611,7 +624,7 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 						}
 					}
 				}
-			}
+			};
 		}
 	};
 }();

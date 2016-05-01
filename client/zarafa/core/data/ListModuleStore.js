@@ -17,7 +17,7 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	 * @property
 	 * @type Boolean
 	 */
-	hasSearch : false,
+	hasSearchResults  : false,
 
 	/**
 	 * used in search to indicate that we should use search folder or not.
@@ -28,22 +28,10 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	useSearchFolder : false,
 
 	/**
-	 * Read-only. entryid of the search folder.
-	 * @property
-	 * @type HexString
-	 */
-	searchFolderEntryId : undefined,
-
-	/**
 	 * @cfg {String} actionType type of action that should be used to send request to server,
 	 * valid action types are defined in {@link Zarafa.core.Actions Actions}, default value is 'list'.
 	 */
 	actionType : undefined,
-
-	/**
-	 * @cfg {Object} restriction restriction that should be applied when sending request to server.
-	 */
-	restriction : {},
 
 	/**
 	 * @cfg {Boolean} subfolders specifies subfolders should be included in search or not.
@@ -115,6 +103,8 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	constructor : function(config)
 	{
 		config = config || {};
+
+		config.restriction = {};
 
 		config.preferredMessageClass = config.preferredMessageClass || this.preferredMessageClass;
 
@@ -224,8 +214,8 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	setFolder : function(mapiFolder)
 	{
 		Ext.each(mapiFolder, function(folder, index) {
-			this.setEntryId(folder.get('entryid'), index != 0);
-			this.setStoreEntryId(folder.get('store_entryid'), index != 0);
+			this.setEntryId(folder.get('entryid'), index !== 0);
+			this.setStoreEntryId(folder.get('store_entryid'), index !== 0);
 		}, this);
 	},
 
@@ -238,8 +228,9 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	{
 		if(!Ext.isEmpty(add) && add) {
 			// multiple entryids
-			if(Ext.isEmpty(this.entryId))
+			if(Ext.isEmpty(this.entryId)) {
 				this.entryId = [];
+			}
 
 			if(!Ext.isEmpty(this.entryId) && !Ext.isArray(this.entryId)) {
 				this.entryId = [ this.entryId ];
@@ -262,15 +253,6 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	},
 
 	/**
-	 * Function will set entryid of search folder.
-	 * @param {HexString} searchFolderEntryId entry id of search folder.
-	 */
-	setSearchEntryId : function(searchFolderEntryId)
-	{
-		this.searchFolderEntryId = searchFolderEntryId;
-	},
-
-	/**
 	 * Function will set entryid of mapi store.
 	 * @param {HexString} storeEntryId entry id of mapi store.
  	 * @param {Boolean} add append store entryids instead of overwriting it.
@@ -279,8 +261,9 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 	{
 		if(!Ext.isEmpty(add) && add) {
 			// multiple entryids
-			if(Ext.isEmpty(this.storeEntryId))
+			if(Ext.isEmpty(this.storeEntryId)) {
 				this.storeEntryId = [];
+			}
 
 			if(!Ext.isEmpty(this.storeEntryId) && !Ext.isArray(this.storeEntryId)) {
 				this.storeEntryId = [ this.storeEntryId ];
@@ -392,7 +375,7 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 		}
 
 		// If we are searching, don't update the active entryid
-		if (!this.hasSearch) {
+		if (!this.hasSearchResults ) {
 			if(!Ext.isEmpty(options.folder)) {
 				// If a folder was provided in the options, we apply the folder
 				this.setFolder(options.folder);
@@ -405,7 +388,8 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 
 		// Override the given entryid and store entryid.
 		Ext.apply(options.params, {
-			entryid : this.hasSearch ? this.searchFolderEntryId : this.entryId,
+			entryid : this.entryId,
+			search_folder_entryid : this.searchFolderEntryId,
 			store_entryid : this.storeEntryId
 		});
 
@@ -448,6 +432,13 @@ Zarafa.core.data.ListModuleStore = Ext.extend(Zarafa.core.data.IPMStore, {
 			});
 		}
 
+		/**
+		 * We don't required search restriction while navigate using page navigation tool bar in search result grid.
+ 		 */
+		if(options.actionType == Zarafa.core.Actions['list'] && Ext.isArray(options.params.restriction.search) && Ext.isDefined(options.params.search_folder_entryid)) {
+			delete options.params.restriction.search;
+		}
+
 		// remove options that are not needed, although sending it doesn't hurt
 		if (options.actionType == Zarafa.core.Actions['updatesearch'] ||
 			options.actionType == Zarafa.core.Actions['stopsearch']) {
@@ -483,7 +474,7 @@ myStore.reload(lastOptions);
 	 */
 	reload : function(options)
 	{
-		if (this.hasSearch) {
+		if (this.hasSearchResults ) {
 			// The superclass for reload will apply this.lastOptions,
 			// but for updateSearch we have to do that here manually.
 			this.updateSearch(Ext.applyIf(options||{}, this.lastOptions));
@@ -607,7 +598,7 @@ myStore.reload(lastOptions);
 		// set the flag to indicate that store contains search results
 		// this should be only used when using search folders
 		if(this.useSearchFolder) {
-			this.hasSearch = true;
+			this.hasSearchResults  = true;
 		}
 
 		this.fireEvent('search', this, options);
@@ -621,7 +612,7 @@ myStore.reload(lastOptions);
 	updateSearch : function(options)
 	{
 		// We are not searching...
-		if (!this.hasSearch) {
+		if (!this.hasSearchResults ) {
 			return;
 		}
 
@@ -655,7 +646,7 @@ myStore.reload(lastOptions);
 		this.setSearchRestriction({});
 
 		// We are not searching
-		if (!this.hasSearch) {
+		if (!this.hasSearchResults ) {
 			return;
 		}
 
@@ -667,8 +658,6 @@ myStore.reload(lastOptions);
 			options.params = {};
 		}
 
-		// get search folder entryid
-		var searchFolderEntryId = this.searchFolderEntryId;
 
 		// cancel all pending updatesearch requests
 		if (this.isExecuting(Zarafa.core.Actions['updatesearch']) || this.isExecuting(Zarafa.core.Actions['search'])) {
@@ -687,7 +676,8 @@ myStore.reload(lastOptions);
 		});
 
 		Ext.apply(options.params, {
-			store_entryid : this.storeEntryId
+			store_entryid : this.storeEntryId,
+			search_folder_entryid : this.searchFolderEntryId
 		});
 
 		// Send a destroy request -- we are destroying the search folder on the server
@@ -695,7 +685,7 @@ myStore.reload(lastOptions);
 
 		// Clear the search data
 		this.setSearchEntryId(undefined);
-		this.hasSearch = false;
+		this.hasSearchResults  = false;
 
 		this.fireEvent('stopsearch', this, options);
 
@@ -811,50 +801,6 @@ myStore.reload(lastOptions);
 			);
 		} else {
 			delete this.searchUpdateTimer;
-		}
-	},
-
-	/**
-	 * Function is used as a callback for 'destroy' action, we have overridden it to
-	 * update {@link Zarafa.core.data.ListModuleStore store} with new {@link Zarafa.core.data.IPMRecords[] records} after
-	 * delete record(s) in {@link Zarafa.core.data.ListModuleStore store}.
-	 * This will check if scrollbar is disappear and total number of records is more than total loaded records then
-	 * synchronize {@link Zarafa.core.data.ListModuleStore store} with as many numbers of new {@link Zarafa.core.data.IPMRecords[] records} as deleted
-	 * @param {Boolean} success success status of request.
-	 * @param {Zarafa.core.data.IPMRecord} records that are returned by the proxy after processing it
-	 */
-	onDestroyRecords : function (success, records)
-	{
-		if (!this.syncStore) {
-			var contentPanel = container.getContentPanel();
-			if (Ext.isFunction(contentPanel.getGridPanel)) {
-				var grid = contentPanel.getGridPanel();
-				var gridView = grid.getView();
-
-				// If scrollbar is disappear then load new records
-				if (!gridView.scroller.isScrollable()) {
-					if (this.totalLoadedRecord < this.totalLength) {
-						var options = {
-							add : true,
-							actionType : Zarafa.core.Actions['list']
-						};
-
-						// load store with as many new records as deleted before scrollbar has disappeared
-						// For that sets start and limit base on remaining number of records.
-						// For example if we have 11 remaining records left then start = 11 and limit = page_size - 11
-						Ext.applyIf(options, this.lastOptions);
-						var limit = container.getSettingsModel().get('zarafa/v1/main/page_size');
-						options.params.restriction.limit = limit - this.getCount();
-						options.params.restriction.start = this.getCount();
-						this.syncStore = true;
-						if (this.loadMask) {
-							this.loadMask.hide();
-							this.loadMask = undefined;
-						}
-						this.load(options);
-					}
-				}
-			}
 		}
 	},
 

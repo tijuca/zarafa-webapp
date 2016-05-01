@@ -64,7 +64,6 @@ Zarafa.addressbook.ui.AddressBookPanel = Ext.extend(Zarafa.addressbook.ui.Addres
 	onAddressBookRowContextMenu : function(grid, rowIndex, event)
 	{
 		var sm = grid.getSelectionModel();
-		var records = sm.getSelections();
 
 		if (sm.hasSelection()) {
 			// Some records were selected...

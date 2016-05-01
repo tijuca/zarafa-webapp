@@ -279,7 +279,7 @@ if (!!document.createElement('canvas').getContext)
 			var totalHeight = 0;
 
 			for (var i = 0; i < lines.length; i++) {
-				var offset = this.textHeight(lines[i], width, lineHeight)
+				var offset = this.textHeight(lines[i], width, lineHeight);
 				totalHeight += offset;
 			}
 
@@ -371,6 +371,6 @@ if (!!document.createElement('canvas').getContext)
 
 		// Will return a black, completely transparent rgba() value
 		return 'rgba(0,0,0,0)';
-	}
+	};
 }
 

@@ -50,8 +50,9 @@ Zarafa.mail.dialogs.MailFlagsButton = Ext.extend(Zarafa.core.ui.menu.Conditional
 	 */
 	applyFlag : function(records)
 	{
-		if (Ext.isEmpty(records))
+		if (Ext.isEmpty(records)) {
 			return;
+		}
 
 		var store;
 

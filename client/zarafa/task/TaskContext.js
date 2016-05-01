@@ -91,7 +91,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 	 */
 	onModelSearchStart : function(model)
 	{
-		if(this.getCurrentView() != Zarafa.task.data.Views.SEARCH && this.getCurrentViewMode() != Zarafa.task.data.ViewModes.SEARCH){
+		if(this.getCurrentView() !== Zarafa.task.data.Views.SEARCH && this.getCurrentViewMode() !== Zarafa.task.data.ViewModes.SEARCH){
 			this.oldView = this.getCurrentView();
 			this.oldViewMode = this.getCurrentViewMode();
 			this.switchView(Zarafa.task.data.Views.SEARCH, Zarafa.task.data.ViewModes.SEARCH);
@@ -158,7 +158,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 				}
 				break;
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass([ 'IPM.Task' ], true)) {
 						bid = 1;
 					}
@@ -174,7 +174,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 				}
 				break;
 			case Zarafa.core.data.SharedComponentType['common.attachment.dialog.attachitem.textrenderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass('IPM.Task', true)) {
 						bid = 1;
 					}
@@ -206,7 +206,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 		  		component = Zarafa.task.ui.TaskContextMenu;
 				break;	
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					component = Zarafa.task.printer.TaskRenderer;
 				} else {
 					component = Zarafa.task.printer.TaskListViewRenderer;
@@ -236,7 +236,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 				xtype : 'panel',
 				id: 'zarafa-navigationpanel-tasks-navigation',
 				cls: 'zarafa-context-navigation-block',
-				title : _('My Tasks'),
+				layout: 'fit',
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
 					id: 'zarafa-navigationpanel-tasks-navigation-tree',
@@ -284,7 +284,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-tasks-simple',
 			text: _('Simple Tasks'),
 			overflowText: _('Simple Tasks'),
-			iconCls: 'task_list_view task_simple_view',
+			iconCls: 'icon_task_simple',
 			valueView : Zarafa.task.data.Views.LIST,
 			valueViewMode : Zarafa.task.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.task.data.DataModes.ALL,
@@ -294,7 +294,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-tasks-active',
 			text: _('Active Tasks'),
 			overflowText: _('Active Tasks'),
-			iconCls: 'task_list_view task_active_view',
+			iconCls: 'icon_task_active',
 			valueView : Zarafa.task.data.Views.LIST,
 			valueViewMode : Zarafa.task.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.task.data.DataModes.ACTIVE,
@@ -304,7 +304,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-tasks-nextsevendays',
 			text: _('Next Seven Days'),
 			overflowText: _('Next Seven Days'),
-			iconCls: 'task_list_view task_seven_days',
+			iconCls: 'icon_task_seven_days',
 			valueView : Zarafa.task.data.Views.LIST,
 			valueViewMode : Zarafa.task.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.task.data.DataModes.NEXT_7_DAYS,
@@ -314,7 +314,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-tasks-overdue',
 			text: _('Overdue Tasks'),
 			overflowText: _('OverDue Tasks'),
-			iconCls: 'task_list_view task_overdue_view',
+			iconCls: 'icon_task_overdue',
 			valueView : Zarafa.task.data.Views.LIST,
 			valueViewMode : Zarafa.task.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.task.data.DataModes.OVERDUE,
@@ -324,7 +324,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-tasks-completed',
 			text: _('Completed Tasks'),
 			overflowText: _('Completed Tasks'),
-			iconCls: 'task_list_view task_completed_view',
+			iconCls: 'icon_task_completed',
 			valueView : Zarafa.task.data.Views.LIST,
 			valueViewMode : Zarafa.task.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.task.data.DataModes.COMPLETED,
@@ -466,7 +466,7 @@ Zarafa.task.TaskContext = Ext.extend(Zarafa.core.Context, {
 			hidden: true,
 			handler: this.onContextItemCreateTask,
 			scope: this
-		}
+		};
 	},
 
 	/**

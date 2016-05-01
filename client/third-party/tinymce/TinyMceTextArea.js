@@ -318,8 +318,58 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 			if(!Ext.isDefined(me.editor)) {
 				me.editor = ed;
 			}
+			
+			// Themes will dynamically load their stylesheets into the DOM.
+			// We will overwrite the loadCSS function to add listeners for 
+			// the loading. This way we make sure that all css has been loaded
+			// before we resize the editor.
+			var origTinymceDOMloadCSS = tinymce.DOM.loadCSS;
+			// We will store the urls of all stylesheets that are loading in this array
+			var cssFilesLoading = [];
+			tinymce.DOM.loadCSS = function(url){
+				if (!url) {
+					url = '';
+				}
 
+				Ext.each(url.split(','), function(url){
+					if ( Ext.isEmpty(url) ){
+						return;
+					}
+					// Store the url in the array, so we can check if we are still
+					// loading css files
+					cssFilesLoading.push(url);
+					// Create an element to load the stylesheet
+					var el = document.createElement('link');
+					// Add the element to the DOM, or it will not fire events
+					document.head.appendChild(el);
+					// Add a handler for the load event
+					el.addEventListener('load', function(){
+						// Remove the url from the array
+						cssFilesLoading.splice(cssFilesLoading.indexOf(url), 1);
+						// Remove the element from the DOM because tiny will have added it also
+						// and we don't need it twice
+						document.head.removeChild(el);
+						me.fireEvent('stylesheetloaded', url);
+					});
+					// Add a handler for the error event
+					el.addEventListener('error', function(){
+						// Remove the url from the array
+						cssFilesLoading.splice(cssFilesLoading.indexOf(url), 1);
+						me.fireEvent('stylesheetloaded', url);
+					});
+					el.setAttribute('rel', 'stylesheet');
+					el.setAttribute('type', 'text/css');
+					el.setAttribute('href', url);
+					
+				});
+
+				return origTinymceDOMloadCSS.apply(this, arguments);
+			};
+			
 			ed.on('init', function(e) {
+				// Restore the original loadCSS function
+				tinymce.DOM.loadCSS = origTinymceDOMloadCSS;
+
 				me.wysiwygIntialized = true;
 				me.intializationInProgress = false;
 
@@ -328,13 +378,21 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 				}
 
 				me.fireEvent('initialized', me, ed, {});
-
-				if (me.lastHeight || me.height) {
-					// setTimeout is a hack. The problem is that the editor
-					// it not really ready, when init fires.
-					setTimeout(function() {
+				
+				// A wrapper function for syncEditorHeight(). It will check
+				// if all css has been loaded before calling syncEditorHeight()
+				function setEditorHeight(){
+					if ( cssFilesLoading.length>0 ){
+						me.on('stylesheetloaded', function(){
+							setEditorHeight();
+						}, this);
+					} else {
 						me.syncEditorHeight(me.lastHeight || me.height);
-					}, 400);
+					}
+				}
+				
+				if (me.lastHeight || me.height) {
+					setEditorHeight();
 				}
 			});
 

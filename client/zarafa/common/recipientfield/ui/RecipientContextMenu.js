@@ -47,7 +47,7 @@ Zarafa.common.recipientfield.ui.RecipientContextMenu = Ext.extend(Zarafa.core.ui
 			},{
 				xtype: 'zarafa.conditionalitem',
 				text: _('Show Details'),
-				iconCls : 'icon_recipient_details',
+				iconCls : 'icon_contact',
 				hidden : !resolved,
 				handler: this.openDetailsContent,
 				scope: this
@@ -115,7 +115,7 @@ Zarafa.common.recipientfield.ui.RecipientContextMenu = Ext.extend(Zarafa.core.ui
 		// been a CC or BCC. But now we want to directly email him.
 		recipientRecord.set('recipient_type', Zarafa.core.mapi.RecipientType.MAPI_TO);
 
-		recipientStore.add(recipientRecord)
+		recipientStore.add(recipientRecord);
 
 		Zarafa.core.data.UIFactory.openCreateRecord(record);
 	}

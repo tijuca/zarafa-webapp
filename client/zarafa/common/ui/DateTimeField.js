@@ -45,6 +45,14 @@ Zarafa.common.ui.DateTimeField = Ext.extend(Zarafa.common.ui.CompositeField, {
 	 */
 	timeIncrement : 15,
 	/**
+	 * @cfg {Object} dateFieldConfig The way by which one can pass the configuration options of {@link Ext.form.DateField}.
+	 */
+	dateFieldConfig : {},
+	/**
+	 * @cfg {Object} timeFieldConfig The way by which one can pass the configuration options of {@link #this.TimeField}.
+	 */
+	timeFieldConfig : {},
+	/**
 	 * @constructor
 	 * @param {Object} Configuration object
 	 */
@@ -61,12 +69,31 @@ Zarafa.common.ui.DateTimeField = Ext.extend(Zarafa.common.ui.CompositeField, {
 		if (Ext.isDefined(this.maxValue) && !Ext.isDate(this.maxValue))
 			this.maxValue = Date.parseDate(this.maxValue, this.dateFormat + ' ' + this.timeFormat);
 
-		config = Ext.applyIf(config, {
-			isSingleValued : true,
-			items: [{
+		// Hide the labels, as we will draw them ourself to have more control over them
+		config.hideLabels = true;
+		
+		var items = [];
+		
+		if ( !config.hideLabel && config.fieldLabel ){
+			var labelConfig = config.labelConfig || {};
+			labelConfig = Ext.applyIf(labelConfig, {
+				xtype : 'label',
+				text : config.fieldLabel + (config.labelSeparator || ':')  || ''
+			});
+			if ( config.labelWidth ){
+				labelConfig.width = config.labelWidth;
+			} else {
+				labelConfig.autoWidth = true;
+			}
+
+			items.push(labelConfig);
+		}
+		
+		items = items.concat([
+			Ext.apply({
 				xtype: 'datefield',
 				ref: 'dateField',
-				flex: 0.6,
+				flex: 1,
 				format: this.dateFormat,
 				value : this.defaultValue,
 				minValue: this.minValue,
@@ -75,11 +102,14 @@ Zarafa.common.ui.DateTimeField = Ext.extend(Zarafa.common.ui.CompositeField, {
 					change: this.onDateChange,
 					select: this.onDateSelect,
 					scope: this
-				}
-			},{
+				},
+				hideLabel : true,
+				hideLabels : true
+			}, this.dateFieldConfig ),
+			Ext.apply({
 				xtype: 'zarafa.spinnerfield',
 				ref: 'timeField',
-				flex: 0.4,
+				width: 85,
 				defaultValue : this.defaultValue,
 				minValue: this.minValue,
 				maxValue: this.maxValue,
@@ -94,7 +124,13 @@ Zarafa.common.ui.DateTimeField = Ext.extend(Zarafa.common.ui.CompositeField, {
 					spin: this.onTimeSpin,
 					scope: this
 				}
-			}]
+			}, this.timeFieldConfig )
+		]);
+
+		config = Ext.applyIf(config, {
+			isSingleValued : true,
+			hideLabels : true,
+			items: items
 		});
 
 		Ext.apply(this, config);

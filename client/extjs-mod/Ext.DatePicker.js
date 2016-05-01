@@ -15,6 +15,7 @@
 	var orig_update = Ext.DatePicker.prototype.update;
 	var orig_beforeDestroy = Ext.DatePicker.prototype.beforeDestroy;
 	var orig_initComponent = Ext.DatePicker.prototype.initComponent;
+	var orig_selectToday = Ext.DatePicker.prototype.selectToday;
 	Ext.override(Ext.DatePicker, {
 		/**
 		 * @cfg {number} width width of the datepicker (defaults to auto)
@@ -34,6 +35,14 @@
 		 * @type Ext.CompositeElementLite
 		 */
 		weekCells : undefined,
+
+		/**
+		 * @cfg {Boolean} showNow True to enable the mechanism which convert 'Today' button into 'Now'
+		 * and fire {@link #selectnow} event while 'Now' button will be pressed along with the
+		 * original functionality, false otherwise.
+		 * defaults to false.
+		 */
+		showNow : false,
 
 		/**
 		 * overriden to set starting day of the week
@@ -142,6 +151,19 @@
 
 				delete this.weekCells;
 			}
+		},
+
+		/**
+		 * Overriden to fire 'selectnow' event if {@link #showNow} is set to true.
+		 * @override
+		 */
+		selectToday : function()
+		{
+			if(this.showNow) {
+				this.fireEvent('selectnow', this, this.value);
+			}
+
+			orig_selectToday.apply(this, arguments);
 		}
 	});
 })();

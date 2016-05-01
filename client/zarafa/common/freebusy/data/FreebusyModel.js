@@ -459,7 +459,7 @@ Zarafa.common.freebusy.data.FreebusyModel = Ext.extend(Ext.util.Observable,
 			return;
 		}
 
-		var oldDateRange = this.daterange
+		var oldDateRange = this.daterange;
 		this.daterange = dateRange;
 		this.fireEvent('daterangechange', this.daterange, oldDateRange);
 		return this.daterange;
@@ -579,7 +579,7 @@ Zarafa.common.freebusy.data.FreebusyModel = Ext.extend(Ext.util.Observable,
 				start: dateRange.getStartTime() / 1000,
 				end: dateRange.getDueTime() / 1000
 			}
-		}
+		};
 
 		if (!Ext.isArray(userRecords)) {
 			userRecords = [ userRecords ];
@@ -804,7 +804,7 @@ Zarafa.common.freebusy.data.FreebusyModel = Ext.extend(Ext.util.Observable,
 				busyStatus = Zarafa.core.mapi.BusyStatus.BUSY;
 
 			// The first item can be inserted directly
-			if (sumBlockStore.getCount() == 0) {
+			if (sumBlockStore.getCount() === 0) {
 				sumBlockStore.add(this.createSumBlock(record));
 				return true;
 			}
@@ -869,7 +869,7 @@ Zarafa.common.freebusy.data.FreebusyModel = Ext.extend(Ext.util.Observable,
 		// Always start with a clean store
 		this.sumBlockStore.removeAll();
 
-		if (this.getUserStore().getCount() == 0) {
+		if (this.getUserStore().getCount() === 0) {
 			// No users, easy, we're done!
 		} else if (this.getUserStore().getCount() == 1) {
 			// One user, still easy, sumBlockStore is the same as blockStore

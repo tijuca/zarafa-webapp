@@ -43,7 +43,7 @@ Zarafa.addressbook.ui.AddressBookBoxField = Ext.extend(Zarafa.common.recipientfi
 			boxType : 'zarafa.addressbookbox',
 			enableComboBox: false,
 			editable: true,
-			height: 30
+			height: 24
 		});
 
 		Zarafa.addressbook.ui.AddressBookBoxField.superclass.constructor.call(this, config);

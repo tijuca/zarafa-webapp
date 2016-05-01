@@ -46,7 +46,6 @@ Zarafa.task.dialogs.TaskPanel = Ext.extend(Ext.Panel, {
 			xtype : 'tabpanel',
 			activeTab : 0,
 			border : false,
-			bodyStyle: 'background-color: inherit;',
 			defaults: {
 				bodyStyle: 'background-color: inherit; padding: 5px;'
 			},

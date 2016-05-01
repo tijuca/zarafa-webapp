@@ -77,17 +77,19 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				powerpaste_html_import: powerpasteConfig.powerpaste_html_import,
 				powerpaste_allow_local_images: powerpasteConfig.powerpaste_allow_local_images,
 
-				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat",
-				extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],table[style|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|width],tbody,tr[style|class],td[style|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style|br]br',
+				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat",
+				extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],table[style|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|width],tbody,tr[style|class],td[style|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style|br],p[class|style|span|br]',
 				paste_data_images : true,
+				automatic_uploads: false,
+				remove_trailing_brs: false,
 				valid_children : '+body[style]',
 				font_formats : fontFamilies,
 				theme_advanced_font_sizes: fontSizesAsString,
 				font_size_style_values: fontSizesAsString,
-				toolbar_items_size: 'small',
 				browser_spellcheck : true,
 				menubar : false,
 				statusbar : false,
+				skin: 'white',
 				// Set our own class on anchor's to override TinyMCE's default anchor class.
 				visual_anchor_class : 'zarafa_tinymce_anchor',
 				/*
@@ -99,7 +101,11 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				forced_root_block: 'P',
 				forced_root_block_attrs: {
 					'style' : 'padding: 0; margin: 0;'
-				}
+				},
+				content_style : 
+					'body{ '+
+						'word-wrap: break-word;' +
+					'}'
 			},
 			defaultFontFamily : container.getSettingsModel().get('zarafa/v1/main/default_font'),
 			defaultFontSize : Zarafa.common.ui.htmleditor.Fonts.getDefaultFontSize()
@@ -341,17 +347,17 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 					var clonedNode;
 					// When using the html editor without a MAPIRecord (e.g. for the signature editor), the getMessageAction
 					// is not defined, so check for it. 
-					var actionType = Ext.isDefined(this.record.getMessageAction) ? this.record.getMessageAction('action_type') : undefined;
+					var actionType = Ext.isDefined(this.record.getMessageAction) ? this.record.getMessageAction('action_type') : false;
 					// We might have different scenarios with regards to content like with-signature, without-signature, response-content etc.
 					// if first node is 'p' than we assume that there is no response-content.
-					if (firstNode.nodeName == 'P' && actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) {
+					if (firstNode.nodeName === 'P' && actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW) {
 						// Check if no content is there in editor body.
 						// no need to create an element to apply default formatting for the case
 						// where no signature is there in editor at the time of initialization
-						if (tinymceEditor.getContent() != ''){
+						if (tinymceEditor.getContent() !== ''){
 							// Signature is there so clone an element before signature to apply default formatting
 							clonedNode = firstNode.cloneNode();
-							tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
+							firstNode = tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
 						}
 					//For reply, replyall and forward we must add a new element to the top for which we must set the default formatting.
 					//For "edit as new email" this should not be done!
@@ -359,19 +365,26 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 						// Response-content is there so create an element before Response-content to apply default formatting
 						var bogusHtml = '<br data-mce-bogus="1" />';
 						clonedNode = tinymceEditor.dom.create('p', tinymceEditor.settings.forced_root_block_attrs, bogusHtml);
-						tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
+						firstNode = tinymceEditor.getBody().insertBefore(clonedNode, firstNode);
 					}
 
 					//For "Edit as New" messages we don't apply default formatting but go with the formatting in the original message
-					if ( !Ext.isDefined(actionType) || actionType!==Zarafa.mail.data.ActionTypes.EDIT_AS_NEW){
+					if ( !Ext.isDefined(actionType) || (actionType !== false || actionType !== Zarafa.mail.data.ActionTypes.EDIT_AS_NEW)){
 						// The cursor must have to point to the very first element of the current content to apply the default formatting.
 						tinymceEditor.selection.setCursorLocation(tinymceEditor.getBody().firstChild, 0);
-
 						this.composeDefaultFormatting(tinymceEditor);
 					}else{
 						// Set the cursor to the caret position
 						// This will set the correct font and size in the dropdowns of the editor
 						tinymceEditor.selection.setCursorLocation();
+					}
+
+					// It is expected that there will be two empty lines needs to be inserted before the actual response text
+					// while Reply, Reply All, and Forward. So, we need to add another line and apply default formatting to it.
+					if (Zarafa.mail.data.ActionTypes.isSendOrForward(actionType)) {
+						tinymceEditor.getBody().insertBefore(firstNode.cloneNode(), firstNode);
+						tinymceEditor.selection.setCursorLocation(tinymceEditor.getBody().firstChild, 0);
+						this.composeDefaultFormatting(tinymceEditor);
 					}
 
 					// HTML styles will be applied while selecting default values from comboboxes.
@@ -411,7 +424,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		var node = editor.selection.getNode();
 		editor.dom.add(node, 'br');
 		var parentNode = editor.dom.getParent(node, 'p');
-		if(parentNode && parentNode.lastChild.nodeName == 'BR') {
+		if(parentNode && parentNode.lastChild.nodeName === 'BR') {
 			parentNode.removeChild(parentNode.lastChild);
 		}
 
@@ -432,6 +445,15 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	 */
 	setValue: function(value) {
 		var setValue = value;
+		
+		var editor = this.getEditor();
+		if ( editor ){
+			var currentValue = editor.getContent();
+			if ( currentValue === value ){
+				// No changes, so we don't need to update
+				return;
+			}
+		}
 
 		Zarafa.common.ui.HtmlEditor.superclass.setValue.call(this, setValue);
 
@@ -481,7 +503,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	 */
 	checkValueCorrection : function(editor, value)
 	{
-		var correctedValue = editor.getRawValue();
+		var correctedValue = editor.getValue();
 
 		if (value !== correctedValue) {
 			editor.fireEvent('valuecorrection', editor, correctedValue, value);
@@ -518,20 +540,21 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		if (event.keyCode === Ext.EventObject.BACKSPACE || event.keyCode === Ext.EventObject.DELETE) {
 			(function(){
 				var content = editor.getContent();
+				var node;
 				if(Ext.isEmpty(content)) {
 					/*
 					 * removing caret container if there is any,
 					 * as we are trying to remove all the dummy elements
 					 */
-					var node = editor.dom.get('_mce_caret');
-					if(node) {
+					node = editor.dom.get('_mce_caret');
+					if (node) {
 						editor.dom.remove(node);
 					}
 					this.applyFormattingForcefully = true;
 					this.applyDefaultFormatting(editor);
 				} else {
-					var node = editor.selection.getNode();
-					if(node.hasChildNodes()) {
+					node = editor.selection.getNode();
+					if (node.hasChildNodes()) {
 						/*
 						 * We have to handle the case where tinymce line structure gets 
 						 * compromised while removing single or multiple line(s)
@@ -569,10 +592,14 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			 */
 			(function(){
 				var node = editor.selection.getNode();
-				if(node.nodeName == 'P') {
-					if(!node.hasChildNodes() || node.firstChild.nodeName == 'BR') {
+				if(node.nodeName === 'P') {
+					if(!node.hasChildNodes() || node.firstChild.nodeName === 'BR') {
 						this.composeDefaultFormatting(editor);
 					}
+				} else if(node.nodeName === 'SPAN' && node.hasChildNodes() &&  node.firstChild.nodeName === 'BR') {
+					// To avoid removal of default formatting within SPAN, we must have to stop removal
+					// of BR tag which is marked as 'bogus', so we are removing bogus attribute to keep the default formatting.
+					node.firstChild.removeAttribute('data-mce-bogus');
 				}
 			}.createDelegate(this)).defer(1);
 		}
@@ -735,9 +762,9 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		 * check that text node has proper style same as data-mce-style 
 		 * if not then apply data-mce-style to style attribute.
 		 */
-		if(firstChild.nodeName == 'BR' || node.nodeName == 'BODY') {
+		if(firstChild.nodeName === 'BR' || node.nodeName === 'BODY') {
 			this.insertNode(node);
-		} else if(firstChild.nodeName == '#text' && node.getAttribute('style') === null) {
+		} else if(firstChild.nodeName === '#text' && node.getAttribute('style') === null) {
 			node.setAttribute('style', node.getAttribute('data-mce-style'));
 		}
 	},
@@ -766,10 +793,10 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		var brTags = editor.dom.select('br');
 		Ext.each(brTags, function(brTag) {
 			var parentNode = brTag.parentNode;
-			if (parentNode.nodeName == 'BODY') {
+			if (parentNode.nodeName === 'BODY') {
 				brTag.remove();
 				this.composeDefaultFormatting(editor);
-			} else if(parentNode.nodeName == 'P' && parentNode.firstChild.nodeName == 'BR') {
+			} else if(parentNode.nodeName === 'P' && parentNode.firstChild.nodeName === 'BR') {
 				this.composeDefaultFormatting(editor);
 			}
 		}, this);
@@ -831,7 +858,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		// with other UI components from ExtJs.
 		if (this.hasFocus === true) {
 			var v = this.getRawValue();
-			if (v.length != this.originalValue.length || v !== this.originalValue) {
+			if (v.length !== this.originalValue.length || v !== this.originalValue) {
 				this.fireEvent('change', this, v, this.originalValue);
 			}
 		}
@@ -922,3 +949,38 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 });
 
 Ext.reg('zarafa.htmleditor', Zarafa.common.ui.HtmlEditor);
+
+// Create a hidden html editor to prefetch all tiny files
+Zarafa.onReady(function(){
+	var body = Ext.getBody();
+	// Only prefetch for the webclient not for the welcome screen
+	if ( body.hasClass('zarafa-webclient') ){
+		var el = body.createChild({
+			id: 'tiny-prefetch',
+			style: {
+				width: '10px',
+				height: '10px',
+				'z-index' : -10,
+				top: '-10000px',
+				left: '-10000px',
+				visibility: 'hidden',
+				position: 'absolute'
+			}
+		});
+	
+		var panel = new Ext.Panel({
+			xtype: 'panel',
+			applyTo: el,
+			layout: 'fit',
+			border: false,
+			flex: 1,
+			autoHeight: false,
+			items: [{
+				xtype: 'zarafa.editorfield',
+				ref: '../editorField',
+				flex: 1,
+				useHtml: true
+			}]
+		});
+	}
+});

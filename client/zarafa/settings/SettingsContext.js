@@ -230,7 +230,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 					component = Zarafa.settings.ui.SettingsContextMenu;
 				}
 				break;
-		};
+		}
 
 		return component;
 	},
@@ -301,7 +301,8 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 			});
 		}
 		
-		categories = categories.concat([{
+		categories = categories.concat([
+		{
 			xtype : 'zarafa.settingskeyshortcutcategory',
 			settingsContext : this
 		},{

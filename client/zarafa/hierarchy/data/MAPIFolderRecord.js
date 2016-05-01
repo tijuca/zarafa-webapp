@@ -107,7 +107,7 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	 */
 	isSpecialFolder : function(key)
 	{
-		return this.getDefaultFolderKey() == key;
+		return this.getDefaultFolderKey() === key;
 	},
 
 	/**
@@ -139,7 +139,12 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	 */
 	getDefaultFolderKey : function()
 	{
-		return this.getMAPIStore().getDefaultFolderKey(this.get('entryid'));
+		var MAPIStore = this.getMAPIStore();
+		if(MAPIStore) {
+			return MAPIStore.getDefaultFolderKey(this.get('entryid'));
+		}
+
+		return undefined;
 	},
 
 	/**
@@ -221,7 +226,7 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	{
 		if (!this.cacheParentFolder) {
 			// don't get parent folders above IPM_SUBTREE as we are not interested in it :)
-			// and also in public store ipm_subtree['entryid'] == ipm_subtree['parent_entryid']
+			// and also in public store ipm_subtree['entryid'] === ipm_subtree['parent_entryid']
 			var parentEntryid = this.get('parent_entryid');
 			if (!this.isIPMSubTree() && !Ext.isEmpty(parentEntryid)) {
 				this.cacheParentFolder = this.getMAPIFolderStore().getById(parentEntryid);
@@ -337,7 +342,6 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	getChildren : function()
 	{
 		var rs = [];
-		var entryid = this.get('entryid');
 
 		if (this.get('has_subfolder')) {
 			this.getMAPIFolderStore().each(function(record) {
@@ -362,7 +366,7 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	{
 		var extendedFlags = this.get('extended_flags');
 
-		if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.DEFAULT) == Zarafa.core.mapi.FolderExtendedFlags.DEFAULT) {
+		if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.DEFAULT) === Zarafa.core.mapi.FolderExtendedFlags.DEFAULT) {
 			// ExtendedFlags are either not set on folder or it should use default implementation
 			var isSpecial = this.isSpecialFolder('drafts') || this.isSpecialFolder('outbox') || this.isSpecialFolder('junk');
 
@@ -372,12 +376,12 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 				// Is it also logical that unread count for 'Drafts', 'Outbox' or Junk Mails' should be displayed?
 				return Zarafa.hierarchy.data.CounterTypes.UNREAD;
 			}
-		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT) == Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT
-					&& this.get('content_unread') > 0) {
+		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT) === Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT && 
+				this.get('content_unread') > 0) {
 			// ExtendedFlags says use unread count
 			return Zarafa.hierarchy.data.CounterTypes.UNREAD;
-		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_TOTAL_COUNT) == Zarafa.core.mapi.FolderExtendedFlags.USE_TOTAL_COUNT
-					&& this.get('content_count') > 0) {
+		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_TOTAL_COUNT) === Zarafa.core.mapi.FolderExtendedFlags.USE_TOTAL_COUNT &&
+				this.get('content_count') > 0) {
 			// ExtendedFlags says use total count
 			return Zarafa.hierarchy.data.CounterTypes.TOTAL;
 		}

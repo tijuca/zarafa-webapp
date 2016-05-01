@@ -41,6 +41,11 @@
 	<property name="thirdparty-debugfile" value="ux-thirdparty-debug.js"/>
 	<property name="thirdparty-file" value="ux-thirdparty.js"/>
 
+	<!-- The fingerprint script -->
+	<property name="fingerprint-folder" value=""/>
+	<property name="fingerprint-debugfile" value="fingerprint-debug.js"/>
+	<property name="fingerprint-file" value="fingerprint.js"/>
+
 	<!-- Third-party plugins CSS files -->
 	<property name="thirdparty-css-folder" value="${thirdparty-folder}/resources/css"/>
 	<property name="thirdparty-css-file" value="ux-thirdparty.css"/>
@@ -53,6 +58,16 @@
 	<!-- The Zarafa CSS files -->
 	<property name="zarafa-css-folder" value="resources/css"/>
 	<property name="zarafa-css-file" value="zarafa.css"/>
+	<property name="zarafa-design2015-css-folder" value="resources/design2015/css"/>
+	<property name="zarafa-design2015-css-file" value="design2015.css"/>
+	
+	<!-- The Zarafa images -->
+	<property name="zarafa-images-folder" value="resources/images"/>
+	<property name="zarafa-design2015-images-folder" value="resources/design2015/images"/>
+
+	<!-- The Zarafa themes -->
+	<property name="zarafa-themes-folder" value="zarafa/core/themes"/>
+	<property name="zarafa-themes-target-folder" value="themes"/>
 
 	<!-- Meta target -->
 	<target name="all" depends="prepare, concat, compress"/>
@@ -85,6 +100,11 @@
                 <include name="**/*.*"/>
             </fileset>
 
+            <!-- Delete the fingerprint script -->
+            <fileset dir="${target-folder}/${fingerprint-folder}">
+                <include name="${fingerprint-file}"/>
+            </fileset>
+
 			<!-- Delete the Extjs-mod files -->
 			<fileset dir="${target-folder}/${extjs-mod-folder}">
 				<include name="${extjs-mod-debugfile}"/>
@@ -101,6 +121,9 @@
 				<include name="${zarafa-debugfile}"/>
 			</fileset>
 		</delete>
+		
+		<!-- Delete the Zarafa themes -->
+		<delete dir="${target-folder}/${zarafa-themes-target-folder}"/>
 	</target>
 
 	<!-- Prepare build, copy ExtJs files to target folder -->
@@ -121,6 +144,7 @@
 				<include name="${ux-all-file}"/>
 			</fileset>
 		</copy>
+        <copy file="${fingerprint-file}" tofile="${target-folder}/${fingerprint-folder}/${fingerprint-debugfile}"></copy>
         <copy todir="${target-folder}/${tinymce-folder}">
             <fileset dir="${tinymce-folder}">
                 <include name="**/*.*"/>
@@ -170,13 +194,26 @@
 				<fileset dir="zarafa" includes="**/*.js" />
 			</concatfiles>
 		</zConcat>
+		
+		<!-- Compile SASS files -->
+		<!-- FIXME: throw error when compass is not found
+		<echo message="Compiling: ${zarafa-design2015-css-file}"/>
+		<exec executable="compass" failonerror="true" logError="true">
+			<arg value="compile" />
+			<arg value="-\-boring" />
+			<arg value="-c" />
+			<arg value="${zarafa-design2015-css-folder}/../config.rb" />
+			<arg value="${zarafa-design2015-css-folder}/../"/>
+		</exec>
+		-->
 
 		<!-- Concatenate zarafa CSS files -->
 		<mkdir dir="${target-folder}/${zarafa-css-folder}"/>
 		<echo message="Concatenating: ${zarafa-css-file}"/>
 		<zConcat outputFolder="${target-folder}/${zarafa-css-folder}" outputFile="${zarafa-css-file}">
 			<concatfiles>
-				<fileset dir="${zarafa-css-folder}" includes="**/*.css" />
+				<!--<fileset dir="${zarafa-css-folder}" includes="**/*.css" />-->
+				<fileset dir="${zarafa-design2015-css-folder}" includes="**/*.css" excludes="external/**/*.css" />
 			</concatfiles>
 		</zConcat>
 	</target>
@@ -214,6 +251,14 @@
 			</externs>
 		</zCompile>
 
+		<echo message="Compiling: ${fingerprint-file}" />
+		<zCompile inputFolder="${target-folder}/${fingerprint-folder}" inputFile="${fingerprint-debugfile}" outputFolder="${target-folder}/${fingerprint-folder}" outputFile="${fingerprint-file}" warningLevel="default">
+			<externs>
+				var Ext = {};
+				var console = {};
+			</externs>
+		</zCompile>
+
 		<echo message="Compiling: ${thirdparty-file}" />
 		<zCompile inputFolder="${target-folder}/${thirdparty-folder}" inputFile="${thirdparty-debugfile}" outputFolder="${target-folder}/${thirdparty-folder}" outputFile="${thirdparty-file}" warningLevel="default">
 			<externs>
@@ -246,6 +291,7 @@
 				var ngettext = function(msgid, msgid_plural, count) {};
 				var npgettext = function(msgctxt, msgid, msgid_plural, count) {};
 				var pgettext = function(msgctxt, msgid) {};
+				var onResize = function() {};
 			</externs>
 		</zCompile>
 	</target>
@@ -272,6 +318,35 @@
 				<!-- CSS is generated during build -->
 				<exclude name="resources/css/*.*"/>
 				<exclude name="third-party/resources/css/*.*"/>
+
+				<!-- exclude new design images and scss -->
+				<include name="resources/design2015/css/external/*.css" />
+				<exclude name="resources/design2015/**/*" />
+			</fileset>
+		</copy>
+		
+		<!-- copy files -->
+		<copy todir="${target-folder}">
+			<fileset dir=".">
+				<include name="resources/design2015/css/external/*.css" />
+				<include name="resources/design2015/images/*" />
+			</fileset>
+		</copy>
+		
+		<!-- Copy the images of the new design to the images folder -->
+		<echo message="Copying ${zarafa-design2015-images-folder}"/>
+		<copy todir="${target-folder}/${zarafa-images-folder}">
+			<fileset dir="${zarafa-design2015-images-folder}">
+				<include name="*.png"/>
+				<include name="*.gif"/>
+			</fileset>
+		</copy>
+		
+		<!-- Copy the themes -->
+		<echo message="Copying ${zarafa-themes-folder} to ${target-folder}/${zarafa-themes-target-folder}"/>
+		<copy todir="${target-folder}/${zarafa-themes-target-folder}" includeEmptyDirs="false">
+			<fileset dir="${zarafa-themes-folder}">
+				<exclude name="**/*.js"/>
 			</fileset>
 		</copy>
 	</target>

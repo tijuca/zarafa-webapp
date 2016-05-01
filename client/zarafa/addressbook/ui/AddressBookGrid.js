@@ -32,7 +32,8 @@ Zarafa.addressbook.ui.AddressBookGrid = Ext.extend(Zarafa.common.ui.grid.GridPan
 			view : new Ext.ux.grid.BufferView({
 				emptyText : '<div class=\'emptytext\'>' + _('There are no items to show in this view') + '</div>',
 				// render rows as they come into viewable area.
-				scrollDelay : false
+				scrollDelay : false,
+				rowHeight : 31
 			})
 		});
 

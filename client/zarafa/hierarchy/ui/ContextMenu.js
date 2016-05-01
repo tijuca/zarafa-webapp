@@ -190,7 +190,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			xtype: 'menuseparator'
 		}, {
 			text : _('Reload'),
-			iconCls : 'icon-reload',
+			iconCls : 'icon_refresh',
 			handler : this.onContextItemReload,
 			scope : this,
 			beforeShow : function(item, record) {
@@ -331,11 +331,13 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	onContextItemDeleteFolder : function()
 	{
 		var isFolderDeleted = this.records.isInDeletedItems() || this.records.getMAPIStore().isPublicStore();
+		var msg;
 
-		if (isFolderDeleted)
-			var msg = String.format(_('Are you sure you want to permanently delete all the items and subfolders in the "{0}" folder?'), Ext.util.Format.htmlEncode(this.records.getDisplayName()));
-		else
-			var msg = String.format(_('Are you sure you want to delete the folder "{0}" and move all of its contents into the Deleted Items folder?'), Ext.util.Format.htmlEncode(this.records.getDisplayName()));
+		if (isFolderDeleted) {
+			msg = String.format(_('Are you sure you want to permanently delete all the items and subfolders in the "{0}" folder?'), Ext.util.Format.htmlEncode(this.records.getDisplayName()));
+		} else {
+			msg = String.format(_('Are you sure you want to delete the folder "{0}" and move all of its contents into the Deleted Items folder?'), Ext.util.Format.htmlEncode(this.records.getDisplayName()));
+		}
 
 		Ext.MessageBox.confirm(
 			_('Zarafa WebApp'),
@@ -406,14 +408,12 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 		// And set the color scheme for this folder
 		contextModel.setColorScheme(folder.get('entryid'), colorScheme);
 
-		// Update the colors of the Color Indicator in hierarchy tree
+		// Update the colors of svg icon in hierarchy tree
 		var treeNodeui = this.contextNode.getUI();
-		if (treeNodeui.colorIndicator) {
-			treeNodeui.colorIndicator.style.backgroundColor = colorScheme.base;
+		var svgIcon = treeNodeui.getEl().querySelector('svg');
+		if ( svgIcon ) {
+			Ext.get(svgIcon).setStyle('color', colorScheme.base);
 		}
-
-		// Update the colors of the hierarchy tree
-		this.contextTree.updateAll();
 
 		// Now let's repaint the calendar view by sending a 'fake' load event for the store.
 		if (store && store.lastOptions && !store.isExecuting('list')) {
@@ -428,7 +428,10 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	 */
 	onContextItemProperties : function()
 	{
-		Zarafa.hierarchy.Actions.openFolderPropertiesContent(this.records);
+		Zarafa.hierarchy.Actions.openFolderPropertiesContent(this.records, {
+			modal: true,
+			showModalWithoutParent: true
+		});
 	},
 
 	/**

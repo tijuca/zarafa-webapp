@@ -200,10 +200,11 @@ Zarafa.common.ui.grid.GridView = Ext.extend(Ext.grid.GroupingView, {
 	{
 		if(this.fireEvent('beforelivescrollstart', this, target) !== false) {
 			// chrome dose not support scrollTopMax so we have to find the scrollTopMax manually.
-			if(!Ext.isDefined(target.scrollTopMax))
-				var scrollTopMax = target.scrollHeight - target.offsetHeight;
-			else {
-				var scrollTopMax = target.scrollTopMax;
+			var scrollTopMax;
+			if(!Ext.isDefined(target.scrollTopMax)) {
+				scrollTopMax = target.scrollHeight - target.offsetHeight;
+			} else {
+				scrollTopMax = target.scrollTopMax;
 			}
 
 			var scrollState = scrollTopMax * 0.90;

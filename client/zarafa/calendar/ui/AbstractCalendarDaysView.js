@@ -131,7 +131,6 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 		var numDays = this.getDateRange().getNumDays();
 
 		var headerWidth = (this.body.getWidth()-1) / numDays;
-		var headerHeight = this.header.getHeight();
 
 		// Because of DST switches at 00:00 in Brasil, ensure
 		// we are using a safe time to perform the "add" action
@@ -238,18 +237,19 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 	{
 		// get height / width of header's parent as that container is scrollable and
 		// will give proper viewable height / width for comparison
+		var date;
 		if (Zarafa.core.Util.inside(this.header.parent().getBox(), x, y)) {
 			// Both the start and dueDate need a clearTime() call, this
 			// is in case of DST switches for Brasil where 00:00 doesn't exist
 			// and clearTime() will return 01:00.
-			var date = this.locationToDate(x - this.header.getX(), 0).clearTime();
+			date = this.locationToDate(x - this.header.getX(), 0).clearTime();
 			var dueDate = date.clone();
 			dueDate.setHours(12);
 			dueDate = dueDate.add(Date.DAY, 1).clearTime();
 
 			return new Zarafa.core.DateRange({ startDate : date, dueDate : dueDate });
 		} else {
-			var date = this.locationToDate(x - this.body.getX(), y - this.body.getY());
+			date = this.locationToDate(x - this.body.getX(), y - this.body.getY());
 			var snapSize = this.getZoomLevel() * 60 * 1000;
 			var snap = date.getTime() - (date.getTime() % snapSize);
 
@@ -374,7 +374,7 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 			// Calculate the left position of the appointment, this is the position
 			// of the dayColumn plus the leftMargin, and the offset depending on the number
 			// of subcolumns.
-			var left = this.dayLayoutPositions[startDay].left + (columnWidth * column) + leftMargin;
+			var left = this.dayLayoutPositions[startDay].left + (columnWidth * column) + leftMargin + 1;
 
 			ret.push(new Zarafa.calendar.data.AppointmentBounds({
 				left : Math.round(left),
@@ -566,7 +566,7 @@ Zarafa.calendar.ui.AbstractCalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abst
 			var startDate = appointment.getDateRange().getStartTime();
 			var dueDate = appointment.getAdjustedDateRange().getDueTime();
 
-			if (cluster.length == 0) {
+			if (cluster.length === 0) {
 				clusterStartDate = startDate;
 				clusterDueDate = dueDate;
 				cluster.push(appointment);

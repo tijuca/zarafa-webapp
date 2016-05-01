@@ -23,8 +23,9 @@ Zarafa.hierarchy.data.JsonPermissionsWriter = Ext.extend(Zarafa.core.data.JsonWr
 		var permissionsStore = record.getSubStore('permissions');
 		var hash = {};
 
-		if (!Ext.isDefined(permissionsStore))
+		if (!Ext.isDefined(permissionsStore)) {
 			return hash;
+		}
 
 		// Get list of modified (modified and newly added) records
 		var modifiedRecords = permissionsStore.getModifiedRecords();

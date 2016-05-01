@@ -39,13 +39,7 @@ Zarafa.core.ui.MainTabBar = Ext.extend(Ext.Toolbar, {
 			xtype: 'zarafa.maintabbar',
 			id: 'zarafa-mainmenu',
 			cls : 'zarafa-maintabbar',
-			defaultType: 'zarafa.maintab',
-			height: 28,
-			boxMaxHeight: 28,
-			boxMinHeight: 28,
-			defaults: {
-				height:20
-			}
+			defaultType: 'zarafa.maintab'
 		});
 
 		Zarafa.core.ui.MainTabBar.superclass.constructor.call(this, config);
@@ -77,7 +71,7 @@ Zarafa.core.ui.MainTabBar = Ext.extend(Ext.Toolbar, {
 				xtype: 'tbtext',
 				width: 'auto',
 				cls: 'zarafa-maintabbar-logintext',
-				text: String.format(_('You are logged on as {0}'), container.getUser().getDisplayName()),
+				text: container.getUser().getDisplayName(),
 				id: 'mainmenu-logintext'
 		};
 

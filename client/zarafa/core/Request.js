@@ -519,7 +519,6 @@ Zarafa.core.Request = Ext.extend(Ext.util.Observable, (function() {
 
 			if (!url) {
 				url = this.defaultUrl;
-				url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 				url = Ext.urlAppend(url, 'subsystem=' + subSystemId);
 			}
 

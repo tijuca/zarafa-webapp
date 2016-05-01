@@ -39,6 +39,7 @@ Zarafa.addressbook.ui.GABColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMo
 		var items = container.populateInsertionPoint('context.addressbook.gridpanel', this);
 		var defaultItems = [{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_index">&nbsp;</p>',
 			sortable : true,
 			tooltip : _('Sort by: Icon'),
@@ -61,18 +62,26 @@ Zarafa.addressbook.ui.GABColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMo
 			renderer : Ext.util.Format.htmlEncode
 		},{
 			dataIndex : 'email_address',
-			header : _('Email Address'),
+			header : _('Username'),
 			sortable : true,
 			hidden : false,
-			tooltip : _('Sort by: Email Address'),
+			tooltip : _('Sort by: Username'),
 			renderer : Ext.util.Format.htmlEncode,
 			width : 150
 		},{
 			dataIndex : 'smtp_address',
-			header : _('SMTP Address'),
+			header : _('Email Address'),
 			sortable : true,
 			hidden: false,
-			tooltip: _('Sort by: SMTP Address'),
+			tooltip: _('Sort by: Email Address'),
+			renderer : Ext.util.Format.htmlEncode,
+			width: 150
+		},{
+			dataIndex : 'surname',
+			header : _('Last Name'),
+			sortable : true,
+			hidden: true,
+			tooltip: _('Sort by: Last Name'),
 			renderer : Ext.util.Format.htmlEncode,
 			width: 150
 		},{
@@ -90,6 +99,30 @@ Zarafa.addressbook.ui.GABColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMo
 			tooltip : _('Sort by: Office Phone'),
 			renderer : Ext.util.Format.htmlEncode,
 			width : 150
+		},{
+			dataIndex : 'mobile_telephone_number',
+			header : _('Mobile'),
+			sortable : true,
+			hidden : true,
+			tooltip: _('Sort by: Mobile'),
+			renderer : Ext.util.Format.htmlEncode,
+			width: 150
+		},{
+			dataIndex : 'home_telephone_number',
+			header : _('Home Phone'),
+			sortable : true,
+			hidden : true,
+			tooltip: _('Sort by: Home Phone'),
+			renderer : Ext.util.Format.htmlEncode,
+			width: 150
+		},{
+			dataIndex : 'pager_telephone_number',
+			header : _('Pager'),
+			sortable : true,
+			hidden : true,
+			tooltip: _('Sort by: Pager'),
+			renderer : Ext.util.Format.htmlEncode,
+			width: 150
 		},{
 			dataIndex : 'office_location',
 			header : _('Location'),

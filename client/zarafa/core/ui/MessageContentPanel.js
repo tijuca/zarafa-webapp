@@ -226,7 +226,6 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 	{
 		Zarafa.core.ui.MessageContentPanel.superclass.onUpdateRecord.apply(this, arguments);
 
-		var isSaving = this.isSaving;
 		var isSending = this.isSending;
 
 		/**
@@ -331,7 +330,7 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 	{
 		// Check if recipients have been provided
 		var recipientStore = this.record.getRecipientStore();
-		if (!Ext.isDefined(recipientStore) || recipientStore.getCount() == 0) {
+		if (!Ext.isDefined(recipientStore) || recipientStore.getCount() === 0) {
 			container.getNotifier().notify('warning.sending', _('Zarafa WebApp'), _('Please specify a recipient'));
 
 			// The message cannot be send, cancel the callbacks

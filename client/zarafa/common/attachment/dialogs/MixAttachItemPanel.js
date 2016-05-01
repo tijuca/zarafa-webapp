@@ -72,7 +72,7 @@ Zarafa.common.attachment.dialogs.MixAttachItemPanel = Ext.extend(Ext.Panel, {
 			boxLabel : _('Always continue download of ZIP files without adding unsupported file types.'),
 			hideLabel : true,
 			scope : this
-		}]
+		}];
 	},
 
 	/**

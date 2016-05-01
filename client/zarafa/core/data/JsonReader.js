@@ -159,7 +159,7 @@ Zarafa.core.data.JsonReader = Ext.extend(Ext.data.JsonReader, {
 			return values;
 		}
 
-		if (this.dynamicRecord == true)
+		if (this.dynamicRecord === true)
 		{
 			var recordType = Zarafa.core.data.RecordFactory.getRecordClassByRecordData(data);
 			if (!Ext.isDefined(recordType))
@@ -219,7 +219,7 @@ Zarafa.core.data.JsonReader = Ext.extend(Ext.data.JsonReader, {
 				// we only want the 'object_type' and 'message_class' properties.
 				data = { message_class : data.message_class, object_type : data.object_type };
 
-				if (this.dynamicRecord == true) {
+				if (this.dynamicRecord === true) {
 					record = Zarafa.core.data.RecordFactory.createRecordObjectByRecordData(data, id);
 				}
 
@@ -242,7 +242,7 @@ Zarafa.core.data.JsonReader = Ext.extend(Ext.data.JsonReader, {
 				var n = root[i];
 
 				var Record = undefined;
-				if (this.dynamicRecord == true) {
+				if (this.dynamicRecord === true) {
 					Record = Zarafa.core.data.RecordFactory.getRecordClassByRecordData(n.props || n);
 				}
 				
@@ -435,7 +435,7 @@ Zarafa.core.data.JsonReader = Ext.extend(Ext.data.JsonReader, {
 			// Put the action response from the server in the record
 			if(data.action_response){
 				record.action_response = data.action_response;
-				delete data.action_response
+				delete data.action_response;
 			}
 
 			// If the record contains substores to store complex data then we have to first 

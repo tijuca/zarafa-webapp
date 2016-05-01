@@ -28,9 +28,7 @@ Zarafa.common.attachment.dialogs.AttachItemGrid = Ext.extend(Zarafa.common.ui.gr
 			tbar : [{
 				xtype : 'displayfield',
 				value : _('Items:'),
-				hideLabel : true,
-				// change font to match with form item's font as toolbar overrides default font stylings for form field
-				style : 'font: 12px tahoma,arial,helvetica,sans-serif;'
+				hideLabel : true
 			}, 
 				// right align
 				'->',

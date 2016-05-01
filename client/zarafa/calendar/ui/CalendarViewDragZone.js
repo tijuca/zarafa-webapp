@@ -264,7 +264,6 @@ Zarafa.calendar.ui.CalendarViewDragZone = Ext.extend(Ext.dd.DragZone, {
 	 */
 	onEndDrag : function(data, e)
 	{
-		var DragStates = Zarafa.calendar.data.DragStates;
 		var appointment = data.target;
 		this.calendar.onEndDrag(e, appointment);
 		this.calendar.onMouseUp(e, appointment);

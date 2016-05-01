@@ -256,7 +256,7 @@ Zarafa.common.recurrence.dialogs.WeeklyPanel = Ext.extend(Zarafa.common.recurren
 		if (value) {
 			oldValue |= field.dayValue;
 		} else {
-			oldValue &= ~field.dayValue
+			oldValue &= ~field.dayValue;
 		}
 
 		this.onSubtypePropertyChange(Zarafa.common.recurrence.data.RecurrenceSubtype.WEEKLY, field, oldValue);

@@ -14,14 +14,14 @@ Ext.namespace('Zarafa.calendar');
 Zarafa.calendar.AppointmentRecordFields = [
 	{name: 'importance', type: 'int', defaultValue: Zarafa.core.mapi.Importance.NORMAL},
 	{name: 'sensitivity', type: 'int', defaultValue: Zarafa.core.mapi.Sensitivity.NONE},
-	{name: 'startdate', type: 'date', dateFormat: 'timestamp', allowBlank : false},
-	{name: 'duedate', type: 'date', dateFormat: 'timestamp', allowBlank : false},
+	{name: 'startdate', type: 'date', dateFormat: 'timestamp', allowBlank : false, sortDir : 'DESC'},
+	{name: 'duedate', type: 'date', dateFormat: 'timestamp', allowBlank : false, sortDir : 'DESC'},
 	{name: 'basedate', type: 'date', dateFormat: 'timestamp', defaultValue: null},
 	{name: 'recurring', type: 'boolean', defaultValue: false},
 	{name: 'recurring_reset', type: 'boolean', defaultValue: false},
 	{name: 'recurring_pattern', type: 'string'},
-	{name: 'startdate_recurring', type: 'date', dateFormat: 'timestamp', defaultValue: null},
-	{name: 'enddate_recurring', type: 'date', dateFormat: 'timestamp', defaultValue: null},
+	{name: 'startdate_recurring', type: 'date', dateFormat: 'timestamp', defaultValue: null, sortDir : 'DESC'},
+	{name: 'enddate_recurring', type: 'date', dateFormat: 'timestamp', defaultValue: null, sortDir : 'DESC'},
 	{name: 'exception', type : 'boolean', defaultValue: false},
 	{name: 'reply_time', type: 'date', dateFormat: 'timestamp', defaultValue: null},
 	{name: 'reply_name', type: 'string', defaultValue: ''},
@@ -181,7 +181,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 		var endocc = this.get('recurrence_endocc');
 		var pattern = undefined;
 		var occSingleDayRank = false;
-		var occTimeRange = (startocc != 0 && endocc != 0);
+		var occTimeRange = (startocc !== 0 && endocc !== 0);
 
 		switch (type) {
 			case Zarafa.common.recurrence.data.RecurrenceType.DAILY:
@@ -924,7 +924,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 				dayName: Date.dayNames[(weekStart + i) % 7],
 				dayValue : Math.pow(2, (weekStart + i) % 7)
 			});
-		};
+		}
 
 		// Get the property value from record to prepare array of selected week days.
 		var weekdays = this.get('recurrence_weekdays');

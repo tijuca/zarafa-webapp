@@ -231,12 +231,13 @@ Zarafa.core.ui.View = Ext.extend(Ext.util.Observable, {
 		var element = Ext.get(parent).createChild(config);
 		
 		// add the element as a property to this
-		if (!this[name])
+		if (!this[name]) {
 			this[name] = element;
-		else if (Ext.isArray(this[name]))
+		} else if (Ext.isArray(this[name])) {
 			this[name].push(element);
-		else
+		} else {
 			this[name] = [ this[name], element ];
+		}
 		
 		// add the element to the elements list so that we may destroy it easily later on
 		this.elements.push(element);
@@ -398,8 +399,9 @@ Zarafa.core.ui.View = Ext.extend(Ext.util.Observable, {
 	{
 		this.children.remove(child);
 		child.setParentView(undefined);
-		if (destroy)
+		if (destroy) {
 			child.destroy();
+		}
 	},
 
 	/**

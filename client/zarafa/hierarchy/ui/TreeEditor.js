@@ -62,8 +62,9 @@ Zarafa.hierarchy.ui.TreeEditor = Ext.extend(Ext.tree.TreeEditor, {
 	 */
 	onBeforeStartEdit : function() {
 		// Editing? Only if its unlocked
-		if (!this.enableEdit)
+		if (!this.enableEdit) {
 			return false;
+		}
 	},
 
 	/**

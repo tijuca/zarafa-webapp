@@ -66,7 +66,7 @@ Zarafa.calendar.dialogs.CounterProposalGrid = Ext.extend(Ext.grid.GridPanel, {
 			header: _('Attendees'),
 			sortable: true
 		}*/
-		]
+		];
 	},
 
 	/**
@@ -128,7 +128,7 @@ Zarafa.calendar.dialogs.CounterProposalGrid = Ext.extend(Ext.grid.GridPanel, {
 				var recipient = recipientStore.getAt(i);
 
 				if(recipient.isMeetingOrganizer()) {
-					var duration = record.get('duration') ? record.get('duration') : Date.diff(Date.MINUTE, record.get('duedate'), record.get('startdate'))
+					var duration = record.get('duration') ? record.get('duration') : Date.diff(Date.MINUTE, record.get('duedate'), record.get('startdate'));
 					var organizer = {
 						'display_name' : _('Current Meeting Time'),
 						'startdate' : record.get('startdate'),

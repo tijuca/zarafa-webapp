@@ -67,7 +67,7 @@ Zarafa.mail.URLAction = Ext.extend(Object, {
 
 		for (var key in recipientTypes) {
 			if(!Ext.isEmpty(urlData[key])){
-				var smtpAddresses = urlData[key].split(/[;,]/)
+				var smtpAddresses = urlData[key].split(/[;,]/);
 				for (var i=0; i<smtpAddresses.length; i++)
 				{
 					recipientRecords.push(Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, {

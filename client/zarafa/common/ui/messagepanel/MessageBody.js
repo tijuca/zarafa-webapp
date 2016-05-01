@@ -128,10 +128,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 		var body = '';
 		var html;
 
-		// Clear the iframe.
 		if (!Ext.isEmpty(iframeDocument.body)) {
-			iframeDocument.body.innerHTML = '';
-
 			// Remove and disable old keymaps that are registered on the document element.
 			Zarafa.core.KeyMapMgr.deactivate(iframeDocumentElement);
 		}
@@ -149,8 +146,11 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 			}
 		}
 
+		// the open method clears the document if it has contents
 		iframeDocument.open();
+		iframeDocument.write('<!DOCTYPE html><html><body>');
 		iframeDocument.write(body);
+		iframeDocument.write('</body></html>');
 		iframeDocument.close();
 
 		// Disable drag and drop
@@ -159,9 +159,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 
 		// Add CSS document to the previewbody
 		// so the text can be styled.
-		this.addCSSLink(iframeDocument);
-
-		this.ownerCt.doLayout();
+		this.addCSSText(iframeDocument);
 
 		this.scanDOMForLinks(iframeDocument);
 		this.handleMailToLinks(iframeDocumentElement);
@@ -237,7 +235,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 				// Create a new anchor-node for making url clickable.
 				var anchorNode = Ext.DomHelper.append(containerNode, {tag: 'a', html: parts[i]});
 				var link = parts[i];
-				if(link.search(/(http|ftp)(s)?:\/\//gi) != 0) {
+				if(link.search(/(http|ftp)(s)?:\/\//gi) !== 0) {
 					// Link has url in the pattern of www.something.com
 					link = 'http://' + link;
 				}
@@ -247,7 +245,7 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 				// Create a new anchor-node for making an e-mail address clickable.
 				var anchorNode = Ext.DomHelper.append(containerNode, {tag: 'a', html: parts[i]});
 				var link = parts[i];
-				if(link.indexOf('mailto:') != 0){
+				if(link.indexOf('mailto:') !== 0){
 					link = 'mailto:' + link;
 				}
 				anchorNode.setAttribute('href', link);
@@ -301,19 +299,23 @@ Zarafa.common.ui.messagepanel.MessageBody = Ext.extend(Ext.Container, {
 	},
 
 	/**
-	 * Adds a <link> element into the <head> tag of the given document,
-	 * this will refer to a special stylesheet which can be used to apply
+	 * Adds a <style> element into the <head> tag of the given document,
+	 * this will contain the special stylesheet which can be used to apply
 	 * to styling to the previewpanel.
 	 * @param {Document} doc The document to which the link should be added
 	 * @private
 	 */
-	addCSSLink : function(doc)
+	addCSSText : function(doc)
 	{
 		var head = doc.getElementsByTagName('head')[0];
-		var css = doc.createElement('link');
-		css.setAttribute('rel', 'stylesheet');
+		var css = doc.createElement('style');
 		css.setAttribute('type', 'text/css');
-		css.setAttribute('href', container.getBasePath() + 'client/resources/css-extern/style.previewbody.css');
+		css.appendChild(document.createTextNode('body { margin: 0; padding: 9px; } ' +
+			// Make the blockquote element not use the default right margin of 40px
+			'blockquote { margin-right: 0px; }' +
+			// Make text in pre tags wrapped if too long for a line
+			'pre { white-space: pre-wrap; }'
+		));
 		head.appendChild(css);
 	},
 

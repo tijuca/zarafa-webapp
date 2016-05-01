@@ -111,7 +111,7 @@ Zarafa.addressbook.dialogs.ABGroupGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				flex: 1,
 				readOnly : true
 			}]
-		}
+		};
 	},
 
 	/**

@@ -27,8 +27,11 @@ Zarafa.common.attachment.ui.AttachmentField = Ext.extend(Zarafa.common.ui.BoxFie
 		Ext.applyIf(config, {
 			boxType : 'zarafa.attachmentbox',
 			enableComboBox: false,
-			height: 30
+			height: 25,
+			boxMinHeight: 25,
+			boxMaxHeight: 75
 		});
+		config.wrapCls = config.wrapCls ? config.wrapCls + ' zarafa-attachmentfield' : 'zarafa-attachmentfield';
 
 		Zarafa.common.attachment.ui.AttachmentField.superclass.constructor.call(this, config);
 

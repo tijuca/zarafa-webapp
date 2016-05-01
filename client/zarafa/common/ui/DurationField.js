@@ -53,7 +53,7 @@ Zarafa.common.ui.DurationField = Ext.extend(Ext.form.NumberField, {
 		value = this.parseValue(value);
 
 		// Apply a translated string which indicates the hours
-		value = String.format(ngettext('{0} hour', '{0} hours', value), value)
+		value = String.format(ngettext('{0} hour', '{0} hours', value), value);
 
 		Ext.form.NumberField.superclass.setValue.call(this, value);
 	}

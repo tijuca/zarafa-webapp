@@ -115,7 +115,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 			var mapiFolderStore = this.getDefaultFolder().getMAPIFolderStore();
 			var folderIndex = mapiFolderStore.find('entryid', record.get('parent_entryid'));
 			var folder = mapiFolderStore.getAt(folderIndex);
-			var isSentFolder = folder.getDefaultFolderKey() === 'sent';
+			var isSentFolder = folder ? folder.getDefaultFolderKey() === 'sent' : false;
 			this.initRecordRecipients(responseRecord, record, actionType, isSentFolder);
 		}
 
@@ -316,7 +316,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		// all recipients which are added. Note that the contents
 		// of reply-to is unconditional, and we will only be using
 		// this list for the REPLYALL case.
-		var addedRecipientEntryids = new Array();
+		var addedRecipientEntryids = [];
 
 		// Simply, Don't use reply-to information in case of "sent items"
 		if(!isSentFolder) {
@@ -576,7 +576,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		}
 		
 		// Parse the signature to replace the templates
-		sigDetails['content'] = this.replaceSignatureTemplates(sigDetails['content']);
+		sigDetails['content'] = this.replaceSignatureTemplates(sigDetails['content'], preferHtml);
 
 		return sigDetails['content'];
 	},
@@ -584,9 +584,10 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	/**
 	 * Replaces the templates in a signature
 	 * @param {String} signatureContent The text of the signature (can be html or plain text)
+	 * @param {Boolean} preferHTML True if the signature should be returned in HTML format else in plain format.
 	 * @return {String} The text of the signature with template holders replaced by their value
 	 */
-	replaceSignatureTemplates : function(signatureContent)
+	replaceSignatureTemplates : function(signatureContent, preferHtml)
 	{
 		// First check if there are template holders in the signature
 		// otherwise we can return immediately
@@ -630,6 +631,10 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		Ext.iterate(map, function(key, value){
 			if ( !Ext.isDefined(value) ){
 				value = '';
+			} else if ( preferHtml ){
+				// Let's replace newlines with br's, to make sure that info that was entered
+				// on multiple lines in ldap will also be displayed on multiple lines.
+				value = Zarafa.core.HTMLParser.nl2br(Ext.util.Format.htmlEncode(value));
 			}
 			signatureContent = signatureContent.replace(new RegExp('{%'+key+'}', 'gi'), value);
 		});

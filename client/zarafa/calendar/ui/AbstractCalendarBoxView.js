@@ -33,23 +33,23 @@ Zarafa.calendar.ui.AbstractCalendarBoxView = Ext.extend(Zarafa.calendar.ui.Abstr
 	/**
 	 * @cfg {Number} dayHeaderHeight The height of the Box Header (containing the date)
 	 */
-	dayHeaderHeight : 20,
+	dayHeaderHeight : 24,
 
 	/**
 	 * @cfg {Number} headerHeight The height of the Calendar Header (containing the column title).
 	 */
-	headerHeight : 20,
+	headerHeight : 30,
 
 	/**
 	 * @cfg {Number} appointmentHeight The height of an appointment within the calendar view.
 	 */
-	appointmentHeight : 20,
+	appointmentHeight : 30,
 
 	/**
 	 * @cfg {Number} expandThreshold The threshold in pixels which must remain empty at the bottom of
 	 * box. If there are more appointments that should be visible in that box, they will not be rendered.
 	 */
-	expandThreshold : 20,
+	expandThreshold : 10,
 
 	/**
 	 * The number of days per week.
@@ -255,13 +255,13 @@ Zarafa.calendar.ui.AbstractCalendarBoxView = Ext.extend(Zarafa.calendar.ui.Abstr
 				var startdayBoxConfigurations = this.dayBoxConfigurations[i*7 + startDay];
 				var duedayBoxConfigurations = this.dayBoxConfigurations[i*7 + dueDay];
 				
-				var top = startdayBoxConfigurations.top + this.headerHeight + this.appointmentHeight * slot;
+				var top = startdayBoxConfigurations.top + this.dayHeaderHeight + this.appointmentHeight * slot - 3*slot;
 				var bottom = fill ? startdayBoxConfigurations.bottom : top + this.appointmentHeight;
 				
 				if (fill || bottom < startdayBoxConfigurations.bottom - this.expandThreshold)
 					ret.push({
-						left : startdayBoxConfigurations.left + leftMargin,
-						right : duedayBoxConfigurations.right - rightMargin,
+						left : startdayBoxConfigurations.left + leftMargin + 1,
+						right : duedayBoxConfigurations.right - rightMargin - 1,
 						top : top,
 						bottom : bottom,
 						firstBox : true,

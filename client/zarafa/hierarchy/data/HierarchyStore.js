@@ -234,7 +234,7 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 				// and inject them into the response.
 				if (existingStore) {
 					// If we are opening full store of the user then close all the shared folder first.
-					if(options.params.folder_type == 'all') {
+					if(options.params.folder_type === 'all') {
 						this.remove(existingStore);
 						this.save(existingStore);
 					} else {
@@ -333,7 +333,7 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 			// switched automatically. if context not having folder than by default shared 'inbox' will be opened.
 			// if user tries to open 'entire inbox' than folder is opened as per current context, if current context not having 
 			// folder than by default shared 'inbox' will be opened, and context will switched automatically.
-			if(folder_type == 'all') {
+			if(folder_type === 'all') {
 				folder_type = container.getCurrentContext().getName();
 				switch(folder_type){
 					case 'calendar':
@@ -559,7 +559,7 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 	{
 		var index = this.findExact('mdb_provider', Zarafa.core.mapi.MDBProvider.ZARAFA_SERVICE_GUID);
 
-		if (index != -1) {
+		if (index !== -1) {
 			return this.getAt(index);
 		}
 
@@ -573,7 +573,7 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 	{
 		var index = this.findExact('mdb_provider', Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_PUBLIC_GUID);
 
-		if (index != -1) {
+		if (index !== -1) {
 			return this.getAt(index);
 		}
 
@@ -635,8 +635,9 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 
 			if(folderStore) {
 				var folder = folderStore.getById(id);
-				if(folder)
+				if(folder) {
 					return folder;
+				}
 			}
 		}
 
@@ -681,8 +682,9 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 	 */
 	collectFolders : function(arr, match, scope, folder)
 	{
-		if (!Ext.isFunction(match) || match.call(scope || this, folder))
+		if (!Ext.isFunction(match) || match.call(scope || this, folder)) {
 			arr.push(folder);
+		}
 		
 		Ext.each(folder.getChildren(), function(childFolder) {
 			this.collectFolders(arr, match, scope, childFolder);
@@ -759,13 +761,13 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 					Ext.apply(records[i].lastOptions.params.restriction,{
 						start : 0,
 						limit : records[i].getCount()
-					})
+					});
 					records[i].reload(records[i].lastOptions);
 				} else {
 					records[i].reload();
 				}
 			}
-		};
+		}
 
 		//notify user about new mail
 		if(!Ext.isEmpty(data)){
@@ -774,7 +776,12 @@ Zarafa.hierarchy.data.HierarchyStore = Ext.extend(Zarafa.core.data.IPFStore, {
 					ngettext('There is {0} unread message in the folder {1}', 'There are {0} unread messages in the folder {1}', folder.content_unread),
 					folder.content_unread, folder.display_name);
 				container.getNotifier().notify('info.newmail', _('New Mail'),notificationMessage);			
-			});
+				var folderStore = this.getFolder(folder.entryid);
+				if (folderStore) {
+					folderStore.set('content_unread', folder.content_unread);
+					folderStore.set('content_count', folder.content_count);
+				}
+			}, this);
 		}
 	},
 

@@ -132,6 +132,9 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 			'exception' : this.onResolveException,
 			scope: this
 		});
+		
+		// Register the store with the PresenceManager to have presence statuses added
+		Zarafa.core.PresenceManager.registerStore(this);
 	},
 
 	/**
@@ -257,7 +260,7 @@ Zarafa.core.data.IPMRecipientStore = Ext.extend(Zarafa.core.data.MAPISubStore, {
 		}
 
 		records = this.getUnresolvedRecipients(records);
-		if (records.length == 0) {
+		if (records.length === 0) {
 			return;
 		}
 

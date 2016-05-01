@@ -152,7 +152,7 @@ Zarafa.core.data.IPMStoreMgr = Ext.extend(Ext.util.Observable, {
 			var propagateRecords = [];
 
 			if (!Ext.isArray(records)) {
-				records = [ records ]
+				records = [ records ];
 			}
 	
 			for (var i = 0, len = records.length; i < len; i++) {

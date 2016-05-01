@@ -185,17 +185,17 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 			// Render the subject
 			meta = {};
 			value = Zarafa.common.ui.grid.Renderers.subject(record.get('subject'), meta, record);
-			rowParams.body += String.format('<td style="width: 100%"><div class="grid_compact grid_compact_left {0}" style="height: 24px;">{1}</div></td>', meta.css, value);
+			rowParams.body += String.format('<td style="width: 100%"><div class="grid_compact grid_compact_left grid_compact_subject_cell {0}">{1}</div></td>', meta.css, value);
 
 			// Render the attachment icon (always aligned to the right)
 			meta = {};
-			value = Zarafa.common.ui.grid.Renderers.attachment(record.get('hasattach'), meta, record)
-			rowParams.body += String.format('<td style="width: 24px"><div class="grid_compact {0}" style="height: 24px; width: 24px;">{1}</div></td>', meta.css, value);
+			value = Zarafa.common.ui.grid.Renderers.attachment(record.get('hasattach'), meta, record);
+			rowParams.body += String.format('<td style="width: 24px"><div class="grid_compact {0}" style="width: 24px;">{1}</div></td>', meta.css, value);
 
 			// Render the importance icon (always aligned to the right)
 			meta = {};
-			value = Zarafa.common.ui.grid.Renderers.importance(record.get('importance'), meta, record)
-			rowParams.body += String.format('<td style="width: 24px"><div class="grid_compact {0}" style="height: 24px; width: 24px;">{1}</div></td>', meta.css, value);
+			value = Zarafa.common.ui.grid.Renderers.importance(record.get('importance'), meta, record);
+			rowParams.body += String.format('<td style="width: 24px"><div class="grid_compact {0}" style="width: 24px;">{1}</div></td>', meta.css, value);
 
 			// Insertion point for extra icon(s) in the row
 			var insertions = container.populateInsertionPoint('context.mail.gridrow', record);
@@ -310,23 +310,23 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 		for (var i = 0, len = config.length; i < len; i++) {
 			var column = config[i];
 
-			if (column.dataIndex == 'sent_representing_name') {
+			if (column.dataIndex === 'sent_representing_name') {
 				// Here it will visible the 'From' column in mail grid,
 				// if selected folder is Received folder type.
 				column.hidden = !isReceivedFolderType;
-			} else if (column.dataIndex == 'display_to') {
+			} else if (column.dataIndex === 'display_to') {
 				// Here it will visible the 'To' column in mail grid,
 				// if selected folder is sent or unsent folder type.
 				column.hidden = !(isSentFolderType || isUnsentFolderType);
-			} else if (column.dataIndex == 'message_delivery_time') {
+			} else if (column.dataIndex === 'message_delivery_time') {
 				// Here it will visible the 'Received' column in mail grid,
 				// if selected folder is Received folder type.
 				column.hidden = !isReceivedFolderType;
-			} else if (column.dataIndex == 'client_submit_time') {
+			} else if (column.dataIndex === 'client_submit_time') {
 				// Here it will visible the 'Sent' column in mail grid,
 				// if selected folder is Sent folder type.
 				column.hidden = !isSentFolderType;
-			} else if(column.dataIndex == 'last_modification_time'){
+			} else if(column.dataIndex === 'last_modification_time'){
 				// Here it will visible the 'Modified' column in mail grid,
 				// if selected folder is unsent folder type.
 				column.hidden = !isUnsentFolderType;
@@ -402,8 +402,9 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 	onCellClick : function(grid, rowIndex, columnIndex, e)
 	{
 		var record = this.store.getAt(rowIndex);
-		if (!Ext.isDefined(record))
+		if (!Ext.isDefined(record)) {
 			return;
+		}
 
 		var cm = this.getColumnModel();
 		var column = cm.config[columnIndex];
@@ -481,9 +482,9 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 	{
 		var count = selectionModel.getCount();
 
-		if (count == 0) {
+		if (count === 0) {
 			this.model.setPreviewRecord(undefined);
-		} else if (count == 1 && selectionModel.getSelected() === record) {
+		} else if (count === 1 && selectionModel.getSelected() === record) {
 			this.model.setPreviewRecord(record);
 		}
 	},

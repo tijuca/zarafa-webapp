@@ -57,20 +57,11 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			stateful : true,
 			statefulName : 'hierarchytree',
 			tbar: {
-				items: [
-				// Start aligning right
-				'->',
-				{
-					xtype : 'displayfield',
-					value : _('Show all folders')
-				},{
-					xtype : 'spacer',
-					width: 5,
-					height: 5
-				},{
+				items: [{
 					xtype: 'checkbox',
 					cls: 'zarafa-hierarchy-treepanel-showallfolders',
 					ref: '../showAllFoldersCheckbox',
+					boxLabel : _('Show all folders'),
 					checked : checked,
 					listeners : {
 						beforerender: this.reviseCheckboxDisablity,
@@ -82,6 +73,7 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			loadMask : true,
 			treeSorter : true,
 			trackMouseOver : true,
+			containerScroll: true,
 			// Default values for the Drag&Drop objects.
 			// By default is Drag&Drop disabled...
 			dragConfig : {
@@ -95,8 +87,7 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			enableItemDrop : true,
 			itemDropConfig : {
 				ddGroup: 'dd.mapiitem'
-			},
-			ddAutoScrollContainer : true
+			}
 		});
 
 		if(!Ext.isDefined(config.bbar)){
@@ -160,6 +151,17 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	 */
 	initEvents : function()
 	{
+		// Capture events that can change the height of the hierarchy tree, or of the containing panel,
+		// so we can add a class and the css can handle the position of the bottombar
+		this.on('afterrender', function(){
+			this.on('expandnode', this.checkTreeHeight, this);
+			this.on('collapsenode', this.checkTreeHeight, this);
+			this.on('afterlayout', this.checkTreeHeight, this);
+			this.on('append', this.checkTreeHeight, this);
+			this.on('remove', this.checkTreeHeight, this);
+			this.on('resize', this.checkTreeHeight, this);
+		}, this, {single: true});
+		
 		// Add listeners to Zarafa.hierarchy.ui.Tree events
 		this.on('contextmenu', this.onTreeNodeContextMenu, this);
 		this.on('click', this.onFolderClicked, this);
@@ -220,6 +222,26 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	initStateEvents : function(){
 		Zarafa.hierarchy.ui.HierarchyTreePanel.superclass.initStateEvents.call(this);
 		this.mon(this.showAllFoldersCheckbox, 'check', this.saveState, this, {delay: 100});
+	},
+	
+	/**
+	 * Checks the height of the hierarchy tree. When it is smaller then the height of the containing box
+	 * it will add a class so the the css can handle the position of the bottombar.
+	 */
+	checkTreeHeight: function(){
+		if(!this.ownerCt) {
+			return;
+		}
+
+		var treeHeight = this.body.down('ul').getHeight();
+		var panelHeight = this.ownerCt.getHeight();
+		var topBarHeight = this.getTopToolbar().getHeight();
+		var bottomBarHeight = this.getBottomToolbar().getHeight();
+		if ( panelHeight < treeHeight + bottomBarHeight + topBarHeight ){
+			this.ownerCt.getEl().addClass('fixed-bottombar');
+		} else {
+			this.ownerCt.getEl().removeClass('fixed-bottombar');
+		}
 	},
 
 	/**
@@ -402,7 +424,18 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	 */
 	onTreeNodeContextMenu : function(treeNode, eventObj)
 	{
-		Zarafa.core.data.UIFactory.openDefaultContextMenu(treeNode.getFolder(), { position : eventObj.getXY(), contextNode : treeNode });
+		var positionEventObj = eventObj.getXY();
+
+		// Handle a specific situation for Edge where somehow eventObj replaced with 'blur' event which doesn't have the position.
+		// Check if the position is available or not, get the position of treeNode
+		// and use that position to render context menu if not available.
+		if (positionEventObj[0] === 0 && positionEventObj[1] === 0) {
+			var treeNodeAnchor = treeNode.ui.anchor;
+			var nodePosition = treeNodeAnchor.getBoundingClientRect();
+			positionEventObj = [nodePosition.left, nodePosition.top];
+		}
+
+		Zarafa.core.data.UIFactory.openDefaultContextMenu(treeNode.getFolder(), { position : positionEventObj, contextNode : treeNode });
 	},
 
 	/**

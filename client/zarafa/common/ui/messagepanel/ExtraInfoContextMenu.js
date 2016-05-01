@@ -44,11 +44,7 @@ Zarafa.common.ui.messagepanel.ExtraInfoContextMenu = Ext.extend(Zarafa.core.ui.m
 				text: _('Add Domain to Safe Senders List'),
 				handler: this.addDomainToSafeList,
 				scope: this
-			}, {
-				xtype: 'menuseparator'
-			},
-			container.populateInsertionPoint('context.common.recipientfield.contextmenu.actions', this)
-			]
+			}]
 		});
 
 		Zarafa.common.ui.messagepanel.ExtraInfoContextMenu.superclass.constructor.call(this, config);

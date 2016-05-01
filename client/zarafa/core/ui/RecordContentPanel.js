@@ -138,6 +138,14 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 	showLoadMaskOnStart : false,
 
 	/**
+	 * @cfg {Boolean} showModalWithoutParent Config option set to true when the dialog is modal dialog and
+	 * It's doesn't have the parent dialog.
+	 * @property
+	 * @type Boolean
+	 */
+	showModalWithoutParent : false,
+
+	/**
 	 * @constructor
 	 * @param config Configuration structure
 	 */
@@ -360,7 +368,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 					return;
 				}
 
-				if (this.isModal()) {
+				if (this.isModal() && !this.showModalWithoutParent) {
 					
 					this.modalRecord = record;
 					record = record.copy('modal-' + record.id);

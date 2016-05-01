@@ -98,7 +98,7 @@ Zarafa.core.data.ProxyResponseHandler = Ext.extend(Zarafa.core.data.AbstractResp
 			args = {
 				error: args,
 				sendRecords: this.sendRecords
-			}
+			};
 			this.proxy.fireEvent('exception', this.proxy, 'response', this.action, this.options, responseObject, args);
 		}
 	},
@@ -150,8 +150,9 @@ Zarafa.core.data.ProxyResponseHandler = Ext.extend(Zarafa.core.data.AbstractResp
 	 */
 	handle : function(action, data)
 	{
+		var ret;
 		try {
-			var ret = Zarafa.core.data.ProxyResponseHandler.superclass.handle.call(this, action, data);
+			ret = Zarafa.core.data.ProxyResponseHandler.superclass.handle.call(this, action, data);
 		} catch(e) {
 			// Create the args object containing the sendRecords and the thrown exception to be used
 			// when handling the exception event
@@ -260,8 +261,9 @@ Zarafa.core.data.ProxyResponseHandler = Ext.extend(Zarafa.core.data.AbstractResp
 	readRecordsFromResponse : function(response, field)
 	{
 		var items = response[field] || [];
-		if (!Ext.isArray(items))
+		if (!Ext.isArray(items)) {
 			items = [ items ];
+		}
 
 		// Item count is the number of items in the server-side store, not the number of items in
 		// the returned record list. This is used for pagination. 

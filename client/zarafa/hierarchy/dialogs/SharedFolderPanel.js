@@ -31,7 +31,6 @@ Zarafa.hierarchy.dialogs.SharedFolderPanel = Ext.extend(Ext.Panel, {
 		Ext.applyIf(config, {
 			layout: 'form',
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			labelWidth : 80,
 			flex : 1,
 			items: [
@@ -203,7 +202,7 @@ Zarafa.hierarchy.dialogs.SharedFolderPanel = Ext.extend(Ext.Panel, {
 		return {
 			type : this.folderTypeCombo.getValue(),
 			subfolders : this.checkSubFolders.getValue()
-		}
+		};
 	}
 });
 

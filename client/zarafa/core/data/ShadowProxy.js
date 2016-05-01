@@ -110,7 +110,7 @@ Zarafa.core.data.ShadowProxy = Ext.extend(Zarafa.core.data.MAPIProxy, {
 			default:
 				var messageClass = record.get('message_class');
 				if (!Ext.isEmpty(messageClass)) {
-					moduleName = Zarafa.core.ModuleNames.getListName(messageClass, true)
+					moduleName = Zarafa.core.ModuleNames.getListName(messageClass, true);
 				}
 				break;
 		}
@@ -144,7 +144,7 @@ Zarafa.core.data.ShadowProxy = Ext.extend(Zarafa.core.data.MAPIProxy, {
 			default:
 				var messageClass = record.get('message_class');
 				if (!Ext.isEmpty(messageClass)) {
-					moduleName = Zarafa.core.ModuleNames.getItemName(messageClass, true)
+					moduleName = Zarafa.core.ModuleNames.getItemName(messageClass, true);
 				}
 				break;
 		}

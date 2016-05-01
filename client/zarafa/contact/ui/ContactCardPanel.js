@@ -85,7 +85,7 @@ Zarafa.contact.ui.ContactCardPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSelectionChanged : function(strip, character)
 	{
-		this.model.setRestrictionCharacter(character)
+		this.model.setRestrictionCharacter(character);
 	},
 
 	/**
@@ -98,7 +98,7 @@ Zarafa.contact.ui.ContactCardPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSelectionCleared : function(strip)
 	{
-		this.model.setRestrictionCharacter('')
+		this.model.setRestrictionCharacter('');
 	}
 });
 

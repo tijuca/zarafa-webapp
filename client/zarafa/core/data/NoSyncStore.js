@@ -184,11 +184,13 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 	add : function(records, silent)
 	{
 		records = [].concat(records);
-		if(records.length < 1)
+		if(records.length < 1) {
 			return;
+		}
 
-		for (var i = 0, len = records.length; i < len; i++)
+		for (var i = 0, len = records.length; i < len; i++) {
 			records[i].join(this);
+		}
 
 		var index = this.data.length;
 		this.data.addAll(records);
@@ -225,8 +227,9 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 			this.data.removeAt(index);
 			this.modified.remove(record);
 
-			if (silent !== true)
+			if (silent !== true) {
 				this.fireEvent('remove', this, record, index);
+			}
 		}
 	},
 
@@ -258,8 +261,9 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 		this.modified = [];
 		this.removed = [];
 
-		if (silent !== true)
+		if (silent !== true) {
 			this.fireEvent('clear', this, items);
+		}
 	},
 
 	/**
@@ -274,8 +278,9 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 	removeIf : function(callback, scope)
 	{
 		this.each(function(record) {
-			if (callback.call(scope || this, record))
+			if (callback.call(scope || this, record)) {
 				this.remove(record);
+			}
 		}, this);
 	},
 
@@ -401,8 +406,9 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 	 */
 	afterEdit : function(record)
 	{
-		if(this.modified.indexOf(record) == -1)
+		if(this.modified.indexOf(record) === -1) {
 			this.modified.push(record);
+		}
 		this.fireEvent('update', this, record, Ext.data.Record.EDIT);
 	},
 
@@ -452,10 +458,6 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 	 */
 	clearData: function()
 	{
-		this.data.each(function(rec) {
-			rec.join(null);
-		});
-
 		this.data.clear();
 	},
 
@@ -485,11 +487,13 @@ Zarafa.core.data.NoSyncStore = Ext.extend(Ext.util.Observable, {
 	 */
 	destroyRecord : function(store, record, index)
 	{
-		if (this.modified.indexOf(record) != -1)
+		if (this.modified.indexOf(record) !== -1) {
 			this.modified.remove(record);
+		}
 
-		if (!record.phantom)
+		if (!record.phantom) {
 			this.removed.push(record);
+		}
 	},
 
 	/**

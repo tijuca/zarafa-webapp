@@ -46,6 +46,7 @@ Zarafa.plugins.files.ui.NavigatorTreePanel = Ext.extend(Ext.tree.TreePanel, {
 				afterrender : function() {
 					this.dragZone.lock(); // disable dragging from treepanel
 				},
+				expandnode : this.OnExpandNode,
 				scope: this
 			},
 			viewConfig: {
@@ -64,10 +65,43 @@ Zarafa.plugins.files.ui.NavigatorTreePanel = Ext.extend(Ext.tree.TreePanel, {
 	onNodeClick : function(node) {
 		Zarafa.plugins.files.data.ComponentBox.getStore().loadPath(node.attributes.id);
 		var n = this.getNodeById(node.attributes.id);
-		
+
+		// Remove the icon class to show loading mask while user click on expandable node.
+		if (node.isExpandable()) {
+			var ui = node.getUI();
+			var iconNode = Ext.get(ui.iconNode);
+			iconNode.removeClass('icon_folder_note');
+		}
 		if(Ext.isDefined(n) && !n.isLeaf()) {
 			n.reload();
 		}
+	},
+
+	/**
+	 * Event handler which is fires when a node is expanded in {@Link Zarafa.plugins.files.ui.NavigatorTreePanel}
+	 * This will update the icon of root node as well as its all child's node
+	 * @param {Ext.tree.TreeNode} rootNode The node which is expanded
+	 */
+	OnExpandNode: function (rootNode)
+	{
+		this.updateIcon(rootNode);
+		if (rootNode.hasChildNodes()) {
+			var childNodes = rootNode.childNodes;
+			Ext.each(childNodes, function (node) {
+				this.updateIcon(node);
+			}, this)
+		}
+	},
+
+	/**
+	 * Function which is use to update the icon of {@Link Ext.tree.TreeNode}
+	 * @param {Ext.tree.TreeNode} node The node which is need to update icon.
+	 */
+	updateIcon: function (node)
+	{
+		var ui = node.getUI();
+		var iconNode = Ext.get(ui.iconNode);
+		iconNode.addClass('icon_folder_note');
 	}
 });
 

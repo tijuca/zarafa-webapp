@@ -22,11 +22,12 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 
 		Ext.applyIf(config, {
 			xtype: 'zarafa.folderpropertiesgeneraltab',
+			cls : 'tab-general',
 			border : false,
 			bodyStyle : 'background-color: inherit;',
+			labelAlign: 'left',
 			defaults: {
-				border: true,
-				bodyStyle: 'background-color: inherit; padding: 3px 0px 3px 0px; border-style: none none solid none;',
+				border: false,
 				xtype : 'panel',
 				layout: 'form'
 			},
@@ -47,12 +48,17 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 	createNameInfoPanel : function()
 	{
 		return {
+			style : {
+				borderBottomWidth: '1px',
+				borderBottomStyle: 'solid'
+			},
 			items : [{
 				xtype : 'displayfield',
-				style : 'font-size : 20px',
+				cls : 'display-name',
 				name : 'display_name',
 				htmlEncode : true,
-				ref : 'displayField'
+				ref : 'displayField',
+				hideLabel : true
 			}],
 			ref : 'nameInfoPanel'
 		};
@@ -64,6 +70,11 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 	createDescriptionInfoPanel : function()
 	{
 		return {
+			cls : 'description-panel',
+			style : {
+				borderBottomWidth: '1px',
+				borderBottomStyle: 'solid'
+			},
 			defaults : {
 				anchor : '100%'
 			},
@@ -80,7 +91,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 			},{
 				xtype : 'textarea',
 				fieldLabel : _('Description'),
-				flex : 1,
+				height : 72,
 				name : 'comment',
 				listeners : {
 					change : this.onFieldChange,
@@ -97,6 +108,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 	createContentInfoPanel : function()
 	{
 		return {
+			cls : 'content-info-panel',
 			border : false,
 			items : [{
 				xtype : 'displayfield',
@@ -117,7 +129,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 			buttonAlign : 'left',
 			buttons : [{
 				xtype : 'button',
-				text : _('Folder size'),
+				text : _('Folder size') + '...',
 				handler : this.onFolderSize,
 				scope : this
 			}]
@@ -137,7 +149,18 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 
 		if (contentReset === true) {
 			var container_class = record.get('container_class').substr(4).replace(/\./,"").toLowerCase();
-			this.nameInfoPanel.displayField.label.addClass(String.format('folder-dialog-icon icon_folder_{0}_large', Ext.util.Format.htmlEncode(container_class)));
+			var icon = Zarafa.common.ui.IconClass.getIconClass(record);
+			if ( container_class === 'appointment' ){
+				var calendarContext = container.getContextByName('calendar');
+				var calendarContextModel = calendarContext.getModel();
+				var scheme = calendarContextModel.getColorScheme(record.get('entryid'));
+				this.nameInfoPanel.displayField.getEl().setStyle(
+					'background-image',
+					'url(\'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13" style="color:'+scheme.base+';"><g><g class="icbg" style="fill:currentColor;stroke:none"><rect width="15" height="12" x="0" y="1" /><rect width="1" height="1" x="2" y="0" /><rect width="1" height="1" x="7" y="0" /><rect width="1" height="1" x="12" y="0" /></g><path class="icgr" d="M 2.5,6.5 h 10 v 4 h -10 v -4.5 M 4.5,6.5 v 4 M 6.5,6.5 v 4 M 8.5,6.5 v 4 M 10.5,6.5 v 4 M 2.5,8.5 h 9.5" style="fill:currentColor;stroke:#ffffff;stroke-width:1;stroke-linejoin=miter" /></g></svg>\')'
+				);
+			} else {
+				this.nameInfoPanel.displayField.addClass(String.format('folder-dialog-icon ' + icon));
+			}
 
 			var type = String.format(_('Folder containing {0} Items'), Zarafa.common.data.FolderContentTypes.getContentName(record.get('container_class')));
 			this.descriptionPanel.folderTypeField.setValue(type);
@@ -146,8 +169,9 @@ Zarafa.hierarchy.dialogs.FolderPropertiesGeneralTab = Ext.extend(Ext.form.FormPa
 			this.descriptionPanel.locationField.setValue(record.getPath());
 		}
 
-		if (layout)
+		if (layout) {
 			this.doLayout();
+		}
 	},
 
 	/**

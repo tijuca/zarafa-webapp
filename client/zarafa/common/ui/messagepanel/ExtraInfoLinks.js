@@ -280,7 +280,10 @@ Zarafa.common.ui.messagepanel.ExtraInfoLinks = Ext.extend(Ext.Container, {
 		}
 
 		this.setVisible(isVisible);
-		this.doLayout();
+		// Only re-layout when the component is visible.
+		if (isVisible) {
+			this.doLayout();
+		}
 	},
 
 	/**

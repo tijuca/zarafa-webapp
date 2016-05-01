@@ -323,8 +323,23 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 	initStateEvents : function()
 	{
 		Zarafa.core.Context.superclass.initStateEvents.call(this);
-		this.on('viewchange', this.saveState, this, {delay: 100});
-		this.on('viewmodechange', this.saveState, this, {delay: 100});
+		this.on('viewchange', this.saveViewModeState, this, {delay: 100});
+		this.on('viewmodechange', this.saveViewModeState, this, {delay: 100});
+	},
+
+	/**
+	 * Event handler for 'viewchange' and 'viewmodechange', only saves
+	 * state when the view mode has changed.
+	 *
+	 * @param {Zarafa.core.Context} context the current context
+	 * @param {Number} current_view_mode the current view mode
+	 * @param {Number} oldMode the old view mode.
+	 */
+	saveViewModeState : function(context, current_view_mode, oldMode)
+	{
+		if (current_view_mode != oldMode) {
+			this.saveState();
+		}
 	},
 
 	/**
@@ -345,7 +360,7 @@ Zarafa.core.Context = Ext.extend(Zarafa.core.Plugin, {
 		 * one of the main view mode (NO_PREVIEW, RIGHT_PREVIEW, BOTTOM_PREVIEW).
 		 * it gets false when user search something, use live scroll and then close the search
 		 */
-		var isOnlyScrolling = (scrolling && !searching && !Zarafa.mail.data.ViewModes.isMainViewMode(this.current_view_mode))
+		var isOnlyScrolling = (scrolling && !searching && !Zarafa.mail.data.ViewModes.isMainViewMode(this.current_view_mode));
 
 		/* 
 		 * True when live scroll and searching both are performed also 

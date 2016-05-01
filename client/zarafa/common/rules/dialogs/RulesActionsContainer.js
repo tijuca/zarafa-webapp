@@ -242,7 +242,6 @@ Zarafa.common.rules.dialogs.RulesActionsContainer = Ext.extend(Ext.Container, {
 
 		for (var i = 0; i < this.actionCount; i++) {
 			var panel = this.get(i);
-			var combo = panel.get(0);
 			var activeItem = panel.get(1).layout.activeItem;
 			var action = null;
 

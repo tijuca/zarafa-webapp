@@ -30,7 +30,7 @@ Zarafa.common.delegates.dialogs.DelegatePermissionContentPanel = Ext.extend(Zara
 			}),
 			autoSave : false,
 			width : 500,
-			height : 300,
+			height : 325,
 			title : _('Delegate Permissions'),
 			items : [{
 				xtype : 'zarafa.delegatepermissionpanel',

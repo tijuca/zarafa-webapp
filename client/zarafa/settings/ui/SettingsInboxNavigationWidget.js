@@ -51,12 +51,12 @@ Zarafa.settings.ui.SettingsInboxNavigationWidget = Ext.extend(Zarafa.settings.ui
 					xtype : 'radio',
 					name : 'enablescroll',
 					inputValue : 'true',
-					boxLabel : _('Infinite Scroll ') + '<span class="zarafa-settings-category-general-liveScroll">' + _('(WebApp automatically loads additional items when you scroll down)') + '</span>'
+					boxLabel : _('Infinite Scroll') + '<span class="zarafa-settings-category-general-liveScroll">(' + _('WebApp automatically loads additional items when you scroll down') + ')</span>'
 				},{
 					xtype : 'radio',
 					name : 'enablescroll',
 					inputValue : 'false',
-					boxLabel : _('Pagination ') + '<span class="zarafa-settings-category-general-liveScroll">' + _('(WebApp displays items on pages and you can use navigation controls to navigate)') + '</span>'
+					boxLabel : _('Pagination') + '<span class="zarafa-settings-category-general-liveScroll">(' + _('WebApp displays items on pages and you can use navigation controls to navigate') + ')</span>'
 				}],
 				listeners : {
 					change : this.onRadioChange,
@@ -71,7 +71,7 @@ Zarafa.settings.ui.SettingsInboxNavigationWidget = Ext.extend(Zarafa.settings.ui
 					xtype : 'combo',
 					name : 'zarafa/v1/main/page_size',
 					ref : '../pageSize',
-					width : 50,
+					width : 55,
 					hideLabel : true,
 					store : pageSizeStore,
 					mode : 'local',
@@ -104,7 +104,7 @@ Zarafa.settings.ui.SettingsInboxNavigationWidget = Ext.extend(Zarafa.settings.ui
 	{
 		this.model = settingsModel;
 		this.liveScroll.setValue(settingsModel.get(this.liveScroll.name));
-		this.pageSize.setValue(settingsModel.get(this.pageSize.name))
+		this.pageSize.setValue(settingsModel.get(this.pageSize.name));
 	},
 
 	/**

@@ -54,8 +54,6 @@ Zarafa.calendar.ui.DatePicker = Ext.extend(Ext.DatePicker, {
 	 */
 	afterRender: function()
 	{
-		var hierarchyStore = container.getHierarchyStore();
-
 		Zarafa.calendar.ui.DatePicker.superclass.afterRender.call(this);
 
 		//attach event handlers
@@ -170,7 +168,7 @@ Zarafa.calendar.ui.DatePicker = Ext.extend(Ext.DatePicker, {
 	dateIsChanged: function(date)
 	{
 		var time = date.getTime();
-		return (!this.monthStart || !this.monthEnd || time < this.monthStart.getTime() || this.monthEnd.getTime() <= time)
+		return (!this.monthStart || !this.monthEnd || time < this.monthStart.getTime() || this.monthEnd.getTime() <= time);
 	},
 
 	/**

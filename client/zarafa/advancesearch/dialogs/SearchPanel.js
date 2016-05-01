@@ -21,10 +21,11 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			var parentModel = config.parentContext.getModel();
-			config.model = config.context.getModel({parentModel : parentModel});
-			config.context.enable(parentModel.getDefaultFolder(), true);
+		var searchContext = container.getContextByName('advancesearch');
+		if (!Ext.isDefined(config.model) && Ext.isDefined(searchContext)) {
+			config.model = searchContext.getModel();
+			var parentModel = container.getCurrentContext().getModel();
+			searchContext.enable(parentModel.getDefaultFolder(), true);
 		}
 
 		Ext.applyIf(config, {
@@ -33,17 +34,18 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 			border : false,
 			items : [{
 				xtype : 'zarafa.searchtoolboxpanel',
-				context : config.context,
+				searchContext : searchContext,
 				region :'west',
 				scope : this
 			},{
 				xtype : 'zarafa.searchcenterpanel',
-				context : config.context,
+				searchContext : searchContext,
+				searchTabId : config.searchTabId,
 				region : 'center',
 				scope : this
 			},{
 				xtype : 'zarafa.searchtoolbarpanel',
-				context : config.context,
+				searchContext : searchContext,
 				searchText : config.searchText,
 				region : 'north',
 				scope : this
@@ -66,7 +68,7 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 		});
 
 		this.mon(this.searchContentPanel,{
-			'close' : this.onCloseContentPanel,
+			beforeclose : this.onBeforeCloseContentPanel,
 			scope : this
 		});
 
@@ -85,7 +87,6 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 
 		this.mon(this.model, {
 			searchfinished : this.onModelSearchFinished,
-			searchstop : this.onModelSearchStop,
 			searchexception :  this.onModelSearchException,
 			scope : this
 		});
@@ -98,44 +99,10 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 			scope : this
 		});
 
-		var parentSearchField = this.searchContentPanel.getParentSearchField();
-		this.searchContentPanel.mon(parentSearchField,{
-			start : this.onSearchStart,
-			scope : this
-		});
-
 		this.mon(container,{
 			 'aftercontextswitch' : this.onAfterContextSwitch,
-			 'beforecontextswitch' : this.onBeforeContextSwitch,
 			 scope : this
 		});
-	},
-
-	/**
-	 * Function is used to reinitialized the event for parent search field when 
-	 * folder or context gets change.
-	 */
-	reinitializeEvents : function()
-	{
-		var parentSearchField = this.searchContentPanel.getParentSearchField();
-		this.searchContentPanel.mon(parentSearchField,{
-			start : this.onSearchStart,
-			scope : this
-		});
-	},
-
-	/**
-	 * Called before the context is switched in and it will set the newly selected 
-	 * context to parent context for the search.
-	 *
-	 * @param {Object} parameters contains folder details
-	 * @param {Context} oldParentContext previously selected parent context
-	 * @param {Context} newParentContext selected context
-	 * @private
-	 */
-	onBeforeContextSwitch : function(parameters, oldParentContext, newParentContext)
-	{
-		this.searchContentPanel.setParentContext(newParentContext);
 	},
 
 	/**
@@ -156,32 +123,56 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 
 		if(Ext.isDefined(topToolbar) && Ext.isDefined(parentSearchField = topToolbar.searchTextfield)) {
 			this.searchContentPanel.setParentSearchField(parentSearchField);
-			parentSearchField.renderedSearchPanel = true;
-			this.reinitializeEvents();
 		}else {
 			this.searchContentPanel.setParentSearchField(undefined);
 		}
 	},
 
 	/**
-	 * Event handler triggered when {@link Zarafa.advancesearch.dialogs.SearchContentPanel searchcontentpanel}
+	 * Event handler triggered before {@link Zarafa.advancesearch.dialogs.SearchContentPanel searchcontentpanel}
 	 * gets close. it will call the {#onSearchStop} which stop the search.
 	 * @param {Zarafa.advancesearch.dialogs.SearchContentPanel} contentPanel which gets the close
 	 */
-	onCloseContentPanel : function(contentPanel)
+	onBeforeCloseContentPanel : function(contentPanel)
 	{
 		var parentSearchField = this.resetParentSearchField();
 		if(parentSearchField) {
 			parentSearchField.renderedSearchPanel = false;
 		}
+
+		/**
+		 * when user tries to close the search tab which is not currently active tab,
+		 * it will find the closing search tab store and set it to active store in model, so when stopSearch
+		 * function of model is call to remove the search folder on server side it will send correct search folder
+		 * entry id
+		 */
+		var currentSearchStore = false;
+		var model = this.model;
+		if(model.getActiveStore().getSearchStoreUniqueId() !== contentPanel.name){
+			currentSearchStore = this.model.store;
+			var store = model.stores[contentPanel.name];
+			model.setActiveStore(store);
+		}
+
 		this.onSearchStop();
 
 		/**
 		 * Model has hold the selected record in Zarafa.core.ContextModel.selectedRecords config 
 		 * so when close the search panel we have to clear the selection manually.
 		 */
-		if(Ext.isDefined(this.model.getSelectedRecords())) {
-			this.model.setSelectedRecords(undefined);
+		if(Ext.isDefined(model.getSelectedRecords())) {
+			model.setSelectedRecords(undefined);
+		}
+
+		// search tab is going to close so remove the search store from stores object
+		model.discardStore(contentPanel.name);
+
+		/**
+		 * After removed search folder on server side and close the search tab we need
+		 * to again set the active search tab store in model.
+ 		 */
+		if(currentSearchStore !== false) {
+			model.setActiveStore(currentSearchStore);
 		}
 	},
 
@@ -198,22 +189,6 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 	{
 		this.resetParentSearchField();
 		this.searchToolbar.getAdvanceSearchField().doStop(true);
-	},
-
-	/**
-	 * Event handler which will be called when the {@link #model} fires the
-	 * {@link Zarafa.core.ContextModel#searchstop} event. This will update
-	 * the UI to indicate that the search is not active and enable the
-	 * components that a new search might be created.
-	 *
-	 * @param {Zarafa.core.ContextModel} model The model which fired the event
-	 * @private
-	 */
-	onModelSearchStop : function(model)
-	{
-		var searchTextfield = this.searchToolbar.getAdvanceSearchField();
-		searchTextfield.reset();
-		searchTextfield.doStop(false);
 	},
 
 	/**
@@ -275,7 +250,7 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 
 		var restriction = this.searchToolBox.createRestriction(searchText);
 		var folder = this.searchToolBox.getFolder();
-		this.model.startSearch(restriction , true, {'folder' : folder});
+		this.model.startSearch(restriction , folder.isIPMSubTree(), {'folder' : folder});
 
 		// if search is performed from the parent search field then, it will set the search tab 
 		// to active tab.
@@ -307,7 +282,7 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 		searchField.renderedSearchPanel = this.rendered;
 
 		// Trigger search operation.
-		searchField.onTrigger2Click();
+		searchField.onTriggerClick();
 	},
 
 	/**
@@ -316,7 +291,7 @@ Zarafa.advancesearch.dialogs.SearchPanel = Ext.extend(Ext.Panel, {
 	 */
 	onAfterUpdateRestriction : function()
 	{
-		this.searchToolbar.getAdvanceSearchField().onTrigger2Click();
+		this.searchToolbar.getAdvanceSearchField().onTriggerClick();
 	},
 
 	/**

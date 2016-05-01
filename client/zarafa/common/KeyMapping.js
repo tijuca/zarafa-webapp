@@ -80,21 +80,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Refresh'),
 				category : _('All views')
-			}
-		}];
-
-		var mainContentTabPanelKeys = [{
-			key: [Ext.EventObject.LEFT, Ext.EventObject.RIGHT],
-			ctrl: true,
-			alt: false,
-			shift: false,
-			stopEvent: true,
-			handler: this.onSwitchMainContentTab,
-			scope: this,
-			settingsCfg : {
-				description : _('Switch between tabs'),
-				category : _('Basic navigation')
-			}
+			},
+			basic: true
 		}];
 
 		var contentPanelActionsKeys = [{
@@ -123,7 +110,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Print item'),
 				category : _('Items')
-			}
+			},
+			basic: true
 		}];
 
 		var defaultRecordActionsKeys = [{
@@ -138,7 +126,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Save an item e.g. mail, contact, etc.'),
 				category : _('Items')
-			}
+			},
+			basic: true
 		}];
 
 		var defaultMessageActionsKeys = [{
@@ -152,7 +141,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Send an item e.g. mail, meeting request, etc.'),
 				category : _('Items')
-			}
+			},
+			basic: true
 		}];
 
 		var selectionKey = [{
@@ -170,7 +160,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Select all items'),
 				category : _('All views')
-			}
+			},
+			basic: true
 		},{
 			key: Ext.EventObject.HOME,
 			ctrl: false,
@@ -207,7 +198,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Open selected item'),
 				category : _('All views')
-			}
+			},
+			basic: true
 		},{
 			key: Ext.EventObject.G,
 			ctrl: true,
@@ -245,7 +237,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Print selected item'),
 				category : _('All views')
-			}
+			},
+			basic: true
 		},{
 			key: Ext.EventObject.M,
 			ctrl: true,
@@ -270,7 +263,8 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			settingsCfg : {
 				description : _('Delete selected item'),
 				category : _('All views')
-			}
+			},
+			basic: true
 		}];
 
 		var reminderKeys = [{
@@ -287,7 +281,6 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 
 		Zarafa.core.KeyMapMgr.register('global', mainTabBar);
 		Zarafa.core.KeyMapMgr.register('global', mainToolbarKeys);
-		Zarafa.core.KeyMapMgr.register('global', mainContentTabPanelKeys);
 
 		Zarafa.core.KeyMapMgr.register('grid', selectionKey);
 		Zarafa.core.KeyMapMgr.register('view.mapimessage', selectionKey);
@@ -378,30 +371,6 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 		}
 	},
 
-	/**
-	 * Event handler for the keydown event of the {@link Zarafa.core.KeyMap KeyMap}
-	 * when the user wants to switch between
-	 * {@link Zarafa.core.ui.MainContentTabPanel MainContentTabs}.
-	 * @param {Number} key Key code
-	 * @param {Ext.EventObject} event The event
-	 * @param {Ext.Component} component The component on which key event is fired.
-	 */
-	onSwitchMainContentTab: function(key, event, component)
-	{
-		var contentPanel =  container.getMainPanel().getContentPanel();
-		var activeTab = contentPanel.getActiveTab();
-		var newActiveTab;
-
-		if(key == Ext.EventObject.LEFT){
-			newActiveTab = activeTab.previousSibling();
-		}else if(key == Ext.EventObject.RIGHT){
-			newActiveTab = activeTab.nextSibling();
-		}
-		if(newActiveTab){
-			contentPanel.activate(newActiveTab);
-		}
-	},
-	
 	/**
 	 * Event handler for the keydown event of the {@link Zarafa.core.KeyMap KeyMap}
 	 * when the user wants to close the current tab he has open in the
@@ -628,7 +597,7 @@ Zarafa.common.KeyMapping = Ext.extend(Object, {
 			if(selected) {
 				if(!selectionModel.singleSelect) {
 					// retrieve selected index
-					var index = store.indexOf(selected)
+					var index = store.indexOf(selected);
 					// select range from current item till last range
 					selectionModel.selectRange(index,selectionRange);
 				}

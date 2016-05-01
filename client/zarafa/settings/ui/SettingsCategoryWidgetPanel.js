@@ -25,7 +25,8 @@ Zarafa.settings.ui.SettingsCategoryWidgetPanel = Ext.extend(Ext.Container, {
 		config = config || {};
 
 		Ext.applyIf(config, {
-			layout : 'card'
+			layout : 'card',
+			cls : 'zarafa-settings-category-widget-panel'
 		});
 
 		Zarafa.settings.ui.SettingsCategoryWidgetPanel.superclass.constructor.call(this, config);

@@ -195,7 +195,7 @@ Zarafa.common.ui.IconClass = {
 				'REPORT.IPM.NOTE.DR'			: 'icon_mail_delivery_receipt',
 				'REPORT.IPM.NOTE.NDR'			: 'icon_mail_nondelivery_receipt',
 				'IPM.NOTE.STORAGEQUOTAWARNING'		: 'icon_mail icon_message_unread'
-			}
+			};
 
 			do {
 				var iconClass = mapping[messageClass];
@@ -289,9 +289,9 @@ Zarafa.common.ui.IconClass = {
 	getIconClassFromAttachMethod : function(record)
 	{
 		if(record.isEmbeddedMessage()) {
-			return 'icon_embedded_attachment_box';
+			return 'icon_embed_attachment';
 		} else {
-			return 'icon_attachment_box';
+			return 'icon_attachment';
 		}
 	}
 };

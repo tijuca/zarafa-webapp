@@ -3,7 +3,7 @@ Ext.namespace('Zarafa.plugins.files.dialogs');
 /**
  * @class Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel
  * @extends Zarafa.core.ui.ContentPanel
- * @xtype zarafa.showfilesfilepanel
+ * @xtype zarafa.showfilescontentpanel
  */
 Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 
@@ -17,7 +17,7 @@ Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel = Ext.extend(Zarafa.core.
 		// Add in some standard configuration data.
 		Ext.applyIf(config, {
 			// Override from Ext.Component
-			xtype : 'zarafa.showfilesfilepanel',
+			xtype : 'zarafa.showfilescontentpanel',
 			// Override from Ext.Panel
 			layout : 'fit',
 			title : dgettext('plugin_files', 'File information'),
@@ -43,4 +43,4 @@ Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel = Ext.extend(Zarafa.core.
 	}
 });
 
-Ext.reg('zarafa.showmailcontentpanel', Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel);
+Ext.reg('zarafa.showfilescontentpanel', Zarafa.plugins.files.dialogs.ShowFilesFileContentPanel);

@@ -22,7 +22,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @cfg {Number} headerHeight
 	 * The height of the header (defaults to 50).
 	 */
-	headerHeight: 50,
+	headerHeight: 64,
 	/**
 	 * @cfg {Number} defaultHourCellWidth
 	 * The width of the cells displaying an hour on the timeline at 100% zoomlevel (defaults to 60).
@@ -64,25 +64,25 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @cfg {Number} daySpacing
 	 * The spacing between two days in pixels (defaults to 10).
 	 */
-	daySpacing: 10,
+	daySpacing: 3,
 	/**
 	 * @cfg {Number} daySpacing
 	 * The width of the borders. The cellspacing in the tables is used to create the borders (defaults to 1).
 	 * Changing this property to another value alone is not witout issues.
 	 */
-	borderSpacing: 1,
+	borderSpacing: 0,
 	/**
 	 * @cfg {Number} blockRowHeight
 	 * The height of the block rows (defaults to 22).
 	 */
-	blockRowHeight: 22,
+	blockRowHeight: 30,
 	/**
 	 * @cfg {Number} sumBlockRowHeight
 	 * The height of the sumblock rows (defaults to 10).
 	 */
-	sumBlockRowHeight : 10,
+	sumBlockRowHeight : 12,
 	/**
-	 * @cfg {Number} blockRowHeight
+	 * @cfg {Number} extraBodyHeight
 	 * Height that is added to the body container to match the height of the userlist body (defaults to 0).
 	 */
 	extraBodyHeight: 0,
@@ -129,7 +129,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @type Number
 	 * @private
 	 */
-	headerHoursHeight: 15,
+	headerHoursHeight: 24,
 
 	/**
 	 * The height of the sum row (all attendees bar) in the timeline header.
@@ -324,7 +324,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 		);
 
 		this.headerTemplate = new Ext.XTemplate(
-			'<table class="x-freebusy-timeline-day-header" cellpadding="0" cellspacing="{borderSpacing}" style="width: {dayWidth}px">',
+			'<table class="x-freebusy-timeline-day-header" cellpadding="0" cellspacing="0" style="width: {dayWidth}px">',
 				'<tr class="x-freebusy-timeline-day">',
 					'<td colspan="{numHours}" style="height:{headerDayHeight}px;">',
 					'{dayLabel}',
@@ -339,7 +339,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 			{ disableFormats: true }
 		);
 		this.headerSumTemplate = new Ext.XTemplate(
-			'<table class="x-freebusy-timeline-day-sum" cellpadding="0" cellspacing="{borderSpacing}" style="width: {dayWidth}px">',
+			'<table class="x-freebusy-timeline-day-sum" cellpadding="0" cellspacing="0" style="width: {dayWidth}px">',
 				'<tr class="x-freebusy-timeline-hour x-freebusy-timeline-sum">',
 					'<tpl for="hours">',
 						'<td style="width: {parent.hourWidth}px; height:{parent.headerSumRowHeight}px;"></td>',
@@ -349,7 +349,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 			{ disableFormats: true }
 		);
 		this.bodyBGTemplate = new Ext.XTemplate(
-			'<table class="x-freebusy-timeline-day-body" cellpadding="0" cellspacing="{borderSpacing}" style="width: {dayWidth}px">',
+			'<table class="x-freebusy-timeline-day-body" cellpadding="0" cellspacing="0" style="width: {dayWidth}px">',
 				'<tr class="x-freebusy-timeline-hour">',
 					'<tpl for="hours">',
 						'<td style="width: {parent.hourWidth}px">&nbsp;</td>',
@@ -536,8 +536,8 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 		var hourIndex = Math.floor(numDisplayedHours * dayRatioIndex);
 
 		// Get the start and the end of the hour slot that is focus is centered on
-		var focusStartTimestamp = dayMap.timestamp + this.hoursEachDayMap[ hourIndex ].startDayOffset
-		var focusEndTimestamp = focusStartTimestamp + this.slotDuration
+		var focusStartTimestamp = dayMap.timestamp + this.hoursEachDayMap[ hourIndex ].startDayOffset;
+		var focusEndTimestamp = focusStartTimestamp + this.slotDuration;
 
 		return new Zarafa.core.DateRange({ startDate : new Date(focusStartTimestamp*1000), dueDate : new Date(focusEndTimestamp*1000) });
 	},
@@ -795,6 +795,26 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	{
 		Zarafa.core.data.UIFactory.openContextMenu(Zarafa.core.data.SharedComponentType['common.contextmenu.freebusy.timelineheader'], undefined, { position : evt.getXY(), model : this.model });
 	},
+	
+	/**
+	 * Regenerate the background image use for the day blocks
+	 * These are the horizontal lines that border the user blocks in the day blocks 
+	 * Basically we have a background image of a pixel in the color of the border color
+	 * that we repeat in x-direction and we add it as many times as there are users in the userStore
+	 * (CSS multiple backgrounds)
+	 */
+	restyleBodyBackground : function()
+	{
+		var backgroundStyle = 'url(data:image/gif;base64,R0lGODlhAQABAIABAObm5v///yH+EUNyZWF0ZWQgd2l0aCBHSU1QACwAAAAAAQABAAACAkQBADs=) repeat-x left top';
+		for ( var i=0; i<=this.userStore.getCount(); i++ ){
+			backgroundStyle += ', url(data:image/gif;base64,R0lGODlhAQABAIABAObm5v///yH+EUNyZWF0ZWQgd2l0aCBHSU1QACwAAAAAAQABAAACAkQBADs=) repeat-x left ' + (this.blockRowHeight*(i+1)) +'px';
+		}
+		var dayBlocks = this.bodyBackgroundElem.query('.x-freebusy-timeline-day');
+		for ( i=0; i<dayBlocks.length; i++ ){
+			Ext.get(dayBlocks[i]).setStyle('background', backgroundStyle);
+		}
+		
+	},
 
 	/**
 	 * Resizes the vertical sizes based on the number of users that have been added. This needs to
@@ -827,6 +847,9 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 
 		// Always scroll to the bottom of the page...
 		this.bodyElem.scrollTo("top", this.bodyElem.dom.scrollHeight);
+		
+		// Reset the background image, because they are the horizontal lines
+		this.restyleBodyBackground();
 	},
 
 	/**
@@ -842,8 +865,6 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @private
 	 */
 	repaintTimeline: function(){
-		var el = this.getBGTemplateTarget();
-
 		// Get some basic values of the width of one day, the size of the
 		// viewport and the position of the scrollbar.
 		var viewportSize = Ext.get(this.bodyElem).getViewSize();
@@ -891,6 +912,9 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 		this.renderTimelineDays( loadDays );
 		this.headerElem.scrollTo("left", this.bodyElem.getScroll().left );	// Sync the header
 		this.cleanUpTimelineDays( cleanupDays );
+
+		// Reset the background image, because they are the horizontal lines
+		this.restyleBodyBackground();
 	},
 
 	/**
@@ -957,8 +981,6 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @private
 	 */
 	cleanUpTimelineDays: function(cleanupDays){
-		var bodyElem = Ext.get(this.bodyBackgroundElem);
-		var headerElem = Ext.get(this.bodyBackgroundElem);
 		var elem;
 
 		for(var i=0;i<cleanupDays.length;i++){
@@ -991,7 +1013,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 			date = start + (duration/2);
 		}
 
-		var viewport = Ext.get(this.bodyElem)
+		var viewport = Ext.get(this.bodyElem);
 		var viewportSize = Ext.get(this.bodyElem).getViewSize();
 
 		var pixelOffsetLeft = this.findBlockPixelOffset(date, true);
@@ -1153,7 +1175,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 */
 	onSumBlocksLoad : function(store, records, options)
 	{
-		if (store.getCount() == 0) {
+		if (store.getCount() === 0) {
 			// No sum records are available, simply empty the sumBlockTemplate
 			this.sumBlockTemplate.overwrite(this.headerSumContainer.dom, []);
 			return;
@@ -1333,7 +1355,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @private
 	 */
 	filterRecords : function(records){
-		var filteredRecords = new Array();
+		var filteredRecords = [];
 		var periodStart = this.daterange.getStartDate().getTime()/1000;
 		var periodEnd = this.daterange.getDueDate().getTime()/1000;
 
@@ -1445,7 +1467,7 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 		 * If it is not inclusive we have to give the pixel offset of the end of the day. This is not the
 		 * same as there is a space between two days.
 		 */
-		if(DSTSafeHours == 0 && DSTSafeMinutes == 0 && !inclusive){
+		if(DSTSafeHours === 0 && DSTSafeMinutes === 0 && !inclusive){
 			// Set the pixel offset at the end of the current day
 			startDayPixelOffset = this.dayWidth;
 		}else{

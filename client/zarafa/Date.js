@@ -271,6 +271,24 @@ Ext.apply(Date.prototype, {
 	},
 
 	/**
+	 * Get the next given working weekday starting from the date passed as argument or
+	 * current date in case no argument was provided.
+	 * @param {Date} currentDate (Optional) The date for which next working day should be returned
+	 * @return {Date} Date fall on the next working day
+	 */
+	getNextWorkWeekDay : function(currentDate)
+	{
+		currentDate = currentDate || new Date();
+		var nextDate = currentDate.getNextWeekDay();
+		var workingDaysList = container.getSettingsModel().get('zarafa/v1/main/working_days');
+		if(!(workingDaysList.indexOf(nextDate.getDay()) > -1 )) {
+			return this.getNextWorkWeekDay(nextDate);
+		} else {
+			return nextDate;
+		}
+	},
+
+	/**
 	 * Attempts to clear all Second and millisecond time information from this Date by rounding the time down
 	 * to the current minute.
 	 * @param {Boolean} clone true to create a clone of this date, clear the time and return it (defaults to false).
@@ -310,22 +328,23 @@ Ext.apply(Date.prototype, {
 		// it is a bit more optimal then calling this.floor() or this.ceiling().
 		// For seconds or higher units, we set all smaller units to 0,
 		// to correctly round of the entire time.
+		var value;
 		switch (field) {
 			case Date.MILLI:
-				var value = this.getMilliseconds();
+				value = this.getMilliseconds();
 				if (value % roundTimeValue > 0) {
 					this.setMilliseconds(value - (value % roundTimeValue) + (((value % roundTimeValue) >= (roundTimeValue / 2)) * roundTimeValue));
 				}
 				break;
 			case Date.SECOND:
-				var value = this.getSeconds();
+				value = this.getSeconds();
 				if (value % roundTimeValue > 0) {
 					this.setSeconds(value - (value % roundTimeValue) + (((value % roundTimeValue) >= (roundTimeValue / 2)) * roundTimeValue));
 				}
 				this.setMilliseconds(0);
 				break;
 			case Date.MINUTE:
-				var value = this.getMinutes();
+				value = this.getMinutes();
 				if (value % roundTimeValue > 0) {
 					this.setMinutes(value - (value % roundTimeValue) + (((value % roundTimeValue) >= (roundTimeValue / 2)) * roundTimeValue));
 				}
@@ -333,7 +352,7 @@ Ext.apply(Date.prototype, {
 				this.setMilliseconds(0);
 				break;
 			case Date.HOUR:
-				var value = this.getHours();
+				value = this.getHours();
 				if (value % roundTimeValue > 0) {
 					this.setHours(value - (value % roundTimeValue) + (((value % roundTimeValue) >= (roundTimeValue / 2)) * roundTimeValue));
 				}
@@ -368,22 +387,23 @@ Ext.apply(Date.prototype, {
 		// given ceiling then we don't need to do anything.
 		// For seconds or higher units, we set all smaller units to 0,
 		// to correctly round of the entire time.
+		var value;
 		switch (field) {
 			case Date.MILLI:
-				var value = this.getMilliseconds();
+				value = this.getMilliseconds();
 				if (value % ceilTimeValue > 0) {
 					this.setMilliseconds(value - (value % ceilTimeValue) + ceilTimeValue);
 				}
 				break;
 			case Date.SECOND:
-				var value = this.getSeconds();
+				value = this.getSeconds();
 				if (value % ceilTimeValue > 0) {
 					this.setSeconds(value - (value % ceilTimeValue) + ceilTimeValue);
 				}
 				this.setMilliseconds(0);
 				break;
 			case Date.MINUTE:
-				var value = this.getMinutes();
+				value = this.getMinutes();
 				if (value % ceilTimeValue > 0) {
 					this.setMinutes(value - (value % ceilTimeValue) + ceilTimeValue);
 				}
@@ -391,7 +411,7 @@ Ext.apply(Date.prototype, {
 				this.setMilliseconds(0);
 				break;
 			case Date.HOUR:
-				var value = this.getHours();
+				value = this.getHours();
 				if (value % ceilTimeValue > 0) {
 					this.setHours(value - (value % ceilTimeValue) + ceilTimeValue);
 				}
@@ -426,22 +446,23 @@ Ext.apply(Date.prototype, {
 		// given floor then we don't need to do anything.
 		// For seconds or higher units, we set all smaller units to 0,
 		// to correctly round of the entire time.
+		var value;
 		switch (field) {
 			case Date.MILLI:
-				var value = this.getMilliseconds();
+				value = this.getMilliseconds();
 				if (value % floorTimeValue > 0) {
 					this.setMilliseconds(value - (value % floorTimeValue));
 				}
 				break;
 			case Date.SECOND:
-				var value = this.getSeconds();
+				value = this.getSeconds();
 				if (value % floorTimeValue > 0) {
 					this.setSeconds(value - (value % floorTimeValue));
 				}
 				this.setMilliseconds(0);
 				break;
 			case Date.MINUTE:
-				var value = this.getMinutes();
+				value = this.getMinutes();
 				if (value % floorTimeValue > 0) {
 					this.setMinutes(value - (value % floorTimeValue));
 				}
@@ -449,7 +470,7 @@ Ext.apply(Date.prototype, {
 				this.setMilliseconds(0);
 				break;
 			case Date.HOUR:
-				var value = this.getHours();
+				value = this.getHours();
 				if (value % floorTimeValue > 0) {
 					this.setHours(value - (value % floorTimeValue));
 				}
@@ -599,8 +620,9 @@ Ext.apply(Date, {
 				switchCount++;
 
 				// We assume DST is only set or removed once per year
-				if(switchCount == 2)
+				if(switchCount == 2) {
 					break;
+				}
 					
 				lastoffset = testDate.getTimezoneOffset();
 			}
@@ -609,7 +631,7 @@ Ext.apply(Date, {
 			testDate = testDate.add(Date.DAY, 7);
 		}
 		
-		if(switchCount == 0) {
+		if(switchCount === 0) {
 			// No DST in this timezone
 			tzStruct = {
 				timezone : testDate.getTimezoneOffset(),

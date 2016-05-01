@@ -27,6 +27,8 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 	 */
 	initComponent : function()
 	{
+		this.cls = 'zarafa-paging-toolbar';
+		
 		var pagingItems = [this.first = new  Ext.Toolbar.Button({
 			tooltip: this.firstText,
 			overflowText: this.firstText,
@@ -41,10 +43,8 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 			disabled: true,
 			handler: this.movePrevious,
 			scope: this
-		}),{
-			xtype : 'tbseparator',
-			ref : 'firstSeparator'
-		}, this.beforePageText,
+		}), 
+		this.beforePageText,
 		this.inputItem = new Ext.form.NumberField({
 			cls: 'x-tbar-page-number',
 			allowDecimals: false,
@@ -59,12 +59,11 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 			}
 		}), this.afterTextItem = new Ext.Toolbar.TextItem({
 			text: String.format(this.afterPageText, 1)
-		}),{
-			xtype : 'tbseparator',
-			ref : 'secondSeparator'
-		}, this.next = new Ext.Toolbar.Button({
+		}),
+		this.next = new Ext.Toolbar.Button({
 			tooltip: this.nextText,
 			overflowText: this.nextText,
+			cls: 'x-btn-page-next',
 			iconCls: 'x-tbar-page-next',
 			disabled: true,
 			handler: this.moveNext,
@@ -176,7 +175,7 @@ Zarafa.common.ui.PagingToolbar = Ext.extend(Ext.PagingToolbar, {
 	{
 		if(this.displayItem){
 			var count = this.store.getCount();
-			var msg = count == 0 ?
+			var msg = count === 0 ?
 				this.emptyMsg :
 				String.format(
 					this.displayMsg,

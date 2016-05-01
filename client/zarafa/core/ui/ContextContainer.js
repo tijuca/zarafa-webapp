@@ -33,8 +33,9 @@ Zarafa.core.ui.ContextContainer = Ext.extend(Zarafa.core.ui.SwitchViewContentCon
 	 */
 	constructor : function(config)
 	{
-		if (config.name)
+		if (config.name) {
 			this.name = config.name;
+		}
 
 		// Gather child components through an insertion point.
 		var items = [];

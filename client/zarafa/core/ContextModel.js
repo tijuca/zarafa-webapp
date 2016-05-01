@@ -78,16 +78,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	lastSelectedRecord : {},
 
 	/**
-	 * True if the model is currently busy searching. This is updated during
-	 * {@link #startSearch} and {@link #stopSearch} and can be checked using
-	 * {@link #isSearching}.
-	 * @property
-	 * @type Boolean
-	 * @private
-	 */
-	isBusySearching : false,
-
-	/**
 	 * True if the model is currently busy in live scrolling. This is updated during
 	 * {@link #startLiveScroll} and {@link #stopLiveScroll}.
 	 * @property
@@ -579,6 +569,11 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	setFolders : function(folders)
 	{
+		var saveState = true;
+		if (this.folders == folders) {
+			saveState = false;
+		}
+
 		if (Ext.isArray(folders)) {
 			this.folders = folders.clone();
 		} else if (Ext.isDefined(folders)) {
@@ -590,7 +585,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 		this.onFolderChange(this, this.folders);
 
 		// Fire 'folderchange' event.
-		this.fireEvent('folderchange', this, this.folders);
+		this.fireEvent('folderchange', this, this.folders, saveState);
 
 		this.load();
 	},
@@ -809,7 +804,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 		var lastOptions = this.store.lastOptions;
 
 		// If live scroll is performed and search is not then stop the live scroll.
-		if(!this.isBusySearching && this.isBusyScrolling){
+		if(!this.isSearching() && this.isBusyScrolling){
 			this.stopLiveScroll();
 		}
 
@@ -918,12 +913,15 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	},
 
 	/**
-	 * Check if the model is currently using searching.
-	 * @return {Boolean} True if the model is currently searching
+	 * Check if the store is currently using searching.
+	 * @return {Boolean} True if the store is currently searching
 	 */
 	isSearching : function()
 	{
-		return this.isBusySearching;
+		if(Ext.isDefined(this.getStore()) && Ext.isDefined(this.getStore().isBusySearching) && this.getStore().isBusySearching) {
+			return true;
+		}
+		return false;
 	},
 
 	/**
@@ -1035,8 +1033,6 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	startSearch : function(restriction, subfolders, options)
 	{
-		var folder = Ext.isDefined(options) && Ext.isDefined(options.folder)? options.folder : this.getDefaultFolder();
-
 		var useSearchFolder = this.supportsSearchFolder();
 
 		// We don't support subfolders when searchfolders are disabled
@@ -1045,7 +1041,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 		}
 
 		if (this.fireEvent('beforesearchstart', this, restriction, subfolders) !== false) {
-			this.isBusySearching = true;
+			this.store.isBusySearching = true;
 			this.fireEvent('searchstart', this, restriction, subfolders);
 
 			this.store.on('exception', this.onSearchException, this);
@@ -1062,7 +1058,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 			// send request to store to start search
 			this.store.search({
 				// search in multiple folders not supported at the moment
-				folder : folder,
+				folder : options.folder,
 				useSearchFolder : useSearchFolder,
 				subfolders : subfolders,
 				searchRestriction : restriction
@@ -1076,16 +1072,14 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	stopSearch : function()
 	{
-		if (this.isBusySearching && this.fireEvent('beforesearchstop', this) !== false) {
-
-			
+		if (this.isSearching() && this.fireEvent('beforesearchstop', this) !== false) {
 			// send request to store to stop search
 			this.store.stopSearch({});
 
 			this.store.un('exception', this.onSearchException, this);
 			this.store.un('beforeupdatesearch', this.onSearchUpdate, this);
 
-			this.isBusySearching = false;
+			this.store.isBusySearching = false;
 			this.isBusyScrolling = false;
 			this.fireEvent('searchstop', this);
 		}
@@ -1135,7 +1129,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 
 		this.stopSearch();
 
-		this.fireEvent('searchexception', this, proxy, type, action, options, response, args)
+		this.fireEvent('searchexception', this, proxy, type, action, options, response, args);
 	},
 
 	/**
@@ -1158,14 +1152,45 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	},
 
 	/**
-	 * Register the {@link #stateEvents state events} to the {@link #saveState} callback function.
+	 * Register the {@link #stateEvents state events} to the {@link #saveFolderChangeState} and the
+	 * {@link #saveDataModeState} callback functions.
 	 * @protected
 	 */
 	initStateEvents : function()
 	{
 		Zarafa.core.ContextModel.superclass.initStateEvents.call(this);
-		this.on('datamodechange', this.saveState, this, { delay : 100 });
-		this.on('folderchange', this.saveState, this, { delay : 100 });
+		this.on('datamodechange', this.saveDataModeState, this, { delay : 100 });
+		this.on('folderchange', this.saveFolderChangeState, this, { delay : 100 });
+	},
+
+	/**
+	 * Handler for 'folderchange' event, which calls {@link #saveState} only
+	 * when save is not false.
+	 *
+	 * @param {Zarafa.core.ContextModel} contextModel the contextModel which states needs to be saved.
+	 * @param {Array} folders the folders which are changed.
+	 * @param {Mixed} save determines if state should be saved.
+	 */
+	saveFolderChangeState : function(contextModel, folders, save)
+	{
+		if (save != false) {
+			this.saveState();
+		}
+	},
+
+	/*
+	 * Handler for 'datamodechange' event, which calls {@link #saveState} only
+	 * when the datamode has been changed.
+	 *
+	 * @param {Zarafa.core.ContextModel} contextModel the contextModel which states needs to be saved.
+	 * @param {Number} current_data_mode the current data mode.
+	 * @param {Number} oldMode the old data mode.
+	 */
+	saveDataModeState : function(context, current_data_mode, oldMode)
+	{
+		if (current_data_mode != oldMode) {
+			this.saveState();
+		}
 	},
 
 	/**

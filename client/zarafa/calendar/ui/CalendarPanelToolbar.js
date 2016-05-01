@@ -105,13 +105,13 @@ Zarafa.calendar.ui.CalendarPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMai
 			switch(mode) {
 				case Zarafa.calendar.data.DataModes.WEEK:
 				case Zarafa.calendar.data.DataModes.WORKWEEK:
-					this.text.setWidth(200);
+					this.text.setWidth(250);
 				break;
 				case Zarafa.calendar.data.DataModes.DAY:
-					this.text.setWidth(110);
+					this.text.setWidth(140);
 				break;
 				default:
-					this.text.setWidth(90);
+					this.text.setWidth(120);
 				break;
 			}
 		}

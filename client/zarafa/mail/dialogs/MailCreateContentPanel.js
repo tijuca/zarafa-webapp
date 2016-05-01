@@ -194,8 +194,8 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 				delegatorFieldStore.add(delegatorRecord);
 			}
 
-			this.fireEvent('bcctoggle', this, this.showbcc);
-			this.fireEvent('fromtoggle', this, this.showfrom || hasFrom);
+			this.fireEvent('bcctoggle', this, this.showbcc, false);
+			this.fireEvent('fromtoggle', this, this.showfrom || hasFrom, false);
 
 			if (this.inputAutoFocusPlugin) {
 				switch (record.getMessageAction('action_type')) {
@@ -226,7 +226,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 					}
 				}
 
-				this.fireEvent('bcctoggle', this, (this.showbcc || hasBcc));
+				this.fireEvent('bcctoggle', this, (this.showbcc || hasBcc), false);
 			}
 
 			if (record.isModifiedSinceLastUpdate('sent_representing_email_address')) {
@@ -234,7 +234,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 					hasFrom = true;
 				}
 
-				this.fireEvent('fromtoggle', this, (this.showfrom || hasFrom));
+				this.fireEvent('fromtoggle', this, (this.showfrom || hasFrom), false);
 			}
 		}
 
@@ -282,8 +282,24 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 	{
 		Zarafa.mail.dialogs.MailCreateContentPanel.superclass.initStateEvents.call(this);
 
-		this.on('bcctoggle', this.saveState, this, {delay: 100});
-		this.on('fromtoggle', this.saveState, this, {delay: 100});
+		this.on('bcctoggle', this.saveState, this);
+		this.on('fromtoggle', this.saveState, this);
+	},
+
+	/**
+	 * Called when bcctoggle or fromtoggle event is fired, if the argument
+	 * saveState is true it will save the state of the mailcreatecontentpanel
+	 * to the WebApp user settings.
+	 *
+	 * @param {Zarafa.mail.dialogs.MailCreateContentPanel} panel the mail create content panel
+	 * @param {Boolean} visible visiblity of button
+	 * @param {Boolean} saveState save the state of the button.
+	 */
+	saveState : function(panel, visible, saveState)
+	{
+		if(saveState){
+			Zarafa.mail.dialogs.MailCreateContentPanel.superclass.saveState.call(this);
+		}
 	},
 
 	/**
@@ -305,7 +321,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 	toggleBccState : function(showBcc)
 	{
 		this.showbcc = showBcc;
-		this.fireEvent('bcctoggle', this, showBcc);
+		this.fireEvent('bcctoggle', this, showBcc, true);
 	},
 
 	/**
@@ -315,7 +331,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 	toggleFromState : function(showFrom)
 	{
 		this.showfrom = showFrom;
-		this.fireEvent('fromtoggle', this, showFrom);
+		this.fireEvent('fromtoggle', this, showFrom, true);
 	},
 
 	/**

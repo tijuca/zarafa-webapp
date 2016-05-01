@@ -33,14 +33,12 @@ Zarafa.core.data.IPMExpandDistlistRecord = Ext.extend(Zarafa.core.data.IPMExpand
 	 */
 	convertToRecipient : function(recipientType)
 	{
-		var data = {};
 		var recipientRecord = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, {
 			object_type : this.get('object_type'),
 			display_name : this.get('display_name'),
 			email_address : this.get('email_address'),
 			smtp_address : this.get('smtp_address'),
 			address_type : this.get('address_type'),
-			display_name : this.get('display_name'),
 			entryid : this.get('entryid'),
 			search_key : this.get('search_key'),
 			display_type_ex : this.get('display_type_ex'),

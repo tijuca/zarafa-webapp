@@ -24,7 +24,6 @@ Zarafa.common.rules.dialogs.RulesEditPanel = Ext.extend(Ext.form.FormPanel, {
 			xtype : 'zarafa.ruleseditpanel',
 			layout : 'anchor',
 			autoScroll : true,
-			bodyStyle : 'padding: 5px;',
 			items : this.createPanelItems()
 		});
 

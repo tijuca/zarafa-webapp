@@ -36,6 +36,7 @@ Zarafa.note.ui.NoteGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 	{
 		return [{
 			dataIndex	: 'icon_index',
+			headerCls	: 'zarafa-icon-column',
 			header		: '<p class="icon_index">&nbsp;</p>',
 			tooltip		: _('Sort by: Icon'),
 			width		: 24,

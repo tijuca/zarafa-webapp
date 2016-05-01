@@ -4,9 +4,10 @@
  * Make sure to clear the cache after a upload! 
  */
 
+define('BASE_PATH', __DIR__ . '/../../../');
 
 // connect to the zarafa session
-include("../../../config.php");
+include(BASE_PATH . 'config.php');
 session_name(COOKIE_NAME);
 session_start();
 
@@ -16,27 +17,18 @@ include('Files/class.helper.php');
 
 require_once('Files/' . Helper::getSessionData("backend") . '_backend.php');
 
+// Include the encryptionStore class
+include(BASE_PATH . '/server/includes/core/class.encryptionstore.php');
+
 $backend = Helper::getSessionData("backend") . "_backend";
 $wdc = new $backend;
 $wdc->set_server(Helper::getSessionData("server"));
 $wdc->set_ssl(Helper::getSessionData("useSSL"));
 $wdc->set_port(Helper::getSessionData("useSSL") == 1 ? Helper::getSessionData("portssl") : Helper::getSessionData("port"));
 if(Helper::getSessionData("sessionAuth") == 1) {
-	$sessionPass = $_SESSION['password'];
-	// if user has openssl module installed
-	if(function_exists("openssl_decrypt")) {
-		if(version_compare(phpversion(), "5.3.3", "<")) {
-			$sessionPass = openssl_decrypt($sessionPass,"des-ede3-cbc",PASSWORD_KEY,0);
-		} else {
-			$sessionPass = openssl_decrypt($sessionPass,"des-ede3-cbc",PASSWORD_KEY,0,PASSWORD_IV);
-		}
-		
-		if(!$sessionPass) {
-			$sessionPass = $_SESSION['password'];
-		}
-	}
-	$wdc->set_pass($sessionPass);
-	$wdc->set_user($_SESSION["username"]);
+	$encryptionStore = EncryptionStore::getInstance();
+	$wdc->set_pass($encryptionStore->get('password'));
+	$wdc->set_user($encryptionStore->get('username'));
 } else {
 	$wdc->set_pass(base64_decode(Helper::getSessionData("password")));
 	$wdc->set_user(Helper::getSessionData("username"));

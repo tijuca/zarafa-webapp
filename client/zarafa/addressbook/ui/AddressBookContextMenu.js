@@ -57,7 +57,7 @@ Zarafa.addressbook.ui.AddressBookContextMenu = Ext.extend(Zarafa.core.ui.menu.Co
 			},{
 				xtype: 'zarafa.conditionalitem',
 				text: _('Show Details'),
-				iconCls: 'icon_recipient_details',
+				iconCls: 'icon_contact',
 				singleSelectOnly: true,
 				handler: this.onOpenDetails,
 				scope: this

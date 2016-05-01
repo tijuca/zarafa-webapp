@@ -1,378 +1,196 @@
 <?php
 	/**
 	 * This is the entry point for every request that should return HTML
-	 *
 	 * (one exception is that it also returns translated text for javascript)
 	 */
-	// load config file
-	if (!file_exists("config.php")){
-		die("<strong>config.php is missing!</strong>");
-	}
 
-	include_once("init.php");
-	require_once("config.php");
-	// Load json class, so json_encode is avaliable for PHP <= 5.3
-	require_once("server/core/class.json.php");
-	require_once("defaults.php");
-	require_once("server/core/class.webappsession.php");
-	
-	ob_start();
-	setlocale(LC_CTYPE, "en_US.UTF-8");
+	// Bootstrap the script
+	require_once('server/includes/bootstrap.php');
 
-	// check if config is correct
-	if (defined("CONFIG_CHECK")){
-		include_once("server/class.configcheck.php");
-		new ConfigCheck(CONFIG_CHECK);
-	}
-
-	// Include the files
-	require_once("mapi/mapi.util.php");
-	require_once("mapi/mapicode.php");
-	require_once("mapi/mapidefs.php");
-	require_once("mapi/mapitags.php");
-	require_once("mapi/mapiguid.php");
-	require_once("mapi/class.baseexception.php");
-	require_once("mapi/class.mapiexception.php");
-
-	require_once("server/exceptions/class.ZarafaException.php");
-	require_once("server/exceptions/class.ZarafaErrorException.php");
-	require_once("server/util.php");
-	include_once("server/gettext.php");
-
-	require_once("server/core/constants.php");
-	require_once("server/core/class.conversion.php");
-	require_once("server/core/class.mapisession.php");
-	require_once("server/core/class.operations.php");
-	require_once("server/core/class.properties.php");
-	require_once("server/core/class.entryid.php");
-
-	require_once("server/core/class.settings.php");
-	require_once("server/core/class.language.php");
-
-	require_once("server/core/class.state.php");
-	require_once("server/core/class.attachmentstate.php");
-
-	require_once("server/core/class.pluginmanager.php");
-	require_once("server/core/class.plugin.php");
-
-	// Check if we need to logout from webapp
-	$logout = isset($_GET['logout']);
-	// Check if we have been redirected from login page
-	$logon = isset($_GET['logon']);
-	// Check for loading of any other type of file
-	$load = sanitizeGetValue('load', false, FILENAME_REGEX);
-
-	// Returns true if the given $load argument
-	// requires a validated session.
-	function loadNeedsSession($load)
+	/*
+	 * Get the favicon either from theme or use the default.
+	 *
+	 * @param string theme the users theme
+	 * @return string favicon
+	 */
+	function getFavicon($theme)
 	{
-		return !empty($load) && $load !== 'logon' && $load !== 'translations.js' && $load !== 'custom';
-	}
 
-	// Start the session
-	$phpsession = WebAppSession::createInstance();
+		if ( $theme ) {
+			$favicon = Theming::getFavicon($theme);
+		}
+
+		if ( !isset($favicon) || $favicon === false) {
+			$favicon = 'client/resources/design2015/images/favicon.ico?v2.2.0';
+		}
+
+		return $favicon;
+	}
 	
-	if ($logout) {
-		// REMOTE_USER is set when apache has authenticated the user, means Single Sign-on
-		// environment is in effect. Don't allow user to redirect to the webapp login page
-		// to prevent user to login with other credentials.
-		if (!isset($_SERVER['REMOTE_USER'])){
-			// The user requests to logout. We should destroy the
-			// session, and redirect the user to the logon page.
-			$actionURI = '';
+	// If the user wants to logout (and is not using single-signon)
+	// then destroy the session and redirect to this page, so the login page 
+	// will be shown
+	if ( isset($_GET['logout']) && !WebAppAuthentication::isUsingSingleSignOn() ){
+		
+		// GET variable user will be set when the user was logged out because of session timeout
+		// or because he logged out in another window.
+		$username = sanitizeGetValue('user', '', USERNAME_REGEX);
+		$webappSession->destroy();
+		header('Location: ' . dirname($_SERVER['PHP_SELF']) . ($username?'?user='.rawurlencode($username):''), true, 303);
+		die();
+	}
+	
+	// Check if an action GET-parameter was sent with the request.
+	// This parameter is set when the webapp was opened by clicking on
+	// a mailto: link in the browser.
+	// If so, we will store it in the session, so we can use it later.
+	if ( isset($_GET['action']) && !empty($_GET['action']) ) {
+		storeURLDataToSession();
+	}
+	
+	// Try to authenticate the user
+	WebAppAuthentication::authenticate();
 
-			$phpsession->destroy();
-
-			$user = sanitizeGetValue('user', '', USERNAME_REGEX);
-			if ($user) {
-				$actionURI .= '?user=' . rawurlencode($user);
-			}
-
-			// Redirect the user, this will reload the page
-			// and request the logon page.
-			header('Location: index.php' . $actionURI, true, 303);
-			exit;
+	$webappTitle = defined('WEBAPP_TITLE') && WEBAPP_TITLE ? WEBAPP_TITLE : 'Zarafa WebApp';
+	
+	// If we could not authenticate the user, we will show the login page
+	if ( !WebAppAuthentication::isAuthenticated() ){
+	
+		// If GET parameter 'load' is defined, we defer handling to the load.php script
+		if ( isset($_GET['load']) && $_GET['load']!=='logon' ) {
+			include(BASE_PATH . 'server/includes/load.php');
+			die();
 		}
-	} else if ($logon) {
-		// The user requested to logon. Check if credentials were provided
-		// or if the a remote user login is possible.
-		$username = ($_POST && array_key_exists('username', $_POST)) ? $_POST['username'] : '';
-		$password = ($_POST && array_key_exists('password', $_POST)) ? $_POST['password'] : '';
-
-		if (isset($_SESSION['username']) && $_SESSION['username'] !== $username) {
-			$hresult = MAPI_E_INVALID_WORKSTATION_ACCOUNT;
-			// Logon failed because a session for another user already exists.
-			// We force the user back to the logon page.
-			$load = 'logon';
-		} else if (!empty($username) && !empty($password)) {
-			// Set the session variables if it is posted
-			$_SESSION['username'] = $username;
-
-			// if user has openssl module installed
-			if(function_exists("openssl_encrypt")) {
-				// In PHP 5.3.3 the iv parameter was added
-				if(version_compare(phpversion(), "5.3.3", "<")) {
-					$_SESSION['password'] = openssl_encrypt($password,"des-ede3-cbc",PASSWORD_KEY,0);
-				} else {
-					$_SESSION['password'] = openssl_encrypt($password,"des-ede3-cbc",PASSWORD_KEY,0,PASSWORD_IV);
-				}
-			}
-			else {
-				$_SESSION['password'] = $password;
-			}
+	
+		// Set some template variables for the login page
+		$branch = DEBUG_LOADER===LOAD_SOURCE ? gitversion() : '';
+		$server = DEBUG_SHOW_SERVER ? DEBUG_SERVER_ADDRESS : '';
+		$version = 'WebApp ' . trim(file_get_contents('version'));
+		if (!empty($server)) {
+			$version = _('Server') . ': ' . $server . ' - ' + $version;
 		}
+		$zcpversion = 'ZCP' . ' ' . phpversion('mapi');
+		$user = sanitizeGetValue('user', '', USERNAME_REGEX);
+	
+		$url = '?logon';
 
-	} else if (!DISABLE_REMOTE_USER_LOGIN && !isset($_SESSION['username'])) {
-		// REMOTE_USER is set when apache has authenticated the user
-		// Don't perform single-signon when $_POST is set, as that implies
-		// the user was sending us data from a form.
-		if (!$_POST && $_SERVER && array_key_exists('REMOTE_USER', $_SERVER)) {
-			$_SESSION['username'] = $_SERVER['REMOTE_USER'];
-			if (LOGINNAME_STRIP_DOMAIN) {
-				$_SESSION['username'] = ereg_replace('@.*', '', $_SESSION['username']);
-			}
-
-			$_SESSION['password'] = '';
+		if ( isset($_GET["logout"]) && $_GET["logout"]=="auto" ){
+			$error = _("You have been automatically logged out");
+		} else {
+			$error = WebAppAuthentication::getErrorMessage();
 		}
+		
+		// If a username was passed as GET parameter we will prefill the username input
+		// of the login form with it.
+		$user = isset($_GET['user']) ? htmlentities($_GET['user']) : '';
+		
+		// Lets add a header when login failed (DeskApp needs it to identify failed login attempts)
+		if ( WebAppAuthentication::getErrorCode() !== NOERROR ){
+			header("X-Zarafa-Hresult: " . get_mapi_error_name(WebAppAuthentication::getErrorCode()));
+		}
+		
+		// Set a template variable for the favicon of the login, welcome, and webclient page
+		$theme = Theming::getActiveTheme();
+		$favicon = getFavicon(Theming::getActiveTheme());
+
+		// Include the login template
+		include(BASE_PATH . 'server/includes/templates/login.php');
+		die();
+	}
+	
+	// The user is authenticated! Let's get ready to start the webapp.
+	
+	// If the user just logged in or if url data was stored in the session,
+	// we will redirect to make sure that a browser refresh will not post 
+	// the credentials again, and that the url data is taken away from the
+	// url in the address bar (so a browser refresh will not pass them again)
+	if ( WebAppAuthentication::isUsingLoginForm() || isset($_GET['action']) && !empty($_GET['action']) ){
+		header('Location: ' . dirname($_SERVER['PHP_SELF']), true, 303);
+		die();
+	}
+	
+	// TODO: we could replace all references to $GLOBALS['mapisession'] 
+	// with WebAppAuthentication::getMapiSession(), that way we would
+	// lose at least one GLOBAL (because globals suck)
+	$GLOBALS['mapisession'] = WebAppAuthentication::getMapiSession();
+
+	// Instantiate Plugin Manager and init the plugins (btw: globals suck)
+	$GLOBALS['PluginManager'] = new PluginManager(ENABLE_PLUGINS);
+	$GLOBALS['PluginManager']->detectPlugins(DISABLED_PLUGINS_LIST);
+	$GLOBALS['PluginManager']->initPlugins(DEBUG_LOADER);
+	
+	// Create globals settings object (btw: globals suck)
+	$GLOBALS["settings"] = new Settings();
+
+	// Create global language object (did I already mention that globals suck?)
+	$GLOBALS["language"] = new Language();
+
+	// Create global operations object
+	$GLOBALS["operations"] = new Operations();
+
+	// Set session settings (language & style)
+	foreach($GLOBALS["settings"]->getSessionSettings() as $key=>$value){
+		$_SESSION[$key] = $value;
 	}
 
-	// Create global mapi object. This object is used in many other files
-	$GLOBALS["mapisession"] = new MAPISession(session_id());
-
-	// We will only allow the logon when the sessionid in the GET arguments matches the
-	// sessionid as send in the cookie. Otherwise the cookie was somehow modified in the
-	// browser.
-	$sessionid = sanitizeGetValue('sessionid', '', ID_REGEX);
-	if (loadNeedsSession($load) && $sessionid !== $GLOBALS["mapisession"]->getSessionID()) {
-		$hresult = MAPI_E_INVALID_WORKSTATION_ACCOUNT;
-	} else if ($load !== 'logon' && isset($_SESSION["username"]) && isset($_SESSION["password"])) {
-		$sslcert_file = defined('SSLCERT_FILE') ? SSLCERT_FILE : null;
-		$sslcert_pass = defined('SSLCERT_PASS') ? SSLCERT_PASS : null;
-
-		if(!isset($_SESSION['lang']))
-		    $_SESSION['lang'] = LANG;
-	        setlocale(LC_MESSAGES, LANG);
-
-		$hresult = $GLOBALS["mapisession"]->logon($_SESSION["username"], $_SESSION["password"], DEFAULT_SERVER, $sslcert_file, $sslcert_pass);
-	}
-
-	// Check if user is authenticated
-	if ($GLOBALS["mapisession"]->isLoggedOn()) {
-		// Authenticated
-
-		$urlAction = sanitizeGetValue('action', '', STRING_REGEX);
-		if(!empty($urlAction)) {
-			// get data from url and store it in session, which can be maintained across lots of redirects
-			// between login.php and welcome.php and webclient.php
-			storeURLDataToSession();
-
-			// after storing data in session we can refresh the page to remove url data
-			// and restore normal url for webapp
-			header('Location: index.php', true, 303);
-			exit;
-		}
-
-		// Instantiate Plugin Manager
-		$GLOBALS['PluginManager'] = new PluginManager(ENABLE_PLUGINS);
-		$GLOBALS['PluginManager']->detectPlugins(DISABLED_PLUGINS_LIST);
-		$GLOBALS['PluginManager']->initPlugins(DEBUG_LOADER);
-
-		if ($logon) {
-			// we are coming here from login page, redirect again so we will remove $_POST data
-			// otherwise when user tries to reload webapp, browser will ask to again send request which is invalid
-			$GLOBALS['PluginManager']->triggerHook("server.index.login.success");
-
-			header('Location: index.php', true, 303);
-			exit;
-		}
-
-		// Create global operations object
-		$GLOBALS["operations"] = new Operations();
-
-		// Create globals settings object
-		$GLOBALS["settings"] = new Settings();
-
-		// Create global language object
-		$GLOBALS["language"] = new Language();
-
-		// Set session settings (language & style)
-		foreach($GLOBALS["settings"]->getSessionSettings() as $key=>$value){
-			$_SESSION[$key] = $value;
-		}
-
-		// Get settings from post or session or settings
-		if (isset($_REQUEST["language"]) && $GLOBALS["language"]->is_language($_REQUEST["language"])) {
-			$lang = $_REQUEST["language"];
-			$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
-		} else if(isset($_SESSION["lang"])) {
-			$lang = $_SESSION["lang"];
-			$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
-		} else {
-			$lang = $GLOBALS["settings"]->get("zarafa/v1/main/language");
-			if (empty($lang)) {
-				$lang = LANG;
-				$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
-			}
-		}
-
-		$GLOBALS["language"]->setLanguage($lang);
-
-		// add extra header
-		header("X-Zarafa: " . trim(file_get_contents('version')));
-
-		// external files who need our login
-		if ($load) {
-			switch ($load) {
-				case "translations.js":
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.jstranslations.before");
-					include("client/translations.js.php");
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.jstranslations.after");
-					break;
-				case "custom":
-					$name = sanitizeGetValue('name', '', STRING_REGEX);
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.custom", array('name' => $name));
-					break;
-				case "upload_attachment":
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.upload_attachment.before");
-					include("server/upload_attachment.php");
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.upload_attachment.after");
-					break;
-				case "download_attachment":
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.download_attachment.before");
-					include("client/download_attachment.php");
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.download_attachment.after");
-					break;
-				case "download_message":
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.download_message.before");
-					include("client/download_message.php");
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.download_message.after");
-					break;
-				case "logon":
-					include("client/login.php");
-					break;
-				default:
-					// These hooks are defined twice (also when no "load" argument is supplied)
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.main.before");
-					include("client/webclient.php");
-					$GLOBALS['PluginManager']->triggerHook("server.index.load.main.after");
-					break;
-			}
-		} else if ($_GET && array_key_exists("authenticate", $_GET)) {
-			$version = trim(file_get_contents('version'));
-			$data = array(
-				"settings" => $GLOBALS["settings"]->getJSON(),
-				"languages" => $GLOBALS["language"]->getJSON(),
-				"user" => array(
-					"username" 	=> addslashes($GLOBALS["mapisession"]->getUserName()),
-					"fullname" 	=> addslashes($GLOBALS["mapisession"]->getFullName()),
-					"entryid" 	=> bin2hex($GLOBALS["mapisession"]->getUserEntryid()),
-					"email_address" => addslashes($GLOBALS["mapisession"]->getEmailAddress()),
-					"smtp_address" 	=> addslashes($GLOBALS["mapisession"]->getSMTPAddress()),
-					"search_key" 	=> bin2hex($GLOBALS["mapisession"]->getSearchKey()),
-					"sessionid" 	=> $GLOBALS["mapisession"]->getSessionID()
-				),
-				"version" => array(
-					"webapp"	=> $version,
-					"zcp"		=> phpversion('mapi'),
-					"server"	=> DEBUG_SHOW_SERVER ? DEBUG_SERVER_ADDRESS : '',
-					"svn"		=> DEBUG_LOADER === LOAD_SOURCE ? svnversion() : ''
-				),
-				"server" => array(
-					"enable_plugins"		=> !!ENABLE_PLUGINS,
-					"enable_advanced_settings"	=> !!ENABLE_ADVANCED_SETTINGS,
-					"max_attachments"		=> null,
-					"max_attachment_size"		=> getMaxUploadSize(),
-					"max_attachment_total_size"	=> null,
-					"freebusy_load_start_offset" => FREEBUSY_LOAD_START_OFFSET,
-					"freebusy_load_end_offset" => FREEBUSY_LOAD_END_OFFSET
-				)
-			);
-			echo JSON::Encode(array("zarafa" => $data));
-		} else if ($_GET && array_key_exists("verify", $_GET)) {
-
-			$user = sanitizeGetValue('verify', '', USERNAME_REGEX);
-
-			if($user == $_SESSION['username'])
-				print "1";
-			else
-				print "0";
-
-		} else if (!DISABLE_WELCOME_SCREEN && $GLOBALS["settings"]->get("zarafa/v1/main/show_welcome") !== false) {
-			// The user wants to logon, but he never did this before (or was using
-			// an older version of WebApp, before the Welcome screen was introduced),
-			// we will show a Welcome to WebApp screen where some default settings
-			// might be configured
-
-			// These hooks are defined twice (also when there is a "load" argument supplied)
-			$GLOBALS['PluginManager']->triggerHook("server.index.load.welcome.before");
-			// Include welcome page
-			include("client/welcome.php");
-			$GLOBALS['PluginManager']->triggerHook("server.index.load.welcome.after");
-		} else {
-			// Set the show_welcome to true, so that when the admin is changing the
-			// DISABLE_WELCOME_SCREEN option to false after some time, the users who are already
-			// using the WebApp are not bothered with the Welcome Screen.
-			$GLOBALS["settings"]->set("zarafa/v1/main/show_welcome", false);
-
-			// Clean up old state files in tmp/session/
-			$state = new State("index");
-			$state->clean();
-
-			// Clean up old attachments in tmp/attachments/
-			$state = new AttachmentState();
-			$state->clean();
-
-			// clean search folders
-			cleanSearchFolders();
-
-			// These hooks are defined twice (also when there is a "load" argument supplied)
-			$GLOBALS['PluginManager']->triggerHook("server.index.load.main.before");
-			// Include webclient
-			include("client/webclient.php");
-			$GLOBALS['PluginManager']->triggerHook("server.index.load.main.after");
-		}
-
-		// Save the settings to the MAPI store
-		$GLOBALS['settings']->saveSettings();
-	} else if (empty($load) || $load === 'logon') {
-		// We are not authenticated, and the requested page was either
-		// the logon page itself, or the default page. In either case
-		// we can redirect the user back to the logon page.
-		$GLOBALS["language"] = new Language();
-		$GLOBALS["language"]->setLanguage(LANG);
-
-		if(isset($GLOBALS["hresult"])) {
-			switch($GLOBALS["hresult"]) {
-				case MAPI_E_LOGON_FAILED:
-				case MAPI_E_UNCONFIGURED:
-					// Print error message to error_log of webserver
-					error_log('zarafa-webapp user: ' . $username . ': authentication failure at MAPI');
-
-					// destroy the session so another login attempt will not use preserved data
-					$phpsession->destroy();
-					break;
-			}
-		}
-
-		// REMOTE_USER is set when apache has authenticated the user, means Single Sign-on
-		// environment is in effect. Don't redirect to the webapp login form.
-		if (!isset($_SERVER['REMOTE_USER'])){
-			// NOTE: We have saved the $hresult in the $GLOBALS
-			// object, the login.php will obtain the code from there.
-			include("client/login.php");
-		} else {
-			header('Location: index.php', true, 303);
-			exit;
-		}
-	} else if ($hresult === MAPI_E_NETWORK_ERROR) {
-		// The user is not logged in because the zarafa-server could not be reached.
-		// Return a HTTP 503 error so the client can act upon this event correctly.
-		header('HTTP/1.1 503 Service unavailable');
-		header("X-Zarafa-Hresult: " . get_mapi_error_name($hresult));
+	// Get language from the request, or the session, or the user settings, or the config
+	if (isset($_REQUEST["language"]) && $GLOBALS["language"]->is_language($_REQUEST["language"])) {
+		$lang = $_REQUEST["language"];
+		$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
+	} else if(isset($_SESSION["lang"])) {
+		$lang = $_SESSION["lang"];
+		$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
 	} else {
-		// The session expired, or the user is otherwise not logged on.
-		// Return a HTTP 401 error so the client can act upon this event correctly.
-		header('HTTP/1.1 401 Unauthorized');
-		header("X-Zarafa-Hresult: " . get_mapi_error_name($hresult));
+		$lang = $GLOBALS["settings"]->get("zarafa/v1/main/language");
+		if (empty($lang)) {
+			$lang = LANG;
+			$GLOBALS["settings"]->set("zarafa/v1/main/language", $lang);
+		}
 	}
-?>
+
+	$GLOBALS["language"]->setLanguage($lang);
+
+	// add extra header
+	header("X-Zarafa: " . trim(file_get_contents('version')));
+	
+	// Set a template variable for the favicon of the login, welcome, and webclient page
+	$theme = Theming::getActiveTheme();
+	$favicon = getFavicon(Theming::getActiveTheme());
+
+	// If GET parameter 'load' is defined, we defer handling to the load.php script
+	if ( isset($_GET['load']) ) {
+		include(BASE_PATH . 'server/includes/load.php');
+		die();
+	}
+	
+	if (!DISABLE_WELCOME_SCREEN && $GLOBALS["settings"]->get("zarafa/v1/main/show_welcome") !== false) {
+		
+		// These hooks are defined twice (also when there is a "load" argument supplied)
+		$GLOBALS['PluginManager']->triggerHook("server.index.load.welcome.before");
+		include(BASE_PATH . 'server/includes/templates/welcome.php');
+		$GLOBALS['PluginManager']->triggerHook("server.index.load.welcome.after");
+	} else {
+		
+		// Set the show_welcome to true, so that when the admin is changing the
+		// DISABLE_WELCOME_SCREEN option to false after some time, the users who are already
+		// using the WebApp are not bothered with the Welcome Screen.
+		$GLOBALS["settings"]->set("zarafa/v1/main/show_welcome", false);
+
+		// Clean up old state files in tmp/session/
+		$state = new State("index");
+		$state->clean();
+
+		// Clean up old attachments in tmp/attachments/
+		$state = new AttachmentState();
+		$state->clean();
+
+		// clean search folders
+		cleanSearchFolders();
+
+		// These hooks are defined twice (also when there is a "load" argument supplied)
+		$GLOBALS['PluginManager']->triggerHook("server.index.load.main.before");
+		
+		// Include webclient
+		include(BASE_PATH . 'server/includes/templates/webclient.php');
+		$GLOBALS['PluginManager']->triggerHook("server.index.load.main.after");
+	}

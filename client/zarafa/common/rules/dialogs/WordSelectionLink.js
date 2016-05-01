@@ -285,7 +285,7 @@ Zarafa.common.rules.dialogs.WordSelectionLink = Ext.extend(Ext.BoxComponent, {
 		if (Ext.isEmpty(data)) {
 			data = [{
 				words : this.emptyText
-			}]
+			}];
 		}
 
 		Zarafa.common.rules.dialogs.WordSelectionLink.superclass.update.call(this, this.tpl.apply(data));

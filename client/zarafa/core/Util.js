@@ -28,7 +28,7 @@ Zarafa.core.Util =
 	sortArray : function(list, order, sort)
 	{
 		var collection = new Ext.util.MixedCollection();
-		var fn = undefined;
+		var fn;
 		collection.addAll(list);
 
 		if (Ext.isFunction(sort)) {
@@ -112,8 +112,9 @@ Zarafa.core.Util =
 		Ext.each(list, function(item) {
 			var value = attr ? item[attr] : item;
 
-			if (!collection.containsKey(value))
+			if (!collection.containsKey(value)) {
 				collection.add(value, item);
+			}
 		}, this);
 
 		return collection.getRange();
@@ -312,7 +313,7 @@ Zarafa.core.Util =
 	objectKeysToLowerCase : function(object)
 	{
 		var key, keys = Object.keys(object);
-		var newObject={}
+		var newObject={};
 		for (var i=0; i<keys.length; i++) {
 			key = keys[i];
 			newObject[key.toLowerCase()] = object[key];
@@ -335,7 +336,7 @@ Zarafa.core.Util =
 		var found;
 		// Find the cutOffPoints in the str
 		while((found = pattern.exec(str)) !== null){
-			if(found.index!=0){
+			if(found.index!==0){
 				cutOffPoints.push(found.index);
 			}
 			if(pattern.lastIndex < str.length){
@@ -398,10 +399,10 @@ Zarafa.core.Util =
 				var piece = pieces[i];
 
 				if (!Ext.isDefined(pos[piece])) {
-					pos[piece] = {}
+					pos[piece] = {};
 				}
 
-				pos = pos[piece]
+				pos = pos[piece];
 			}
 
 			// Set the last item which is the actual key-value pair.
@@ -659,7 +660,7 @@ Zarafa.core.Util =
 			// Add the event handler
 			if (Ext.isDefined(target[key])) {
 				if (intercept !== false) {
-					target[key] = target[key].createInterceptor(handler)
+					target[key] = target[key].createInterceptor(handler);
 				} else {
 					target[key] = target[key].createSequence(handler);
 				}

@@ -103,7 +103,7 @@ Zarafa.task.ui.TaskContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu,
 	 */
 	onContextItemDelete : function()
 	{
-		var store = undefined;
+		var store;
 
 		Ext.each(this.records, function(record) {
 			store = record.store;
@@ -136,11 +136,12 @@ Zarafa.task.ui.TaskContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu,
 		var count = 0;
 
 		Ext.each(records, function(record) {
-			if (record.isRead() == read)
+			if (record.isRead() === read) {
 				count++;
+			}
 		}, this);
 
-		item.setDisabled(count == 0);
+		item.setDisabled(count === 0);
 	}
 });
 

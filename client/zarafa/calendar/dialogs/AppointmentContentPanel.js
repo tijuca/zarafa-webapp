@@ -242,9 +242,7 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 	 */
 	onUpdateRecord : function(contentpanel, action, record)
 	{
-		var isSaving = this.isSaving;
-
-		if (action == Ext.data.Record.COMMIT) {
+		if (action === Ext.data.Record.COMMIT) {
 			// If the record is a meeting request that has been sent successfully and contains resources
 			// then we have to notify the user of the successfullness of the action.
 			if(record.isMeetingOrganized() && this.isSending === true) {

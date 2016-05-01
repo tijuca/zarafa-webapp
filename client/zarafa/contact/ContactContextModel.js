@@ -184,7 +184,7 @@ Zarafa.contact.ContactContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		if (this.current_data_mode === Zarafa.contact.data.DataModes.CHARACTER_RESTRICT) {
 			var params = {
 				start : 0
-			}
+			};
 
 			if (newCharacter) {
 				params.restriction = {
@@ -244,13 +244,28 @@ Zarafa.contact.ContactContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	},
 
 	/**
+	 * Handler for 'charachterchange' event, which calls {@link #saveState} only
+	 * when the current character is not the same as oldCharacter.
+	 *
+	 * @param {Zarafa.core.ContextModel} contextModel the contextModel which states needs to be saved.
+	 * @param {String} character new character restriction.
+	 * @param {String} oldCharacter new character restriction.
+	 */
+	saveCharacterChangeState : function(contextModel, character, oldCharacter)
+	{
+		if (character != oldCharacter) {
+			this.saveState();
+		}
+	},
+
+	/**
 	 * Register the {@link #stateEvents state events} to the {@link #saveState} callback function.
 	 * @private
 	 */
 	initStateEvents : function()
 	{
 		Zarafa.contact.ContactContextModel.superclass.initStateEvents.call(this);
-		this.on('characterchange', this.saveState, this, {delay: 100});
+		this.on('characterchange', this.saveCharacterChangeState, this, {delay: 100});
 	},
 
 	/**

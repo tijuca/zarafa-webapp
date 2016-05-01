@@ -60,7 +60,8 @@ Zarafa.mail.settings.SettingsMailWidget = Ext.extend(Zarafa.settings.ui.Settings
 				xtype : 'checkbox',
 				name : 'zarafa/v1/contexts/mail/close_on_respond',
 				ref : 'closeCheck',
-				fieldLabel : _('Close mail when responding'),
+				boxLabel : _('Close original message on reply or forward'),
+				hideLabel : true,
 				lazyInit : false,
 				listeners : {
 					check : this.onCheck,
@@ -83,7 +84,11 @@ Zarafa.mail.settings.SettingsMailWidget = Ext.extend(Zarafa.settings.ui.Settings
 	{
 		this.model = settingsModel;
 
-		this.previewCombo.setValue(settingsModel.get(this.previewCombo.name));
+		var previewLocation = settingsModel.get(this.previewCombo.name);
+		if(!Ext.isDefined(previewLocation)) {
+			previewLocation = Zarafa.mail.data.ViewModes.RIGHT_PREVIEW;
+		}
+		this.previewCombo.setValue(previewLocation);
 		this.closeCheck.setValue(settingsModel.get(this.closeCheck.name));
 	},
 

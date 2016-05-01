@@ -34,11 +34,11 @@ Zarafa.core.ui.notifier.MessageBoxPlugin = Ext.extend(Zarafa.core.ui.notifier.No
 	notify : function(category, title, message)
 	{
 		var icon;
-		if (category.indexOf('info') == 0) {
+		if (category.indexOf('info') === 0) {
 			icon = Ext.MessageBox.INFO;
-		} else if (category.indexOf('warning') == 0) {
+		} else if (category.indexOf('warning') === 0) {
 			icon = Ext.MessageBox.WARNING;
-		} else if (category.indexOf('error') == 0) {
+		} else if (category.indexOf('error') === 0) {
 			icon = Ext.MessageBox.ERROR;
 		}
 

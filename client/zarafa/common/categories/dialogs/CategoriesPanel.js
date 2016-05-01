@@ -34,7 +34,6 @@ Zarafa.common.categories.dialogs.CategoriesPanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			defaults: {
 				border: false,
 				bodyStyle: 'padding-bottom: 5px; background-color: inherit;'
@@ -180,7 +179,6 @@ Zarafa.common.categories.dialogs.CategoriesPanel = Ext.extend(Ext.Panel, {
 	onAfterRender : function()
 	{
 		this.getCategoriesGrid().getSelectionModel().suspendEvents(false);
-		var categories = [];
 		var records = this.getAvailableCategories();
 		if(!Ext.isEmpty(records)) {
 			this.getCategoriesGrid().getSelectionModel().selectRecords(records);
@@ -303,7 +301,6 @@ Zarafa.common.categories.dialogs.CategoriesPanel = Ext.extend(Ext.Panel, {
 	updateCategories : function(newCategories)
 	{
 			var categoryInput = this.getCategoriesTextArea();
-			var categoriesGrid = this.getCategoriesGrid();
 			var categoryString = categoryInput.getValue();
 			var categories = [];
 
@@ -321,8 +318,9 @@ Zarafa.common.categories.dialogs.CategoriesPanel = Ext.extend(Ext.Panel, {
 		
 			var extraCategories = this.getActiveExtraCategories();
 			if(extraCategories.length){
-				for(var i=0;i<extraCategories.length;i++)
+				for(var i=0;i<extraCategories.length;i++) {
 					categories.push(extraCategories[i]);
+				}
 			}
 		
 			categories = Zarafa.core.Util.trimStringArray(categories);
@@ -330,8 +328,9 @@ Zarafa.common.categories.dialogs.CategoriesPanel = Ext.extend(Ext.Panel, {
 			categories = Zarafa.core.Util.uniqueArray(categories);
 
 			categoryString = categories.join(this.categorySeparator + ' ');
-			if (categoryString.length > 0)
+			if (categoryString.length > 0) {
 				categoryString += this.categorySeparator;
+			}
 
 			categoryInput.setValue('');
 			categoryInput.setValue(categoryString);

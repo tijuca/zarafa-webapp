@@ -91,6 +91,28 @@ Zarafa.core.ui.Toolbar = Ext.extend(Ext.Toolbar, {
 				this.initialSizeCorrectionDone = true;
 			}
 		}
+	},
+	
+	onAddItem : function(toolbar, item, index)
+	{
+		if ( item.isXType('menuitem') && Ext.isDefined(item.recordComponentUpdaterPlugin) ){
+			// The plugin has called the update function of the item, but (for overflown toolbars)
+			// when buttons have been changed to menuitems by Ext they do not have the defined
+			// update function anymore, and use the update function of Ext.Component. This function
+			// will change the text and we don't want this, so we set it back
+			var html = item.itemTpl.apply({
+				id: item.id,
+				cls: item.cls,
+				href: '#',
+				hrefTarget: '',
+				iconCls: item.iconCls,
+				text: item.overflowText
+			});
+			var tmp = new Ext.Element(document.createElement('div'));
+			tmp.dom.outerHTML = html;
+			html = tmp.dom.innerHTML;
+			item.getEl().dom.innerHtml = html;
+		}
 	}
 });
 

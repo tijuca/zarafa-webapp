@@ -71,6 +71,7 @@ Zarafa.common.attachment.dialogs.AttachItemPanel = Ext.extend(Ext.Panel, {
 						xtype : 'button',
 						text : _('Ok'),
 						disabled : true,
+						cls: 'zarafa-action',
 						ref : '../../okButton',
 						handler : this.onOK,
 						scope : this

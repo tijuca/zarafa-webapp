@@ -188,7 +188,7 @@ Zarafa.core.ui.widget.WidgetPanel = Ext.extend(Zarafa.core.ui.MainViewSidebar, {
 		// Add the guid to the list of current widget instances.
 		var instanceList = settings.get(this.settingsPath + '/guids') || '';
 
-		instanceList += (instanceList == '' ? '' : ' ') + guid;
+		instanceList += (instanceList === '' ? '' : ' ') + guid;
 
 		settings.set(this.settingsPath + '/guids', instanceList);
 	},

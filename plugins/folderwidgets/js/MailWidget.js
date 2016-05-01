@@ -39,6 +39,7 @@ Zarafa.widgets.folderwidgets.MailWidget = Ext.extend(Zarafa.widgets.folderwidget
 			store : store,
 			items : [{
 				xtype: 'zarafa.gridpanel',
+				id: 'unread-mail-widget',
 				store: store,
 				border: true,
 				loadMask : {
@@ -124,7 +125,7 @@ Zarafa.widgets.folderwidgets.MailWidget = Ext.extend(Zarafa.widgets.folderwidget
 		// Render the subject
 		meta = {};
 		value = Zarafa.common.ui.grid.Renderers.subject(record.get('subject'), meta, record);
-		rowParams.body += String.format('<td style="width: 100%"><div class="grid_compact grid_compact_left {0}" style="height: 24px;">{1}</div></td>', meta.css, value);
+		rowParams.body += String.format('<td style="width: 100%"><div class="grid_compact grid_compact_left grid_compact_subject_cell {0}" style="height: 24px;">{1}</div></td>', meta.css, value);
 
 		// Render the attachment icon (always aligned to the right)
 		meta = {};

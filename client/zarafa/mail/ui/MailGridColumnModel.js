@@ -48,8 +48,9 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 		});
 
 		// Switch to compact view if needed
-		if (config.useCompactView === true)
+		if (config.useCompactView === true) {
 			config.columns = this.compactColumns;
+		}
 
 		Zarafa.mail.ui.MailGridColumnModel.superclass.constructor.call(this, config);
 	},
@@ -64,7 +65,8 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 	createDefaultColumns : function()
 	{
 		return [{
-			header : '<p class="icon_importance">&nbsp;</p>',
+			header : '<p class="icon_importance">&nbsp;<span class="title">' + _('Importance') + '</span></p>',
+			headerCls: 'zarafa-icon-column importance',
 			dataIndex : 'importance',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.importance,
@@ -72,7 +74,8 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			tooltip : _('Sort by: Importance')
 		},{
 			id : 'column_icon',
-			header : '<p class="icon_index">&nbsp;</p>',
+			header : '<p class="icon_index">&nbsp;<span class="title">' + _('Icon') + '</span></p>',
+			headerCls: 'zarafa-icon-column icon',
 			dataIndex : 'icon_index',
 			width : 24,
 			renderer : Zarafa.common.ui.grid.Renderers.icon,
@@ -80,7 +83,8 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			tooltip : _('Sort by: Icon'),
 			preventRowSelection : true
 		},{
-			header : '<p class="icon_attachment">&nbsp;</p>',
+			header : '<p class="icon_attachment">&nbsp;<span class="title">' + _('Attachment') + '</span></p>',
+			headerCls: 'zarafa-icon-column attachment',
 			dataIndex : 'hasattach',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.attachment,
@@ -144,7 +148,8 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			tooltip : _('Sort by: Size')
 		},{
 			id : 'column_flag',
-			header : '<p class="icon_mail_flag">&nbsp;</p>',
+			header : '<p class="icon_mail_flag">&nbsp;<span class="title">' + _('Flag Status') + '</span></p>',
+			headerCls: 'zarafa-icon-column icon',
 			dataIndex : 'flag_status',
 			width : 24,
 			renderer : Zarafa.common.ui.grid.Renderers.flag,
@@ -164,12 +169,13 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 	createCompactColumns : function()
 	{
 		return [{
-			header : '<p class="icon_index">&nbsp;</p>',
+			header : '<p class="icon_index">&nbsp;<span class="title">' + _('Icon') + '</span></p>',
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column icon',
 			width : 24,
 			renderer : Zarafa.common.ui.grid.Renderers.icon,
 			fixed : true,
-			tooltip : _('Sort by: Icon Index'),
+			tooltip : _('Sort by: Icon'),
 			preventRowSelection : true
 		},{
 			header : _('From'),
@@ -209,7 +215,15 @@ Zarafa.mail.ui.MailGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			renderer : Zarafa.common.ui.grid.Renderers.datetime.createDelegate(null, [{css: 'mail-modified'}], true),
 			tooltip : _('Sort by: Modified')
 		},{
-			header : '<p class="icon_mail_flag">&nbsp;</p>',
+			header : _('Size'),
+			dataIndex : 'message_size',
+			width : 80,
+			hidden: true,
+			renderer : Zarafa.common.ui.grid.Renderers.size,
+			tooltip : _('Sort by: Size')
+		},{
+			header : '<p class="icon_mail_flag">&nbsp;<span class="title">' + _('Flag Status') + '</span></p>',
+			headerCls: 'zarafa-icon-column icon',
 			dataIndex : 'flag_status',
 			width : 24,
 			renderer : Zarafa.common.ui.grid.Renderers.flag,

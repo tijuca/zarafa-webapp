@@ -153,6 +153,20 @@ Zarafa.core.data.RecordFactory = {
 			return definition;
 
 		parent = this.getMessageClassParentDefinition(keyName);
+		if (!Ext.isDefined(parent)){
+			/* - If record contains message_class which has no IPM as prefix or suffix followed by dot(.)
+			 * like MEMO, REPORT etc, which are not supported by webapp and no fields are available as well (fields
+			  * are not registered by any record in webapp) hence record is treated as faulty message in webapp.
+			 *
+			 * - Webapp can create such records as Ext.data.Record, without throwing any warning or error,
+			 * this particular record not able to use Zarafa.core.data.IPMRecord functions.
+			 *
+			 * - To Fix this, If webapp found any message_class of record which has no IPM as prefix or
+			 * suffix followed by dot(.), then by default we set the IPM record definition as parent of this record
+			 * definition, further webapp will treat this message as faulty message.
+			 */
+			parent = this.definitions["IPM"];
+		}
 		return this.createRecordDefinition(keyName, parent, {'message_class' : messageClass});
 	},
 

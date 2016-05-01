@@ -139,7 +139,7 @@ Zarafa.core.data.IPMAttachmentProxy = Ext.extend(Zarafa.core.data.MAPIProxy, {
 					renderTo : Ext.getBody(),
 					fileUpload : true,
 					cls : 'x-hidden'
-				}).getForm()
+				}).getForm();
 			}
 
 			// Add the module and moduleid to the url

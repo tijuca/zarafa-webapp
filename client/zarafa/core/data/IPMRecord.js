@@ -20,7 +20,7 @@ Zarafa.core.data.IPMRecordFields = [
 	{name: 'html_body', type: 'string'},
 	{name: 'isHTML', type:'boolean', defaultValue: false},
 	{name: 'entryid'},
-	{name: 'creation_time', type:'date', dateFormat:'timestamp', defaultValue: null},
+	{name: 'creation_time', type:'date', dateFormat:'timestamp', defaultValue: null, sortDir : 'DESC'},
 	{name: 'icon_index', type: 'int', defaultValue: -1},
 	{name: 'access', type: 'number', defaultValue: Zarafa.core.mapi.Access.ACCESS_READ},
 	{name: 'message_class', type: 'string'},
@@ -31,7 +31,7 @@ Zarafa.core.data.IPMRecordFields = [
 	{name: 'subject'},
 	{name: 'object_type', type: 'int', defaultValue: Zarafa.core.mapi.ObjectType.MAPI_MESSAGE},
 	{name: 'normalized_subject'},
-	{name: 'last_modification_time', type:'date', dateFormat:'timestamp', defaultValue: null},
+	{name: 'last_modification_time', type:'date', dateFormat:'timestamp', defaultValue: null, sortDir : 'DESC'},
 	{name: 'last_verb_execution_time', type:'date', dateFormat:'timestamp', defaultValue: null},
 	{name: 'last_verb_executed', type: 'int'},
 	{name: 'hasattach', type: 'boolean', defaultValue: false},
@@ -40,14 +40,18 @@ Zarafa.core.data.IPMRecordFields = [
 	{name: 'display_bcc'},
 	{name: 'sent_representing_name'},
 	{name: 'sent_representing_email_address'},
+	{name: 'sent_representing_username'},
 	{name: 'sent_representing_address_type'},
 	{name: 'sent_representing_entryid'},
 	{name: 'sent_representing_search_key'},
+	{name: 'sent_representing_presence_status'}, // Note: this field will not be filled by the back-end
 	{name: 'sender_name'},
 	{name: 'sender_email_address'},
+	{name: 'sender_username'},
 	{name: 'sender_address_type'},
 	{name: 'sender_entryid'},
 	{name: 'sender_search_key'},
+	{name: 'sender_presence_status'}, // Note: this field will not be filled by the back-end
 	{name: 'message_size', type: 'int'},
 	{name: 'categories'},
 	{name: 'deleted_on', type:'date', dateFormat:'timestamp', defaultValue: null},
@@ -58,8 +62,8 @@ Zarafa.core.data.IPMRecordFields = [
 // Register these properties as base for the IPM message class, this will ensure that every IPM.* class
 // will have these properties. We also install the MAPI_MESSAGE object type in case we receive a broken
 // message which only has an object_type but doesn't have a message class.
-Zarafa.core.data.RecordFactory.addFieldToMessageClass('REPORT.IPM', Zarafa.core.data.IPMRecordFields);
 Zarafa.core.data.RecordFactory.addFieldToMessageClass('IPM', Zarafa.core.data.IPMRecordFields);
+Zarafa.core.data.RecordFactory.addFieldToMessageClass('REPORT.IPM', Zarafa.core.data.IPMRecordFields);
 Zarafa.core.data.RecordFactory.addFieldToObjectType(Zarafa.core.mapi.ObjectType.MAPI_MESSAGE, Zarafa.core.data.IPMRecordFields);
 
 Zarafa.core.data.RecordFactory.addListenerToMessageClass('IPM', 'createphantom', function(record) {
@@ -460,7 +464,9 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 	/**
 	 * Function can be used to check if the current record is faulty or not,
 	 * this will check if message_class property in the {@link Zarafa.core.data.IPMRecord IPMRecord}
-	 * is empty or its 'IPM', so we will not be able to display the message properly.
+	 * is empty/'IPM'/'MEMO'/'REPORT' or message_class which not contains 'IPM'
+	 * as prefix or suffix followed by dot(.), so we will not be able to display the message
+	 * properly.
 	 * @return {Boolean} true if message is faulty else false.
 	 */
 	isFaultyMessage : function()
@@ -471,13 +477,9 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 			return true;
 		}
 
-		if(Zarafa.core.MessageClass.isClass(messageClass, 'IPM', false)) {
-			return true;
-		}
-
 		// @TODO handle other non supported types
-
-		return false;
+		var faultyMessages = ['IPM', 'MEMO', 'REPORT'];
+		return this.isMessageClass(faultyMessages, false);
 	},
 
 	/**
@@ -511,7 +513,6 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 	{
 		var url = container.getBaseURL();
 		url = Ext.urlAppend(url, 'load=download_message');
-		url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 		url = Ext.urlAppend(url, 'storeid=' + this.get('store_entryid'));
 
 		if(!allAsZip){

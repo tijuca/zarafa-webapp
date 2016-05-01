@@ -23,12 +23,10 @@ Zarafa.common.freebusy.ui.SuggestionListPanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'background-color: inherit;',
 			items: [{
 				xtype: 'panel',
 				border: true,
 				autoHeight: true,
-				bodyStyle: 'background-color: inherit; padding: 3px; border-style: none none solid none;',
 				items: [{
 					xtype: 'container',
 					border : false,
@@ -51,15 +49,20 @@ Zarafa.common.freebusy.ui.SuggestionListPanel = Ext.extend(Ext.Panel, {
 					}]
 				}]
 			},{
-				xtype: 'zarafa.freebusysuggestionlistview',
-				bodyStyle: 'background-color: inherit;',
+				xtype: 'panel',
 				flex: 1,
-				autoScroll: true,
-				model: config.model,
-				listeners: {
-					click: this.onSuggestionClick,
-					scope: this
-				}
+				layout: 'fit',
+				cls: 'suggestionlist',
+				border: false,
+				items: [{
+					xtype: 'zarafa.freebusysuggestionlistview',
+					autoScroll: true,
+					model: config.model,
+					listeners: {
+						click: this.onSuggestionClick,
+						scope: this
+					}
+				}]
 			}]
 		});
 		

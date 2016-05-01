@@ -275,7 +275,7 @@ Zarafa.calendar.CalendarContextModel = Ext.extend(Zarafa.core.MultiFolderContext
 					for (var i = 0, len = workingDays.length; i < len; i++) {
 						if (workingDays[i] >= weekStart) {
 							weekStart = workingDays[i];
-							if (i == 0) {
+							if (i === 0) {
 								workingDays = 1 + workingDays[workingDays.length - 1] - workingDays[i];
 							} else {
 								workingDays = 1 + 7 - (workingDays[i] - workingDays[(i - 1)]);

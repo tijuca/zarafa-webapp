@@ -19,7 +19,7 @@ Zarafa.settings.ui.SettingsKeyShortcutCategory = Ext.extend(Zarafa.settings.ui.S
 		config = config || {};
 
 		Ext.applyIf(config, {
-			title : _('Shortcuts'),
+			title : _('Keyboard Shortcuts'),
 			categoryIndex : 9998,
 			iconCls : 'zarafa-settings-category-keyshortcut',
 			items : this.generateWidgets(config)
@@ -60,7 +60,8 @@ Zarafa.settings.ui.SettingsKeyShortcutCategory = Ext.extend(Zarafa.settings.ui.S
 
 				keyDescription[category][keyCombination] = {
 					shortcutDesc : settingsCfg.description,
-					fieldLabel : keyCombination
+					fieldLabel : keyCombination,
+					basicShortcut : Ext.isDefined(bindings[i].basic)
 				};
 			}
 		}, this);
@@ -112,17 +113,36 @@ Zarafa.settings.ui.SettingsKeyShortcutCategory = Ext.extend(Zarafa.settings.ui.S
 	generateRows : function(categoryDescription)
 	{
 		var categoryRows = [];
-		var evenRow = false;
 
 		Ext.iterate(categoryDescription, function(descKey, description) {
 			categoryRows.push({
 				xtype : 'displayfield',
-				value : description.shortcutDesc,
-				fieldLabel: description.fieldLabel
+				fieldLabel: description.fieldLabel,
+				html: this.generateDisplayValue(description)
 			});
 		},this);
 
 		return categoryRows;
+	},
+
+	/**
+	 * Generates a span which contains the description of the keybinding, which can have
+	 * an extra block "Basic" when it is a basic keybinding.
+	 *
+	 * @param {Object} description The object containing the description of a keybinding
+	 * @private
+	 */
+	generateDisplayValue : function(description)
+	{
+		var html;
+		if (description.basicShortcut) {
+			html = '<span class="keyboard-desc" style="width: 300px"> ' + description.shortcutDesc + '</span>';
+			html += '<span class="keyboard-type" title="' + _('Part of basic keyboard shortcuts') + '">' + _('Basic') + '</span>';
+		} else {
+			html = '<span class="keyboard-desc"> ' + description.shortcutDesc + '</span>';
+		}
+
+		return html;
 	},
 
 	/**
@@ -153,7 +173,7 @@ Zarafa.settings.ui.SettingsKeyShortcutCategory = Ext.extend(Zarafa.settings.ui.S
 		if(!Ext.isEmpty(key)) {
 			// if any special key is there in configuration, then we need to prepare the combination accordingly
 			if (Ext.isArray(key)) {
-				if (key[0] == Ext.EventObject.LEFT && key[1] == Ext.EventObject.RIGHT){
+				if (key[0] === Ext.EventObject.LEFT && key[1] === Ext.EventObject.RIGHT){
 					keyCombination.push('ARROW KEYS');
 				} else {
 					// it is use to prepare key combination Ctrl + 0..9 and Ctrl + Alt + 1..9.
@@ -161,15 +181,15 @@ Zarafa.settings.ui.SettingsKeyShortcutCategory = Ext.extend(Zarafa.settings.ui.S
 					keyCombination.push(keyConfig.ctrl && keyConfig.alt ? '1...9' : '0...9');
 				}
 			} else {
-				if (key == Ext.EventObject.F5) {
+				if (key === Ext.EventObject.F5) {
 					keyCombination.push('F5');
-				} else if (key == Ext.EventObject.ENTER) {
+				} else if (key === Ext.EventObject.ENTER) {
 					keyCombination.push('ENTER');
-				} else if (key == Ext.EventObject.HOME) {
+				} else if (key === Ext.EventObject.HOME) {
 					keyCombination.push('HOME');
-				} else if (key == Ext.EventObject.END) {
+				} else if (key === Ext.EventObject.END) {
 					keyCombination.push('END');
-				} else if (key == Ext.EventObject.DELETE) {
+				} else if (key === Ext.EventObject.DELETE) {
 					// check if we have a mac OS then show FN + DELETE as Mac don't have DELETE key
 					if(Ext.isMac) {
 						keyCombination.push('FN');

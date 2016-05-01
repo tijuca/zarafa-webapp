@@ -111,7 +111,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	 */
 	isPublicStore : function()
 	{
-		return (this.get('mdb_provider') == Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_PUBLIC_GUID);
+		return (this.get('mdb_provider') === Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_PUBLIC_GUID);
 	},
 
 	/**
@@ -119,7 +119,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	 */
 	isDefaultStore : function()
 	{
-		return (this.get('mdb_provider') == Zarafa.core.mapi.MDBProvider.ZARAFA_SERVICE_GUID);
+		return (this.get('mdb_provider') === Zarafa.core.mapi.MDBProvider.ZARAFA_SERVICE_GUID);
 	},
 
 	/**
@@ -127,7 +127,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	 */
 	isSharedStore : function()
 	{
-		return (this.get('mdb_provider') == Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_DELEGATE_GUID);
+		return (this.get('mdb_provider') === Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_DELEGATE_GUID);
 	},
 
 	/**
@@ -135,7 +135,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	 */
 	isArchiveStore : function()
 	{
-		return (this.get('mdb_provider') == Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_ARCHIVER_GUID);
+		return (this.get('mdb_provider') === Zarafa.core.mapi.MDBProvider.ZARAFA_STORE_ARCHIVER_GUID);
 	},
 
 	/**
@@ -144,7 +144,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	getDefaultFolderKey : function(entryid)
 	{
 		for(var key in this.data) {
-			if (key.indexOf('default_folder_') == 0 && this.get(key) == entryid) {
+			if (key.indexOf('default_folder_') === 0 && this.get(key) == entryid) {
 				return key.substring('default_folder_'.length);
 			}
 		}
@@ -176,7 +176,7 @@ Zarafa.hierarchy.data.MAPIStoreRecord = Ext.extend(Zarafa.core.data.IPFRecord, {
 	getSharedFolderKey : function(entryid)
 	{
 		for(var key in this.data) {
-			if (key.indexOf('shared_folder_') == 0 && this.get(key) == entryid) {
+			if (key.indexOf('shared_folder_') === 0 && this.get(key) == entryid) {
 				return key.substring('shared_folder_'.length);
 			}
 		}

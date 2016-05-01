@@ -52,7 +52,7 @@ Zarafa.common.ui.BoxFieldDragZone = Ext.extend(Ext.dd.DragZone, {
 				sourceEl : sourceEl,
 				repairXY : Ext.fly(sourceEl).getXY(),
 				draggedRecord : this.field.items.get(sourceEl.id).record
-			}
+			};
 		}
 	},
 

@@ -12,6 +12,32 @@ Ext.namespace('Zarafa.advancesearch');
  */
 Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModuleStore, {
 	/**
+	 * Read-only. entryid of the search folder.
+	 * @property
+	 * @type HexString
+	 */
+	searchFolderEntryId : undefined,
+
+	/**
+	 * searchStoreUniqueId is represent the unique id of {@link Zarafa.advancesearch.AdvanceSearchStore  AdvanceSearchStore}.
+	 * searchStoreUniqueId and {@link Zarafa.advancesearch.dialogs.SearchContentPanel SearchContentPanel} name
+	 * are similar, so we can easily map or manage the {@link Zarafa.advancesearch.AdvanceSearchStore AdvanceSearchStore}.
+	 * @type Mixed
+	 * @private
+	 */
+	searchStoreUniqueId : undefined,
+
+	/**
+	 * True if the model is currently busy searching. This is updated during
+	 * {@link #startSearch} and {@link #stopSearch} and can be checked using
+	 * {@link #isSearching}.
+	 * @property
+	 * @type Boolean
+	 * @private
+	 */
+	isBusySearching : false,
+
+	/**
 	 * @constructor
 	 * @param {Object} config configuration params that should be used to create instance of this store.
 	 */
@@ -26,7 +52,7 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 
 		Zarafa.advancesearch.AdvanceSearchStore.superclass.constructor.call(this, config);
 	},
-	
+
 	/**
 	 * Initialize all events which this {#Zarafa.advancesearch.AdvanceSearchStore AdvanceSearchStore} will listen to.
 	 * @private
@@ -35,7 +61,16 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 	{
 		this.on('load', this.onLoad, this);
 	},
-	
+
+	/**
+	 * Getter function which used to get the {@link #searchStoreUniqueId}.
+	 * @return {String} return {@link #searchStoreUniqueId}
+	 */
+	getSearchStoreUniqueId : function()
+	{
+		return this.searchStoreUniqueId;
+	},
+
 	/**
 	 * Event handler for the load event of this {#Zarafa.advancesearch.AdvanceSearchStore}
 	 * @param {Zarafa.advancesearch.AdvanceSearchStore} store This store
@@ -76,6 +111,15 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 	},
 
 	/**
+	 * Function will set entryid of search folder.
+	 * @param {HexString} searchFolderEntryId entry id of search folder.
+	 */
+	setSearchEntryId : function(searchFolderEntryId)
+	{
+		this.searchFolderEntryId = searchFolderEntryId;
+	},
+
+	/**
 	 * Function will be used to issue a search request to server to start searching,
 	 * this will internally call {@link #load} method but with some different options also it will
 	 * cancel existing {@link Zarafa.core.Actions#updatesearch} or {@link Zarafa.core.Actions#search}
@@ -95,7 +139,15 @@ Zarafa.advancesearch.AdvanceSearchStore = Ext.extend(Zarafa.core.data.ListModule
 			this.proxy.cancelRequests(Zarafa.core.Actions['search']);
 		}
 
-		this.hasSearch = false;
+		this.hasSearchResults  = false;
+
+		/**
+		 * userSearchFolder is only true if folder is not Public folder, shred folder or Favorite folder.
+		 * These are the folders don't support search folder so we have to set search entryid to undefined.
+		 */
+		if(!options.useSearchFolder) {
+			this.setSearchEntryId(undefined);
+		}
 
 		Zarafa.advancesearch.AdvanceSearchStore.superclass.search.apply(this, arguments);
 	}

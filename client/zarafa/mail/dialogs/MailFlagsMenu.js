@@ -88,7 +88,7 @@ Zarafa.mail.dialogs.MailFlagsMenu.onMenuItemBeforeShow = function(item, records)
 Zarafa.mail.dialogs.MailFlagsMenu.createMailFlagButtons = function(colorsOnly)
 {
 	var items = Zarafa.mail.dialogs.MailFlagsMenu.createColorMailFlagButtons();
-	if (colorsOnly == false) {
+	if (colorsOnly === false) {
 		items.push({ xtype: 'menuseparator' });
 		items.push(Zarafa.mail.dialogs.MailFlagsMenu.createStateMailFlagButtons());
 	}

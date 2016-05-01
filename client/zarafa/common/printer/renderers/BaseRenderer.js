@@ -77,7 +77,6 @@ Zarafa.common.printer.renderers.BaseRenderer = Ext.extend(Object, {
 				'<html>\n' +
 				'<head>\n' +
 					'<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />\n' +
-					'<link href="' + this.stylesheetPath + '?' + new Date().getTime() + '" rel="stylesheet" type="text/css" media="screen,print" />\n' +
 					this.generateHeadTemplate(component) +
 					'<title>' + this.getTitle(component) + '</title>\n' +
 				'</head>\n' +
@@ -169,12 +168,5 @@ Zarafa.common.printer.renderers.BaseRenderer = Ext.extend(Object, {
 	 */
 	getTitle: function(component) {
 		return typeof component.getTitle == 'function' ? component.getTitle() : (component.title || "Printing");
-	},
-  
-	/**
-	 * @property stylesheetPath
-	 * @type String logical file path of stylesheet
-	 * The path at which the print stylesheet can be found
-	 */
-	stylesheetPath: 'client/resources/css-extern/print.css'
+	}
 });

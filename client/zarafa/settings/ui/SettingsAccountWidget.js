@@ -15,6 +15,14 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 	 * @private
 	 */
 	origLanguage : '',
+	
+	/**
+	 * The name that will be shown for the default theme (i.e. no theme selected)
+	 * @property
+	 * @type String
+	 * @private
+	 */
+	defaultThemeName : _('Basic'),
 
 	/**
 	 * @constructor
@@ -41,6 +49,25 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 			fields : ['context', 'text'],
 			data : items
 		};
+
+		// Create a store with the available themes
+		items = [[0, this.defaultThemeName, 'basic']];
+		var plugins = container.getPlugins();
+		for ( var i=0; i<plugins.length; i++ ){
+			var plugin = plugins[i];
+			if ( plugin instanceof Zarafa.core.ThemePlugin ){
+				items.push([items.length, plugin.getDisplayName(), plugin.getName()]);
+			}
+		}
+		var themeStore = new Ext.data.ArrayStore({
+			fields: ['id', 'displayName', 'name'],
+			idIndex: 0,
+			data: items,
+			sortInfo: {
+				field: 'displayName',
+				direction: 'ASC'
+			}
+		});
 
 		Ext.applyIf(config, {
 			title : String.format(_('Account information - {0}'), user.getDisplayName()),
@@ -102,6 +129,29 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 				}
 			}]
 		});
+		
+		if ( themeStore.data.length > 1 ){
+			// We have more than just the basic theme, so give the user the posibility to
+			// change it.
+			config.items.push({
+				xtype: 'combo',
+				width : 200,
+				editable: false,
+				forceSelection: true,
+				triggerAction: 'all',
+				store: themeStore,
+				fieldLabel: _('Theme'),
+				mode: 'local',
+				valueField: 'name',
+				displayField: 'displayName',
+				ref: 'themeCombo',
+				name : 'zarafa/v1/main/active_theme',
+				listeners : {
+					select : this.onThemeSelect,
+					scope : this
+				}
+			});
+		}
 
 		Zarafa.settings.ui.SettingsAccountWidget.superclass.constructor.call(this, config);
 	},
@@ -148,6 +198,28 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 	},
 
 	/**
+	 * Event handler which is fired when a language in the {@link Ext.form.ComboBox combobox} 
+	 * has been selected. This will inform the user that this setting requires a reload of the
+	 * webapp to become active.
+	 * @param {Ext.form.ComboBox} combo The combobox which fired the event
+	 * @param {Ext.data.Record} record The selected record in the combobox
+	 * @param {Number} index The selected index in the store
+	 * @private
+	 */
+	onThemeSelect : function(combo, record, index)
+	{
+		var value = record.get(combo.valueField);
+
+		if (this.activeTheme !== value) {
+			this.model.requiresReload = true;
+		}
+
+		if (this.model) {
+			this.model.set(combo.name, value);
+		}
+	},
+
+	/**
 	 * Called by the {@link Zarafa.settings.ui.SettingsCategoryWidgetPanel widget panel}
 	 * to load the latest version of the settings from the
 	 * {@link Zarafa.settings.SettingsModel} into the UI of this category.
@@ -166,6 +238,16 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 		this.languageWarning.reset();
 
 		this.startupCombo.setValue(settingsModel.get(this.startupCombo.name));
+
+		// Set the currently active theme only when themes are available and the themecombo exists
+		if ( Ext.isDefined(this.themeCombo) ){
+			this.activeTheme = settingsModel.get(this.themeCombo.name);
+			// Check if a theme was set and if this theme has not been removed by the admin
+			if ( !this.activeTheme || this.themeCombo.store.find('name', this.activeTheme)===-1 ){
+				this.activeTheme = container.getServerConfig().getActiveTheme() || this.defaultThemeName;
+			}
+			this.themeCombo.setValue(this.activeTheme);
+		}
 	},
 
 	/**
@@ -177,9 +259,14 @@ Zarafa.settings.ui.SettingsAccountWidget = Ext.extend(Zarafa.settings.ui.Setting
 	{
 		Zarafa.settings.ui.SettingsAccountWidget.superclass.updateSettings.apply(this, arguments);
 
-		settingsModel.beginEdit()
+		settingsModel.beginEdit();
 		settingsModel.set(this.languageCombo.name, this.languageCombo.getValue());
 		settingsModel.set(this.startupCombo.name, this.startupCombo.getValue());
+
+		// Save the selected theme only when themes are available and the themecombo exists
+		if ( Ext.isDefined(this.themeCombo) ){
+			settingsModel.set(this.themeCombo.name, this.themeCombo.getValue());
+		}
 		settingsModel.endEdit();
 	}
 });

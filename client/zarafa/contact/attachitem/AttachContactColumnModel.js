@@ -41,13 +41,15 @@ Zarafa.contact.attachitem.AttachContactColumnModel = Ext.extend(Zarafa.common.ui
 	{
 		return [{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class=\'icon_index\'>&nbsp;</p>',
 			tooltip : _('Sort by: Icon'),
-			width : 25,
+			width : 24,
 			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		}, {
 			header : '<p class=\'icon_attachment\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'hasattach',
 			width : 24,
 			fixed : true,

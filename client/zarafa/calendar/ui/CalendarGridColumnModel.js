@@ -37,7 +37,8 @@ Zarafa.calendar.ui.CalendarGridColumnModel = Ext.extend(Zarafa.common.ui.grid.Co
 	{
 		return [{
 			xtype : 'checkcolumn',
-			header : '<p class="icon_allday">&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
+			header : '<p class="icon_allday">&nbsp;<span class="title">' + _('All Day') + '</span></p>',
 			dataIndex: 'alldayevent',
 			tooltip : _('Sort by: All Day'),
 			width : 24,
@@ -45,14 +46,16 @@ Zarafa.calendar.ui.CalendarGridColumnModel = Ext.extend(Zarafa.common.ui.grid.Co
 			// disable checkbox selection
 			processEvent : Ext.emptyFn
 		},{
-			header : '<p class="icon_index">&nbsp;</p>',
+			header : '<p class="icon_index">&nbsp;<span class="title">' + _('Icon') + '</span></p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'icon_index',
 			tooltip : _('Sort by: Icon'),
 			width : 24,
 			renderer : Zarafa.common.ui.grid.Renderers.icon,
 			fixed : true
 		},{
-			header : '<p class="icon_recurring">&nbsp;</p>',
+			header : '<p class="icon_recurring">&nbsp;<span class="title">' + _('Recurring') + '</span></p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex: 'recurring',
 			tooltip : _('Sort by: Recurring'),
 			width: 24,
@@ -175,7 +178,8 @@ Zarafa.calendar.ui.CalendarGridColumnModel = Ext.extend(Zarafa.common.ui.grid.Co
 			renderer: Zarafa.common.ui.grid.Renderers.subject,
 			hidden: true
 		},{
-			header: _('Reminder'),
+			header : '<p class="icon_reminder">&nbsp;<span class="title">' + _('Reminder') + '</span></p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex: 'reminder',
 			tooltip : _('Sort by: Reminder'),
 			width: 24,

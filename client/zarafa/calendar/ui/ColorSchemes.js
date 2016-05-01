@@ -24,11 +24,11 @@ Zarafa.core.ColorSchemes.addField([
 	},
 	{
 		name : 'startcolorappointment',
-		weight : 1.29
+		weight : 1
 	},
 	{
 		name : 'endcolorappointment',
-		weight : 1.29
+		weight : 1
 	},
 	{
 		name : 'startcolorappointmentbox',

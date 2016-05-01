@@ -65,12 +65,14 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 		},{
 			xtype : 'button',
 			ref : 'saveBtn',
+			text : _('Save'),
 			overflowText : _('Save task'),
 			tooltip: {
 				title: _('Save & Close'),
 				text: _('Save task and close dialog') + ' (Ctrl + S)'
 			},
-			iconCls : 'icon_save',
+			cls : 'zarafa-action',
+			iconCls : 'buttons-icon_save_white',
 			handler: this.onSave,
 			scope : this
 		}, {
@@ -92,7 +94,14 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 				title: _('Add attachment'),
 				text: _('Add attachments to this task')
 			},
-			iconCls : 'icon_attachment'
+			iconCls : 'icon_attachment',
+			ref : 'attachmentButton',
+			// Add a listener to the component added event to set use the correct update function when the toolbar overflows
+			// (i.e. is too wide for the panel) and Ext moves the button to a menuitem.
+			listeners : {
+				added : this.onAttachmentButtonAdded,
+				scope : this
+			}
 		}, {
 			xtype : 'button',
 			ref: 'markCompleteBtn',
@@ -128,6 +137,23 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 			handler: this.onCheckNames,
 			scope: this
 		}];
+	},
+	
+	/**
+	 * Event listener for the added event of the {@link Zarafa.common.attachment.ui.AttachmentButton attachmentButton}
+	 * Adds the update function to the item when Ext converts the button to a menu item
+	 * (which happens when the toolbar overflows, i.e. is too wide for the containing panel)
+	 * 
+	 * @param {Ext.Component} item The item that was added. This can be a {@link Zarafa.common.attachment.ui.AttachmentButton}
+	 * or a {@link Ext.menu.Item}
+	 */
+	onAttachmentButtonAdded : function(item)
+	{
+		if ( item.isXType('menuitem') ){
+			// Set the update function to the update function of the original button
+			// otherwise the Ext.Component.update function would be called by the recordcomponentupdaterplugin
+			item.update = Zarafa.common.attachment.ui.AttachmentButton.prototype.update.createDelegate(this.attachmentButton);
+		}
 	},
 
 	/**
@@ -335,10 +361,11 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 	{
 		this.record.beginEdit();
 		this.record.set('private', button.pressed);
-		if (button.pressed)
+		if (button.pressed) {
 			this.record.set('sensitivity', Zarafa.core.mapi.Sensitivity['PRIVATE']);
-		else
+		} else {
 			this.record.set('sensitivity', Zarafa.core.mapi.Sensitivity['NONE']);
+		}
 		this.record.endEdit();
 	},
 

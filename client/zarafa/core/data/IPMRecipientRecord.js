@@ -25,6 +25,7 @@ Zarafa.core.data.IPMRecipientRecordFields = [
 	{name: 'email_address'},
 	{name: 'smtp_address'},
 	{name: 'address_type', type: 'string', defaultValue: 'SMTP'},
+	{name: 'presence_status', type: 'int'}, // Note: this field will not be filled by the back-end
 
 	{name: 'recipient_type', type: 'int'},
 	{name: 'recipient_flags', type: 'int'},

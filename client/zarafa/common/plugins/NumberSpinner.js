@@ -179,10 +179,10 @@ Zarafa.common.plugins.NumberSpinner = Ext.extend(Zarafa.common.plugins.SpinnerPl
 		}
 
 		// Always parse the value from the parent field, in case the user typed in an update
-		var v = this.field.getValue()
+		var v = this.field.getValue();
 
 		// Determine the method to change the value
-		var incr = (alternate == true) ? this.field.alternateIncrementValue : this.field.incrementValue;
+		var incr = (alternate === true) ? this.field.alternateIncrementValue : this.field.incrementValue;
 
 		v += (down ? -1 : 1) * incr;
 		v = (isNaN(v)) ? this.defaultValue : v;

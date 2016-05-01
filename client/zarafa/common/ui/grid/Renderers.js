@@ -54,11 +54,11 @@ Zarafa.common.ui.grid.Renderers = {
 	 */
 	attachment : function(value, p, record)
 	{
-		if (Ext.isDefined(record) && record.get('hide_attachments') == true) {
+		if (Ext.isDefined(record) && record.get('hide_attachments') === true) {
 			return '';
 		}
 
-		p.css = (value == true) ? 'icon_attachment' : 'icon_noattachment';
+		p.css = (value === true) ? 'icon_attachment' : 'icon_noattachment';
 
 		// add extra css class for empty cell
 		p.css += ' zarafa-grid-empty-cell';
@@ -153,17 +153,25 @@ Zarafa.common.ui.grid.Renderers = {
 	 * @param {Object} value The data value for the cell.
 	 * @param {Object} p An object with metadata
 	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @param {Object} userInfo An object with information about the user for which a name is
+	 * rendered. This will only be set when this function is being called from another renderer
+	 * function.
 	 * @return {String} The formatted string
 	 */
-	sender : function(value, p, record)
+	sender : function(value, p, record, userInfo)
 	{
 		// Check which of the 2 properties must be used
 		value = record.get('sent_representing_name');
+		var presenceStatus = record.get('sent_representing_presence_status');
 		if (Ext.isEmpty(value)) {
 			value = record.get('sender_name');
+			presenceStatus = record.get('sender_presence_status');
 		}
 
-		return Zarafa.common.ui.grid.Renderers.name(value, p, record);
+		return '<span class="zarafa-presence-status '+Zarafa.core.data.PresenceStatus.getCssClass(presenceStatus)+'">' +
+					'<span class="zarafa-presence-status-icon"></span>' + 
+					Zarafa.common.ui.grid.Renderers.name(value, p, record) + 
+				'</span>';
 	},
 
 	/**
@@ -505,7 +513,7 @@ Zarafa.common.ui.grid.Renderers = {
 		// get diff in minutes
 		var diff = Math.floor(Math.abs(time1 - time2)/60000);
 
-		if(diff == 0) { // Now
+		if(diff === 0) { // Now
 			return _('Now');
 		} else {
 			result = Ext.util.Format.duration(diff);
@@ -566,7 +574,6 @@ Zarafa.common.ui.grid.Renderers = {
 		var name = '';
 		var subject = '';
 		var body = '';
-		var date = '';
 
 		switch (messageClass) {
 			case 'IPM.Contact':

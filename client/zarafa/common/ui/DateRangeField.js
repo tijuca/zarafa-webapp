@@ -180,7 +180,7 @@ Zarafa.common.ui.DateRangeField = Ext.extend(Ext.Container, {
 			this.mun(this.defaulValue, 'update', this.onDateRangeUpdate, this);
 		}
 
-		var oldDateRange = this.defaultValue
+		var oldDateRange = this.defaultValue;
 		this.defaultValue = daterange;
 
 		if (this.defaultValue) {

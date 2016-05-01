@@ -17,8 +17,8 @@ Zarafa.advancesearch.dialogs.SearchToolbarPanel = Ext.extend(Ext.Panel, {
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			config.model = config.context.getModel();
+		if (!Ext.isDefined(config.model) && Ext.isDefined(config.searchContext)) {
+			config.model = config.searchContext.getModel();
 		}
 
 		Ext.applyIf(config, {
@@ -33,12 +33,12 @@ Zarafa.advancesearch.dialogs.SearchToolbarPanel = Ext.extend(Ext.Panel, {
 			},{
 				ptype : 'zarafa.recordcomponentupdaterplugin'
 			}],
-			height : 33,
+			height : 38,
 			items : [{
 				xtype: 'zarafa.searchpaneltoolbar',
 				style: 'border-style : none',
 				searchText : config.searchText,
-				context: config.context
+				context: config.searchContext
 			},{
 				xtype : 'zarafa.toolbar',
 				style : 'border-style : none; padding : 0px',

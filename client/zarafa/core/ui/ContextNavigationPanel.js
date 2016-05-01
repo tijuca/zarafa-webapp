@@ -23,20 +23,10 @@ Zarafa.core.ui.ContextNavigationPanel = Ext.extend(Ext.Panel, {
 		// Config options for component itself.
 		Ext.applyIf(config, {
 			border : false,
-			autoScroll : true,
-			layout : {
-				type : 'table',
-				columns : 1,
-				tableAttrs: {
-					style: {
-						width: '100%'
-					}
-				}
-			},
+			layout: 'fit',
 			defaults : {
 				border : false,
 				autoScroll : false,
-				headerCfg : { cls : 'zarafa-hierarchy-header x-panel-header' },
 				defaults : { cls : 'zarafa-context-navigation-item-body' }
 			}
 		});

@@ -16,8 +16,8 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			config.model = config.context.getModel();
+		if (!Ext.isDefined(config.model) && Ext.isDefined(config.searchContext)) {
+			config.model = config.searchContext.getModel();
 		}
 
 		Ext.applyIf(config, {
@@ -45,9 +45,10 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 						items : [{
 							xtype : 'zarafa.searchgrid',
 							flex : 1,
-							id : 'search-grid',
+							id : 'search-grid' + (++Ext.Component.AUTO_ID),
+							searchTabId : config.searchTabId,
 							anchor : '100%',
-							context : config.context,
+							searchContext : config.searchContext,
 							ref : '../../searchGrid'
 						}]
 					}]
@@ -58,7 +59,7 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 					split : true,
 					width : 400,
 					height : 400,
-					context : config.context
+					searchContext : config.searchContext
 				}]
 			}]
 		});
@@ -73,9 +74,12 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	 */
 	initEvents: function ()
 	{
-		if (Ext.isDefined(this.context)) {
-			this.switchBorder.mon(this.context, 'viewchange', this.onViewChange, this);
-			this.switchBorder.mon(this.context, 'viewmodechange', this.onViewModeChange, this);
+		if (Ext.isDefined(this.searchContext)) {
+			this.switchBorder.mon(this.searchContext,{
+				viewchange : this.onViewChange,
+				viewmodechange : this.onViewModeChange,
+				scope : this
+			});
 
 			this.switchBorder.on('afterlayout', this.onAfterLayout, this, {single: true});
 		}
@@ -96,7 +100,7 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	 */
 	onAfterLayout: function ()
 	{
-		this.onViewModeChange(this.context, this.context.getCurrentViewMode());
+		this.onViewModeChange(this.searchContext, this.searchContext.getCurrentViewMode());
 	},
 
 	/**
@@ -112,7 +116,8 @@ Zarafa.advancesearch.dialogs.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	onViewChange: function (context, newView, oldView)
 	{
 		if(newView === Zarafa.common.data.Views.LIST) {
-			this.switchBorder.viewPanel.switchView('search-grid');
+			var searchGridId = this.switchBorder.searchGrid.getId();
+			this.switchBorder.viewPanel.switchView(searchGridId);
 		}
 	},
 

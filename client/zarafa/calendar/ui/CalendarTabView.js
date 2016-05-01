@@ -23,15 +23,6 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	folder : undefined,
 
 	/**
-	 * The &lt;div&gt; element which is used as the background container for the
-	 * {@link #tab}, {@link #tabLeft} and {@link #tabRight} elements. These combined
-	 * elements represent the background for the tab.
-	 * @property
-	 * @type Ext.Element
-	 */
-	tabBackground : undefined,
-
-	/**
 	 * The &lt;div&gt; element which is used as tab. It is placed between the left ({@link #tabLeft}) and
 	 * right ({@link #tabRight}) elements. These three elements together are the entire visible tab. This
 	 * middle element is used to provide the background of the tab.
@@ -39,22 +30,6 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	 * @type Ext.Element
 	 */
 	tab : undefined,
-
-	/**
-	 * The &lt;div&gt; element which is used as the left side of the tab. It is placed left of the
-	 * {@link #tab} element. This element is used to provide styling to the left side of the tab.
-	 * @property
-	 * @type Ext.Element
-	 */
-	tabLeft : undefined,
-
-	/**
-	 * The &lt;div&gt; element which is used as the right side of the tab. It is placed right of the
-	 * {@link #tab} element. This element is used to provide styling to the right side of the tab.
-	 * @property
-	 * @type Ext.Element
-	 */
-	tabRight : undefined,
 
 	/**
 	 * The &lt;div&gt; element which is used as the content container for the {@link #tabText},
@@ -102,22 +77,6 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	 * @type Ext.Element
 	 */
 	closeIcon : undefined,
-
-	/**
-	 * The offset all elements within this view must take from the bottom of the
-	 * this {@link #container}. This offset is configured before {@link #layout} by {@link #setBottomMargin}.
-	 * @property
-	 * @type Number
-	 */
-	bottomOffset : 0,
-
-	/**
-	 * The offset all elements must have from the left side of the {@link #container}. This
-	 * offset is configured before {@link #layout} by {@link #setLeftMargin}.
-	 * @property
-	 * @type Number
-	 */
-	leftOffset : 0,
 
 	/**
 	 * The total with for the tab to use. This must at least be the result of {@link #getMinimumWidth}.
@@ -229,7 +188,24 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 			return 0;
 
 		// Desired width is the minimum width (due to the icons), plus the width of the tab text.
-		return this.getMinimumWidth() + this.tabLeft.getWidth() + this.tabText.textMetrics.getWidth(this.title) + this.tabText.getMargins('lr');
+		// We use the TextMetrics to calculate the width and height for the
+		// contents of the tabText.
+		var addClass = !this.tabContents.hasClass('zarafa-calendar-tab-selected');
+		if ( addClass ){
+			this.tabContents.addClass('zarafa-calendar-tab-selected');
+		}
+		var textMetrics = Ext.util.TextMetrics.createInstance(this.tabText);
+		if ( addClass ){
+			this.tabContents.removeClass('zarafa-calendar-tab-selected');
+		}
+		
+		var desiredWidth = this.getMinimumWidth() + textMetrics.getWidth(this.title);
+
+		// Check if we don't want a bigger width because of a min-width set in the css files
+		this.tabContents.dom.style.removeProperty('min-width');
+		var cssMinWidth = parseInt(this.tabContents.getStyle('min-width')) + this.tabContents.getPadding('lr');
+		
+		return Math.max(desiredWidth, cssMinWidth);
 	},
 	
 	/**
@@ -244,37 +220,20 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 		if (!this.rendered)
 			return 0;
 
-		var width = this.tabRight.getWidth() + this.tabContents.getPadding('lr');
+		var width = this.tabContents.getPadding('lr');
 
 		// Calculate the width of each icon
-		if (this.showCloseIcon)
-			width += this.closeIcon.getWidth() + this.closeIcon.getMargins('lr');
-		if (this.showMergeIcon)
-			width += this.mergeIcon.getWidth() + this.mergeIcon.getMargins('lr');
-		if (this.showSeparateIcon)
-			width += this.separateIcon.getWidth() + this.separateIcon.getMargins('lr');
+		if (this.showCloseIcon){
+			width += this.closeIcon.getWidth();
+		}
+		if (this.showMergeIcon){
+			width += this.mergeIcon.getWidth();
+		}
+		if (this.showSeparateIcon){
+			width += this.separateIcon.getWidth();
+		}
 
 		return width;		
-	},
-
-	/**
-	 * Sets the tab minimum offset from the bottom. Called by the parent
-	 * {@link Zarafa.calendar.ui.AbstractCalendarView AbstractCalendarView} before layout.
-	 * @param {Number} bottom The offset from the bottom
-	 */
-	setBottomMargin : function(bottom)
-	{
-		this.bottomOffset = bottom;
-	},
-
-	/**
-	 * Sets the tab minimum offset from the left. Called by the parent
-	 * {@link Zarafa.calendar.ui.AbstractCalendarView AbstractCalendarView} before layout.
-	 * @param {Number} left The offset from the left
-	 */
-	setLeftMargin : function(left)
-	{
-		this.leftOffset = left;
 	},
 
 	/**
@@ -303,14 +262,12 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 			var className = this.getBaseClassName() + '-tab-selected';
 
 			if (selected === true) {
-				this.tabBackground.addClass(className);
 				if (active === true) {
 					this.tabContents.addClass(className);
 				} else {
 					this.tabContents.removeClass(className);
 				}
 			} else {
-				this.tabBackground.removeClass(className);
 				this.tabContents.removeClass(className);
 			}
 		}
@@ -360,22 +317,6 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 		var contextModel = container.getCurrentContext().getModel();
 		if (contextModel instanceof Zarafa.calendar.CalendarContextModel) {
 			var colorScheme = contextModel.getColorScheme(this.folder.get('entryid'));
-			
-			// Background
-			this.tabBackground.dom.className = this.getClassName('tab', 'background');
-			
-			this.tabLeft.dom.className = this.getClassName('tab-leftside');
-			this.tab.dom.className = this.getClassName('tab-body');
-			this.tabRight.dom.className = this.getClassName('tab-rightside');
-			this.tabLeft.applyStyles({
-				'background-color' : colorScheme.header
-			});
-			this.tab.applyStyles({
-				'background-color' : colorScheme.header
-			});
-			this.tabRight.applyStyles({
-				'background-color' : colorScheme.header
-			});
 
 			// Contents
 			this.tabContents.dom.className = this.getClassName('tab', 'contents');
@@ -383,6 +324,10 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 			this.tabText.dom.className = this.getClassName('tab-title');
 			this.closeIcon.dom.className = this.getClassName('tab-icon', 'close');
 			this.separateIcon.dom.className = this.getClassName('tab-icon', 'separate');
+			
+			this.tabContents.applyStyles({
+				'background-color' : colorScheme.header
+			});
 
 			// Call setSelected to force the classed to be updated accordingly
 			if (this.selected) {
@@ -404,63 +349,51 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 		// particular class name has changed.
 		this.applyCSSClassNames();
 
-		// Calculate the top position for all subcomponents. This depends on the total height
-		// of the tabcontainer, the height of the tabs and the offset from the bottom. We add
-		// one pixel to make sure the tab never really touches the top.
-		var top = this.parentView.getTabHeight() - this.tab.getHeight() - this.bottomOffset;
-		var textWidth = this.width - this.getMinimumWidth();
-
-		// Get the left position for the background, this will be updated during the
-		// layout of each individual element which will be visible inside the background.
-		var left = this.leftOffset;
-
-		// Position the left, center, and right tab images
-		this.tabLeft.setLeftTop(left, top);
-		left += this.tabLeft.getWidth();
-
-		this.tab.setLeftTop(left, top);
-		this.tab.setWidth(this.width - this.tabLeft.getWidth() - this.tabRight.getWidth());
-		left += this.tab.getWidth();
-
-		this.tabRight.setLeftTop(left, top);
-
-		// Position the contents of the tab (this overlays the tab, tabLeft and tabRight elements).
-		this.tabContents.setLeftTop(this.leftOffset, top);
-		this.tabContents.setWidth(this.width);
-
-		// Get the left position for the contents, this will be updated during the
-		// layout of each individual element which will be visible inside the contents.
-		left = this.leftOffset + this.tabContents.getPadding('l');
-		
-		// Left arrow (merge left) icon.
-		if (this.showMergeIcon) {
-			this.mergeIcon.setLeftTop(left, top);
-			left += this.mergeIcon.getWidth() + this.mergeIcon.getMargins('lr');
+		var contextModel = container.getCurrentContext().getModel();
+		if (contextModel instanceof Zarafa.calendar.CalendarContextModel) {
+			var colorScheme = contextModel.getColorScheme(this.folder.get('entryid'));
+			// Check if we have a light or dark color by converting the color code to HSL and checking the L-value
+			var isDarkColor = Zarafa.core.ColorSchemes.getLuma(colorScheme.base) < 155;
+			if ( !isDarkColor ){
+				this.tabContents.addClass('light-background');
+			}
 		}
+
+		// Add or remove classes to the container, so we can style it properly
+		if ( this.showMergeIcon ){
+			this.tabContents.addClass('zarafa-with-merge-icon');
+		} else {
+			this.tabContents.removeClass('zarafa-with-merge-icon');
+		}
+		if ( this.showSeparateIcon ){
+			this.tabContents.addClass('zarafa-with-separate-icon');
+		} else {
+			this.tabContents.removeClass('zarafa-with-separate-icon');
+		}
+		if ( this.showCloseIcon ){
+			this.tabContents.addClass('zarafa-with-close-icon');
+		} else {
+			this.tabContents.removeClass('zarafa-with-close-icon');
+		}
+
+		this.tabContents.setWidth(this.width);
+		this.tabText.setWidth(this.width - this.getMinimumWidth());
+
+		// Left arrow (merge left) icon.
 		this.mergeIcon.setVisible(this.showMergeIcon);
 
 		// The tabText element is a div that's laid out on top of the actual tab images and contains, surprise surprise,
 		// the tab text.
-		this.tabText.setLeftTop(left, top - 1);
-		this.tabText.setWidth(textWidth);
 		if (this.tabText.dom.innerHTML != this.title) {
 			this.tabText.dom.innerHTML = this.title;
 		}
-		left += textWidth + this.tabText.getMargins('lr');
 
 		// Close icon.
-		if(this.showCloseIcon) {
-			this.closeIcon.setLeftTop(left, top);
-			left += this.closeIcon.getWidth() + this.closeIcon.getMargins('lr');			
-		}
 		this.closeIcon.setVisible(this.showCloseIcon);
 
 		// Right icon.
-		if (this.showSeparateIcon) {
-			this.separateIcon.setLeftTop(left, top);
-		}
 		this.separateIcon.setVisible(this.showSeparateIcon);
-
+		
 		Zarafa.calendar.ui.CalendarTabView.superclass.onLayout.call(this);
 	},
 
@@ -473,26 +406,21 @@ Zarafa.calendar.ui.CalendarTabView = Ext.extend(Zarafa.core.ui.View, {
 	render : function(container)
 	{
 		// Container divs
-		this.createDiv(this.parentView.tabArea, 'tabBackground');
 		this.createDiv(this.parentView.tabArea, 'tabContents');
 	
-		// background divs
-		this.createDiv(this.tabBackground, 'tabLeft');
-		this.createDiv(this.tabBackground, 'tabRight');
-		this.createDiv(this.tabBackground, 'tab');
-
 		// content divs
-		this.createDiv(this.tabContents, 'tabText');
 		this.createDiv(this.tabContents, 'mergeIcon');
-		this.createDiv(this.tabContents, 'separateIcon');
+		this.createDiv(this.tabContents, 'tabText');
 		this.createDiv(this.tabContents, 'closeIcon');
+		this.createDiv(this.tabContents, 'separateIcon');
+		
+		this.mergeIcon.setVisibilityMode(Ext.Element.DISPLAY);
+		this.closeIcon.setVisibilityMode(Ext.Element.DISPLAY);
+		this.separateIcon.setVisibilityMode(Ext.Element.DISPLAY);
 
 		this.mon(this.mergeIcon, 'click', this.onMerge, this);
 		this.mon(this.separateIcon, 'click', this.onSeparate, this);
 		this.mon(this.closeIcon, 'click', this.onClose, this);
-		this.mon(this.tabLeft, 'click', this.onClick, this);
-		this.mon(this.tabRight, 'click', this.onClick, this);
-		this.mon(this.tab, 'click', this.onClick, this);
 		this.mon(this.tabText, 'click', this.onClick, this);
 
 		// We use the TextMetrics to calculate the width and height for the

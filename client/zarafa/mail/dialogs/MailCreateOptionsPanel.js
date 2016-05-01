@@ -24,7 +24,6 @@ Zarafa.mail.dialogs.MailCreateOptionsPanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'background-color: inherit;',
 			defaults: {
 				bodyStyle: 'padding-top: 5px; padding-left: 6px; padding-right: 5px; background-color: inherit;',
 				border: false
