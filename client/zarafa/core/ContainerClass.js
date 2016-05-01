@@ -53,7 +53,6 @@ Zarafa.core.ContainerClass = {
 	getDefaultFolderTypeFromContainerClass : function(containerClass)
 	{
 		containerClass = containerClass.toUpperCase();
-		var folderType = '';
 
 		switch (containerClass) {
 			case 'IPF.APPOINTMENT':

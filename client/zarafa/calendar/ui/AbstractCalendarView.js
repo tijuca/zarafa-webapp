@@ -108,7 +108,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 * the {@link Zarafa.calendar.ui.AppointmentView appointments} which are rendered within this
 	 * calendar when the 'useMargin' argument to {@link #dateRangeToBodyBounds} is true.
 	 */
-	appointmentBodyRightMargin : 8,
+	appointmentBodyRightMargin : 0,
 
 	/**
 	 * @cfg {Number} appointmentHeaderLeftMargins The left margin which must be applied to
@@ -178,7 +178,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 * @property
 	 * @type Ext.Element
 	 */
-	borderTop : undefined,
+//	borderTop : undefined,
 
 	/**
 	 * The bottom border of the {@link #body}.
@@ -616,6 +616,13 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	getSelectedFolder : function()
 	{
+		// Check if selected folder is available in the folders array. This could be false when
+		// settings haven't been updated properly.
+		if ( this.folders.indexOf(this.selectedFolder) < 0 ){
+			// Set the first folder in the list as the selected one
+			this.setSelectedFolder(this.folders[0]);
+		}
+		
 		return this.selectedFolder;
 	},
 
@@ -987,7 +994,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	appointmentCompare : function(a, b)
 	{
 		var dateComp = a.getDateRange().compare(b.getDateRange());
-		if (dateComp == 0) {
+		if (dateComp === 0) {
 			return a.getRecord().get('entryid')>b.getRecord().get('entryid')?1:-1;
 		} else {
 			return dateComp;
@@ -1024,8 +1031,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 				});
 			}, this);
 		} else {
-			var snapTime = this.getZoomLevel() * 60 * 1000;
-
 			Ext.each(appointments, function(appointment) {
 				todoList.push({
 					appointment : appointment,
@@ -1043,7 +1048,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			first.appointment.slot = slot;
 
 			// the slot now spans start-due
-			var start = first.start;
 			var due = first.due;
 
 			// look for appointments that are outside the start-due range, and can therefore
@@ -1086,14 +1090,13 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 
 		// create tab, header and body divs
 		this.createDiv(this.parentView.scrollable, 'body');
-		this.createDiv(this.parentView.header, 'header');
+		this.createDiv(this.parentView.header, 'header', 'zarafa-calendar-header');
 
 		// border divs
 		this.createDiv(this.parentView.header, 'headerBorderLeft');
 		this.createDiv(this.parentView.header, 'headerBorderRight');
 		this.createDiv(this.parentView.scrollable, 'borderLeft');
 		this.createDiv(this.parentView.scrollable, 'borderRight');
-		this.createDiv(this.parentView.tab, 'borderTop');
 		this.createDiv(this.parentView.bottom, 'borderBottom');
 
 		this.createDiv(this.parentView.tab, 'tabArea');
@@ -1206,6 +1209,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		if (this.parentView.showBorder) {
 			var borderWidth = this.getBorderWidth();
 
+/*
 			// border div in the tab area
 			this.borderTop.dom.className = this.getClassName('border', 'top');
 			this.borderTop.setLeftTop(this.leftOffset, this.parentView.tab.getHeight() - borderWidth);
@@ -1215,6 +1219,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 				'border-color' : colorScheme.header
 			});
 			this.borderTop.show();
+*/
 
 			// border divs in the header area
 			var headerHeight = this.parentView.getHeaderAreaHeight();
@@ -1268,7 +1273,7 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			});
 			this.borderBottom.show();
 		} else {
-			this.borderTop.hide();
+//			this.borderTop.hide();
 			this.headerBorderLeft.hide();
 			this.headerBorderRight.hide();
 			this.borderLeft.hide();
@@ -1284,39 +1289,94 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	layoutTabs : function()
 	{
-		var left = 0;
+		var tabs = [];
+		var tabsThatNeedResizing = [];
+		var tabsThatNeedNoResizing = [];
 
 		// Update the settings of the tabs and calculate the total desired width.
 		// Layout the tabs.
 		var totalDesiredWidth = 0;
-		for (var i=0, folder; folder=this.folders[i]; i++)
-		{
+
+		for (var i=0, folder; folder=this.folders[i]; i++) {
 			var tab = this.tabs[folder.get('entryid')];
 			tab.setSelected(this.selectedFolder == folder, this.active);
 			tab.setShowMergeIcon(this.canMerge);
 			tab.setShowSeparateIcon(this.folders.length > 1);
 			tab.setShowCloseIcon(this.canClose);
+			
+			tabs.push(tab);
+			tab.desiredWidth = tab.getDesiredWidth();
+			tab.lrmargins = tab.tabContents.getMargins('lr');
 
-			totalDesiredWidth += tab.getDesiredWidth();
+			totalDesiredWidth += tab.desiredWidth + tab.lrmargins;
 		}
 
 		// If the width of all the tabs together is more than the width of this control,
 		// the tabs will have to be shrunk.
-		var shrink = 0;
-		if (totalDesiredWidth > this.width) {
-			shrink = Math.ceil((totalDesiredWidth - this.width) / this.folders.length);
+		if ( totalDesiredWidth > this.width ){
+			for ( i=0; i<tabs.length; i++ ){
+				if ( (tabs[i].getDesiredWidth() + tabs[i].tabContents.getMargins('lr')) < this.width/tabs.length ){
+					tabsThatNeedNoResizing.push(tabs[i]);
+				}else{
+					tabsThatNeedResizing.push(tabs[i]);
+				}
+			}
+			
+			var totalAvailableWidthForTabsThatNeedResizing = this.width;
+			var totalWidthOfTabsThatNeedResizing = 0;
+			for ( i=0; i<tabsThatNeedNoResizing.length; i++ ){
+				totalAvailableWidthForTabsThatNeedResizing -= tabsThatNeedNoResizing[i].desiredWidth + tabsThatNeedNoResizing[i].lrmargins;
+			}
+			for ( i=0; i<tabsThatNeedResizing.length; i++ ){
+				totalWidthOfTabsThatNeedResizing += tabsThatNeedResizing[i].desiredWidth + tabsThatNeedResizing[i].lrmargins;
+			}
+			
+			if ( tabsThatNeedResizing.length === 1 ){
+				tabsThatNeedResizing[0].desiredWidth = totalAvailableWidthForTabsThatNeedResizing - tabsThatNeedResizing[0].lrmargins;
+			} else {
+				while ( totalWidthOfTabsThatNeedResizing > totalAvailableWidthForTabsThatNeedResizing ){
+					// find the largest two tabs
+					var tab0 = tabsThatNeedResizing[0].desiredWidth > tabsThatNeedResizing[1].desiredWidth ? tabsThatNeedResizing[0] : tabsThatNeedResizing[1];
+					var tab1 = tabsThatNeedResizing[0].desiredWidth > tabsThatNeedResizing[1].desiredWidth ? tabsThatNeedResizing[1] : tabsThatNeedResizing[0];
+					for ( i=2; i<tabsThatNeedResizing.length; i++ ){
+						if ( tabs[i].desiredWidth > tab0.desiredWidth ){
+							tab0 = tabs[i];
+						} else if ( tabs[i].desiredWidth > tab1.desiredWidth ){
+							tab1 = tabs[i];
+						}
+					}
+					
+					if ( tab0.desiredWidth - tab1.desiredWidth > totalWidthOfTabsThatNeedResizing - totalAvailableWidthForTabsThatNeedResizing ){
+						// Easy one: just shrink the biggest tab and we're good to go.
+						tab0.desiredWidth -= totalWidthOfTabsThatNeedResizing - totalAvailableWidthForTabsThatNeedResizing + tab0.lrmargins;
+						totalWidthOfTabsThatNeedResizing = totalAvailableWidthForTabsThatNeedResizing;
+					} else {
+						// Just make the largest tab smaller than the second largest tab and start all over (iterating until we are small enough)
+						totalWidthOfTabsThatNeedResizing -= (tab0.desiredWidth-tab1.desiredWidth) + 1;
+						tab0.desiredWidth = tab1.desiredWidth - 1;
+					}
+				}
+			}
 		}
 
 		// Layout the tabs.
 		for (var i=0, folder; folder=this.folders[i]; i++) {
 			var tab = this.tabs[folder.get('entryid')];
 
-			var width = Math.max(tab.getMinimumWidth(), tab.getDesiredWidth() - shrink);
+			var width = tab.desiredWidth;
+			
+			// Check if we don't get conflicts with a possible min-width set in the css-files
+			tab.tabContents.dom.style.removeProperty('min-width');
+			var cssMinWidth = parseInt(tab.tabContents.getStyle('min-width')) + tab.tabContents.getPadding('lr');
+			
+			if ( cssMinWidth > width ){
+				tab.tabContents.setStyle('min-width', 0);
+				if ( totalDesiredWidth <= this.width ){
+					width = cssMinWidth;
+				}
+			}
 
-			tab.setBottomMargin(this.borderTop.getHeight());
-			tab.setLeftMargin(left);
 			tab.setWidth(width);
-			left += width;
 		}
 	},
 
@@ -1328,8 +1388,8 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	{
 		// Update the themeCls, this will be used when assigning
 		// the CSS class names to all objects.
-		if (this.selectedFolder) {
-			var colorScheme = this.contextModel.getColorScheme(this.selectedFolder.get('entryid'));
+		if ( this.getSelectedFolder() ) {
+			var colorScheme = this.contextModel.getColorScheme(this.getSelectedFolder().get('entryid'));
 			if(colorScheme) {
 				this.calendarColorScheme = colorScheme;
 			}
@@ -1705,8 +1765,12 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	onMouseDown : function(event, appointment)
 	{
-		//Make sure this view gets the focus by calling the onTabClick event handler
-		this.onTabClick(this.getSelectedFolder());
+		// Make sure this view gets the focus by calling the onTabClick event handler.
+		// Only call onTabClick when we actually change the selected folder group, to
+		// avoid firing off an unrequired 'activate' event.
+		if (this.groupId != this.contextModel.active_group) {
+			this.onTabClick(this.getSelectedFolder());
+		}
 
 		if (appointment) {
 			var record = appointment.getRecord();

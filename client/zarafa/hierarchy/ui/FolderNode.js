@@ -71,8 +71,9 @@ Zarafa.hierarchy.ui.FolderNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 	 */
 	setChecked : function(checked)
 	{
-		if (this.rendered)
+		if (this.rendered) {
 			this.getUI().toggleCheck(checked);
+		}
 	},
 
 	/**
@@ -98,14 +99,19 @@ Zarafa.hierarchy.ui.FolderNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 		// pass the text through text renderer
 		this.setText(this.getTextFromFolder(folder));
 
-		// pass the icon through the icon renderer
-		this.setIcon(this.getIconFromFolder(folder));
-		
-		// pass the class through to the renderer
-		this.setContainerCls(this.attributes.containerCls);
+		// Only update the icon class if the icon is not an svg icon
+		// Otherwise we will get errors
+		if ( !this.ui.getIconEl() || this.ui.getIconEl().tagName !== 'svg' ){
+			// pass the icon through the icon renderer
+			this.setIcon(this.getIconFromFolder(folder));
+			
+			// pass the class through to the renderer
+			this.setContainerCls(this.attributes.containerCls);
+		}
 
-		if (!folder.get('has_subfolder'))
+		if (!folder.get('has_subfolder')) {
 			this.removeAll(true);
+		}
 	},
 
 	/**

@@ -576,22 +576,9 @@ class FilesBrowserModule extends ListModule {
 	 */
 	private function authorise() {
 		if($GLOBALS["settings"]->get("zarafa/v1/contexts/files/session_auth") == true) {
-			$sessionPass = $_SESSION['password'];
-			// if user has openssl module installed
-			if(function_exists("openssl_decrypt")) {
-				if(version_compare(phpversion(), "5.3.3", "<")) {
-					$sessionPass = openssl_decrypt($sessionPass,"des-ede3-cbc",PASSWORD_KEY,0);
-				} else {
-					$sessionPass = openssl_decrypt($sessionPass,"des-ede3-cbc",PASSWORD_KEY,0,PASSWORD_IV);
-				}
-				
-				if(!$sessionPass) {
-					$sessionPass = $_SESSION['password'];
-				}
-			}
-			
-			$this->wdc->set_user($_SESSION["username"]);
-			$this->wdc->set_pass($sessionPass);
+			$encryptionStore = EncryptionStore::getInstance();
+			$this->wdc->set_user($encryptionStore->get('username'));
+			$this->wdc->set_pass($encryptionStore->get('password'));
 		} else {
 			$this->wdc->set_user($GLOBALS["settings"]->get("zarafa/v1/contexts/files/username"));
 			$this->wdc->set_pass(base64_decode($GLOBALS["settings"]->get("zarafa/v1/contexts/files/password")));

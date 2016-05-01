@@ -68,8 +68,9 @@ Zarafa.contact.data.ContactDetailsParser = Ext.extend(Object, {
 	parseInfo : function(infoType, data)
 	{
 		// invalid data
-		if(!Ext.isString(data))
+		if(!Ext.isString(data)) {
 			return null;
+		}
 
 		switch(infoType) {
 			case 'name':
@@ -421,8 +422,9 @@ Zarafa.contact.data.ContactDetailsParser = Ext.extend(Object, {
 	combineInfo : function(infoType, data)
 	{
 		// invalid data
-		if(!Ext.isObject(data))
+		if(!Ext.isObject(data)) {
 			return null;
+		}
 
 		switch(infoType) {
 			case 'name':

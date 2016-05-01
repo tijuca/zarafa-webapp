@@ -105,7 +105,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	 */
 	onModelLiveScrollStart : function(model)
 	{
-		if(this.getCurrentView() != Zarafa.mail.data.Views.LIVESCROLL && this.getCurrentViewMode() != Zarafa.mail.data.ViewModes.LIVESCROLL){
+		if(this.getCurrentView() !== Zarafa.mail.data.Views.LIVESCROLL && this.getCurrentViewMode() !== Zarafa.mail.data.ViewModes.LIVESCROLL){
 			/*
 			 * Check that current view model is NO_PREVIEW, RIGHT_PREVIEW,
 			 * or BOTTOM_PREVIEW then set the view mode to oldViewMode and view to oldView.
@@ -155,7 +155,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 	 */
 	onModelSearchStart : function(model)
 	{
-		if(this.getCurrentView() != Zarafa.mail.data.Views.SEARCH && this.getCurrentViewMode() != Zarafa.mail.data.ViewModes.SEARCH){
+		if(this.getCurrentView() !== Zarafa.mail.data.Views.SEARCH && this.getCurrentViewMode() !== Zarafa.mail.data.ViewModes.SEARCH){
 			/*
 			 * Check that current view model is one of the view mode from
 			 * NO_PREVIEW, RIGHT_PREVIEW and BOTTOM_PREVIEW then set the view mode to 
@@ -224,7 +224,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			case Zarafa.core.data.SharedComponentType['common.view']:
 			case Zarafa.core.data.SharedComponentType['common.preview']:
 				if (record instanceof Zarafa.core.data.IPMRecord) {
-					if (record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+					if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 						if (record.isMessageClass([ 'IPM.Note', 'IPM.Schedule.Meeting', 'REPORT.IPM','REPORT.IPM.Note' ], true)) {
 							bid = 1;
 						} else {
@@ -241,7 +241,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 			case Zarafa.core.data.SharedComponentType['common.contextmenu']:
 			case Zarafa.core.data.SharedComponentType['mail.contextmenu.flags']:
 				if (record instanceof Zarafa.core.data.IPMRecord) {
-					if (record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+					if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 						if (record.isMessageClass([ 'IPM.Note', 'IPM.Schedule.Meeting', 'REPORT.IPM','REPORT.IPM.Note' ], true)) {
 							bid = 1;
 						} else {
@@ -252,7 +252,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 				break;
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
 				if (record instanceof Zarafa.core.data.IPMRecord) {
-					if (record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+					if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 						// @todo test if report mails print well in default mail renderer
 						if (record.isMessageClass([ 'IPM.Note', 'REPORT.IPM','REPORT.IPM.Note' ], true)) {
 							bid = 1;
@@ -364,7 +364,8 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 				xtype : 'panel',
 				id: 'zarafa-navigationpanel-mail-navigation',
 				cls: 'zarafa-context-navigation-block',
-				title : _('My Mail'),
+				ref: 'mailnavigation',
+				layout: 'fit',
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
 					id: 'zarafa-navigationpanel-mail-navigation-tree',
@@ -470,7 +471,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 					}
 				}
 			}
-		}
+		};
 	},
 
 	/**
@@ -516,7 +517,7 @@ Zarafa.mail.MailContext = Ext.extend(Zarafa.core.Context, {
 		},{
 			xtype : 'zarafa.settingsoutofofficecategory',
 			settingsContext : settingsContext
-		}]
+		}];
 	},
 
 	/**

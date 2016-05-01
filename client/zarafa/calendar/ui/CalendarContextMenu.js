@@ -93,7 +93,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			ref : 'acceptButton',
 			text: _('Accept'),
 			hidden : true,
-			iconCls: 'icon_accept_meeting_request',
+			iconCls: 'icon_calendar_appt_accept',
 			beforeShow : this.beforeShowOnMeeting,
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_ACCEPTED,
 			scope: this
@@ -102,7 +102,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			ref : 'tentativeButton',
 			text : _('Tentative'),
 			hidden : true,
-			iconCls : 'icon_tentative_meeting_request',
+			iconCls : 'icon_appt_meeting_tentative',
 			beforeShow : this.beforeShowOnMeeting,
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_TENTATIVE,
 			scope: this
@@ -110,7 +110,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			xtype : 'zarafa.conditionalitem',
 			ref : 'declineButton',
 			text : _('Decline'),
-			iconCls : 'icon_decline_meeting_request',
+			iconCls: 'icon_calendar_appt_cancelled',
 			hidden : true,
 			beforeShow : this.beforeShowOnMeeting,
 			responseStatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_DECLINED,
@@ -121,7 +121,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 			text : _('Propose New Time'),
 			proposeNewTime : true,
 			hidden : true,
-			iconCls : 'icon_newtime_meeting_request',
+			iconCls : 'icon_calendar_appt_newtime',
 			beforeShow : this.beforeShowOnMeeting,
 			scope: this
 		}];
@@ -400,8 +400,9 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 	 */
 	openProposeNewTimeContent : function(button, eventObject)
 	{
+		var record;
 		if(Ext.isArray(this.records)) {
-			var record = this.records[0];
+			record = this.records[0];
 		}
 
 		if (record.get('appointment_not_found')) {
@@ -442,8 +443,9 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 	 */
 	openSendConfirmationContent : function(button, eventObject)
 	{
+		var record;
 		if(Ext.isArray(this.records)) {
-			var record = this.records[0];
+			record = this.records[0];
 		}
 
 		if (record.get('appointment_not_found')) {
@@ -494,7 +496,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 	 */
 	onSetBusyStatus : function(button)
 	{
-		var store = undefined;
+		var store;
 		var records = this.records;
 
 		Ext.each(records, function(record) {
@@ -511,7 +513,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 	 */
 	onSetLabel : function(button)
 	{
-		var store = undefined;
+		var store;
 		var records = this.records;
 
 		Ext.each(this.records, function(record) {

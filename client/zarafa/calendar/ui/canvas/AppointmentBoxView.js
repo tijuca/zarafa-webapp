@@ -25,17 +25,17 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	 * {@cfg {Number} appointmentRadius The radius which must be applied to the appointment body
 	 * to generate a nicely rounded rectangular.
 	 */
-	appointmentRadius : 5,
+//	appointmentRadius : 5,
 
 	/**
 	 * @cfg {Number} leftPadding Left padding in pixels of the appointment text within the appointment body
 	 */
-	leftPadding : 4,
+//	leftPadding : 4,
 
 	/**
 	 * @cfg {Number} lineHeight The textheight for the text which will be rendered
 	 */
-	lineHeight : 12,
+//	lineHeight : 13,
 
 	/**
 	 * The main text which will be rendered into the body of the appointment. This field
@@ -79,7 +79,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	 */
 	eventOverBodyStartHandle : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -103,7 +103,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	 */
 	eventOverBodyDueHandle : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -127,7 +127,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	 */
 	eventOverBody : function(event)
 	{
-		if (this.isHeaderRange() || !this.bounds || this.bounds.length == 0) {
+		if (this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
 		}
 
@@ -205,13 +205,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 			var width = bound.right - bound.left - borderWidth;
 			var height = bound.bottom - bound.top - borderWidth;
 
-			// Determine the radius for the corners
-			var leftRadius = bound.firstBox ? this.appointmentRadius : 1;
-			var rightRadius = bound.lastBox ? this.appointmentRadius : 1;
-
-			// Draw the border as rounder rectangular.
-			context.roundedRect2(x, y, width, height, leftRadius, rightRadius, rightRadius, leftRadius);
-			context.stroke();
+			context.strokeRect(x, y, width, height);
 
 			if (bound.firstBox) {
 				// Draghandles must be positioned in the center of the appointment.
@@ -252,92 +246,100 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 
 		context.lineWidth = 1;
 
+		// Draw a white background for transparent appointment
+		context.fillStyle = 'white';
+		context.fillRect(3, 3, width-6, height-6);
+
 		var colorScheme = this.getAppointmentColorScheme();
+
+		// Check if we have a light or dark color scheme
+		var rgbBackgroundColor = this.calendarColorScheme.startcolorappointmentbox;
+		var hslBackgroundColor = Zarafa.core.ColorSchemes.rgbToHsl(rgbBackgroundColor);
+		var isDarkColor = hslBackgroundColor[2] < 0.5;
+		
 		var appointmentOpacity = 1;
-		if(!this.isActive()){
+		if ( !this.isActive() ) {
 			appointmentOpacity = this.opacityNonActiveAppointment;
 		}
 
-		var gradient = context.createLinearGradient(0, 0, 0, height);
-
-		gradient.addColorStop(0, context.convertHexRgbToDecRgba(colorScheme.startcolorappointmentbox, appointmentOpacity));
-		gradient.addColorStop(1, context.convertHexRgbToDecRgba(colorScheme.endcolorappointmentbox, appointmentOpacity));
-
-		context.fillStyle = gradient;
-
-		var leftRadius = (bound.firstBox) ? this.appointmentRadius : 1;
-		var rightRadius = (bound.lastBox) ? this.appointmentRadius : 1;
-
-		context.roundedRect2(0, 0, width, height, leftRadius, rightRadius, rightRadius, leftRadius);
-		context.fill();
-
-		var busyStatus = this.getBusyStatus();
 		var stripWidth = this.getStripWidth();
 
-		// Set the global alpha to allow the fill of the inner strip to be transparent, this will be reset after
 		context.globalAlpha = appointmentOpacity;
+
+		// Draw the appointment box
+		context.fillStyle = colorScheme.startcolorappointment;
+		context.fillRect(3 + stripWidth, 3, width-6-stripWidth, height-6);
+		
+		var busyStatus = this.getBusyStatus();
 		switch (busyStatus)
 		{
 			case Zarafa.core.mapi.BusyStatus.FREE:
 				context.fillStyle = 'white';
-				context.roundedRect2(0, 0, stripWidth, height, leftRadius, 1, 1, leftRadius);
-				context.fill();
+				context.fillRect(3, 3, stripWidth, height - 6);
+				context.strokeStyle = this.calendarColorScheme.startcolorappointmentbox;
+				context.strokeRect(3.5, 3.5, stripWidth, height -7);
 				break;
 			case Zarafa.core.mapi.BusyStatus.TENTATIVE:
+				context.fillStyle = this.calendarColorScheme.startcolorappointmentbox;
+				context.fillRect(3, 3, stripWidth, height - 6);
 				// For tentative we use an image to only show parts of the background. This
 				// image should not be transparent otherwise the color behind that will show
 				// in the places where it should not be shown. So we reset the alpha for this.
 				context.globalAlpha = 1;
 				context.fillStyle = context.createPattern(Zarafa.calendar.ui.IconCache.getDashedImage(), 'repeat');
-				context.roundedRect2(0, 0, stripWidth, height, leftRadius, 1, 1, leftRadius);
-				context.fill();
+				context.fillRect(3, 3, stripWidth, height - 6);
 				break;
 			case Zarafa.core.mapi.BusyStatus.OUTOFOFFICE:
-				gradient = context.createLinearGradient(0, 0, 0, height);
-				gradient.addColorStop(0, '#e7d7ef');
-				gradient.addColorStop(1, 'purple');
-				context.fillStyle = gradient;
-				context.roundedRect2(0, 0, stripWidth, height, leftRadius, 1, 1, leftRadius);
-				context.fill();
+				context.fillStyle = '#912787';
+				context.fillRect(3, 3, stripWidth, height - 6);
 				break;
-			default:
+			default :
+				// Draw the busystatus box in the same color as the appointment
+				context.fillStyle = '#0f70bd';
+				context.fillRect(3, 3, stripWidth, height - 6);
 				break;
 		}
-		// Reset the global alpha to 1 to draw without transparency again
-		context.globalAlpha = 1;
 
-		context.roundedRect2(0.5, 0.5, width - 1, height - 1, leftRadius, rightRadius, rightRadius, leftRadius);
+		var x = stripWidth + this.parentView.headerBackgroundCanvasStylingElement.getPadding('l');
 
-		context.strokeStyle = gradient;
-		if (this.isAllDay() && busyStatus != Zarafa.core.mapi.BusyStatus.OUTOFOFFICE)
-			context.strokeStyle = colorScheme.border;
-		context.stroke();
+		context.globalAlpha = this.isActive() ? 1.0 : this.opacityNonActiveAppointment;
 
-		var x = this.leftPadding + stripWidth;
+		// Get the font
+		var font = this.parentView.headerBackgroundCanvasStylingElement.getStyle('font');
+		// Check if we have a light or dark color
+		// We use the startcolorappointment property because colorschemes of labeled appointments don't have the base property!
+		isDarkColor = Zarafa.core.ColorSchemes.getLuma(colorScheme.startcolorappointment) < 155;
+		var fontColor = this.isActive() && isDarkColor ? 'white' : 'black';
 
 		// First start drawing all icons
 		var icons = this.iconRenderer();
 		for (var i = 0, len = icons.length; i < len; i++) {
-			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon']();
-			context.drawImage(img, x, 4 + Math.ceil((this.lineHeight - img.height) / 2));
+			var img = Zarafa.calendar.ui.IconCache['get' + Ext.util.Format.capitalize(icons[i]) + 'Icon' + (fontColor==='white'?'Active':'')]();
+			context.drawImage(img, x, Math.ceil((height - img.height) / 2));
 			x += img.width + 5;
 		}
 
+		// Set a clip so we won't draw text outside the box
+		context.beginPath();
+		context.rect(3, 3, width-6, height-6);
 		context.clip();
+
 		var stop = Math.min(1, Math.max(0.1, (width - x) / width));
-		gradient = context.createLinearGradient(0, 0, width, 0);
+		var gradient = context.createLinearGradient(0, 0, width, 0);
 		gradient.addColorStop(0, this.isActive() ? 'black' : '#666666');
 		gradient.addColorStop(stop, this.isActive() ? 'black' : '#666666');
 		gradient.addColorStop(1, 'rgba(0,0,0,0)');
 		context.fillStyle = gradient;
 
 		context.lineWidth = 1;
-		context.setFont('8pt Arial');
+
+		context.setFont(font);
+		context.fillStyle = fontColor;
 
 		// create an object which is used to show text on appointment.
 		var drawTextObject = {
 			xPosition : x,
-			yPosition : height - 6,
+			yPosition : height - Math.ceil((height-parseInt(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font-size')))/2) - 2,
 			width : width,
 			showStartTime : false,
 			showEndTime : false
@@ -399,6 +401,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 		var startTimeWidth = context.textWidth(obj.startTimeText + ' ');
 		var rightFlot = obj.width - (endTimeWidth + this.leftPadding + this.getStripWidth());
 
+		var perTextSize, size;
 		// draw the end time and appointment title.
 		if(obj.showEndTime && !obj.showStartTime) {
 			// draw end time at extreme right position of appointment.
@@ -406,8 +409,8 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 
 			// find the character size and based on that character size find the 
 			// approximated characters are draw in remaining width.
-			var perTextSize = endTimeWidth / obj.endTimeText.length;
-			var size = Math.floor(rightFlot/perTextSize);
+			perTextSize = endTimeWidth / obj.endTimeText.length;
+			size = Math.floor(rightFlot/perTextSize);
 			titleText = Ext.util.Format.ellipsis(titleText, size, false);
 
 		} else if(obj.showStartTime && !obj.showEndTime) {
@@ -430,8 +433,8 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 
 			// find the character size and based on that character size find the 
 			// approximated characters are draw in remaining width.
-			var perTextSize = startTimeWidth / obj.startTimeText.length;
-			var size = Math.floor(remainingWidth/perTextSize);
+			perTextSize = startTimeWidth / obj.startTimeText.length;
+			size = Math.floor(remainingWidth/perTextSize);
 
 			// apply ellipsis if text is bigger then remaining width.
 			titleText = Ext.util.Format.ellipsis(titleText, size, false);
@@ -471,7 +474,7 @@ Zarafa.calendar.ui.canvas.AppointmentBoxView = Ext.extend(Zarafa.calendar.ui.can
 	layoutInBody : function()
 	{
 		// get an array of bounds (left, right, top, bottom) objects to represent the range on the calendar body
-		this.bounds = this.parentView.dateRangeToBodyBounds(this.getDateRange(), this.slot, undefined, true);
+		this.bounds = this.parentView.dateRangeToBodyBounds(this.getDateRange(), this.slot, undefined, false);
 
 		// Draw the body elements to match the bounds
 		if (!Ext.isEmpty(this.bounds)) {

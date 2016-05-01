@@ -2,14 +2,14 @@ Ext.ns('Zarafa.common.ui');
 
 /**
  * @class Zarafa.common.ui.SearchField
- * @extends Ext.form.TwinTriggerField
+ * @extends Ext.form.TriggerField
  * @xtype zarafa.searchfield
  *
  * This class can be used to construct a search field with start and stop buttons and we can listen
  * for events to do search specific processing. this search can be local or remote so it is abstracted
  * away from this component.
  */
-Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
+Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TriggerField, {
 
 	/**
 	 * @cfg {String} searchIndicatorClass The CSS class which must be applied to the {@link #el}
@@ -39,9 +39,8 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 		Ext.apply(config, {
 			validationEvent : false,
 			validateOnBlur : false,
-			trigger1Class : 'x-form-clear-trigger',
-			trigger2Class : 'x-form-search-trigger',
-			hideTrigger1 : true
+			cls: 'zarafa-searchfield',
+			triggerClass : 'icon_search'
 		});
 
 		this.addEvents(
@@ -111,21 +110,21 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 		if (e.getKey() == e.ENTER) {
 			var textValue = this.getValue();
 			if (Ext.isEmpty(textValue)) {
-				this.onTrigger1Click();
+				this.stopSearch();
 			} else {
-				this.onTrigger2Click();
+				this.onTriggerClick();
 			}
 		}
 	},
 
 	/**
-	 * Trigger handler function that will be used to stop search process.
+	 * Function handler function that will be used to stop search process.
 	 * it will fire {@link #stop} event, that can be used to stop actual search process.
 	 * other component can also do pre-processing before stop search process using
 	 * {@link #beforestop} event.
 	 * @protected
 	 */
-	onTrigger1Click : function()
+	stopSearch : function()
 	{
 		if (this.fireEvent('beforestop', this) !== false) {
 			this.doStop();
@@ -140,9 +139,22 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 	 * {@link #beforestart} event.
 	 * @protected
 	 */
-	onTrigger2Click : function()
+	onTriggerClick : function()
 	{
 		if (this.fireEvent('beforestart', this) !== false) {
+			if(Ext.isEmpty(this.getValue())) {
+				container.getNotifier().notify('error.search', _('Error'), this.errorMsgEmpty);
+				return false;
+			}
+
+			if(!this.isRenderedSearchPanel()) {
+				var componentType = Zarafa.core.data.SharedComponentType['common.search'];
+				Zarafa.core.data.UIFactory.openLayerComponent(componentType, [], {
+					'searchText' : this.getValue(),
+					'parentSearchField' : this
+				});
+			}
+
 			this.doStart();
 			this.fireEvent('start', this);
 		}
@@ -180,28 +192,20 @@ Zarafa.common.ui.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
 	/**
 	 * Update this component to display that this component is
-	 * currently busy searching. This will show the first trigger
-	 * which can be used for stopping the search.
+	 * currently busy searching.
 	 */
 	doStart : function()
 	{
-		this.el.addClass(['x-item-disabled', this.searchIndicatorClass]);
-		this.getTrigger(0).show();
+		this.el.addClass([this.searchIndicatorClass]);
 	},
 
 	/**
 	 * Update this component to display that this component is currently
 	 * no longer searching.
-	 * @param {Boolean} complete True if the search was completed rather then canceled,
-	 * this means that the first trigger must remain visible to allow the user to stop
-	 * the search.
 	 */
-	doStop : function(complete)
+	doStop : function()
 	{
-		this.el.removeClass(['x-item-disabled', this.searchIndicatorClass]);
-		if (complete !== true) {
-			this.getTrigger(0).hide();
-		}
+		this.el.removeClass([this.searchIndicatorClass]);
 	},
 
 	/**

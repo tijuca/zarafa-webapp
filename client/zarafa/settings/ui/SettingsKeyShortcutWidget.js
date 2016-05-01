@@ -23,13 +23,32 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 			items : [{
 				xtype : 'zarafa.compositefield',
 				hideLabel : true,
+				// FIXME: Set height for IE 11, since otherwise it won't resize properly and leaves a huge empty gap...
+				height: 60,
 				items : [{
-					xtype : 'checkbox',
-					ref : '../keyShortcutsCheck',
-					boxLabel : _('Enable Keyboard Shortcuts'),
-					name : 'zarafa/v1/main/keycontrols_enabled',
+					xtype : 'radiogroup',
+					ref : '../keyShortcutGroup',
+					columns : 1,
+					hideLabel: true,
+					name : 'zarafa/v1/main/keycontrols',
+					items: [{
+						xtype: 'radio',
+						boxLabel : _('Keyboard shortcuts off'),
+						name: 'keyboardshortcut',
+						inputValue: Zarafa.settings.data.KeyboardSettings.NO_KEYBOARD_SHORTCUTS
+					},{
+						xtype: 'radio',
+						boxLabel : _('Basic keyboard shortcuts on'),
+						name: 'keyboardshortcut',
+						inputValue: Zarafa.settings.data.KeyboardSettings.BASIC_KEYBOARD_SHORTCUTS
+					},{
+						xtype: 'radio',
+						boxLabel : _('All keyboard shortcuts on'),
+						name: 'keyboardshortcut',
+						inputValue: Zarafa.settings.data.KeyboardSettings.ALL_KEYBOARD_SHORTCUTS
+					}],
 					listeners : {
-						check : this.enableKeyboardShortcuts,
+						change : this.enableKeyboardShortcuts,
 						scope : this
 					},
 					flex : 1
@@ -65,7 +84,7 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 	 * Event handler will be called when
 	 * {@link Zarafa.settings.SettingsContextModel#savesettings} event is fired.
 	 * Function will enable/disable all keymaps registered with {@link Zarafa.core.KeyMapMgr}
-	 * based on setting zarafa/v1/main/keycontrols_enabled.
+	 * based on setting zarafa/v1/main/keycontrols.
 	 * 
 	 * @param {Zarafa.settings.SettingsContextModel} settingsContextModel The
 	 * context model of settings context.
@@ -81,7 +100,7 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 		if(!Ext.isEmpty(modifiedSettings)) {
 			// Check whether keyboard settings are changed or not.
 			for(var i = 0; i < modifiedSettings.length; i++) {
-				if(modifiedSettings[i].path === 'zarafa/v1/main/keycontrols_enabled') {
+				if (modifiedSettings[i].path === this.keyShortcutGroup.name) {
 					changed = true;
 					break;
 				}
@@ -90,7 +109,8 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 
 		// keyboard control setting is toggled.
 		if(changed === true) {
-			if(settingsEditModel.get('zarafa/v1/main/keycontrols_enabled')) {
+			// FIXME use isGloballyEnabled : function() in core/KeyMapMgr?
+			if (settingsEditModel.get(this.keyShortcutGroup.name) !== Zarafa.settings.data.KeyboardSettings.NO_KEYBOARD_SHORTCUTS) {
 				Zarafa.core.KeyMapMgr.enableAllKeymaps();
 			} else {
 				Zarafa.core.KeyMapMgr.disableAllKeymaps();
@@ -108,7 +128,7 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 	update : function(settingsModel)
 	{
 		this.model = settingsModel;
-		this.keyShortcutsCheck.setValue(settingsModel.get(this.keyShortcutsCheck.name));
+		this.keyShortcutGroup.setValue(settingsModel.get(this.keyShortcutGroup.name));
 		this.keyShortcutWarning.reset();
 	},
 
@@ -120,23 +140,24 @@ Zarafa.settings.ui.SettingsKeyShortcutWidget = Ext.extend(Zarafa.settings.ui.Set
 	 */
 	updateSettings : function(settingsModel)
 	{
-		settingsModel.set(this.keyShortcutsCheck.name, this.keyShortcutsCheck.getValue());
+		settingsModel.set(this.keyShortcutGroup.name, this.keyShortcutGroup.getValue().inputValue);
 	},
 	
 	/**
-	 * Event handler which is fired when the checkbox is checked or unchecked.
-	 * If the checkbox value has been changed it displays a warning which, 
+	 * Event handler which is fired when the radiogroup has changed.
+	 * If the radiogroup value has been changed it displays a warning which,
 	 * informs the user that he needs to reload the WebApp.
 	 *
-	 * @param {Ext.form.CheckBox} checkbox Checkbox element from which the event originated
-	 * @param {Boolean} check State of the checkbox
+	 * @param {Ext.form.RadioGroup} group The radio group which fired the event
+	 * @param {Ext.form.Radio} radio The radio which was enabled
 	 * @private
 	 */
-	enableKeyboardShortcuts : function(checkbox, value)
+	enableKeyboardShortcuts : function(group, radio)
 	{
-		if (this.model.get(checkbox.name) !== value) {
-			this.model.set(checkbox.name, value);
+		if (this.model.get(group.name) !== radio.inputValue) {
+			this.model.set(group.name, radio.inputValue);
 		}
+
 		// If settingsmodel has been modified, display a warning
 		if(!Ext.isEmpty(this.model.modified)) {
 			this.keyShortcutWarning.setValue(_('This change requires a reload of the WebApp'));

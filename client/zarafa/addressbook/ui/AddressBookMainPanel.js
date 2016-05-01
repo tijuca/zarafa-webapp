@@ -142,7 +142,7 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 				}
 			},{
 				xtype: 'spacer',
-				flex: .10,
+				flex: 0.10,
 				height: 10
 			},{
 				xtype : 'combo',
@@ -254,12 +254,14 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		var record;
 
 		// Check that addressBookSelectionCB is created
-		if (!Ext.isDefined(this.addressBookSelectionCB))
+		if (!Ext.isDefined(this.addressBookSelectionCB)) {
 			return;
+		}
 
 		// Check that we have at least obtained one item
-		if (this.hierarchyStore.getCount() == 0)
+		if (this.hierarchyStore.getCount() === 0) {
 			return;
+		}
 
 		// Get the entryId of default address book configured in setting
 		var folderEntryId = container.getSettingsModel().get('zarafa/v1/main/default_addressbook');
@@ -289,8 +291,9 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		});
 
 		var entryid = record.get('entryid');
-		if (!Ext.isDefined(entryid))
+		if (!Ext.isDefined(entryid)) {
 			return;
+		}
 
 		this.addressBookSelectionCB.setValue(entryid);
 	},
@@ -324,8 +327,8 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSearchTextFiledKeyUp : function(field, e)
 	{
-		if (e.getKey() == e.ENTER) {
-			this.onSearchButtonClick()
+		if (e.getKey() === e.ENTER) {
+			this.onSearchButtonClick();
 		}/* @TODO: Auto select and set focus to addressbook entry which
 			partially matches to the entered search text.
 		else {

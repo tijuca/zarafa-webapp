@@ -396,6 +396,8 @@ Zarafa.common.ui.Box = Ext.extend(Ext.BoxComponent, {
 				this.iconEl.addClass(icon_class);
 			}
 		}
+		
+		this.parent.sizeContainer();
 	},
 
 	/**
@@ -441,11 +443,15 @@ Zarafa.common.ui.Box = Ext.extend(Ext.BoxComponent, {
 			this.isAnimDestroying = true;
 			this.getEl().hide({
 				duration: 0.2,
-				callback: function() { this.destroy(); },
+				callback: function() { 
+					this.destroy();
+					this.parent.sizeContainer();
+				},
 				scope: this
 			});
 		} else {
 			this.destroy();
+			this.parent.sizeContainer();
 		}
 	}
 });

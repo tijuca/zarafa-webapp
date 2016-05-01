@@ -29,7 +29,7 @@ Zarafa.contact.dialogs.ContactPanel = Ext.extend(Ext.Panel, {
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.contactpanel',
-			bodyStyle: 'background-color: inherit;',
+			cls : 'zarafa-contactcreatepanel',
 			border : false,
 			layout : 'fit',
 			items: this.createTabPanel()
@@ -49,19 +49,18 @@ Zarafa.contact.dialogs.ContactPanel = Ext.extend(Ext.Panel, {
 			xtype : 'tabpanel',
 			activeTab : 0,
 			border : false,
-			bodyStyle: 'background-color: inherit;',
 			defaults: {
-				bodyStyle: 'background-color: inherit; padding: 5px;',
 				layout : 'column',
 				autoHeight : false		// autoScroll won't work if height is auto
 			},
-			items : [{
-				xtype : 'zarafa.contactgeneraltab'
-			}, {
-				xtype : 'zarafa.contactdetailtab'
-			},
-			// Add insertion point
-			container.populateInsertionPoint('context.contact.contactcontentpanel.tabs', this)
+			items : [
+				{
+					xtype : 'zarafa.contactgeneraltab'
+				}, {
+					xtype : 'zarafa.contactdetailtab'
+				},
+				// Add insertion point
+				container.populateInsertionPoint('context.contact.contactcontentpanel.tabs', this)
 			]
 		}];
 	}

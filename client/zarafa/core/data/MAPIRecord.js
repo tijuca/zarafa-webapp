@@ -372,7 +372,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 		}
 
 		Zarafa.core.data.MAPIRecord.superclass.set.call(this, name, value);
-
+		this.modified = this.modified || {};
 		if (forceProtocol === true && this.modified[name] === undefined) {
 			this.modified[name] = this.data[name];
 		}

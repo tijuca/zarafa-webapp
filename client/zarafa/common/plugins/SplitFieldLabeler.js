@@ -132,7 +132,7 @@ Zarafa.common.plugins.SplitFieldLabeler = Ext.extend(Ext.util.Observable, {
 					foundItem = item;
 					return false;
 				}
-			}
+			};
 
 			// Items can be an Array or MixedCollection, depending
 			// on the current state of the field for which we are generating
@@ -203,7 +203,7 @@ Zarafa.common.plugins.SplitFieldLabeler = Ext.extend(Ext.util.Observable, {
 				// If a width was provided, we reduce the totalWidth
 				// because we must only calculate the labelWidth for
 				// the non-fixed labels.
-				if ((!Ext.isDefined(item.width) || item.width == 0) && !Ext.isEmpty(item.text)) {
+				if ((!Ext.isDefined(item.width) || item.width === 0) && !Ext.isEmpty(item.text)) {
 					labelLength += item.text.length;
 				} else {
 					totalWidth -= item.width;
@@ -216,7 +216,7 @@ Zarafa.common.plugins.SplitFieldLabeler = Ext.extend(Ext.util.Observable, {
 			var item = labeledItems[i];
 
 			if (item.xtype == 'displayfield') {
-				if ((!Ext.isDefined(item.width) || item.width == 0) && !Ext.isEmpty(item.text)) {
+				if ((!Ext.isDefined(item.width) || item.width === 0) && !Ext.isEmpty(item.text)) {
 					item.width = Math.round(totalWidth * (item.text.length / labelLength));
 				}
 			}

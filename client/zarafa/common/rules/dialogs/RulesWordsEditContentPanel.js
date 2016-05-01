@@ -60,7 +60,7 @@ Zarafa.common.rules.dialogs.RulesWordsEditContentPanel = Ext.extend(Zarafa.core.
 	onOk : function()
 	{
 		// In case word field still contain some word to add.
-		if (this.rulesWordsEditPanel.onWordAdd() != false) {
+		if (this.rulesWordsEditPanel.onWordAdd() !== false) {
 			if (Ext.isFunction(this.callback)) {
 				this.callback.call(this.scope || this, this.store);
 			}

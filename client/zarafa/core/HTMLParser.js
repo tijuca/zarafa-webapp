@@ -85,8 +85,8 @@ Zarafa.core.HTMLParser = (function() {
 			content = Zarafa.core.HTMLParser.entityEncode(content, 'ENT_NOQUOTES');
 
 			// We should wrap the content in <pre> tag to maintain
-			// text indentation/spacing when we conver it to HTML.
-			content = '<div><pre wrap style=\"white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; white-space: pre-wrap; word-wrap: break-word;\">' + content + '</pre></div>';
+			// text indentation/spacing when we convert it to HTML.
+			content = '<div><pre wrap style=\"white-space: pre-wrap; word-wrap: break-word;\">' + content + '</pre></div>';
 
 			// simple text markup *bold* and _underlined_ text
 			content = content.replace(XRegExp("(?<prefix>^|[^\\p{L}])(?<word>\\*+[\\p{L},\ ,\t,0-9]+\\*+)(?<postfix>[^\\p{L}]|$)", "gi"), function(match) {
@@ -95,7 +95,7 @@ Zarafa.core.HTMLParser = (function() {
 
 			content = content.replace(XRegExp("(?<prefix>^|[^\\p{L}])(?<word>_+[\\p{L},\ ,\t,0-9]+_+)(?<postfix>[^\\p{L}]|$)", "gi"), function(match) {
 				return match.prefix + '<span style="text-decoration: underline">' + match.word + '</span>' + match.postfix;
-			})
+			});
 
 			// convert all breaklines
 			content = Zarafa.core.HTMLParser.nl2br(content);
@@ -188,7 +188,6 @@ Zarafa.core.HTMLParser = (function() {
 			// Match all HTML tags
 			var matches = content.match(/(<\/?[^>]+>)/gi);
 
-			var key = '';
 			var html = '';
 			var allowedTag = '';
 			var i = -1;
@@ -225,7 +224,7 @@ Zarafa.core.HTMLParser = (function() {
 						}
 
 						// Determine
-						if (i == 0) {
+						if (i === 0) {
 							allowed = true;
 							break;
 						}
@@ -687,7 +686,6 @@ Zarafa.core.HTMLParser = (function() {
 				if(imgCid) {
 					var url = container.getBaseURL();
 					url = Ext.urlAppend(url, 'load=download_attachment');
-					url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 					url = Ext.urlAppend(url, 'attachCid=' + imgCid);
 					url = Ext.urlAppend(url, 'store=' + storeEntryId);
 					url = Ext.urlAppend(url, 'entryid=' + entryId);

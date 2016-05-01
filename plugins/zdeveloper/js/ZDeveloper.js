@@ -47,7 +47,7 @@ Zarafa.plugins.zdeveloper.ZDeveloperPlugin = Ext.extend(Zarafa.core.Plugin, {
 					delay : 1,
 					single : true
 				}
-			}
+			};
 		} else if (context == 'navigation.center') {
 			return {
 				xtype: 'zarafa.contextnavigation',
@@ -61,7 +61,7 @@ Zarafa.plugins.zdeveloper.ZDeveloperPlugin = Ext.extend(Zarafa.core.Plugin, {
 					}
 				],
 				context : container.getCurrentContext()
-			}
+			};
 		} else if (context == 'context.settings.categories') {
 			return {
 				xtype : 'zarafa.settingscategory',
@@ -86,7 +86,7 @@ Zarafa.plugins.zdeveloper.ZDeveloperPlugin = Ext.extend(Zarafa.core.Plugin, {
 			};
 		} else if (context == 'context.mail.gridrow') {
 			return String.format('<td style="width: 112px"><div class="{0}">{1}</div></td>', 'grid_compact zdeveloper-insertion-point', 'context.mail.gridrow');
-		} else if (context == 'context.mail.griddefaultcolumn') {
+		} else if (context == 'context.mail.griddefaultcolumn' || context == 'context.addressbook.gridpanel') {
 			return {
 				header : '<p class="zdeveloper-insertion-point">context.mail.griddefaultcolumn</p>',
 				width : 200,

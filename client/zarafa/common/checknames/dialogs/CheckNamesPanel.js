@@ -43,7 +43,6 @@ Zarafa.common.checknames.dialogs.CheckNamesPanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			header: true,
 			items: [{
 				xtype: 'displayfield',

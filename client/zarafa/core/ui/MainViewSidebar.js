@@ -26,9 +26,8 @@ Zarafa.core.ui.MainViewSidebar = Ext.extend(Ext.Panel, {
 			collapsible : true,
 			collapsed : false,
 			split : true,
-			width : 250,
-			minSize : 150,
-			maxSize : 400
+			width : 242,
+			minSize : 150
 		});
 
 		Zarafa.core.ui.MainViewSidebar.superclass.constructor.call(this, config);

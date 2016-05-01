@@ -75,7 +75,9 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		});
 
 		// We add the default buttons
-		items = items.concat([{
+		items = items.concat([
+			'->', 
+		{
 			xtype: 'zarafa.toolbarbutton',
 			overflowText : _('Copy/Move'),
 			tooltip: _('Copy/Move') + ' (Ctrl + M)',
@@ -129,11 +131,6 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 			folderchange : this.onModelFolderChange,
 			scope : this
 		});
-
-		this.mon(this.searchTextfield,{
-			beforestart : this.onBeforeStart,
-			scope : this
-		});
 	},
 
 	/**
@@ -181,33 +178,6 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 		}
 
 		toolbar.searchTextfield.setWidth(width - (itemWidth));
-	},
-
-	/**
-	 * Event handler triggered when {@link Zarafa.common.ui.SearchField#beforestart} is fire.
-	 * function is used to create the {@link Zarafa.common.search.dialogs.SearchContentPanel searchcontentpanel}
-	 * which contains search result.
-	 * @param {Zarafa.common.ui.SearchField} SearchField object of search field component.
-	 */
-	onBeforeStart : function(searchField)
-	{
-		if(Ext.isEmpty(searchField.getValue())) {
-			container.getNotifier().notify('error.search', _('Error'), searchField.errorMsgEmpty);
-			return false;
-		}
-
-		if(!searchField.isRenderedSearchPanel()) {
-			var componentType = Zarafa.core.data.SharedComponentType['common.search'];
-			Zarafa.core.data.UIFactory.openLayerComponent(componentType, [], {
-				'searchText' : searchField.getValue(),
-				'context' : container.getContextByName('advancesearch'),
-				'parentContext' : container.getCurrentContext(),
-				'parentSearchField' : searchField
-			});
-			searchField.renderedSearchPanel = true;
-		}
-
-		return true;
 	},
 
 	/**

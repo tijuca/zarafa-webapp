@@ -55,6 +55,7 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			text: _('Reply'),
 			tooltip: _('Reply') + ' (Ctrl + R)',
 			overflowText: _('Reply'),
+			cls: 'zarafa-action',
 			iconCls: 'icon_replyEmail',
 			ref: 'replyBtn',
 			actionType: Zarafa.mail.data.ActionTypes.REPLY,
@@ -122,7 +123,6 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				text: _('Open options dialog')
 			},
 			iconCls : 'icon_openMessageOptions',
-			ref: 'optionsBtn',
 			handler : this.onMailOptionsButton,
 			scope: this
 		},{
@@ -179,7 +179,8 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 		// We only show the "Edit as New Message" button for items in the Sent folder.
 		var parentEntryid = this.record.get('parent_entryid');
 		var sentFolder = container.getHierarchyStore().getDefaultFolder('sent');
-		this.editAsNewBtn.setVisible(Zarafa.core.EntryId.compareEntryIds(parentEntryid, sentFolder.get('entryid')) && !isFaultyMessage);
+		var isSentFolder = Ext.isDefined(sentFolder) ? Zarafa.core.EntryId.compareEntryIds(parentEntryid, sentFolder.get('entryid')) : false;
+		this.editAsNewBtn.setVisible(isSentFolder && !isFaultyMessage);
 	},
 
 	/**

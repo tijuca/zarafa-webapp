@@ -43,7 +43,7 @@ Zarafa.contact.dialogs.ContactAddressContentPanel = Ext.extend(Zarafa.core.ui.Re
 			}),
 			autoSave : false,
 			width: 400,
-			height: 250,
+			height: 300,
 			items: [{
 				xtype: 'zarafa.contactaddresspanel',
 				ref: 'mainPanel',

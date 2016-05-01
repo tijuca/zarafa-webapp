@@ -30,7 +30,6 @@ Zarafa.mail.ui.MailPreviewPanel = Ext.extend(Zarafa.core.ui.PreviewPanel, {
 			width: 600,
 			height: 400,
 			tbar : {
-				height:33,
 				items : [
 					this.createReplyButton(),
 					this.createReplyAllButton(),

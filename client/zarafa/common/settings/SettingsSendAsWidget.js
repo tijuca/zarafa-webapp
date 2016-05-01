@@ -59,9 +59,6 @@ Zarafa.common.settings.SettingsSendAsWidget = Ext.extend(Zarafa.settings.ui.Sett
 	{
 		Zarafa.common.settings.SettingsSendAsWidget.superclass.initEvents.call(this);
 
-		// listen to savesettings and discardsettings to save/discard delegation data
-		var contextModel = this.settingsContext.getModel();
-
 		this.mon(this.getStore(), {
 			'remove' : this.doStoreRemove,
 			'update' : this.doStoreUpdate,
@@ -116,7 +113,7 @@ Zarafa.common.settings.SettingsSendAsWidget = Ext.extend(Zarafa.settings.ui.Sett
 			delete address.recipient_flags;
 			delete address.recipient_trackstatus;
 			delete address.recipient_trackstatus_time;
-		};
+		}
 
 		settingsModel.set('zarafa/v1/contexts/mail/sendas', addresses);
 	},

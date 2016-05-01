@@ -6,7 +6,7 @@ Ext.namespace('Zarafa.advancesearch.data');
  * @singleton
  */
 Zarafa.advancesearch.data.DateRangeFields = [{
-    'name': _('All dates'),
+    'name': _('Any date'),
     'value': 'all_dates'
 }, {
     'name': _('Past week'),
@@ -23,4 +23,7 @@ Zarafa.advancesearch.data.DateRangeFields = [{
 }, {
     'name': _('Past year'),
     'value': 'past_year'
+}, {
+    'name': _('Custom date'),
+    'value': 'custom_date'
 }];

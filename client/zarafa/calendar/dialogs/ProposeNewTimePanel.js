@@ -35,7 +35,6 @@ Zarafa.calendar.dialogs.ProposeNewTimePanel = Ext.extend(Ext.Panel, {
 				align : 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			defaults: {
 				border: false,
 				bodyStyle: 'padding-bottom: 5px; background-color: inherit;'

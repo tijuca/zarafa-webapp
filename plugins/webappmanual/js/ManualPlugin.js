@@ -15,12 +15,12 @@ Zarafa.plugins.webappmanual.ManualPlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @type Array
 	 */
 	manualShortcuts : {
-		'mail' : 'Mail.html',
-		'calendar' : 'Calendar.html',
-		'contact' : 'Contacts.html',
-		'task' : 'Tasks.html',
-		'note' : 'Notes.html',
-		'settings' : 'Settings.html'
+		'mail' : 'mail.html',
+		'calendar' : 'calendar.html',
+		'contact' : 'contacts.html',
+		'task' : 'tasks.html',
+		'note' : 'notes.html',
+		'settings' : 'settings.html'
 	},
 
 	/**

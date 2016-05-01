@@ -48,6 +48,7 @@ Zarafa.common.ui.TimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeField, {
 		Ext.applyIf(config.startFieldConfig, {
 			xtype: 'zarafa.spinnerfield',
 			fieldLabel : _('Start time'),
+			width : 190,
 			minValue: config.minValue || this.minValue,
 			maxValue: config.maxValue || this.maxValue,
 			incrementValue: config.timeIncrement || this.timeIncrement,
@@ -70,6 +71,7 @@ Zarafa.common.ui.TimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeField, {
 		config.endFieldConfig = Ext.applyIf(config.endFieldConfig || {}, {
 			xtype: 'zarafa.spinnerfield',
 			fieldLabel : _('End time'),
+			width : 190,
 			minValue: config.minValue || this.minValue,
 			maxValue: config.maxValue || this.maxValue,
 			incrementValue: config.timeIncrement || this.timeIncrement,
@@ -88,7 +90,7 @@ Zarafa.common.ui.TimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeField, {
 	 */
 	onStartSpin : function(spinner)
 	{
-		this.onStartChange(spinner.field, spinner.field.getValue(), spinner.field.startValue)
+		this.onStartChange(spinner.field, spinner.field.getValue(), spinner.field.startValue);
 	},
 
 	/**
@@ -100,7 +102,7 @@ Zarafa.common.ui.TimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeField, {
 	 */
 	onEndSpin : function(spinner)
 	{
-		this.onEndChange(spinner.field, spinner.field.getValue(), spinner.field.startValue)
+		this.onEndChange(spinner.field, spinner.field.getValue(), spinner.field.startValue);
 	}
 });
 

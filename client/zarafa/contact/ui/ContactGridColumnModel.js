@@ -42,9 +42,11 @@ Zarafa.contact.ui.ContactGridColumnModel = Ext.extend(Zarafa.common.ui.grid.Colu
 	{
 		return [{
 			dataIndex : 'icon_index',
-			header : '<p class="icon_index">&nbsp;</p>',
+			headerCls: 'zarafa-icon-column icon',
+			header : '<p class="icon_index">&nbsp;<span class="title">' + _('Icon') + '</span></p>',
 			tooltip : _('Sort by: Icon'),
 			width : 25,
+			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		},{ // @TODO add attachment column
 			dataIndex : 'fileas',

@@ -14,7 +14,7 @@ Zarafa.core.data.ZarafaCustomEventDispatcher = Ext.extend(Ext.util.Observable, {
 	 */
 	constructor: function(config) {
 		// Call our superclass constructor to complete construction process.
-		Zarafa.core.data.ZarafaCustomEventDispatcher.superclass.constructor.call(this, config)
+		Zarafa.core.data.ZarafaCustomEventDispatcher.superclass.constructor.call(this, config);
 	}
 });
 

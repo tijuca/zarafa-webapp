@@ -89,11 +89,16 @@ Zarafa.core.data.User = Ext.extend(Object, {
 	},
 
 	/**
-	 * @return {String} The sessionId for this user
+	 * @deprecated 2.2.0 This function only exists for backward compatibility with
+	 * 		 that want to send the session id as a GET parameter with requests that
+	 * 		 they make to zarafa.php. Currently zarafa.php does not expect this
+	 * 		 parameter anymore, but plugins that have not been updated might still 
+	 * 		 call this function.
+	 * @return {String} Always empty
 	 */
 	getSessionId : function()
 	{
-		return this.meta.sessionid;
+		return '';
 	},
 	
 	/**

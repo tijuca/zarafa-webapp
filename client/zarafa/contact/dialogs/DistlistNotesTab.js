@@ -27,8 +27,15 @@ Zarafa.contact.dialogs.DistlistNotesTab = Ext.extend(Ext.form.FormPanel, {
 			items : [{
 				xtype : 'zarafa.editorfield',
 				useHtml : false,
+				ref: 'editorField',
 				plaintextName : 'body',
 				listeners : {
+					// Use the afterlayout event to place the placeholder attribute
+					afterlayout: function(){
+						this.editorField.getEditor().getEl().set({
+							placeholder: _('Type your note here...')
+						});
+					},
 					change : this.onPropertyChange,
 					scope : this
 				}

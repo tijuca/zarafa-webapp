@@ -105,31 +105,35 @@ Zarafa.core.ui.menu.ConditionalItem = Ext.extend(Ext.menu.Item, {
 		var records = this.getRecords();
 
 		if (this.emptySelectOnly) {
-			if (Ext.isDefined(records) && (!Ext.isArray(records) || records.length > 0))
+			if (Ext.isDefined(records) && (!Ext.isArray(records) || records.length > 0)) {
 				this.setDisabled(true);
-			else
+			} else {
 				this.setDisabled(false);
+			}
 		}
 
 		if (this.nonEmptySelectOnly) {
-			if (Ext.isDefined(records) && Ext.isArray(records) && records.length == 0)
+			if (Ext.isDefined(records) && Ext.isArray(records) && records.length === 0) {
 				this.setDisabled(true);
-			else
+			} else {
 				this.setDisabled(false);
+			}
 		}
 
 		if (this.singleSelectOnly) {
-			if (!Ext.isDefined(records) || (Ext.isArray(records) && records.length != 1))
+			if (!Ext.isDefined(records) || (Ext.isArray(records) && records.length !== 1)) {
 				this.setDisabled(true);
-			else
+			} else {
 				this.setDisabled(false);
+			}
 		}
 
 		if (this.multiSelectOnly) {
-			if (!Ext.isDefined(records) || !Ext.isArray(records) || records.length == 1)
+			if (!Ext.isDefined(records) || !Ext.isArray(records) || records.length === 1) {
 				this.setDisabled(true);
-			else
+			} else {
 				this.setDisabled(false);
+			}
 		}
 	},
 

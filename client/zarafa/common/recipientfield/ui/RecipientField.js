@@ -86,7 +86,9 @@ Zarafa.common.recipientfield.ui.RecipientField = Ext.extend(Zarafa.common.ui.Box
 			border: false,
 			minChars: 1,
 			listEmptyText : _('No suggestions available'),
-			height: 50,
+			boxMinHeight: 24,
+			boxMaxHeight: 66,
+			height: 24,
 			tpl: new Ext.XTemplate(
 				'<tpl for=".">',
 					'<div class="x-zarafa-boxfield-suggestion-item x-combo-list-item">',
@@ -104,6 +106,16 @@ Zarafa.common.recipientfield.ui.RecipientField = Ext.extend(Zarafa.common.ui.Box
 
 		this.on('boxdblclick', this.onBoxDblClick, this);
 		this.on('boxcontextmenu', this.onBoxContextMenu, this);
+
+		// For some reason Ext explicitly sets the width if the size of a boxComponent is set before it is rendered
+		// This means it will never be resized again when the parents components size changes
+		// So we make sure it will be undefined again and then it is resized as we want it to.
+		// (it took me weeks to figure this out, so be careful when you change this!!!)
+		this.on('afterrender', function(){
+			if ( this.width ){
+				this.width = undefined;
+			}
+		});
 	},
 
 	/**

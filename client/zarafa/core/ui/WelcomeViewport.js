@@ -46,7 +46,6 @@ Zarafa.core.ui.WelcomeViewport = Ext.extend(Ext.Viewport, {
 					xtype : 'panel',
 					cls : 'zarafa-welcome-body',
 					border : false,
-					style : { width : '45em' },
 					items : [{
 						xtype : 'displayfield',
 						cls : 'zarafa-welcome-title',
@@ -59,8 +58,9 @@ Zarafa.core.ui.WelcomeViewport = Ext.extend(Ext.Viewport, {
 						xtype : 'zarafa.settingswelcomecategory',
 						ref : '../../settingsCategory'
 					}],
-					buttonAlign : 'center',
+					buttonAlign : 'right',
 					buttons : [{
+						cls: 'zarafa-action',
 						text: _('Continue'),
 						handler : this.onContinueButton,
 						scope : this

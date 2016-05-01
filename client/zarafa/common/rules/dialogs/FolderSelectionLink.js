@@ -123,7 +123,7 @@ Zarafa.common.rules.dialogs.FolderSelectionLink = Ext.extend(Ext.BoxComponent, {
 			},
 			scope : this,
 			modal : true
-		})
+		});
 	},
 
 	/**

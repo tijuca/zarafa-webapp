@@ -42,7 +42,7 @@ Zarafa.advancesearch.AdvanceSearchContext = Ext.extend(Zarafa.core.Context, {
 			hidden : true,
 			iconCls : 'view_icon',
 			menu : menuItems
-		}
+		};
 	},
 
 	/**
@@ -66,9 +66,7 @@ Zarafa.advancesearch.AdvanceSearchContext = Ext.extend(Zarafa.core.Context, {
 	getModel : function(config)
 	{
 		if (!Ext.isDefined(this.model)) {
-			this.model = new Zarafa.advancesearch.AdvanceSearchContextModel({
-				parentModel : config.parentModel
-			});
+			this.model = new Zarafa.advancesearch.AdvanceSearchContextModel();
 		}
 		return this.model;
 	},

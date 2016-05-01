@@ -92,7 +92,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 	 */
 	onModelSearchStart : function(model)
 	{
-		if(this.getCurrentView() != Zarafa.note.data.Views.SEARCH && this.getCurrentViewMode() != Zarafa.note.data.ViewModes.SEARCH){
+		if(this.getCurrentView() !== Zarafa.note.data.Views.SEARCH && this.getCurrentViewMode() !== Zarafa.note.data.ViewModes.SEARCH){
 			this.oldView = this.getCurrentView();
 			this.oldViewMode = this.getCurrentViewMode();
 			this.switchView(Zarafa.note.data.Views.SEARCH, Zarafa.note.data.ViewModes.SEARCH);
@@ -164,7 +164,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 				}
 				break;
 			case Zarafa.core.data.SharedComponentType['common.attachment.dialog.attachitem.textrenderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass('IPM.StickyNote', true)) {
 						bid = 1;
 					}
@@ -193,7 +193,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 				component = Zarafa.note.ui.NoteContextMenu;
 				break;
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					component = Zarafa.note.printer.NoteRenderer;
 				}
 				break;
@@ -221,7 +221,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 				xtype : 'panel',
 				id: 'zarafa-navigationpanel-notes-navigation',
 				cls: 'zarafa-context-navigation-block',
-				title : _('My Notes'),
+				layout: 'fit',
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
 					id: 'zarafa-navigationpanel-notes-navigation-tree',
@@ -337,7 +337,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-notes-icons',
 			text: _('Icons'),
 			overflowText: _('Icons'),
-			iconCls: 'note_icon_view',
+			iconCls: 'icon_note_icon_view',
 			valueView : Zarafa.note.data.Views.ICON,
 			valueViewMode : Zarafa.note.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.note.data.DataModes.ALL,
@@ -347,7 +347,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-notes-list',
 			text: _('List view'),
 			overflowText: _('List view'),
-			iconCls: 'note_list_view',
+			iconCls: 'icon_contact_list',
 			valueView : Zarafa.note.data.Views.LIST,
 			valueViewMode : Zarafa.note.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.note.data.DataModes.ALL,
@@ -357,7 +357,7 @@ Zarafa.note.NoteContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-notes-listlastsevendays',
 			text: _('List Last Seven Days'),
 			overflowText: _('List Last Seven Days'),
-			iconCls: 'task_seven_days',
+			iconCls: 'icon_task_seven_days',
 			valueView : Zarafa.note.data.Views.LIST,
 			valueViewMode : Zarafa.note.data.ViewModes.NORMAL,
 			valueDataMode : Zarafa.note.data.DataModes.LAST_7_DAYS,

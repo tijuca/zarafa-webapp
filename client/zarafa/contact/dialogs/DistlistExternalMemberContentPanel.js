@@ -87,7 +87,7 @@ Zarafa.contact.dialogs.DistlistExternalMemberContentPanel = Ext.extend(Zarafa.co
 				handler: this.onCancel,
 				scope: this
 			}]
-		}]
+		}];
 	},
 
 	/**

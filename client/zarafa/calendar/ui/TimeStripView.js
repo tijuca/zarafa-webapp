@@ -27,7 +27,7 @@ Zarafa.calendar.ui.TimeStripView = Ext.extend(Zarafa.core.ui.View, {
 	/**
 	 * @cfg {String} textTemplate The template to be used for the Hour indications inside the strip.
 	 */
-	textTemplate : '<div>{0}&nbsp;<sup>00</sup></div>',
+	textTemplate : '<div>{0}:00</div>',
 
 	/**
 	 * The offset all elements must have from the left side of the {@link #container}. This

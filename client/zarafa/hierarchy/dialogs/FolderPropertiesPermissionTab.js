@@ -22,6 +22,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 
 		Ext.applyIf(config, {
 			xtype: 'zarafa.folderpropertiespermissiontab',
+			cls : 'tab-permissions',
 			layout: {
 				type: 'vbox',
 				align: 'stretch'
@@ -30,6 +31,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 			bodyStyle : 'background-color: inherit;',
 			items: [
 				this.createUserListPanel(),
+				this.createProfilePanel(),
 				this.createPermissionPanel()
 			]
 		});
@@ -45,8 +47,10 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 	{
 		return {
 			xtype : 'panel',
+			cls : 'userlist-panel',
 			layout : 'fit',
 			flex : 1,
+			border: false,
 			items : [{
 				xtype : 'grid',
 				ref : '../userView',
@@ -80,13 +84,83 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 				text : _('Add'),
 				ref : '../../addUserBtn',
 				handler : this.onUserAdd,
-				scope : this
+				scope : this,
+				autoWidth : false
 			},{
 				text : _('Remove'),
 				ref : '../../removeUserBtn',
 				handler : this.onUserRemove,
-				scope : this
+				scope : this,
+				autoWidth : false
 			}]
+		};
+	},
+
+	/**
+	 * @return {Object} Configuration object for the panel for permissions
+	 * @private
+	 */
+	createProfilePanel : function()
+	{
+		var profileStore = {
+			xtype: 'jsonstore',
+			fields: ['name', 'value'],
+			data : Zarafa.hierarchy.data.PermissionProfiles
+		};
+
+		return {
+			xtype : 'panel',
+			layout : 'fit',
+			cls : 'profile-panel',
+			autoHeight : true,
+			border : false,
+			items : {
+				xtype : 'container',
+				autoHeight : true,
+				items : [{
+					xtype : 'form',
+					layout : {
+						type: 'table',
+						columns : 2
+					},
+					border : false,
+					ref : '../profileForm',
+					items : [{
+						xtype : 'label',
+						autoWidth : true,
+						autoHeight : true,
+						forId : 'profile-combo',
+						hideLabel : false,
+						text : _('Profile') + ':',
+						ref : '../../profileLabel'
+					},{
+						xtype : 'combo',
+						ref : '../../../profileCombo',
+						width: 122,
+						flex : 1,
+						id: 'profile-combo',
+						fieldLabel : _('Profile'),
+						labelWidth : undefined,
+						labelStyle : 'width: auto',
+						hideLabel : true,
+						autoHeight : true,
+						store: profileStore,
+						mode: 'local',
+						triggerAction: 'all',
+						displayField: 'name',
+						valueField: 'value',
+						lazyInit: false,
+						autoSelect : true,
+						forceSelection: true,
+						editable: false,
+						defaultValue : Zarafa.core.mapi.Rights.RIGHTS_NO_RIGHTS,
+						listeners : {
+							select : this.onProfileSelect,
+							scope : this
+						}
+					}]
+				}]
+			}
 		};
 	},
 
@@ -96,44 +170,20 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 	 */
 	createPermissionPanel : function()
 	{
-		var profileStore = {
-			xtype: 'jsonstore',
-			fields: ['name', 'value'],
-			data : Zarafa.hierarchy.data.PermissionProfiles
-		};
-
 		return {
 			xtype : 'form',
 			layout : 'fit',
+			cls : 'permissions-panel',
 			autoHeight : true,
 			border : false,
 			ref : 'permissionsForm',
 			items : [{
 				xtype : 'fieldset',
-				title : _('Permissions'),
+//				title : _('Permissions'),
 				autoHeight : true,
 				autoWidth : true,
 				cls : 'zarafa-fieldset',
 				items : [{
-					xtype : 'combo',
-					ref : '../../profileCombo',
-					width: 122,
-					fieldLabel : _('Profile'),
-					store: profileStore,
-					mode: 'local',
-					triggerAction: 'all',
-					displayField: 'name',
-					valueField: 'value',
-					lazyInit: false,
-					autoSelect : true,
-					forceSelection: true,
-					editable: false,
-					defaultValue : Zarafa.core.mapi.Rights.RIGHTS_NO_RIGHTS,
-					listeners : {
-						select : this.onProfileSelect,
-						scope : this
-					}
-				},{
 					xtype : 'container',
 					layout : 'column',	
 					items : [{
@@ -330,7 +380,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 		// 'null' to ensure that the 'Other' profile is selected.
 		var index = store.findExact('value', permissions);
 		if (index >= 0) {
-			this.profileCombo.setValue(permissions)
+			this.profileCombo.setValue(permissions);
 		} else {
 			this.profileCombo.setValue(null);
 		}
@@ -459,7 +509,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 	{
 		this.selectedUser = user;
 		this.removeUserBtn.enable();
-		this.permissionsForm.getForm().items.each(function(item) { item.enable(); })
+		this.permissionsForm.getForm().items.each(function(item) { item.enable(); });
 		this.loadPermissionValue(user.get('rights'));
 	},
 
@@ -473,7 +523,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 		this.selectedUser = undefined;
 		this.loadPermissionValue(this.profileCombo.defaultValue);
 		this.removeUserBtn.disable();
-		this.permissionsForm.getForm().items.each(function(item) { item.disable(); })
+		this.permissionsForm.getForm().items.each(function(item) { item.disable(); });
 	},
 
 	/**
@@ -488,7 +538,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 		if (this.record && this.record.isOpened()) {
 			var store = this.record.getSubStore('permissions');
 			if (store.getCount() > 0) {
-				this.userView.getSelectionModel().selectFirstRow()
+				this.userView.getSelectionModel().selectFirstRow();
 			}
 		}
 	},
@@ -539,14 +589,15 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 	 */
 	onPermissionChecked : function(group, checked)
 	{
+		var permissions;
 		if (this.selectedUser) {
-			var permissions = this.selectedUser.get('rights');
+			permissions = this.selectedUser.get('rights');
 			permissions = this.updatePermissionFromGroup(group, permissions);
 
 			this.selectedUser.set('rights', permissions);
 			this.updateProfileCombo(permissions);
 		} else {
-			var permissions = this.updatePermissionValue();
+			permissions = this.updatePermissionValue();
 			this.updateProfileCombo(permissions);
 		}
 	},
@@ -565,7 +616,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 			var store = record.getSubStore('permissions');
 			this.userView.reconfigure(store, this.userView.getColumnModel());
 			if (store.getCount() > 0) {
-				this.userView.getSelectionModel().selectFirstRow()
+				this.userView.getSelectionModel().selectFirstRow();
 			} else {
 				this.clearPermissionsForm();
 			}

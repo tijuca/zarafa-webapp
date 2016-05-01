@@ -10,17 +10,19 @@ Ext.namespace('Zarafa.core.data');
 Zarafa.core.data.MessageRecordFields = [
 	{name: 'received_by_name'},
 	{name: 'received_by_email_address'},
+	{name: 'received_by_username'},
 	{name: 'received_by_address_type'},
 	{name: 'received_by_entryid'},
 	{name: 'received_by_search_key'},
+	{name: 'received_by_presence_status'}, // Note: this field will not be filled by the back-end
 	{name: 'received_representing_name'},
 	{name: 'received_representing_email_address'},
 	{name: 'received_representing_address_type'},
 	{name: 'received_representing_entryid'},
 	{name: 'received_representing_search_key'},
 	{name: 'delegated_by_rule', type: 'boolean', defaultValue: false},
-	{name: 'message_delivery_time', type:'date', dateFormat:'timestamp', defaultValue: null},
-	{name: 'client_submit_time', type:'date', dateFormat:'timestamp', defaultValue: null},
+	{name: 'message_delivery_time', type:'date', dateFormat:'timestamp', defaultValue: null, sortDir : 'DESC'},
+	{name: 'client_submit_time', type:'date', dateFormat:'timestamp', defaultValue: null, sortDir : 'DESC'},
 	{name: 'transport_message_headers'},
 	{name: 'hide_attachments', type: 'boolean', defaultValue: false},
 	{name: 'x_original_to'}

@@ -54,7 +54,7 @@ Zarafa.common.reminder.data.ReminderRecord = Ext.extend(Zarafa.core.data.MAPIRec
 	{
 		var entryId = this.get('entryid');
 		var messageClass = this.get('message_class');
-		var props = {}
+		var props = {};
 
 		if (Zarafa.core.MessageClass.isClass(messageClass, 'IPM.Appointment', true)) {
 			props = {

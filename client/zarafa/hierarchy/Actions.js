@@ -80,8 +80,9 @@ Zarafa.hierarchy.Actions = {
 			parentFolder = container.getHierarchyStore().getDefaultFolder(container.getCurrentContext().getName());
 
 			// Still not found then get default 'Inbox' folder
-			if (!Ext.isDefined(parentFolder))
+			if (!Ext.isDefined(parentFolder)) {
 				parentFolder = container.getHierarchyStore().getDefaultFolder('inbox');
+			}
 		}
 
 		// create new folderrecord and set 'parent_entryid'

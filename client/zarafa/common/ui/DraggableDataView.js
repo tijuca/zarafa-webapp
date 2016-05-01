@@ -145,7 +145,7 @@ Zarafa.common.ui.DraggableDataView = Ext.extend(Ext.DataView, {
 	 */
 	getDragDropText : function()
 	{
-		var count = this.getSelectionCount()
+		var count = this.getSelectionCount();
 		return String.format(ngettext('{0} selected item', '{0} selected items', count), count);
 	}
 });

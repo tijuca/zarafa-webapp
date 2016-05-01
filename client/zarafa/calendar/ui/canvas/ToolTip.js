@@ -18,6 +18,16 @@ Zarafa.calendar.ui.canvas.ToolTip = Ext.extend(Ext.util.Observable, {
 	 * @private
 	 */
 	el : undefined,
+	
+	/**
+	 * The element that is styled by the css files.
+	 * We get the styles from this element to draw on the canvas element.
+	 * This way we can use our css files to style the tooltip.
+	 * @property
+	 * @type Ext.Element
+	 * @private
+	 */
+	stylingEl : undefined,
 
 	/**
 	 * True if {@link Ext.Fx#stopFx} has been called, and we want
@@ -220,6 +230,47 @@ Zarafa.calendar.ui.canvas.ToolTip = Ext.extend(Ext.util.Observable, {
 				tag : 'canvas',
 				cls : this.tipCls
 			});
+			// Create an element that we can use for styling in the css files
+			this.stylingEl = this.el.createChild({
+				tag : 'div',
+				cls : 'zarafa-styling-element'
+			});
+			this.stylingElTitle = this.stylingEl.createChild({
+				tag : 'h2'
+			});
+			this.stylingElText = this.stylingEl.createChild({
+				tag : 'p'
+			});
+			this.stylingEl.styling = {
+				paddingLeft : this.stylingEl.getPadding('l'),
+				paddingRight : this.stylingEl.getPadding('r'),
+				paddingTop : this.stylingEl.getPadding('t'),
+				paddingBottom : this.stylingEl.getPadding('b')
+			};
+			this.stylingElTitle.styling = {
+				font : this.stylingElTitle.getStyle('font-style') + 
+						' normal' + // font-variant
+						' ' + this.stylingElTitle.getStyle('font-weight') +
+						' ' + this.stylingElTitle.getStyle('font-size') +
+						'/' + this.stylingElTitle.getStyle('line-height') +
+						' ' + this.stylingElTitle.getStyle('font-family'),
+				color : this.stylingElTitle.getStyle('color'),
+				fontSize : parseInt(this.stylingElTitle.getStyle('font-size'), 10),
+				lineHeight : parseInt(this.stylingElTitle.getStyle('line-height'), 10),
+				marginBottom : this.stylingElTitle.getMargins('b')
+			};
+			this.stylingElText.styling = {
+				font : this.stylingElText.getStyle('font-style') + 
+						' normal' + // font-variant
+						' ' + this.stylingElText.getStyle('font-weight') +
+						' ' + this.stylingElText.getStyle('font-size') +
+						'/' + this.stylingElText.getStyle('line-height') +
+						' ' + this.stylingElText.getStyle('font-family'),
+				color : this.stylingElText.getStyle('color'),
+				fontSize : parseInt(this.stylingElText.getStyle('font-size'), 10),
+				lineHeight : parseInt(this.stylingElText.getStyle('line-height'), 10),
+				marginBottom : this.stylingElText.getMargins('b')
+			};
 		} else {
 			this.cancelFx = true;
 			this.el.stopFx();
@@ -268,15 +319,16 @@ Zarafa.calendar.ui.canvas.ToolTip = Ext.extend(Ext.util.Observable, {
 
 		// Update the height of the Tooltip based on the new text which
 		// will be written into the Tooltip.
-		this.height = (2 * this.margins);
+		this.height = this.stylingEl.styling.paddingTop + this.stylingEl.styling.paddingBottom;
+		
 		if (!Ext.isEmpty(tipTitle)) {
-			context.setFont(this.titleFontType);
-			this.height += context.textHeight(tipTitle, this.width - (2 * this.margins), this.lineHeight);
-			this.height += this.titleMargins;
+			context.setFont(this.stylingElTitle.styling.font);
+			this.height += context.textHeight(tipTitle, this.width - this.stylingEl.styling.paddingLeft - this.stylingEl.styling.paddingRight, this.stylingElTitle.styling.lineHeight);
+			this.height += this.stylingElTitle.styling.marginBottom;
 		}
 		if (!Ext.isEmpty(tipText)) {
-			context.setFont(this.fontType);
-			this.height += context.textHeight(tipText, this.width - (2 * this.margins), this.lineHeight);
+			context.setFont(this.stylingElText.styling.font);
+			this.height += context.textHeight(tipText, this.width - this.stylingEl.styling.paddingLeft - this.stylingEl.styling.paddingRight, this.stylingElText.styling.lineHeight);
 		}
 
 		// Now we have the desired position and dimensions of
@@ -301,63 +353,66 @@ Zarafa.calendar.ui.canvas.ToolTip = Ext.extend(Ext.util.Observable, {
 			top  : (tooltipBox.y - containerBox.y) + 'px'
 		});
 
-		// Resize the canvas accordingly, this will also
-		// clear out any contents from previous usage.
-		Zarafa.resizeCanvas(tip, this.width + this.shadowSize, this.height + this.shadowSize);
+		// Resize the canvas accordingly
+		Zarafa.resizeCanvas(tip, this.width, this.height);
+		// Resizing the canvas does not clear it on Safari when the new size is the same as the old size
+		// So we will clear it using clearRect
+		context.clearRect(0, 0, this.width, this.height);
+		// Adjust for the borders that are defined in the css
+		tip.setWidth(this.width + parseInt(tip.getStyle('border-left-width'), 10) + parseInt(tip.getStyle('border-right-width'), 10));
+		tip.setHeight(this.height + parseInt(tip.getStyle('border-top-width'), 10) + parseInt(tip.getStyle('border-bottom-width'), 10));
 
 		// Now we are ready to start drawing
 		context.save();
 
-		// Define the rectangle in which we will create our tooltip,
-		// this will fill most of the <canvas> element, except for the
-		// rounded corners.
-		context.roundedRect(this.borderWidth / 2, this.borderWidth / 2, this.width - this.borderWidth, this.height - this.borderWidth, this.radius);
-		context.lineWidth = this.borderWidth;
-
-		// If shadows are enabled, we are going to generate the shadow
-		// for the background. As soon as the background has been painted,
-		// these properties will be reset again.
-		if (this.enableShadow === true) {
-			context.shadowColor = this.shadowColor;
-			context.shadowBlur = this.shadowSize;
-			context.shadowOffsetX = this.shadowOffset;
-			context.shadowOffsetY = this.shadowOffset;
-		}
-
-		// First we fill our rectangle with a background color
-		context.fillStyle = context.convertHexRgbToDecRgba(this.backgroundColor, this.backgroundOpacity);
-		context.fill();
-
-		// Reset shadow properties, we don't need it for the border,
-		// or any of the text.
-		context.shadowBlur = 0;
-		context.shadowOffsetX = 0;
-		context.shadowOffsetY = 0;
-
-		// Second we draw a border around our rectangle
-		context.strokeStyle = this.borderColor;
-		context.stroke();
-
 		// Fill the contents of the tooltip with the requested text
 		context.lineWidth = this.lineWidth;
 
-		// Start fading out to transparent over the right-margin of the tooltip.
-		var gradient = context.createLinearGradient(this.margins, 0, this.width - (1 * this.margins), 0);
-		var stop = Math.min(1, Math.max(0.1, (this.width - (2 * this.margins)) / (this.width - (1 * this.margins))));
-		gradient.addColorStop(0, this.fontColor);
-		gradient.addColorStop(stop, this.fontColor);
-		gradient.addColorStop(1, 'rgba(0,0,0,0)');
-		context.fillStyle = gradient;
+		// Start fading out to transparent over the right-padding of the tooltip.
+		var gradientTitle = context.createLinearGradient(0, 0, this.width, 0);
+		var stop = Math.min(1, Math.max(0.1, (this.width - this.stylingEl.styling.paddingRight) / this.width));
+		gradientTitle.addColorStop(0, this.stylingElTitle.styling.color);
+		gradientTitle.addColorStop(stop, this.stylingElTitle.styling.color);
+		gradientTitle.addColorStop(1, context.convertHexRgbToDecRgba(this.stylingElTitle.styling.color, 0));
+		context.fillStyle = gradientTitle;
 
-		var offset = this.margins + this.lineHeight;
+		var offset = this.stylingEl.styling.paddingTop;
+		
 		if (!Ext.isEmpty(tipTitle)) {
-			context.setFont(this.titleFontType);
-			offset += context.drawWrappedText(tipTitle, this.margins, offset, this.width - (2 * this.margins), this.lineHeight, this.height - (2 * this.margins));
-			offset += this.titleMargins;
+			context.setFont(this.stylingElTitle.styling.font);
+			offset +=  this.stylingElTitle.styling.lineHeight - parseInt((this.stylingElTitle.styling.lineHeight-this.stylingElTitle.styling.fontSize)/2, 10);
+			offset += context.drawWrappedText(
+				tipTitle, 
+				this.stylingEl.styling.paddingLeft, 
+				offset,
+				this.width - this.stylingEl.styling.paddingLeft - this.stylingEl.styling.paddingRight, 
+				this.stylingElTitle.styling.lineHeight,
+				this.height - this.stylingEl.styling.paddingTop - this.stylingEl.styling.paddingBottom
+			);
+			offset += this.stylingElTitle.styling.marginBottom;
+		} else {
+			offset +=  this.stylingElText.styling.lineHeight - parseInt((this.stylingElText.styling.lineHeight-this.stylingElText.styling.fontSize)/2, 10);
 		}
+
+		// Start fading out to transparent over the right-padding of the tooltip.
+		var gradientText = context.createLinearGradient(0, 0, this.width, 0);
+		stop = Math.min(1, Math.max(0.1, (this.width - this.stylingEl.styling.paddingRight) / this.width));
+		gradientText.addColorStop(0, this.stylingElText.styling.color);
+		gradientText.addColorStop(stop, this.stylingElText.styling.color);
+		gradientText.addColorStop(1, context.convertHexRgbToDecRgba(this.stylingElText.styling.color, 0));
+		context.fillStyle = this.stylingElText.styling.color;
+		context.fillStyle = gradientText;
+
 		if (!Ext.isEmpty(tipText)) {
-			context.setFont(this.fontType);
-			offset += context.drawWrappedText(tipText, this.margins, offset, this.width - (2 * this.margins), this.lineHeight, this.height - (2 * this.margins));
+			context.setFont(this.stylingElText.styling.font);
+			context.drawWrappedText(
+				tipText, 
+				this.stylingEl.styling.paddingLeft,
+				offset, 
+				this.width - this.stylingEl.styling.paddingLeft - this.stylingEl.styling.paddingRight, 
+				this.stylingElText.styling.lineHeight,
+				this.height - offset + this.stylingElText.styling.lineHeight - this.stylingEl.styling.paddingBottom
+			);
 		}
 
 		context.restore();

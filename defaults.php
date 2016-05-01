@@ -62,6 +62,18 @@ if(!defined('ENABLED_LANGUAGES')) define("ENABLED_LANGUAGES", "bg_BG;ca_ES;da_DK
 if(!defined('ENABLE_PLUGINS')) define('ENABLE_PLUGINS', true);
 if(!defined('PATH_PLUGIN_CONFIG_DIR')) define('PATH_PLUGIN_CONFIG_DIR', PATH_PLUGIN_DIR);
 
+/**
+ * A theme. When this is not defined or empty or 'default', the default Zarafa theme will be loaded.
+ * The theme should the (directory)name of a installed theme plugin.
+ */
+if(!defined('THEME')) define('THEME', '');
+
+/**
+ * Set to true to give users the ability to chose a personal theme that will be shown
+ * when they are logged in.
+ */
+if(!defined('PERSONAL_THEMES_ENABLED')) define('PERSONAL_THEMES_ENABLED', false);
+
 // Disable/enabled advanced settings
 if(!defined('ENABLE_ADVANCED_SETTINGS')) define('ENABLE_ADVANCED_SETTINGS', false);
 
@@ -178,9 +190,9 @@ if(!defined('POWERPASTE_ALLOW_LOCAL_IMAGES')) define('POWERPASTE_ALLOW_LOCAL_IMA
  * The following options are taken from the debug.php
  */
 if(!defined('DEBUG_LOADER')) define('DEBUG_LOADER', LOAD_RELEASE);
-if(!defined('DEBUG_XMLOUT')) define('DEBUG_XMLOUT', false);
-if(!defined('DEBUG_XMLOUT_DIR')) define('DEBUG_XMLOUT_DIR', 'debug_xml/');
-if(!defined('DEBUG_XMLOUT_GZIP')) define('DEBUG_XMLOUT_GZIP', false);
+if(!defined('DEBUG_JSONOUT')) define('DEBUG_JSONOUT', false);
+if(!defined('DEBUG_JSONOUT_DIR')) define('DEBUG_JSONOUT_DIR', 'debug_json/');
+if(!defined('DEBUG_JSONOUT_GZIP')) define('DEBUG_JSONOUT_GZIP', false);
 if(!defined('DEBUG_PLUGINS')) define('DEBUG_PLUGINS', false);
 if(!defined('DEBUG_PLUGINS_DISABLE_CACHE')) define('DEBUG_PLUGINS_DISABLE_CACHE', false);
 if(!defined('DEBUG_DUMP_FILE')) define('DEBUG_DUMP_FILE', 'debug.txt');

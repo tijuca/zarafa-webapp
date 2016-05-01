@@ -14,8 +14,8 @@ Zarafa.advancesearch.ui.SearchResultPreviewPanel = Ext.extend(Zarafa.core.ui.Pre
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			config.model = config.context.getModel();
+		if (!Ext.isDefined(config.model) && Ext.isDefined(config.searchContext)) {
+			config.model = config.searchContext.getModel();
 		}
 
 		Ext.applyIf(config, {
@@ -135,7 +135,7 @@ Zarafa.advancesearch.ui.SearchResultPreviewPanel = Ext.extend(Zarafa.core.ui.Pre
 	setRecord : function(record)
 	{
 		for (var i = 0; i < this.toolbars.length; i++) {
-			if(this.context.getCurrentViewMode() === Zarafa.common.data.ViewModes.RIGHT_PREVIEW) {
+			if(this.searchContext.getCurrentViewMode() === Zarafa.common.data.ViewModes.RIGHT_PREVIEW) {
 				this.toolbars[i].setVisible(false);
 			} else {
 				this.toolbars[i].setVisible(!!record);
@@ -145,6 +145,22 @@ Zarafa.advancesearch.ui.SearchResultPreviewPanel = Ext.extend(Zarafa.core.ui.Pre
 		if (this.recordComponentPlugin) {
 			this.recordComponentPlugin.setRecord(record);
 		}
+	},
+
+	/**
+	 * Function for 'previewrecordchange' and 'show' events before setting record into component also it will check
+	 * that record is going to preview in correct {@link Zarafa.advancesearch.ui.SearchResultPreviewPanel SearchResultPreviewPanel}
+	 * instance.
+	 * @param {Zarafa.core.data.MAPIRecord} record
+	 * @private
+	 */
+	showRecordInPanel : function(record)
+	{
+		if(this.model.store.getSearchStoreUniqueId() !== this.dialog.name) {
+			return;
+		}
+
+		Zarafa.advancesearch.ui.SearchResultPreviewPanel.superclass.showRecordInPanel.call(this, record);
 	},
 
 	/**

@@ -241,14 +241,14 @@ Zarafa.common.rules.dialogs.UserSelectionLink = Ext.extend(Ext.BoxComponent, {
 		this.isValid = false;
 		if (condition) {
 			var Restrictions = Zarafa.core.mapi.Restrictions;
+			var subs;
 
 			switch (conditionFlag) {
 				case Zarafa.common.rules.data.ConditionFlags.SENT_TO:
-					var subs;
 
 					// Check if a RES_OR restriction was provided, if
 					// so we need to loop over all recipients from the list.
-					if (condition[0] == Restrictions.RES_OR) {
+					if (condition[0] === Restrictions.RES_OR) {
 						subs = condition[1];
 					} else {
 						subs = [ condition ];
@@ -269,13 +269,10 @@ Zarafa.common.rules.dialogs.UserSelectionLink = Ext.extend(Ext.BoxComponent, {
 					}
 					break;
 				case Zarafa.common.rules.data.ConditionFlags.RECEIVED_FROM:
-					var RecordFactory = Zarafa.core.data.RecordFactory;
-					var RecordCustomObjectType = Zarafa.core.data.RecordCustomObjectType;
-					var subs;
 
 					// Check if a RES_OR restriction was provided, if
 					// so we need to loop over all recipients from the list.
-					if (condition[0] == Restrictions.RES_OR) {
+					if (condition[0] === Restrictions.RES_OR) {
 						subs = condition[1];
 					} else {
 						subs = [ condition ];

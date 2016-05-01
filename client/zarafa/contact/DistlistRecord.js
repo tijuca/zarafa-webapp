@@ -38,8 +38,6 @@ Zarafa.contact.DistlistRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 	 */
 	convertToRecipient : function(recipientType)
 	{
-		var data = {};
-
 		var recipientRecord = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, {
 			entryid : Zarafa.core.EntryId.wrapContactProviderEntryId(this.get('entryid'), Zarafa.core.mapi.ObjectType.MAPI_DISTLIST),
 			object_type : Zarafa.core.mapi.ObjectType.MAPI_DISTLIST,

@@ -32,8 +32,9 @@ Zarafa.core.ui.ButtonGroup = Ext.extend(Ext.ButtonGroup, {
 			for (var i = 0; i < buttonsArray.length; i++)
 			{
 				//isVisible function is not working properly in current version of ExtJs.
-				if(buttonsArray[i].hidden === false)
+				if(buttonsArray[i].hidden === false) {
 					return true;
+				}
 			}
 		}
 		return false;

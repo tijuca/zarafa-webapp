@@ -51,13 +51,14 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			//Save button
 			xtype : 'button',
 			ref : 'saveBtn',
+			text: _('Save'),
 			overflowText : _('Save Note'),
 			tooltip: {
 				title: _('Save'),
 				text: _('Save note') + ' (Ctrl + S)'
 			},
-			cls: 'tb-notes-btn-save',
-			iconCls : 'icon_save',
+			cls : 'zarafa-action',
+			iconCls : 'buttons-icon_save_white',
 			handler : this.onSaveButton,
 			scope : this
 		}, {
@@ -118,7 +119,7 @@ Zarafa.note.dialogs.NoteEditToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 				scope : this
 			},
 			plugins: [ 'zarafa.fieldlabeler' ]
-		}]
+		}];
 	},
 
 	/**

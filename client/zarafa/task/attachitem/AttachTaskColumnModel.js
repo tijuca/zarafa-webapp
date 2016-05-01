@@ -41,20 +41,23 @@ Zarafa.task.attachitem.AttachTaskColumnModel = Ext.extend(Zarafa.common.ui.grid.
 	{
 		return[{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class=\'icon_index\'>&nbsp;</p>',
-			width : 25,
+			width : 24,
 			fixed : true,
 			tooltip : _('Sort by: Icon'),
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		}, {
 			dataIndex : 'importance',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class=\'icon_importance\'>&nbsp;</p>',
-			width : 40,
+			width : 24,
 			fixed : true,
 			tooltip : _('Sort by: Priority'),
 			renderer : Zarafa.common.ui.grid.Renderers.importance
 		}, {
 			header : '<p class=\'icon_attachment\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'hasattach',
 			width : 24,
 			fixed : true,

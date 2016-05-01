@@ -469,7 +469,7 @@ Zarafa.core.plugins.RecordComponentPlugin = Ext.extend(Object, {
 				}
 				callback();
 			}
-		}
+		};
 		this.field.mon(record.getStore(), 'open', fn, this);
 		record.open();
 	},
@@ -604,7 +604,7 @@ Zarafa.core.plugins.RecordComponentPlugin = Ext.extend(Object, {
 	 */
 	resetUserChangeTracker : function()
 	{
-		this.isChangedByUser = false
+		this.isChangedByUser = false;
 		this.field.fireEvent('userupdaterecord', this.field, this.record, this.isChangedByUser);
 	},
 

@@ -87,7 +87,7 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 				check : this.onDelegateRuleCheck,
 				scope : this
 			}
-		}
+		};
 	},
 
 	/**
@@ -130,7 +130,7 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 					select : this.onProfileSelect,
 					scope : this
 				}
-			}
+			};
 			items.push(item);
 
 			if(folderTypes[i] === 'calendar') {
@@ -138,7 +138,7 @@ Zarafa.common.delegates.dialogs.DelegatePermissionPanel = Ext.extend(Ext.form.Fo
 			}
 			
 		}
-		return items
+		return items;
 	},
 
 	/**

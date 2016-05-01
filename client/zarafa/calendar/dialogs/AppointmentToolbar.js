@@ -36,6 +36,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 		});
 
 		Zarafa.calendar.dialogs.AppointmentToolbar.superclass.constructor.call(this, config);
+		this.mon(this.saveMeeting,'beforeshow',this.onSaveButtonBeforeShow,this);
 	},
 
 	/**
@@ -59,20 +60,21 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				title: _('Send invitation'),
 				text: _('Send invitation to recipients') + ' (Ctrl + ENTER)'
 			},
-			iconCls: 'icon_sendEmail',
-			cls: 'button_sendMail tb-calendar-btn-send',
+			iconCls : 'buttons-icon_send_white',
+			cls: 'button_sendMail zarafa-action',
 			ref: 'sendInvitation',
 			handler: this.onSendButton,
 			scope: this
 		},{
 			xtype: 'button',
+			text : _('Save'),
 			overflowText: _('Save & Close'),
 			tooltip: {
 				title: _('Save & Close'),
 				text: _('Save appointment and close dialog') + ' (Ctrl + S)'
 			},
-			cls: 'tb-calendar-btn-save-close',
-			iconCls: 'icon_saveEmail',
+			cls : 'zarafa-action',
+			iconCls : 'buttons-icon_save_white',
 			ref : 'saveAppointment',
 			handler: this.onSaveButton,
 			scope: this
@@ -110,7 +112,13 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 				text: _('Add attachments to this appointment')
 			},
 			cls: 'tb-calendar-btn-add-attachment',
-			iconCls : 'icon_attachment'
+			iconCls : 'icon_attachment',
+			// Add a listener to the component added event to set use the correct update function when the toolbar overflows
+			// (i.e. is too wide for the panel) and Ext moves the button to a menuitem.
+			listeners : {
+				added : this.onAttachmentButtonAdded,
+				scope : this
+			}
 		},{
 			// FIXME: Remove after WA-4880 is implemented
 			xtype : 'button',
@@ -156,6 +164,23 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			handler: this.onCheckNamesButton,
 			scope: this
 		}];
+	},
+	
+	/**
+	 * Event listener for the added event of the {@link Zarafa.common.attachment.ui.AttachmentButton attachmentButton}
+	 * Adds the update function to the item when Ext converts the button to a menu item
+	 * (which happens when the toolbar overflows, i.e. is too wide for the containing panel)
+	 * 
+	 * @param {Ext.Component} item The item that was added. This can be a {@link Zarafa.common.attachment.ui.AttachmentButton}
+	 * or a {@link Ext.menu.Item}
+	 */
+	onAttachmentButtonAdded : function(item)
+	{
+		if ( item.isXType('menuitem') ){
+			// Set the update function to the update function of the original button
+			// otherwise the Ext.Component.update function would be called by the recordcomponentupdaterplugin
+			item.update = Zarafa.common.attachment.ui.AttachmentButton.prototype.update.createDelegate(this.normalAttachmentsButton);
+		}
 	},
 
 	/**
@@ -398,6 +423,24 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 		this.dialog.deleteRecord();
 	},
 
+
+	/**
+	 * Event handler which called when the 'Save' button is ready to show.
+	 * This will update the tooltip if the record is received meeting request
+	 * @param {Ext.Button} button The button which has been pressed
+	*/
+	onSaveButtonBeforeShow : function(button)
+	{
+		if(this.record.isMeetingReceived()) {
+			var tooltip =  {
+				title: _('Save & Close'),
+				text: _('Save meeting request and close dialog') + ' (Ctrl + S)'
+			}
+			button.setTooltip(tooltip);
+		}
+	
+	},
+
 	/**
 	 * Updates the toolbar by updating the Toolbar buttons based on the settings
 	 * from the {@link Zarafa.core.data.IPMRecord record}.
@@ -468,7 +511,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 					case Zarafa.core.mapi.MeetingStatus.MEETING_RECEIVED_AND_CANCELED:
 						this.sendInvitation.setVisible(false);
 						this.saveAppointment.setVisible(false);
-						this.saveMeeting.setVisible(false);
+						this.saveMeeting.setVisible(true);
 						this.deleteAppointment.setVisible(true);
 						this.checkNames.setVisible(false);
 						this.inviteAttendees.setVisible(false);

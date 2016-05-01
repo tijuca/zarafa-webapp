@@ -14,3 +14,17 @@ Ext.tree.TreeNodeUI.prototype.updateExpandIcon = Ext.tree.TreeNodeUI.prototype.u
 		this.wasLeaf = false;     
 	} 
 });
+
+
+Ext.tree.TreeNodeUI.prototype.ecClick = Ext.tree.TreeNodeUI.prototype.ecClick.createSequence(function (e) {
+	/*  This is called after the Ext.tree.TreeNodeUI.ecClick method has finished and remove the
+	 	icon class to show loading mask while user click on expand button.
+	 */
+	var node = this.node;
+	if(node.ownerTree instanceof Zarafa.plugins.files.ui.NavigatorTreePanel){
+		if(!node.isLoaded()) {
+			var iconNode = Ext.get(this.iconNode);
+			iconNode.removeClass('icon_folder_note');
+		}
+	}
+});

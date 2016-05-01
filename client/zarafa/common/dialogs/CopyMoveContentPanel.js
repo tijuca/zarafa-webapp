@@ -58,6 +58,7 @@ Zarafa.common.dialogs.CopyMoveContentPanel = Ext.extend(Zarafa.core.ui.ContentPa
 			title : title,
 			width: 400,
 			height: 350,
+			cls: 'copymove-panel',
 			items: [{
 				xtype: 'zarafa.copymovepanel',
 				record : config.record,

@@ -54,16 +54,19 @@ Zarafa.core.mapi.Importance = Zarafa.core.Enum.create({
 	 */
 	getClassName : function(level, prefix)
 	{
-		if(Ext.isEmpty(prefix))
+		if(Ext.isEmpty(prefix)) {
 			prefix = 'icon_importance';
+		}
 
 		// only allow numbers
-		if(!Ext.isNumber(level))
+		if(!Ext.isNumber(level)) {
 			level = parseInt(level, 10);
+		}
 
 		// invalid values should be handled as normal priority
-		if(!Ext.isNumber(level))
+		if(!Ext.isNumber(level)) {
 			return prefix + '_normal';
+		}
 
 		var className = this.getName(level).toLowerCase();
 

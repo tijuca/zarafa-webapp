@@ -176,7 +176,7 @@ Zarafa.hierarchy.data.IPFSubStore = Ext.extend(Zarafa.core.data.IPFStore, {
 			records[i].phantom = true;
 		}
 		
-		this.remove(records)
+		this.remove(records);
 	},
 
 	/**

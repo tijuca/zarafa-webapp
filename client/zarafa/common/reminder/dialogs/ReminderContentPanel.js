@@ -29,6 +29,8 @@ Zarafa.common.reminder.dialogs.ReminderContentPanel = Ext.extend(Zarafa.core.ui.
 			title : _('Reminders'),
 			border: false,
 			width: 350,
+			minWidth: 350,
+			maxWidth: 350,
 			height: 300,
 			items : [{
 				xtype : 'zarafa.reminderpanel',

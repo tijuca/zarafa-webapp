@@ -104,13 +104,13 @@ Zarafa.common.reminder.dialogs.ReminderPanel = Ext.extend(Ext.Panel, {
 	 */
 	activeReminderPanel : function()
 	{
-		return{
+		return {
 			xtype: 'panel',
 			cls:'zarafa-reminder-dialog-active-reminder',
 			layout: 'fit',
 			ref: 'activeReminder',
 			height : 40
-		}
+		};
 	},
 	
 	/**

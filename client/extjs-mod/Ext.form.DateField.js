@@ -1,8 +1,15 @@
 (function() {
 	var orig_getValue = Ext.form.DateField.prototype.getValue;
 	var orig_initComponent = Ext.form.DateField.prototype.initComponent;
+	var orig_onTriggerClick = Ext.form.DateField.prototype.onTriggerClick;
+	var orig_menuEvents = Ext.form.DateField.prototype.menuEvents;
 	Ext.override(Ext.form.DateField, {
-
+		/**
+		 * @cfg {Boolean} showNow True to enable the mechanism which convert 'Today' button into 'Now'
+		 * and fire {@link #selectnow} event while 'Now' button will be pressed, false otherwise.
+		 * defaults to false.
+		 */
+		showNow : false,
 		/**
 		 * overriden to set starting day of the week
 		 * @override
@@ -15,6 +22,16 @@
 			}
 
 			orig_initComponent.apply(this, arguments);
+
+			this.addEvents(
+				/**
+				 * @event selectnow
+				 * Fires when 'Today' button is pressed from the date picker only if {@link #showNow} is configured as true.
+				 * @param {Ext.form.DateField} this
+				 * @param {Date} date The date that was selected
+				 */
+				'selectnow'
+			);
 
 			// Check for invalid start day
 			if(this.startDay < 0 || this.startDay >= Date.dayNames.length) {
@@ -46,6 +63,65 @@
 		processValue : function(value)
 		{
 			return Ext.isEmpty(value) ? "" : value;
+		},
+
+		/**
+		 * Overridden to add possibilities to get an event fired when 'Today' button will be clicked.
+		 * and rename the button from 'Today' to 'Now'.
+		 * @override
+		 */
+		onTriggerClick : function()
+		{
+			if(this.showNow && this.menu == null) {
+				this.menu = new Ext.menu.DateMenu({
+					hideOnClick: false,
+					focusOnSelect: false,
+					initialConfig : {
+						showNow : true,
+						todayText : _("Now")
+					}
+				});
+			}
+
+			orig_onTriggerClick.apply(this, arguments);
+
+			if(this.showNow) {
+				 /**
+				 * @event selectnow
+				 * Fires when 'Now' button is clicked from the {@link Ext.DatePicker}
+				 * @param {DatePicker} picker The {@link Ext.DatePicker}
+				 * @param {Date} date The selected date
+				 */
+				this.menu.relayEvents(this.menu.picker, ['selectnow']);
+			}
+		},
+
+		/**
+		 * Overridden to register/deregister 'selectnow' event.
+		 * This is a helper function to dynamically achieve registration and deregistration of any event by single function.
+		 * @param {String} method Name of method like 'on' or 'un'.
+		 * @private
+		 * @override
+		 */
+		menuEvents: function(method){
+
+			orig_menuEvents.apply(this, arguments);
+
+			if(this.showNow) {
+				this.menu[method]('selectnow', this.onSelectnow, this);
+			}
+		},
+
+		/**
+		 * Handler for the 'selectnow' event of {@link #menu}.
+		 * Overridden to relay/fire 'selectnow' event for {@link #this}.
+		 * @param {DatePicker} picker The {@link #picker Ext.DatePicker}
+		 * @param {Date} date The selected date
+		 * @private
+		 * @override
+		 */
+		onSelectnow : function(picker,date){
+			this.fireEvent('selectnow', this, date);
 		}
 	});
 })();

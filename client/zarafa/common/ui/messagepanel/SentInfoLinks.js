@@ -35,19 +35,28 @@ Zarafa.common.ui.messagepanel.SentInfoLinks = Ext.extend(Ext.Container, {
 	senderTemplate :
 		'<tpl if="!Ext.isEmpty(values.sender_entryid) && !Ext.isEmpty(values.sent_representing_entryid) && !Zarafa.core.EntryId.compareABEntryIds(values.sent_representing_entryid, values.sender_entryid)">' +
 			'<span class="preview-from">' +
-				'<span class="zarafa-emailaddress-link zarafa-sentinfo-link"> {sender_name:htmlEncode} &lt;{sender_email_address:htmlEncode}&gt; </span>' +
+				'<span class="zarafa-emailaddress-link zarafa-sentinfo-link"> ' +
+					'<span class="zarafa-presence-status {[Zarafa.core.data.PresenceStatus.getCssClass(values.sender_presence_status)]}">'+
+						'<span class="zarafa-presence-status-icon"></span>' +
+						'{sender_name:htmlEncode} &lt;{sender_email_address:htmlEncode}&gt; '+
+					'</span>' +
+				'</span>' +
 				/* # TRANSLATORS: check if the mail is send by some delegator or not. if then display "on behalf of". */
 				'<span>&nbsp;' + pgettext('mail.previewpanel', 'on behalf of') + '&nbsp;</span>' +
 				'<span class="zarafa-emailaddress-link zarafa-sentinfo-on-behalf">' +
-					'{sent_representing_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)}&nbsp;' +
-					'<tpl if="!Ext.isEmpty(values.sent_representing_email_address)">' +
-						'&lt;{sent_representing_email_address:htmlEncode}&gt;'+
-					'</tpl>' +
+					'<span class="zarafa-presence-status {[Zarafa.core.data.PresenceStatus.getCssClass(values.sent_representing_presence_status)]}">'+
+						'<span class="zarafa-presence-status-icon"></span>' +
+						'{sent_representing_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)}&nbsp;' +
+						'<tpl if="!Ext.isEmpty(values.sent_representing_email_address)">' +
+							'&lt;{sent_representing_email_address:htmlEncode}&gt;'+
+						'</tpl>' +
+					'</span>' +
 				'</span>' +
 			'</span>' +
 		'</tpl>' +
 		'<tpl if="Ext.isEmpty(values.sender_entryid) || Ext.isEmpty(values.sent_representing_entryid) || Zarafa.core.EntryId.compareABEntryIds(values.sent_representing_entryid, values.sender_entryid)">' +
-			'<span class="preview-from">' +
+				'<span class="preview-from zarafa-presence-status {[Zarafa.core.data.PresenceStatus.getCssClass(values.sender_presence_status)]}">' +
+				'<span class="zarafa-presence-status-icon"></span>' +
 				'<span class="zarafa-emailaddress-link zarafa-sentinfo-link">' +
 					'{sender_name:htmlEncodeElide(this.ellipsisStringStartLength, this.ellipsisStringEndLength)}&nbsp;' +
 					'<tpl if="!Ext.isEmpty(values.sender_email_address)">' +

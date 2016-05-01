@@ -142,7 +142,6 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 
 		var url = container.getBaseURL();
 		url = Ext.urlAppend(url, 'load=download_attachment');
-		url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 		url = Ext.urlAppend(url, 'store=' + parentRecord.get('store_entryid'));
 		url = Ext.urlAppend(url, 'entryid=' + this.getAttachmentParentRecordEntryId());
 
@@ -226,7 +225,6 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	{
 		var url = container.getBaseURL();
 		url = Ext.urlAppend(url, 'load=upload_attachment');
-		url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 		url = Ext.urlAppend(url, 'store=' + this.getParentRecord().get('store_entryid'));
 		url = Ext.urlAppend(url, 'entryid=' + this.getParentRecord().get('entryid'));
 		url = Ext.urlAppend(url, 'dialog_attachments=' + this.getId());

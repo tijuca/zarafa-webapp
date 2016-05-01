@@ -139,7 +139,7 @@ Zarafa.common.rules.ui.RulesGrid = Ext.extend(Zarafa.common.ui.grid.GridPanel, {
 			header : _('Rule'),
 			sortable : false,
 			renderer : Zarafa.common.ui.grid.Renderers.text
-		}]
+		}];
 	},
 
 	/**

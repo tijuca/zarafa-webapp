@@ -83,7 +83,7 @@ Zarafa.hierarchy.ui.RootFolderNode = Ext.extend(Zarafa.hierarchy.ui.FolderNode, 
 		// trees, we need to format the text for shared and public stores to ensure
 		// the user can see from which store a particular folder comes from.
 		if (this.attributes.extendedDisplayName) {
-			return folder.getFullyQualifiedDisplayName()
+			return folder.getFullyQualifiedDisplayName();
 		} else {
 			return Zarafa.hierarchy.ui.RootFolderNode.superclass.getTextFromFolder.call(this, folder);
 		}

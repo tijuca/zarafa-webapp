@@ -53,9 +53,9 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 	record : undefined,
 
 	/**
-	 * @cfg {Boolean} showLoadMask true if load mask should be shown else false.
+	 * @cfg {Boolean} isLoadMaskShown true if load mask should be shown else false.
 	 */
-	showLoadMask : true,
+	isLoadMaskShown : false,
 
 	/**
 	 * The LoadMask object which will be shown when the {@link #record} is being opened, and
@@ -94,7 +94,7 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 			{xtype: 'tbfill'},
 			config.tbar.items, // Default items in toolbar should be right aligned.
 			container.populateInsertionPoint('previewpanel.toolbar.right', {scope : this, model : config.model})
-		]
+		];
 
 		config.tbar.items = Ext.flatten(tbarItems);
 		config.plugins = Ext.value(config.plugins, []);
@@ -210,6 +210,9 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 		if (Ext.isDefined(record)) {
 			panelConstructor = container.getSharedComponent(Zarafa.core.data.SharedComponentType['common.preview'], record);
 			if (panelConstructor && this.get(0) instanceof panelConstructor) {
+				if(this.isLoadMaskShown){
+					this.hideLoadMask();
+				}
 				this.setRecord(record);
 				return;
 			}
@@ -277,10 +280,9 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 	 */
 	showLoadMask : function(errorMask)
 	{
-		if (this.showLoadMask === false) {
+		if (this.isLoadMaskShown === true) {
 			return;
 		}
-
 		if (!this.loadMask) {
 			this.loadMask = new Zarafa.common.ui.LoadMask(this.el);
 		}
@@ -289,6 +291,7 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 			this.loadMask.showError();
 		} else {
 			this.loadMask.show();
+			this.isLoadMaskShown = true;
 		}
 	},
 
@@ -300,12 +303,13 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 	 */
 	hideLoadMask : function()
 	{
-		if (this.showLoadMask === false) {
+		if (this.isLoadMaskShown === false) {
 			return;
 		}
 
 		if (this.loadMask) {
 			this.loadMask.hide();
+			this.isLoadMaskShown = false;
 		}
 	},
 

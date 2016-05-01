@@ -36,6 +36,7 @@ Zarafa.common.reminder.dialogs.ReminderGrid = Ext.extend(Zarafa.common.ui.grid.G
 	{
 		return [{
 				header : '<p class="icon_index">&nbsp;</p>',
+				headerCls: 'zarafa-icon-column',
 				dataIndex : 'icon_index',
 				width : 24,
 				renderer : Zarafa.common.ui.grid.Renderers.icon,
@@ -52,7 +53,7 @@ Zarafa.common.reminder.dialogs.ReminderGrid = Ext.extend(Zarafa.common.ui.grid.G
 				header: _('Due In'),
 				renderer: Zarafa.common.ui.grid.Renderers.dueBy,
 				menuDisabled: true
-			}]
+			}];
 	},
 
 	/**

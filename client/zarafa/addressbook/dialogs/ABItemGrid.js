@@ -27,6 +27,7 @@ Zarafa.addressbook.dialogs.ABItemGrid = Ext.extend(Ext.grid.GridPanel, {
 				columns: [{
 					dataIndex : 'display_type',
 					header : '<p class="icon_index">&nbsp;</p>',
+					headerCls: 'zarafa-icon-column icon',
 					width : 25,
 					fixed : true,
 					renderer : Zarafa.common.ui.grid.Renderers.icon

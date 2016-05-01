@@ -198,10 +198,8 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			xtype : 'zarafa.boxfield',
 			cls : 'x-zarafa-boxfield-input',
 			hideTrigger : true,
-			boxMinHeight: 22,
-			boxMaxHeight: 50,
 
-			autoHeight: false,
+			autoHeight: true,
 			autoScroll: true,
 			
 			/*
@@ -210,6 +208,7 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			 */
 			monitorTab: false
 		});
+		config.wrapCls = config.wrapCls ? config.wrapCls + ' '  + this.wrapCls : this.wrapCls;
 
 		this.addEvents(
 			/**
@@ -289,6 +288,8 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		if (Ext.isString(this.handleInputKey)) {
 			this.handleInputKey = this.handleInputKey.charCodeAt(0);
 		}
+		
+		this.previousHeight = this.height;
 	},
 
 	/**
@@ -399,7 +400,7 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			this.listTextMetric = Ext.util.TextMetrics.createInstance(this.innerList);
 		}
 
-		return this.listTextMetric
+		return this.listTextMetric;
 	},
 
 	/**
@@ -505,7 +506,7 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 				if (width > desiredWidth) {
 					desiredWidth = width;
 				}
-			};
+			}
 		} else {
 			desiredWidth = metric.getWidth(this.innerList.dom.innerHTML);
 		}
@@ -641,8 +642,9 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		// If autoHeight is set to false we need to set our own height. Otherwise the CSS
 		// class x-form-text will set it to a default height.
 		if(this.autoHeight === false){
-			if(Ext.isDefined(this.height))
+			if(Ext.isDefined(this.height)) {
 				this.wrap.setHeight(this.height);
+			}
 		}else{
 			 this.wrap.applyStyles('height: auto;');
 		}
@@ -742,10 +744,21 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		}
 
 		var target = this.getResizeEl();
+		if ( !Ext.isDefined(target) || !Ext.isDefined(target.dom) ){
+			// The element has been removed already. This is possible
+			// if a box was removed with animation at the same time that
+			// this element was removed. (See Zarafa.common.ui.Box.doDestroy())
+			return;
+		}
+		
 		var outerHeight = target.getHeight();
 		var innerHeight = target.dom.scrollHeight;
 		var doLayout = false;
 
+		if ( this.previousOuterHeight !== outerHeight ) {
+			doLayout = true;
+		}
+		
 		if (outerHeight > this.boxMaxHeight) {
 			// The height of the box exceeds the maximim height,
 			// enable the scrollbar and scroll to the bottom.
@@ -755,7 +768,7 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 				target.scrollTo('top', outerHeight);
 			}
 			doLayout = true;
-		} else if (innerHeight <= outerHeight) {
+		} else if ( outerHeight === this.boxMaxHeight && innerHeight !== this.previousInnerHeight && innerHeight <= outerHeight -2 ) { // subtract 2 for the border
 			// The scroll height is smaller then the height of the
 			// box, this means we do not need the scrollbar anymore.
 			target.setHeight('auto');
@@ -765,10 +778,13 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			doLayout = true;
 		}
 
-		// FIXME: This is ugly, we shouldn't need to force a
-		// relayout action on our grandparent...
-		if (doLayout === true && this.ownerCt.ownerCt) {
-			this.ownerCt.ownerCt.doLayout();
+		this.previousOuterHeight = outerHeight;
+		this.previousInnerHeight = innerHeight;
+
+		// Fire a resizeheight event so parent components can listen to it and
+		// do a layout if they want to
+		if (doLayout === true ) {
+			this.fireEvent('resizeheight');
 		}
 	},
 
@@ -841,12 +857,12 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			width = Math.min(width, target.getWidth());
 		}
 
-		// Set the inputfield to the calculated width
-		this.el.setSize(width, this.inputFieldHeight - this.el.getBorderWidth('tb'));
-
 		// Store the current height, this way we can detect if the input
 		// field has been wrapped to the next line after the resize.
 		var oldHeight = target.getHeight();
+
+		// Set the inputfield to the calculated width
+		this.el.setSize(width, this.inputFieldHeight - this.el.getBorderWidth('tb'));
 
 		// Check if linewrapping has occurred, and update the container accordingly.
 		var newHeight = target.getHeight();
@@ -1835,7 +1851,6 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 	onBoxRemove: function(field, box, record)
 	{
 		this.boxStore.remove(record);
-		this.sizeContainer();
 		if (this.boxStore.getCount() < this.boxLimit && this.initialConfig.readOnly !== true) {
 			this.setReadOnly(false);
 			this.inputFocus();
@@ -1854,7 +1869,6 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 	 */
 	onBoxAdd : function(field, box, record)
 	{
-		this.sizeContainer();
 		if (this.boxStore.getCount() >= this.boxLimit) {
 			this.setReadOnly(true);
 		}
@@ -1874,7 +1888,7 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		 * Create the configuration object for the Box. The this.boxConfig is used as default and we
 		 * apply the record and renderTo properties onto that object.
 		 */
-		var configObj = {}
+		var configObj = {};
 		Ext.apply(configObj, {
 			xtype : this.boxType,
 			parent : this,
@@ -1887,6 +1901,8 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 		box.render(this.wrapBoxesEl, this.items.length);
 
 		this.items.add(box);
+
+		this.sizeContainer();
 
 		this.fireEvent('boxadd', this, box, record);
 	},

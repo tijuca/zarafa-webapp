@@ -69,9 +69,9 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 					xtype : 'grid',
 					name : 'zarafa/v1/contexts/mail/signatures/all',
 					ref : '../signaturesGrid',
+					cls :'zarafa-settings-signatures',
 					columnWidth : 0.5,
 					height : 200,
-					style:'margin-right:10px',
 					store : store,
 					hideHeaders : true,
 					viewConfig : {
@@ -574,7 +574,6 @@ Zarafa.mail.settings.SettingsSignaturesWidget = Ext.extend(Zarafa.settings.ui.Se
 	doSelectSignature : function(record)
 	{
 		if (!Ext.isEmpty(record)) {
-			var store = this.signaturesGrid.getStore();
 			this.selectedSignature = record;
 			this.dirtySelectedSignature = false;
 

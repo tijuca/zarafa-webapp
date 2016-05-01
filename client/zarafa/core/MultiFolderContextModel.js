@@ -134,7 +134,6 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	setMergeState : function(mergeState, init)
 	{
 		if (init === true || this.default_merge_state !== mergeState) {
-			var oldMergeState = this.default_merge_state;
 			this.default_merge_state = mergeState;
 
 			this.fireEvent('foldermergestatechanged', this, this.default_merge_state);
@@ -501,13 +500,30 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	},
 
 	/**
+	 * Handler for 'foldergroupinchanged' event, which calls {@link #saveState} only
+	 * when the groupings or active group has changed.
+	 *
+	 * @param {Zarafa.core.ContextModel} contextModel the contextModel which states needs to be saved.
+	 * @param {Object} groupings The groupings object
+	 * @param {String} active The active group
+	 */
+	saveFolderGroupinChanged : function(model, groupings, active)
+	{
+		if (this.groupings != groupings || active != this.active_group) {
+			this.saveState();
+		}
+	},
+
+	/**
 	 * Register the {@link #stateEvents state events} to the {@link #saveState} callback function.
 	 * @protected
 	 */
 	initStateEvents : function()
 	{
 		Zarafa.core.MultiFolderContextModel.superclass.initStateEvents.call(this);
-		this.on('foldergroupingchanged', this.saveState, this, { delay : 100 });
+		this.on('foldergroupingchanged', this.saveFolderGroupinChanged, this, { delay : 100 });
+		// The colorMap is actually does not change when we switch to the calendar context,
+		// therefore checking if it's changed is not required.
 		this.on('colormapchanged', this.saveState, this, { delay : 100 });
 	},
 
@@ -526,6 +542,28 @@ Zarafa.core.MultiFolderContextModel = Ext.extend(Zarafa.core.ContextModel, {
 			active_group : this.active_group,
 			colorMap : this.colorMap
 		});
+	},
+	
+	/**
+	 * Apply the given state to this object activating the properties which were previously
+	 * saved in {@link Ext.state.Manager}.
+	 * @param {Object} state The state object
+	 * @protected
+	 */
+	applyState : function(state)
+	{
+		if ( Ext.isDefined(state.groupings) ){
+			// Check the active folders in the groups
+			for ( var groupId in state.groupings ) {
+				if ( state.groupings[groupId].folders.indexOf(state.groupings[groupId].active) < 0 ){
+					// If the active folder was not found in the folders of the group, then we will
+					// change the active folder to the first folder in the group
+					state.groupings[groupId].active = state.groupings[groupId].folders[0];
+				}
+			}
+		}
+		
+		Zarafa.core.MultiFolderContextModel.superclass.applyState.call(this, state);
 	},
 
 	/**

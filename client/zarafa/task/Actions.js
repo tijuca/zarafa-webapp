@@ -46,8 +46,10 @@ Zarafa.task.Actions = {
 	 */
 	createTaskFromMail : function(records, model)
 	{
+		var record;
+
 		if (Ext.isArray(records) && !Ext.isEmpty(records)) {
-			var record = records[0];
+			record = records[0];
 		}
 
 		if (record.isOpened()) {

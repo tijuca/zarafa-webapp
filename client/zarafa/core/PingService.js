@@ -202,7 +202,6 @@ Zarafa.core.PingService = Ext.extend(Ext.util.Observable, {
 
 		// Open the HTTP request object
 		var url = this.url;
-		url = Ext.urlAppend(url, 'sessionid=' + container.getUser().getSessionId());
 		url = Ext.urlAppend(url, this.cmd);
 		xmlHttpRequest.open('GET', url, true);
 

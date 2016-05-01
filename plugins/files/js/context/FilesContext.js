@@ -373,7 +373,7 @@ Zarafa.plugins.files.context.FilesContext = Ext.extend(Zarafa.core.Context, {
 					text : dgettext('plugin_files', 'List'),
 					overflowText : dgettext('plugin_files', 'List'),
 					tooltip : dgettext('plugin_files', 'List'),
-					iconCls : 'note_list_view',
+					iconCls : 'icon_contact_list',
 					valueView : Zarafa.plugins.files.data.Views.LIST,
 					handler : this.onSwitchView,
 					scope: this
@@ -381,7 +381,7 @@ Zarafa.plugins.files.context.FilesContext = Ext.extend(Zarafa.core.Context, {
 					text : dgettext('plugin_files', 'Icons'),
 					overflowText : dgettext('plugin_files', 'Icons'),
 					tooltip : dgettext('plugin_files', 'Icons'),
-					iconCls : 'note_icon_view',
+					iconCls : 'icon_note_icon_view',
 					valueView : Zarafa.plugins.files.data.Views.ICON,
 					handler : this.onSwitchView,
 					scope: this

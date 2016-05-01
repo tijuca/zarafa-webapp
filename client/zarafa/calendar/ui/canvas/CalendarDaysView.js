@@ -106,8 +106,6 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 
 		Ext.applyIf(config, {
 			baseCls : 'zarafa-calendar',
-			todayColorLow : '#f79a21',
-			todayColorHigh : '#ffef7b',
 			enableDD : true,
 			ddGroup : 'dd.mapiitem'
 		});
@@ -125,14 +123,16 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 	{
 		// Parent render.
 		Zarafa.calendar.ui.canvas.CalendarDaysView.superclass.render.call(this, container);
+		
+		this.create('canvas', this.header, 'headerBackgroundCanvas', 'zarafa-canvas zarafa-canvas-layer-1 zarafa-canvas-header-background');
+		this.create('div', this.headerBackgroundCanvas, 'headerBackgroundCanvasStylingElement', 'zarafa-styling-element');
+		this.create('div', this.headerBackgroundCanvas, 'headerBackgroundCanvasStylingElementActive', 'zarafa-styling-element-active');
+		this.create('canvas', this.header, 'headerAppointmentCanvas', 'zarafa-canvas zarafa-canvas-layer-2 zarafa-canvas-header-appointment');
+		this.create('canvas', this.header, 'headerSelectionCanvas', 'zarafa-canvas zarafa-canvas-layer-3 zarafa-canvas-header-selection');
 
-		this.create('canvas', this.header, 'headerBackgroundCanvas', 'zarafa-canvas zarafa-canvas-layer-1');
-		this.create('canvas', this.header, 'headerAppointmentCanvas', 'zarafa-canvas zarafa-canvas-layer-2');
-		this.create('canvas', this.header, 'headerSelectionCanvas', 'zarafa-canvas zarafa-canvas-layer-3');
-
-		this.create('canvas', this.body, 'bodyBackgroundCanvas', 'zarafa-canvas zarafa-canvas-layer-1');
-		this.create('canvas', this.body, 'bodyAppointmentCanvas', 'zarafa-canvas zarafa-canvas-layer-2');
-		this.create('canvas', this.body, 'bodySelectionCanvas', 'zarafa-canvas zarafa-canvas-layer-3');
+		this.create('canvas', this.body, 'bodyBackgroundCanvas', 'zarafa-canvas zarafa-canvas-layer-1 zarafa-canvas-body-background');
+		this.create('canvas', this.body, 'bodyAppointmentCanvas', 'zarafa-canvas zarafa-canvas-layer-2 zarafa-canvas-body-appointment');
+		this.create('canvas', this.body, 'bodySelectionCanvas', 'zarafa-canvas zarafa-canvas-layer-3 zarafa-canvas-body-selection');
 
 		// Hook mouse events to the canvas objects.
 		this.mon(this.getHeaderActionCanvas(), {
@@ -279,17 +279,6 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 		context.fillStyle = this.calendarColorScheme.header;
 		context.fillRect(0, 0, width, height);
 
-		context.strokeStyle = this.calendarColorScheme.linenormal;
-		context.strokeRect(0.5, 0.5, width - 1, height - 1);
-
-		// draw vertical lines to visually separate the different day strips
-		context.strokeStyle = this.calendarColorScheme.linenormal;
-		for (var i = 1, len = dayPositions.length; i < len; i++) {
-			var pos = dayPositions[i];
-
-			context.strokeLine(pos.left + 0.5, 0, pos.left + 0.5, height);
-		}
-
 		for (var i = 0, len = dayPositions.length; i < len; i++) {
 			var pos = dayPositions[i];
 			if (pos.today) {
@@ -297,26 +286,22 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 			}
 		}
 
+		var textHeight = this.parentView.headerTextHeight;
 		if (Ext.isDefined(todayPosition)) {
 			var left = todayPosition.left;
 			var right = todayPosition.right;
-			var textHeight = this.parentView.headerTextHeight;
 
-			var gradient = context.createLinearGradient(0, 0, 0, textHeight);
-			gradient.addColorStop(0, this.todayColorHigh);
-			gradient.addColorStop(1, this.todayColorLow);
-
-			context.fillStyle = gradient;
+			context.fillStyle = this.headerBackgroundCanvasStylingElementActive.getStyle('background-color');
 			context.fillRect(left, 0, right - left - 1, textHeight);
 
-			context.strokeStyle = this.todayColorLow;
+			context.strokeStyle = this.headerBackgroundCanvasStylingElementActive.getStyle('background-color');
 			context.strokeRect(left + 0.5, 0.5, right - left - 1, height);
 		}
 
-		// draw header text
-		var startDate = this.getDateRange().getStartDate().clearTime(true);
-		context.fillStyle = 'black';
-		context.setFont('bold 8pt Arial');
+		// Let's get some styling from the css styling of the canvas
+		context.fillStyle = this.headerBackgroundCanvasStylingElement.getStyle('color');
+		context.setFont(this.headerBackgroundCanvasStylingElement.getStyle('font'));
+		
 		for (var i = 0, len = dayPositions.length; i < len; i++) {
 			var pos = dayPositions[i];
 			var dayWidth = pos.right - pos.left;
@@ -324,7 +309,7 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 			var headerTextLength = context.textWidth(headerText);
 
 			// Truncate header text if column width is less than the width of header text
-			var diff = headerTextLength - dayWidth;
+			var diff = headerTextLength - dayWidth - this.headerBackgroundCanvasStylingElement.getPadding('lr');
 			if (diff > 0) {
 				// Here diff will be divided by font size, to obtain average width which is required to
 				// approximately count the number of characters to truncate. And additional 2 is there
@@ -332,9 +317,19 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 				headerText = Ext.util.Format.substr(headerText, 0, headerText.length - (diff/context.getFontSize() + 2));
 				headerTextLength = context.textWidth(headerText);
 			}
+			
+			if ( pos.today ) {
+				context.save();
+				context.fillStyle = this.headerBackgroundCanvasStylingElementActive.getStyle('color');
+				context.setFont(this.headerBackgroundCanvasStylingElementActive.getStyle('font'));
+			}
 
-			// Center the text to the middle of the column.
-			context.drawText(headerText, pos.left + (dayWidth - headerTextLength) / 2, 12);
+			// draw the text from the left of the column using the padding provided by the css
+			context.drawText(headerText, pos.left + this.headerBackgroundCanvasStylingElement.getPadding('l'), (textHeight+context.getFontSize())/2 - 2);
+
+			if ( pos.today ) {
+				context.restore();
+			}
 		}
 
 		context.restore();
@@ -386,13 +381,9 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 
 		// draw horizontal grid lines at fixed time intervals
 		var unitHeight = this.parentView.timeUnitHeight;
-		var linesPerHour = Math.floor(60 / this.getZoomLevel());
 		var numLines = Math.round(height / unitHeight);
 		for (var i = 0; i < numLines; i++) {
-			if ((i + 1) % linesPerHour == 0)
-				context.strokeStyle = this.calendarColorScheme.hourline;
-			else
-				context.strokeStyle = this.calendarColorScheme.linenormal;
+			context.strokeStyle = this.calendarColorScheme.linenormal;
 
 			var y = (i + 1) * unitHeight - 1;
 			context.strokeLine(0, y + 0.5, width, y + 0.5);
@@ -413,7 +404,8 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 
 		// Draw extra lines if one of the days on the screen is today
 		if (Ext.isDefined(todayPosition)) {
-			context.strokeStyle = this.todayColorLow;
+			// Get the color from the hidden styling element, so it can be set in the css files
+			context.strokeStyle = this.headerBackgroundCanvasStylingElementActive.getStyle('background-color');
 			context.strokeLine(todayPosition.left + 0.5, 0, todayPosition.left + 0.5, height);
 			context.strokeLine(todayPosition.right - 0.5, 0, todayPosition.right - 0.5, height);
 		}
@@ -703,8 +695,6 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 	 */
 	getRecordForHeaderEvent : function(event)
 	{
-		var record = undefined;
-
 		// Check if the mouse is over one of the appointments.
 		for (var i = 0, len = this.appointments.length; i < len; i++) {
 			var appointment = this.appointments[i];
@@ -757,8 +747,6 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 	 */
 	getRecordForBodyEvent : function(event)
 	{
-		var record = undefined;
-
 		// Check if the mouse is over one of the appointments.
 		for (var i = 0, len = this.appointments.length; i < len; i++) {
 			var appointment = this.appointments[i];
@@ -869,6 +857,14 @@ Zarafa.calendar.ui.canvas.CalendarDaysView = Ext.extend(Zarafa.calendar.ui.Abstr
 	{
 		Zarafa.calendar.ui.canvas.CalendarDaysView.superclass.onLayout.call(this);
 
+		// Check if we have a light or dark color
+		var isDarkColor = Zarafa.core.ColorSchemes.getLuma(this.calendarColorScheme.base) < 155;
+		if ( !isDarkColor ){
+			this.headerBackgroundCanvasStylingElement.addClass('light-background');
+		} else {
+			this.headerBackgroundCanvasStylingElement.removeClass('light-background');
+		}
+		
 		var dayPositions = this.calculateDayLayoutPositions();
 
 		this.drawHeader(dayPositions);

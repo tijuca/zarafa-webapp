@@ -26,15 +26,15 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	/**
 	 * @cfg {Number} tabAreaHeight height in pixels of the tab strip
 	 */
-	tabAreaHeight : 32,
+	tabAreaHeight : 30,
 	/**
 	 * @cfg {Number} height of the header text in pixels. This is the day number and friendly day name text (e.g. 'monday', 'tuesday', etc)
 	 */
-	headerTextHeight : 22,
+	headerTextHeight : 24,
 	/**
 	 * @cfg {Number} height of a header appointment in pixels.
 	 */
-	headerItemHeight : 21,
+	headerItemHeight : 24,
 	/**
 	 * @cfg {Number} headerLineHeight height in pixels of the dividing line between the scrollable
 	 * body of the calendar view and the header above it.
@@ -43,7 +43,7 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	/**
 	 * @cfg {Number} calendarGap number of pixels (horizontally) between multiple calendars
 	 */
-	calendarGap : 4,
+	calendarGap : 6,
 	/**
 	 * this is probably always going to be 24. Made it into a property to avoid magic numbers
 	 * in the code.
@@ -54,7 +54,7 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	/**
 	 * @cfg {Number} timeStripWidth width in pixels of the time strips on the left of the panel.
 	 */
-	timeStripWidth : 52,
+	timeStripWidth : 60,
 	/**
 	 * @cfg {Number} timeStripGap gap in pixels between timestrips (defaults to 0)
 	 */
@@ -139,12 +139,12 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 			baseCls : 'zarafa-calendar',
 
 			// zooming constants
-			timeUnitHeight : 23,
+			timeUnitHeight : 24,
 
 			// configuration for the individual calendar views
-			minHeaderDayTextWidth : 110,
+			minHeaderDayTextWidth : 150,
 			showBorder : false,
-			borderWidth : 3,
+			borderWidth : 1,
 			showTimeStrips : true
 		});
 
@@ -1335,7 +1335,7 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	*/
 	removeCalendarViewIfEmpty : function(calendar)
 	{
-		if (calendar.getFolders().length == 0) {
+		if (calendar.getFolders().length === 0) {
 			this.removeCalendarView(calendar);
 		}
 	},

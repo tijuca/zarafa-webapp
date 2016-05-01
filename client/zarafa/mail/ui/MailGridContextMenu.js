@@ -96,6 +96,13 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 			handler: this.onContextItemEmlZip,
 			scope: this
 		},{
+			xtype: 'zarafa.conditionalitem',
+			text : _('Copy/Move'),
+			iconCls : 'icon_copy',
+			hideOnDisabled : false,
+			handler: this.onCopyMove,
+			scope: this
+		},{
 			//Print button, hide this as this functionality is still not implemented, so hide this button
 			hidden: false,
 			xtype: 'zarafa.conditionalitem',
@@ -357,7 +364,17 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 			item.setVisible(!defaultFolder.isSpecialFolder('junk'));
 		}
 	},
-	
+
+	/**
+	 * Open the {@link Zarafa.common.dialogs.CopyMoveContentPanel CopyMoveContentPanel} for copying
+	 * or moving the currently selected folders.
+	 * @private
+	 */
+	onCopyMove : function()
+	{
+		Zarafa.common.Actions.openCopyMoveContent(this.model.getSelectedRecords());
+	},
+
 	/**
 	 * Event handler which determines if the Read Flag button must be shown.
 	 * There are two kind of read flag buttons which can both make use of this
@@ -381,12 +398,12 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 		var count = 0;
 
 		Ext.each(records, function(record) {
-			if (record.isRead() == read) {
+			if (record.isRead() === read) {
 				count++;
 			}
 		}, this);
 
-		item.setDisabled(count == 0);
+		item.setDisabled(count === 0);
 	},
 
 	/**
@@ -409,7 +426,7 @@ Zarafa.mail.ui.MailGridContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalM
 	onContextItemJunk : function()
 	{
 		var junkfolder = container.getHierarchyStore().getDefaultFolder('junk');
-		var store = undefined;
+		var store;
 
 		Ext.each(this.records, function(record) {
 			store = record.store;

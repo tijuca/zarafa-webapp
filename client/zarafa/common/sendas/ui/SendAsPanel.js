@@ -58,9 +58,6 @@ Zarafa.common.sendas.ui.SendAsPanel = Ext.extend(Ext.Panel, {
 			}, {
 				xtype : 'container',
 				width : 160,
-				defaults : {
-					width : 140
-				},
 				layout : {
 					type : 'vbox',
 					align : 'center',

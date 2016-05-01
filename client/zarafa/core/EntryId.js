@@ -43,6 +43,7 @@ Zarafa.core.EntryId = (function()
 	var MAPI_ONE_OFF_UID = '812B1FA4BEA310199D6E00DD010F5402';
 
 	/* Hardcoded ID used for generating entryid of addressbook container */
+	/*jshint unused:false*/
 	var ZARAFA_UID_ADDRESS_BOOK = '00000000';
 	/* Hardcoded ID used for generating entryid of global addressbook container */
 	var ZARAFA_UID_GLOBAL_ADDRESS_BOOK = '01000000';
@@ -77,7 +78,7 @@ Zarafa.core.EntryId = (function()
 			var offset = 0;
 
 			for (var iterations = 4; iterations > 0; iterations--) {
-				if (entryId.substring(entryId.length - (offset + 2), entryId.length - offset) == '00') {
+				if (entryId.substring(entryId.length - (offset + 2), entryId.length - offset) === '00') {
 					padding += '00';
 					offset += 2;
 				} else {
@@ -345,23 +346,29 @@ Zarafa.core.EntryId = (function()
 			var eid1 = Zarafa.core.EntryId.createABEntryIdObj(entryId1);
 			var eid2 = Zarafa.core.EntryId.createABEntryIdObj(entryId2);
 
-			if(eid1.length != eid2.length)
+			if(eid1.length !== eid2.length) {
 				return false;
+			}
 
-			if(eid1.abFlags != eid2.abFlags)
+			if(eid1.abFlags !== eid2.abFlags) {
 				return false;
+			}
 
-			if(eid1.version != eid2.version)
+			if(eid1.version !== eid2.version) {
 				return false;
+			}
 
-			if(eid1.type != eid2.type)
+			if(eid1.type !== eid2.type) {
 				return false;
+			}
 
-			if(eid1.length < eid1.MIN_LENGTH)
+			if(eid1.length < eid1.MIN_LENGTH) {
 				return false;
+			}
 
-			if(eid1.extid != eid2.extid)
+			if(eid1.extid !== eid2.extid) {
 				return false;
+			}
 
 			return true;
 		},
@@ -375,13 +382,14 @@ Zarafa.core.EntryId = (function()
 		{
 			// check if we are dealing with old or new object entryids
 			var versionString = entryid.substr(40, 8);
+			var eidObj;
 
-			if(versionString == '00000000') {
+			if(versionString === '00000000') {
 				// use EID_V0 struct
-				var eidObj = new EID_V0(entryid);
+				eidObj = new EID_V0(entryid);
 			} else {
 				// use EID struct
-				var eidObj = new EID(entryid);
+				eidObj = new EID(entryid);
 			}
 
 			return eidObj;
@@ -408,30 +416,38 @@ Zarafa.core.EntryId = (function()
 			var eid1 = Zarafa.core.EntryId.createEntryIdObj(entryId1);
 			var eid2 = Zarafa.core.EntryId.createEntryIdObj(entryId2);
 
-			if(eid1.length != eid2.length)
+			if(eid1.length !== eid2.length) {
 				return false;
+			}
 
-			if(eid1.abFlags != eid2.abFlags)
+			if(eid1.abFlags !== eid2.abFlags) {
 				return false;
+			}
 
-			if(eid1.version != eid2.version)
+			if(eid1.version !== eid2.version) {
 				return false;
+			}
 
-			if(eid1.type != eid2.type)
+			if(eid1.type !== eid2.type) {
 				return false;
+			}
 
-			if(eid1.name == 'EID_V0') {
-				if(eid1.length < eid1.MIN_LENGTH)
+			if(eid1.name === 'EID_V0') {
+				if(eid1.length < eid1.MIN_LENGTH) {
 					return false;
+				}
 
-				if(eid1.id != eid2.id)
+				if(eid1.id !== eid2.id) {
 					return false;
+				}
 			} else {
-				if(eid1.length < eid1.MIN_LENGTH)
+				if(eid1.length < eid1.MIN_LENGTH) {
 					return false;
+				}
 
-				if(eid1.uniqueId != eid2.uniqueId)
+				if(eid1.uniqueId !== eid2.uniqueId) {
 					return false;
+				}
 			}
 
 			return true;
@@ -477,30 +493,38 @@ Zarafa.core.EntryId = (function()
 				return true;
 			}
 
-			if(seid1.length < seid1.MIN_LENGTH || seid2.length < seid2.MIN_LENGTH)
+			if(seid1.length < seid1.MIN_LENGTH || seid2.length < seid2.MIN_LENGTH) {
 				return false;
+			}
 
-			if(seid1.guid != seid2.guid)
+			if(seid1.guid !== seid2.guid) {
 				return false;
+			}
 
-			if(seid1.version != seid2.version)
+			if(seid1.version !== seid2.version) {
 				return false;
+			}
 
-			if(seid1.type != seid2.type)
+			if(seid1.type !== seid2.type) {
 				return false;
+			}
 
-			if(seid1.name == 'EID_V0') {
-				if(seid1.length < seid1.MIN_LENGTH)
+			if(seid1.name === 'EID_V0') {
+				if(seid1.length < seid1.MIN_LENGTH) {
 					return false;
+				}
 
-				if(seid1.id != seid2.id)
+				if(seid1.id !== seid2.id) {
 					return false;
+				}
 			} else {
-				if(seid1.length < seid1.MIN_LENGTH)
+				if(seid1.length < seid1.MIN_LENGTH) {
 					return false;
+				}
 
-				if(seid1.uniqueId != seid2.uniqueId)
+				if(seid1.uniqueId !== seid2.uniqueId) {
 					return false;
+				}
 			}
 
 			return true;
@@ -514,7 +538,7 @@ Zarafa.core.EntryId = (function()
 		 */
 		unwrapContactProviderEntryId : function(entryId)
 		{
-			return WrappedABEID.unwrapABEID(entryId)
+			return WrappedABEID.unwrapABEID(entryId);
 		},
 
 		/**
@@ -524,7 +548,7 @@ Zarafa.core.EntryId = (function()
 		 */
 		wrapContactProviderEntryId : function(entryId, objType)
 		{
-			return WrappedABEID.wrapABEID(entryId, objType)
+			return WrappedABEID.wrapABEID(entryId, objType);
 		},
 
 		/**
@@ -549,7 +573,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return (entryIdObj.abFlags.substr(6, 8) == ZARAFA_FAVORITE);
+			return (entryIdObj.abFlags.substr(6, 8) === ZARAFA_FAVORITE);
 		},
 
 		/**
@@ -561,7 +585,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return entryIdObj.guid == MAPI_ONE_OFF_UID;
+			return entryIdObj.guid === MAPI_ONE_OFF_UID;
 		},
 
 		/**
@@ -573,7 +597,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return entryIdObj.uniqueId == STATIC_GUID_FAVORITE;
+			return entryIdObj.uniqueId === STATIC_GUID_FAVORITE;
 		},
 
 		/**
@@ -585,7 +609,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return entryIdObj.uniqueId == STATIC_GUID_PUBLICFOLDER;
+			return entryIdObj.uniqueId === STATIC_GUID_PUBLICFOLDER;
 		},
 
 		/**
@@ -597,7 +621,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return entryIdObj.uniqueId == STATIC_GUID_FAVSUBTREE;
+			return entryIdObj.uniqueId === STATIC_GUID_FAVSUBTREE;
 		},
 
 		/**
@@ -609,7 +633,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createEntryIdObj(entryId);
 
-			return entryIdObj.guid == MUIDZCSAB;
+			return entryIdObj.guid === MUIDZCSAB;
 		},
 
 		/**
@@ -621,7 +645,7 @@ Zarafa.core.EntryId = (function()
 		{
 			var entryIdObj = Zarafa.core.EntryId.createABEntryIdObj(entryId);
 
-			return entryIdObj.guid == MUIDECSAB;
+			return entryIdObj.guid === MUIDECSAB;
 		},
 
 		/**
@@ -639,7 +663,7 @@ Zarafa.core.EntryId = (function()
 			var entryIdObj = Zarafa.core.EntryId.createABEntryIdObj(entryId);
 
 			// check for object_type == MAPI_ABCONT and id == 1
-			return (entryIdObj.type == '04000000' && entryIdObj.id == ZARAFA_UID_GLOBAL_ADDRESS_BOOK);
+			return (entryIdObj.type === '04000000' && entryIdObj.id === ZARAFA_UID_GLOBAL_ADDRESS_BOOK);
 		}
 	};
 })();

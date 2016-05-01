@@ -25,6 +25,7 @@ Zarafa.common.delegates.data.DelegateStore = Ext.extend(Zarafa.core.data.MAPISto
 		Ext.applyIf(config, {
 			// load data whenever instance of store is created
 			autoLoad : true,
+			batch : false,
 
 			actionType : Zarafa.core.Actions['list'],
 

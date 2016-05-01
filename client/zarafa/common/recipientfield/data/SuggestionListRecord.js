@@ -31,7 +31,6 @@ Zarafa.common.recipientfield.data.SuggestionListRecord = Ext.extend(Zarafa.commo
 	 */
 	convertToRecipient : function(recipientType)
 	{
-		var data = {};
 		var recipientRecord = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, {
 			object_type : this.get('object_type'),
 			display_name : this.get('display_name'),

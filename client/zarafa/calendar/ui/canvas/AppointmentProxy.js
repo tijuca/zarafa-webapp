@@ -158,30 +158,18 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 	 * Adds text to the view body containing the start and due times of the date range.
 	 * @private
 	 */
-	createTimeText : function()
+	createTimeText: function ()
 	{
-		var dateRange = this.getDateRange();
-		var startDate = dateRange.getStartDate();
-		var dueDate = dateRange.getDueDate();
+		if (this.body.length >= 1) {
+			var dateRange = this.getDateRange();
+			var startDate = dateRange.getStartDate();
+			var dueDate = dateRange.getDueDate();
 
-		var topTime = String.format(
-			'<span class="zarafa-calendar-dragproxy-time "style="position: absolute; left: 2px; top:2px;">{0}</span>',
-			startDate.format(_("G:i"))
-		);
+			var time = String.format('{0} - {1}', startDate.format(_("G:i")), dueDate.format(_("G:i")));
 
-		var bottomTime = String.format(
-			'<span class="zarafa-calendar-dragproxy-time "style="position: absolute; left: 2px; bottom:2px;">{0}</span>',
-			dueDate.format(_("G:i"))
-		);
-
-		if (this.body.length === 1)
-			this.getFirstBodyElement().dom.innerHTML = topTime + bottomTime;
-		else if (this.body.length > 1) {
-			for (var i = 1, len = this.body.length - 1;  i < len; i++) {
-				this.body[i].dom.innerHTML = '';
+			if (this.getFirstBodyElement().dom.innerHTML !== time) {
+				this.getFirstBodyElement().dom.innerHTML = time;
 			}
-			this.getFirstBodyElement().dom.innerHTML = topTime;
-			this.getLastBodyElement().dom.innerHTML = bottomTime;
 		}
 	},
 
@@ -193,8 +181,6 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 	{
 		if (this.body.length>0)
 			this.getFirstBodyElement().dom.innerHTML = '';
-		if (this.body.length>1)
-			this.getLastBodyElement().dom.innerHTML = '';
 	},
 
 	/**
@@ -206,7 +192,7 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 		Zarafa.calendar.ui.canvas.AppointmentProxy.superclass.setVisible.call(this, visible);
 
 		if (visible) {
-			this.setBodyClass('zarafa-calendar-selection zarafa-calendar-selection-dragging');
+			this.setBodyClass('zarafa-calendar-selection zarafa-calendar-selection-dragging zarafa-calendar-dragproxy-time');
 			this.setHeaderClass('zarafa-calendar-selection zarafa-calendar-selection-dragging');
 		} else {
 			this.setBodyClass('zarafa-calendar-selection');
@@ -230,13 +216,6 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 	 */
 	layoutBodyElements : function(bounds)
 	{
-		// resize the body elements to match the bounds
-		for (var i=0; i<bounds.length; i++) {
-			this.body[i].dom.className = this.bodyClassName;
-			this.body[i].setLeftTop(bounds[i].left, bounds[i].top);
-			this.body[i].setSize(bounds[i].right - bounds[i].left, bounds[i].bottom - bounds[i].top);
-		}
-
 		// optionally generate time text
 		if (this.showTime) {
 			this.createTimeText();
@@ -244,6 +223,12 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 			this.clearTimeText();
 		}
 
+		// resize the body elements to match the bounds
+		for (var i=0; i<bounds.length; i++) {
+			this.body[i].dom.className = this.bodyClassName;
+			this.body[i].setLeftTop(bounds[i].left, bounds[i].top);
+			this.body[i].setSize(bounds[i].right - bounds[i].left, bounds[i].bottom - bounds[i].top);
+		}
 	},
 
 	/**
@@ -389,14 +374,6 @@ Zarafa.calendar.ui.canvas.AppointmentProxy = Ext.extend(Zarafa.calendar.ui.Appoi
 	getFirstBodyElement : function()
 	{
 		return this.body[0];
-	},
-
-	/**
-	 * @return {Ext.Element} last element of the body of the view.
-	 */
-	getLastBodyElement : function()
-	{
-		return this.body[this.body.length-1];
 	},
 
 	/**

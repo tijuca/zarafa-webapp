@@ -115,6 +115,14 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
+	 * @return {String} The active theme selected by admin or user.
+	 */
+	getActiveTheme : function()
+	{
+		return this.meta.active_theme;
+	},
+
+	/**
  	 * @return {Array} returns the installed plugins version information array.
 	 */
 	getPluginsVersion : function()

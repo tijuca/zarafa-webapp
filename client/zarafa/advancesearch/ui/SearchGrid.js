@@ -7,9 +7,9 @@ Ext.namespace('Zarafa.advancesearch.ui');
  */
 Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 	/**
-	 * @cfg {Zarafa.advancesearch.AdvanceSearchContext} context The context to which this panel belongs
+	 * @cfg {Zarafa.advancesearch.AdvanceSearchContext} searchContext The searchContext to which this panel belongs
 	 */
-	context : undefined,
+	searchContext : undefined,
 
 	/**
 	 * The {@link Zarafa.advancesearch.AdvanceSearchContextModel} which is obtained from the {@link #context}.
@@ -26,12 +26,24 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.model) && Ext.isDefined(config.context)) {
-			config.model = config.context.getModel();
+		if (!Ext.isDefined(config.model) && Ext.isDefined(config.searchContext)) {
+			config.model = config.searchContext.getModel();
 		}
 
-		if (!Ext.isDefined(config.advanceSearchStore) && Ext.isDefined(config.model)) {
-			config.store = config.model.store;
+		if (!Ext.isDefined(config.store) && Ext.isDefined(config.model)) {
+			/**
+			 * For the first search tab we have already created store instance in model, which is created at the time of the
+			 * search context model initialization so we use that store for the first search tab and for the second search tab
+			 * we create the new instance of the search store and so on.
+			 */
+			if(!Ext.isDefined(config.model.store.getSearchStoreUniqueId())){
+				var model = config.model;
+				model.store.searchStoreUniqueId = config.searchTabId;
+				config.store = model.store;
+				model.pushStore(config.searchTabId , model.store);
+			} else {
+				config.store = config.model.createNewSearchStore({searchTabId : config.searchTabId});
+			}
 		}
 
 		config.store = Ext.StoreMgr.lookup(config.store);
@@ -94,7 +106,7 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 		this.mon(this.model, 'recordselectionchange', this.onRecordSelectionChange, this);
 		this.mon(this.model, 'searchstop', this.onSearchStop, this);
 
-		this.mon(this.context, 'viewchange', this.onContextViewChange, this);
+		this.mon(this.searchContext, 'viewchange', this.onContextViewChange, this);
 	},
 
 	/**
@@ -191,10 +203,26 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 	onCellClick : function(grid, rowIndex, columnIndex, e)
 	{
 		var record = this.store.getAt(rowIndex);
-		if (!Ext.isDefined(record) || record.get('message_class') != 'IPM.Note')
+		if (!Ext.isDefined(record) || record.get('message_class') != 'IPM.Note'){
 			return;
-
-		Zarafa.common.Actions.markAsRead(record, !record.isRead());
+		}
+		
+		// Because we render a cell with lots of data, we must calculate ourself
+		// if the click was on the icon cell.
+		var clickX = e.xy[0];
+		var iconCell = e.target;
+		if ( !iconCell.classList.contains('icon') ){
+			iconCell = iconCell.querySelector('td.icon');
+			if ( iconCell === null ){
+				return;
+			}
+		}
+		var iconCellX = iconCell.getBoundingClientRect().left;
+		var iconCellWidth = iconCell.getBoundingClientRect().width;
+		
+		if ( clickX >= iconCellX && clickX <= iconCellX+iconCellWidth ){
+			Zarafa.common.Actions.markAsRead(record, !record.isRead());
+		}
 	},
 
 	/**
@@ -216,7 +244,6 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 	onRowContextMenu : function(grid, rowIndex, event)
 	{
 		var sm = this.getSelectionModel();
-		var cm = this.getColumnModel();
 
 		if (sm.hasSelection()) {
 			// Some records were selected...
@@ -234,7 +261,7 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 		
 		var records = sm.getSelections();
 
-		Zarafa.core.data.UIFactory.openDefaultContextMenu(records, { position : event.getXY(), context : this.context });
+		Zarafa.core.data.UIFactory.openDefaultContextMenu(records, { position : event.getXY(), context : this.searchContext });
 	},
 
 	/**

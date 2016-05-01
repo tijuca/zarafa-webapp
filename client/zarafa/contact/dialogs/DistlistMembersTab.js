@@ -24,6 +24,7 @@ Zarafa.contact.dialogs.DistlistMembersTab = Ext.extend(Ext.form.FormPanel, {
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.distlistmemberstab',
+			cls: 'zarafa-distlist-createpanel-memberstab',
 			title : _('Members'),
 			layout : 'vbox',
 			layoutConfig: {
@@ -32,7 +33,7 @@ Zarafa.contact.dialogs.DistlistMembersTab = Ext.extend(Ext.form.FormPanel, {
 			},
 			defaults : {
 				header : false,
-				margins : {top:5, right:2, bottom:1, left:2},
+				margins : {top:0, right:0, bottom:6, left:0},
 				border : false
 			},
 			items: this.getMembersTabItems()
@@ -51,6 +52,7 @@ Zarafa.contact.dialogs.DistlistMembersTab = Ext.extend(Ext.form.FormPanel, {
 					items: [{
 						xtype : 'textfield',
 						name : 'subject',
+						labelStyle: 'text-align: left',
 						fieldLabel: _('Name'),
 						anchor : '100%',
 						listeners :{
@@ -60,30 +62,31 @@ Zarafa.contact.dialogs.DistlistMembersTab = Ext.extend(Ext.form.FormPanel, {
 					}]
 				},{
 					layout:'table',
+					cls: 'buttons',
 					layoutConfig: {
 						columns: 5
 					},
 					items: [{
 						xtype : 'button',
-						width: 100,
+						autoWidth: true,
 						text : _('Select Members') + '...',
 						handler : this.showAddressBookContent,
 						scope : this
 					},{
 						xtype: 'spacer',
-						width: 7
+						width: 6
 					},{
 						xtype : 'button',
-						width: 100,
+						autoWidth: true,
 						handler : this.addExternalMember,
 						scope: this,
 						text : _('Add New') + '...'
 					},{
 						xtype: 'spacer',
-						width: 7
+						width: 6
 					},{
 						xtype : 'button',
-						width: 100,
+						autoWidth: true,
 						text : _('Remove'),
 						handler : this.removeMembers,
 						scope: this
@@ -91,6 +94,9 @@ Zarafa.contact.dialogs.DistlistMembersTab = Ext.extend(Ext.form.FormPanel, {
 				},{
 					xtype: 'grid',
 					flex: 1,
+					viewConfig: {
+						autoFill: true
+					},
 					// provide a dummy store when rendering components
 					// this will be replaced by recipient store when record data
 					// will be available in the dialog

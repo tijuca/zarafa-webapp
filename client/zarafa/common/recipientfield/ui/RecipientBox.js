@@ -239,7 +239,10 @@ Zarafa.common.recipientfield.ui.RecipientBox = Ext.extend(Zarafa.common.ui.Box, 
 			this.el.removeClass(this.pendingCls);
 			this.el.addClass(this.ambiguousCls);
 			this.el.removeClass(this.validCls);
-		} else if (!record.isResolved() && !record.attemptedToResolve()) {
+		} else if (!record.isResolved() && !record.attemptedToResolve() && record.dirty) {
+			// will mark the RecipientBox as pending only
+			// when the user is busy resolving after the user typed in new data
+
 			this.el.removeClass(this.invalidCls);
 			this.el.addClass(this.pendingCls);
 			this.el.removeClass(this.ambiguousCls);

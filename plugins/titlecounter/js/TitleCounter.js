@@ -10,6 +10,12 @@ Ext.namespace('Zarafa.plugins.titlecounter');
 Zarafa.plugins.titlecounter.TitleCounter = Ext.extend(Zarafa.core.Plugin, {
 
 	/**
+	 * The title that would be shown if this plugin was not active
+	 * @property
+	 */
+	baseTitle : Ext.getDoc().dom.title,
+
+	/**
 	 * Add listener for load and updateFolder event of {@link Zarafa.hierarchy.data.HierarchyStore HierarchyStore}.
 	 * @protected
 	 */
@@ -30,9 +36,9 @@ Zarafa.plugins.titlecounter.TitleCounter = Ext.extend(Zarafa.core.Plugin, {
 
 
 		if (unreadCounter > 0) {
-			Ext.getDoc().dom.title = '(' + unreadCounter + ') ' + _('Zarafa WebApp');
+			Ext.getDoc().dom.title = '(' + unreadCounter + ') ' + this.baseTitle;
 		} else {
-			Ext.getDoc().dom.title = _('Zarafa WebApp');
+			Ext.getDoc().dom.title = this.baseTitle;
 		}
 	}
 });

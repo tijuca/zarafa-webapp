@@ -33,6 +33,11 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 			recordComponentPluginConfig : Ext.applyIf(config.recordComponentPluginConfig || {}, {
 				allowWrite : true
 			}),
+			border: false,
+			defaults: {
+				bodyStyle: 'padding-top: 5px; padding-left: 6px; padding-right: 5px; background-color: inherit;',
+				border: false
+			},
 			autoSave : false,
 			width: 600,
 			height: 500,

@@ -24,7 +24,7 @@ Zarafa.common.freebusy.ui.SuggestionListView = Ext.extend(Ext.DataView, {
 
 		Ext.applyIf(config, {
 			deferEmptyText : false,
-			emptyText: '<div class="zarafa-freebusy-suggestionrow zarafa-freebusy-suggestionrow-empty">' + _('No suggestions available') + '</div>',
+			emptyText: '<div class="zarafa-freebusy-suggestionrow emptytext">' + _('No suggestions available') + '</div>',
 			tpl: new Ext.XTemplate(
 				'<tpl for=".">',
 				'<div class="x-btn zarafa-freebusy-suggestionrow" id="zarafa-freebusy-suggestionrow-{[xindex]}">',

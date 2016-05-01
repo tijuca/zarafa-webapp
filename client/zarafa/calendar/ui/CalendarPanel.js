@@ -92,7 +92,7 @@ Zarafa.calendar.ui.CalendarPanel = Ext.extend(Ext.Panel, {
 	 * be the data object from the {@link Zarafa.calendar.AppointmentRecord appointment}.
 	 */
 	tooltipTextTpl : new Ext.XTemplate(
-		'<tpl if="values.meeting !== Zarafa.core.mapi.MeetingStatus.NONMEETING">',
+		'<tpl if="values.meeting !== Zarafa.core.mapi.MeetingStatus.NONMEETING && !Ext.isEmpty(this.formatOrganizer(values))">',
 			_('Organizer') + ': {[this.formatOrganizer(values)]}\n',
 		'</tpl>',
 		'<tpl if="values.alldayevent != true">',
@@ -421,9 +421,21 @@ Zarafa.calendar.ui.CalendarPanel = Ext.extend(Ext.Panel, {
 	onAppointmentCalendarDrop : function(multiview, appointment, sourceFolder, targetFolder, dateRange, event)
 	{
 		if (this.fireEvent('beforeappointmentcalendardrop', this, appointment, sourceFolder, targetFolder, dateRange) !== false) {
-			// Move the selected record to the new folder.
-			// FIXME: We receive a dateRange, we should apply it to the target record
-			// so we can actually drop the copy into a specific location of the target folder
+
+			// Create copy of selected record and update that particular copy with the specific drop location because 
+			// if we update orignal record then changes will be reflected to UI as well
+			var copyAppointment = appointment.copy();
+			this.doAppointmentChange(copyAppointment, dateRange);
+
+			// Create the object of drop location props that's needs to be send with original record
+			// we should apply drop location props to the target record on server side
+			var modifiedProps = {};
+			for (var key in copyAppointment.modified) {
+				modifiedProps[key] = copyAppointment.get(key);
+			}
+			appointment.addMessageAction('dropmodifications', modifiedProps);
+
+			// Move/Copy the selected record to the new folder.
 			if (event.ctrlKey) {
 				appointment.copyTo(targetFolder);
 			} else {

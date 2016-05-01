@@ -22,12 +22,17 @@ Zarafa.core.ui.notifier.SliderNotifierPlugin = Ext.extend(Zarafa.core.ui.notifie
 	 */
 	msgTemplate : new Ext.XTemplate(
 		'<div class="{categorycls} {basecls}">' +
-			'<h2 class="{basecls}-title">' +
-				'{title}' +
-			'</h2>' +
-			'<div class={basecls}-message">' +
-				'{message}' +
-			'</div>' +
+			'<div class="left">'+
+				'<div class="icon" ></div>' +
+			'</div>'+
+			'<div class="right">' +
+				'<h2 class="{basecls}-title">' +
+					'{title}' +
+				'</h2>' +
+				'<div class={basecls}-message">' +
+					'{message}' +
+				'</div>' +
+			'</div>'+
 		'</div>'
 	),
 

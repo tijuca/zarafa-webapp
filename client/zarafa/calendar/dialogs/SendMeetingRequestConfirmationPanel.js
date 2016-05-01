@@ -48,7 +48,6 @@ Zarafa.calendar.dialogs.SendMeetingRequestConfirmationPanel = Ext.extend(Ext.for
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			hideLabels : true,
 			items: [{
 				xtype: 'displayfield',

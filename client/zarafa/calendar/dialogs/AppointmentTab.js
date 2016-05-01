@@ -92,6 +92,13 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	meetingUnsentString : pgettext('calendar.dialog', 'Invitations have not been sent for this meeting.'),
 
 	/**
+	 * @cfg {String} meetingOverwrittenString string which must be displayed in the dialog
+	 * to inform the user his changes will be overwritten when the meeting organizer updates
+	 * the meeting.
+	 */
+	meetingOverwrittenString : pgettext('calendar.dialog', 'Please note that any changes you make will be overwritten when this meeting request is updated by the organizer'),
+
+	/**
 	 * Property which is set to true when user changes location manually, If user has
 	 * changed/set location manually. {@link updateLocation} function will use this
 	 * property to chech whether has changed location or not, if this property is false
@@ -115,25 +122,22 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 
 		Ext.applyIf(config, {
 			xtype: 'zarafa.appointmenttab',
+			cls: 'zarafa-appointmentcreatetab',
 			layout: {
 				type: 'vbox',
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'background-color: inherit;',
-			defaults: {
-				border: true,
-				bodyStyle: 'background-color: inherit; padding: 2px; border-style: none none solid none;',
-				autoHeight: true
-			},
+			labelPad: 0,
 			items: [
 				this.createExtraInfoPanel(),	
 				this.createMeetingOrganizerPanel(),	
 				this.createRecipientPanel(),
-				this.createInfoPanel(),
-				this.createDatePanel(),
-				this.createRecurrencePanel(),
-				this.createReminderPanel(),
+				this.createSubjectPanel(),
+				this.createLocationPanel(),
+				this.createDateTimePanel(),
+//				this.createRecurrencePanel(),
+//				this.createReminderPanel(),
 				this.createAttachmentsPanel(),
 				this.createBodyPanel()
 			]
@@ -155,10 +159,6 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 			cls: 'zarafa-calendar-appointment-extrainfo',
 			ref: 'extraInfoPanel',
 			autoHeight: true,
-			defaults:{
-				bodyStyle: 'background-color: inherit;',
-				border: false
-			},
 			hidden: true
 		};
 	},
@@ -196,115 +196,117 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	createRecipientPanel : function()
 	{
 		return {
-			xtype: 'panel',
-			layout: 'fit',
+			xtype : 'zarafa.resizablecompositefield',
+			cls : 'field-to',
 			ref: 'recipientPanel',
-			autoHeight: true,
+			anchor : '100%',
+			autoHeight: false,
 			items: [{
-				xtype : 'zarafa.compositefield',
-				anchor : '100%',
+				xtype: 'button',
 				autoHeight: true,
-				items: [{
-					xtype: 'button',
-					width: 100,
-					text: _('To') + ':',
-					handler: this.showRecipientContent,
-					scope: this
-				},{
-					xtype: 'zarafa.recipientfield',
-					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					flex: 1
-				}]
+				text: _('To') + ':',
+				handler: this.showRecipientContent,
+				scope: this
+			},{
+				xtype: 'zarafa.recipientfield',
+				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
+				flex: 1
 			}]
 		};
 	},
 
 	/**
-	 * Create the {@link Ext.Panel panel} containing the form elements
-	 * to set the subject and the label which must be applied to this appointment
+	 * Create the {@link Ext.Panel panel} containing the form element
+	 * to set the subject
 	 * @return {Object} Configuration object for the panel containing the fields
 	 * @private
 	 */
-	createInfoPanel : function()
+	createSubjectPanel : function()
 	{
-		var labelStore = {
-			xtype: 'jsonstore',
-			fields: ['name', 'value'],
-			data : Zarafa.calendar.data.AppointmentLabels
-		};
-
 		return {
 			xtype: 'panel',
+			cls: 'subject-panel',
 			layout: 'form',
+			labelWidth: 84,
+			labelAlign: 'left',
 			autoHeight: true,
+			border: false,
 			items: [{
 				xtype: 'textfield',
 				name: 'subject',
 				fieldLabel: _('Subject'),
-				labelWidth: 100,
 				anchor: '100%',
 				listeners: {
 					change: this.onFieldChange,
 					scope: this
 				}	
-			},{
-				xtype: 'panel',
-				layout: 'hbox',
-				border: false,
-				bodyStyle: 'background-color: inherit;',
-				items: [{
-					xtype: 'textfield',
-					name: 'location',
-					plugins: [ 'zarafa.fieldlabeler' ],
-					fieldLabel: _('Location'),
-					labelWidth: 100,
-					enableKeyEvents: true,
-					flex: 0.70,
-					listeners: {
-						change: this.onFieldChange,
-						keypress: this.onLocationKeyPress,
-						scope: this
-					}	
-				},{
-					xtype: 'spacer',
-					width: 5
-				},{
-					xtype: 'combo',
-					name: 'label',
-					plugins: [ 'zarafa.fieldlabeler' ],
-					flex: 0.30,
-					fieldLabel: _('Label'),
-					labelWidth: 100,
-					store: labelStore,
-					mode: 'local',
-					triggerAction: 'all',
-					displayField: 'name',
-					valueField: 'value',
-					lazyInit: false,
-					forceSelection: true,
-					editable: false,
-					autoSelect: true,
-					tpl: new Ext.XTemplate(
-						'<tpl for=".">',
-							'<div class="x-combo-list-item zarafa-calendar-appointment-{[this.getCSSLabel(values.value)]}">',
-								'{name}',
-							'</div>',
-						'</tpl>',
-						{
-							getCSSLabel : function(label)
-							{
-								label = Zarafa.core.mapi.AppointmentLabels.getName(label);
-								label = label.toLowerCase();
-								label = label.replace('_', '-');
-								return 'label-' + label;
-							}
-						}),
-					listeners: {
-						select: this.onFieldSelect,
-						scope: this
-					}
-				}]
 			}]
+		};
+	},
+
+	/**
+	 * Create the {@link Ext.Panel panel} containing the form element
+	 * to set the location
+	 * @return {Object} Configuration object for the panel containing the fields
+	 * @private
+	 */
+	createLocationPanel : function()
+	{
+		return {
+			xtype: 'panel',
+			cls: 'location-panel',
+			layout: 'form',
+			labelWidth: 84,
+			labelAlign: 'left',
+			autoHeight: true,
+			border: false,
+			items: [{
+				xtype: 'textfield',
+				name: 'location',
+				fieldLabel: _('Location'),
+				anchor: '100%',
+				enableKeyEvents: true,
+				listeners: {
+					change: this.onFieldChange,
+					keypress: this.onLocationKeyPress,
+					scope: this
+				}	
+			}]
+		};
+	},
+	
+	/**
+	 * Create the {@link Ext.Panel panel} containing the following elements
+	 * in a table layout: the date panel, recurrence panel, busy status panel,
+	 * reminder panel, and the label panel.
+	 * @return {Object} Configuration object for the panel containing the fields
+	 * @private
+	 */
+	createDateTimePanel : function()
+	{
+		return {
+			xtype: 'panel',
+			cls: 'datetime-panel',
+			border: false,
+			autoHeight: true,
+			layout: {
+				type: 'table',
+				columns: 2
+			},
+			items : [
+				{
+					xtype: 'panel',
+					border: false,
+					items: [
+						this.createDatePanel(),
+						this.createRecurrencePanel()
+					]
+				},
+				this.createBusyStatusPanel(),
+				
+				this.createReminderPanel(),
+				this.createLabelPanel()
+			]
 		};
 	},
 
@@ -318,28 +320,38 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	{
 		return {
 			xtype: 'panel',
-			layout: 'hbox',
-			ref: 'datePanel',
+			cls: 'date-panel',
+			layout: {
+				type: 'table',
+				columns: 3
+			},
+			ref: '../../datePanel',
 			autoHeight: true,
+			autoWidth: true,
+			border: false,
 			items: [{
 				xtype: 'zarafa.datetimeperiodfield',
-				ref: '../datetimePeriod',
+				ref: '../../../datetimePeriod',
 				defaultPeriod: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_appointment_period'),
 				defaultPeriodType : Date.MINUTE,
 				timeIncrement: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_zoom_level'),
-				width: 300,
+				width: 585,
 				allowEqualValue : true,
+				layout: 'hbox',
 				listeners: {
 					change: this.onDateRangeFieldChange,
 					scope: this
 				},
 				startFieldConfig: {
-					fieldLabel: _('Start time'),
-					labelWidth: 100
+					fieldLabel: _('Time'),
+					labelWidth: 83,
+					
+					cls: 'from-field'
 				},
 				endFieldConfig: {
-					fieldLabel: _('End time'),
-					labelWidth: 100
+					fieldLabel: _('until'),
+					labelWidth: 84,
+					cls: 'to-field'
 				}
 			},{
 				xtype: 'spacer',
@@ -347,7 +359,6 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 			},{
 				xtype: 'panel',
 				border: false,
-				bodyStyle: 'background-color: inherit;',
 				items: [{
 					xtype: 'checkbox',
 					name: 'alldayevent',
@@ -369,15 +380,16 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	{
 		return {
 			xtype: 'panel',
-			ref: 'recurrencePanel',
+			cls: 'recurrence-panel',
+			ref: '../../recurrencePanel',
 			layout: 'form',
 			autoHeight: true,
+			border: false,
 			items: [{
 				xtype: 'displayfield',
-				ref: '../recurrencePatternField',
+				ref: '../../../recurrencePatternField',
 				fieldLabel: _('Recurrence'),
-				htmlEncode : true,
-				flex: 1
+				htmlEncode : true
 			}]
 		};
 	},
@@ -396,16 +408,11 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 			data : Zarafa.calendar.data.ReminderPeriods
 		};
 
-		var busyStore = {
-			xtype: 'jsonstore',
-			fields: ['name', 'value'],
-			data : Zarafa.calendar.data.BusyStatus
-		};
-
 		return {
 			xtype: 'panel',
-			layout: 'fit',
+			cls: 'reminder-panel',
 			autoHeight: true,
+			border: false,
 			items: [{
 				xtype: 'zarafa.compositefield',
 				autoHeight: true,
@@ -413,13 +420,12 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 					xtype: 'checkbox',
 					name: 'reminder',
 					boxLabel: _('Reminder') + ':',
-					width: 100,
-					bodyStyle: 'padding-right: 3px',
+					width: 78,
 					handler: this.onToggleReminder,
 					scope: this
 				},{
 					xtype: 'combo',
-					ref: '../../comboReminder',
+					ref: '../../../comboReminder',
 					name: 'reminder_minutes',
 					store: reminderStore,
 					mode: 'local',
@@ -429,35 +435,111 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 					lazyInit: false,
 					forceSelection: true,
 					editable: false,
-					width: 150,
-					listeners: {
-						select: this.onFieldSelect,
-						scope: this
-					}
-				},{
-					xtype: 'spacer',
-					width: 10
-				},{
-					xtype: 'combo',
-					ref: '../../comboBusyStatus',
-					name: 'busystatus',
-					plugins: [ 'zarafa.fieldlabeler' ],
-					fieldLabel: _('Busy Status'),
-					labelWidth: 100,
-					width: 150,
-					store: busyStore,
-					mode: 'local',
-					triggerAction: 'all',
-					displayField: 'name',
-					valueField: 'value',
-					lazyInit: false,
-					forceSelection: true,
-					editable: false,
+					swidth: 150,
 					listeners: {
 						select: this.onFieldSelect,
 						scope: this
 					}
 				}]
+			}]
+		};
+	},
+	
+	/**
+	 * Create the {@link Ext.Panel Panel} containing the form fields
+	 * for setting the busy status.
+	 * @return {Object} Configuration object for the panel with reminder fields
+	 * @private
+	 */
+	createBusyStatusPanel : function()
+	{
+		var busyStore = {
+			xtype: 'jsonstore',
+			fields: ['name', 'value'],
+			data : Zarafa.calendar.data.BusyStatus
+		};
+
+		return {
+			xtype: 'panel',
+			cls: 'busystatus-panel',
+			layout: 'form',
+			autoHeight: true,
+			border: false,
+			labelAlign: 'left',
+			items: [{
+				xtype: 'combo',
+				ref: '../../comboBusyStatus',
+				name: 'busystatus',
+				fieldLabel: _('Busy Status'),
+				store: busyStore,
+				mode: 'local',
+				triggerAction: 'all',
+				displayField: 'name',
+				valueField: 'value',
+				lazyInit: false,
+				forceSelection: true,
+				editable: false,
+				listeners: {
+					select: this.onFieldSelect,
+					scope: this
+				}
+			}]
+		};
+	},
+	
+	/**
+	 * Create the {@link Ext.Panel Panel} containing the form fields
+	 * for setting a label on the appointment.
+	 * @return {Object} Configuration object for the panel with reminder fields
+	 * @private
+	 */
+	createLabelPanel : function()
+	{
+		var labelStore = {
+			xtype: 'jsonstore',
+			fields: ['name', 'value'],
+			data : Zarafa.calendar.data.AppointmentLabels
+		};
+
+		return {
+			xtype: 'panel',
+			cls: 'label-panel',
+			layout: 'form',
+			autoHeight: true,
+			border: false,
+			labelAlign: 'left',
+			items: [{
+				xtype: 'combo',
+				name: 'label',
+				fieldLabel: _('Label'),
+				store: labelStore,
+				mode: 'local',
+				triggerAction: 'all',
+				displayField: 'name',
+				valueField: 'value',
+				lazyInit: false,
+				forceSelection: true,
+				editable: false,
+				autoSelect: true,
+				tpl: new Ext.XTemplate(
+					'<tpl for=".">',
+						'<div class="x-combo-list-item zarafa-calendar-appointment-{[this.getCSSLabel(values.value)]}">',
+							'{name}',
+						'</div>',
+					'</tpl>',
+					{
+						getCSSLabel : function(label)
+						{
+							label = Zarafa.core.mapi.AppointmentLabels.getName(label);
+							label = label.toLowerCase();
+							label = label.replace('_', '-');
+							return 'label-' + label;
+						}
+					}),
+				listeners: {
+					select: this.onFieldSelect,
+					scope: this
+				}
 			}]
 		};
 	},
@@ -470,44 +552,41 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	createAttachmentsPanel : function()
 	{
 		return {
-			xtype: 'panel',
-			layout: 'fit',
+			xtype: 'zarafa.resizablecompositefield',
+			hideLabel: true,
+			anchor: '100%',
+			cls: 'zarafa-appointmentcreatepanel-field-attachments',
 			autoHeight: true,
 			items: [{
-				xtype : 'container',
-				layout: 'hbox',
-				anchor : '100%',
+				// FIXME: Remove after WA-4880 is implemented
+				xtype : 'button',
+				ref : '../occurenceAttachmentsButton',
+				text : _('Attachments') + ':',
+				width: 100,
+				handler: function() {
+					Ext.MessageBox.show({
+						title : _('Warning'),
+						msg : _('Attachments cannot be modified for a single occurence'),
+						buttons: Ext.Msg.OK,
+						icon: Ext.MessageBox.WARNING
+					});
+				}
+			},{
+				xtype: 'zarafa.attachmentbutton',
+				ref : '../normalAttachmentsButton', // FIXME: Remove after WA-4880 is implemented
+				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
+				text: _('Attachments') + ':',
 				autoHeight: true,
-				items: [{
-					// FIXME: Remove after WA-4880 is implemented
-					xtype : 'button',
-					ref : '../../occurenceAttachmentsButton',
-					text : _('Attachments') + ':',
-					width: 100,
-					handler: function() {
-						Ext.MessageBox.show({
-							title : _('Warning'),
-							msg : _('Attachments cannot be modified for a single occurence'),
-							buttons: Ext.Msg.OK,
-							icon: Ext.MessageBox.WARNING
-						});
-					}
-				},{
-					xtype: 'zarafa.attachmentbutton',
-					ref : '../../normalAttachmentsButton', // FIXME: Remove after WA-4880 is implemented
-					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					text: _('Attachments') + ':',
-					width: 100
-				},{
-					xtype: 'spacer',
-					width: 5
-				},{
-					xtype: 'zarafa.attachmentfield',
-					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					ref : '../../attachField',
-					flex: 1,
-					hideLabel: true
-				}]
+				width: 100
+			},{
+				xtype: 'spacer',
+				width: 5
+			},{
+				xtype: 'zarafa.attachmentfield',
+				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
+				ref : '../attachField',
+				flex: 1,
+				hideLabel: true
 			}]
 		};
 	},
@@ -522,6 +601,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	{
 		return {
 			xtype: 'panel',
+			cls: 'body-panel',
 			layout: 'fit',
 			border: false,
 			flex: 1,
@@ -533,6 +613,12 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				flex: 1,
 				useHtml: false,
 				listeners: {
+					// Use the afterlayout event to place the placeholder attribute
+					afterlayout: function(){
+						this.editorField.getEditor().getEl().set({
+							placeholder: _('Type your message here...')
+						});
+					},
 					change: this.onBodyChange,
 					scope: this
 				}
@@ -1064,6 +1150,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 
 					if(responseStatus !== Zarafa.core.mapi.ResponseStatus.RESPONSE_NONE) {
 						this.setOrganizerInfo();
+						visible = (this.setMeetingOverwrittenInfo(el) === true) ? true : visible;
 					}
 
 					if (this.record.isMeetingCanceled()) {
@@ -1240,6 +1327,19 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 	setMeetingUnsentInfo : function(el)
 	{
 		el.createChild({tag : 'div', html: this.meetingUnsentString});
+		return true;
+	},
+
+	/**
+	 * Function will set the information string to show that changes made by attendee will
+	 * be overwritten when the meeting request is updated by the organizer.
+	 * @param {HtmlElement} HTML element
+	 * @return Boolean true if new component is added in {@link #extraInfoPanel} else false.
+	 * @private
+	 */
+	setMeetingOverwrittenInfo : function(el)
+	{
+		el.createChild({tag : 'div', html: this.meetingOverwrittenString});
 		return true;
 	},
 

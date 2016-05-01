@@ -25,7 +25,7 @@ Zarafa.settings.ui.SettingsVersionWidget = Ext.extend(Zarafa.settings.ui.Setting
 			items : [{
 				xtype : 'displayfield',
 				fieldLabel : _('WebApp'),
-				value : version.getWebApp() + (!Ext.isEmpty(version.getSVN()) ? ('-' + version.getSVN()) : ''),
+				value : version.getWebApp() + (!Ext.isEmpty(version.getGit()) ? ('-' + version.getGit()) : ''),
 				htmlEncode : true
 			},{
 				xtype : 'displayfield',

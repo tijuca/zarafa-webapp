@@ -79,7 +79,7 @@ Zarafa.plugins.files.dialogs.FilesUploadContentPanel = Ext.extend(Zarafa.core.ui
 			xtype : 'panel',
 			title : dgettext('plugin_files', 'Select a file') + ' (' + dgettext('plugin_files', 'Maximum upload size') + ': ' + Zarafa.plugins.files.data.Helper.Format.fileSize(Zarafa.plugins.files.data.Dynamics.getMaxUploadFilesize()) + '):',
 			layout : 'form',
-			height : 55,
+			height : 62,
 			items : [{
 				xtype : 'textfield',
 				inputType : 'file',
@@ -172,7 +172,7 @@ Zarafa.plugins.files.dialogs.FilesUploadContentPanel = Ext.extend(Zarafa.core.ui
 	uploadFile : function () {
 		var fileStore = Zarafa.plugins.files.data.ComponentBox.getStore();
 		
-		fileStore.mon('load', this.checkForDuplicate , this, {single: true});
+		fileStore.on('load', this.checkForDuplicate , this, {single: true});
 		fileStore.loadPath(this.targetFolder);
 	},
 	
@@ -244,8 +244,8 @@ Zarafa.plugins.files.dialogs.FilesUploadContentPanel = Ext.extend(Zarafa.core.ui
 				});
 			} 
 
-			form.mon('actioncomplete', this.onClose, this, { delay : 5 });
-			form.mon('actionfailed', this.onClose, this, { delay : 5 });
+			form.on('actioncomplete', this.onClose, this, { delay : 5 });
+			form.on('actionfailed', this.onClose, this, { delay : 5 });
 		}
 	},
 	

@@ -23,7 +23,6 @@ Zarafa.hierarchy.dialogs.FolderSelectionPanel = Ext.extend(Ext.Panel, {
 		config = Ext.applyIf(config, {
 			layout : 'fit',
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			items: [{
 				xtype : 'zarafa.hierarchytree',
 				ref : 'hierarchyTree',

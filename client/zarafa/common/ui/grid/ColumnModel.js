@@ -74,6 +74,14 @@ Zarafa.common.ui.grid.ColumnModel = Ext.extend(Ext.grid.ColumnModel, {
 	 */
 	setState : function(col, state)
 	{
+		var column = this.getColumnAt(col);
+		if ( column.fixed === true ){
+			// Fixed columns should not be reset by the state.
+			// We need this because we changed the widths of some fixed columns but the state would
+			// reinstate the stored width.
+			return;
+		}
+		
 		Zarafa.common.ui.grid.ColumnModel.superclass.setState.apply(this, arguments);
 		// The state has been applied, this means the totalWidth is invalid
 		this.totalWidth = null;

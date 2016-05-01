@@ -18,8 +18,9 @@ Zarafa.core.Enum = Ext.extend(Object, {
 	{
 		value = parseInt(value, 10);
 		for (var key in this) {
-			if (this[key]==value)
+			if (this[key]==value) {
 				return this[key];
+			}
 		}
 		return undefined;
 	},
@@ -33,8 +34,9 @@ Zarafa.core.Enum = Ext.extend(Object, {
 	{
 		value = parseInt(value, 10);
 		for (var key in this) {
-			if (this[key]==value)
+			if (this[key]==value) {
 				return key;
+			}
 		}
 		return undefined;
 	},
@@ -48,8 +50,9 @@ Zarafa.core.Enum = Ext.extend(Object, {
 	{
 		var value = this[key];
 
-		if(Ext.isNumber(value))
+		if(Ext.isNumber(value)) {
 			return value;
+		}
 
 		return undefined;
 	},
@@ -67,8 +70,9 @@ Zarafa.core.Enum = Ext.extend(Object, {
 		for (var key in this) {
 			if (typeof this[key] == 'number'){
 				// Return the value if the property already exists
-				if(key == propKey)
+				if(key == propKey) {
 					return this[key];
+				}
 
 				if(highestValue < this[key]){
 					highestValue = this[key];

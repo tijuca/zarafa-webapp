@@ -33,6 +33,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 	{
 		return[{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column icon',
 			header : '<p class="icon_index">&nbsp;</p>',
 			width : 25,
 			tooltip : _('Sort by: Icon'),
@@ -49,8 +50,9 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			}
 		},{
 			dataIndex : 'importance',
+			headerCls: 'zarafa-icon-column importance',
 			header : '<p class="icon_importance">&nbsp;</p>',
-			width : 40,
+			width : 24,
 			tooltip : _('Sort by: Priority'),
 			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.importance,
@@ -68,6 +70,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 				iconClsField: 'iconCls'
 			}
 		},{
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_attachment">&nbsp;</p>',
 			dataIndex : 'hasattach',
 			width: 24,
@@ -75,12 +78,14 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			fixed : true,
 			tooltip : _('Sort by: Attachment')
 		},{
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_recurring">&nbsp;</p>',
 			dataIndex: 'recurring',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.recurrence,
 			fixed: true
 		},{
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_reminder">&nbsp;</p>',
 			dataIndex : 'reminder',
 			width: 24,
@@ -97,9 +102,10 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 		}, {
 			xtype : 'checkcolumn',
 			dataIndex : 'complete',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_complete">&nbsp;</p>',
 			width : 25,
-			fixed : false,
+			fixed : true,
 			// override renderer so we can hide strikethough line displayed in empty cell, when task is complete
 			renderer : this.completeColumnRenderer.createDelegate(this),
 			tooltip : _('Sort by: Complete'),
@@ -292,7 +298,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 	 */
 	onCompleteColumnProcessEvent : function(name, e, grid, rowIndex, colIndex)
 	{
-		if (name == 'mousedown') {
+		if (name === 'mousedown') {
 			var record = grid.store.getAt(rowIndex);
 
 			record.beginEdit();

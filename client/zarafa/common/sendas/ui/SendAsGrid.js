@@ -51,8 +51,9 @@ Zarafa.common.sendas.ui.SendAsGrid = Ext.extend(Ext.grid.GridPanel, {
 	{
 		return [{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_index">&nbsp;</p>',
-			width : 25,
+			width : 24,
 			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		},{
@@ -63,7 +64,7 @@ Zarafa.common.sendas.ui.SendAsGrid = Ext.extend(Ext.grid.GridPanel, {
 			dataIndex : 'smtp_address',
 			header : _('Email Address'),
 			renderer : Zarafa.common.ui.grid.Renderers.text
-		}]
+		}];
 	},
 
 	/**

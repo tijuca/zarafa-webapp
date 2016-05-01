@@ -23,8 +23,9 @@ Zarafa.core.data.JsonRecipientWriter = Ext.extend(Zarafa.core.data.JsonWriter, {
 		var recipientStore = record.getRecipientStore();
 		var hash = {};
 
-		if (!Ext.isDefined(recipientStore))
+		if (!Ext.isDefined(recipientStore)) {
 			return hash;
+		}
 
 		// Get list of modified (modified and newly added) records
 		var modifiedRecords = recipientStore.getModifiedRecords();
@@ -73,8 +74,9 @@ Zarafa.core.data.JsonRecipientWriter = Ext.extend(Zarafa.core.data.JsonWriter, {
 					continue;
 				}
 
-				if (!Ext.isDefined(hash.recipients.remove))
+				if (!Ext.isDefined(hash.recipients.remove)) {
 					hash.recipients.remove = [];
+				}
 
 				hash.recipients.remove.push(data);
 			}

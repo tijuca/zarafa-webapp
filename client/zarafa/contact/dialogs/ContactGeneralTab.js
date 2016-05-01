@@ -36,14 +36,19 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 
 		// make sure it is first applied in the config before used
 		Ext.applyIf(config, {
-			labelWidth : 140
+			labelWidth : 110,
+			labelAlign : 'left'
 		});
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.contactgeneraltab',
+			cls : 'zarafa-contactgeneraltab',
 			title : _('General'),
 			autoScroll : true,
 			border : false,
+			layoutConfig: {
+				columns: 2
+			},
 			defaults : {
 				columnWidth : 0.5,
 				border : false,
@@ -52,15 +57,27 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			items : [
 				this.createNameFieldset(config),
 				this.createPhotoFieldset(config),
+				this.createClear(),
 				this.createPhoneFieldset(config),
 				this.createEmailFieldset(config),
+				this.createClear(),
 				this.createAddressFieldset(config),
 				this.createAdditionalFieldset(config),
+				this.createClear(),
 				this.createAttachmentFieldset(config)
 			]
 		});
 
 		Zarafa.contact.dialogs.ContactGeneralTab.superclass.constructor.call(this, config);
+	},
+	
+	createClear : function()
+	{
+		return {
+			xtype: 'panel',
+			cls : 'zarafa-clear',
+			columnWidth : 1
+		};
 	},
 
 	/**
@@ -81,7 +98,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				hideLabel : true,
 				items : [{
 					xtype : 'button',
-					width : config.labelWidth,
+					width : config.labelWidth-1,
 					text : _('Full Name') + ':',
 					listeners : {
 						scope : this,
@@ -189,7 +206,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			items : [{
 				items : [{
 					xtype : 'splitbutton',
-					width : config.labelWidth,
+					width : config.labelWidth-1,
 					text : _('Business') + ':',
 					handler : this.handlePhoneButtonClick,
 					scope : this,
@@ -206,7 +223,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			}, {
 				items : [{
 					xtype : 'splitbutton',
-					width: config.labelWidth,
+					width: config.labelWidth-1,
 					text : _('Home') + ':',
 					handler : this.handlePhoneButtonClick,
 					scope : this,
@@ -223,7 +240,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			}, {
 				items : [{
 					xtype : 'splitbutton',
-					width: config.labelWidth,
+					width: config.labelWidth-1,
 					text : _('Business Fax') + ':',
 					handler : this.handlePhoneButtonClick,
 					scope : this,
@@ -240,7 +257,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			}, {
 				items : [{
 					xtype : 'splitbutton',
-					width: config.labelWidth,
+					width: config.labelWidth-1,
 					text : _('Mobile') + ':',
 					handler : this.handlePhoneButtonClick,
 					scope : this,
@@ -274,7 +291,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				hideLabel : true,
 					items : [{
 						xtype : 'splitbutton',
-						width: config.labelWidth,
+						width: config.labelWidth-1,
 						text : _('Email') + ':',
 						handler: this.openAddressBook,
 						scope : this,
@@ -343,7 +360,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			items : [{
 				items : [{
 					xtype : 'splitbutton',
-					width : config.labelWidth,
+					width : config.labelWidth-1,
 					text : _('Business') + ':',
 					handler : this.handleAddressButtonClick,
 					scope : this,
@@ -353,7 +370,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 					xtype : 'textarea',
 					flex : 1,
 					name : 'business_address',
-					height : 128,
+					height : 120,
 					listeners : {
 						scope : this,
 						change : this.onAddressChange
@@ -399,16 +416,18 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			title : _('Attachments'),
 			columnWidth : 1,
 			border : false,
-			defaultType : 'zarafa.compositefield',
+			defaultType : 'zarafa.resizablecompositefield',
 			defaults: {
 				hideLabel: true,
 				anchor: '100%'
 			},
 			items : [{
+				cls : 'zarafa-contactcreatepanel-field-attachments',
 				items : [{
 					xtype : 'zarafa.attachmentbutton',
 					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					width : config.labelWidth,
+					width : config.labelWidth-1,
+					autoHeight: true,
 					text : _('Attachments') + ':'
 				},{
 					xtype: 'zarafa.attachmentfield',
@@ -441,115 +460,115 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				group : textFieldName,
 				text : _('Assistant'),
 				name : 'assistant_telephone_number',
-				checked : property == 'assistant_telephone_number'
+				checked : property === 'assistant_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Business'),
 				name : 'business_telephone_number',
-				checked : property == 'business_telephone_number'
+				checked : property === 'business_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Business 2'),
 				name : 'business2_telephone_number',
-				checked : property == 'business2_telephone_number'
+				checked : property === 'business2_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Business Fax'),
 				name : 'business_fax_number',
-				checked : property == 'business_fax_number'
+				checked : property === 'business_fax_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Callback'),
 				name : 'callback_telephone_number',
-				checked : property == 'callback_telephone_number'
+				checked : property === 'callback_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Car'),
 				name : 'car_telephone_number',
-				checked : property == 'car_telephone_number'
+				checked : property === 'car_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Company'),
 				name : 'company_telephone_number',
-				checked : property == 'company_telephone_number'
+				checked : property === 'company_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Home'),
 				name : 'home_telephone_number',
-				checked : property == 'home_telephone_number'
+				checked : property === 'home_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Home 2'),
 				name : 'home2_telephone_number',
-				checked : property == 'home2_telephone_number'
+				checked : property === 'home2_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Home Fax'),
 				name : 'home_fax_number',
-				checked : property == 'home_fax_number'
+				checked : property === 'home_fax_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('ISDN'),
 				name : 'isdn_number',
-				checked : property == 'isdn_number'
+				checked : property === 'isdn_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Mobile'),
 				name : 'cellular_telephone_number',
-				checked : property == 'cellular_telephone_number'
+				checked : property === 'cellular_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Other'),
 				name : 'other_telephone_number',
-				checked : property == 'other_telephone_number'
+				checked : property === 'other_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Other Fax'),
 				name : 'primary_fax_number',
-				checked : property == 'primary_fax_number'
+				checked : property === 'primary_fax_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Pager'),
 				name : 'pager_telephone_number',
-				checked : property == 'pager_telephone_number'
+				checked : property === 'pager_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Primary'),
 				name : 'primary_telephone_number',
-				checked : property == 'primary_telephone_number'
+				checked : property === 'primary_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Radio'),
 				name : 'radio_telephone_number',
-				checked : property == 'radio_telephone_number'
+				checked : property === 'radio_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Telex'),
 				name : 'telex_telephone_number',
-				checked : property == 'telex_telephone_number'
+				checked : property === 'telex_telephone_number'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('TTY/TDD'),
 				name : 'ttytdd_telephone_number',
-				checked : property == 'ttytdd_telephone_number'
+				checked : property === 'ttytdd_telephone_number'
 			}]
 		};
 	},
@@ -573,19 +592,19 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				group : textFieldName,
 				text : _('Home'),
 				name : 'home_address',
-				checked : property == 'home_address'
+				checked : property === 'home_address'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Business'),
 				name : 'business_address',
-				checked : property == 'business_address'
+				checked : property === 'business_address'
 			}, {
 				xtype : 'menucheckitem',
 				group : textFieldName,
 				text : _('Other'),
 				name : 'other_address',
-				checked : property == 'other_address'
+				checked : property === 'other_address'
 			}]
 		};
 	},
@@ -615,15 +634,15 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			items : [{
 				text : _('Email'),
 				name : 'email_address_1',
-				checked : property == 'email_address_1'
+				checked : property === 'email_address_1'
 			}, {
 				text : _('Email 2'),
 				name : 'email_address_2',
-				checked : property == 'email_address_2'
+				checked : property === 'email_address_2'
 			}, {
 				text : _('Email 3'),
 				name : 'email_address_3',
-				checked : property == 'email_address_3'
+				checked : property === 'email_address_3'
 			}]
 		};
 	},
@@ -676,7 +695,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 		var emailAddress;
 		var addressType = record.get('address_type') || 'SMTP';
 
-		if(addressType == 'ZARAFA') {
+		if(addressType === 'ZARAFA') {
 			emailAddress = record.get('smtp_address');
 		} else {
 			emailAddress = record.get('email_address');
@@ -714,8 +733,9 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 	 */
 	update : function(record, contentReset)
 	{
-		if(Ext.isEmpty(record))
+		if(Ext.isEmpty(record)) {
 			return;
+		}
 
 		this.record = record;
 
@@ -987,7 +1007,6 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 		var record = this.record;
 
 		var fileasOptions = [];
-		var fileas = record.get('fileas');
 		var displayName = record.get('display_name');
 		var displayNamePrefix = record.get('display_name_prefix');
 		var displayNameSuffix = record.get('generation');
@@ -1240,6 +1259,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			 * so we will give sometime for contact general tab to update contact record and
 			 * and with the latest updated contact record we can open the detailed dialogs
 			 */
+			/* jshint unused: false */
 			var showDetailedContent = function() {
 				var parsedData = this.getContactParser().parseInfo('name', newValue);
 
@@ -1285,6 +1305,7 @@ Zarafa.contact.dialogs.ContactGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			 * so we will give sometime for contact general tab to update contact record and
 			 * and with the latest updated contact record we can open the detailed dialogs
 			 */
+			/*jshint unused:false*/
 			var showDetailedContent = function() {
 				// check for incomplete data and show detailed name dialog
 				var parsedData = this.getContactParser().parseInfo('address', newValue);

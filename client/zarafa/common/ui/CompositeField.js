@@ -31,8 +31,12 @@ Zarafa.common.ui.CompositeField = Ext.extend(Ext.form.CompositeField, {
 
 		Ext.applyIf(config, {
 			// Overridden from Ext.Component
-			xtype: 'zarafa.compositefield'
+			xtype: 'zarafa.compositefield',
+			// Unfortunately we cannot set this margin in the css, because Ext uses absolute positions
+			// for the items in a composite field and doesn't handle margins using css margins
+			defaultMargins: '0 6 0 0'
 		});
+		config.cls = config.cls ? config.cls + ' zarafa-compositefield' : 'zarafa-compositefield';
 
 		Ext.apply(this, config);
 
@@ -93,6 +97,23 @@ Zarafa.common.ui.CompositeField = Ext.extend(Ext.form.CompositeField, {
 			}
 		}
 		return this;
+	},
+
+	/**
+	 * Performs validation checks on each subfield and returns false if any of them fail validation.
+	 * We override this function to be able to have non-form-field elements in the composite.
+	 * @return {Boolean} False if any subfield failed validation
+	 */
+	validateValue: function(value, preventMark) {
+		var valid = true;
+
+		this.eachItem(function(field) {
+			if ( field.isXType('field') && !field.isValid(preventMark)) {
+				valid = false;
+			}
+		});
+
+		return valid;
 	},
 
 	/**

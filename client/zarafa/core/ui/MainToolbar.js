@@ -42,9 +42,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 			// Override from Ext.Component
 			xtype: 'zarafa.maintoolbar',
 			id : 'zarafa-maintoolbar',
-			cls : 'zarafa-maintoolbar',
-			// Set height to fixed number of pixels, to prevent resizing to 0px.
-			height: 45
+			cls : 'zarafa-maintoolbar'
 		});
 
 		Zarafa.core.ui.MainToolbar.superclass.constructor.call(this, config);
@@ -98,7 +96,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 		// menu.length should practically always be non-zero, but
 		// just in case, we check it, and add the divider to separate
 		// the default buttons from the rest.
-		if (itemMenu.length != 0) {
+		if (itemMenu.length !== 0) {
 			// Hide the first item as we copy that to the default button.
 			itemMenu[0].hidden = true;
 			itemMenu[0].ref = 'defaultButton';
@@ -117,13 +115,14 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 		}
 		
 		// Add the item list to to the menu
-		if (itemMenu.length != 0) {
+		if (itemMenu.length !== 0) {
 			menu = menu.concat(itemMenu);
 		}
 
 		this.addItems({
 			xtype: 'splitbutton',
 			id: 'zarafa-maintoolbar-newitem',
+			cls: 'zarafa-action',
 			scale: 'large',
 			ref: 'newButton',
 			rowspan: 2,
@@ -234,7 +233,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 	 */
 	addViewItems : function()
 	{
-		var contextName, menu, menuItems = [];
+		var menu, menuItems = [];
 		var contexts = container.getContexts();
 		for(var i = 0,len = contexts.length; i < len; i++){
 			var context = contexts[i];
@@ -304,7 +303,7 @@ Zarafa.core.ui.MainToolbar = Ext.extend(Zarafa.core.ui.Toolbar, {
 	 */
 	 addPrintButton : function()
 	 {
-		 var contextName, menu, menuItems = [];
+		 var menu, menuItems = [];
 		 var contexts = container.getContexts();
 		 for(var i=0,len=contexts.length;i<len;i++){
 			var context = contexts[i];

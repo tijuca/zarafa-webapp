@@ -1,8 +1,8 @@
 /**
  * Formatter.js
  *
- * Copyright, Moxiecode Systems AB
  * Released under LGPL License.
+ * Copyright (c) 1999-2015 Ephox Corp. All rights reserved
  *
  * License: http://www.tinymce.com/license
  * Contributing: http://www.tinymce.com/contributing
@@ -10,8 +10,8 @@
 
 /**
  * Text formatter engine class. This class is used to apply formats like bold, italic, font size
- * etc to the current selection or specific nodes. This engine was build to replace the browsers
- * default formatting logic for execCommand due to it's inconsistent and buggy behavior.
+ * etc to the current selection or specific nodes. This engine was built to replace the browser's
+ * default formatting logic for execCommand due to its inconsistent and buggy behavior.
  *
  * @class tinymce.Formatter
  * @example
@@ -71,6 +71,10 @@ define("tinymce/Formatter", [
 
 		function isTableCell(node) {
 			return /^(TH|TD)$/.test(node.nodeName);
+		}
+
+		function isInlineBlock(node) {
+			return node && /^(IMG)$/.test(node.nodeName);
 		}
 
 		function getParents(node, selector) {
@@ -809,24 +813,25 @@ define("tinymce/Formatter", [
 							endContainer = endContainer.firstChild || endContainer;
 						}
 
-						if (dom.isChildOf(startContainer, endContainer) && !isTableCell(startContainer) && !isTableCell(endContainer)) {
+						if (dom.isChildOf(startContainer, endContainer) && !isBlock(endContainer) &&
+							!isTableCell(startContainer) && !isTableCell(endContainer)) {
 							startContainer = wrap(startContainer, 'span', {id: '_start', 'data-mce-type': 'bookmark'});
 							splitToFormatRoot(startContainer);
 							startContainer = unwrap(TRUE);
 							return;
-						} else {
-							// Wrap start/end nodes in span element since these might be cloned/moved
-							startContainer = wrap(startContainer, 'span', {id: '_start', 'data-mce-type': 'bookmark'});
-							endContainer = wrap(endContainer, 'span', {id: '_end', 'data-mce-type': 'bookmark'});
-
-							// Split start/end
-							splitToFormatRoot(startContainer);
-							splitToFormatRoot(endContainer);
-
-							// Unwrap start/end to get real elements again
-							startContainer = unwrap(TRUE);
-							endContainer = unwrap();
 						}
+
+						// Wrap start/end nodes in span element since these might be cloned/moved
+						startContainer = wrap(startContainer, 'span', {id: '_start', 'data-mce-type': 'bookmark'});
+						endContainer = wrap(endContainer, 'span', {id: '_end', 'data-mce-type': 'bookmark'});
+
+						// Split start/end
+						splitToFormatRoot(startContainer);
+						splitToFormatRoot(endContainer);
+
+						// Unwrap start/end to get real elements again
+						startContainer = unwrap(TRUE);
+						endContainer = unwrap();
 					} else {
 						startContainer = endContainer = splitToFormatRoot(startContainer);
 					}
@@ -2289,6 +2294,12 @@ define("tinymce/Formatter", [
 			var container = rng.startContainer,
 					offset = rng.startOffset, isAtEndOfText,
 					walker, node, nodes, tmpNode;
+
+			if (rng.startContainer == rng.endContainer) {
+				if (isInlineBlock(rng.startContainer.childNodes[rng.startOffset])) {
+					return;
+				}
+			}
 
 			// Convert text node into index if possible
 			if (container.nodeType == 3 && offset >= container.nodeValue.length) {

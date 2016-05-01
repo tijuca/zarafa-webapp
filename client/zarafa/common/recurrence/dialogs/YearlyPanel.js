@@ -314,8 +314,9 @@ Zarafa.common.recurrence.dialogs.YearlyPanel = Ext.extend(Zarafa.common.recurren
 		var maxDaysInMonth = [31, 29 /* Include leapyear */, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 		var value = maxDaysInMonth[index];
 
-		if (this.monthDaySpinner.getValue() > value)
+		if (this.monthDaySpinner.getValue() > value) {
 			this.monthDaySpinner.setValue(value);
+		}
 		this.monthDaySpinner.maxValue = value;
 	},
 
@@ -392,7 +393,6 @@ Zarafa.common.recurrence.dialogs.YearlyPanel = Ext.extend(Zarafa.common.recurren
 	updateRegenerateValues : function(record, useDefaultValues)
 	{
 		// Convert everyn value from minutes, to days
-		var everyn = useDefaultValues ? 1 : record.get('recurrence_everyn');
 		this.regenNYearsSpinner.setValue(1);
 	},
 
@@ -417,8 +417,9 @@ Zarafa.common.recurrence.dialogs.YearlyPanel = Ext.extend(Zarafa.common.recurren
 			layout = true;
 		}
 
-		if (layout)
+		if (layout) {
 			this.doLayout();
+		}
 	},
 
 	/**

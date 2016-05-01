@@ -100,7 +100,51 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 					Ext.apply( { store : this.store }, this.initialConfig.loadMask ) );
 		}
 
+		this.store.on('write', this.onWriteRecord, this);
+
 		this.on('viewready', this.onViewReady, this);
+	},
+
+	/**
+	 * Handler for 'write' event. If the action carried out with the write call was 'destroy' than we have to check
+	 * a situation where the total loaded record is less than total page size and grid-scroll is not there.
+	 * If the above mentioned situation is there than additional records needs to be fetched from server and
+	 * synchronize {@link Zarafa.core.data.ListModuleStore store} with as many numbers of new {@link Zarafa.core.data.IPMRecords[] records} as deleted
+	 * @param {Ext.data.Store} store The new {@link Ext.data.Store} object
+	 * @param {String} action The name if action that was carried out for this write call.
+	 * @param {Object} Result The data arrives from server side.
+	 * @param {Object} response as it was received from server.
+	 * @param {Array} recordSet Records that are deleted.
+	 */
+	onWriteRecord : function(store, action, result, response, recordSet)
+	{
+		if(action === 'destroy') {
+			if (!store.syncStore) {
+				var gridScroller = this.getView().scroller;
+				if(Ext.isDefined(gridScroller) && !gridScroller.isScrollable()) {
+					if (store.totalLoadedRecord < store.totalLength) {
+						var options = {
+							add : true,
+							actionType : Zarafa.core.Actions['list']
+						};
+
+						// load store with as many new records as deleted before scrollbar has disappeared
+						// For that sets start and limit base on remaining number of records.
+						// For example if we have 11 remaining records left then start = 11 and limit = page_size - 11
+						Ext.applyIf(options, store.lastOptions);
+						var limit = container.getSettingsModel().get('zarafa/v1/main/page_size');
+						options.params.restriction.limit = limit - store.getCount();
+						options.params.restriction.start = store.getCount();
+						store.syncStore = true;
+						if (store.loadMask) {
+							store.loadMask.hide();
+							store.loadMask = undefined;
+						}
+						store.load(options);
+					}
+				}
+			}
+		}
 	},
 
 	/**
@@ -224,7 +268,7 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 		// No need to reset the column model when we are searching
 		// We must use the column model the user set for the folder
 		// in which he is searching
-		if ( !Ext.isEmpty(store) && store.hasSearch===true ){
+		if ( !Ext.isEmpty(store) && store.hasSearchResults ===true ){
 			return;
 		}
 		

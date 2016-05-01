@@ -44,7 +44,6 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 			xtype: 'zarafa.mailflagspanel',
 			layout: 'form',
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			items: [
 				this.createFlagColorPanel(config.disableFlagColor),
 				this.createFlagExpirationPanel(),
@@ -159,13 +158,15 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 			// The time property which must be used, depends if the
 			// flag has been completed or not.
 			var timeProp = 'flag_due_by';
-			if (completed)
+			if (completed) {
 				timeProp = 'flag_complete_time';
+			}
 
 			// If no timestamp was provided, use the timestamp of now.
 			var time = this.record.get(timeProp);
-			if (!Ext.isDate(time))
+			if (!Ext.isDate(time)) {
 				time = new Date();
+			}
 
 			// Set the timestamp according
 			// to the requested formatting used in the UI component.
@@ -190,16 +191,17 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 		record.set('flag_icon', flagIcon);
 
 		var time = this.datetimeField.getValue();
-		if (completed)
+		if (completed) {
 			record.set('flag_complete_time', time);
-		else
+		} else {
 			record.set('flag_due_by', time);
+		}
 		
 		// Update the flag status depending on the selected color,
 		// but also the completion checkbox.
 		if (completed){
 			record.set('flag_status', Zarafa.core.mapi.FlagStatus.completed);
-		} else if (flagIcon == Zarafa.core.mapi.FlagIcon.clear){
+		} else if (flagIcon == Zarafa.core.mapi.FlagIcon.clear) {
 			record.set('flag_status', Zarafa.core.mapi.FlagStatus.cleared);
 		} else {
 			record.set('flag_status', Zarafa.core.mapi.FlagStatus.flagged);
@@ -221,10 +223,11 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 	{
 		var completed = this.completeCheckbox.getValue();
 
-		if (completed)
+		if (completed) {
 			this.record.set('flag_complete_time', newValue);
-		else
+		} else {
 			this.record.set('flag_due_by', newValue);
+		}
 	},
 	/**
 	 * Event handler which is triggered when flag color fields
@@ -240,10 +243,11 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 		var flagIcon = this.flagColorCombo.getValue();
 		this.record.set('flag_icon', flagIcon);
 
-		if(flagIcon == Zarafa.core.mapi.FlagIcon.clear)
+		if(flagIcon == Zarafa.core.mapi.FlagIcon.clear) {
 			this.record.set('flag_status', Zarafa.core.mapi.FlagStatus.cleared);
-		else
+		} else {
 			this.record.set('flag_status', Zarafa.core.mapi.FlagStatus.flagged);
+		}
 	},
 	
 	/**
@@ -268,13 +272,13 @@ Zarafa.mail.dialogs.MailFlagsPanel = Ext.extend(Ext.Panel, {
 			this.record.set('flag_due_by', null);
 
 			this.record.set('flag_icon', undefined);
-		}else if(flagIcon == Zarafa.core.mapi.FlagIcon.clear){
+		} else if (flagIcon == Zarafa.core.mapi.FlagIcon.clear) {
 			this.record.set('flag_status', Zarafa.core.mapi.FlagStatus.cleared);
 			this.record.set('flag_due_by', time);
 			this.record.set('flag_complete_time', null);
 
 			this.record.set('flag_icon', undefined);
-		}else{
+		} else {
 			this.record.set('flag_status', Zarafa.core.mapi.FlagStatus.flagged);
 			this.record.set('flag_due_by', time);
 			this.record.set('flag_complete_time', null);

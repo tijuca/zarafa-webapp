@@ -110,7 +110,7 @@ Zarafa.task.TaskContextModel = Ext.extend(Zarafa.core.ContextModel, {
 
 				this.store.filterBy(function (record) {
 					return (record.get('duedate') < currentDay && !record.get('complete'));
-				}, this)
+				}, this);
 				this.load();
 				break;
 			case Zarafa.task.data.DataModes.COMPLETED:

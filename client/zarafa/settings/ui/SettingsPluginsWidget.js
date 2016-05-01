@@ -45,7 +45,7 @@ Zarafa.settings.ui.SettingsPluginsWidget = Ext.extend(Zarafa.settings.ui.Setting
 				if(pluginsVersion[plugin.getName()] === null) {
 					versionInfo = _('Unknown');
 				} else {
-					versionInfo = pluginsVersion[plugin.getName()];
+					versionInfo = pluginsVersion[plugin.getName()].toFixed(1);
 				}
 
 				store.add(new Ext.data.Record({

@@ -40,9 +40,10 @@ Zarafa.contact.dialogs.DistlistMemberGridColumnModel = Ext.extend(Ext.grid.Colum
 	{
 		return [{
 					dataIndex : 'icon_index',
+					headerCls: 'zarafa-icon-column',
 					header : '<p class="icon_index">&nbsp;</p>',
 					tooltip : _('Sort by: Icon'),
-					width : 25,
+					width : 24,
 					renderer : Zarafa.common.ui.grid.Renderers.icon
 				},{
 					dataIndex : 'display_name',

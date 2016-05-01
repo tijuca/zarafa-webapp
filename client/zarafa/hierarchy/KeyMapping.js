@@ -70,20 +70,20 @@ Zarafa.hierarchy.KeyMapping = Ext.extend(Object, {
 		var defaultSelectedFolderType;
 		switch(currentContextName) {
 			case 'calendar':
-				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['APPOINTMENT']
+				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['APPOINTMENT'];
 				break;
 			case 'contact':
-				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['CONTACT']
+				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['CONTACT'];
 				break;
 			case 'note':
-				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['NOTE']
+				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['NOTE'];
 				break;
 			case 'task':
-				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['TASK']
+				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['TASK'];
 				break;
 			case 'inbox':
 			default:
-				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['MAIL']
+				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['MAIL'];
 		}
 		Zarafa.hierarchy.Actions.openSharedFolderContent(defaultSelectedFolderType);
 	}

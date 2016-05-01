@@ -122,7 +122,9 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	hide : function()
 	{
-		if (!this.rendered) return;
+		if (!this.rendered) {
+			return;
+		}
 
 		this.makeElementsVisible([this.body, this.header], false);
 
@@ -135,7 +137,9 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	show : function()
 	{
-		if (!this.rendered) return;
+		if (!this.rendered) {
+			return;
+		}
 
 		this.visible = true;
 		this.layout();
@@ -193,7 +197,7 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 		// get an array of bounds (left, right, top, bottom) objects to represent the range on the calendar body
 		var bounds = this.parentView.dateRangeToBodyBounds(this.dateRange);
 
-		if (bounds.length == 0) {
+		if (bounds.length === 0) {
 			this.makeElementsVisible(this.body, false);
 		} else {
 			this.makeElementsVisible(this.body, true);
@@ -229,10 +233,11 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 			return;
 
 		if (this.visible) {
-			if (this.parentView.isHeaderRange(this.getDateRange()))
+			if (this.parentView.isHeaderRange(this.getDateRange())) {
 				this.layoutInHeader();
-			else
+			} else {
 				this.layoutInBody();
+			}
 		} else {
 			this.makeElementsVisible([this.body, this.header], false);
 		}
@@ -246,14 +251,16 @@ Zarafa.calendar.ui.TextEditView = Ext.extend(Zarafa.core.ui.View, {
 	 */
 	select : function()
 	{
-		if (!this.rendered)
+		if (!this.rendered) {
 			return;
+		}
 
 		this.show();
 
-		if (this.parentView.isHeaderRange(this.getDateRange()))
+		if (this.parentView.isHeaderRange(this.getDateRange())) {
 			this.header.dom.select();
-		else
+		} else {
 			this.body.dom.select();
+		}
 	}
 });

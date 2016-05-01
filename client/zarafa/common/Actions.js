@@ -221,7 +221,7 @@ Zarafa.common.Actions = {
 
 		config = Ext.apply(config || {}, {
 			modal : true
-		})
+		});
 
 		Zarafa.core.data.UIFactory.openCreateRecord(record, config);
 	},
@@ -237,15 +237,16 @@ Zarafa.common.Actions = {
 	{
 		records = [].concat(records);
 
+		var downloadComponent;
 		if(!allAsZip){
 			for (var i = 0; i < records.length; i++) {
 				var record = records[i];
 				// Create separate iframe for each url to handle requests individually
-				var downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
+				downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
 				downloadComponent.downloadItem(record.getDownloadMessageUrl(false));
 			}
 		} else {
-			var downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
+			downloadComponent = new Zarafa.common.attachment.ui.AttachmentDownloader();
 			downloadComponent.downloadMessageAsZip(records);
 		}
 	},
@@ -487,10 +488,11 @@ Zarafa.common.Actions = {
 		var acceptedText = _('This "{0}" meeting was already accepted.');
 		var noResponsedText = _('You have not responded to the meeting request "{0}".');
 		
+		var text;
 		if(record.get('responsestatus') == Zarafa.core.mapi.ResponseStatus.RESPONSE_NOT_RESPONDED){
-			var text = String.format(noResponsedText, record.get('subject'));
+			text = String.format(noResponsedText, record.get('subject'));
 		}else{
-			var text = String.format(acceptedText, record.get('subject'));
+			text = String.format(acceptedText, record.get('subject'));
 		}
 
 		Zarafa.common.dialogs.MessageBox.select(
@@ -747,10 +749,10 @@ Zarafa.common.Actions = {
 								// This function will execute when user provide some inputs,
 								// So other external changes should not affect the record.
 								function(buttonClicked) {
-									record.setReadFlags(read);
-									record.addMessageAction('send_read_receipt', buttonClicked !== 'no');
-									record.save();
-								}, this);
+									this.setReadFlags(read);
+									this.addMessageAction('send_read_receipt', buttonClicked !== 'no');
+									this.save();
+								}, record);
 							break;
 						
 					}

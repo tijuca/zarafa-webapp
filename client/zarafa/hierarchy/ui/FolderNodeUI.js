@@ -65,10 +65,27 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 					scheme = n.getOwnerTree().model.getColorScheme(a.folder.get('entryid'));
 		}
 			var cb = Ext.isBoolean(a.checked),
+			isCalenderNode = cb,
+			calendarSVGIcon ;
+			if(isCalenderNode) {
+				calendarSVGIcon = '<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13" style="color:'+scheme.base+'; position:relative; top:2px;">' + 
+									'<g>' + 
+										'<g class="icbg" style="fill:currentColor;stroke:none">' + 
+											'<rect width="15" height="12" x="0" y="1" />' + 
+											'<rect width="1" height="1" x="2" y="0" />' + 
+											'<rect width="1" height="1" x="7" y="0" />' + 
+											'<rect width="1" height="1" x="12" y="0" />' +
+										'</g>' + 
+										'<path class="icgr" d="M 2.5,6.5 h 10 v 4 h -10 v -4.5 M 4.5,6.5 v 4 M 6.5,6.5 v 4 M 8.5,6.5 v 4 M 10.5,6.5 v 4 M 2.5,8.5 h 9.5" style="fill:currentColor;stroke:#ffffff;stroke-width:1;stroke-linejoin=miter" />' + 
+									'</g>' + 
+								'</svg>' ;
+			} else {
+				calendarSVGIcon = '' ;
+			}
+			var icon = '<img src="' + (a.icon || this.emptyIcon) + '" class="x-tree-node-icon" unselectable="on" />',
 			nel,
 			href = a.href ? a.href : Ext.isGecko ? "" : "#",
 			buf = '<li class="x-tree-node">' +
-				(cb ?'<div class="zarafa-icon-select-color" style="background-color:'+ scheme.base+'">'+'</div>' : '')+
 				'<div ext:tree-node-id="' + n.id + '" class="x-tree-node-el x-tree-node-leaf x-unselectable zarafa-hierarchy-node" unselectable="on">' +
 					// indent space
 					'<span class="x-tree-node-indent">' + this.indentMarkup + "</span>" +
@@ -77,7 +94,7 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 					// checkbox
 					(cb ? '<input class="x-tree-node-cb zarafa-hierarchy-node-cb" type="checkbox" ' + (a.checked ? 'checked="checked" />' : '/>') : '') +
 					// node icon
-					'<img src="' + (a.icon || this.emptyIcon) + '" class="x-tree-node-icon" unselectable="on" />' +
+					(isCalenderNode ? calendarSVGIcon : icon) +
 					// node element (this.elNode)
 					'<a hidefocus="on" class="x-tree-node-anchor zarafa-hierarchy-node-anchor" ' +
 						'href="' + href + '" tabIndex="1" ' +
@@ -97,14 +114,8 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 			this.wrap = Ext.DomHelper.insertHtml("beforeEnd", targetNode, buf);
 		}
 
-		if (cb) {
-			this.elNode = this.wrap.childNodes[1];
-			this.ctNode = this.wrap.childNodes[2];
-			this.colorIndicator = this.wrap.childNodes[0];
-		} else {
-			this.elNode = this.wrap.childNodes[0];
-			this.ctNode = this.wrap.childNodes[1];
-		}
+		this.elNode = this.wrap.childNodes[0];
+		this.ctNode = this.wrap.childNodes[1];
 		var cs = this.elNode.childNodes;
 		this.indentNode = cs[0];
 		this.ecNode = cs[1];
@@ -113,6 +124,13 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 		if(cb){
 			this.checkbox = cs[2];
 			this.iconNode = cs[3];
+
+			// Get child elements of caledar icon which is used to register in drag and drop manager.
+			var groupContainerNode = this.iconNode.childNodes[0];
+			var groupNode = groupContainerNode.childNodes[0];
+			var rectNode = groupNode.childNodes[0];
+			var pathNode = groupContainerNode.childNodes[1];
+			this.calendarSVGIconChilds = [rectNode, pathNode];
 			// fix for IE6
 			this.checkbox.defaultChecked = this.checkbox.checked;
 			index++;
@@ -261,7 +279,13 @@ Zarafa.hierarchy.ui.FolderNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 	 */
 	getDDHandles : function()
 	{
-		// register counter node to dnd manager
-		return [this.iconNode, this.textNode, this.counterNode, this.elNode];
+		// register counter node, icon node, text node to dnd manager
+		var nodes = [this.iconNode, this.textNode, this.counterNode, this.elNode];
+
+		// If we have calendar context then register SVG icon child's components to dnd manager
+		if (Ext.isDefined(this.calendarSVGIconChilds)) {
+			nodes = nodes.concat(this.calendarSVGIconChilds);
+		}
+		return nodes;
 	}
 });

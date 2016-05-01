@@ -37,12 +37,12 @@ Zarafa.common.ui.DateTimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeFiel
 	constructor : function(config)
 	{
 		config = config || {};
+		config.hideLabels = true;
 		Ext.apply(this, config);
 
 		config.startFieldConfig = Ext.applyIf(config.startFieldConfig || {}, {
 			xtype: 'zarafa.datetimefield',
 			fieldLabel : _('Start date'),
-			labelWidth: this.labelWidth,
 			enableTimeSelection: this.enableTimeSelection,
 			dateFormat: this.dateFormat,
 			timeFormat: this.timeFormat,
@@ -52,7 +52,6 @@ Zarafa.common.ui.DateTimePeriodField = Ext.extend(Zarafa.common.ui.DateRangeFiel
 		config.endFieldConfig = Ext.applyIf(config.endFieldConfig || {}, {
 			xtype: 'zarafa.datetimefield',
 			fieldLabel : _('End date'),
-			labelWidth: this.labelWidth,
 			enableTimeSelection: this.enableTimeSelection,
 			dateFormat: this.dateFormat,
 			timeFormat: this.timeFormat,

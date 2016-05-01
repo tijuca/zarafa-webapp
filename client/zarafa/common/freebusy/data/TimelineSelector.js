@@ -177,7 +177,9 @@ Zarafa.common.freebusy.data.TimelineSelector = Ext.extend(Ext.util.Observable,
 	 */
 	onParentTimelineMouseDown: function(evt, target, cfg){
 		// Check to see if the mouse event is not done on the scrollbar
-		if(this.isMouseEventOnScrollbar(evt, target)) return true;
+		if(this.isMouseEventOnScrollbar(evt, target)) {
+			return true;
+		}
 
 		this.selecting = true;
 
@@ -191,24 +193,25 @@ Zarafa.common.freebusy.data.TimelineSelector = Ext.extend(Ext.util.Observable,
 		// Transform X coordinate into a timestamp by using the TimelineView's methods.
 		var selectionClick = this.parent.findTimestampByTimelineXCoord(timestampCoordX);
 
+		var startDate, endDate;
 		switch(mousePos){
 			case this.MOUSE_ON_EDGE_LEFT:
 				// Leave the end date as the start point for the selection
-				var endDate = this.selectorRange.getDueDate();
+				endDate = this.selectorRange.getDueDate();
 				this.selectionStart = endDate.getTime()/1000;
 				break;
 			case this.MOUSE_ON_EDGE_RIGHT:
 				// Leave the start date as the start point for the selection
-				var startDate = this.selectorRange.getStartDate();
+				startDate = this.selectorRange.getStartDate();
 				this.selectionStart = startDate.getTime()/1000;
 				break;
 			default:
 				// Snap the timestamp for the start to a half hour slot
-				var startDate = new Date(selectionClick*1000);
+				startDate = new Date(selectionClick*1000);
 				startDate.round(Date.MINUTE, 30);
 				this.selectionStart = startDate.getTime() / 1000;
 				// Make the appointment duration 30 minutes by default
-				var endDate = startDate.add(Date.MINUTE, 30);
+				endDate = startDate.add(Date.MINUTE, 30);
 				this.selectorRange.set(startDate, endDate);
 		}
 		evt.preventDefault();
@@ -234,20 +237,21 @@ Zarafa.common.freebusy.data.TimelineSelector = Ext.extend(Ext.util.Observable,
 			this.selectionEnd = endDate.getTime() / 1000;
 
 			// Check if the range does not have a duration of zero 
-			if(this.selectionStart != this.selectionEnd){
+			if(this.selectionStart !== this.selectionEnd){
+				var selectorStartDate, selectorEndDate;
 
 				// Check if the start date is before the end date and swap if needed
 				if(this.selectionStart <= this.selectionEnd){
-					var selectorStartDate = new Date(this.selectionStart*1000);
-					var selectorEndDate = endDate;
+					selectorStartDate = new Date(this.selectionStart*1000);
+					selectorEndDate = endDate;
 				}else{
-					var selectorStartDate = endDate;
-					var selectorEndDate = new Date(this.selectionStart*1000);
+					selectorStartDate = endDate;
+					selectorEndDate = new Date(this.selectionStart*1000);
 				}
 
 				// Check if the start date or end date have been changed
-				var startDateChanged = (this.selectorRange.getStartDate().getTime() != selectorStartDate.getTime());
-				var dueDateChanged = (this.selectorRange.getDueDate().getTime() != selectorEndDate.getTime());
+				var startDateChanged = (this.selectorRange.getStartDate().getTime() !== selectorStartDate.getTime());
+				var dueDateChanged = (this.selectorRange.getDueDate().getTime() !== selectorEndDate.getTime());
 				if(startDateChanged || dueDateChanged){
 					this.selectorRange.set(selectorStartDate, selectorEndDate);
 				}

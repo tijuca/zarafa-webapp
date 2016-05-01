@@ -141,7 +141,7 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 			xtype: 'tbfill'
 		},{
 			xtype : 'radio',
-			width: 70,
+			width: 90,
 			boxLabel: _('Messages'),
 			name: radioGroupName,
 			inputValue: 'message',
@@ -160,7 +160,7 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 				check : this.onRadioChecked,
 				scope : this
 			}
-		}]
+		}];
 	},
 
 	/**
@@ -373,9 +373,10 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 	{
 		return new Ext.grid.ColumnModel([{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_index">&nbsp;</p>',
 			tooltip : _('Sort by: Icon'),
-			width : 25,
+			width : 24,
 			sortable: true,
 			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.icon
@@ -410,14 +411,16 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 	{
 		return new Ext.grid.ColumnModel([{
 			dataIndex : 'icon_index',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class="icon_index">&nbsp;</p>',
 			tooltip : _('Sort by: Icon'),
-			width : 25,
+			width : 24,
 			sortable: true,
 			fixed : true,
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		},{
 			dataIndex : 'hasattach',
+			headerCls: 'zarafa-icon-column',
 			header : '<p class=\'icon_attachment\'>&nbsp;</p>',
 			tooltip : _('Sort by: Attachment'),
 			width : 24,

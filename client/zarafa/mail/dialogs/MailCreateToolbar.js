@@ -81,12 +81,13 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 				title : _('Send email'),
 				text : _('Send email to recipients') + ' (Ctrl + ENTER)'
 			},
-			iconCls : 'icon_sendEmail',
+			cls : 'zarafa-action', 
+			iconCls : 'buttons-icon_send_white',
 			handler : this.onSendButton,
 			scope : this
 		},
-			container.populateInsertionPoint('context.mail.mailcreatecontentpanel.toolbar.aftersendbutton', this)
-		,{
+			container.populateInsertionPoint('context.mail.mailcreatecontentpanel.toolbar.aftersendbutton', this),
+		{
 			xtype : 'button',
 			overflowText : _('Save email'),
 			tooltip : {
@@ -115,7 +116,14 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 				title : _('Add attachment'),
 				text : _('Add attachments to this email')
 			},
-			iconCls : 'icon_attachment'
+			iconCls : 'icon_attachment',
+			ref : 'attachmentButton',
+			// Add a listener to the component added event to set use the correct update function when the toolbar overflows
+			// (i.e. is too wide for the panel) and Ext moves the button to a menuitem.
+			listeners : {
+				added : this.onAttachmentButtonAdded,
+				scope : this
+			}
 		},{
 			xtype : 'tbseparator'
 		},{
@@ -139,6 +147,23 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			ref : 'signatureButton',
 			scope : this
 		}];
+	},
+	
+	/**
+	 * Event listener for the added event of the {@link Zarafa.common.attachment.ui.AttachmentButton attachmentButton}
+	 * Adds the update function to the item when Ext converts the button to a menu item
+	 * (which happens when the toolbar overflows, i.e. is too wide for the containing panel)
+	 * 
+	 * @param {Ext.Component} item The item that was added. This can be a {@link Zarafa.common.attachment.ui.AttachmentButton}
+	 * or a {@link Ext.menu.Item}
+	 */
+	onAttachmentButtonAdded : function(item)
+	{
+		if ( item.isXType('menuitem') ){
+			// Set the update function to the update function of the original button
+			// otherwise the Ext.Component.update function would be called by the recordcomponentupdaterplugin
+			item.update = Zarafa.common.attachment.ui.AttachmentButton.prototype.update.createDelegate(this.attachmentButton);
+		}
 	},
 
 	/**
@@ -270,7 +295,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 				});
 			}
 			// If no signatures are configured we add a dummy button
-			if (sigItems.length == 0) {
+			if (sigItems.length === 0) {
 				sigItems.push({
 					text : _('No signatures configured'),
 					signatureId : false
@@ -400,10 +425,11 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 	 */
 	onPriorityGroupToggle : function (button)
 	{
-		if (button.pressed)
+		if (button.pressed) {
 			this.record.set('importance', button.importance);
-		else
+		} else {
 			this.record.set('importance', Zarafa.core.mapi.Importance.NORMAL);
+		}
 	},
 
 	/**

@@ -244,15 +244,18 @@ Zarafa.task.dialogs.TaskGeneralTab = Ext.extend(Ext.form.FormPanel, {
 					xtype :'zarafa.datetimefield',
 					ref: '../../reminderDate',
 					name : 'reminder_time',
-					width : 170,
+					width : 217,
 					timeIncrement: container.getSettingsModel().get('zarafa/v1/contexts/task/reminder_time_stepping'),
 					listeners :{
 						'change' : this.onPropertyChange,
 						scope : this
+					},
+					dateFieldConfig : {
+						flex : 0
 					}
 				},{
 					xtype: 'spacer',
-					width: 10
+					width: 23
 				},{
 					hideLabel: true,
 					xtype : 'textfield',
@@ -312,30 +315,26 @@ Zarafa.task.dialogs.TaskGeneralTab = Ext.extend(Ext.form.FormPanel, {
 	createAttachmentPanel : function()
 	{
 		return {
-			xtype: 'panel',
-			layout: 'fit',
+			xtype: 'zarafa.resizablecompositefield',
+			hideLabel: true,
+			anchor: '100%',
+			cls: 'zarafa-taskcreatepanel-field-attachments',
+			autoHeight: true,
 			items: [{
-				xtype : 'container',
-				layout: 'hbox',
-				anchor : '100%',
-				items: [{
-					xtype: 'zarafa.attachmentbutton',
-					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					width: 100,
-					text: _('Attachments') + ':'
-				},{
-					xtype: 'spacer',
-					width: 5
-				},{
-					xtype: 'zarafa.attachmentfield',
-					plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
-					flex: 1,
-					hideLabel: true
-				}]
+				xtype: 'zarafa.attachmentbutton',
+				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
+				width: 100,
+				text: _('Attachments') + ':',
+				autoHeight: true
+			},{
+				xtype: 'zarafa.attachmentfield',
+				plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
+				flex: 1,
+				hideLabel: true
 			}]
 		};
 	},
-
+	
 	/**
 	 * Create the {@link Ext.Panel Panel} containing the
 	 * {@link Zarafa.common.ui.htmleditor.HtmlEditor HtmlEditor} form field.
@@ -564,7 +563,7 @@ Zarafa.task.dialogs.TaskGeneralTab = Ext.extend(Ext.form.FormPanel, {
 		this.record.beginEdit();
 		this.record.set(field.name, newValue);
 
-		if(newValue == Zarafa.core.mapi.TaskStatus.COMPLETE){
+		if(newValue === Zarafa.core.mapi.TaskStatus.COMPLETE){
 			this.record.set('complete', true);
 			this.record.set('percent_complete', 1);
 			this.record.set('date_completed', new Date());
@@ -612,7 +611,7 @@ Zarafa.task.dialogs.TaskGeneralTab = Ext.extend(Ext.form.FormPanel, {
 			this.record.set('complete', false);
 			this.record.set('percent_complete', newValue);
 			this.record.set('date_completed', null);
-		}else if(newValue == 1){
+		}else if(newValue === 1){
 			this.record.set('status', Zarafa.core.mapi.TaskStatus.COMPLETE);
 			this.record.set('complete', true);
 			this.record.set('percent_complete', newValue);

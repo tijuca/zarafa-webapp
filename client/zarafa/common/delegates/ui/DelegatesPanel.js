@@ -75,9 +75,6 @@ Zarafa.common.delegates.ui.DelegatesPanel = Ext.extend(Ext.Panel, {
 			}, {
 				xtype : 'container',
 				width : 160,
-				defaults : {
-					width : 140
-				},
 				layout : {
 					type : 'vbox',
 					align : 'center',

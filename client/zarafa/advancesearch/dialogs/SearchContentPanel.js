@@ -17,19 +17,21 @@ Zarafa.advancesearch.dialogs.SearchContentPanel = Ext.extend(Zarafa.core.ui.Cont
 	{
 		config = config || {};
 
+		var advanceSearchTabName =  'advancesearchtab-' + (++Ext.Component.AUTO_ID);
+
 		Ext.applyIf(config, {
 			xtype: 'zarafa.searchcontentpanel',
 			layout: 'fit',
-			name : 'advancesearchtab',
+			name : advanceSearchTabName,
 			title: config.searchText,
 			iconCls: 'advance_search',
 			border: false,
 			parentSearchField : config.parentSearchField,
 			items: [{
 				xtype: 'zarafa.searchpanel',
-				context: config.context,
+				ref : 'searchPanel',
+				searchTabId : advanceSearchTabName,
 				searchText : config.searchText,
-				parentContext : config.parentContext,
 				searchContentPanel : this
 			}]
 		});
@@ -62,12 +64,12 @@ Zarafa.advancesearch.dialogs.SearchContentPanel = Ext.extend(Zarafa.core.ui.Cont
 
 		// Toggle the search view button.
 		mainToolbar.searchView.setVisible(isSearchPanel);
-		var contextName = this.getParentContext().getName();
+		var contextName = container.getCurrentContext().getName();
 
 		switch(contextName) {
 			case 'calendar':
 				// Toggle calendar context view buttons
-				var viewButtons = ['Day','Workweek','Week', 'Month','List', 'Today'];
+				var viewButtons = ['Day','Workweek','Week', 'Month', 'List'];
 				Ext.each(viewButtons, function(item, index, array){
 					var viewButton = mainToolbar['calendar'+item];
 					viewButton.setVisible(!isSearchPanel);
@@ -80,10 +82,25 @@ Zarafa.advancesearch.dialogs.SearchContentPanel = Ext.extend(Zarafa.core.ui.Cont
 					viewButton.setVisible(!isSearchPanel);
 				}
 		}
+
+		var searchPanel = activeTab.searchPanel;
+		if(Ext.isDefined(searchPanel)) {
+			var model = searchPanel.model;
+			var searchStore = model.stores[activeTab.name];
+			if(Ext.isDefined(searchStore)) {
+				var searchGrid = searchPanel.centerRegion.switchBorder.searchGrid;
+				var selectionModel = searchGrid.getSelectionModel();
+				var records = selectionModel.getSelections();
+				model.setSelectedRecords(records, false);
+				model.setActiveStore(searchStore);
+			}
+		}
 	},
+
 
 	/**
 	 * Function which used to set the parent search field.
+	 * @param {Zarafa.common.ui.SearchField} searchField the parent advance serach field.
 	 */
 	setParentSearchField : function(searchField)
 	{
@@ -97,24 +114,6 @@ Zarafa.advancesearch.dialogs.SearchContentPanel = Ext.extend(Zarafa.core.ui.Cont
 	getParentSearchField : function()
 	{
 		return this.parentSearchField;
-	},
-
-	/**
-	 * Setter function which set the updated parent context.
-	 * @param {Zarafa.core.Context} context The context which need to set has parent context.
-	 */
-	setParentContext : function(context)
-	{
-		this.parentContext = context;
-	},
-
-	/**
-	 * Getter function to get the parent context
-	 * @return {Zarafa.core.Context} context The context which used has parent context.
-	 */
-	getParentContext : function()
-	{
-		return this.parentContext;
 	}
 });
 

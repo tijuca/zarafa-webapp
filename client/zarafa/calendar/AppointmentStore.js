@@ -141,7 +141,7 @@ Zarafa.calendar.AppointmentStore = Ext.extend(Zarafa.core.data.ListModuleStore, 
 				var index = this.findBy(function(rec) {
 					return Zarafa.core.EntryId.compareEntryIds(record.get('entryid'), rec.get('entryid')) &&
 						   Ext.isDate(record.get('basedate')) && Ext.isDate(rec.get('basedate')) &&
-						   (record.get('basedate').getTime() === rec.get('basedate').getTime())
+						   (record.get('basedate').getTime() === rec.get('basedate').getTime());
 				});
 
 				if (index >= 0) {
@@ -158,7 +158,7 @@ Zarafa.calendar.AppointmentStore = Ext.extend(Zarafa.core.data.ListModuleStore, 
 				do {
 					index = this.findBy(function(rec) {
 						return ((action === Ext.data.Api.actions.destroy) || !rec.isRecurringException()) &&
-							   Zarafa.core.EntryId.compareEntryIds(record.get('entryid'), rec.get('entryid'))
+							   Zarafa.core.EntryId.compareEntryIds(record.get('entryid'), rec.get('entryid'));
 					}, undefined, index + 1);
 				
 					if (index >= 0) {

@@ -208,7 +208,7 @@ Zarafa.core.ResponseRouter = Ext.extend(Ext.util.Observable, {
 					moduleName : moduleName,
 					moduleId : moduleId,
 					moduleData : moduleData
-				}
+				};
 
 				// Check if a RequestResponse Handler is registered for this moduleId
 				handler.handler = this.getRequestResponseHandler(moduleId);
@@ -283,7 +283,7 @@ Zarafa.core.ResponseRouter = Ext.extend(Ext.util.Observable, {
 			// Fire the exception event on the DataProxy like this, as the response cannot be matched to a specific proxy.
 			Ext.data.DataProxy.fireEvent('exception', Ext.data.DataProxy, 'remote', null, null, jsonData.zarafa, null);
 			return;
-		};
+		}
 
 		// Create the timestamp which is used as receive date for the current response
 		var timestamp = new Date().getTime();

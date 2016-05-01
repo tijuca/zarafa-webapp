@@ -77,7 +77,7 @@ Zarafa.calendar.ui.AppointmentSelectionModel = Ext.extend(Ext.grid.AbstractSelec
 			return;
 		}
 
-		if (this.selections.getCount() == 0) {
+		if (this.selections.getCount() === 0) {
 			return;
 		}
 

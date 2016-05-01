@@ -89,7 +89,6 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 				xtype: 'zarafa.mailpaneltoolbar',
 				id: 'zarafa-main-content-mail-toolbar',
 				defaultTitle : _('Mail'),
-				height:33,
 				paging : container.populateInsertionPoint('context.mail.toolbar.paging', this),
 				items : container.populateInsertionPoint('context.mail.toolbar.item', this),
 				context : config.context
@@ -206,16 +205,23 @@ Zarafa.mail.ui.MailPanel = Ext.extend(Zarafa.common.ui.ContextMainPanel, {
 	onViewModeChange : function(context, newViewMode, oldViewMode)
 	{
 		var orientation;
+		var el = this.getEl();
 
 		switch (newViewMode) {
 			case Zarafa.mail.data.ViewModes.NO_PREVIEW:
 				orientation = Zarafa.common.ui.layout.SwitchBorderLayout.Orientation.OFF;
+				// Add a class for styling
+				el.removeClass('zarafa-preview-bottom').removeClass('zarafa-preview-right').addClass('zarafa-preview-off');
 				break;
 			case Zarafa.mail.data.ViewModes.RIGHT_PREVIEW:
 				orientation = Zarafa.common.ui.layout.SwitchBorderLayout.Orientation.HORIZONTAL;
+				// Add a class for styling
+				el.removeClass('zarafa-preview-bottom').removeClass('zarafa-preview-off').addClass('zarafa-preview-right');
 				break;
 			case Zarafa.mail.data.ViewModes.BOTTOM_PREVIEW:
 				orientation = Zarafa.common.ui.layout.SwitchBorderLayout.Orientation.VERTICAL;
+				// Add a class for styling
+				el.removeClass('zarafa-preview-off').removeClass('zarafa-preview-right').addClass('zarafa-preview-bottom');
 				break;
 			case Zarafa.mail.data.ViewModes.SEARCH:
 			case Zarafa.mail.data.ViewModes.LIVESCROLL:

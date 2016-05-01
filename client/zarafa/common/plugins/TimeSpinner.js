@@ -161,8 +161,8 @@ Zarafa.common.plugins.TimeSpinner = Ext.extend(Zarafa.common.plugins.SpinnerPlug
 		var v = this.field.getValue();
 
 		// Determine the method to change the value
-		var incr = (alternate == true) ? this.field.alternateIncrementValue : this.field.incrementValue;
-		var incrField = (alternate == true) ? this.alternateIncrementField : this.incrementField;
+		var incr = (alternate === true) ? this.field.alternateIncrementValue : this.field.incrementValue;
+		var incrField = (alternate === true) ? this.alternateIncrementField : this.incrementField;
 
 		oldValue = v;
 		if (v) {

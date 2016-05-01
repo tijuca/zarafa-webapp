@@ -1,7 +1,7 @@
 .icon_files {
 	background-image:url(../icons/files_icon.png) !important;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: left 9px !important;
 }
 .icon_files_category {
 	background-image:url(../icons/files_icon_category.png) !important;

@@ -68,6 +68,7 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 	{
 		return {
 			xtype: 'zarafa.freebusypanel',
+			cls: 'zarafa-freebusy-panel',
 			ref: 'freebusyPanel',
 			flex: 1,
 			modelConfig: {
@@ -93,7 +94,7 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 		return {
 			xtype: 'panel',
 			region: 'north',
-			layout: 'hbox',
+			layout: 'column',
 			cls: 'zarafa-freebusy-datetime-toolbar',
 			border: false,
 			autoHeight: true,
@@ -103,34 +104,28 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 				defaultPeriod: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_appointment_period'),
 				defaultPeriodType : Date.MINUTE,
 				timeIncrement: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_zoom_level'),
-				flex: 0.7,
 				allowEqualValue : true,
 				layout: 'hbox',
 				listeners: {
 					change: this.onDateRangeFieldChange,
+					afterrender : this.onDateRangeFieldAfterRender,
 					scope: this
 				},
 				startFieldConfig: {
-					fieldLabel: _('Start time'),
-					labelWidth: 100
+					fieldLabel: _('Time'),
+					labelConfig : {
+						cls: 'label-startfield'
+					}
 				},
 				endFieldConfig: {
-					fieldLabel: _('End time'),
-					labelWidth: 100
+					fieldLabel: _('until')
 				},
 				spacerConfig: {
 					width: 10
-				},
-				height: 25
-			},{
-				xtype: 'spacer',
-				width: 10,
-				height: 25
+				}
 			},{
 				xtype: 'checkbox',
 				ref: '../../workingHoursCheckbox',
-				flex: 0.3,
-				height: 25,
 				boxLabel: _('Show only working hours'),
 				handler: this.onOnlyWorkingHours,
 				scope: this
@@ -346,6 +341,20 @@ Zarafa.calendar.dialogs.FreebusyTab = Ext.extend(Ext.form.FormPanel, {
 	{
 		this.updateRecurringInfo(this.record, newRange);
 		this.updateStartDueDate(this.record, newRange);
+	},
+
+
+	/**
+	 * Event handler which is fired when the {@link Zarafa.common.ui.DateRangeField} has been rendered.
+	 * This will set width of field.
+	 * @param {Ext.form.Field} field The field which is render
+     */
+	onDateRangeFieldAfterRender : function(field)
+	{
+		// Somehow before update() the static width is not applied and component is not displayed 
+		// and after onUpdateRecord() it is displayed with current date and time
+		// So, need to set after DateRangeField successfully rendered
+		field.setWidth(550);
 	},
 
 	/**

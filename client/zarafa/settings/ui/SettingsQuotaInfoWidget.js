@@ -94,8 +94,9 @@ Zarafa.settings.ui.SettingsQuotaInfoWidget = Ext.extend(Zarafa.settings.ui.Setti
 	 */
 	getQuotaSuggestionString : function(softQuota, hardQuota, storeSize)
 	{
-		if(!Ext.isDefined(storeSize))
+		if(!Ext.isDefined(storeSize)) {
 			return;
+		}
 
 		// If softQuota is greater then hardQuota then ignore softQuota
 		if (hardQuota && softQuota >= hardQuota) {

@@ -56,7 +56,7 @@ Zarafa.common.printer.renderers.RecordRenderer = Ext.extend(Zarafa.common.printe
 
 		// remove default values
 		opt = record.get('sensitivity');
-		if (!Ext.isEmpty(opt) && opt == 0) {
+		if (!Ext.isEmpty(opt) && opt === 0) {
 			delete data['sensitivity'];
 		}
 		opt = record.get('importance');
@@ -71,9 +71,9 @@ Zarafa.common.printer.renderers.RecordRenderer = Ext.extend(Zarafa.common.printe
 	},
 
 	/**
-	 * @property stylesheetPaths
+	 * @property customStylesheetPaths
 	 * @type Hash of Strings
 	 * The path at which the print stylesheets can be found for a specific renderer
 	 */
-	customStylesheetPath: 'client/resources/css-extern/print.record.css'
+	customStylesheetPath: 'client/resources/design2015/css/external/print.record.css'
 });

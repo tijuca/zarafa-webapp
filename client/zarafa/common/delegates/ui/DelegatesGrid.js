@@ -65,7 +65,7 @@ Zarafa.common.delegates.ui.DelegatesGrid = Ext.extend(Ext.grid.GridPanel, {
 			dataIndex : 'display_name',
 			header : _('Name'),
 			renderer : Zarafa.common.ui.grid.Renderers.text
-		}]
+		}];
 	},
 
 	/**

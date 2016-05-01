@@ -147,8 +147,9 @@ Zarafa.core.ui.ContentPanel = Ext.extend(Ext.Container, {
 	initializeChildComponent : function(component)
 	{
 		// Empty objects (undefined, null, []) cannot be initialized.
-		if (Ext.isEmpty(component))
+		if (Ext.isEmpty(component)) {
 			return;
+		}
 
 		// If it is an array, just recursively call
 		// this function again for each individual item.
@@ -165,8 +166,9 @@ Zarafa.core.ui.ContentPanel = Ext.extend(Ext.Container, {
 		}
 
 		// We only initialize containers (and their subclasses).
-		if (!component.isXType('container'))
+		if (!component.isXType('container')) {
 			return;
+		}
 
 		component.dialog = this;
 

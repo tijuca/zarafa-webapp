@@ -50,12 +50,14 @@ Zarafa.contact.dialogs.DistlistContentPanelToolbar = Ext.extend(Zarafa.core.ui.C
 	{
 		return [{
 			xtype : 'button',
+			text : _('Save'),
 			overflowText : _('Save & Close'),
 			tooltip : {
 				title : _('Save & Close'),
 				text : _('Save distribution list and close dialog') + ' (Ctrl + S)'
 			},
-			iconCls : 'icon_save',
+			cls : 'zarafa-action',
+			iconCls : 'buttons-icon_save_white',
 			handler : this.onSave,
 			scope : this,
 			ref : 'saveCloseBtn'

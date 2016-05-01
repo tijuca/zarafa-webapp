@@ -41,6 +41,7 @@ Zarafa.calendar.attachitem.AttachCalendarColumnModel = Ext.extend(Zarafa.common.
 	{
 		return [{
 			header : '<p class=\'icon_index\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'icon_index',
 			tooltip : _('Sort by: Icon'),
 			width : 24,
@@ -48,6 +49,7 @@ Zarafa.calendar.attachitem.AttachCalendarColumnModel = Ext.extend(Zarafa.common.
 			renderer : Zarafa.common.ui.grid.Renderers.icon
 		}, {
 			header : '<p class=\'icon_attachment\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'hasattach',
 			width : 24,
 			fixed : true,
@@ -55,6 +57,7 @@ Zarafa.calendar.attachitem.AttachCalendarColumnModel = Ext.extend(Zarafa.common.
 			tooltip : _('Sort by: Attachment')
 		}, {
 			header : '<p class=\'icon_recurring\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex: 'recurring',
 			tooltip : _('Sort by: Recurring'),
 			width : 24,

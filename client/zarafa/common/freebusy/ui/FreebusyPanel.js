@@ -70,7 +70,7 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 	 * Height of the header that will be set for the {@link Zarafa.common.freebusy.ui.UserlistView} and the
 	 * {@link Zarafa.common.freebusy.ui.TimelineView} (defaults to 50).
 	 */
-	headerHeight: 50,
+//	headerHeight: 50,
 	// Private
 	// Height of inputfield that will be shown in the {@link Zarafa.common.freebusy.ui.UserlistView}.
 	inputfieldHeight: 20,
@@ -148,11 +148,10 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 				tag: 'div',
 				cls: 'x-panel-footer'
 			},
-			border: false,
+			border: true,
 			width: 200,
 			collapsible: true,
 			split: true,
-			collapseMode: 'mini',
 			items: [Ext.applyIf(this.userlistConfig, {
 				xtype: 'zarafa.freebusyuserlistview',
 
@@ -179,16 +178,16 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 			layout: 'fit',
 			title: _('Suggested Times'),
 			hidden: (!this.showSuggestionList),
+			cls: 'zarafa-freebusy-suggestionlist',
 			footer: true,
 			footerCfg: {
 				tag: 'div',
 				cls: 'x-panel-footer'
 			},
-			border: false,
+			border: true,
 			width: 200,
 			collapsible: true,
 			split: true,
-			collapseMode: 'mini',
 			items: [Ext.applyIf(this.suggestionConfig, {
 				xtype: 'zarafa.freebusysuggestionlistpanel',
 
@@ -219,7 +218,6 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 			model: this.model,
 			selector: new Zarafa.common.freebusy.data.TimelineSelector(),
 			extraBodyHeight: (this.editable) ? this.inputfieldHeight : 0,
-			headerHeight: this.headerHeight,
 			// TODO: Make this configurable and toggable
 			hideNonWorkingHours: true,
 			listeners: {
@@ -240,8 +238,7 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 		return Ext.applyIf(this.legendaConfig, {
 			xtype: 'container',
 			region: 'south',
-			border: true,
-			style: 'margin: 3px 0px 0px 0px; padding: 3px 0px 3px 0px;',
+			border: false,
 			layout: 'hbox',
 			hidden: (!this.showLegenda),
 			autoHeight: true,
@@ -249,43 +246,43 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 			items: [{
 				xtype: 'container',
 				cls: 'x-freebusy-timeline-block-busy',
-				width: 25,
-				height: 25
+				width: 24,
+				height: 24
 			},{
 				xtype: 'displayfield',
 				value: _('Busy'),
 				hideLabel : true,
-				width: 100
+				autoWidth: true
 			},{
 				xtype: 'container',
 				cls: 'x-freebusy-timeline-block-tentative',
-				width: 25,
-				height: 25
+				width: 24,
+				height: 24
 			},{
 				xtype: 'displayfield',
 				value: _('Tentative'),
 				hideLabel : true,
-				width: 100
+				autoWidth: true
 			},{
 				xtype: 'container',
 				cls: 'x-freebusy-timeline-block-outofoffice',
-				width: 25,
-				height: 25
+				width: 24,
+				height: 24
 			},{
 				xtype: 'displayfield',
 				value: _('Out of Office'),
 				hideLabel : true,
-				width: 100
+				autoWidth: true
 			},{
 				xtype: 'container',
 				cls: 'x-freebusy-timeline-block-blur',
-				width: 25,
-				height: 25
+				width: 24,
+				height: 24
 			},{
 				xtype: 'displayfield',
 				value: _('No Information'),
 				hideLabel : true,
-				width: 100
+				autoWidth: true
 			}]
 		});
 	},
@@ -365,7 +362,7 @@ Zarafa.common.freebusy.ui.FreebusyPanel = Ext.extend(Ext.Panel, {
 			 * look for the first afterlayout event with a container that has a width larger than 0.
 			 */
 			 // @TODO every time on layout we must need to scroll timeline to current selection as "scroll" event is not working properly in IE.
-			if (!Ext.isIE && (this.initialScrollDone || this.timelineView.getWidth() == 0)) {
+			if (!Ext.isIE && (this.initialScrollDone || this.timelineView.getWidth() === 0)) {
 				return;
 			} else {
 				this.initialScrollDone = true;

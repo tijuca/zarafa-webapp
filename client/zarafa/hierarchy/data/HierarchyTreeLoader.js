@@ -406,6 +406,7 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 			// for 1 ms. This helps with large hierarchies where the JS would normally
 			// try to load the entire tree in a single thread which might take so long
 			// that the browser will kill it.
+			 /*jshint unused:false*/
 			var defer = function(node, fn) {
 				data = this.getFilteredChildNodes(treeNode.getFolder(), 'folder');
 				fn(data, { status: true });

@@ -97,7 +97,7 @@ Zarafa.core.Plugin = Ext.extend(Zarafa.core.data.StatefulObservable, {
 				xtype : 'zarafa.settingscopyrightwidget',
 				title : title,
 				about : text
-			}
+			};
 		});
 	},
 
@@ -117,9 +117,13 @@ Zarafa.core.Plugin = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	registerInsertionPoint : function(match, createFunction, scope)
 	{
-		if (!this.insertionPoints) this.insertionPoints = [];
+		if (!this.insertionPoints) {
+			this.insertionPoints = [];
+		}
 		
-		if (!scope) scope = this;
+		if (!scope) {
+			scope = this;
+		}
 		
 		this.insertionPoints.push({
 			match : match,
@@ -147,7 +151,7 @@ Zarafa.core.Plugin = Ext.extend(Zarafa.core.data.StatefulObservable, {
 			{
 				var components = insertionPoint.createFunction.apply(insertionPoint.scope, args);
 
-				if (components == undefined || components == null) {
+				if (components === undefined || components === null) {
 					components = [];
 				}
 

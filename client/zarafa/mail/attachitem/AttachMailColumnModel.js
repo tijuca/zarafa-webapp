@@ -41,6 +41,7 @@ Zarafa.mail.attachitem.AttachMailColumnModel = Ext.extend(Zarafa.common.ui.grid.
 	{
 		return [{
 			header : '<p class=\'icon_importance\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'importance',
 			width : 24,
 			fixed : true,
@@ -48,6 +49,7 @@ Zarafa.mail.attachitem.AttachMailColumnModel = Ext.extend(Zarafa.common.ui.grid.
 			tooltip : _('Sort by: Importance')
 		}, {
 			header : '<p class=\'icon_index\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'icon_index',
 			width : 24,
 			fixed : true,
@@ -55,6 +57,7 @@ Zarafa.mail.attachitem.AttachMailColumnModel = Ext.extend(Zarafa.common.ui.grid.
 			tooltip : _('Sort by: Icon')
 		}, {
 			header : '<p class=\'icon_attachment\'>&nbsp;</p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'hasattach',
 			width : 24,
 			fixed : true,

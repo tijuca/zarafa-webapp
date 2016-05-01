@@ -69,9 +69,6 @@ Zarafa.calendar.dialogs.AppointmentPanel = Ext.extend(Ext.Panel, {
 			layoutOnTabChange : true,
 			plugins : [ 'zarafa.recordcomponentupdaterplugin' ],
 			update : this.onTabPanelUpdate.createDelegate(this),
-			defaults: {
-				bodyStyle: 'padding: 2px;'
-			},
 			listeners : {
 				render : this.onTabPanelRender,
 				tabchange : this.onTabPanelChange,

@@ -230,8 +230,9 @@ Zarafa.core.ModuleNames =
 	getItemName : function(key, baseOnly)
 	{
 		var module = this.getModule(key, baseOnly);
-		if (module)
+		if (module) {
 			return module.item;
+		}
 	},
 
 	/**
@@ -248,7 +249,8 @@ Zarafa.core.ModuleNames =
 	getListName : function(key, baseOnly)
 	{
 		var module = this.getModule(key, baseOnly);
-		if (module)
+		if (module) {
 			return module.list;
+		}
 	}
 };

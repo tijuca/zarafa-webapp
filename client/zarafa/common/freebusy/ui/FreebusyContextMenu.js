@@ -35,7 +35,7 @@ Zarafa.common.freebusy.ui.FreebusyContextMenu = Ext.extend(Zarafa.core.ui.menu.C
 			if (Ext.isArray(config.records)) {
 				config.records = config.records[0];
 			}
-			organizer = config.records.isMeetingOrganizer()
+			organizer = config.records.isMeetingOrganizer();
 			resolved = config.records.isResolved();
 		}
 

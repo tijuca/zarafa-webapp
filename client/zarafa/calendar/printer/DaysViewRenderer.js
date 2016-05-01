@@ -13,7 +13,7 @@ Zarafa.calendar.printer.DaysViewRenderer = Ext.extend(Zarafa.common.printer.rend
 	 * @type Array of Strings
 	 * The paths at which the print stylesheets can be found for a specific renderer
 	 */
-	customStylesheetPath: 'client/resources/css-extern/print.calendar.css',
+	customStylesheetPath: 'client/resources/design2015/css/external/print.calendar.css',
 
 	/**
 	 * @cfg {String} timeStyle The style attribute which must be applied to  the
@@ -141,8 +141,9 @@ Zarafa.calendar.printer.DaysViewRenderer = Ext.extend(Zarafa.common.printer.rend
 		 * As a solution, we are creating/rendering date picker into the body and than copies the html structure
 		 * of date picker into the printing document.
 		 */
+		var leftDP, rightDP;
 		if (Ext.isIE11){
-			var leftDP = new Ext.DatePicker({
+			leftDP = new Ext.DatePicker({
 				renderTo: Ext.getBody(),
 				hidden : true,
 				width : '200px',
@@ -150,7 +151,7 @@ Zarafa.calendar.printer.DaysViewRenderer = Ext.extend(Zarafa.common.printer.rend
 				showToday: false
 			});
 
-			var rightDP = new Ext.DatePicker({
+			rightDP = new Ext.DatePicker({
 				renderTo: Ext.getBody(),
 				hidden : true,
 				width : '200px',
@@ -165,13 +166,13 @@ Zarafa.calendar.printer.DaysViewRenderer = Ext.extend(Zarafa.common.printer.rend
 			leftDP.destroy();
 			rightDP.destroy();
 		} else {
-			var leftDP = new Ext.DatePicker({
+			leftDP = new Ext.DatePicker({
 				renderTo: printDOM.getElementById('datepicker_left'),
 				value: left,
 				showToday: false
 			});
 
-			var rightDP = new Ext.DatePicker({
+			rightDP = new Ext.DatePicker({
 				renderTo: printDOM.getElementById('datepicker_right'),
 				value: right,
 				showToday: false

@@ -112,7 +112,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 	 */
 	onModelSearchStart : function(model)
 	{
-		if(this.getCurrentView() != Zarafa.contact.data.Views.SEARCH && this.getCurrentViewMode() != Zarafa.contact.data.ViewModes.SEARCH){
+		if(this.getCurrentView() !== Zarafa.contact.data.Views.SEARCH && this.getCurrentViewMode() !== Zarafa.contact.data.ViewModes.SEARCH){
 			this.oldView = this.getCurrentView();
 			this.oldViewMode = this.getCurrentViewMode();
 			this.switchView(Zarafa.contact.data.Views.SEARCH, Zarafa.contact.data.ViewModes.SEARCH);
@@ -177,7 +177,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 				}
 				break;
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass([ 'IPM.Contact', 'IPM.DistList' ], true)) {
 						bid = 1;
 					}
@@ -228,9 +228,9 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 				} else if (record instanceof Zarafa.core.data.MAPIRecord) {
 					var entryid = record.get('entryid');
 					if (entryid && Zarafa.core.EntryId.hasContactProviderGUID(entryid)) {
-						if (record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MAILUSER) {
+						if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MAILUSER) {
 							component = Zarafa.contact.dialogs.ContactContentPanel;
-						} else if (record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
+						} else if (record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_DISTLIST) {
 							component = Zarafa.contact.dialogs.DistlistContentPanel;
 						} 
 					}
@@ -259,7 +259,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 				}
 				break;
 			case Zarafa.core.data.SharedComponentType['common.printer.renderer']:
-				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') == Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
+				if (record instanceof Zarafa.core.data.IPMRecord && record.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE) {
 					if (record.isMessageClass('IPM.Contact', true)) {
 						component = Zarafa.contact.printer.ContactRenderer;
 					} else {
@@ -299,8 +299,8 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			items : [{
 				xtype : 'panel',
 				id: 'zarafa-navigationpanel-contacts-navigation',
-				title : _('My Contacts'),
 				cls: 'zarafa-context-navigation-block',
+				layout: 'fit',
 				items : [{
 					xtype : 'zarafa.hierarchytreepanel',
 					id: 'zarafa-navigationpanel-contacts-navigation-tree',
@@ -364,7 +364,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-contacts-businesscards',
 			text: _('Business Cards'),
 			overflowText: _('Business Cards'),
-			iconCls: 'contact_card_view',
+			iconCls: 'icon_contact_card_view',
 			valueView : Zarafa.contact.data.Views.ICON,
 			valueViewMode : Zarafa.contact.data.ViewModes.BUSINESS,
 			valueDataMode : Zarafa.contact.data.DataModes.CHARACTER_RESTRICT,
@@ -396,7 +396,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-maintoolbar-view-contacts-phonlist',
 			text: _('Phone List'),
 			overflowText: _('Phone List'),
-			iconCls: 'contact_list_view',
+			iconCls: 'icon_contact_list',
 			valueView : Zarafa.contact.data.Views.LIST,
 			valueViewMode : Zarafa.contact.data.ViewModes.PHONE_LIST,
 			valueDataMode : Zarafa.contact.data.DataModes.ALL,
@@ -509,7 +509,7 @@ Zarafa.contact.ContactContext = Ext.extend(Zarafa.core.Context, {
 			iconCls: 'icon_new_contact',
 			handler : Zarafa.contact.Actions.openRecipientContactContent,
 			scope: this
-		}
+		};
 	},
 
 	/**

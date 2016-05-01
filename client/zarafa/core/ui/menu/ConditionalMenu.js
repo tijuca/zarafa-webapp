@@ -22,7 +22,8 @@ Zarafa.core.ui.menu.ConditionalMenu = Ext.extend(Ext.menu.Menu, {
 		config = config || {};
 
 		Ext.applyIf(config, {
-			xtype : 'zarafa.conditionalmenu'
+			xtype : 'zarafa.conditionalmenu',
+			shadow: false
 		});
 
 		Zarafa.core.ui.menu.ConditionalMenu.superclass.constructor.call(this, config);

@@ -33,7 +33,7 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 		config.paging.push({
 			xtype: 'tbtext',
 			ref: 'loadedMailInfo',
-			style : 'margin-left : 10px'
+			cls : 'zarafa-loaded-mail-info'
 		});
 		Zarafa.mail.ui.MailPanelToolbar.superclass.constructor.call(this, config);
 	},
@@ -88,9 +88,6 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 			this.pagesToolbar.last.setIconClass('x-tbar-page-last btn-width');
 			this.pagesToolbar.last.addClass('btn-margin-right');
 
-			this.pagesToolbar.firstSeparator.setVisible(false);
-			this.pagesToolbar.secondSeparator.setVisible(false);
-
 			this.loadedMailInfo.setVisible(false);
 		}
 	},
@@ -126,7 +123,9 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 	 */
 	resizeSearchField : function()
 	{
-		var containerWidth = this.getWidth();
+//		var containerWidth = this.getWidth();
+		// Get the width of the container without the padding
+		var containerWidth = this.el.getStyleSize().width;
 		var pageNavToolbarWidth = 0;
 		var copyButtonWidth = 0;
 		var deleteButtonWidth = 0;
@@ -185,7 +184,7 @@ Zarafa.mail.ui.MailPanelToolbar = Ext.extend(Zarafa.common.ui.ContextMainPanelTo
 			deleteButtonWidth = this.deleteButton.getWidth();
 		}
 
-		var extraMargin = 30;
+		var extraMargin = 0;
 		var adjWidth = containerWidth - pageNavToolbarWidth - copyButtonWidth - deleteButtonWidth - extraMargin;
 		this.searchTextfield.setWidth(adjWidth);
 	}

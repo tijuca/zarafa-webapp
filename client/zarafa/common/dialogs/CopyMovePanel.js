@@ -46,7 +46,7 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 			}
 
 			if (!config.objectType) {
-				config.objectType = config.record[0].get('object_type')
+				config.objectType = config.record[0].get('object_type');
 			}
 		}
 
@@ -58,7 +58,6 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border: false,
-			bodyStyle: 'padding: 5px; background-color: inherit;',
 			header: true,
 			items: [
 				this.createTreePanel()
@@ -77,12 +76,14 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 				handler: this.onCopy,
 				scope: this,
 				ref: '../copyButton',
+				cls: 'zarafa-action',
 				disabled: true
 			},{
 				text: _('Move'),
 				handler: this.onMove,
 				scope: this,
 				ref: '../moveButton',
+				cls: 'zarafa-action',
 				disabled: true
 			},{
 				text: _('Cancel'),
@@ -106,23 +107,41 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 	{
 		return {
 			xtype: 'panel',
-			layout: 'form',
+			layout: 'vbox',
 			border: false,
 			flex: 1,
+			layoutConfig: {
+				align: 'stretch'
+			},
+			cls: 'copymove-tree-panel',
 			bodyStyle: 'background-color: inherit;',
 			items: [{
-				xtype: 'displayfield',
-				value: _('Destination folder') + ':',
-				hideLabel : true
+				xtype: 'container',
+				ref: 'displayfieldContainer',
+				items: [{
+					xtype: 'displayfield',
+					value: _('Destination folder') + ':',
+					hideLabel : true,
+					cls: 'tree-header',
+					ref: '../displayfield'
+				}],
+				autoheight: true
 			},{
 				xtype: 'zarafa.hierarchytree',
+				flex: 1,
 				border: true,
+				treeSorter: true,
 				enableDD : false,
-				treeSorter : true,
 				anchor: '100% 90%',
-				ref: '../hierarchyTree',
-				treeSorter : true
-			}]
+				ref: '../hierarchyTree'
+			}],
+			listeners : {
+				// autoheight does not work well for the vbox, so we set the height of the container manually
+				// This way we can use css to determine the height 
+				'afterlayout': function(){ 
+					this.displayfieldContainer.setHeight(this.displayfield.getHeight());
+				}
+			}
 		};
 	},
 

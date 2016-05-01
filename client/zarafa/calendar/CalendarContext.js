@@ -66,9 +66,6 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 		// The tab in the top tabbar
 		this.registerInsertionPoint('main.maintabbar.left', this.createMainTab, this);
 
-		// Add buttons to the MainToolbar
-		this.registerInsertionPoint('main.toolbar.actions.last', this.createMainToolbarButtons, this);
-
 		// Add a date picker control to the navigation panel.
 		this.registerInsertionPoint('navigation.north', this.createDatePicker, this);
 
@@ -348,7 +345,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 				xtype : 'panel',
 				id: 'zarafa-navigationpanel-calendar-navigation',
 				cls: 'zarafa-context-navigation-block',
-				title : _('My Calendars'),
+				layout: 'fit',
 				items : [{
 					xtype : 'zarafa.multiselecthierarchytree',
 					id: 'zarafa-navigationpanel-calendar-navigation-tree',
@@ -380,7 +377,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 			id: 'zarafa-navigationpanel-calendar-datepicker',
 			navigationContext: this,
 			showWeekNumber: true,
-			showToday : false,
+			showToday : true,
 			width:'100%',
 			handler : function (picker, date) {
 				this.getModel().setDate(date);
@@ -506,18 +503,6 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	},
 
 	/**
-	 * Event handler which is fired when today button has been pressed.
-	 * This will set date range to current date that will reload the view with
-	 * current date.
-	 * @param {Ext.Button} button The button which was pressed
-	 * @private
-	 */
-	onSwitchToToday : function(button)
-	{
-		this.getModel().setDate(new Date());
-	},
-
-	/**
 	 * Event handler which is fired when one of the View buttons
 	 * has been pressed. This will call {@link #switchView switchView}
 	 * to update the view.
@@ -528,49 +513,6 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		this.getModel().setDataMode(button.valueDataMode);
 		this.switchView(button.valueView, button.valueViewMode);
-	},
-
-	/**
-	 * Adds buttons to the maintoolbar like the Today button.
-	 * @private
-	 */
-	createMainToolbarButtons: function()
-	{
-		return [{
-			xtype: 'button',
-			id: 'zarafa-maintoolbar-calendar-today',
-			scale: 'large',
-			overflowText: _('Today'),
-			ref : 'calendarToday',
-			tooltip: _('Today'),
-			iconCls : 'icon-calendar-today',
-			handler : this.onSwitchToToday,
-			scope : this,
-			listeners: {
-				afterrender: this.onAfterRenderMainToolbarButtons,
-				scope: this
-			}
-		}];
-	},
-
-	/**
-	 * Registers to the {@link Zarafa.core.Container#contextswitch contextswitch} event on the 
-	 * {@link Zarafa.core.Container container} so the visiblity of the button can be toggled 
-	 * whenever the context is switched. We do this after the button is rendered.
-	 * @param {Ext.Button} btn The button
-	 * @private
-	 */
-	onAfterRenderMainToolbarButtons: function(btn)
-	{
-		btn.mon(container, 'contextswitch', function(parameters, oldContext, newContext){
-			this.setVisiblityMainToolbarButton(btn, newContext);
-		}, this);
-
-		btn.mon(this, 'viewchange', function(context, newView, oldView ){
-			this.setVisiblityMainToolbarButton(btn, context);
-		}, this);
-
-		this.setVisiblityMainToolbarButton(btn);
 	},
 
 	/**

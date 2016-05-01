@@ -21,13 +21,14 @@ Zarafa.contact.dialogs.ContactDetailTab = Ext.extend(Ext.form.FormPanel, {
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.contactdetailtab',
+			cls : 'zarafa-contactdetailtab',
 			title : _('Details'),
 			autoScroll : true,
-			labelWidth : 140,
+			labelWidth : 120,
+			labelAlign : 'left',
 			defaults : {
-				style : 'padding: 2px; margin: 2px;',
 				columnWidth : 0.5,
-				height : 80,
+				height : 120,
 				border : false,
 				header : false,
 				xtype : 'fieldset'

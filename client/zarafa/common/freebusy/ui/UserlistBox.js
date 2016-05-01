@@ -20,6 +20,7 @@ Zarafa.common.freebusy.ui.UserlistBox = Ext.extend(Zarafa.common.recipientfield.
 		config = config || {};
 
 		Ext.applyIf(config, {
+			autoHeight : true,
 			btnCls : 'x-freebusy-userrow-remove',
 			btnHoverCls : 'x-freebusy-userrow-remove-hover'
 		});

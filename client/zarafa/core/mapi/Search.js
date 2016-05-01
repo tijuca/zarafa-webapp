@@ -94,14 +94,17 @@ Zarafa.core.mapi.Search = Zarafa.core.Enum.create({
 	 */
 	isSearchActive : function(searchState)
 	{
-		if(!Ext.isNumber(searchState))
+		if(!Ext.isNumber(searchState)) {
 			searchState = parseInt(searchState, 10);
+		}
 
-		if(!Ext.isNumber(searchState))
+		if(!Ext.isNumber(searchState)) {
 			return false;
+		}
 
-		if(searchState & this.SEARCH_RUNNING)
+		if(searchState & this.SEARCH_RUNNING) {
 			return true;
+		}
 
 		return false;
 	},
@@ -113,14 +116,17 @@ Zarafa.core.mapi.Search = Zarafa.core.Enum.create({
 	 */
 	isSearchRunning : function(searchState)
 	{
-		if(!Ext.isNumber(searchState))
+		if(!Ext.isNumber(searchState)) {
 			searchState = parseInt(searchState, 10);
+		}
 
-		if(!Ext.isNumber(searchState))
+		if(!Ext.isNumber(searchState)) {
 			return false;
+		}
 
-		if(searchState & this.SEARCH_REBUILD && searchState & this.SEARCH_RUNNING)
+		if(searchState & this.SEARCH_REBUILD && searchState & this.SEARCH_RUNNING) {
 			return true;
+		}
 
 		return false;
 	}

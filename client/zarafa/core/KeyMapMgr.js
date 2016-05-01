@@ -129,6 +129,9 @@ Zarafa.core.KeyMapMgr = Ext.extend(Object, {
 	 * under the specified mapId. If a keymap has already been registered under this element it will add new keys
 	 * to the same {@link Zarafa.core.KeyMap KeyMap}.
 	 *
+	 * If basic shortcuts are enabled we filter the bindings obtained from the mapId to only
+	 * enable the bindings which contain the basic key.
+	 *
 	 * @param {Ext.Component} component The component to which keymap should be bound and
 	 * will listen keypress events on {@link Ext.Component#el}.
 	 * @param {String} mapId The ID of the map keys are registered to.
@@ -154,6 +157,17 @@ Zarafa.core.KeyMapMgr = Ext.extend(Object, {
 		}
 
 		var bindings = this.getKeyBindings(mapId);
+		var setting = container.getSettingsModel().get('zarafa/v1/main/keycontrols');
+
+		// Filter basic shortcuts
+		if (setting === Zarafa.settings.data.KeyboardSettings.BASIC_KEYBOARD_SHORTCUTS) {
+			bindings = bindings.filter(function(binding) {
+				return Ext.isDefined(binding.basic);
+			});
+		} else if (setting === Zarafa.settings.data.KeyboardSettings.NO_KEYBOARD_SHORTCUTS) {
+			bindings = [];
+		}
+
 		if(Ext.isEmpty(bindings)) {
 			// if no bindings are found then ignore
 			return;
@@ -172,11 +186,6 @@ Zarafa.core.KeyMapMgr = Ext.extend(Object, {
 
 			// create a new keymap and register it on component
 			this.keyMaps.add(elementId, new Zarafa.core.KeyMap(component, bindings, element));
-		}
-
-		// When the keymaps are disabled globally we need to disable this here too
-		if(!this.isGloballyEnabled()){
-			this.disableKeyMap(element);
 		}
 	},
 
@@ -344,7 +353,7 @@ Zarafa.core.KeyMapMgr = Ext.extend(Object, {
 	 */
 	isGloballyEnabled : function()
 	{
-		return container.getSettingsModel().get('zarafa/v1/main/keycontrols_enabled');
+		return container.getSettingsModel().get('zarafa/v1/main/keycontrols') !== Zarafa.settings.data.KeyboardSettings.NO_KEYBOARD_SHORTCUTS;
 	}
 });
 

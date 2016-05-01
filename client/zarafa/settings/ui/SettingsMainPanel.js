@@ -27,11 +27,6 @@ Zarafa.settings.ui.SettingsMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 		// display in the content panel.
 		var items = container.populateInsertionPoint('context.settings.categories', this, config.context);
 
-		// Obtain the settings model which must be
-		// applied to all categories so ensure they
-		// know what they are editing.
-		var settingsModel = config.context.getModel().getEditableSettingsModel();
-
 		// Create all content, extract the titles to generate
 		// the list of tabs for the category panel. Also detect which
 		// widgets placed inside the categories are marked as favorite
@@ -88,6 +83,7 @@ Zarafa.settings.ui.SettingsMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 		items = Zarafa.core.Util.sortArray(items, 'ASC', 'categoryIndex');
 
 		Ext.applyIf(config, {
+			cls : 'zarafa-setting-mainpanel',
 			header : false,
 			layout: {
 				type: 'hbox',
@@ -151,7 +147,6 @@ Zarafa.settings.ui.SettingsMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 						layout : 'fit',
 						items : [{
 							xtype : 'toolbar',
-							toolbarCls: 'x-panel-fbar',
 							enableOverflow : false,
 							toolbarCls : 'x-panel-footer',
 							cls : 'x-panel-fbar',
@@ -164,6 +159,7 @@ Zarafa.settings.ui.SettingsMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 							},
 							items : [{
 								xtype : 'button',
+								cls : 'zarafa-action',
 								text : _('Apply'),
 								handler : this.onApply,
 								scope : this

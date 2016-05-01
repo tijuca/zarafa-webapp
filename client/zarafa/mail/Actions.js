@@ -89,7 +89,7 @@ Zarafa.mail.Actions = {
 
 							contactRecord.getStore().on('open', fn, task);
 							contactRecord.open();
-						}
+						};
 					// This triggers the encapsulation and returns the task function
 					}()
 				});
@@ -151,7 +151,7 @@ Zarafa.mail.Actions = {
 
 						store.un('open', openHandler, record);
 					}
-				}
+				};
 
 				if (record.isOpened()) {
 					response = model.createResponseRecord(record, actionType);
@@ -250,7 +250,6 @@ Zarafa.mail.Actions = {
 			selectionCfg : [{
 				xtype : 'zarafa.recipientfield',
 				fieldLabel : _('To') + ':',
-				height : 50,
 				boxStore : store,
 				filterRecipientType: Zarafa.core.mapi.RecipientType.MAPI_TO,
 				defaultRecipientType: Zarafa.core.mapi.RecipientType.MAPI_TO,
@@ -258,7 +257,6 @@ Zarafa.mail.Actions = {
 			},{
 				xtype : 'zarafa.recipientfield',
 				fieldLabel : _('CC') + ':',
-				height : 50,
 				boxStore : store,
 				filterRecipientType: Zarafa.core.mapi.RecipientType.MAPI_CC,
 				defaultRecipientType: Zarafa.core.mapi.RecipientType.MAPI_CC,
@@ -266,7 +264,6 @@ Zarafa.mail.Actions = {
 			},{
 				xtype : 'zarafa.recipientfield',
 				fieldLabel : _('BCC') + ':',
-				height : 50,
 				boxStore : store,
 				filterRecipientType: Zarafa.core.mapi.RecipientType.MAPI_BCC,
 				defaultRecipientType: Zarafa.core.mapi.RecipientType.MAPI_BCC,
