@@ -94,16 +94,6 @@ Description: Zarafa WebApp google maps plugin
  Google Maps plugin for zarafa-webapp, adds a new 'maps' tab in the contact
  details which displays the location of the contact by using Google Maps.
 
-Package: zarafa-webapp-oauthlib
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp OAuth plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- OAuth v2.0 protocol library plugin for zarafa-webapp. Allows you to easily
- create your own API classes which utilizes the OAuth authentication.
-
 Package: zarafa-webapp-pimfolder
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
