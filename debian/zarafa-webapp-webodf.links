@@ -1,2 +1,0 @@
-# source                              # target
-/etc/zarafa/webapp/config-webodf.php  usr/share/zarafa-webapp/plugins/webodf/config.php

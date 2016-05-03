@@ -136,16 +136,6 @@ Description: Zarafa WebApp Manual plugin
  Adds a button in the top menu bar, which opens the user manual of the Zarafa
  WebApp.
 
-Package: zarafa-webapp-webodf
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp WebODC plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- WebODF plugin for zarafa-webapp, makes it possible to preview ODF files by
- right-clicking on an ODF mail attachment.
-
 Package: zarafa-webapp-xmpp
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
