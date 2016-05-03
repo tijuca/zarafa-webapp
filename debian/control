@@ -106,16 +106,6 @@ Description: Zarafa WebApp personal inbox plugin
  messages to a single, preconfigured folder. This makes it easier to work
  through your e-mails if you work with a "Getting Things Done" methodology.
 
-Package: zarafa-webapp-pdfbox
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}), libjs-pdf
-Description: Zarafa WebApp PDF viewer plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- The PDF viewer plugin makes it possible to preview PDF mail attachments using
- PDF.js.
-
 Package: zarafa-webapp-quickitems
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
