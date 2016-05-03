@@ -1,2 +1,0 @@
-# source                              # target
-/etc/zarafa/webapp/config-extbox.php  usr/share/zarafa-webapp/plugins/extbox/config.php

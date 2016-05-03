@@ -62,16 +62,6 @@ Description: Zarafa WebApp fax plugin
  Expand the new "create mail" dialog with contact's fax number in the To:
  field of the email.
 
-Package: zarafa-webapp-extbox
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp image preview plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Makes it possible to preview mail image attachments, this will open the image
- in a lightbox.
-
 Package: zarafa-webapp-files
 Architecture: all
 Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
