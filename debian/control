@@ -14,7 +14,7 @@ Build-Depends: ant,
   liblocale-msgfmt-perl,
   libxml2-utils,
   php5-cli
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 
 Package: zarafa-webapp
 Architecture: all
