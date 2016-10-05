@@ -1,4 +1,0 @@
-# source                                  # target
-deploy/plugins/folderwidgets/js           usr/share/zarafa-webapp/plugins/folderwidgets
-deploy/plugins/folderwidgets/resources    usr/share/zarafa-webapp/plugins/folderwidgets
-deploy/plugins/folderwidgets/manifest.xml usr/share/zarafa-webapp/plugins/folderwidgets

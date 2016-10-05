@@ -74,14 +74,14 @@ Description: Zarafa WebApp files plugin
  browse, save and attach files from a file share backend. Supported backends
  are FTP and WebDav (for example Owncloud).
 
-Package: zarafa-webapp-folderwidgets
+Package: kopano-webapp-folderwidgets
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp folder widgets plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp folder widgets plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- Folder widgets plugin for zarafa-webapp. This is a collection of widgets which
+ Folder widgets plugin for kopano-webapp. This is a collection of widgets which
  can show the contents of some of the default folders for a user.
 
 Package: zarafa-webapp-gmaps
