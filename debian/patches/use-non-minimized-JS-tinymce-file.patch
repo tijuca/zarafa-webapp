@@ -1,0 +1,23 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Thu, 6 Oct 2016 13:59:20 +0200
+Subject: use non minimized JS tinymce file
+
+There is no real gain to use the tinymce.min.js so just load the normal
+tinymce.js file.
+---
+ server/includes/loader.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/server/includes/loader.php b/server/includes/loader.php
+index fd8cfad..f35425d 100644
+--- a/server/includes/loader.php
++++ b/server/includes/loader.php
+@@ -21,7 +21,7 @@ class FileLoader {
+ 			$jsLoadingSequence[] = "client/extjs/ext-all.js";
+ 			$jsLoadingSequence[] = "client/extjs/ux/ux-all.js";
+ 			$jsLoadingSequence[] = "client/extjs-mod/extjs-mod.js";
+-			$jsLoadingSequence[] = "client/tinymce/tinymce.min.js";
++			$jsLoadingSequence[] = "client/tinymce/tinymce.js";
+ 			$jsLoadingSequence[] = "client/third-party/ux-thirdparty.js";
+ 		} else if ($load == LOAD_DEBUG) {
+ 			$jsLoadingSequence[] = "client/extjs/ext-base-debug.js";
