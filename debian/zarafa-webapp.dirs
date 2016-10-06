@@ -1,4 +1,0 @@
-etc/apache2/sites-available
-etc/zarafa/webapp
-usr/share/zarafa-webapp
-var/lib/zarafa-webapp/tmp

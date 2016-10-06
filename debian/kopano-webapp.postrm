@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for zarafa-webapp
+# postrm script for kopano-webapp
 #
 # see: dh_installdeb(1)
 
@@ -21,9 +21,9 @@ set -e
 
 case "$1" in
     purge)
-        if [ -d /var/lib/zarafa-webapp ]; then
-            echo "[zarafa-webapp] purging directory '/var/lib/zarafa-webapp'"
-            rm -rf /var/lib/zarafa-webapp || true
+        if [ -d /var/lib/kopano-webapp ]; then
+            echo "[kopano-webapp] purging directory '/var/lib/kopano-webapp'"
+            rm -rf /var/lib/kopano-webapp || true
         fi
     ;;
 

@@ -1,0 +1,3 @@
+# source                       # target
+/etc/kopano/webapp/config.php  usr/share/kopano-webapp/config.php
+/etc/kopano/webapp/.htaccess   usr/share/kopano-webapp/.htaccess

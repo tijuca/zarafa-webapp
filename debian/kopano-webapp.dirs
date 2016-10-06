@@ -1,0 +1,4 @@
+etc/apache2/sites-available
+etc/kopano/webapp
+usr/share/kopano-webapp
+var/lib/kopano-webapp/tmp

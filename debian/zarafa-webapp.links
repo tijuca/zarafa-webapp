@@ -1,3 +1,0 @@
-# source                       # target
-/etc/zarafa/webapp/config.php  usr/share/zarafa-webapp/config.php
-/etc/zarafa/webapp/.htaccess   usr/share/zarafa-webapp/.htaccess

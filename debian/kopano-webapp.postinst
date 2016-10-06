@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# postinst script for zarafa-webapp
+# postinst script for kopano-webapp
 # see: dh_installdeb(1)
 
 # summary of how this script can be called:
@@ -17,13 +17,13 @@
 set -e
 #set -x # uncomment for verbose output
 
-PACKAGE_NAME="zarafa-webapp"
-PACKAGE_ETC_FOLDER="/etc/zarafa/webapp"
-PACKAGE_VAR_FOLDER="/var/lib/zarafa-webapp/tmp"
+PACKAGE_NAME="kopano-webapp"
+PACKAGE_ETC_FOLDER="/etc/kopano/webapp"
+PACKAGE_VAR_FOLDER="/var/lib/kopano-webapp/tmp"
 
 case "$1" in
     configure)
-        # check permissions on /var/lib/zarafa-webapp/tmp
+        # check permissions on /var/lib/kopano-webapp/tmp
         #dpkg-statoverride --add --update www-data www-data 0750 ${PACKAGE_VAR_FOLDER}
 
         # check first for snakeoil key and certificate
@@ -38,17 +38,17 @@ case "$1" in
 
         # linking server key if not available and needed
         if [ ! -f "${PACKAGE_ETC_FOLDER}/certs/server.key" ]; then
-            echo "Linking 'server.key' for zarafa-webapp ..." >&2
+            echo "Linking 'server.key' for kopano-webapp ..." >&2
             ln -s /etc/ssl/private/ssl-cert-snakeoil.key ${PACKAGE_ETC_FOLDER}/certs/server.key
         fi
         # linking certificate if not available and needed
         if [ ! -f "${PACKAGE_ETC_FOLDER}/certs/ca.pem"  ]; then
-            echo "Linking 'ca.pem' for zarafa-webapp ..." >&2
+            echo "Linking 'ca.pem' for kopano-webapp ..." >&2
             ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem ${PACKAGE_ETC_FOLDER}/certs/ca.pem
         fi
 
         ### Apache2.4
-        # processing zarafa-webapp for apache2
+        # processing kopano-webapp for apache2
         if [ -e /usr/share/apache2/apache2-maintscript-helper ]; then
             . /usr/share/apache2/apache2-maintscript-helper
 
@@ -66,9 +66,9 @@ case "$1" in
         ### lighttpd
         #if [ -x "`which lighty-enable-mod`" ] ; then
         #    echo "Add link for Lighttpd config file"
-        #    ln -fs ${PACKAGE_ETC_FOLDER}lighttpd.conf /etc/lighttpd/conf-available/50-zarafa-webapp.conf
+        #    ln -fs ${PACKAGE_ETC_FOLDER}lighttpd.conf /etc/lighttpd/conf-available/50-kopano-webapp.conf
         #    # We enabled it
-        #    lighty-enable-mod zarafa-webapp fastcgi-php
+        #    lighty-enable-mod kopano-webapp fastcgi-php
         #fi
     ;;
 
