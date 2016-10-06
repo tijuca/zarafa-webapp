@@ -1,0 +1,2 @@
+# source                                 # target
+/etc/kopano/webapp/config-zdeveloper.php usr/share/kopano-webapp/plugins/zdeveloper/config.php

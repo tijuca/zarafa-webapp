@@ -1,2 +1,0 @@
-# source                                 # target
-/etc/zarafa/webapp/config-zdeveloper.php usr/share/zarafa-webapp/plugins/zdeveloper/config.php

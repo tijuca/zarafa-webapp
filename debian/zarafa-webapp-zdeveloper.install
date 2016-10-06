@@ -1,8 +1,0 @@
-#!/usr/bin/dh-exec
-# source                                  # target
-deploy/plugins/zdeveloper/config.php   => etc/zarafa/webapp/config-zdeveloper.php
-
-deploy/plugins/zdeveloper/js              usr/share/zarafa-webapp/plugins/zdeveloper
-deploy/plugins/zdeveloper/php             usr/share/zarafa-webapp/plugins/zdeveloper
-deploy/plugins/zdeveloper/resources       usr/share/zarafa-webapp/plugins/zdeveloper
-deploy/plugins/zdeveloper/manifest.xml    usr/share/zarafa-webapp/plugins/zdeveloper
