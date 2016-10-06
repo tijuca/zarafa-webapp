@@ -1,5 +1,5 @@
 {
-    "--title": "Zarafa WebApp",
+    "--title": "Kopano WebApp",
     "--warnings": ["-link", "-no_doc"],
     "--external": "extjs",
     "--ext-namespace": "Ext",

@@ -190,6 +190,7 @@ Zarafa.common.rules.dialogs.WordSelectionLink = Ext.extend(Ext.BoxComponent, {
 
 				case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
 				case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
+				/* falls through */
 				default:
 					var subs;
 

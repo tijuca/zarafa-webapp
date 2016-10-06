@@ -127,6 +127,7 @@ Zarafa.calendar.ui.CalendarMainPanel = Ext.extend(Zarafa.common.ui.ContextMainPa
 	{
 		switch (viewId) {
 			case Zarafa.calendar.data.Views.BLOCKS:
+			/* falls through */
 			default:
 				this.viewPanel.switchView('calendar_blocks');
 				break;

@@ -231,7 +231,7 @@ Zarafa.settings.ui.SettingsTreePanel = Ext.extend(Zarafa.common.ui.EditorTreeGri
 			return Ext.create(this.editors[type]);
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : String.format(_('The setting \'{0}\' can not be edited'), Ext.util.Format.htmlEncode(node.text)),
 				icon: Ext.MessageBox.WARNING,
 				buttons: Ext.MessageBox.OK

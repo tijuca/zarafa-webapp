@@ -33,33 +33,28 @@
 	class Properties
 	{
 		/**
-		 * @var object MAPI Message Store object
+		 * MAPI Message Store object
 		 */
-		var $store = false;
+		private $store = false;
 
 		/**
-		 * @var string The PR_MAPPING_SIGNATURE for the current store
+		 * The PR_MAPPING_SIGNATURE for the current store
 		 */
-		var $storeMapping = false;
+		private $storeMapping = false;
 
 		/**
-		 * @var TRUE if we have init'ed, FALSE if not
+		 * true if we have init'ed, false if not
 		 */
-		var $init = false;
+		private $init = false;
 
 		/**
-		 * @var Object The mappings where for each unique
+		 * The mappings where for each unique
 		 * PR_MAPPING_SIGNATURE on the server the properties
 		 * are stored.
 		 */
-		var $mapping = array();
+		private $mapping = array();
 
-		/**
-		 * Constructor
-		 */
-		function Properties()
-		{
-		}
+		function __construct(){}
 
 		/**
 		 * Initialize the class by opening the default message store. This is done only once.
@@ -1121,11 +1116,31 @@
 		function getFolderListProperties()
 		{
 			$properties = $this->getFolderProperties();
+			$properties["assoc_content_count"] = PR_ASSOC_CONTENT_COUNT;
 
 			unset($properties['comment']);
 			unset($properties['message_size']);
 			unset($properties['deleted_on']);
 			unset($properties['creation_time']);
+
+			return $properties;
+		}
+
+		/**
+		 * Returns the properties used by the hierarchy to show the favorites folders.
+		 * @return array
+		 */
+		function getFavoritesFolderProperties()
+		{
+			$properties = $this->getFolderListProperties();
+			$properties["message_class"] = PR_MESSAGE_CLASS;
+			$properties["subject"] = PR_SUBJECT;
+			$properties["favorites_folder_entryid"] = PR_WLINK_ENTRYID;
+			$properties["favorites_folder_flags"] = PR_WLINK_FLAGS;
+			$properties["favorites_folder_ordinal"] = PR_WLINK_ORDINAL;
+			$properties["favorites_store_entryid"] = PR_WLINK_STORE_ENTRYID;
+			$properties["favorites_link_type"] = PR_WLINK_TYPE;
+			unset($properties['subfolders']);
 
 			return $properties;
 		}

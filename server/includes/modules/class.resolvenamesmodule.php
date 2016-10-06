@@ -7,9 +7,9 @@
 		/**
 		 * Constructor
 		 */
-		function ResolveNamesModule($id, $data)
+		function __construct($id, $data)
 		{
-			parent::Module($id, $data);
+			parent::__construct($id, $data);
 		}
 
 		/**
@@ -41,7 +41,7 @@
 		 * Function which checks the names, sent by the client. This function is used
 		 * when a user wants to sent an email and want to check the names filled in
 		 * by the user in the to, cc and bcc field. This function uses the global
-		 * user list of Zarafa to check if the names are correct.
+		 * user list of Kopano to check if the names are correct.
 		 * @param array $action the action data, sent by the client
 		 * @return boolean true on success or false on failure
 		 */
@@ -112,63 +112,8 @@
 			} catch (MAPIException $e) {
 				if ($e->getCode() == MAPI_E_AMBIGUOUS_RECIP) {
 					// Ambiguous, show possiblities:
-						$table = mapi_folder_getcontentstable($ab_dir, MAPI_DEFERRED_ERRORS);
-
-					// only return users from who the displayName or the username starts with $name
-					// TODO: use PR_ANR for this restriction instead of PR_DISPLAY_NAME and PR_ACCOUNT
-					$resAnd = array(
-						array(RES_OR, 
-							array(
-								array(RES_CONTENT,
-									array(
-										FUZZYLEVEL => FL_PREFIX | FL_IGNORECASE,
-										ULPROPTAG => PR_DISPLAY_NAME,
-										VALUE => $searchstr
-									)
-								),
-								array(RES_CONTENT,
-									array(
-										FUZZYLEVEL => FL_PREFIX | FL_IGNORECASE,
-										ULPROPTAG => PR_ACCOUNT,
-										VALUE => $searchstr
-									)
-								)
-							) // RES_OR
-						)
-					);
-
-					// create restrictions based on excludeGABGroups flag
-					if($excludeGABGroups) {
-						array_push($resAnd, array(
-							RES_PROPERTY,
-							array(
-								RELOP => RELOP_EQ,
-								ULPROPTAG => PR_OBJECT_TYPE,
-								VALUE => MAPI_MAILUSER
-							)
-						));
-					} else {
-						array_push($resAnd, array(RES_OR,
-							array(
-								array(RES_PROPERTY,
-									array(
-										RELOP => RELOP_EQ,
-										ULPROPTAG => PR_OBJECT_TYPE,
-										VALUE => MAPI_MAILUSER
-									)
-								),
-								array(RES_PROPERTY,
-									array(
-										RELOP => RELOP_EQ,
-										ULPROPTAG => PR_OBJECT_TYPE,
-										VALUE => MAPI_DISTLIST
-									)
-								)
-							)
-						));
-					}
-
-					$restriction = array(RES_AND, $resAnd);
+					$table = mapi_folder_getcontentstable($ab_dir, MAPI_DEFERRED_ERRORS);
+					$restriction = $this->getAmbigiousContactRestriction($searchstr, $excludeGABGroups, PR_ACCOUNT);
 
 					mapi_table_restrict($table, $restriction, TBL_BATCH);
 					mapi_table_sort($table, array(PR_DISPLAY_NAME => TABLE_SORT_ASCEND), TBL_BATCH);
@@ -219,6 +164,7 @@
 							$item['address_type'] = 'MAPIPDL';
 							// The email_address is empty for DistList, using display name for resolving
 							$item['email_address'] = $item['display_name'];
+							$item['smtp_address'] = isset($item['smtp_address']) ? $item['smtp_address']: '';
 						}else{
 							$item['address_type'] = 'ZARAFA';
 							$item['email_address'] = isset($user_data[PR_EMAIL_ADDRESS]) ? $user_data[PR_EMAIL_ADDRESS] : '';
@@ -235,7 +181,8 @@
 					if (isset($user_data[PR_SEARCH_KEY])) {
 						$item['search_key'] = bin2hex($user_data[PR_SEARCH_KEY]);
 					} else {
-						$item['search_key'] = bin2hex(strtoupper($item['address_type'] . ':' . $item['smtp_address'])) . '00';
+						$emailAddress = isset($item['smtp_address']) ? $item['smtp_address'] : $item['email_address'];
+						$item['search_key'] = bin2hex(strtoupper($item['address_type'] . ':' . $emailAddress)) . '00';
 					}
 
 					array_push($items, $item);
@@ -260,23 +207,22 @@
 			 * IAddrBook
 			 *  - Root Container
 			 *     - HIERARCHY TABLE
-			 *        - Zarafa Contacts Folders    (Contact Container)
+			 *        - Kopano Contacts Folders    (Contact Container)
 			 *           - HIERARCHY TABLE         (Contact Container Hierarchy)
 			 *              - Contact folder 1
 			 *              - Contact folder 2
 			 **/
 
 			$rows = Array();
-			$contactFolderRestriction = $this->getContactFolderRestriction($query, $excludeGABGroups);
+			$contactFolderRestriction = $this->getAmbigiousContactRestriction($query, $excludeGABGroups, PR_EMAIL_ADDRESS);
 			// Open the AB Root Container by not supplying an entryid
 			$abRootContainer = mapi_ab_openentry($ab);
 
-			// Get the 'Zarafa Contact Folders'
+			// Get the 'Kopano Contact Folders'
 			$hierarchyTable = mapi_folder_gethierarchytable($abRootContainer, MAPI_DEFERRED_ERRORS);
 			$abHierarchyRows = mapi_table_queryallrows($hierarchyTable, array(PR_DISPLAY_NAME, PR_AB_PROVIDER_ID, PR_ENTRYID));
 
-			// Look for the 'Zarafa Contacts Folders'
-			$contactFolderContainerEntryid = false;
+			// Look for the 'Kopano Contacts Folders'
 			for($i=0,$len=count($abHierarchyRows);$i<$len;$i++){
 				// Check if the folder matches the Contact Provider GUID
 				if($abHierarchyRows[$i][PR_AB_PROVIDER_ID] == MUIDZCSAB){
@@ -285,14 +231,14 @@
 				}
 			}
 
-			// Next go into the 'Zarafa Contacts Folders' and look in the hierarchy table for the Contact folders.
+			// Next go into the 'Kopano Contacts Folders' and look in the hierarchy table for the Contact folders.
 			if($abContactContainerEntryid){
-				// Get the rows from hierarchy table of the 'Zarafa Contacts Folders'
+				// Get the rows from hierarchy table of the 'Kopano Contacts Folders'
 				$abContactContainer = mapi_ab_openentry($ab, $abContactContainerEntryid);
 				$abContactContainerHierarchyTable = mapi_folder_gethierarchytable($abContactContainer, MAPI_DEFERRED_ERRORS);
 				$abContactContainerHierarchyRows = mapi_table_queryallrows($abContactContainerHierarchyTable, array(PR_DISPLAY_NAME, PR_OBJECT_TYPE, PR_ENTRYID));
 
-				// Loop through all the contact folders found under the 'Zarafa Contacts Folders' hierarchy
+				// Loop through all the contact folders found under the 'Kopano Contacts Folders' hierarchy
 				for($j=0,$len=count($abContactContainerHierarchyRows);$j<$len;$j++){
 					
 					// Open, get contents table, restrict, sort and then merge the result in the list of $rows
@@ -311,14 +257,15 @@
 		}
 
 		/**
-		 * Setup the restriction used for resolving in the Contact folders.
+		 * Setup the restriction used for resolving in the Contact folders or GAB.
 		 * @param {String} $query The search query, case is ignored
 		 * @param {Boolean} $excludeGABGroups flag to exclude groups from resolving
+		 * @param {Number} $content the PROPTAG to search in.
 		 */
-		function getContactFolderRestriction($query, $excludeGABGroups)
+		function getAmbigiousContactRestriction($query, $excludeGABGroups, $content)
 		{
 			// only return users from who the displayName or the username starts with $name
-			// TODO: use PR_ANR for this restriction instead of PR_DISPLAY_NAME and PR_ACCOUNT
+			// TODO: use PR_ANR for this restriction instead of PR_DISPLAY_NAME and $content.
 			$resAnd = array(
 				array(RES_OR, 
 					array(
@@ -332,7 +279,7 @@
 						array(RES_CONTENT,
 							array(
 								FUZZYLEVEL => FL_PREFIX | FL_IGNORECASE,
-								ULPROPTAG => PR_EMAIL_ADDRESS,
+								ULPROPTAG => $content,
 								VALUE => $query
 							)
 						)

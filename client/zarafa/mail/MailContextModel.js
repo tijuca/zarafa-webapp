@@ -191,7 +191,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	 */
 	initRecordSubject : function(record, origRecord, actionType)
 	{
-		var subjectPrefix = undefined;
+		var subjectPrefix;
 
 		switch (actionType)
 		{
@@ -489,7 +489,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 
 				// Check record store or so
 				record.set('hasattach', origRecord.get('hasattach'));
-
+			/* falls through */
 			case Zarafa.mail.data.ActionTypes.REPLYALL:
 			case Zarafa.mail.data.ActionTypes.REPLY:
 				// TODO: handle inline image attachments

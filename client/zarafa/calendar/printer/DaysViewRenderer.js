@@ -13,7 +13,7 @@ Zarafa.calendar.printer.DaysViewRenderer = Ext.extend(Zarafa.common.printer.rend
 	 * @type Array of Strings
 	 * The paths at which the print stylesheets can be found for a specific renderer
 	 */
-	customStylesheetPath: 'client/resources/design2015/css/external/print.calendar.css',
+	customStylesheetPath: 'client/resources/css/external/print.calendar.css',
 
 	/**
 	 * @cfg {String} timeStyle The style attribute which must be applied to  the

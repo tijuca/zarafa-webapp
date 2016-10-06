@@ -226,8 +226,8 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 			},
 			iconCls: 'icon_private',
 			ref: 'setPrivate',
-			toggleGroup: 'privateGroup',
-			handler: this.onPrivateGroupToggle,
+			enableToggle : true,
+			toggleHandler: this.onPrivateGroupToggle,
 			scope: this
 		}];
 	},
@@ -421,6 +421,7 @@ Zarafa.task.dialogs.TaskToolbar = Ext.extend(Zarafa.core.ui.ContentPanelToolbar,
 					break;
 				*/
 				case Zarafa.core.mapi.TaskMode.NOTHING:
+				/* falls through */
 				default:
 					this.sendBtn.setVisible(false);
 					this.checkNamesBtn.setVisible(false);

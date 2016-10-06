@@ -65,11 +65,6 @@
 		return is_array($data) && !empty($data) && !preg_match('/^\d+$/', implode('', array_keys($data)));
 	}
 
-	function microtime_float() {
-		list($usec, $sec) = explode(" ", microtime());
-		return ((float)$usec + (float)$sec);
-	}
-
 	/**
 	 * gets maximum upload size of attachment from php ini settings
 	 * important settings are upload_max_filesize and post_max_size
@@ -265,38 +260,6 @@
 	}
 
 	/**
-	 * checkTrialVersion
-	 * Checks whether the zarafa-server we are connected to has a trial license or not, based on the
-	 * capabilities list.
-	 * @return Boolean returns true on a trial license, false when otherwise.
-	 */
-	function checkTrialVersion(){
-		$capabilities = mapi_zarafa_getcapabilities($GLOBALS['mapisession']->getDefaultMessageStore());
-		return (is_array($capabilities)&&array_search('TRIAL', $capabilities)!==false?true:false);
-	}
-
-	/**
-	 * getDaysLeftOnTrialPeriod
-	 * Returns the number of days left on the trial of the connected zarafa-server. This number is
-	 * based on the remaining seconds left in the trial and rounded up to whole days.
-	 * @return Integer Number of days remaining on trial. Returns 0 when not on a trial license.
-	 */
-	function getDaysLeftOnTrialPeriod(){
-		$secondsLeft = 0;
-		$capabilities = mapi_zarafa_getcapabilities($GLOBALS['mapisession']->getDefaultMessageStore());
-		if(is_array($capabilities)){
-			for($i = 0, $len = count($capabilities); $i < $len; $i++){
-				if(substr($capabilities[$i], 0, 6) == 'TRIAL.'){
-					$secondsLeft = substr($capabilities[$i], 6);
-					break;
-				}
-			}
-		}
-
-		return ceil($secondsLeft/60/60/24);
-	}
-
-	/**
 	 * This function will encode the input string for the header based on the browser that makes the
 	 * HTTP request. MSIE has an issue with unicode filenames. All browsers do not seem to follow
 	 * the RFC specification. Firefox requires an unencoded string in the HTTP header. MSIE will
@@ -386,7 +349,7 @@
 	{
 		$result = addslashes($value);
 		if($regex) {
-			$match = preg_match_all($regex, $result, $matches);
+			$match = preg_match_all($regex, $result);
 			if(!$match) {
 				$result = $default;
 			}

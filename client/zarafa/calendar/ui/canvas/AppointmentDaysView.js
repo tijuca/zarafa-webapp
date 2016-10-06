@@ -24,12 +24,6 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	bounds : undefined,
 
 	/**
-	 * {@cfg {Number} appointmentRadius The radius which must be applied to the appointment body
-	 * to generate a nicely rounded rectangular.
-	 */
-	appointmentRadius : 0,
-
-	/**
 	 * @cfg {Number} lineHeight The textheight for the text which will be rendered
 	 */
 	lineHeight : 13,
@@ -100,8 +94,9 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeaderStartHandle: function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
+		}
 
 		var position = this.getEventHeaderPosition(event);
 		var element = {
@@ -122,8 +117,9 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeaderDueHandle : function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
+		}
 
 		var position = this.getEventHeaderPosition(event);
 		var element = {
@@ -144,8 +140,9 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 	 */
 	eventOverHeader : function(event)
 	{
-		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0)
+		if (!this.isHeaderRange() || !this.bounds || this.bounds.length === 0) {
 			return false;
+		}
 
 		var position = this.getEventHeaderPosition(event);
 
@@ -250,15 +247,11 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		var width = bound.right - bound.left - borderWidth;
 		var height = bound.bottom - bound.top - borderWidth;
 
-		// Determine the radius for the corners
-		var leftRadius = bound.firstBox ? this.appointmentRadius : 1;
-		var rightRadius = bound.lastBox ? this.appointmentRadius : 1;
-
 		// Draw the border as rounder rectangular.
 		context.save();
 		context.lineWidth = borderWidth;
 		context.strokeStyle = 'black';
-		context.roundedRect2(x, y, width, height, leftRadius, rightRadius, rightRadius, leftRadius);
+		context.rect(x, y, width, height);
 		context.stroke();
 
 		// Draghandles must be positioned in the middle of the appointment.
@@ -311,12 +304,8 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 			var width = bound.right - bound.left - borderWidth;
 			var height = bound.bottom - bound.top - borderWidth;
 
-			// Determine the radius for the corners
-			var topRadius = bound.firstBox ? this.appointmentRadius : 1;
-			var bottomRadius = bound.lastBox ? this.appointmentRadius : 1;
-
 			// Draw the border as rounded rectangular.
-			context.roundedRect2(x, y, width, height, topRadius, topRadius, bottomRadius, bottomRadius);
+			context.rect(x, y, width, height);
 			context.stroke();
 
 			if (bound.firstBox) {
@@ -391,7 +380,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		context.fillStyle = gradient;
 
 		context.lineWidth = 1;
-		context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
+		context.font = this.parentView.headerBackgroundCanvasStylingElement.getStyle('font');
 
 		// Draw text using simple wrapping.
 		var textHeight = context.drawWrappedText(this.mainRenderedText, x, y + this.lineHeight, width, this.lineHeight, maxHeight, clipX, clipY);
@@ -399,7 +388,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		// subText.
 		if ((textHeight + this.lineHeight) < maxHeight) {
 			context.lineWidth = 1;
-			context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
+			context.font = this.parentView.headerBackgroundCanvasStylingElement.getStyle('font');
 
 			// Draw text using simple wrapping.
 			context.drawWrappedText(this.subRenderedText, x, y + this.lineHeight + textHeight, width, this.lineHeight, maxHeight - textHeight);
@@ -470,7 +459,7 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
 				break;
 			default :
-				// Draw the busy status box in zarafa blue
+				// Draw the busy status box in Kopano blue
 				context.fillStyle = '#0f70bd';
 				context.fillRect(busyBoxLeft, busyBoxTop, busyBoxWidth, busyBoxHeight);
 				break;
@@ -499,10 +488,11 @@ Zarafa.calendar.ui.canvas.AppointmentDaysView = Ext.extend(Zarafa.calendar.ui.ca
 		context.save();
 
 		// Create a clip on the appointment, so the text will never be drawn outside of it
+		context.beginPath();
 		context.rect(x, 0, width - x, height);
 		context.clip();
 		context.lineWidth = 1;
-		context.setFont(this.parentView.headerBackgroundCanvasStylingElement.getStyle('font'));
+		context.font = this.parentView.headerBackgroundCanvasStylingElement.getStyle('font');
 		context.drawText(this.mainRenderedText, x, height - 8);
 
 		// Update the X position with the text we just drawn

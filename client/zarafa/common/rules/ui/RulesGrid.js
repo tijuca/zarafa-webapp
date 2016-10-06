@@ -322,7 +322,7 @@ Zarafa.common.rules.ui.RulesGrid = Ext.extend(Zarafa.common.ui.grid.GridPanel, {
 		// the current sequence number. Note that we want the rule_sequence
 		// which is closest to the current rule_sequence, hence the rule:
 		//    rule.get('rule_sequence') > record.get('rule_sequence') > swapRule.get('rule_sequence')
-		var swapRule = undefined;
+		var swapRule;
 		store.each(function(record) {
 			if (rule.get('rule_sequence') > record.get('rule_sequence')) {
 				if (!swapRule || record.get('rule_sequence') > swapRule.get('rule_sequence')) {
@@ -359,7 +359,7 @@ Zarafa.common.rules.ui.RulesGrid = Ext.extend(Zarafa.common.ui.grid.GridPanel, {
 		// the current sequence number. Note that we want the rule_sequence
 		// which is closest to the current rule_sequence, hence the rule:
 		//    rule.get('rule_sequence') < record.get('rule_sequence') < swapRule.get('rule_sequence')
-		var swapRule = undefined;
+		var swapRule;
 		store.each(function(record) {
 			if (rule.get('rule_sequence') < record.get('rule_sequence')) {
 				if (!swapRule || record.get('rule_sequence') < swapRule.get('rule_sequence')) {

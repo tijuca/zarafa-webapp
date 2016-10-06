@@ -5,8 +5,8 @@
 		<version>0.2</version>
 		<name>folderwidgets</name>
 		<title>Folder widgets</title>
-		<author>Zarafa</author>
-		<authorURL>http://www.zarafa.com</authorURL>
+		<author>Kopano</author>
+		<authorURL>http://www.kopano.com</authorURL>
 		<description>A collection of widgets which can show the contents of some of the default folders for a user.</description>
 	</info>
 	<components>

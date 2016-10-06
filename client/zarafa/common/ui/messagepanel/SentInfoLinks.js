@@ -77,7 +77,7 @@ Zarafa.common.ui.messagepanel.SentInfoLinks = Ext.extend(Ext.Container, {
 			'<span class="preview-timestamp-title">' + pgettext('mail.previewpanel', 'Sent') + ':</span>' +
 				'<tpl if="Ext.isDate(values.message_delivery_time)">' +
 					// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-					'{message_delivery_time:date("' + _('l jS F Y G:i') + '")}' +
+					'{message_delivery_time:date(_("l jS F Y G:i"))}' +
 				'</tpl>' +
 				'<tpl if="!Ext.isDate(values.message_delivery_time)">' +
 					/* # TRANSLATORS: This message is used to indicate that no sent date is available for the message (because it has not been sent yet). */
@@ -156,6 +156,11 @@ Zarafa.common.ui.messagepanel.SentInfoLinks = Ext.extend(Ext.Container, {
 				this.mun(senderElem.select('.zarafa-sentinfo-on-behalf'), 'dblclick', this.onDoubleClick, this);
 				this.senderElem.innerHTML = '';
 			} else {
+				var user = Zarafa.core.data.UserIdObjectFactory.createFromRecord(record, 'sender');
+				record.data.sender_presence_status = Zarafa.core.PresenceManager.getPresenceStatusForUser(user);
+				user = Zarafa.core.data.UserIdObjectFactory.createFromRecord(record, 'sent_representing');
+				record.data.sent_representing_presence_status = Zarafa.core.PresenceManager.getPresenceStatusForUser(user);
+
 				this.senderTemplate.overwrite(senderElem, record.data);
 				//bind click events after template has been populated
 				this.mon(senderElem.select('.zarafa-sentinfo-link'), 'contextmenu', this.onSenderContextMenu, this);
@@ -202,7 +207,7 @@ Zarafa.common.ui.messagepanel.SentInfoLinks = Ext.extend(Ext.Container, {
 	 */
 	convertSenderToRecord : function(elem)
 	{
-		var sender = undefined;
+		var sender;
 
 		//depending on whether the user clicked on sender or 'on behalf of', choose appropriate fields
 		if(Ext.get(elem).hasClass('zarafa-sentinfo-link')) {

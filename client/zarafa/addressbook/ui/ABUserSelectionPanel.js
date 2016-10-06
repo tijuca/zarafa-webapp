@@ -136,7 +136,7 @@ Zarafa.addressbook.ui.ABUserSelectionPanel = Ext.extend(Zarafa.addressbook.ui.Ad
 			this.dialog.close();
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg: _('You must select a user.'),
 				buttons: Ext.MessageBox.OK,
 				icon: Ext.MessageBox.INFO

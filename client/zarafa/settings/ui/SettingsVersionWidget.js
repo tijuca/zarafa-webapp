@@ -29,7 +29,7 @@ Zarafa.settings.ui.SettingsVersionWidget = Ext.extend(Zarafa.settings.ui.Setting
 				htmlEncode : true
 			},{
 				xtype : 'displayfield',
-				fieldLabel : _('ZCP'),
+				fieldLabel : _('Kopano Core'),
 				value : version.getZCP(),
 				htmlEncode : true
 			},{

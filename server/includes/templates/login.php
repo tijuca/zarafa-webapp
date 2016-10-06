@@ -8,8 +8,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 		<title><?php echo $webappTitle; ?></title>
-		<meta name="description" content="Zarafa WebApp is the ultimate frontend client for Zarafa server. A rich collaboration platform utilizing e-mail, calendars, webmeetings, file sharing and more.">
-		<meta name="author" content="Zarafa.com">
+		<meta name="description" content="Kopano WebApp is the ultimate frontend client for Kopano server. A rich collaboration platform utilizing e-mail, calendars, webmeetings, file sharing and more.">
+		<meta name="author" content="Kopano.io">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,7 +17,7 @@
 		<link rel="icon" href="<?php echo $favicon ?>" type="image/x-icon">
 		<link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
 
-		<link rel="stylesheet" type="text/css" href="client/resources/design2015/css/external/login.css">
+		<link rel="stylesheet" type="text/css" href="client/resources/css/external/login.css">
 
 		<?php
 			/* Add the styling of the theme */

@@ -173,14 +173,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	borderRight : undefined,
 
 	/**
-	 * The top border of the {@link #body}. This is positioned between the {@link #body}
-	 * and the {@link #tabArea}. This field is created using {@link #createDiv} during {@link #render}.
-	 * @property
-	 * @type Ext.Element
-	 */
-//	borderTop : undefined,
-
-	/**
 	 * The bottom border of the {@link #body}.
 	 * This field is created using {@link #createDiv} during {@link #render}.
 	 * @property
@@ -1192,8 +1184,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	onTextEntered : function(view, text)
 	{
 		// Don't fire event on empty text
-		if (Ext.isEmpty(text.trim()))
+		if (Ext.isEmpty(text.trim())) {
 			return;
+		}
 
 		this.fireEvent('appointmentcreate', this, view.getDateRange(), text);
 	},
@@ -1208,18 +1201,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		var colorScheme = this.contextModel.getColorScheme(selectedFolder.get('entryid'));
 		if (this.parentView.showBorder) {
 			var borderWidth = this.getBorderWidth();
-
-/*
-			// border div in the tab area
-			this.borderTop.dom.className = this.getClassName('border', 'top');
-			this.borderTop.setLeftTop(this.leftOffset, this.parentView.tab.getHeight() - borderWidth);
-			this.borderTop.setSize(this.width, borderWidth);
-			this.borderTop.applyStyles({
-				'background-color' : colorScheme.header,
-				'border-color' : colorScheme.header
-			});
-			this.borderTop.show();
-*/
 
 			// border divs in the header area
 			var headerHeight = this.parentView.getHeaderAreaHeight();
@@ -1273,7 +1254,6 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			});
 			this.borderBottom.show();
 		} else {
-//			this.borderTop.hide();
 			this.headerBorderLeft.hide();
 			this.headerBorderRight.hide();
 			this.borderLeft.hide();
@@ -1415,10 +1395,11 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 		this.tabArea.setLeftTop(this.leftOffset, 0);
 		this.tabArea.setSize(this.width, this.parentView.getTabAreaHeight());
 
-		if (this.parentView.showBorder)
+		if (this.parentView.showBorder) {
 			this.tabArea.show();
-		else
+		} else {
 			this.tabArea.hide();
+		}
 
 		// Determine the color scheme of the appointments
 		for (var i=0, appointment; appointment=this.appointments[i]; i++) {
@@ -1470,8 +1451,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 
 		// Create an appointment for each record.
 		Ext.each(records, function(record) {
-			if (this.containsFolderId(record.get('parent_entryid')) && record.isValid())
+			if (this.containsFolderId(record.get('parent_entryid')) && record.isValid()) {
 				this.addAppointment(record, false);
+			}
 		}, this);
 	},
 
@@ -1625,8 +1607,9 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 	onRangeSelectionChange : function(selectionModel, dateRange, calendarView, active)
 	{
 		// Make sure the selection view has been created.
-		if (!this.selectionView)
+		if (!this.selectionView) {
 			return;
+		}
 
 		// If the text edit view is still visible, hide it.
 		if (this.textEditView.isVisible()) {
@@ -1776,10 +1759,11 @@ Zarafa.calendar.ui.AbstractCalendarView = Ext.extend(Zarafa.core.ui.View, {
 			var record = appointment.getRecord();
 
 			if (event.ctrlKey) {
-				if (this.selectionModel.isSelected(record))
+				if (this.selectionModel.isSelected(record)) {
 					this.selectionModel.deselectRecord(record);
-				else
+				} else {
 					this.selectionModel.selectRecord(record, true);
+				}
 			} else {
 				this.selectionModel.selectRecord(record, false);
 			}

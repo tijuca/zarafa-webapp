@@ -570,7 +570,8 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	setFolders : function(folders)
 	{
 		var saveState = true;
-		if (this.folders == folders) {
+		// Skip saving state when initial folders are set
+		if (this.folders == folders || this.folders === undefined) {
 			saveState = false;
 		}
 
@@ -663,7 +664,7 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	getFolder : function(id)
 	{
-		var ret = undefined;
+		var ret;
 		Ext.each(this.getFolders(), function(folder) {
 			if (Zarafa.core.EntryId.compareEntryIds(folder.get('entryid'), id)) {
 				ret = folder;
@@ -1169,11 +1170,11 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 *
 	 * @param {Zarafa.core.ContextModel} contextModel the contextModel which states needs to be saved.
 	 * @param {Array} folders the folders which are changed.
-	 * @param {Mixed} save determines if state should be saved.
+	 * @param {Boolean} save determines if state should be saved.
 	 */
 	saveFolderChangeState : function(contextModel, folders, save)
 	{
-		if (save != false) {
+		if (save !== false) {
 			this.saveState();
 		}
 	},

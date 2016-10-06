@@ -9,14 +9,13 @@
 	<property name="outputfile" value="${basedir}/tools.jar"/>
 
 	<!-- Meta target -->
-	<target name="all" depends="jsconcat, ext-doc, package"/>
+	<target name="all" depends="jsconcat, package"/>
 	
 	<!-- Clean -->
 	<target name="clean">
 		<delete file="${outputfile}"/>
 		<delete dir="${outputdir}"/>
 		<build-tool name="jsconcat" target="clean"/>
-		<build-tool name="ext-doc" target="clean"/>
 	</target>
 
 	<!-- Creates required output dirs -->
@@ -25,20 +24,11 @@
 	<!-- JsConcat build target -->
 	<target name="jsconcat" depends="init"><build-tool name="jsconcat" target="all"/></target>
 	
-	<!-- Ext-Doc build target -->
-	<target name="ext-doc" depends="init"><build-tool name="ext-doc" target="all"/></target>
-	
 	<!-- Packages all the tools and required libs together into a single jar file. -->
 	<target name="package">
 		<jar destfile="${outputfile}">
 			<!-- Custom build tools -->
 			<zipfileset src="build/jsconcat.jar" excludes="META-INF/*"/>
-			<zipfileset src="build/ext-doc.jar" excludes="META-INF/*"/>
-
-			<!-- Needed by ext-doc -->
-			<zipfileset src="lib/commons-cli-1.1.jar" excludes="META-INF/*"/>
-			<zipfileset src="lib/jaxb-impl.jar" excludes="META-INF/*"/>
-			<zipfileset src="lib/jaxb-xjc.jar" excludes="META-INF/*"/>
 		</jar>
 	</target>
 

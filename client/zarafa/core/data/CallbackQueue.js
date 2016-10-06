@@ -146,8 +146,8 @@ Zarafa.core.data.CallbackQueue = Ext.extend(Ext.util.Observable, {
 	{
 		this.running = true;
 		this.currentTask = 0;
-		this.completionFn = fn,
-		this.completionScope = scope,
+		this.completionFn = fn;
+		this.completionScope = scope;
 
 		this.fireEvent('startqueue', this);
 

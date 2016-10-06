@@ -398,6 +398,7 @@ Zarafa.task.dialogs.TaskGeneralTab = Ext.extend(Ext.form.FormPanel, {
 				break;
 
 			case Zarafa.core.mapi.TaskMode.NOTHING:
+			/* falls through */
 			default:
 				this.recipientPanel.setVisible(false);
 				this.taskRequestSettingPanel.setVisible(false);

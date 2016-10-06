@@ -69,7 +69,7 @@ Zarafa.core.Request = Ext.extend(Ext.util.Observable, (function() {
 	 * @type Object
 	 * @private
 	 */
-	var zarafaTag = undefined;
+	var zarafaTag;
 
 	/**
 	 * The flag to indicate if zarafaTag holds JSON data.
@@ -127,15 +127,15 @@ Zarafa.core.Request = Ext.extend(Ext.util.Observable, (function() {
 	 * @type String
 	 * @private
 	 */
-	var subSystemId = undefined;
+	var subSystemId;
 
 	return {
 		// public variables
 		/**
 		 * @cfg {String} defaultUrl
-		 * The url used to send the requests to. defaults to zarafa.php.
+		 * The url used to send the requests to. defaults to kopano.php.
 		 */
-		defaultUrl : 'zarafa.php',
+		defaultUrl : 'kopano.php',
 
 		/**
 		 * @cfg {Object} defaultHeaders

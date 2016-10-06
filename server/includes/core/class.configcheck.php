@@ -8,7 +8,7 @@ class ConfigCheck
 {
 	public $result;
 
-	function ConfigCheck($haltOnError = true)
+	function __construct($haltOnError = true)
 	{
 		$this->haltOnError = $haltOnError;
 
@@ -17,14 +17,14 @@ class ConfigCheck
 		// here we check our settings, changes to the config and
 		// additonal checks must be added/changed here
 		$this->checkPHP("5.1", "You must upgrade PHP");
-		$this->checkExtension("mapi", "7.0.0-27530", "If you have upgraded zarafa, please restart Apache");
+		$this->checkExtension("mapi", "7.0.0-27530", "If you have upgraded Kopano Core, please restart Apache");
 		$this->checkExtension("gettext", null, "Install the gettext extension for PHP");
 		$this->checkPHPsetting("register_globals", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("magic_quotes_gpc", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("magic_quotes_runtime", "off", "Modify this setting in '%s'");
 		$this->checkPHPsetting("session.auto_start", "off", "Modify this setting in '%s'");
-		$this->checkPHPsetting("output_handler", "", "With this option set, it is unsure if the webaccess will work correctly");
-		$this->checkPHPsetting("zlib.output_handler", "", "With this option set, it is unsure if the webaccess will work correctly");
+		$this->checkPHPsetting("output_handler", "", "With this option set, it is unsure if the Kopano WebApp will work correctly");
+		$this->checkPHPsetting("zlib.output_handler", "", "With this option set, it is unsure if the Kopano WebApp will work correctly");
 		$this->checkPHPsetting("zlib.output_compression", "off", "With this option set, it could occure that XMLHTTP-requests will fail");
 
 		if (CONFIG_CHECK_COOKIES_HTTP && version_compare(phpversion(), "5.2") > -1) {
@@ -40,10 +40,10 @@ class ConfigCheck
 		$this->checkJSON("Your PHP version contains the encoding bug: <a href=\"https://bugs.php.net/bug.php?id=40360\">https://bugs.php.net/bug.php?id=40360</a>, please upgrade to the latest PHP version of your distribution");
 		$this->checkLoader(DEBUG_LOADER, "Your 'DEBUG_LOADER' configuration isn't valid for the current folder");
 
-		// check if there were *any* errors and we need to stop the webaccess
+		// check if there were *any* errors and we need to stop the WebApp
 		if (!$this->result && $this->haltOnError){
 			?>
-				<p style="font-weight: bold;">Zarafa WebApp can't start because of incompatible configuration.</p>
+				<p style="font-weight: bold;">Kopano WebApp can't start because of incompatible configuration.</p>
 				<p>Please correct above errors, a good start is by checking your '<tt><?php echo $this->get_php_ini(); ?></tt>' file.</p>
 				<p>You can disable this configuration check by editing the file '<tt><?php echo dirname($_SERVER["SCRIPT_FILENAME"]) ?>/config.php</tt>', but this is not recommended.</p>
 			<?php
@@ -119,7 +119,7 @@ class ConfigCheck
 		}
 
 		// This is not 100% accurate, so it needs to be improved a bit.
-		$result = "sites-enabled" . DIRECTORY_SEPARATOR . "zarafa-webapp";
+		$result = "sites-enabled" . DIRECTORY_SEPARATOR . "kopano-webapp";
 
 		ob_start();
 		phpinfo(INFO_MODULES);
@@ -331,7 +331,7 @@ class ConfigCheck
 
 		switch ($loader) {
 		case LOAD_RELEASE:
-			if (!is_file(BASE_PATH . '/client/zarafa.js')) {
+			if (!is_file(BASE_PATH . '/client/kopano.js')) {
 				$this->error('<strong>LOAD_RELEASE configured, but no release files found</strong>', $help_msg);
 				$result = false;
 			} else if (is_dir(BASE_PATH . '/client/zarafa')) {
@@ -352,7 +352,7 @@ class ConfigCheck
 			if (!is_dir(BASE_PATH . '/client/zarafa')) {
 				$this->error('<strong>LOAD_SOURCE configured, but no source files found</strong>', $help_msg);
 				$result = false;
-			} else if (is_file(BASE_PATH . '/client/zarafa.js') || is_file(BASE_PATH . '/client/zarafa-debug.js')) {
+			} else if (is_file(BASE_PATH . '/client/kopano.js') || is_file(BASE_PATH . '/client/zarafa-debug.js')) {
 				$this->error('<strong>LOAD_SOURCE configured, but release & debug file were found</strong>', $help_msg);
 				$result = false;
 			}

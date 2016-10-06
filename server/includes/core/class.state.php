@@ -29,37 +29,37 @@ class State {
 	/**
 	 * The file pointer of the state file
 	 */
-	var $fp = false;
+	private $fp = false;
 
 	/**
 	 * The basedir in which the statefiles are found
 	 */
-	var $basedir;
+	private $basedir;
 
 	/**
 	 * The filename which is opened by this state file
 	 */
-	var $filename;
+	private $filename;
 
 	/**
 	 * The directory in which the session files are created
 	 */
-	var $sessiondir = "session";
+	private $sessiondir = "session";
 
 	/**
 	 * The unserialized data as it has been read from the file
 	 */
-	var $sessioncache;
+	public $sessioncache;
 
 	/**
 	 * The raw data as it has been read from the file
 	 */
-	var $contents;
+	public $contents;
 
 	/**
 	 * @param string $subsystem Name of the subsystem
 	 */
-	function State($subsystem) {
+	function __construct($subsystem) {
 		$this->basedir = TMP_PATH . DIRECTORY_SEPARATOR . $this->sessiondir;
 		$this->filename = $this->basedir . DIRECTORY_SEPARATOR . session_id() . "." . $subsystem;
 	}
@@ -115,8 +115,6 @@ class State {
 	function write($name, $object, $flush = true)
 	{
 		if($this->fp !== false) {
-			$contents = "";
-
 			// If the file has already been read, then we don't
 			// need to read the entire file again.
 			if ($this->sessioncache === false) {

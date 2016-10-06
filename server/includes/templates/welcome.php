@@ -29,7 +29,7 @@ $serverConfig = array(
 <html>
 
 	<head>
-		<meta name="Generator" content="Zarafa WebApp v<?php echo $version?>">
+		<meta name="Generator" content="Kopano WebApp v<?php echo $version?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title><?php echo $webappTitle; ?></title>
@@ -37,7 +37,7 @@ $serverConfig = array(
 		<link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
 		
 		<!-- load the login css first as we need it immediately! -->
-		<link rel="stylesheet" href="client/resources/design2015/css/external/login.css" >
+		<link rel="stylesheet" href="client/resources/css/external/login.css" >
 		
 		<script type="text/javascript">
 			navigator.sayswho = (function(){
@@ -144,7 +144,7 @@ $serverConfig = array(
 		</script>
 
 		<!-- Translations -->
-		<script type="text/javascript" src="index.php?version=<?php echo $version?>&load=translations.js&lang=<?php echo $GLOBALS["language"]->getSelected()?>"></script>
+		<script type="text/javascript" src="index.php?version=<?php echo $version?>&load=translations.js&lang=<?php echo $Language->getSelected()?>"></script>
 
 		<!-- ExtJS & Thirdparty extensions-->
 		<?php
@@ -166,7 +166,7 @@ $serverConfig = array(
 
 		<script type="text/javascript">
 			settings 		= <?php echo json_encode($GLOBALS["settings"]->getJSON()); ?>;
-			languages 		= <?php echo json_encode($GLOBALS["language"]->getJSON()); ?>;
+			languages 		= <?php echo json_encode($Language->getJSON()); ?>;
 			user 			= <?php echo json_encode($GLOBALS['mapisession']->getUserInfo()); ?>;
 			version 		= <?php echo json_encode($versionInfo); ?>;
 			serverconfig 	= <?php echo json_encode($serverConfig); ?>;

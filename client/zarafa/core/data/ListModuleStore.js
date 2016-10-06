@@ -711,7 +711,7 @@ myStore.reload(lastOptions);
 	loadRecords : function(data, options, success, metaData)
 	{
 		if(success !== false) {
-			var restriction = undefined;
+			var restriction;
 			if (Ext.isDefined(options.params) && Ext.isDefined(options.params.restriction)) {
 				restriction = options.params.restriction;
 			}

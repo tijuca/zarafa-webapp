@@ -82,6 +82,7 @@ Zarafa.note.dialogs.NoteEditPanel = Ext.extend(Ext.FormPanel, {
 				textAreaCSSClass = "stickynote_dialog_pink";
 				break;
 			case Zarafa.core.mapi.IconIndex['note_yellow']:
+			/* falls through */
 			default:
 				textAreaCSSClass = "stickynote_dialog_yellow";
 				break;

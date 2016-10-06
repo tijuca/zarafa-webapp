@@ -167,12 +167,15 @@ Ext.apply(Date.prototype, {
 			case Date.HOUR:
 				// Convert value to minutes
 				value *= 60;
+				/* falls through */
 			case Date.MINUTE:
 				// Convert value to seconds
 				value *= 60;
+				/* falls through */
 			case Date.SECOND:
 				// Convert value to milliseconds
 				value *= 1000;
+				/* falls through */
 			case Date.MILLI:
 				d = new Date(d.getTime() + value);
 				break;
@@ -281,10 +284,10 @@ Ext.apply(Date.prototype, {
 		currentDate = currentDate || new Date();
 		var nextDate = currentDate.getNextWeekDay();
 		var workingDaysList = container.getSettingsModel().get('zarafa/v1/main/working_days');
-		if(!(workingDaysList.indexOf(nextDate.getDay()) > -1 )) {
-			return this.getNextWorkWeekDay(nextDate);
-		} else {
+		if (workingDaysList.indexOf(nextDate.getDay()) !== -1 ) {
 			return nextDate;
+		} else {
+			return this.getNextWorkWeekDay(nextDate);
 		}
 	},
 
@@ -548,13 +551,18 @@ Ext.apply(Date, {
 				// sure a day lasts 24 hour when DST is in play.
 				difference -= Date.getDSTDiff(a, b);
 				difference /= 24;
+				/* falls through */
 			case Date.HOUR:
 				difference /= 60;
+				/* falls through */
 			case Date.MINUTE:
 				difference /= 60;
+				/* falls through */
 			case Date.SECOND:
 				difference /= 1000;
+				/* falls through */
 			case Date.MILLI:
+				/* falls through */
 			default:
 				break;
 		}

@@ -8,7 +8,7 @@ Ext.namespace('Zarafa');
  */
 Ext.apply(Zarafa, {
 	/**
-	 * Ready flag which indicates that Zarafa has been loaded.
+	 * Ready flag which indicates that Webapp has been loaded.
 	 * (See {@link #onReady}).
 	 * @property
 	 * @type Boolean
@@ -18,7 +18,7 @@ Ext.apply(Zarafa, {
 	/**
 	 * Registration object for {@link #onReady} onto which all event
 	 * handlers are being registered which want to be notified when
-	 * Zarafa has been intialized and ready for plugin interaction.
+	 * WebApp has been intialized and ready for plugin interaction.
 	 *
 	 * @property
 	 * @type Ext.util.Event
@@ -37,8 +37,8 @@ Ext.apply(Zarafa, {
 	idleTime : 0,
 
 	/**
-	 * Adds a listener to be notified when Zarafa is ready. This will be somewhere during {@link Ext.onReady}, when
-	 * Zarafa has initialized the bare essentials. When the event is fired, the {@link Zarafa.core.Container} will
+	 * Adds a listener to be notified when WebApp is ready. This will be somewhere during {@link Ext.onReady}, when
+	 * WebApp has initialized the bare essentials. When the event is fired, the {@link Zarafa.core.Container} will
 	 * be available, and plugins are allowed to register.
 	 *
 	 * @param {Function} fn The method the event invokes.
@@ -59,7 +59,7 @@ Ext.apply(Zarafa, {
 	},
 
 	/**
-	 * Called when {@link Ext.onReady} has been invoked, and Zarafa has been initialized.
+	 * Called when {@link Ext.onReady} has been invoked, and WebApp has been initialized.
 	 * All handlers registered through {@link #onReady} will now be fired and {@link #isReady}
 	 * will be set.
 	 *
@@ -90,15 +90,21 @@ Ext.apply(Zarafa, {
 		//show confirm dialog before user leave the page.
 		Zarafa.core.Util.enableLeaveRequester();
 
-		// When the browser is unloading, all active requests will be aborted.
+		// When the browser is unloading, all active requests will be aborted and
+		// If more than one browser windows are open then close all browser windows.
 		window.onunload = function () {
+			if(Zarafa.core.BrowserWindowMgr.browserWindows.length > 1){
+				Zarafa.core.BrowserWindowMgr.closeAllBrowserWindow();
+			}
 			container.getRequest().paralyze(Zarafa.core.data.ParalyzeReason.BROWSER_RELOADING);
 		};
 
 		// Create global container object
+		/*jshint -W020 */ /* Ignore global read-only warning. */
 		container = new Zarafa.core.Container();
 
 		// Load all settings
+		/*jshint -W051 */ /* Ignore variables should not be deleted warning. */
 		container.getSettingsModel().initialize(settings);
 		delete settings;
 
@@ -244,6 +250,7 @@ Ext.apply(Zarafa, {
 
 		switch (reason) {
 			case Zarafa.core.data.ParalyzeReason.BROWSER_RELOADING:
+			/* falls through */
 			default:
 				// No message for the user needed.
 				return;
@@ -264,7 +271,7 @@ Ext.apply(Zarafa, {
 			this.setErrorLoadingMask(_('Error'), message);
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : message + '<br>' +  _('Do you wish to be redirected to the logon page?'),
 				icon : Ext.MessageBox.ERROR,
 				buttons : Ext.MessageBox.YESNO,
@@ -610,6 +617,7 @@ Ext.apply(Zarafa, {
 
 			// Process data that was passed as URL data
 			Zarafa.core.URLActionMgr.execute(urlActionData);
+			/*jshint -W051 */
 			delete urlActionData;
 
 			// Start the keepalive to make sure we stay logged into the zarafa-server,
@@ -649,7 +657,7 @@ Ext.apply(Zarafa, {
 
 			// Register if required
 			if (register) {
-				navigator.registerProtocolHandler('mailto', url, 'Zarafa WebApp');
+				navigator.registerProtocolHandler('mailto', url, 'Kopano WebApp');
 			}
 		}
 	},
@@ -687,7 +695,6 @@ Ext.apply(Zarafa, {
 
 		// Load the folder hierarchy
 		hierarchyStore.load();
-
 		// When a client timeout has been defined, we will start keeping track
 		// of idle time.
 		var server = container.getServerConfig();
@@ -696,7 +703,7 @@ Ext.apply(Zarafa, {
 			this.startIdleTimeChecker(clientTimeout);
 		}
 	},
-	
+
 	/**
 	 * Starts the checking of idle time.
 	 * This function uses original javascript events because we cannot set 
@@ -794,36 +801,26 @@ Ext.apply(Zarafa, {
 	{
 		var oof = false;
 		
-		// Check if we are using ZCP < 7.2.1. If so, we must use the old oof behavior
-		// where don't have a time span but only in or out.
-		var versionObject = container.getVersion();
-		var zcpVersion = versionObject.getZCP();
-		var useOldOofVersion = versionObject.versionCompare(zcpVersion, '7.2.1') === -1;
-
 		if (container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/set') === true) {
-			if ( useOldOofVersion ){
-				oof = true;
-			} else {
-				var oofFrom = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/from');
-				var oofUntil = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/until');
-				var date = new Date().getTime()/1000;
+			var oofFrom = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/from');
+			var oofUntil = container.getSettingsModel().get('zarafa/v1/contexts/mail/outofoffice/until');
+			var date = new Date().getTime()/1000;
 
-				// Check if current date fall within the time span of OOF start-date and end-date, if configured.
-				if (oofFrom <= date) {
-					// Check if end-date is configured, no need to check otherwise
-					if(oofUntil === 0 || oofUntil > date) {
-						oof = true;
-					} else {
-						// Current date falls out of the configured time span, so disable the OOF
-						container.getSettingsModel().set('zarafa/v1/contexts/mail/outofoffice/set', false);
-					}
+			// Check if current date fall within the time span of OOF start-date and end-date, if configured.
+			if (oofFrom <= date) {
+				// Check if end-date is configured, no need to check otherwise
+				if(oofUntil === 0 || oofUntil > date) {
+					oof = true;
+				} else {
+					// Current date falls out of the configured time span, so disable the OOF
+					container.getSettingsModel().set('zarafa/v1/contexts/mail/outofoffice/set', false);
 				}
 			}
 		}
 
-		if ( oof ){
+		if ( oof ) {
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
+				_('Kopano WebApp'),
 				_('Out of Office currently on. Would you like to turn it off?'),
 				this.onOofConfirm,
 				this
@@ -872,44 +869,6 @@ Ext.apply(Zarafa, {
 	//
 
 	/**
-	 * Determine if the browser is a modern browser which is capable of working with FormData instances,
-	 * and has support for the Files JS API. All modern browsers have support for this, unfortunately
-	 * WebApp also has to support some broken browsers as Internet Explorer 9.
-	 * @return {Boolean} True if Files API is supported
-	 */
-	supportsFilesAPI : function()
-	{
-		if (!container.getSettingsModel().get('zarafa/v1/main/use_files_api')) {
-			return false;
-		}
-
-		return Ext.isDefined(window.File) && Ext.isDefined(window.FileList);
-	},
-
-	/**
-	 * Determine if Canvas rendering is supported. Support is based on two different factors,
-	 * first the canvas rendering can be disabled using a configuration option, secondly
-	 * the browser might be limited in its support for canvas.
-	 *
-	 * @return {Boolean} True if canvas rendering is supported
-	 */
-	supportsCanvas : function()
-	{
-		if (!container.getSettingsModel().get('zarafa/v1/main/use_canvas_rendering')) {
-			return false;
-		}
-
-		// Small performance tweak, we don't expect the canvas support in a browser
-		// to be changed dynamically. So we only need to check the document.createElement
-		// call once.
-		if (!Ext.isDefined(this.browserSupportsCanvas)) {
-			this.browserSupportsCanvas = !!document.createElement('canvas').getContext;
-		}
-
-		return this.browserSupportsCanvas;
-	},
-
-	/**
 	 * This will resize a canvas {@link Ext.Element element}.
 	 * Canvas resizing is more tricky then one would expect. For canvas 2 settings are
 	 * important: the CSS and attribute dimensions.
@@ -954,5 +913,17 @@ Ext.apply(Zarafa, {
 		}
 
 		return text;
+	},
+
+	/**
+	 * Determine if separate window popout is supported.
+	 * Support is based on browser's ability to render any element into another browser window.
+	 *
+	 * @return {Boolean} True if popout is supported, false otherwise
+	 */
+	supportsPopOut : function()
+	{
+		// Currently, we do not support the popout in case of IE/Edge.
+		return (!(Ext.isIE || Ext.isEdge));
 	}
 });

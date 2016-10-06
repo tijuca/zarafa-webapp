@@ -1,15 +1,5 @@
 <?php
 /**
- * Complementary function to bin2hex() which converts a hex entryid to a binary entryid.
- * Since PHP 5.4 an internal hex2bin() implementation is available.
- */
-if (!function_exists("hex2bin")) {
-	function hex2bin($data) {
-		return pack("H*", $data);
-	}
-}
-	
-/**
  * Function to make a MAPIGUID from a php string. 
  * The C++ definition for the GUID is: 
  *  typedef struct _GUID 
@@ -246,7 +236,6 @@ function getCalendarItems($store, $calendar, $viewstart, $viewend, $propsrequest
 	// Get requested properties, plus whatever we need
 	$proplist = array(PR_ENTRYID, $properties["recurring"], $properties["recurring_data"], $properties["timezone_data"]);
 	$proplist = array_merge($proplist, $propsrequested);
-	$propslist = array_unique($proplist);
 	
 	$rows = mapi_table_queryallrows($table, $proplist, $restriction);
 	

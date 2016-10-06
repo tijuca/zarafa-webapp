@@ -25,11 +25,11 @@
 	<property name="ux-all-debugfile" value="ux-all-debug.js"/>
 	<property name="ux-all-file" value="ux-all.js"/>
 
-    <!-- The TinyMCE distribution files -->
-    <property name="tinymce-folder" value="tinymce"/>
+    	<!-- The TinyMCE distribution files -->
+    	<property name="tinymce-folder" value="tinymce"/>
 
-    <!-- The TinyMCE external plugins files -->
-    <property name="tinymce-plugins-folder" value="tinymce-plugins"/>
+    	<!-- The TinyMCE external plugins files -->
+    	<property name="tinymce-plugins-folder" value="tinymce-plugins"/>
 
 	<!-- The Ext-Mod distribution files -->
 	<property name="extjs-mod-folder" value="extjs-mod"/>
@@ -50,24 +50,21 @@
 	<property name="thirdparty-css-folder" value="${thirdparty-folder}/resources/css"/>
 	<property name="thirdparty-css-file" value="ux-thirdparty.css"/>
 
-	<!-- The Zarafa distribution files -->
-	<property name="zarafa-folder" value=""/>
-	<property name="zarafa-debugfile" value="zarafa-debug.js"/>
-	<property name="zarafa-file" value="zarafa.js"/>
+	<!-- The Kopano distribution files -->
+	<property name="kopano-folder" value=""/>
+	<property name="kopano-debugfile" value="kopano-debug.js"/>
+	<property name="kopano-file" value="kopano.js"/>
 
-	<!-- The Zarafa CSS files -->
-	<property name="zarafa-css-folder" value="resources/css"/>
-	<property name="zarafa-css-file" value="zarafa.css"/>
-	<property name="zarafa-design2015-css-folder" value="resources/design2015/css"/>
-	<property name="zarafa-design2015-css-file" value="design2015.css"/>
+	<!-- The Kopano CSS files -->
+	<property name="kopano-css-folder" value="resources/css"/>
+	<property name="kopano-css-file" value="kopano.css"/>
 	
-	<!-- The Zarafa images -->
-	<property name="zarafa-images-folder" value="resources/images"/>
-	<property name="zarafa-design2015-images-folder" value="resources/design2015/images"/>
+	<!-- The Kopano images -->
+	<property name="kopano-images-folder" value="resources/images"/>
 
-	<!-- The Zarafa themes -->
-	<property name="zarafa-themes-folder" value="zarafa/core/themes"/>
-	<property name="zarafa-themes-target-folder" value="themes"/>
+	<!-- The Kopano themes -->
+	<property name="kopano-themes-folder" value="zarafa/core/themes"/>
+	<property name="kopano-themes-target-folder" value="themes"/>
 
 	<!-- Meta target -->
 	<target name="all" depends="prepare, concat, compress"/>
@@ -115,15 +112,15 @@
 				<include name="${thirdparty-file}"/>
 				<include name="${thirdparty-debugfile}"/>
 			</fileset>
-			<!-- Delete the Zarafa files -->
-			<fileset dir="${target-folder}/${zarafa-folder}">
-				<include name="${zarafa-file}"/>
-				<include name="${zarafa-debugfile}"/>
+			<!-- Delete the Kopano files -->
+			<fileset dir="${target-folder}/${kopano-folder}">
+				<include name="${kopano-file}"/>
+				<include name="${kopano-debugfile}"/>
 			</fileset>
 		</delete>
 		
-		<!-- Delete the Zarafa themes -->
-		<delete dir="${target-folder}/${zarafa-themes-target-folder}"/>
+		<!-- Delete the Kopano themes -->
+		<delete dir="${target-folder}/${kopano-themes-target-folder}"/>
 	</target>
 
 	<!-- Prepare build, copy ExtJs files to target folder -->
@@ -187,9 +184,9 @@
 		</zConcat>
 
 		<!-- Concatenate zarafa file -->
-		<mkdir dir="${target-folder}/${zarafa-folder}"/>
-		<echo message="Concatenating: ${zarafa-debugfile}"/>
-		<zConcat outputFolder="${target-folder}/${zarafa-folder}" outputFile="${zarafa-debugfile}" prioritize="\w+, Zarafa.core.*, Zarafa.common.*, Zarafa.*">
+		<mkdir dir="${target-folder}/${kopano-folder}"/>
+		<echo message="Concatenating: ${kopano-debugfile}"/>
+		<zConcat outputFolder="${target-folder}/${kopano-folder}" outputFile="${kopano-debugfile}" prioritize="\w+, Zarafa.core.*, Zarafa.common.*, Zarafa.*">
 			<concatfiles>
 				<fileset dir="zarafa" includes="**/*.js" />
 			</concatfiles>
@@ -197,34 +194,33 @@
 		
 		<!-- Compile SASS files -->
 		<!-- FIXME: throw error when compass is not found
-		<echo message="Compiling: ${zarafa-design2015-css-file}"/>
+		<echo message="Compiling: ${kopano-css-folder}"/>
 		<exec executable="compass" failonerror="true" logError="true">
 			<arg value="compile" />
 			<arg value="-\-boring" />
 			<arg value="-c" />
-			<arg value="${zarafa-design2015-css-folder}/../config.rb" />
-			<arg value="${zarafa-design2015-css-folder}/../"/>
+			<arg value="${kopano-css-folder}/../config.rb" />
+			<arg value="${kopano-css-folder}/../"/>
 		</exec>
 		-->
 
 		<!-- Concatenate zarafa CSS files -->
-		<mkdir dir="${target-folder}/${zarafa-css-folder}"/>
-		<echo message="Concatenating: ${zarafa-css-file}"/>
-		<zConcat outputFolder="${target-folder}/${zarafa-css-folder}" outputFile="${zarafa-css-file}">
+		<mkdir dir="${target-folder}/${kopano-css-folder}"/>
+		<echo message="Concatenating: ${kopano-css-file}"/>
+		<zConcat outputFolder="${target-folder}/${kopano-css-folder}" outputFile="${kopano-css-file}">
 			<concatfiles>
-				<!--<fileset dir="${zarafa-css-folder}" includes="**/*.css" />-->
-				<fileset dir="${zarafa-design2015-css-folder}" includes="**/*.css" excludes="external/**/*.css" />
+				<fileset dir="${kopano-css-folder}" includes="**/*.css" excludes="external/**/*.css" />
 			</concatfiles>
 		</zConcat>
 	</target>
 
 	<!-- Preformat the Concatenated Javascript files to improve compilation -->
 	<target name="preformat" depends="concat">
-		<echo message="Preformatting: ${zarafa-debugfile}"/>
+		<echo message="Preformatting: ${kopano-debugfile}"/>
 		<replaceregexp byline="true">
 			<regexp pattern="(^[ ,\t]*\*[ ,\t]@.*)\{(.*)\[\]\}"/>
 			<substitution expression="\1{\2\|Array}"/>
-			<fileset dir="${target-folder}/${zarafa-folder}" includes="${zarafa-debugfile}"/>
+			<fileset dir="${target-folder}/${kopano-folder}" includes="${kopano-debugfile}"/>
 		</replaceregexp>
 	</target>
 
@@ -235,7 +231,7 @@
 			<externs>
 				var Ext = {};
 				<!-- Zarafa is added as runtime dependency only,
-				     extjs-mod is not allowed to have a #dependsFile for Zarafa files
+				     extjs-mod is not allowed to have a #dependsFile for Kopano files
 				     but within functions it is allowed to call Zarafa
 				-->
 				var Zarafa = {};
@@ -267,8 +263,8 @@
 			</externs>
 		</zCompile>
 
-		<echo message="Compiling: ${zarafa-file}" />
-		<zCompile inputFolder="${target-folder}/${zarafa-folder}" inputFile="${zarafa-debugfile}" outputFolder="${target-folder}/${zarafa-folder}" outputFile="${zarafa-file}">
+		<echo message="Compiling: ${kopano-file}" />
+		<zCompile inputFolder="${target-folder}/${kopano-folder}" inputFile="${kopano-debugfile}" outputFolder="${target-folder}/${kopano-folder}" outputFile="${kopano-file}">
 			<externs>
 				var FormData = {};
 				var Ext = {};
@@ -318,47 +314,32 @@
 				<!-- CSS is generated during build -->
 				<exclude name="resources/css/*.*"/>
 				<exclude name="third-party/resources/css/*.*"/>
-
-				<!-- exclude new design images and scss -->
-				<include name="resources/design2015/css/external/*.css" />
-				<exclude name="resources/design2015/**/*" />
 			</fileset>
 		</copy>
 		
 		<!-- copy files -->
 		<copy todir="${target-folder}">
 			<fileset dir=".">
-				<include name="resources/design2015/css/external/*.css" />
-				<include name="resources/design2015/images/*" />
+				<include name="resources/css/external/*.css" />
+				<include name="resources/images/*" />
 			</fileset>
 		</copy>
 		
 		<!-- Copy the images of the new design to the images folder -->
-		<echo message="Copying ${zarafa-design2015-images-folder}"/>
-		<copy todir="${target-folder}/${zarafa-images-folder}">
-			<fileset dir="${zarafa-design2015-images-folder}">
+		<echo message="Copying ${kopano-images-folder}"/>
+		<copy todir="${target-folder}/${kopano-images-folder}">
+			<fileset dir="${kopano-images-folder}">
 				<include name="*.png"/>
 				<include name="*.gif"/>
 			</fileset>
 		</copy>
 		
 		<!-- Copy the themes -->
-		<echo message="Copying ${zarafa-themes-folder} to ${target-folder}/${zarafa-themes-target-folder}"/>
-		<copy todir="${target-folder}/${zarafa-themes-target-folder}" includeEmptyDirs="false">
-			<fileset dir="${zarafa-themes-folder}">
+		<echo message="Copying ${kopano-themes-folder} to ${target-folder}/${kopano-themes-target-folder}"/>
+		<copy todir="${target-folder}/${kopano-themes-target-folder}" includeEmptyDirs="false">
+			<fileset dir="${kopano-themes-folder}">
 				<exclude name="**/*.js"/>
 			</fileset>
 		</copy>
-	</target>
-
-	<!-- Generate documentation using ext-doc -->
-	<target name="doc">
-		<mkdir dir="${doc-folder}"/>
-		<java classpath="${tools-folder}/tools.jar" classname="extdoc.Main" fork="true">
-			<arg line="-o ${doc-folder}"/>
-			<arg line="-p ext-doc-project.xml"/>
-			<arg line="-t ${tools-folder}/resources/ext-doc/template/ext/template.xml"/>
-			<arg line="-c"/>
-		</java>
 	</target>
 </project>

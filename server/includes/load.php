@@ -5,7 +5,7 @@
 	// Return a nice error when we are not authenticated
 	if ( !WebAppAuthentication::isAuthenticated() ){
 		if ( WebAppAuthentication::getErrorCode() === MAPI_E_NETWORK_ERROR) {
-			// The user is not logged in because the zarafa-server could not be reached.
+			// The user is not logged in because the kopano-server could not be reached.
 			// Return a HTTP 503 error so the client can act upon this event correctly.
 			header('HTTP/1.1 503 Service unavailable');
 			header("X-Zarafa-Hresult: " . get_mapi_error_name(WebAppAuthentication::getErrorCode()));
@@ -48,6 +48,11 @@
 			$GLOBALS['PluginManager']->triggerHook("server.index.load.download_message.before");
 			include(BASE_PATH . 'server/includes/download_message.php');
 			$GLOBALS['PluginManager']->triggerHook("server.index.load.download_message.after");
+			break;
+		case "separate_window":
+			$GLOBALS['PluginManager']->triggerHook("server.index.load.separate_window.before");
+			include(BASE_PATH .'server/includes/templates/webclient_separatewindow.php');
+			$GLOBALS['PluginManager']->triggerHook("server.index.load.separate_window.after");
 			break;
 		default:
 			// The session expired, or the user is otherwise not logged on.

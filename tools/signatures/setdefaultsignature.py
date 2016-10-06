@@ -22,7 +22,7 @@ def read_settings():
     username = sys.argv[1]
 
     try:
-        s = OpenECSession(sys.argv[1], '', 'file:///var/run/zarafa')
+        s = OpenECSession(sys.argv[1], '', 'file:///var/run/kopano/server.sock')
         st = GetDefaultStore(s)
 
     except MAPIErrorNotFound as e:
@@ -44,7 +44,7 @@ def read_settings():
 
 
 def write_settings(data):
-    s = OpenECSession(sys.argv[1], '', 'file:///var/run/zarafa')
+    s = OpenECSession(sys.argv[1], '', 'file:///var/run/kopano/server.sock')
     st = GetDefaultStore(s)
 
     settings = st.OpenProperty(PR_EC_WEBACCESS_SETTINGS_JSON, IID_IStream, 0, MAPI_MODIFY | MAPI_CREATE)

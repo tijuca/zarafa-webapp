@@ -21,9 +21,7 @@
 
 	class Operations
 	{
-		function Operations()
-		{
-		}
+		function __construct(){}
 
 		/**
 		* Gets the hierarchy list of all required stores.
@@ -82,7 +80,7 @@
 
 			foreach($storelist as $store)
 			{
-				$msgstore_props = mapi_getprops($store, array(PR_ENTRYID, PR_DISPLAY_NAME, PR_IPM_SUBTREE_ENTRYID, PR_IPM_OUTBOX_ENTRYID, PR_IPM_SENTMAIL_ENTRYID, PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_PUBLIC_FOLDERS_ENTRYID, PR_IPM_FAVORITES_ENTRYID, PR_OBJECT_TYPE, PR_STORE_SUPPORT_MASK, PR_MAILBOX_OWNER_ENTRYID, PR_MAILBOX_OWNER_NAME, PR_USER_ENTRYID, PR_USER_NAME, PR_QUOTA_WARNING_THRESHOLD, PR_QUOTA_SEND_THRESHOLD, PR_QUOTA_RECEIVE_THRESHOLD, PR_MESSAGE_SIZE_EXTENDED, PR_MAPPING_SIGNATURE));
+				$msgstore_props = mapi_getprops($store, array(PR_ENTRYID, PR_DISPLAY_NAME, PR_IPM_SUBTREE_ENTRYID, PR_IPM_OUTBOX_ENTRYID, PR_IPM_SENTMAIL_ENTRYID, PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_PUBLIC_FOLDERS_ENTRYID, PR_IPM_FAVORITES_ENTRYID, PR_OBJECT_TYPE, PR_STORE_SUPPORT_MASK, PR_MAILBOX_OWNER_ENTRYID, PR_MAILBOX_OWNER_NAME, PR_USER_ENTRYID, PR_USER_NAME, PR_QUOTA_WARNING_THRESHOLD, PR_QUOTA_SEND_THRESHOLD, PR_QUOTA_RECEIVE_THRESHOLD, PR_MESSAGE_SIZE_EXTENDED, PR_MAPPING_SIGNATURE, PR_COMMON_VIEWS_ENTRYID));
 
 				$inboxProps = array();
 				$storeType = $msgstore_props[PR_MDB_PROVIDER];
@@ -115,7 +113,8 @@
 						"store_size" => round($msgstore_props[PR_MESSAGE_SIZE_EXTENDED]/1024),
 						"quota_warning" => isset($msgstore_props[PR_QUOTA_WARNING_THRESHOLD]) ? $msgstore_props[PR_QUOTA_WARNING_THRESHOLD] : 0,
 						"quota_soft" => isset($msgstore_props[PR_QUOTA_SEND_THRESHOLD]) ? $msgstore_props[PR_QUOTA_SEND_THRESHOLD] : 0,
-						"quota_hard" => isset($msgstore_props[PR_QUOTA_RECEIVE_THRESHOLD]) ? $msgstore_props[PR_QUOTA_RECEIVE_THRESHOLD] : 0
+						"quota_hard" => isset($msgstore_props[PR_QUOTA_RECEIVE_THRESHOLD]) ? $msgstore_props[PR_QUOTA_RECEIVE_THRESHOLD] : 0,
+						"common_view_entryid" => isset($msgstore_props[PR_COMMON_VIEWS_ENTRYID]) ? bin2hex($msgstore_props[PR_COMMON_VIEWS_ENTRYID]) : "",
 					)
 				);
 
@@ -277,6 +276,21 @@
 									// note that we don't care if we have access to the folder or not.
 									$storeData["props"]["shared_folder_all"] = bin2hex($subtreeFolderEntryID);
 									$this->getSubFolders($subtreeFolder, $store, $properties, $storeData);
+
+									if($storeType == ZARAFA_SERVICE_GUID) {
+										// If store type ZARAFA_SERVICE_GUID (own store) then get the
+										// IPM_COMMON_VIEWS folder and set it to folders array.
+										$storeData["favorites"] = array( "item" => array());
+										$commonViewFolderEntryid = $msgstore_props[PR_COMMON_VIEWS_ENTRYID];
+
+										$this->setDefaultFavoritesFolder($commonViewFolderEntryid, $store, $storeData);
+
+										$commonViewFolder = mapi_msgstore_openentry($store, $commonViewFolderEntryid);
+										$this->getFavoritesFolders($commonViewFolder, $storeData);
+
+										$commonViewFolderProps = mapi_getprops($commonViewFolder);
+										array_push($storeData["folders"]["item"], $this->setFolder($commonViewFolderProps));
+									}
 								} else {
 									// Recursively add all subfolders
 									$this->getSubFoldersPublic($subtreeFolder, $store, $properties, $storeData);
@@ -426,12 +440,8 @@
 			// Also request PR_DEPTH
 			$columns = array_merge($properties, array(PR_DEPTH));
 
-			// Check if mapi_table_setcolumns exists (ZCP-7.1.1 and above), if so
-			// then call mapi_table_setcolumns now, and set $columns to null.
-			if (function_exists('mapi_table_setcolumns')) {
-				mapi_table_setcolumns($hierarchyTable, $columns);
-				$columns = null;
-			}
+			mapi_table_setcolumns($hierarchyTable, $columns);
+			$columns = null;
 
 			// Load the hierarchy in small batches
 			$batchcount = 100;
@@ -470,12 +480,8 @@
 				$hierarchyTable = mapi_folder_gethierarchytable($item['folder'], MAPI_DEFERRED_ERRORS);
 				mapi_table_restrict($hierarchyTable, $restriction, TBL_BATCH);
 
-				// Check if mapi_table_setcolumns exists (ZCP-7.1.1 and above), if so
-				// then call mapi_table_setcolumns now, and set $columns to null.
-				if (function_exists('mapi_table_setcolumns')) {
-					mapi_table_setcolumns($hierarchyTable, $columns);
-					$columns = null;
-				}
+				mapi_table_setcolumns($hierarchyTable, $columns);
+				$columns = null;
 
 				// Load the hierarchy in small batches
 				$batchcount = 100;
@@ -569,12 +575,8 @@
 				$hierarchyTable = mapi_folder_gethierarchytable($item['folder'], MAPI_DEFERRED_ERRORS);
 				mapi_table_restrict($hierarchyTable, $restriction, TBL_BATCH);
 
-				// Check if mapi_table_setcolumns exists (ZCP-7.1.1 and above), if so
-				// then call mapi_table_setcolumns now, and set $columns to null.
-				if (function_exists('mapi_table_setcolumns')) {
-					mapi_table_setcolumns($hierarchyTable, $columns);
-					$columns = null;
-				}
+				mapi_table_setcolumns($hierarchyTable, $columns);
+				$columns = null;
 
 				// Load the hierarchy in small batches
 				$batchcount = 100;
@@ -655,12 +657,207 @@
 					"has_subfolder" => isset($folderProps[PR_SUBFOLDERS])? $folderProps[PR_SUBFOLDERS] : false,
 					"container_class" => isset($folderProps[PR_CONTAINER_CLASS]) ? $folderProps[PR_CONTAINER_CLASS] : "IPF.Note",
 					"access" => $folderProps[PR_ACCESS],
-					"rights" => isset($folderProps[PR_RIGHTS]) ? $folderProps[PR_RIGHTS] : ecRightsNone
+					"rights" => isset($folderProps[PR_RIGHTS]) ? $folderProps[PR_RIGHTS] : ecRightsNone,
+					"assoc_content_count" => isset($folderProps[PR_ASSOC_CONTENT_COUNT]) ? $folderProps[PR_ASSOC_CONTENT_COUNT] : 0
 				)
 			);
 
 			$this->setExtendedFolderFlags($folderProps, $props);
 
+			return $props;
+		}
+
+		/**
+		 * Function is used to retrieve favorites link messages from associated contains table of
+		 * IPM_COMMON_VIEWS folder.
+		 *
+		 * @access private
+		 * @param Object $commonViewFolder MAPI Folder Object in which the favorites link messages lives
+		 * @param array $storeData Reference to an array. The favorites folder properties are added to this array.
+		 */
+		function getFavoritesFolders($commonViewFolder, &$storeData)
+		{
+			$table = mapi_folder_getcontentstable($commonViewFolder, MAPI_ASSOCIATED);
+
+			$restriction = array(RES_PROPERTY,
+				array(
+					RELOP => RELOP_EQ,
+					ULPROPTAG => PR_MESSAGE_CLASS,
+					VALUE => array(PR_MESSAGE_CLASS => "IPM.Microsoft.WunderBar.Link")
+				)
+			);
+			$rows = mapi_table_queryallrows($table, $GLOBALS["properties"]->getFavoritesFolderProperties(), $restriction);
+
+			foreach ($rows as $row) {
+				try {
+					// In webapp we use IPM_SUBTREE as root folder for the Hierarchy but OL is use IMsgStore as a
+					// Root folder. OL never mark favorites to IPM_SUBTREE. so to make favorites compatible with OL
+					// we need this check.
+					// Here we check PR_WLINK_STORE_ENTRYID and PR_WLINK_ENTRYID is same. which same only in one case
+					// where some user has mark favorites to root(Inbox-<user name>) folder from OL. so here if condition
+					// gets true we get the IPM_SUBTREE and send it to response as favorites folder to webapp.
+					if($GLOBALS['entryid']->compareEntryIds($row[PR_WLINK_STORE_ENTRYID], $row[PR_WLINK_ENTRYID])) {
+						$storeObj = $GLOBALS["mapisession"]->openMessageStore($row[PR_WLINK_STORE_ENTRYID]);
+						$subTreeEntryid = mapi_getprops($storeObj, array(PR_IPM_SUBTREE_ENTRYID));
+						$folderObj = mapi_msgstore_openentry($storeObj, $subTreeEntryid[PR_IPM_SUBTREE_ENTRYID]);
+					} else {
+						$storeObj = $GLOBALS["mapisession"]->openMessageStore($row[PR_WLINK_STORE_ENTRYID]);
+						$folderObj = mapi_msgstore_openentry($storeObj, $row[PR_WLINK_ENTRYID]);
+					}
+					$props = mapi_getprops($folderObj, $GLOBALS["properties"]->getFavoritesFolderProperties());
+					array_push($storeData['favorites']['item'], $this->setFavoritesFolder($props));
+				} catch (MAPIException $e) {
+					continue;
+				}
+			}
+		}
+
+		/**
+		 * Create link messages for default favorites(Inbox and Sent Items) folders in associated contains table of IPM_COMMON_VIEWS folder
+		 * and remove all other link message from the same.
+		 *
+		 * @param string $commonViewFolderEntryid IPM_COMMON_VIEWS folder entryid.
+		 * @param object $store Message Store Object
+		 * @param array $storeData The store data which use to create restriction.
+		 */
+		function setDefaultFavoritesFolder($commonViewFolderEntryid, $store, $storeData)
+		{
+			if ($GLOBALS["settings"]->get("zarafa/v1/contexts/hierarchy/show_default_favorites") !== false) {
+				$commonViewFolder = mapi_msgstore_openentry($store, $commonViewFolderEntryid);
+
+				$inboxFolderEntryid = hex2bin($storeData["props"]["default_folder_inbox"]);
+				$sentFolderEntryid = hex2bin($storeData["props"]["default_folder_sent"]);
+
+				$table = mapi_folder_getcontentstable($commonViewFolder, MAPI_ASSOCIATED);
+
+				// Restriction for get all link message(IPM.Microsoft.WunderBar.Link) from
+				// Associated contains table of IPM_COMMON_VIEWS folder.
+				$findLinkMsgRestriction = array(RES_PROPERTY,
+					array(
+						RELOP => RELOP_EQ,
+						ULPROPTAG => PR_MESSAGE_CLASS,
+						VALUE => array(PR_MESSAGE_CLASS => "IPM.Microsoft.WunderBar.Link")
+					)
+				);
+
+				// Restriction for find Inbox and/or Sent folder link message from
+				// Associated contains table of IPM_COMMON_VIEWS folder.
+				$findInboxOrSentLinkMessage = Array(RES_OR,
+					Array(
+						array(RES_PROPERTY,
+							array(
+								RELOP => RELOP_EQ,
+								ULPROPTAG => PR_WLINK_ENTRYID,
+								VALUE => array(PR_WLINK_ENTRYID => $inboxFolderEntryid)
+							)
+						),
+						array(RES_PROPERTY,
+							array(
+								RELOP => RELOP_EQ,
+								ULPROPTAG => PR_WLINK_ENTRYID,
+								VALUE => array(PR_WLINK_ENTRYID => $sentFolderEntryid)
+							)
+						)
+					)
+				);
+
+				// Restriction to get all link messages except Inbox and Sent folder's link messages from
+				// Associated contains table of IPM_COMMON_VIEWS folder, if exist in it.
+				$restriction = Array(RES_AND,
+					Array(
+						$findLinkMsgRestriction,
+						array(RES_NOT,
+							array(
+								$findInboxOrSentLinkMessage
+							)
+						)
+					)
+				);
+
+				$rows = mapi_table_queryallrows($table, array(PR_ENTRYID), $restriction);
+				if (!empty($rows)) {
+					$deleteMessages = array();
+					foreach ($rows as $row) {
+						array_push($deleteMessages, $row[PR_ENTRYID]);
+					}
+					mapi_folder_deletemessages($commonViewFolder, $deleteMessages);
+				}
+
+				// Restriction used to find only Inbox and Sent folder's link messages from
+				// Associated contains table of IPM_COMMON_VIEWS folder, if exist in it.
+				$restriction = Array(RES_AND,
+						Array(
+							$findLinkMsgRestriction,
+							$findInboxOrSentLinkMessage
+						)
+					);
+
+				$rows = mapi_table_queryallrows($table, array(PR_WLINK_ENTRYID), $restriction);
+
+				// If Inbox and Sent folder's link messages are not exist then create the
+				// link message for those in associated contains table of IPM_COMMON_VIEWS folder.
+				if (empty($rows)) {
+					$defaultFavFoldersKeys = array("inbox", "sent");
+					foreach ($defaultFavFoldersKeys as $folderKey) {
+						$folderObj = $GLOBALS["mapisession"]->openMessage(hex2bin($storeData["props"]["default_folder_" . $folderKey]));
+						$props = mapi_getprops($folderObj, array(PR_ENTRYID, PR_STORE_ENTRYID));
+						$this->createFavoritesLink($commonViewFolder, $props);
+					}
+				} else if (count($rows) < 2) {
+					// If rows count is less than 2 it means associated contains table of IPM_COMMON_VIEWS folder
+					// can have either Inbox or Sent folder link message in it. So we have to create link message
+					// for Inbox or Sent folder which ever not exist in associated contains table of IPM_COMMON_VIEWS folder
+					// to maintain default favorites folder.
+					$row = $rows[0];
+					$wlinkEntryid = $row[PR_WLINK_ENTRYID];
+
+					$isInboxFolder = $GLOBALS['entryid']->compareEntryIds($wlinkEntryid, $inboxFolderEntryid);
+
+					if (!$isInboxFolder) {
+						$folderObj = $GLOBALS["mapisession"]->openMessage($inboxFolderEntryid);
+					} else {
+						$folderObj = $GLOBALS["mapisession"]->openMessage($sentFolderEntryid);
+					}
+
+					$props = mapi_getprops($folderObj, array(PR_ENTRYID, PR_STORE_ENTRYID));
+					$this->createFavoritesLink($commonViewFolder, $props);
+				}
+				$GLOBALS["settings"]->set("zarafa/v1/contexts/hierarchy/show_default_favorites", false, true);
+			}
+		}
+
+		/**
+		 * Create favorites link message (IPM.Microsoft.WunderBar.Link) in associated contains table of
+		 * IPM_COMMON_VIEWS folder.
+		 *
+		 * @param object $commonViewFolder MAPI Message Folder Object
+		 * @param Array $folderProps Properties of a folder
+		 */
+		function createFavoritesLink($commonViewFolder, $folderProps)
+		{
+			$props = Array(
+				PR_MESSAGE_CLASS => "IPM.Microsoft.WunderBar.Link",
+				PR_WLINK_ENTRYID => $folderProps[PR_ENTRYID],
+				PR_WLINK_STORE_ENTRYID  => $folderProps[PR_STORE_ENTRYID]
+			);
+
+			$favoritesLinkMsg = mapi_folder_createmessage($commonViewFolder, MAPI_ASSOCIATED);
+			mapi_setprops($favoritesLinkMsg, $props);
+			mapi_savechanges($favoritesLinkMsg);
+		}
+
+		/**
+		 * Convert MAPI properties into useful and human readable string for favorites folder.
+		 *
+		 * @param array $folderProps Properties of a folder
+		 * @return array List of properties of a folder
+		 */
+		function setFavoritesFolder($folderProps)
+		{
+			$props = $this->setFolder($folderProps);
+			 // Add and Make isFavorites to true, this allows the client to properly
+			 // indicate to the user that this is a favorites item/folder.
+			$props["props"]["isFavorites"] = true;
 			return $props;
 		}
 
@@ -847,7 +1044,7 @@
 						 * revert folder name to original one
 						 * There is a bug in php-mapi that updates folder name in hierarchy table with null value
 						 * so we need to revert those change by again setting the old folder name
-						 * check https://jira.zarafa.com/browse/ZCP-11586
+						 * (ZCP-11586)
 						 */
 						mapi_setprops($folder, array(PR_DISPLAY_NAME => $folderProps[PR_DISPLAY_NAME]));
 						mapi_savechanges($folder);
@@ -1207,19 +1404,11 @@
 				$end = $start + $rowcount;
 				$columns = $properties;
 
-				// Check if mapi_table_setcolumns exists (ZCP-7.1.1 and above), if so
-				// then call mapi_table_setcolumns now, and set $columns to null.
-				if (function_exists('mapi_table_setcolumns')) {
-					mapi_table_setcolumns($table, $columns);
-					$columns = null;
-				}
+				mapi_table_setcolumns($table, $columns);
+				$columns = null;
 
-				// Check if mapi_table_seekrow exists (ZCP-7.1.1 and above), if so
-				// then call mapi_table_seekrow now, and set $position to 0.
-				if (function_exists('mapi_table_seekrow')) {
-					mapi_table_seekrow($table, BOOKMARK_BEGINNING, $position);
-					$position = 0;
-				}
+				mapi_table_seekrow($table, BOOKMARK_BEGINNING, $position);
+				$position = 0;
 
 				do {
 					// When we open the last batch, make sure we end at the $end position,
@@ -1456,13 +1645,12 @@
 		/**
 		 * Get and convert properties of a message into an XML array structure
 		 *
-		 * @param object $store MAPI Message Store Object
 		 * @param object $item The MAPI Object
 		 * @param array $properties Mapping of properties that should be read
 		 * @return array XML array structure
 		 * @todo Function name is misleading, especially compared to getMessageProps()
 		 */
-		function getProps($store, $item, $properties)
+		function getProps($item, $properties)
 		{
 			$props = array();
 
@@ -1806,6 +1994,15 @@
 							} else {
 								$exception_recips = array();
 								if (isset($recips['add'])) {
+									$savedUnsavedRecipients = array();
+									foreach ($recips["add"] as $recip) {
+										$savedUnsavedRecipients["unsaved"][] = $recip;
+									}
+									// convert all local distribution list members to ideal recipient.
+									$members = $this->convertLocalDistlistMembersToRecipients
+									($savedUnsavedRecipients);
+
+									$recips['add'] = $members['add'];
 									$exception_recips['add'] = $this->createRecipientList($recips['add'], 'add', true, true);
 								}
 								if (isset($recips['remove'])) {
@@ -1950,6 +2147,27 @@
 			$result = false;
 			// Check to see if it should be sent as a meeting request
 			if($send === true && $isExceptionAllowed){
+				if(!isset($action['basedate'])) {
+					// retrieve recipients from saved message
+					$savedRecipients = $GLOBALS['operations']->getRecipientsInfo($store, $message);
+					foreach ($savedRecipients as $recipient) {
+						$savedUnsavedRecipients["saved"][] = $recipient['props'];
+					}
+
+					//retrieve removed recipients.
+					$remove = array();
+					if (!empty($recips) && !empty($recips["remove"])) {
+						$remove = $recips["remove"];
+					}
+
+					// convert all local distribution list members to ideal recipient.
+					$members = $this->convertLocalDistlistMembersToRecipients($savedUnsavedRecipients, $remove);
+
+					// Before sending meeting request we set the recipient to message
+					// which are converted from local distribution list members.
+					$this->setRecipients($message, $members);
+				}
+
 				$request = new Meetingrequest($store, $message, $GLOBALS['mapisession']->getSession(), $directBookingMeetingRequest);
 
 				/**
@@ -2072,6 +2290,77 @@
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Function is used to identify the local distribution list from all recipients and 
+		 * convert all local distribution list members to recipients.
+		 * @param array $recipients array of recipients either saved or add
+		 * @param array $remove array of recipients that was removed
+		 * @return array $newRecipients a list of recipients as XML array structure
+		 */
+		function convertLocalDistlistMembersToRecipients($recipients, $remove =array())
+		{
+			$addRecipients = array();
+			$removeRecipients = array();
+
+			foreach($recipients as $key => $recipient) {
+
+				foreach ($recipient as $recipientItem) {
+					$recipientEntryid = $recipientItem["entryid"];
+					$isExistInRemove = $this->isExistInRemove($recipientEntryid, $remove);
+
+					/**
+					 * Condition is only gets true, if recipient is distribution list and it`s belongs
+					 * to shared/internal(belongs in contact folder) folder.
+					 */
+					if ($recipientItem['address_type'] == 'MAPIPDL')  {
+						if (!$isExistInRemove) {
+							$recipientItems = $GLOBALS["operations"]->expandDistList($recipientEntryid, true);
+							foreach ($recipientItems as $recipient) {
+								// set recipient type of each members as per the distribution list recipient type
+								$recipient['recipient_type'] = $recipientItem['recipient_type'];
+								array_push($addRecipients, $recipient);
+							}
+
+							if ($key === "saved") {
+								array_push($removeRecipients, $recipientItem);
+							}
+						}
+					} else {
+						/**
+						 * Only Add those recipients which are not saved earlier in message and
+						 * not present in remove array.
+						 */
+						if(!$isExistInRemove && $key === "unsaved") {
+							array_push($addRecipients, $recipientItem);
+						}
+					}
+				}
+			}
+			$newRecipients["add"] = $addRecipients;
+			$newRecipients["remove"] = $removeRecipients;
+			return $newRecipients;
+		}
+
+		/**
+		 * Function used to identify given recipient was already available in remove array of recipients array or not.
+		 * which was sent from client side.
+		 *
+		 * @param String $recipientEntryid recipient entryid
+		 * @param Array $remove removed recipients array.
+		 * @return Boolean return false if recipient not exist in remove array else return true
+		 */
+		function isExistInRemove($recipientEntryid, $remove)
+		{
+			if (!empty($remove)) {
+				foreach ($remove as $removeItem) {
+					if (array_search($recipientEntryid, $removeItem, true)) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 		/**
@@ -2435,6 +2724,16 @@
 			if (empty($ignoreProps) && empty($props)) {
 				if ($moveMessages) {
 					mapi_folder_copymessages($sourcefolder, $entryids, $destfolder, MESSAGE_MOVE);
+					$error = mapi_last_hresult();
+
+					/*
+					 * If you delete a message from a folder where you only have
+					 * read permissions, the result is a partial success. Therefore
+					 * throw an exception.
+					 */
+					if ($error == MAPI_W_PARTIAL_COMPLETION) {
+						throw new MAPIException();
+					}
 				} else {
 					mapi_folder_copymessages($sourcefolder, $entryids, $destfolder);
 				}
@@ -3076,7 +3375,9 @@
 						try {
 							$mailuser = mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), $recipientRow[PR_ENTRYID]);
 							$userprops = mapi_getprops($mailuser, array(PR_DISPLAY_TYPE_EX));
-							$props['display_type_ex'] = $userprops[PR_DISPLAY_TYPE_EX];
+							if (isset($userprops[PR_DISPLAY_TYPE_EX])) {
+								$props['display_type_ex'] = $userprops[PR_DISPLAY_TYPE_EX];
+							}
 						} catch (MAPIException $e) {
 							// if any invalid entryid is passed in this function then it should silently ignore it
 							// and continue with execution
@@ -3293,10 +3594,9 @@
 		{
 			try {
 				if (!$GLOBALS['entryid']->hasContactProviderGUID(bin2hex($entryid))) {
-					$entryid = $GLOBALS['entryid']->wrapABEntryIdObj(bin2hex($entryid), MAPI_DISTLIST);
-					$entryid = hex2bin($entryid);
+					$entryid = hex2bin($GLOBALS['entryid']->wrapABEntryIdObj(bin2hex($entryid), MAPI_DISTLIST));
 				}
-				$abentry = mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), $entryid);
+				mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), $entryid);
 			} catch (MAPIException $e) {
 				return true;
 			}
@@ -3306,53 +3606,140 @@
 		/**
 		 * Get object type from distlist type of member of distribution list.
 		 * @param integer $distlistType distlist type of distribution list
-		 * @return integer $objectType object type of distribution list
+		 * @return integer object type of distribution list
 		 */
 		function getObjectTypeFromDistlistType($distlistType)
 		{
-			$objectType = '';
 			switch ($distlistType) {
 				case DL_DIST :
 				case DL_DIST_AB :
-					$objectType = MAPI_DISTLIST;
+					return MAPI_DISTLIST;
 				case DL_USER :
 				case DL_USER2 :
 				case DL_USER3 :
 				case DL_USER_AB :
 				default:
-					$objectType = MAPI_MAILUSER;
+					return MAPI_MAILUSER;
 			}
-			return $objectType;
 		}
 
 		/**
-		 * Function which fetches all members of an external folder's distribution list.
+		 * Function which fetches all members of shared/internal(Local Contact Folder)
+		 * folder's distribution list.
 		 *
-		 * @param $distlistEntryid entryid of distribution list
+		 * @param String $distlistEntryid entryid of distribution list.
+		 * @param Boolean $isRecursive  if there is/are distribution list(s) inside the distlist
+		 * to expand all the members, pass true to expand distlist recursively, false to not expand.
 		 * @return array $members all members of a distribution list.
 		 */
-		function expandExternalDistList($distlistEntryid)
+		function expandDistList($distlistEntryid, $isRecursive = false)
 		{
 			$properties = $GLOBALS['properties']->getDistListProperties();
 
-			// Get store of distribution list
-			$sharedStore = $this->getOtherStoreFromEntryid($distlistEntryid);
-			if ($GLOBALS['entryid']->hasContactProviderGUID($distlistEntryid)) {
-				$distlistEntryid = hex2bin($GLOBALS["entryid"]->unwrapABEntryIdObj($distlistEntryid));
-			}
-			$distlist = $this->openMessage($sharedStore, $distlistEntryid);
+			$isExternalDistList = $this->isExternalDistList(hex2bin($distlistEntryid));
 
-			// Expand distribution list
-			$distlistMembers = $this->getMembersFromDistributionList($sharedStore, $distlist, $properties);
-			$members = array();
+			if($isExternalDistList) {
+				$store = $this->getOtherStoreFromEntryid($distlistEntryid);
+			} else {
+				$store = $GLOBALS["mapisession"]->getDefaultMessageStore();
+			}
+
+			if ($GLOBALS['entryid']->hasContactProviderGUID($distlistEntryid)) {
+				$distlistEntryid = $GLOBALS["entryid"]->unwrapABEntryIdObj($distlistEntryid);
+			}
+
+			try {
+				$distlist = $this->openMessage($store, hex2bin($distlistEntryid));
+			} catch(Exception $e) {
+				$distlist = $this->openMessage($GLOBALS["mapisession"]->getPublicMessageStore(), hex2bin($distlistEntryid));
+			}
+
+			// Retrive the members from distribution list.
+			$distlistMembers = $this->getMembersFromDistributionList($store, $distlist, $properties, $isRecursive);
+			$recipients = array();
+
+			foreach ($distlistMembers as $member) {
+				$props = $this->convertDistlistMemberToRecipient($store, $member);
+				array_push($recipients, $props);
+			}
+
+			return $recipients;
+		}
+
+		/**
+		 * Function Which convert the shared/internal(local contact folder distlist)
+		 * folder's distlist members to recipient type.
+		 *
+		 * @param mapistore $store MAPI store of the message.
+		 * @param array $member of distribution list contacts.
+		 * @return array members properties converted in to recipient.
+		 */
+		function convertDistlistMemberToRecipient($store, $member)
+		{
+			$entryid = $member["props"]["entryid"];
+			$memberProps = $member["props"];
+			$props = array();
+
+			$distlistType = $memberProps["distlist_type"];
+			$addressType = $memberProps["address_type"];
+
+			$isGABDistlList = $distlistType == DL_DIST_AB && $addressType === "ZARAFA";
+			$isLocalDistlist = $distlistType == DL_DIST && $addressType === "MAPIPDL";
+
+			$isGABContact = $memberProps["address_type"] === 'ZARAFA';
+			// If distlist_type is 0 then it means distlist member is external contact.
+			// For mare please read server/core/constants.php
+			$isLocalContact = !$isGABContact && $distlistType !== 0;
+
+			/**
+			 * If distribution list belongs to the local contact folder then open that contact and
+			 * retrieve all properties which requires to prepare ideal recipient to send mail.
+			 */
+			if($isLocalDistlist) {
+				try{
+					$distlist = $this->openMessage($store, hex2bin($entryid));
+				} catch(Exception $e) {
+					$distlist = $this->openMessage($GLOBALS["mapisession"]->getPublicMessageStore(), hex2bin($entryid));
+				}
+
+				$abProps = $this->getProps($distlist, $GLOBALS['properties']->getRecipientProperties());
+				$props = $abProps["props"];
+
+				$props["entryid"] = $GLOBALS["entryid"]->wrapABEntryIdObj($abProps["entryid"], MAPI_DISTLIST);
+				$props["display_type"] = DT_DISTLIST;
+				$props["display_type_ex"] = DT_DISTLIST;
+				$props["address_type"] = $memberProps["address_type"];
+				$emailAddress = !empty($memberProps["email_address"]) ? $memberProps["email_address"] : "";
+				$props["smtp_address"] = $emailAddress;
+				$props["email_address"] = $emailAddress;
+
+			} else if($isGABContact || $isGABDistlList) {
+				/**
+				 * If contact or distribution list belongs to GAB then open that contact and
+				 * retrieve all properties which requires to prepare ideal recipient to send mail.
+				 */
+				$abentry = mapi_ab_openentry($GLOBALS["mapisession"]->getAddressbook(), hex2bin($entryid));
+				$abProps = $this->getProps($abentry, $GLOBALS['properties']->getRecipientProperties());
+				$props = $abProps["props"];
+				$props["entryid"] = $abProps["entryid"];
+
+			} else {
+				/**
+				 * If contact is belongs to local/shared folder then prepare ideal recipient to send mail
+				 * as per the contact type.
+				 */
+				$props["entryid"] = $isLocalContact ? $GLOBALS["entryid"]->wrapABEntryIdObj($entryid, MAPI_MAILUSER) : $memberProps["entryid"];
+				$props["display_type"] = DT_MAILUSER;
+				$props["display_type_ex"] = $isLocalContact ? DT_MAILUSER : DT_REMOTE_MAILUSER;
+				$props["display_name"] = $memberProps["display_name"];
+				$props["smtp_address"] = $memberProps["email_address"];
+				$props["email_address"] = $memberProps["email_address"];
+				$props["address_type"] = !empty($memberProps["address_type"]) ? $memberProps["address_type"] : 'SMTP';
+			}
 
 			// Set object type property into each member of distribution list
-			foreach ($distlistMembers as $recip) {
-				$distlistType = $recip["props"]["distlist_type"];
-				$recip["props"]['object_type'] = $this->getObjectTypeFromDistlistType($distlistType);
-				array_push($members, $recip['props']);
-			}
-			return $members;
+			$props["object_type"] = $this->getObjectTypeFromDistlistType($memberProps["distlist_type"]);
+			return $props;
 		}
 
 		/**
@@ -3432,11 +3819,11 @@
 		 * @param string $title  Optional, this string is placed in the <title>
 		 * @return string full HTML message
 		 */
-		function generateBodyHTML($fck_html, $title = "Zarafa WebApp"){
+		function generateBodyHTML($fck_html, $title = "Kopano WebApp"){
 			$html = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">"
 					."<html>\n"
 					."<head>\n"
-					."  <meta name=\"Generator\" content=\"Zarafa WebApp v".phpversion("mapi")."\">\n"
+					."  <meta name=\"Generator\" content=\"Kopano WebApp v".phpversion("mapi")."\">\n"
 					."  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n"
 					."  <title>".htmlspecialchars($title)."</title>\n";
 
@@ -3463,12 +3850,8 @@
 
 			$table = mapi_folder_getcontentstable($folder, MAPI_DEFERRED_ERRORS);
 
-			// Check if mapi_table_setcolumns exists (ZCP-7.1.1 and above), if so
-			// then call mapi_table_setcolumns now, and set $columns to null.
-			if (function_exists('mapi_table_setcolumns')) {
-				mapi_table_setcolumns($table, $columns);
-				$columns = null;
-			}
+			mapi_table_setcolumns($table, $columns);
+			$columns = null;
 
 			do {
 				$messages = mapi_table_queryrows($table, $columns, 0, $batchcount);
@@ -3711,47 +4094,6 @@
 		}
 
 		/**
-		* Create a flat entrylist (used for PR_REPLY_RECIPIENT_ENTRIES) from a list of recipients
-		*
-		* These flatentrylists are used in PR_REPLY_RECIPIENT_ENTRIES, remember to
-		* keep this property synchronized with PR_REPLY_RECIPIENT_NAMES.
-		*
-		* @param String $recipientArray The array with recipients to convert
-		* @return boolean Returns the resulting flatentrylist
-		*/
-		function writeFlatEntryList($recipientArray)
-		{
-			$oneOffs = Array();
-			foreach ($recipientArray as $recipient)
-			{
-				// Add display name if it doesn't exist
-				if (!array_key_exists(PR_DISPLAY_NAME, $recipient)||empty($recipient[PR_DISPLAY_NAME]))
-					$recipient[PR_DISPLAY_NAME] = $recipient[PR_EMAIL_ADDRESS];
-				$oneOffs[] = mapi_createoneoff($recipient[PR_DISPLAY_NAME], $recipient[PR_ADDRTYPE], $recipient[PR_EMAIL_ADDRESS]);
-			}
-
-			// Construct string from array with (padded) One-Off entry identifiers
-			//
-			// Remember, if you want to take the createOneOff part above out: that code
-			// produces a padded OneOff and we add the right amount of null characters
-			// below.
-			//
-			// So below is a wrong method for composing a flatentrylist from oneoffs and
-			// above is a wrong method form composing a oneoff.
-			$flatEntryString = "";
-			for ($i = 0, $len = count($oneOffs); $i < $len; $i++)
-			{
-				$flatEntryString .= pack("Va*", strlen($oneOffs[$i]), $oneOffs[$i]);
-				// Fill to 4-byte boundary
-				$rest = strlen($oneOffs[$i])%4;
-				for ($j=0;$j<$rest;$j++)
-					$flatEntryString .= "\0";
-			}
-			// Pack the string with the number of flatentries and the stringlength
-			return pack("V2a*", count($oneOffs), strlen($flatEntryString), $flatEntryString);
-		}
-
-		/**
 		* Get a text body for a Non-Delivery report
 		*
 		* This function reads the necessary properties from the passed message and constructs
@@ -3948,26 +4290,6 @@
 		}
 
 		/**
-		* Extract all email addresses from a list of recipients
-		*
-		* @param string $p_sRecipients String containing e-mail addresses, as typed by user (eg. '<john doe> john@doe.org; jane@doe.org')
-		* @return array Array of e-mail address parts (eg. 'john@doe.org', 'jane@doe.org')
-		*
-		* this function is currently unused
-		*/
-		function extractEmailAddresses($p_sRecipients){
-			$l_aRecipients = explode(';', $p_sRecipients);
-			$l_aReturn = Array();
-			for($i = 0, $len = count($l_aRecipients); $i < $len; $i++){
-				$l_aRecipients[$i] = trim($l_aRecipients[$i]);
-				$l_sRegex = '/^([^<]*<){0,1}(([a-z0-9=_\+\.\-\'\/])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,5})+)>{0,1}$/';
-				preg_match($l_sRegex, $l_aRecipients[$i], $l_aMatches);
-				$l_aReturn[] = $l_aMatches[0];
-			}
-			return $l_aReturn;
-		}
-
-		/**
 		* Get the SMTP e-mail of an addressbook entry
 		*
 		* @param string $entryid Addressbook entryid of object
@@ -4149,8 +4471,13 @@
 					$freeBusyRange = $GLOBALS['settings']->get('zarafa/v1/contexts/calendar/free_busy_range', 2);
 					$localFreeBusyEntryids = mapi_getprops($rootFolder, array(PR_FREEBUSY_ENTRYIDS));
 					$localFreeBusyMessage = mapi_msgstore_openentry($store, $localFreeBusyEntryids[PR_FREEBUSY_ENTRYIDS][1]);
-					mapi_setprops($localFreeBusyMessage, array(PR_FREEBUSY_COUNT_MONTHS => $freeBusyRange));
-					mapi_savechanges($localFreeBusyMessage);
+
+					$freeBusyFolderAccess = mapi_getprops($localFreeBusyMessage, array(PR_ACCESS));
+					// If Free/busy folder have Modification access then update PR_FREEBUSY_COUNT_MONTHS.
+					if (($freeBusyFolderAccess[PR_ACCESS] & MAPI_ACCESS_MODIFY) === MAPI_ACCESS_MODIFY) {
+						mapi_setprops($localFreeBusyMessage, array(PR_FREEBUSY_COUNT_MONTHS => $freeBusyRange));
+						mapi_savechanges($localFreeBusyMessage);
+					}
 
 					$start = time()-7 * 24 * 60 * 60;
 					$range = strtotime("+". $freeBusyRange." month");
@@ -4210,7 +4537,19 @@
 			}
 
 			foreach($members as $key=>$item){
-				$parts = unpack('Vnull/A16guid/Ctype/A*entryid', $item);
+				/**
+				 * PHP 5.5.0 and greater has made the unpack function incompatible with previous versions by changing:
+				 * - a = code now retains trailing NULL bytes.
+				 * - A = code now strips all trailing ASCII whitespace (spaces, tabs, newlines, carriage 
+				 * returns, and NULL bytes).
+				 * for more http://php.net/manual/en/function.unpack.php
+				 */
+				if(version_compare(PHP_VERSION, '5.5.0', '>=')) {
+					$parts = unpack('Vnull/A16guid/Ctype/a*entryid', $item);
+				} else {
+					$parts = unpack('Vnull/A16guid/Ctype/A*entryid', $item);
+				}
+
 				$memberItem = array();
 				$memberItem['props'] = array();
 				$memberItem['props']['distlist_type'] = $parts['type'];

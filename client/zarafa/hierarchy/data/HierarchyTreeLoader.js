@@ -275,7 +275,15 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 
 		if (record.phantom !== true) {
 			if (this.tree.nodeFilter(record)) {
-				var treeNode = this.tree.getNodeById(record.get('entryid'));
+				var treeNode;
+				// If record/folder is favorites mark and active context is other then Mail or Home and "show all folders"
+				// check box is unchecked then don't add new tree node in hierarchy.
+				if (record.isFavoritesFolder() && (record.isContainerClass('IPF.Note') || !this.tree.hasFilter())) {
+					treeNode = this.tree.getNodeById("favorites-"+record.get('entryid'));
+				} else {
+					treeNode = this.tree.getNodeById(record.get('entryid'));
+				}
+
 				if (!treeNode) {
 					var parentNode = this.getFilteredParentNode(record);
 					var nodeType = 'folder';
@@ -308,8 +316,15 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 			return;
 		}
 
-		var treeNode = this.tree.getNodeById(record.get('entryid'));
+		var treeNode = this.tree.getTreeNode(record);
 		if (!treeNode) {
+			// Don't add new node in hierarchy if its parent node is
+			// not expanded yet. As Extjs follow the lazy rendering so when we expand the
+			// parent node, tree automatically creates respective child nodes
+			var parentNode = this.getFilteredParentNode(record);
+			if (Ext.isDefined(parentNode) && (!parentNode || !parentNode.isExpanded())) {
+				return;
+			}
 			// treeNode not found, so apparently the folder change might
 			// have made this folder visible in the current hierarchy.
 			// Let the 'addFolder' event handler handle this case.
@@ -334,6 +349,17 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 				newParentNode.appendChild(treeNode);
 			} else {
 				treeNode.updateUI(record);
+				// Update favorites folder tree node in hierarchy if selected folder is not favorites folder but
+				// it exists in favorites store(record was marked as favorites).
+				if(!record.isFavoriteFolder() && record.existsInFavorites()) {
+					treeNode = this.tree.getTreeNode(record.getFavoritesFolder());
+					// treeNode is undefined in case where webapp was reloaded recently and
+					// favorites tree was in collapsible mode. Extjs is follow the lazy rendering
+					// so tree node was only created when tree is in expanded mode or user expand it.
+					if (Ext.isDefined(treeNode)) {
+						treeNode.updateUI(record);
+					}
+				}
 			}
 		}
 	},
@@ -352,10 +378,16 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 		if (this.isDeferred === true) {
 			return;
 		}
-
-		var treeNode = this.tree.getNodeById(record.get('entryid'));
+		var treeNode = this.tree.getTreeNode(record);
 		if (treeNode) {
 			treeNode.remove(true);
+		}
+
+		if (record.existsInFavorites()) {
+			var treeNode = this.tree.getTreeNode(record.getFavoritesFolder());
+			if (treeNode) {
+				treeNode.remove(true);
+			}
 		}
 	},
 
@@ -397,6 +429,11 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 					} else {
 						data = data.concat(this.getFilteredChildNodes(folder, 'rootfolder'));
 					}
+				}
+
+				var favoritesFolder = store.getFavoritesRootFolder();
+				if (store.isDefaultStore() && Ext.isDefined(favoritesFolder) && this.tree.nodeFilter(folder)) {
+					data.push(Ext.apply({ nodeType : 'rootfolder', folder: favoritesFolder }, this.nodeConfig));
 				}
 			}
 
@@ -455,7 +492,13 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 	 */
 	getFilteredParentNode : function(folder, base)
 	{
-		var parentfolder = folder.getParentFolder();
+		var parentfolder;
+		if(folder.isFavoritesFolder()) {
+			parentfolder = folder.getFavoritesRootFolder();
+		} else {
+			parentfolder = folder.getParentFolder();
+		}
+
 		var node = false;
 
 		if (parentfolder) {
@@ -486,8 +529,16 @@ Zarafa.hierarchy.data.HierarchyTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
 			if (attr.nodeType === 'rootfolder') {
 				attr.extendedDisplayName = this.tree.hasFilter();
 			}
-			attr.id = folder.get('entryid');
-			attr.leaf = !folder.get('has_subfolder');
+
+			// To uniquely identify the favorites tree nodes we append the "favorites-" key word with node id
+			// when the node is created.
+			attr.id = folder.isFavoritesFolder() ? "favorites-" + folder.get('entryid') : folder.get('entryid');
+			if (folder.isFavoritesRootFolder()) {
+				attr.leaf = folder.get('assoc_content_count') === 0;
+			} else {
+				attr.leaf = !folder.get('has_subfolder');
+			}
+
 			attr.uiProvider = Zarafa.hierarchy.ui.FolderNodeUI;
 			attr.expanded = this.tree.isFolderOpened(folder);
 			attr.allowDrag = !folder.isDefaultFolder();

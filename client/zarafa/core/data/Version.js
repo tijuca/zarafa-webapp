@@ -37,7 +37,7 @@ Zarafa.core.data.Version = Ext.extend(Object, {
 	},
 
 	/**
-	 * @return {String} Return the ZCP version number
+	 * @return {String} Return the Kopano Core version number
 	 */
 	getZCP : function()
 	{

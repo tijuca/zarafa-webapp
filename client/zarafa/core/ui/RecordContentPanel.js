@@ -146,6 +146,12 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 	showModalWithoutParent : false,
 
 	/**
+	 * @cfg {String} unSaveWarningMessage When {@link #record} has any unsaved changes
+	 * And user trying to close separate window or tab if that is the case, then confirm dialog will show with this text
+	 */
+	unSaveWarningMessage : _('You are going to lose all unsaved changes. Are you sure you want to close this window?'),
+
+	/**
 	 * @constructor
 	 * @param config Configuration structure
 	 */
@@ -154,7 +160,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 		config = config || {};
 
 		Ext.applyIf(config, {
-			title : _('Zarafa Content Panel')
+			title : _('Kopano Content Panel')
 		});
 
 		// Modal dialogs that will edit the record must work inside the shadowStore.
@@ -463,7 +469,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 
 		if (this.recordComponentPlugin.isChangedByUser === true) {
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
+				_('Kopano WebApp'),
 				_('This item has been changed. Are you sure you want to delete it?'),
 				this.onConfirmDelete,
 				this);
@@ -723,8 +729,8 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 		// the 'dirty' flag will warn us about unsaved changes.
 		if (this.confirmClose && this.recordComponentPlugin.isChangedByUser === true) {
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
-				_('You are going to lose all unsaved changes. Are you sure you want to close this window?'),
+				_('Kopano WebApp'),
+				this.unSaveWarningMessage,
 				this.onConfirmClose,
 				this);
 			return;
@@ -805,6 +811,21 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 		}, this);
 
 		return isInternalAction;
+	},
+
+	/**
+	 * Function will check if the {@link #record} has any unsaved changes
+	 * And user trying to close separate window if that is the case,
+	 * will show a confirmation dialog warning the user that he will lose all changes.
+	 * @return {String} warning message which will show in the leave requester dialog.
+	 */
+	onBeforeUnload : function()
+	{
+		if (this.fireEvent('beforeclose', this) !== false) {
+			if(this.recordComponentPlugin.isChangedByUser && this.record.dirty){
+				return this.unSaveWarningMessage;
+			}
+		}
 	}
 });
 

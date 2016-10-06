@@ -44,6 +44,7 @@ Zarafa.common.freebusy.ui.UserlistBox = Ext.extend(Zarafa.common.recipientfield.
 			case Zarafa.core.mapi.RecipientType.MAPI_BCC:
 				return 'x-freebusy-userlist-recipienttype-resource';
 			case Zarafa.core.mapi.RecipientType.MAPI_TO:
+			/*fall through*/
 			default:
 				if(record.isMeetingOrganizer()) {
 					return 'x-freebusy-userlist-recipienttype-originator';

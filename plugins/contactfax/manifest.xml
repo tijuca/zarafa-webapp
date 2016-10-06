@@ -5,8 +5,8 @@
 		<version>0.2</version>
 		<name>contactfax</name>
 		<title>Contact Fax Plugin</title>
-		<author>Zarafa</author>
-		<authorURL>http://www.zarafa.com</authorURL>
+		<author>Kopano</author>
+		<authorURL>http://www.kopano.com</authorURL>
 		<description>Open a new 'create mail' dialog with contact's fax number in the TO field of the email.</description>
 	</info>
 	<config>

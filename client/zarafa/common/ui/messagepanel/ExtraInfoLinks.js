@@ -306,7 +306,7 @@ Zarafa.common.ui.messagepanel.ExtraInfoLinks = Ext.extend(Ext.Container, {
 	onExtraInfoFaultyClick : function(evtObject)
 	{
 		Ext.MessageBox.show({
-			title : _('Zarafa WebApp'),
+			title : _('Kopano WebApp'),
 			msg :_('We are going to try to fix a corrupted mail message, do you wish to continue?'),
 			icon : Ext.MessageBox.WARNING,
 			fn : this.onFixFaultyMessage,

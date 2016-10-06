@@ -4,8 +4,6 @@
 
 	/**
 	 * Recurrence 
-	 * @author Steve Hardy <steve@zarafa.com>
-	 * @author Michel de Ron <michel@zarafa.com>
 	 */
 	class Recurrence extends BaseRecurrence
 	{
@@ -46,7 +44,7 @@
 		 * @param resource $store MAPI Message Store Object
 		 * @param resource $message the MAPI (appointment) message
 		 */
-		function Recurrence($store, $message)
+		function __construct($store, $message)
 		{
 
 			$properties = array();
@@ -91,7 +89,7 @@
 
 			$this->proptags = getPropIdsFromStrings($store, $properties);
 
-			parent::BaseRecurrence($store, $message);
+			parent::__construct($store, $message);
 		}
 
 		/**

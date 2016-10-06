@@ -26,8 +26,7 @@
 	define("DL_USER3",				0xE3);		//	227
 	/**
 	 * According to Exchange protocol, type property for oneoff contact
-	 * will be 0x00. For reference see below link.
-	 * https://platypus.zarafa.com/exchange-protocols/%5BMS-OXOCNTC%5D.html#40
+	 * will be 0x00.
 	 */
 	define("DL_EXTERNAL_MEMBER",	0x00);		//	0
 	define("DL_DIST",				0xB4);		//	180

@@ -4,12 +4,12 @@ Ext.namespace('Zarafa');
  * @class Zarafa.ABOUT
  * @extends String
  *
- * The copyright string holding the copyright notice for the Zarafa WebApp.
+ * The copyright string holding the copyright notice for the WebApp.
  */
-var now = new Date();
 
 Zarafa.ABOUT = ""
-	+ "<p>Copyright (C) 2005 - " + now.format('Y') + "  Zarafa B.V. &lt;info@zarafa.com&gt; and its licensors</p>"
+	+ "<p>Copyright (C) 2005 - 2016 Zarafa B.V. &lt;info@zarafa.com&gt; and its licensors<br>"
+	+ "Copyright (C) 2016 Kopano and its licensors</p>"
 
 	+ "<p>This program is free software: you can redistribute it and/or modify "
 	+ "it under the terms of the GNU Affero General Public License as "

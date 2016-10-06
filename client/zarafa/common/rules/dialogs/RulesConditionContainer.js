@@ -357,6 +357,7 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 		var layout = content.getLayout();
 		switch (conditionFlag) {
 			case Zarafa.common.rules.data.ConditionFlags.UNKNOWN:
+			/* falls through*/
 			default:
 				break;
 			case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
@@ -408,6 +409,7 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 					default:
 						return Zarafa.common.rules.data.ConditionFlags.UNKNOWN;
 				}
+			/* falls through*/
 			case Restrictions.RES_AND:
 				for (var i = 0, len = condition[1].length; i < len; i++) {
 					var sub = condition[1][i];
@@ -453,6 +455,7 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 
 		switch (value) {
 			case Zarafa.common.rules.data.ConditionFlags.UNKNOWN:
+			/* falls through*/
 			default:
 				layout.setActiveItem(panel.id + '-empty');
 				break;

@@ -82,6 +82,7 @@ Zarafa.hierarchy.KeyMapping = Ext.extend(Object, {
 				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['TASK'];
 				break;
 			case 'inbox':
+			/* falls through */
 			default:
 				defaultSelectedFolderType = Zarafa.hierarchy.data.SharedFolderTypes['MAIL'];
 		}

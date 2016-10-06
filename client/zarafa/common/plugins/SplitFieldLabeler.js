@@ -51,8 +51,9 @@ Zarafa.common.plugins.SplitFieldLabeler = Ext.extend(Ext.util.Observable, {
 	init : function(field)
 	{
 		// This is not a container, or no label has been assigned.
-		if (!Ext.isDefined(field.items) || !Ext.isDefined(field.fieldLabel) || field.hideLabel === true)
+		if (!Ext.isDefined(field.items) || !Ext.isDefined(field.fieldLabel) || field.hideLabel === true) {
 			return;
+		}
 
 		var labelPieces = this.createLabelDistribution(field.items, field.fieldLabel);
 		var labeledItems = this.applyLabelDistribution(field.items, labelPieces);
@@ -73,7 +74,7 @@ Zarafa.common.plugins.SplitFieldLabeler = Ext.extend(Ext.util.Observable, {
 		}
 
 		// The main field must not display any labels
-		field.hideLabel = true,
+		field.hideLabel = true;
 		delete field.fieldLabel;
 	},
 

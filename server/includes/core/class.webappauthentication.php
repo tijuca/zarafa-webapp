@@ -82,11 +82,11 @@ class WebAppAuthentication
 			case MAPI_E_UNCONFIGURED:
 				return  _('Logon failed. Please verify your credentials and try again.');
 			case MAPI_E_NETWORK_ERROR:
-				return _('Cannot connect to the zarafa server.');
+				return _('Cannot connect to Kopano Core.');
 			case MAPI_E_INVALID_WORKSTATION_ACCOUNT:
 				return _('Logon failed, another session already exists.');
 			case MAPI_E_END_OF_SESSION:
-				return _('');
+				return '';
 			default:
 				return _('Unknown MAPI Error') . ': ' . get_mapi_error_name(WebAppAuthentication::getErrorCode());
 		}
@@ -134,7 +134,7 @@ class WebAppAuthentication
 	}
 	
 	/**
-	 * Tries to logon to zcp with the given username and password. Returns
+	 * Tries to logon to Kopano Core with the given username and password. Returns
 	 * the error code that was given back.
 	 * @param string $username The username
 	 * @param string $password The password
@@ -157,7 +157,7 @@ class WebAppAuthentication
 			WebAppAuthentication::$_authenticated = true;
 		} elseif ( WebAppAuthentication::$_errorCode == MAPI_E_LOGON_FAILED || WebAppAuthentication::$_errorCode == MAPI_E_UNCONFIGURED ) {
 			// Print error message to error_log of webserver
-			error_log('zarafa-webapp user: ' . $username . ': authentication failure at MAPI');
+			error_log('Kopano WebApp user: ' . $username . ': authentication failure at MAPI');
 		}
 		
 		return WebAppAuthentication::$_errorCode;
@@ -230,7 +230,7 @@ class WebAppAuthentication
 	 */
 	public static function isUsingLoginForm() {
 		// Login form is only found on index.php
-		// If we don't check it, then posting to zarafa.php would
+		// If we don't check it, then posting to kopano.php would
 		// also make authenticating possible.
 		if ( basename($_SERVER['SCRIPT_NAME']) !== 'index.php' ){
 			return false;

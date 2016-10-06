@@ -31,7 +31,7 @@ Zarafa.common.ui.ContextMainPanelToolbar = Ext.extend(Ext.Toolbar, {
 	/**
 	 * @cfg {String} defaultTitle The title for the {@link Ext.Panel} Panel
 	 */
-	defaultTitle: _('Zarafa WebApp'),
+	defaultTitle: _('Kopano WebApp'),
 	
 	/**
 	 * @constructor

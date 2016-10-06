@@ -171,6 +171,7 @@ Zarafa.common.ui.layout.SwitchBorderLayout = Ext.extend(Ext.layout.BorderLayout,
 				horizontalRegion.panel.collapse(false);
 				break;
 			case Zarafa.common.ui.layout.SwitchBorderLayout.Orientation.HORIZONTAL:
+			/* falls through */
 			default:
 				// In case our previous orientation was 'OFF'
 				// we must expand the panel (Again don't use animations

@@ -258,10 +258,11 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 	 */
 	onExceptionRecord : function(proxy, type, action, options, response, args)
 	{
+		Zarafa.core.ui.MessageContentPanel.superclass.onExceptionRecord.apply(this, arguments);
+
 		if (type !== "open") {
 			this.isSending = false;
 		}
-		Zarafa.core.ui.MessageContentPanel.superclass.onExceptionRecord.apply(this, arguments);
 	},
 
 	/**
@@ -331,7 +332,7 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		// Check if recipients have been provided
 		var recipientStore = this.record.getRecipientStore();
 		if (!Ext.isDefined(recipientStore) || recipientStore.getCount() === 0) {
-			container.getNotifier().notify('warning.sending', _('Zarafa WebApp'), _('Please specify a recipient'));
+			container.getNotifier().notify('warning.sending', _('Kopano WebApp'), _('Please specify a recipient'));
 
 			// The message cannot be send, cancel the callbacks
 			callback(false);
@@ -347,7 +348,7 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 			}, this);
 
 			if (invalid) {
-				container.getNotifier().notify('warning.sending', _('Zarafa WebApp'), _('Please specify a recipient'));
+				container.getNotifier().notify('warning.sending', _('Kopano WebApp'), _('Please specify a recipient'));
 
 				// The message cannot be send, cancel the callbacks
 				callback(false);
@@ -387,7 +388,7 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 			message += _('Do you want to send this message without attachments?');
 
 			Zarafa.common.dialogs.MessageBox.addCustomButtons({
-				title : _('Zarafa WebApp'),
+				title : _('Kopano WebApp'),
 				icon: Ext.MessageBox.WARNING,
 				msg : message,
 				fn : function(button) {
@@ -421,7 +422,7 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		// Check if the subject has been provided
 		if (Ext.isEmpty(this.record.get('subject'))){
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
+				_('Kopano WebApp'),
 				_('Send this message without a subject?'),
 				function (buttonClicked) {
 					// If the user clicked "yes" then the

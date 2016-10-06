@@ -14,49 +14,46 @@
 		/**
 		 * @var resource This holds the MAPI Session
 		 */
-		var $session;
+		private $session;
 
 		/**
 		 * @var resource This can hold the addressbook resource
 		 */
-		var $ab;
+		private $ab;
 
 		/**
 		 * @var array List with all the currently opened stores
 		 */
-		var $stores;
+		private $stores;
 
 		/**
 		 * @var string The entryid (binary) of the default store
+		 * FIXME:  public since class.hierarchynotifier re-opens the store which needs to be fixed.
 		 */
-		var $defaultstore;
+		public $defaultstore;
 
 		/**
 		 * @var string The entryid (binary) of the public store
 		 */
-		var $publicStore;
+		private $publicStore;
 
 		/**
 		 * @var array Information about the current session (username/email/password/etc)
 		 */
-		var $session_info;
+		private $session_info;
 
 		/**
 		 * @var array Mapping username -> entryid for other stores
 		 */
-
-		var $userstores;
+		private $userstores;
 
 
 		/**
 		 * @var int Makes sure retrieveUserData is called only once
 		 */
-		var $userDataRetrieved;
+		private $userDataRetrieved;
 
-		/**
-		 * Default constructor
-		 */
-		function MAPISession()
+		function __construct()
 		{
 			$this->session_info = array("auth"=>false);
 			$this->stores = array();
@@ -69,9 +66,9 @@
 		}
 
 		/**
-		 * Logon to Zarafa's MAPI system via php MAPI extension
+		 * Logon to Kopano's MAPI system via php MAPI extension
 		 *
-		 * Logs on to Zarafa with the specified username and password. If the server is not specified,
+		 * Logs on to Kopano with the specified username and password. If the server is not specified,
 		 * it will logon to the local server.
 		 *
 		 * @param string $username the username of the user
@@ -81,26 +78,17 @@
 		 * @param string $sslcert_pass the optional ssl certificate password
 		 * @result int 0 on no error, otherwise a MAPI error code
 		 */
-		function logon($username = NULL, $password = NULL, $server = DEFAULT_SERVER, $sslcert_file = NULL, $sslcert_pass = NULL)
+		function logon($username = NULL, $password = NULL, $server = DEFAULT_SERVER, $sslcert_file = NULL, $sslcert_pass = NULL, $notifications = 1)
 		{
 			$result = NOERROR;
 			$username = (string) $username;
 			$password = (string) $password;
 
 			try {
-				// Add the SVN revision number to the version
-				$mapi_version = str_replace('-', '.', phpversion('mapi'));
-
-				// phpmapi function mapi_logon_zarafa expects extra parameters from version 7.2.0 SVN revision 46424
-				if (version_compare($mapi_version, '7.2.0.46424', '>=')) {
-					$webapp_version = 'WebApp-'.trim(file_get_contents(BASE_PATH . 'version'));
-					$browser_version = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass,1,$webapp_version,$browser_version);
-				}
-				else {
-					$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file, $sslcert_pass);
-				}
-
+				$webapp_version = 'WebApp-'.trim(file_get_contents(BASE_PATH . 'version'));
+				$browser_version = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+				$this->session = mapi_logon_zarafa($username, $password, $server, $sslcert_file,
+								   $sslcert_pass, 1, $webapp_version, $browser_version);
 				if ($this->session !== false){
 					$this->session_info["username"] = $username;
 
@@ -258,7 +246,7 @@
 		 * Get current session id
 		 * @deprecated 2.2.0 This function only exists for backward compatibility with
 		 * 		 older plugins that want to send the session id as a GET parameter with
-		 * 		 requests that they make to zarafa.php. The script zarafa.php does not
+		 * 		 requests that they make to kopano.php. The script kopano.php does not
 		 * 		 expect this parameter anymore, but plugins that are not updated might 
 		 * 		 still call this function.
 		 * @return string Always empty
@@ -783,7 +771,7 @@
 				}
 
 				if(!empty($contact_store_entryids)){
-					// add the defaults contacts folder in the addressbook hierarchy under 'Zarafa Contacts Folders'
+					// add the defaults contacts folder in the addressbook hierarchy under 'Kopano Contacts Folders'
 					mapi_setprops($profsect, Array(PR_ZC_CONTACT_STORE_ENTRYIDS => $contact_store_entryids,
 												   PR_ZC_CONTACT_FOLDER_ENTRYIDS =>	$contact_folder_entryids,
 												   PR_ZC_CONTACT_FOLDER_NAMES => $contact_folder_names));

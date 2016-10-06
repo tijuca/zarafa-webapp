@@ -205,7 +205,7 @@ Zarafa.addressbook.ui.ABMultiUserSelectionPanel = Ext.extend(Ext.form.FormPanel,
 				this.dialog.close();
 			} else {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg: _('You must select one or more users.'),
 					buttons: Ext.MessageBox.OK,
 					icon: Ext.MessageBox.INFO

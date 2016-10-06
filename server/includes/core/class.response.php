@@ -49,7 +49,8 @@
 
 			if ( gettype($allowedDomains) !== 'string' ){
 				// Misconfigured. Don't add any CORS headers.
-				error_log('Zarafa WebApp: CROSS_DOMAIN_AUTHENTICATION_ALLOWED_DOMAINS misconfigured');
+				$webAppTitle = defined('WEBAPP_TITLE') && WEBAPP_TITLE ? WEBAPP_TITLE : 'Kopano WebApp';
+				error_log($webAppTitle . ': CROSS_DOMAIN_AUTHENTICATION_ALLOWED_DOMAINS misconfigured');
 				return;
 			}
 			

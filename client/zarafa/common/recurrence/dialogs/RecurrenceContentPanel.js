@@ -148,7 +148,7 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 		// creating the new recurrence.
 		if (this.record.phantom !== true && this.editRecurrence === true && this.record.hasRecurringExceptions()) {
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
+				_('Kopano WebApp'),
 				_('This will discard any exceptions which might have been made for this recurring series. Do you wish to continue?'),
 				function(button) {
 					if (button === 'yes') {

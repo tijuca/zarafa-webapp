@@ -5,8 +5,8 @@
 		<version>0.3</version>
 		<name>titlecounter</name>
 		<title>Title Counter Plugin</title>
-		<author>Zarafa</author>
-		<authorURL>http://www.zarafa.com</authorURL>
+		<author>Kopano</author>
+		<authorURL>http://www.kopano.com</authorURL>
 		<description>Update the title of browser tab or window as per the unread count of Inbox folder of hierarchy</description>
 	</info>
 	<config>

@@ -56,8 +56,7 @@ Zarafa.common.plugins.FieldLabeler = Ext.extend(Ext.util.Observable, {
 		}
 
 		this.resizeEl = (this.wrap || this.el).wrap({
-			cls: 'x-form-element',
-			style: (Ext.isIE9m && !Ext.isIE9 || Ext.isOpera) ? 'position:absolute;top:0;left:0;overflow:visible' : ''
+			cls: 'x-form-element'
 		});
 		this.positionEl = this.itemCt = this.resizeEl.wrap({
 			cls: 'x-form-item '
@@ -155,10 +154,12 @@ Zarafa.common.plugins.FieldLabeler = Ext.extend(Ext.util.Observable, {
 
 		Ext.form.Field.prototype.onResize.apply(this, arguments);
 
-		if (this.resizeEl)
+		if (this.resizeEl) {
 			this.resizeEl.setWidth(heightCt);
-		if (this.itemCt)
+		}
+		if (this.itemCt) {
 			this.itemCt.setWidth(widthCt);
+		}
 
 		if (this.getTriggerWidth) {
 			this.wrap.setWidth(width);
@@ -199,8 +200,9 @@ Zarafa.common.plugins.FieldLabeler = Ext.extend(Ext.util.Observable, {
 		if (this.ownerCt.layout instanceof Ext.layout.HBoxLayout) {
 			x = 0;
 			this.ownerCt.items.each(function(item) {
-				if (item === this)
+				if (item === this) {
 					return false;
+				}
 
 				x += item.getActionEl().getWidth();
 			}, this);

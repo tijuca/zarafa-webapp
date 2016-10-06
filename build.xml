@@ -3,7 +3,6 @@
 	<property name="targetdir" value="${basedir}/deploy"/>
 
 	<property name="tools" value="${basedir}/tools"/>
-	<property name="test" value="${basedir}/test"/>
 	<property name="plugins" value="${basedir}/plugins"/>
 	<property name="client" value="${basedir}/client"/>
 	<property name="server" value="${basedir}/server"/>
@@ -16,7 +15,6 @@
 	<target name="clean">
 		<ant dir="${server}" target="clean"/>
 		<ant dir="${client}" target="clean"/>
-		<ant dir="${test}" target="clean"/>
 		<ant dir="${tools}" target="clean"/>
 		<delete dir="${doc}"/>
 		<delete dir="${targetdir}"/> 
@@ -50,16 +48,6 @@
 	<!-- Build the plugins -->
 	<target name="plugins" depends="tools">
 		<ant dir="${plugins}" target="all"/>
-	</target>
-
-	<!-- Build the test -->
-	<target name="test" depends="tools">
-		<ant dir="${test}" target="all"/>
-	</target>
-
-	<!-- Build the plugin test -->
-	<target name="test-plugins" depends="tools">
-		<ant dir="${test}" target="plugins"/>
 	</target>
 
 	<!-- Build documentation -->

@@ -45,8 +45,9 @@ Zarafa.core.data.RecordFactory = {
 	getMessageClassParent : function(messageClass)
 	{
 		var lastDot = messageClass.lastIndexOf('.');
-		if (lastDot > 0)
+		if (lastDot > 0) {
 			return messageClass.substr(0, lastDot);
+		}
 		return undefined;
 	},
 
@@ -61,8 +62,10 @@ Zarafa.core.data.RecordFactory = {
 	{
 		var messageClassParent = this.getMessageClassParent(messageClass);
 
-		if (Ext.isDefined(messageClassParent))
+		if (Ext.isDefined(messageClassParent)) {
 			return this.getRecordDefinitionByMessageClass(messageClassParent);
+		} 
+
 		return undefined;
 	},
 
@@ -104,8 +107,9 @@ Zarafa.core.data.RecordFactory = {
 	getRecordDefinitionByCustomType : function(customType)
 	{
 		var definition = this.definitions[customType];
-		if (Ext.isDefined(definition))
+		if (Ext.isDefined(definition)) {
 			return definition;
+		}
 
 		// Custom types don't have any hierarchy...
 		return this.createRecordDefinition(customType, undefined);
@@ -125,8 +129,9 @@ Zarafa.core.data.RecordFactory = {
 	getRecordDefinitionByObjectType : function(objectType)
 	{
 		var definition = this.definitions[objectType];
-		if (Ext.isDefined(definition))
+		if (Ext.isDefined(definition)) {
 			return definition;
+		}
 
 		// Object types don't have any hierarchy...
 		return this.createRecordDefinition(objectType, undefined, {'object_type' : objectType});
@@ -147,10 +152,11 @@ Zarafa.core.data.RecordFactory = {
 	{
 		var keyName = messageClass.toUpperCase();
 		var definition = this.definitions[keyName];
-		var parent = undefined;
+		var parent;
 
-		if (Ext.isDefined(definition))
+		if (Ext.isDefined(definition)) {
 			return definition;
+		}
 
 		parent = this.getMessageClassParentDefinition(keyName);
 		if (!Ext.isDefined(parent)){
@@ -252,12 +258,13 @@ Zarafa.core.data.RecordFactory = {
 	 */
 	createRecordObjectByRecordData : function(recordData, id)
 	{
-		if (!Ext.isEmpty(recordData.message_class))
+		if (!Ext.isEmpty(recordData.message_class)) {
 			return this.createRecordObjectByMessageClass(recordData.message_class, recordData, id);
-		else if (!Ext.isEmpty(recordData.object_type))
+		} else if (!Ext.isEmpty(recordData.object_type)) {
 			return this.createRecordObjectByObjectType(recordData.object_type, recordData, id);
-		else
+		} else {
 			return undefined;
+		}
 	},
 
 	/**
@@ -316,12 +323,13 @@ Zarafa.core.data.RecordFactory = {
 	 */
 	getRecordClassByRecordData : function(recordData)
 	{
-		if (Ext.isDefined(recordData.message_class))
+		if (Ext.isDefined(recordData.message_class)) {
 			return this.getRecordClassByMessageClass(recordData.message_class);
-		else if (Ext.isDefined(recordData.object_type))
+		} else if (Ext.isDefined(recordData.object_type)) {
 			return this.getRecordClassByObjectType(recordData.object_type);
-		else
+		} else {
 			return undefined;
+		}
 	},
 
 	/**

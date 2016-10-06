@@ -5,7 +5,7 @@
 */
 
 /**
-* Set this to let zarafa.php exports the XML
+* Set this to let kopano.php exports the JSON
 * but please note that you must create the DEBUG_JSONOUT_DIR directory and that
 * it is writable by PHP
 */
@@ -39,7 +39,7 @@ ini_set("log_errors", true);
 
 //	This PHP error handler, only dumps the error to our dump file, including mapi_last_hresult
 error_reporting(E_ALL | E_STRICT);
-set_error_handler("zarafa_error_handler");
+set_error_handler("kopano_error_handler");
 
 // get server url
 if (DEBUG_SHOW_SERVER){
@@ -50,7 +50,7 @@ if (DEBUG_SHOW_SERVER){
 			} else {
 				define("DEBUG_SERVER_ADDRESS", '');
 			}
-		}else if (DEFAULT_SERVER!="file://\\\\.\\pipe\\zarafa" && DEFAULT_SERVER!="file:///var/run/zarafa"){  
+		}else if (DEFAULT_SERVER!="file://\\\\.\\pipe\\kopano" && DEFAULT_SERVER!="file:///var/run/kopano"){  
 			// other non http server locations except the default values
 			define("DEBUG_SERVER_ADDRESS", str_replace("file://","",DEFAULT_SERVER)); // show location
 		} else {
@@ -77,7 +77,7 @@ function gitversion()
 * Custom error handler, here we check to see if it is a MAPI error and dump all info
 * to the dump file, and finally we redirect the error back to PHP
 */
-function zarafa_error_handler($errno, $errstr, $errfile, $errline, $errorContext)
+function kopano_error_handler($errno, $errstr, $errfile, $errline, $errorContext)
 {
 	$error = array("msg"=>$errstr, "file"=>$errfile.":".$errline);
 
@@ -136,7 +136,7 @@ function dump_props($variable,$title=""){
 $_debug_propList = false;
 
 /**
- * This function is used for the in/output by zarafa.php to store the JSON to disk
+ * This function is used for the in/output by kopano.php to store the JSON to disk
  */
 function dump_json($json, $prefix){
 	global $debug_json_id;
