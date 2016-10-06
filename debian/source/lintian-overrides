@@ -1,0 +1,8 @@
+# xregexp-unicode-base isn't packaged yet
+source: source-is-missing client/third-party/xregexp/xregexp-unicode-base.js *
+# PreCached Icons
+source: source-is-missing client/zarafa/calendar/ui/IconCache.js *
+# JSON data fields
+source: source-is-missing client/zarafa/contact/data/SearchFields.js *
+# SVG data field
+source: source-is-missing client/zarafa/hierarchy/dialogs/FolderPropertiesGeneralTab.js *
