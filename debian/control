@@ -52,12 +52,12 @@ Description: Zarafa WebApp clock plugin
  .
  The plugin extends the application's dashboard with a display of a clock.
 
-Package: zarafa-webapp-contactfax
+Package: kopano-webapp-contactfax
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp fax plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp fax plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
  Expand the new "create mail" dialog with contact's fax number in the To:
  field of the email.

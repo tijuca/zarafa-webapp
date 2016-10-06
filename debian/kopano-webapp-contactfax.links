@@ -1,0 +1,2 @@
+# source                                  # target
+/etc/kopano/webapp/config-contactfax.php  usr/share/kopano-webapp/plugins/contactfax/config.php

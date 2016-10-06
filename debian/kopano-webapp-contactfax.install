@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec
+# source                                  # target
+deploy/plugins/contactfax/config.php   => etc/kopano/webapp/config-contactfax.php
+
+deploy/plugins/contactfax/js              usr/share/kopano-webapp/plugins/contactfax
+deploy/plugins/contactfax/php             usr/share/kopano-webapp/plugins/contactfax
+deploy/plugins/contactfax/resources       usr/share/kopano-webapp/plugins/contactfax
+deploy/plugins/contactfax/manifest.xml    usr/share/kopano-webapp/plugins/contactfax
