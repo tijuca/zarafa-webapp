@@ -1,8 +1,0 @@
-#!/usr/bin/dh-exec
-# source                                 # target
-deploy/plugins/pimfolder/config.php   => etc/zarafa/webapp/config-pimfolder.php
-
-deploy/plugins/pimfolder/js              usr/share/zarafa-webapp/plugins/pimfolder
-deploy/plugins/pimfolder/php             usr/share/zarafa-webapp/plugins/pimfolder
-deploy/plugins/pimfolder/resources       usr/share/zarafa-webapp/plugins/pimfolder
-deploy/plugins/pimfolder/manifest.xml    usr/share/zarafa-webapp/plugins/pimfolder
