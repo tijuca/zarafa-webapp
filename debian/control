@@ -106,14 +106,14 @@ Description: Kopano WebApp personal inbox plugin
  messages to a single, preconfigured folder. This makes it easier to work
  through your emails if you work with a "Getting Things Done" methodology.
 
-Package: zarafa-webapp-quickitems
+Package: kopano-webapp-quickitems
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp quick items plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp quick items plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- Quick Items plugin for zarafa-webapp. Adds special widgets to the WebApp which
+ Quick Items plugin for koapno-webapp. Adds special widgets to the WebApp which
  makes it easier to create new mails, appointments, contacts, tasks and notes.
 
 Package: zarafa-webapp-titlecounter
