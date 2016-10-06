@@ -22,13 +22,13 @@ override_dh_auto_build:
 override_dh_install:
 	dh_install
 	# remove empty folders, please note README.source
-	rm -rf $(CURDIR)/debian/zarafa-webapp-files/usr/share/zarafa-webapp/plugins/files/js/external
+	rm -rf $(CURDIR)/debian/kopano-webapp-files/usr/share/kopano-webapp/plugins/files/js/external
 	# figure out package version
 	dpkg-parsechangelog --show-field Version > \
-		$(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/version
+		$(CURDIR)/debian/kopano-webapp/usr/share/kopano-webapp/version
 	# remove files named *debug*.js
-	find $(CURDIR)/debian/zarafa-webapp/usr/share/zarafa-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
+	find $(CURDIR)/debian/kopano-webapp/usr/share/kopano-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
 
 override_dh_fixperms:
-	dh_fixperms -Xvar/lib/zarafa-webapp/tmp
-	chown www-data:www-data $(CURDIR)/debian/zarafa-webapp/var/lib/zarafa-webapp/tmp
+	dh_fixperms -Xvar/lib/kopano-webapp/tmp
+	chown www-data:www-data $(CURDIR)/debian/kopano-webapp/var/lib/kopano-webapp/tmp
