@@ -1,1 +1,0 @@
-zarafa-webapp-xmpp: package-contains-broken-symlink usr/share/zarafa-webapp/plugins/xmpp/jsjac ../../../javascript/jsjac

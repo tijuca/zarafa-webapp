@@ -1,9 +1,0 @@
-#!/usr/bin/dh-exec
-# source                             # target
-deploy/plugins/files/config.php   => etc/zarafa/webapp/config-files.php
-
-deploy/plugins/files/js              usr/share/zarafa-webapp/plugins/files
-deploy/plugins/files/languages       usr/share/zarafa-webapp/plugins/files
-deploy/plugins/files/php             usr/share/zarafa-webapp/plugins/files
-deploy/plugins/files/resources       usr/share/zarafa-webapp/plugins/files
-deploy/plugins/files/manifest.xml    usr/share/zarafa-webapp/plugins/files

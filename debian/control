@@ -33,25 +33,6 @@ Description: New and improved WebApp for the Zarafa Collaboration Platform
  browser. The functionality of the web-client can be expanded by various
  plugins.
 
-Package: zarafa-webapp-browsercompatibility
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp browser compatibility plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- It extends the zarafa-webapp with a pop up on the screen if the current
- browser is not one of the supported browsers.
-
-Package: zarafa-webapp-clockwidget
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp clock plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- The plugin extends the application's dashboard with a display of a clock.
-
 Package: kopano-webapp-contactfax
 Architecture: all
 Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
@@ -61,18 +42,6 @@ Description: Kopano WebApp fax plugin
  .
  Expand the new "create mail" dialog with contact's fax number in the To:
  field of the email.
-
-Package: zarafa-webapp-files
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
- php5-curl
-Description: Zarafa WebApp files plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- File management integration plugin for the zarafa-webapp, allows a user to
- browse, save and attach files from a file share backend. Supported backends
- are FTP and WebDav (for example Owncloud).
 
 Package: kopano-webapp-folderwidgets
 Architecture: all
@@ -136,23 +105,12 @@ Description: Kopano WebApp Manual plugin
  Adds a button in the top menu bar, which opens the user manual of the Kopano
  WebApp.
 
-Package: zarafa-webapp-xmpp
+Package: kopano-webapp-zdeveloper
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version}),
-  libjs-jac
-Description: Zarafa WebApp XMPP plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp developer plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- XMPP plugin for zarafa-webapp, implements a simple XMPP based chat client in
- the WebApp in the form of a widget.
-
-Package: zarafa-webapp-zdeveloper
-Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp developer plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
- .
- Developer plugin for zarafa-webapp, exposes insertion points visually in the
- zarafa-webapp. Plugin is mostly useful for plugin developers.
+ Developer plugin for kopano-webapp, exposes insertion points visually in the
+ kopano-webapp. Plugin is mostly useful for plugin developers.

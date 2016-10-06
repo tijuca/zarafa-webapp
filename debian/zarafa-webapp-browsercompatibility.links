@@ -1,2 +1,0 @@
-# source                                            # target
-/etc/zarafa/webapp/config-browsercompatibility.php  usr/share/zarafa-webapp/plugins/browsercompatibility/config.php
