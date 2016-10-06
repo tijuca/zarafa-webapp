@@ -1,0 +1,2 @@
+# source                                    # target
+/etc/kopano/webapp/config-titlecounter.php  usr/share/kopano-webapp/plugins/titlecounter/config.php

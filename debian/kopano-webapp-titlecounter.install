@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                    # target
+deploy/plugins/titlecounter/config.php   => etc/kopano/webapp/config-titlecounter.php
+
+deploy/plugins/titlecounter/js              usr/share/kopano-webapp/plugins/titlecounter
+deploy/plugins/titlecounter/php             usr/share/kopano-webapp/plugins/titlecounter
+deploy/plugins/titlecounter/manifest.xml    usr/share/kopano-webapp/plugins/titlecounter

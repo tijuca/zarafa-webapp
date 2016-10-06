@@ -116,15 +116,15 @@ Description: Kopano WebApp quick items plugin
  Quick Items plugin for koapno-webapp. Adds special widgets to the WebApp which
  makes it easier to create new mails, appointments, contacts, tasks and notes.
 
-Package: zarafa-webapp-titlecounter
+Package: kopano-webapp-titlecounter
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Titlecounter plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp Titlecounter plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- zarafa-webapp titlecounter plugin which shows the amount of unread inbox mail
- items in the browsers title window.
+ Titlecounter plugin for kopano-webapp which shows the amount of unread inbox
+ mail items in the browsers title window.
 
 Package: zarafa-webapp-webappmanual
 Architecture: all
