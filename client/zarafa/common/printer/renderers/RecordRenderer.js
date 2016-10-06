@@ -75,5 +75,5 @@ Zarafa.common.printer.renderers.RecordRenderer = Ext.extend(Zarafa.common.printe
 	 * @type Hash of Strings
 	 * The path at which the print stylesheets can be found for a specific renderer
 	 */
-	customStylesheetPath: 'client/resources/design2015/css/external/print.record.css'
+	customStylesheetPath: 'client/resources/css/external/print.record.css'
 });

@@ -62,7 +62,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 
 			if (model.hasChanges()) {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg : _('Do you wish to apply the changes?'),
 					icon: Ext.MessageBox.QUESTION,
 					fn: this.applyChanges.createDelegate(this, [ viewId ], 1),
@@ -157,7 +157,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 			var message = _('In order for the changes to take effect, please reload WebApp.') +'<br>'+ _('NOTE: Any unsaved changes will be lost.');
 
 			Zarafa.common.dialogs.MessageBox.addCustomButtons({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : message,
 				icon : Ext.MessageBox.QUESTION,
 				fn : this.reloadWebapp,
@@ -327,7 +327,7 @@ Zarafa.settings.SettingsContext = Ext.extend(Zarafa.core.Context, {
 	{
 		if (this.getModel().hasChanges()) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : _('Do you wish to apply the changes?'),
 				icon: Ext.MessageBox.QUESTION,
 				fn: this.applyChangesContext.createDelegate(this, [ folder, newContext ], 1),

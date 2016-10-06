@@ -211,7 +211,7 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 		var records = this.store.getRange();
 
 		Ext.MessageBox.confirm(
-			_('Zarafa WebApp'),
+			_('Kopano WebApp'),
 			_('Are you sure you want to Permanently Delete all items?'),
 			function (buttonClicked) {
 				if (buttonClicked == 'yes') {
@@ -269,7 +269,7 @@ Zarafa.common.restoreitem.dialogs.RestoreItemPanel = Ext.extend(Ext.grid.GridPan
 	{
 		var records = this.store.getRange();
 		Ext.MessageBox.confirm(
-			_('Zarafa WebApp'),
+			_('Kopano WebApp'),
 			_('Are you sure you want to Restore all items?'),
 			function (buttonClicked) {
 				if (buttonClicked == 'yes') {

@@ -22,7 +22,7 @@ Zarafa.hierarchy.Actions = {
 			container.selectFolder(folder);
 		} else if (folder.isIPMSubTree() || folder.isSharedFolder()) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : (folder.isIPMSubTree() ?
 					_('Not enough permissions to open this store, do you want to remove it from the hierarchy?') :
 					_('Not enough permissions to open this folder, do you want to remove it from the hierarchy?')),
@@ -33,7 +33,7 @@ Zarafa.hierarchy.Actions = {
 			});
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg : _('Not enough permissions to open this folder.'),
 				icon: Ext.MessageBox.ERROR,
 				buttons: Ext.MessageBox.OK

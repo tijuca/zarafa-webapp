@@ -8,26 +8,26 @@
 		/**
 		 * @var MAPITable contains resource of rules table.
 		 */
-		var $rulesTable;
+		private $rulesTable;
 
 		/**
 		 * @var MAPITable contains resource of rules modify table.
 		 */
-		var $rulesModifyTable;
+		private $rulesModifyTable;
 
 		/**
 		 * Constructor
 		 * @param int $id unique id.
 		 * @param array $data list of all actions.
 		 */
-		function RulesModule($id, $data)
+		function __construct($id, $data)
 		{
 			$this->properties = $GLOBALS['properties']->getRulesProperties();
 
 			$this->rulesTable = null;
 			$this->rulesModifyTable = null;
 
-			parent::Module($id, $data);
+			parent::__construct($id, $data);
 		}
 
 		/**
@@ -200,7 +200,7 @@
 		/**
 		 * Function will be used to create/update rule in user's rules table.
 		 * This function only usee ROW_MODIFY flag to save rules data, Which is correct when modifying existing rules
-		 * but for adding new rules zarafa server automatically checks existence of rule id and if it si not then
+		 * but for adding new rules Kopano Core automatically checks existence of rule id and if it si not then
 		 * use ROW_ADD flag.
 		 * @param {MAPIStore} $store current user's store.
 		 * @param {Array} $rulesData rules data that should be deleted.

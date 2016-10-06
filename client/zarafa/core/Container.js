@@ -236,7 +236,7 @@ Zarafa.core.Container = Ext.extend(Ext.util.Observable, {
 	 */
 	getRequest : function()
 	{
-		return this.request || (this.request = new Zarafa.core.Request({ url:"zarafa.php" }));
+		return this.request || (this.request = new Zarafa.core.Request({ url:"kopano.php" }));
 	},
 
 	/**
@@ -324,7 +324,7 @@ Zarafa.core.Container = Ext.extend(Ext.util.Observable, {
 	 */
 	getWelcomePanel : function()
 	{
-		return this.welcomePanel = (this.welcomePanel = new Zarafa.core.ui.WelcomeViewport());
+		return this.welcomePanel || (this.welcomePanel = new Zarafa.core.ui.WelcomeViewport());
 	},
 
 	/**

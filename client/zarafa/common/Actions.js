@@ -76,24 +76,6 @@ Zarafa.common.Actions = {
 	},
 
 	/**
-	 * Opens a {@link Zarafa.common.attachment.dialogs.LegacyFileSelectionContentPanel File Selection Content Panel}
-	 * which is needed for Browsers which do not support the {@link Zarafa#supportsFilesAPI Files API} and need
-	 * a valid {@link Ext.form.FormPanel form} with a {@link Ext.ux.form.FileUploadField Upload field} in order
-	 * to be able to upload the files to the server.
-	 *
-	 * @param {Object} config (optional) Configuration object for creating the ContentPanel
-	 */
-	openLegacyFileSelectionContent : function(config)
-	{
-		config = Ext.applyIf(config || {}, {
-			modal : true
-		});
-		
-		var componentType = Zarafa.core.data.SharedComponentType['common.attachment.dialog.legacyfileselection'];
-		Zarafa.core.data.UIFactory.openLayerComponent(componentType, undefined, config);
-	},
-
-	/**
 	 * Opens a {@link Zarafa.common.attachment.dialogs.AttachItemContentPanel Attach Item Content Panel} which is used
 	 * to attach an item as embedded attachment to a message.
 	 *
@@ -527,7 +509,7 @@ Zarafa.common.Actions = {
 	 */
 	deleteRecords : function(records, askOcc)
 	{
-		var store = undefined;
+		var store;
 		var saveRecords = [];
 
 		if (Ext.isEmpty(records)) {
@@ -562,7 +544,7 @@ Zarafa.common.Actions = {
 				if (record.isMeetingSent()) {
 					// We are the organizer of the meeting, so lets ask if the recipients should be notified.
 					Ext.MessageBox.show({
-						title: _('Zarafa WebApp'),
+						title: _('Kopano WebApp'),
 						msg : _('A cancellation message will be sent to all recipients, do you wish to continue?'),
 						icon: Ext.MessageBox.WARNING,
 						fn: this.cancelInvitation,
@@ -743,9 +725,10 @@ Zarafa.common.Actions = {
 							saveRecords.push(record);
 							break;
 						case 'ask':
+						/* falls through*/
 						default:
 							// Ask if a read receipt must be send.
-							Ext.MessageBox.confirm(_('Zarafa WebApp'), _('The sender of this message has asked to be notified when you read this message. Do you wish to notify the sender?'),
+							Ext.MessageBox.confirm(_('Kopano WebApp'), _('The sender of this message has asked to be notified when you read this message. Do you wish to notify the sender?'),
 								// This function will execute when user provide some inputs,
 								// So other external changes should not affect the record.
 								function(buttonClicked) {

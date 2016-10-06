@@ -17,8 +17,9 @@ Zarafa.common.ui.grid.Renderers = {
 	 */
 	importance : function(value, p, record)
 	{
-		if (value >= 0)
+		if (value >= 0) {
 			p.css = Zarafa.core.mapi.Importance.getClassName(value);
+		}
 
 		// add extra css class for empty cell
 		p.css += ' zarafa-grid-empty-cell';
@@ -148,29 +149,49 @@ Zarafa.common.ui.grid.Renderers = {
 	},
 
 	/**
+	 * Render the cell as Display Name with presence status
+	 *
+	 * @param {Object} value The data value for the cell.
+	 * @param {Object} p An object with metadata
+	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @return {String} The formatted string
+	 */
+	displayName : function(value, p, record)
+	{
+		var user = Zarafa.core.data.UserIdObjectFactory.createFromRecord(record);
+		var presenceStatus = Zarafa.core.PresenceManager.getPresenceStatusForUser(user);
+
+		return '<span class="zarafa-presence-status '+Zarafa.core.data.PresenceStatus.getCssClass(presenceStatus)+'">' +
+				'<span class="zarafa-presence-status-icon"></span>' +
+				Zarafa.common.ui.grid.Renderers.name(value, p, record) +
+				'</span>';
+	},
+
+	/**
 	 * Render the cell as Sender
 	 *
 	 * @param {Object} value The data value for the cell.
 	 * @param {Object} p An object with metadata
 	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
-	 * @param {Object} userInfo An object with information about the user for which a name is
-	 * rendered. This will only be set when this function is being called from another renderer
-	 * function.
 	 * @return {String} The formatted string
 	 */
-	sender : function(value, p, record, userInfo)
+	sender : function(value, p, record)
 	{
+		var fieldRoot;
 		// Check which of the 2 properties must be used
 		value = record.get('sent_representing_name');
-		var presenceStatus = record.get('sent_representing_presence_status');
-		if (Ext.isEmpty(value)) {
+		if ( Ext.isEmpty(value)) {
 			value = record.get('sender_name');
-			presenceStatus = record.get('sender_presence_status');
+			fieldRoot = 'sender';
+		} else {
+			fieldRoot = 'sent_representing';
 		}
+		var user = Zarafa.core.data.UserIdObjectFactory.createFromRecord(record, fieldRoot);
+		var presenceStatus = Zarafa.core.PresenceManager.getPresenceStatusForUser(user);
 
 		return '<span class="zarafa-presence-status '+Zarafa.core.data.PresenceStatus.getCssClass(presenceStatus)+'">' +
-					'<span class="zarafa-presence-status-icon"></span>' + 
-					Zarafa.common.ui.grid.Renderers.name(value, p, record) + 
+					'<span class="zarafa-presence-status-icon"></span>' +
+					Zarafa.common.ui.grid.Renderers.name(value, p, record) +
 				'</span>';
 	},
 
@@ -334,10 +355,10 @@ Zarafa.common.ui.grid.Renderers = {
 	datetime : function(value, p, record, row, column, store, meta)
 	{
 		p.css = 'mail_date';
-		
+
 		if ( meta && meta.css ){
 			p.css += ' ' + meta.css;
-		} 
+		}
 
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 		return Ext.isDate(value) ? value.format(_('l d/m/Y G:i')) : _('None');
@@ -384,10 +405,11 @@ Zarafa.common.ui.grid.Renderers = {
 	folder : function(value, p, record)
 	{
 		var folder = container.getHierarchyStore().getFolder(value);
-		if (folder)
+		if (folder) {
 			return folder.get('display_name');
-		else
+		} else {
 			return _('Unknown');
+		}
 	},
 
 	/**
@@ -459,11 +481,12 @@ Zarafa.common.ui.grid.Renderers = {
 					return _('Meeting Organizer');
 				}
 				return _('Required Attendee');
-			case Zarafa.core.mapi.RecipientType.MAPI_CC:
-			default:
-				return _('Optional Attendee');
 			case Zarafa.core.mapi.RecipientType.MAPI_BCC:
 				return _('Resource');
+			case Zarafa.core.mapi.RecipientType.MAPI_CC:
+			/* falls through */
+			default:
+				return _('Optional Attendee');
 		}
 	},
 
@@ -553,7 +576,7 @@ Zarafa.common.ui.grid.Renderers = {
 	},
 
 	/**
-	 * Render the name, subject and body information of record 
+	 * Render the name, subject and body information of record
 	 *
 	 * @param {Object} value The data value for the cell.
 	 * @param {Object} p An object with metadata
@@ -568,7 +591,7 @@ Zarafa.common.ui.grid.Renderers = {
 			// if value is empty then add extra css class for empty cell
 			p.css += ' zarafa-grid-empty-cell';
 		}
-		
+
 		var messageClass = record.get('message_class');
 		//TODO: give these variables better names
 		var name = '';
@@ -601,7 +624,7 @@ Zarafa.common.ui.grid.Renderers = {
 				break;
 		}
 		return ''+
-			'<table cellpadding=0 cellspacing=0 style="width:100%" class="messageclass-data mc-'+messageClass.toLowerCase().replace('.', '')+'">' + 
+			'<table cellpadding=0 cellspacing=0 style="width:100%" class="messageclass-data mc-'+messageClass.toLowerCase().replace('.', '')+'">' +
 				'<tr>' +
 					'<td class="x-grid3-col x-grid3-cell x-grid3-td-0 icon ' + Zarafa.common.ui.IconClass.getIconClass(record) + '"></td>' +
 					'<td class="name"><div class="padding">' + name + '</div></td>' +
@@ -624,9 +647,9 @@ Zarafa.common.ui.grid.Renderers = {
 
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 		var date = Ext.isDate(value) ? value.format(_('d/m/Y')) : '';
-		
+
 		// TODO: make insertionpoint for other icons (reuse mail grid insertionpoint???)
-		return '<table cellpadding=0 cellspacing=0 style="width:100%"><tr>' + 
+		return '<table cellpadding=0 cellspacing=0 style="width:100%"><tr>' +
 					'<td class="date"><div>' + date + '</div></td>' +
 					( record.get('hasattach') ? '<td class="icon_attachment" style="width:22px"></td>' : '' ) +
 				'</tr></table>';

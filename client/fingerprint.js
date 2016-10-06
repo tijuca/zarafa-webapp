@@ -158,9 +158,34 @@
 	  }
 	  return hash;
 	};
+	
+	/**
+	 * Sends a request to the backend to keep the php session alive.
+	 * This is needed for the login page because the fingerprint is
+	 * stored in the session.
+	 * @param {Number} wait Time in milliseconds that the function must wait
+	 * before it sends the keep-alive request.
+	 */
+	function _sendKeepAlive(wait) {
+		setTimeout(function(){
+			var request = new XMLHttpRequest();
+			request.open('POST', 'kopano.php?service=fingerprint&type=keepalive');
+			request.onload = function(e) {
+				var phpGcMaxLifTime = !!request.response ? parseInt(request.response, 10) : 0;
+				if ( phpGcMaxLifTime > 1 ){
+					// Send keep-alive request at half the session expiration time
+					// Note: phpGcMaxLifTime is in seconds, while the timeout is given in milliseconds
+					_sendKeepAlive(parseInt(Math.round(1000*phpGcMaxLifTime/2)));
+				}
+			}
+			request.send();
+		}, wait);
+	}
 
 	// Export the module
 	this.fingerprint = fingerprint;
+	// Export the keep-alive function
+	this.sendKeepAlive = _sendKeepAlive;
 })();
 
 
@@ -282,9 +307,12 @@
 // match, the session will be destroyed.
 window.addEventListener('load', function(event){
 	var request = new XMLHttpRequest();
-	request.open('POST', 'zarafa.php?service=fingerprint');
+	request.open('POST', 'kopano.php?service=fingerprint');
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	// Add the fingerprint to the content body of the request
 	var params = 'fingerprint='+fingerprint.get();
 	request.send(params);
+	
+	// Start sending keep-alive requests. The first one will be sent immediately
+	sendKeepAlive(0);
 });

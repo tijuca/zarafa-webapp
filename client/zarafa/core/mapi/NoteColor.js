@@ -42,6 +42,7 @@ Zarafa.core.mapi.NoteColor = Zarafa.core.Enum.create({
 				colorValue = _('White');
 				break;
 			case this.note_yellow:
+			/* falls through */	
 			default:
 				colorValue = _('Yellow');
 				break;

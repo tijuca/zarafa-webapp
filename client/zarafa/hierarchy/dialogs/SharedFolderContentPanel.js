@@ -86,7 +86,7 @@ Zarafa.hierarchy.dialogs.SharedFolderContentPanel = Ext.extend(Zarafa.core.ui.Co
 			// a second chance of entering a valid user.
 			if (!recipient.isResolved()) {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg : String.format(_('Username \'{0}\' could not be resolved.'), recipient.get('display_name')),
 					icon: Ext.MessageBox.ERROR,
 					buttons: Ext.MessageBox.OK
@@ -94,7 +94,7 @@ Zarafa.hierarchy.dialogs.SharedFolderContentPanel = Ext.extend(Zarafa.core.ui.Co
 				return;
 			} else if (recipient.get('display_type') !== Zarafa.core.mapi.DisplayType.DT_MAILUSER) {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg : String.format(_('Username \'{0}\' is not a valid user.'), recipient.get('display_name')),
 					icon: Ext.MessageBox.ERROR,
 					buttons: Ext.MessageBox.OK
@@ -102,7 +102,7 @@ Zarafa.hierarchy.dialogs.SharedFolderContentPanel = Ext.extend(Zarafa.core.ui.Co
 				return;
 			} else if (recipient.get('email_address') === container.getUser().getEmailAddress()) {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg : _('It is not possible to open your own store twice'), 
 					icon: Ext.MessageBox.ERROR,
 					buttons: Ext.MessageBox.OK
@@ -118,7 +118,7 @@ Zarafa.hierarchy.dialogs.SharedFolderContentPanel = Ext.extend(Zarafa.core.ui.Co
 			var opened = container.getHierarchyStore().open(name, options['type'], options['subfolders']);
 			if (!opened) {
 				Ext.MessageBox.show({
-					title: _('Zarafa WebApp'),
+					title: _('Kopano WebApp'),
 					msg :_('This shared folder is already open.'),
 					icon: Ext.MessageBox.ERROR,
 					buttons: Ext.MessageBox.OK
@@ -128,7 +128,7 @@ Zarafa.hierarchy.dialogs.SharedFolderContentPanel = Ext.extend(Zarafa.core.ui.Co
 			}
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg :_('You must specify a username.'),
 				icon: Ext.MessageBox.ERROR,
 				buttons: Ext.MessageBox.OK

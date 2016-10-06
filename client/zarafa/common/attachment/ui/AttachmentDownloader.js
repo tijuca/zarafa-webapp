@@ -85,20 +85,8 @@ Zarafa.common.attachment.ui.AttachmentDownloader = Ext.extend(Ext.Component, {
 				Ext.DomHelper.append(form, {tag : 'input', type : 'hidden', name : 'entryids[]', value : records[i].get('entryid')});
 			}
 
-			// In IE10 and IE9 beforeunload will be called while submitting form.
-			// So prevent this situation by disable leave requester which prevent the requester dialog to appear.
-			if(Ext.isIE10 || Ext.isIE9) {
-				Zarafa.core.Util.disableLeaveRequester();
-			}
-
 			// Submit the form to send a POST request
 			form.dom.submit();
-
-			// Enable leave requester back if user browser is IE10 or IE9.
-			if(Ext.isIE10 || Ext.isIE9) {
-				Zarafa.core.Util.enableLeaveRequester();
-			}
-
 		} else {
 			container.getNotifier().notify(
 				'error.attachment',
@@ -142,12 +130,12 @@ Zarafa.common.attachment.ui.AttachmentDownloader = Ext.extend(Ext.Component, {
 	checkForEmbeddedAttachments : function(record, allAsZip)
 	{
 		var containsEmbedded = false;
+		var attachmentStore = record.store;
 
 		// We need all this additional checking only when we are going to download attachments as ZIP, skip otherwise.
 		if(allAsZip) {
 			// If user already made his/her decision to not show this warning again then it is there is state setting, just act accordingly.
 			var dontShowWarning = container.getSettingsModel().get('zarafa/v1/state/dialogs/mixattachitemcontentpanel/dontshowagain');
-			var attachmentStore = record.store;
 
 			// Check if there is any embedded attachments only when user want this warning to be raised
 			// and there is more than one attachments.
@@ -201,7 +189,7 @@ Zarafa.common.attachment.ui.AttachmentDownloader = Ext.extend(Ext.Component, {
 	displaySaveEmailException : function(responseObject)
 	{
 		Ext.MessageBox.show({
-			title : _('Zarafa WebApp'),
+			title : _('Kopano WebApp'),
 			msg : responseObject.zarafa.error.info.display_message,
 			icon: Ext.MessageBox.ERROR,
 			buttons : Ext.MessageBox.OK

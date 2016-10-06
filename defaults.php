@@ -10,7 +10,6 @@ if(!defined('CONFIG_CHECK_COOKIES_SSL')) define('CONFIG_CHECK_COOKIES_SSL', FALS
 
 if(!defined('STATE_FILE_MAX_LIFETIME')) define('STATE_FILE_MAX_LIFETIME', 28*60*60);
 if(!defined('UPLOADED_ATTACHMENT_MAX_LIFETIME')) define('UPLOADED_ATTACHMENT_MAX_LIFETIME', 6*60*60);
-if(!defined('DISABLE_FULL_CONTACTLIST_THRESHOLD')) define('DISABLE_FULL_CONTACTLIST_THRESHOLD', -1);
 if(!defined('ENABLE_PUBLIC_FOLDERS')) define('ENABLE_PUBLIC_FOLDERS', true);
 
 /**
@@ -23,7 +22,7 @@ if(!defined('ENABLE_RESPONSE_COMPRESSION')) define('ENABLE_RESPONSE_COMPRESSION'
  */
 if(!defined('DISABLE_HTMLBODY_FILTER')) define('DISABLE_HTMLBODY_FILTER', false);
 /**
- * When set to true this disables the login with the REMOTE_USER set by apache.
+ * Set to true to disable login with Single Sign-On (SSO) on SSO environments.
  */
 if(!defined('DISABLE_REMOTE_USER_LOGIN')) define('DISABLE_REMOTE_USER_LOGIN', false);
 
@@ -63,7 +62,7 @@ if(!defined('ENABLE_PLUGINS')) define('ENABLE_PLUGINS', true);
 if(!defined('PATH_PLUGIN_CONFIG_DIR')) define('PATH_PLUGIN_CONFIG_DIR', PATH_PLUGIN_DIR);
 
 /**
- * A theme. When this is not defined or empty or 'default', the default Zarafa theme will be loaded.
+ * A theme. When this is not defined or empty or 'default', the default Kopano theme will be loaded.
  * The theme should the (directory)name of a installed theme plugin.
  */
 if(!defined('THEME')) define('THEME', '');
@@ -85,11 +84,6 @@ if(!defined('FREEBUSY_LOAD_END_OFFSET')) define('FREEBUSY_LOAD_END_OFFSET', 90);
 
 // Maximum eml files to be included in a single ZIP archive
 if(!defined('MAX_EML_FILES_IN_ZIP')) define('MAX_EML_FILES_IN_ZIP', 50);
-
-// Standard password key for session password. We recommend to change the default value for security reasons 
-// and a length of 16 characters. Passwords are only encrypted when the openssl module is installed
-if(!defined('PASSWORD_KEY')) define('PASSWORD_KEY','a75356b0d1b81b7');
-if(!defined('PASSWORD_IV')) define('PASSWORD_IV','b3f5a483');
 
 // CONTACT_PREFIX used for contact name
 if (!defined('CONTACT_PREFIX')) define('CONTACT_PREFIX', false);
@@ -160,9 +154,9 @@ if (!defined('COLOR_SCHEMES')) define('COLOR_SCHEMES', json_encode(array(
 		'base' => '#7bd0f0'
 	),
 	array(
-		'name' => 'zarafablue',
-		'displayName' => _('Zarafa blue'),
-		'base' => '#0f70bd'
+		'name' => 'kopanoblue',
+		'displayName' => _('Kopano blue'),
+		'base' => '#3d97a6'
 	),
 	array(
 		'name' => 'mauve',

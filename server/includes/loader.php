@@ -86,7 +86,7 @@ class FileLoader {
 	}
 
 	/**
-	 * Obtain the list of Zarafa WebApp files
+	 * Obtain the list of WebApp files
 	 *
 	 * @param number $load The LOAD_RELEASE | LOAD_DEBUG | LOAD_SOURCE flag
 	 * to indicate which files should be loaded.
@@ -98,9 +98,9 @@ class FileLoader {
 		$jsLoadingSequence = array();
 
 		if ($load == LOAD_RELEASE) {
-			$jsLoadingSequence[] = "client/zarafa.js";
+			$jsLoadingSequence[] = "client/kopano.js";
 		} else if ($load == LOAD_DEBUG) {
-			$jsLoadingSequence[] = "client/zarafa-debug.js";
+			$jsLoadingSequence[] = "client/kopano-debug.js";
 		} else {
 			$jsLoadingSequence = array_merge(
 				$jsLoadingSequence,
@@ -116,7 +116,7 @@ class FileLoader {
 	}
 
 	/**
-	 * Obtain the list of Zarafa WebApp files
+	 * Obtain the list of WebApp files
 	 *
 	 * @param number $load The LOAD_RELEASE | LOAD_DEBUG | LOAD_SOURCE flag
 	 * to indicate which files should be loaded.
@@ -127,14 +127,14 @@ class FileLoader {
 		$cssLoadingSequence = array();
 
 		if ($load == LOAD_RELEASE) {
-			$cssLoadingSequence[] = "client/resources/css/zarafa.css";
+			$cssLoadingSequence[] = "client/resources/css/kopano.css";
 		} else if ($load == LOAD_DEBUG) {
-			$cssLoadingSequence[] = "client/resources/css/zarafa.css";
+			$cssLoadingSequence[] = "client/resources/css/kopano.css";
 		} else {
 			$cssLoadingSequence = array_merge(
 				$cssLoadingSequence,
 				$this->buildCSSLoadingSequence(
-					$this->getListOfFiles('css', 'client/resources/design2015/css', false)
+					$this->getListOfFiles('css', 'client/resources/css', false)
 				)
 			);
 		}
@@ -215,11 +215,18 @@ class FileLoader {
 	 * @param String $template The template used to print each file, the string {file} will
 	 * be replaced with the filename
 	 * @param Boolean $base True if only the basename of the file must be printed
+	 * @param Boolean $concatVersion True if concatenate unique webapp version
+	 * with file name to avoid the caching issue.
 	 */
-	public function printFiles($files, $template = '{file}', $base = false)
+	public function printFiles($files, $template = '{file}', $base = false, $concatVersion = true)
 	{
+		$version = trim(file_get_contents('version'));
 		foreach($files as $file) {
-			echo str_replace('{file}', $base === true ? basename($file) : $file, $template) . PHP_EOL;
+			$file = $base === true ? basename($file) : $file;
+			if($concatVersion) {
+				$file = $file."?version=".$version;
+			}
+			echo str_replace('{file}', $file, $template) . PHP_EOL;
 		}
 	}
 
@@ -277,9 +284,6 @@ class FileLoader {
 		if (!is_resource($dir)) {
 			return $files;
 		}
-
-		$typeExt = '.' . $ext;
-		$typeSize = strlen($typeExt);
 
 		while(($file = readdir($dir)) !== false)
 		{
@@ -572,7 +576,7 @@ class FileLoader {
 		if(count($fileDepths) < count($fileData)){
 			$errorMsg = '[LOADER] Could not compute all dependecies. The following files cannot be resolved properly: ';
 			$errorMsg .= implode(', ', array_diff(array_keys($fileData), array_keys($fileDepths)));
-			trigger_error($trigger_error);
+			trigger_error($errorMsg);
 		}
 
 		$fileWeights = Array();

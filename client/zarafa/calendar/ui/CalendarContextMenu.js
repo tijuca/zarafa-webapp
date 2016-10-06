@@ -407,7 +407,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 
 		if (record.get('appointment_not_found')) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg :_('This appointment has been moved or deleted, do you want to continue?'),
 				icon: Ext.MessageBox.WARNING,
 				record: record,
@@ -450,7 +450,7 @@ Zarafa.calendar.ui.CalendarContextMenu = Ext.extend(Zarafa.core.ui.menu.Conditio
 
 		if (record.get('appointment_not_found')) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg :_('This appointment has been moved or deleted, do you want to continue?'),
 				icon: Ext.MessageBox.WARNING,
 				record: record,

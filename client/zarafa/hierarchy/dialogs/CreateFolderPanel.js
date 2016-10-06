@@ -198,7 +198,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 	{
 		if (this.newNameField.getValue().trim().length === 0) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg: _("You must specify a name."),
 				buttons: Ext.MessageBox.OK,
 				icon: Ext.MessageBox.INFO
@@ -221,7 +221,7 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 			this.dialog.saveRecord();
 		} else {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg: _("You must select a destination folder."),
 				buttons: Ext.MessageBox.OK,
 				icon: Ext.MessageBox.INFO

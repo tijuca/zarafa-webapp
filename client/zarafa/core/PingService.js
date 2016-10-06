@@ -5,16 +5,16 @@ Ext.namespace('Zarafa.core');
  * @extends Ext.util.Observable
  *
  * Ping service which will periodically ping the server to determine
- * if the HTTP and ZCP server are both available again, so the user can
+ * if the HTTP and Kopano Core server are both available again, so the user can
  * continue working with the WebApp.
  */
 Zarafa.core.PingService = Ext.extend(Ext.util.Observable, {
 
 	/**
 	 * @cfg {String} url
-	 * The url used to send the requests to. defaults to zarafa.php.
+	 * The url used to send the requests to. defaults to kopano.php.
 	 */
-	url : 'zarafa.php',
+	url : 'kopano.php',
 
 	/**
 	 * @cfg {String} cmd

@@ -135,7 +135,7 @@ Zarafa.plugins.gmaps.GmapsTab=Ext.extend(Ext.Panel, {
 
 					if (Ext.isEmpty(container.getSettingsModel().get('zarafa/v1/plugins/gmaps/default_address')))
 					{
-						//setting Zarafa headquarters coordinates if nothing found in settings
+						//setting Kopano headquarters coordinates if nothing found in settings
 						this.latitude=51.996417;
 						this.longitude=4.3850826000000325;
 					}

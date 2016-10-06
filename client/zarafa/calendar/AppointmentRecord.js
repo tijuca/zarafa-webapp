@@ -179,7 +179,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 		var numocc = this.get('recurrence_numoccur');
 		var startocc = this.get('recurrence_startocc');
 		var endocc = this.get('recurrence_endocc');
-		var pattern = undefined;
+		var pattern;
 		var occSingleDayRank = false;
 		var occTimeRange = (startocc !== 0 && endocc !== 0);
 

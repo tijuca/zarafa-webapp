@@ -295,6 +295,7 @@ Zarafa.common.rules.dialogs.RulesActionsContainer = Ext.extend(Ext.Container, {
 		var layout = content.getLayout();
 		switch (actionFlag) {
 			case Zarafa.common.rules.data.ActionFlags.UNKNOWN:
+			/* falls through */
 			default:
 				break;
 			case Zarafa.common.rules.data.ActionFlags.MOVE:
@@ -349,6 +350,7 @@ Zarafa.common.rules.dialogs.RulesActionsContainer = Ext.extend(Ext.Container, {
 					default:
 						return Zarafa.common.rules.data.ActionFlags.UNKNOWN;
 				}
+				/* falls through */
 			default:
 				// Any other RuleAction is not supported
 				return Zarafa.common.rules.data.ActionFlags.UNKNOWN;
@@ -375,6 +377,7 @@ Zarafa.common.rules.dialogs.RulesActionsContainer = Ext.extend(Ext.Container, {
 
 		switch (value) {
 			case Zarafa.common.rules.data.ActionFlags.UNKNOWN:
+			/* falls through */
 			default:
 				layout.setActiveItem(panel.id + '-empty');
 				break;

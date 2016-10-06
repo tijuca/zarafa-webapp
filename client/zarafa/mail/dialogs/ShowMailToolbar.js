@@ -17,6 +17,11 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	 * Insertion point for the Options buttons in the Show Mail Toolbar
 	 * @param {Zarafa.mail.dialogs.ShowMailToolbar} toolbar This toolbar
 	 */
+	/**
+	 * @insert context.mail.showmailcontentpanel.toolbar.options.right
+	 * Insertion point for the Options Right buttons which will show at right last in Mail Toolbar
+	 * @param {Zarafa.mail.dialogs.ShowMailToolbar} toolbar This toolbar
+	 */
 
 	/**
 	 * @constructor
@@ -34,7 +39,8 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			insertionPointBase: 'context.mail.showmailcontentpanel',
 
 			actionItems: this.createActionButtons(),
-			optionItems: this.createOptionButtons()
+			optionItems: this.createOptionButtons(),
+			rightAlignedItems : this.createRightAlignedOptionButtons()
 		});
 
 		Zarafa.mail.dialogs.ShowMailToolbar.superclass.constructor.call(this, config);
@@ -83,16 +89,6 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			scope: this
 		},{
 			xtype: 'button',
-			text: _('Edit as New Message'),
-			tooltip: _('Edit as New Message') + ' (Ctrl + E)',
-			overflowText: _('Edit as New Message'),
-			iconCls: 'icon_editAsNewEmail',
-			ref: 'editAsNewBtn',
-			actionType: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
-			handler: this.onMailResponseButton,
-			scope: this
-		},{
-			xtype: 'button',
 			ref: 'deleteBtn',
 			overflowText: _('Delete this item.'),
 			tooltip: {
@@ -127,16 +123,6 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			scope: this
 		},{
 			xtype: 'button',
-			iconCls: 'icon_print',
-			overflowText: _('Print'),
-			tooltip: {
-				title: _('Print'),
-				text: _('Print this email')
-			},
-			handler: this.onPrintButton,
-			scope: this
-		},{
-			xtype: 'button',
 			ref: 'flagsBtn',
 			overflowText: _('Set flag'),
 			tooltip: {
@@ -146,7 +132,40 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			iconCls: 'icon_flag_red',
 			handler: this.onSetFlagButton,
 			scope: this
+		},{
+			xtype: 'splitbutton',
+			cls: 'zarafa-more-options-btn',
+			tooltip: _('More options'),
+			splitOnMoreMenu : true,
+			overflowText: _('More options'),
+			iconCls: 'icon_more',
+			menu : this.moreMenuButtons(this),
+			handler: function() {
+				this.showMenu();
+			}
 		}];
+	},
+
+	/**
+	 * Create buttons which needs to be rendered on the right side of the toolbar.
+	 * This contains the popout button if main webapp window is active.
+	 *
+	 * @return {Array} The {@link Ext.Button} elements which should be added in the Right Options section of the {@link Ext.Toolbar}.
+     */
+	createRightAlignedOptionButtons: function ()
+	{
+		// Display the popout button only if supported.
+		if (Zarafa.supportsPopOut() && Zarafa.core.BrowserWindowMgr.isMainWindowActive()) {
+			return [{
+				xtype: 'zarafa.toolbarbutton',
+				tooltip: _('Open in new browser window'),
+				overflowText: _('Pop-Out'),
+				iconCls: 'icon_popout',
+				ref: 'popOutBtn',
+				handler: this.onPopoutButton,
+				scope: this
+			}];
+		}
 	},
 
 	/**
@@ -175,12 +194,37 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 		this.replyBtn.setVisible(!isFaultyMessage);
 		this.replyAllBtn.setVisible(!isFaultyMessage);
 		this.forwardBtn.setVisible(!isFaultyMessage);
+	},
 
-		// We only show the "Edit as New Message" button for items in the Sent folder.
-		var parentEntryid = this.record.get('parent_entryid');
-		var sentFolder = container.getHierarchyStore().getDefaultFolder('sent');
-		var isSentFolder = Ext.isDefined(sentFolder) ? Zarafa.core.EntryId.compareEntryIds(parentEntryid, sentFolder.get('entryid')) : false;
-		this.editAsNewBtn.setVisible(isSentFolder && !isFaultyMessage);
+	/**
+	 * The menu items of the more button.
+	 *
+	 * @param {Zarafa.mail.dialogs.ShowMailToolbar} scope The scope for the menu items
+	 * @return {Ext.menu.Menu} the dropdown menu for the more button
+	 */
+	moreMenuButtons : function(scope)
+	{
+		return {
+			xtype: 'menu',
+			items: [{
+				text: _('Print'),
+				iconCls: 'icon_print',
+				handler: this.onPrintButton,
+				scope: this
+			},{
+				text: _('Edit as New Message'),
+				iconCls: 'icon_editAsNewEmail',
+				actionType: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
+				handler: this.onMailResponseButton,
+				scope: scope
+			},{
+				text: _('Download'),
+				iconCls: 'icon_saveaseml',
+				actionType: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
+				handler: this.onDownloadMailButton,
+				scope: scope
+			}]
+		};
 	},
 
 	/**
@@ -236,6 +280,19 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	},
 
 	/**
+	 * Event handler called when the "PopOut" button has been pressed.
+	 * This will call the {@link Zarafa.mail.Actions#openMailContent}
+	 * with record and its containing {@link Zarafa.core.ui.MessageContentPanel dialog}.
+	 *
+	 * @param {Ext.Button} button The button which has been pressed
+	 * @private
+	 */
+	onPopoutButton : function(button)
+	{
+		Zarafa.mail.Actions.popoutMailContent(this.record, this.dialog);
+	},
+
+	/**
 	 * Event handler when the "Reply/ Reply All/ Forward/ Edit as New Message" button has been pressed.
 	 * This will call the {@link Zarafa.mail.Actions#openCreateMailResponseContent}.
 	 *
@@ -245,11 +302,25 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	onMailResponseButton : function(button)
 	{
 		var model = this.dialog.getContextModel();
+		var isOwnedByMainWindow = Zarafa.core.BrowserWindowMgr.isOwnedByMainWindow(button);
+		var configObject = !isOwnedByMainWindow ? {layerType : 'separateWindows'} : undefined;
 
-		Zarafa.mail.Actions.openCreateMailResponseContent(this.record, model, button.actionType);
+		Zarafa.mail.Actions.openCreateMailResponseContent(this.record, model, button.actionType, configObject);
 		if (container.getSettingsModel().get('zarafa/v1/contexts/mail/close_on_respond') === true) {
 			this.dialog.close();
 		}
+	},
+
+	/**
+	 * Event handler when the "Download" button has been pressed.
+	 * This will call the {@link Zarafa.common.Actions#openSaveEmlDialog} function.
+	 *
+	 * @param {Ext.Button} button The button which has been pressed
+	 * @private
+	 */
+	onDownloadMailButton : function(button)
+	{
+		Zarafa.common.Actions.openSaveEmlDialog(this.record);
 	}
 });
 Ext.reg('zarafa.showmailtoolbar', Zarafa.mail.dialogs.ShowMailToolbar);

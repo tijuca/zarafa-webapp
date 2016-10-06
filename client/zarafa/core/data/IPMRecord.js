@@ -276,8 +276,8 @@ Zarafa.core.data.IPMRecord = Ext.extend(Zarafa.core.data.MAPIRecord, {
 	 */
 	inlineImgOutlookToZarafa : function(body)
 	{
-		var entryid = undefined;
-		var store = undefined;
+		var entryid;
+		var store;
 
 		var action_type = this.getMessageAction('action_type');
 		var attachNum = this.get('attach_num');

@@ -41,7 +41,6 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 	constructor : function(config)
 	{
 		config = config || {};
-
 		config = Ext.applyIf(config, {
 			layout : 'fit',
 			items : [{
@@ -104,7 +103,7 @@ Zarafa.core.ui.MainViewport = Ext.extend(Ext.Viewport, {
 	{
 		this.widgetPanel = new Zarafa.core.ui.widget.WidgetPanel({
 			region : 'east',
-			title : _('Zarafa'),
+			title : _('Kopano'),
 			numColumns : 1,
 
 			stateful : true,

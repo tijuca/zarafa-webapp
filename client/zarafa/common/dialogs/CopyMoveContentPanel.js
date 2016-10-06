@@ -45,6 +45,7 @@ Zarafa.common.dialogs.CopyMoveContentPanel = Ext.extend(Zarafa.core.ui.ContentPa
 					title = _('Copy/Move Folder');
 					break;
 				case Zarafa.core.mapi.ObjectType.MAPI_MESSAGE:
+				/* falls through*/
 				default:
 					title = _('Copy/Move Messages');
 					break;
@@ -54,6 +55,9 @@ Zarafa.common.dialogs.CopyMoveContentPanel = Ext.extend(Zarafa.core.ui.ContentPa
 		Ext.applyIf(config, {
 			// Override from Ext.Component
 			xtype : 'zarafa.copymovecontentpanel',
+			// We don't need the autofocus plugin since we want the focus on the
+			// selected tree node.
+			useInputAutoFocusPlugin: false,
 			layout: 'fit',
 			title : title,
 			width: 400,

@@ -109,7 +109,7 @@ class Meetingrequest {
 	 * - Sending meeting requests to resources, resource availability checking and resource freebusy updates
 	 */
 	 
-	function Meetingrequest($store, $message, $session = false, $enableDirectBooking = true) 
+	function __construct($store, $message, $session = false, $enableDirectBooking = true) 
 	{
 		$this->store = $store;
 		$this->message = $message;
@@ -2510,8 +2510,7 @@ If it is the first time this attendee has proposed a new date/time, increment th
 
 				$messageprops[PR_MESSAGE_CLASS] = 'IPM.Appointment';
 				
-				// Remove the PR_ICON_INDEX as it is not needed in the sent message and it also
-				// confuses the Zarafa webaccess
+				// Remove the PR_ICON_INDEX as it is not needed in the sent message.
 				$messageprops[PR_ICON_INDEX] = null;
 				$messageprops[PR_RESPONSE_REQUESTED] = true;
 
@@ -2875,8 +2874,7 @@ If it is the first time this attendee has proposed a new date/time, increment th
 			}
 		}
 
-		// Remove the PR_ICON_INDEX as it is not needed in the sent message and it also
-		// confuses the Zarafa webaccess
+		// Remove the PR_ICON_INDEX as it is not needed in the sent message.
 		$newmessageprops[PR_ICON_INDEX] = null;
 		$newmessageprops[PR_RESPONSE_REQUESTED] = true;
 

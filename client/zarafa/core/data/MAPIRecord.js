@@ -677,7 +677,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 		if (this.supportsSubStore(name)) {
 			var store = this.getSubStore(name);
 			if (!Ext.isDefined(store)) {
-				store = this.setSubStore(name, new this.subStoresTypes[name]);
+				store = this.setSubStore(name, new this.subStoresTypes[name]());
 				store.on('update', this.onSubStoreUpdate, this);
 				store.on('add', this.onSubStoreChange, this);
 				store.on('remove', this.onSubStoreChange, this);

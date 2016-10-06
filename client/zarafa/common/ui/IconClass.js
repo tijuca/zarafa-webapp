@@ -97,6 +97,9 @@ Zarafa.common.ui.IconClass = {
 	getIconClassFromContainerClass : function(folder, containerClass)
 	{
 		if (folder) {
+			if (Ext.isFunction(folder.isFavoritesFolder) && folder.isFavoritesFolder()) {
+				return 'icon_folder_note';
+			}
 			// For root nodes we need to discover if it is our private or public store,
 			// or if it is a shared store, in which case it can be an entire
 			// store, or only the root folder for a specific folder type
@@ -120,6 +123,8 @@ Zarafa.common.ui.IconClass = {
 					// Private store
 					return 'icon_folder_store';
 				}
+			} else if (Ext.isFunction(folder.isFavoritesFolder) && folder.isFavoritesRootFolder()) {
+				return 'icon_folder_favorites';
 			}
 		
 			// check if the folder is a default folder
@@ -239,6 +244,7 @@ Zarafa.common.ui.IconClass = {
 			case Zarafa.core.mapi.DistlistType.DL_USER2:
 			case Zarafa.core.mapi.DistlistType.DL_USER3:
 			case Zarafa.core.mapi.DistlistType.DL_USER_AB:
+			/* falls through*/
 			default:
 				return 'icon_contact_user';
 		}
@@ -276,6 +282,7 @@ Zarafa.common.ui.IconClass = {
 			case Zarafa.core.mapi.DisplayTypeEx.DT_EQUIPMENT:
 				return 'icon_contact_equipment';
 			case Zarafa.core.mapi.DisplayType.DT_MAILUSER:
+			/* falls through*/
 			default:
 				return 'icon_contact_user';
 		}

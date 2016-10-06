@@ -32,14 +32,4 @@
 			<arg value="${debugfile}"/>
 		</java>
 	</target>
-
-	<!-- Generate documentation using ext-doc -->
-	<target name="doc">
-		<java jar="lib/ext-doc.jar" fork="true">
-			<arg line="-o doc"/>
-			<arg line="-p ext-doc-project.xml"/>
-			<arg line="-t lib/template/ext/template.xml"/>
-		</java>	
-	</target>
-
 </project>

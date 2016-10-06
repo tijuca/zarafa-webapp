@@ -352,10 +352,10 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 		return  {
 			xtype : 'button',
 			ref : 'calendarButton',
-			text : _('Calendar'),
+			text : _('View in calendar'),
 			tooltip: {
-				title: _('Calendar'),
-				text: _('Calendar')
+				title: _('View in calendar'),
+				text: _('View in calendar')
 			},
 			cls: 'tb-calendar-btn-calendar',
 			iconCls : 'icon_calendar',
@@ -373,7 +373,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	onNotCurrent : function(button, eventObject)
 	{
 		Ext.MessageBox.show({
-			title: _('Zarafa WebApp'),
+			title: _('Kopano WebApp'),
 			msg : _('This meeting request is out-of-date and will now be deleted.'),
 			icon: Ext.MessageBox.WARNING,
 			record: this.record,
@@ -393,7 +393,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	onNoResponseRequired : function(button, eventObject)
 	{
 		Ext.MessageBox.show({
-			title: _('Zarafa WebApp'),
+			title: _('Kopano WebApp'),
 			msg :_('Your calendar has been updated automatically. This meeting request will now be deleted.'),
 			icon: Ext.MessageBox.WARNING,
 			record: this.record,
@@ -444,7 +444,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	{
 		if (this.record.get('appointment_not_found')) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg :_('This appointment has been moved or deleted, do you want to continue?'),
 				icon: Ext.MessageBox.WARNING,
 				record: this.record,
@@ -480,7 +480,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	{
 		if (this.record.get('appointment_not_found')) {
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg :_('This appointment has been moved or deleted, do you want to continue?'),
 				icon: Ext.MessageBox.WARNING,
 				record: this.record,
@@ -515,6 +515,12 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	 */
 	acceptProposal : function(button, eventObject)
 	{
+		// When the button belongs to one of the currently opened popout windows then
+		// it is required to bring the main webapp window to front prior to switching to the calender context.
+		if (!Zarafa.core.BrowserWindowMgr.isOwnedByMainWindow(button)) {
+			Zarafa.core.BrowserWindowMgr.switchFocusToMainWindow();
+		}
+
 		Zarafa.calendar.Actions.openAppointmentContentToAcceptProposal(this.record);
 	},
 
@@ -526,6 +532,12 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	 */
 	showMeetingInCalendar : function(button, eventObject)
 	{
+		// When the button belongs to one of the currently opened popout windows then
+		// it is required to bring the main webapp window to front prior to switching to the calender context.
+		if (!Zarafa.core.BrowserWindowMgr.isOwnedByMainWindow(button)) {
+			Zarafa.core.BrowserWindowMgr.switchFocusToMainWindow();
+		}
+
 		Zarafa.calendar.Actions.showMeetingInCalendar(this.record);
 	},
 
@@ -537,6 +549,11 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 	 */
 	viewAllProposals : function(button, eventObject)
 	{
+		// When the button belongs to one of the currently opened popout windows then
+		// it is required to bring the main webapp window to front prior to switching to the calender context.
+		if (!Zarafa.core.BrowserWindowMgr.isOwnedByMainWindow(button)) {
+			Zarafa.core.BrowserWindowMgr.switchFocusToMainWindow();
+		}
 		Zarafa.calendar.Actions.openAppointmentContentToViewAllProposals(this.record);
 	}
 });

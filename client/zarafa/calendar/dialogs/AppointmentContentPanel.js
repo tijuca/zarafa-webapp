@@ -131,6 +131,7 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 						}
 						break;
 					case Zarafa.core.mapi.MeetingStatus.NONMEETING:
+					/* falls through */
 					default:
 						if(!Ext.isDefined(this.initialConfig.closeOnSave)) {
 							this.closeOnSave = true;
@@ -249,7 +250,7 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 				if(record.getRecipientStore().findExact('recipient_type', Zarafa.core.mapi.RecipientType.MAPI_BCC) !== -1){
 					// If the server lets the client now the appointment has been booked (resources) then notify the user.
 					if(record.getActionResponse('resources_booked')){
-						container.getNotifier().notify('info.meeting', _('Zarafa WebApp'), pgettext('calendar.dialog', 'Resources have been planned.'));
+						container.getNotifier().notify('info.meeting', _('Kopano WebApp'), pgettext('calendar.dialog', 'Resources have been planned.'));
 					}
 				}
 			}
@@ -311,7 +312,7 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 				this.sendRecord();
 			} else {
 				Ext.MessageBox.show({
-					title : _('Zarafa WebApp'),
+					title : _('Kopano WebApp'),
 					msg : _('An update message will be sent to all recipients, do you wish to continue?'),
 					icon : Ext.MessageBox.WARNING,
 					fn : this.sendMeetingUpdate,
@@ -421,7 +422,7 @@ Zarafa.calendar.dialogs.AppointmentContentPanel = Ext.extend(Zarafa.core.ui.Mess
 
 		if (busy) {
 			Ext.MessageBox.confirm(
-				_('Zarafa WebApp'),
+				_('Kopano WebApp'),
 				_('One or more attendees you have invited are busy. Are you sure to invite?'),
 				function (buttonClicked) {
 					// If the user pressed "yes" we can continue with

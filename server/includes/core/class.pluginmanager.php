@@ -101,7 +101,7 @@ class PluginManager
 	/**
 	 * Constructor
 	 */
-	function PluginManager($enable = ENABLE_PLUGINS)
+	function __construct($enable = ENABLE_PLUGINS)
 	{
 		$this->enabled = $enable && defined('PATH_PLUGIN_DIR');
 		$this->plugindata = Array();
@@ -328,7 +328,6 @@ class PluginManager
 				// The dependencies for this plugin have been met, we can push
 				// the plugin into the tree.
 				$ordered[] = $pluginname;
-				$updated = true;
 
 				// Reset the $failedCount property, this ensures that we can keep
 				// looping because other plugins with previously unresolved dependencies
@@ -390,7 +389,6 @@ class PluginManager
 				$this->plugins[$plugName]->init();
 			}
 		}
-		unset($plugData);
 
 		$this->modules = $files['modules'];
 		$this->notifiers = $files['notifiers'];
@@ -860,7 +858,7 @@ class PluginManager
 
 		// Parse the <info> element
 		if (isset($data->info->version)) {
-			$plugindata['version'] = (double) $data->info->version;
+			$plugindata['version'] = (string) $data->info->version;
 		} else {
 			dump("[PLUGIN WARNING] Plugin $dirname has not specified version information in manifest.xml");
 		}

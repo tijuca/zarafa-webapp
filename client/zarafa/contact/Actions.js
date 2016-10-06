@@ -99,6 +99,13 @@ Zarafa.contact.Actions = {
 	 * @private
 	 */
 	openRecipientContactContent: function(button, event) {
+
+		// When the button belongs to one of the currently opened popout windows then
+		// it is required to bring the main webapp window to front prior to switching to the contact context.
+		if (!Zarafa.core.BrowserWindowMgr.isOwnedByMainWindow(button)) {
+			Zarafa.core.BrowserWindowMgr.switchFocusToMainWindow(button);
+		}
+
 		var contactRecord = this.getModel().createRecord();
 		var record = button.getRecords();
 
@@ -111,7 +118,7 @@ Zarafa.contact.Actions = {
 		
 		// Use the same logic as the {@link Zarafa.contact.dialogs.ContactDetailTab ContactDetailTab}
 		// to set the given_name and surname.
-		var ContactParser = new Zarafa.contact.data.ContactDetailsParser;
+		var ContactParser = new Zarafa.contact.data.ContactDetailsParser();
 		var data = ContactParser.parseNameInfo(record.get('display_name'));
 		contactRecord.set('given_name', data['given_name']);
 		contactRecord.set('surname', data['surname']);
@@ -289,6 +296,7 @@ Zarafa.contact.Actions = {
 					openRecord = record.convertToAddressBookRecord();
 					break;
 				case Zarafa.core.mapi.DistlistType.DL_EXTERNAL_MEMBER:
+				/* falls through */
 				default:
 					// External/oneoff contacts
 					Zarafa.contact.Actions.openDistlistExternalMemberContent(record, { parentRecord : parentRecord });

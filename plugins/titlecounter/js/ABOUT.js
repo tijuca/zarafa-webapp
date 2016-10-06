@@ -7,7 +7,8 @@ Ext.namespace('Zarafa.plugins.titlecounter');
  * The copyright string holding the copyright notice for the Zarafa titlecounter Plugin.
  */
 Zarafa.plugins.titlecounter.ABOUT = ""
-	+ "<p>Copyright (C) 2005 - 2015  Zarafa B.V. &lt;info@zarafa.com&gt; and its licensors</p>"
+	+ "<p>Copyright (C) 2005 - 2015  Zarafa B.V. &lt;info@zarafa.com&gt; and its licensors<br>"
+	+ "Copyright (C) 2016 Kopano and its licensors</p>"
 
 	+ "<p>This program is free software: you can redistribute it and/or modify "
 	+ "it under the terms of the GNU Affero General Public License as "

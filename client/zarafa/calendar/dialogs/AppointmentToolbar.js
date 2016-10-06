@@ -244,7 +244,8 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			ref: 'highPriority',
 			toggleGroup: 'priorityGroup',
 			importance: Zarafa.core.mapi.Importance.URGENT,
-			handler: this.onPriorityGroupToggle,
+			enableToggle : true,
+			toggleHandler: this.onPriorityGroupToggle,
 			scope: this
 		},{
 			xtype: 'button',
@@ -258,7 +259,8 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			ref: 'lowPriority',
 			toggleGroup: 'priorityGroup',
 			importance: Zarafa.core.mapi.Importance.NONURGENT,
-			handler: this.onPriorityGroupToggle,
+			enableToggle : true,
+			toggleHandler: this.onPriorityGroupToggle,
 			scope: this
 		},{
 			xtype: 'button',
@@ -281,8 +283,8 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			cls: 'tb-calendar-btn-private',
 			iconCls: 'icon_private',
 			ref: 'setPrivate',
-			toggleGroup: 'privateGroup',
-			handler: this.onPrivateGroupToggle,
+			enableToggle : true,
+			toggleHandler: this.onPrivateGroupToggle,
 			scope: this
 		}];
 	},
@@ -435,7 +437,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			var tooltip =  {
 				title: _('Save & Close'),
 				text: _('Save meeting request and close dialog') + ' (Ctrl + S)'
-			}
+			};
 			button.setTooltip(tooltip);
 		}
 	
@@ -488,6 +490,7 @@ Zarafa.calendar.dialogs.AppointmentToolbar = Ext.extend(Zarafa.core.ui.ContentPa
 			if (contentReset === true || record.isModifiedSinceLastUpdate('meeting')) {
 				switch (record.get('meeting')) {
 					case Zarafa.core.mapi.MeetingStatus.NONMEETING:
+					/* falls through */
 					default:
 						this.sendInvitation.setVisible(false);
 						this.saveAppointment.setVisible(true);

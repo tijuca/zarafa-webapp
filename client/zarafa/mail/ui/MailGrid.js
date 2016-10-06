@@ -393,6 +393,7 @@ Zarafa.mail.ui.MailGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, {
 				Zarafa.core.data.UIFactory.openContextMenu(Zarafa.core.data.SharedComponentType['mail.contextmenu.flags'], records, { position : event.getXY() });
 				break;
 			}
+			/* falls through */
 		default:
 			Zarafa.core.data.UIFactory.openDefaultContextMenu(records, { position : event.getXY(), context : this.context });
 			break;

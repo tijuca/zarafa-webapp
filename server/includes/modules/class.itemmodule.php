@@ -9,30 +9,30 @@
 		/**
 		 * The setting whether Meeting Requests should be booked directly or not.
 		 */
-		var $directBookingMeetingRequest;
+		public $directBookingMeetingRequest;
 
 		/**
 		 * The array of properties which should not be copied during the copy() action.
 		 */
-		var $skipCopyProperties;
+		public $skipCopyProperties;
 
 		/**
 		 * Indicates that we are supporting only plain text body in the message props
 		 */
-		var $plaintext;
+		public $plaintext;
 
 		/**
 		 * Constructor
 		 * @param int $id unique id.
 		 * @param array $data list of all actions.
 		 */
-		function ItemModule($id, $data)
+		function __construct($id, $data)
 		{
 			$this->directBookingMeetingRequest = ENABLE_DIRECT_BOOKING;
 			$this->skipCopyProperties = array();
 			$this->plaintext = false;
 
-			parent::Module($id, $data);
+			parent::__construct($id, $data);
 		}
 
 		/**
@@ -301,10 +301,13 @@
 				switch($actionType)
 				{
 					case "open":
-						if($e->getCode() == MAPI_E_NO_ACCESS)
+						if($e->getCode() == MAPI_E_NO_ACCESS) {
 							$e->setDisplayMessage(_("You have insufficient privileges to open this message."));
-						else
+						} elseif($e->getCode() == MAPI_E_NOT_FOUND) {
+							$e->setDisplayMessage(_("Could not find message, either it has been moved or deleted or you don't have access to open this message."));
+						} else {
 							$e->setDisplayMessage(_("Could not open message."));
+						}
 						break;
 
 					case "save":
@@ -350,7 +353,7 @@
 						}
 
 						if(empty($e->displayMessage)) {
-							$e->setDisplayMessage(_("You have insufficient privileges to save items in this folder") . ".");
+							$e->setDisplayMessage(_("You have insufficient privileges to delete items in this folder") . ".");
 						}
 						break;
 
@@ -559,7 +562,6 @@
 		function save($store, $parententryid, $entryid, $action)
 		{
 			$result = false;
-			$resultFlags = false;
 
 			if(isset($action["props"])) {
 				if(!$store) {

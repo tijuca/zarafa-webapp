@@ -639,25 +639,6 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 		// the height of the sum row and the border that is at the bottom.
 		var sumBlockContainerTopSpace = this.headerHeight - (this.headerSumRowHeight + this.borderSpacing);
 		this.headerSumContainer.setTop(sumBlockContainerTopSpace);
-
-		 // IE6 & IE7 fixes: The check for Ext.isIE7 does not detect the IE7 compatibility mode in IE8.
-		if(Ext.isIE6 || Ext.isIE7){
-			/**
-			 * IE6 and IE7 do not support the border-spacing property. Therefore we have to use the
-			 * cellspacing attribute in the <table>-tag. This attribute does not allow us to specify a
-			 * separate spacing for the top/bottom borders and the left/right borders. Therefor we need
-			 * to add three more pixels to the height of the header to compensate.
-			 */
-			this.headerDayHeight = this.headerDayHeight - 3;
-			/**
-			 * The background timeline has the cellspacing set to one pixel as well. This means that
-			 * the table also has a border on top. This causes the background to start one pixel
-			 * below and is not in sync with rows in the userlist. Therefor the <div> that contains
-			 * the background timeline table is moved up one pixel.
-			 */
-			this.bodyBackgroundElem.setStyle('top', -1);
-			this.bodySelectorContainer.setStyle('top', -1);
-		}
 	},
 
 	/**
@@ -667,12 +648,15 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	afterRender : function(){
 		Zarafa.common.freebusy.ui.TimelineView.superclass.afterRender.apply(this, arguments);
 
-		if (this.model.getBlockStore())
-			this.bindBlockStore(this.model.getBlockStore(), true);
-		if (this.model.getSumBlockStore())
+		if (this.model.getBlockStore()) {
+			this.bindBlockStore(this.model.getBlockStore(), true); 
+		}
+		if (this.model.getSumBlockStore()) {
 			this.bindSumBlockStore(this.model.getSumBlockStore(), true);
-		if (this.model.getUserStore())
+		}
+		if (this.model.getUserStore()) {
 			this.bindUserStore(this.model.getUserStore(), true);
+		}
 	},
 
 	/**
@@ -718,13 +702,9 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 
 		this.bodyElem.setTop(this.headerHeight);
 		var bodyElemHeight = adjHeight - this.headerHeight;
-		// IE6 returns NaN for the adjHeight when initializing the UI
-		this.bodyElem.setHeight( bodyElemHeight || 0 );
+		this.bodyElem.setHeight(bodyElemHeight);
 
 		this.sizeTimelineBackground();
-
-		// In IE the bodyElem has the correct only after calling the sizeTimelineBackground().
-		this.headerElem.setWidth(this.bodyElem.dom.clientWidth);
 
 		this.repaintTimeline();
 	},
@@ -1540,19 +1520,21 @@ Zarafa.common.freebusy.ui.TimelineView = Ext.extend(Ext.BoxComponent,
 	 * @private
 	 */
 	findDayIndexByTimestamp: function(timestamp, inclusive){
-		if(!Ext.isDefined(inclusive)) inclusive = true;
+		if (!Ext.isDefined(inclusive)) {
+			inclusive = true;
+		}
 
 		/**
 		 * If date takes place before the start of te first day in the daysMap the selector will
 		 * select from the first day in the daysMap.
 		 */
 		var dayIndex = 0;
-		for(var i=0;i<this.daysMap.length;i++){
-			if(inclusive && this.daysMap[i].timestamp <= timestamp){
+		for (var i = 0; i < this.daysMap.length; i++){
+			if (inclusive && this.daysMap[i].timestamp <= timestamp) {
 				dayIndex = i;
-			}else if(!inclusive && this.daysMap[i].timestamp < timestamp){
+			} else if (!inclusive && this.daysMap[i].timestamp < timestamp) {
 				dayIndex = i;
-			}else{
+			} else {
 				break;
 			}
 		}

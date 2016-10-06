@@ -650,6 +650,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		if (contentReset === true || record.isModifiedSinceLastUpdate('meeting')) {
 			switch (record.get('meeting')) {
 				case Zarafa.core.mapi.MeetingStatus.NONMEETING:
+				/* falls through */
 				default:
 					this.dialog.closeOnSave = true;
 					this.dialog.closeOnSend = false;
@@ -867,8 +868,9 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		var meetingLocation = this.record.get('location');
 
 		// If suggested location and current location is same then no need to set/suggest.
-		if(meetingLocation == locationSuggestion)
+		if(meetingLocation == locationSuggestion) {
 			return;
+		}
 
 		if(this.hasUserSetLocation === false || Ext.isEmpty(meetingLocation) || meetingLocation.toUpperCase() == locationSuggestion.toUpperCase()) {
 			// If user haven't changed location by himself or record's location is empty or
@@ -877,7 +879,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		} else {
 			//If suggested location seems different then ask user whether want to use suggested location or not.
 			Ext.MessageBox.show({
-				title: _('Zarafa WebApp'),
+				title: _('Kopano WebApp'),
 				msg: String.format(_('Do you want to update the location "{0}" with the new location "{1}"?'), Ext.util.Format.htmlEncode(meetingLocation), Ext.util.Format.htmlEncode(locationSuggestion)),
 				buttons: Ext.Msg.YESNO,
 				icon: Ext.MessageBox.WARNING,
@@ -1203,8 +1205,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				if(recipient.get('proposednewtime')) {
 					numProposingAttendees++;
 				}
-			}
-		, this);
+			}, this);
 
 		if(accepted !== 0 || tentative !== 0 || declined !== 0) {
 			// set response string

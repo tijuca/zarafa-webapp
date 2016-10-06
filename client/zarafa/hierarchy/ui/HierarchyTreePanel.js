@@ -276,6 +276,7 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 					targetNode = dropEvent.target.parentNode;
 					break;
 				case 'append':
+				/* falls through */
 				default:
 					break;
 			}
@@ -424,6 +425,12 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	 */
 	onTreeNodeContextMenu : function(treeNode, eventObj)
 	{
+		// If folder is favorites root folder then disable the right click
+		// as it doesn't support any context menu items.
+		if(treeNode.getFolder().isFavoritesRootFolder()) {
+			return;
+		}
+
 		var positionEventObj = eventObj.getXY();
 
 		// Handle a specific situation for Edge where somehow eventObj replaced with 'blur' event which doesn't have the position.
@@ -434,8 +441,11 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 			var nodePosition = treeNodeAnchor.getBoundingClientRect();
 			positionEventObj = [nodePosition.left, nodePosition.top];
 		}
-
-		Zarafa.core.data.UIFactory.openDefaultContextMenu(treeNode.getFolder(), { position : positionEventObj, contextNode : treeNode });
+		var folder = treeNode.getFolder();
+		if(folder.isFavoritesFolder()) {
+			folder = folder.getOriginalRecordFromFavoritesRecord();
+		}
+		Zarafa.core.data.UIFactory.openDefaultContextMenu(folder, { position : positionEventObj, contextNode : treeNode });
 	},
 
 	/**
@@ -507,8 +517,11 @@ Zarafa.hierarchy.ui.HierarchyTreePanel = Ext.extend(Zarafa.hierarchy.ui.Tree, {
 	{
 		if (this.stateful === true && !node.isRoot) {
 			var folder = node.getFolder();
+			var state = container.getHierarchyStore().getState(folder, 'tree');
 
-			container.getHierarchyStore().applyState(folder, 'tree', { is_open : node.expanded });
+			if (state.is_open !== node.expanded) {
+				container.getHierarchyStore().applyState(folder, 'tree', { is_open : node.expanded });
+			}
 		}
 	},
 

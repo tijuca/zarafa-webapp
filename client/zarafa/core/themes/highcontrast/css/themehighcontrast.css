@@ -1,8 +1,8 @@
 /*********************************************************************************************
  *                                                                                           *
- * This is the css for the High Contrast theme for the Zarafa WebApp.                        *
+ * This is the css for the High Contrast theme for the Kopano WebApp.                        *
  *                                                                                           *
- * (c) 2016 Zarafa.com                                                                       *
+ * (c) 2016 Kopano                                                                       *
  *                                                                                           *
  *********************************************************************************************/
 
@@ -21,7 +21,7 @@ body.zarafa-welcome {
 }
 
 /*********************************************************************************************
- * The top menu bar of Zarafa WebApp
+ * The top menu bar
  * ================================
  ********************************************************************************************/
 body #zarafa-mainmenu.zarafa-maintabbar > .x-toolbar-ct .x-btn button.x-btn-text,

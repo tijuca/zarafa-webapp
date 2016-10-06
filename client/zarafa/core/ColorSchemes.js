@@ -79,7 +79,7 @@ Zarafa.core.ColorSchemes = {
 	 * Converts a hexadecimal RGB color value into an object with
 	 * red, green, and blue fields
 	 * @param {String} hexColor A hexadecimal RGB color value
-	 * (e.g. '#0067AC for Zarafa Blue)
+	 * (e.g. '#0067AC for Kopano Blue)
 	 * @return {Object} An object with decimal red, green, and blue values
 	 * @private
 	 */
@@ -102,7 +102,9 @@ Zarafa.core.ColorSchemes = {
 		// function that will convert a number to a hexadecimal string (between 0 and 255) 
 		function _toHex(n) {
 			n = parseInt(n,10);
-			if (isNaN(n)) return "00";
+			if (isNaN(n)) {
+				return "00";
+			}
 			n = Math.max(0,Math.min(n,255));
 			return "0123456789ABCDEF".charAt((n-n%16)/16) + "0123456789ABCDEF".charAt(n%16);
 		}
@@ -185,7 +187,7 @@ Zarafa.core.ColorSchemes = {
 	 * will be used if a name for the color scheme must be shown 
 	 * to the user.
 	 * @param {String} baseColor an RGB hexadecimal color value 
-	 * (e.g. '#0067AC for Zarafa Blue)
+	 * (e.g. '#0067AC for Kopano Blue)
 	 */
 	createColorScheme : function(name, displayName, baseColor)
 	{
@@ -358,11 +360,21 @@ Zarafa.core.ColorSchemes = {
 	    var r, g, b;
 	
         function hue2rgb(p, q, t){
-            if(t < 0) t += 1;
-            if(t > 1) t -= 1;
-            if(t < 1/6) return p + (q - p) * 6 * t;
-            if(t < 1/2) return q;
-            if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            if (t < 0) {
+		    t += 1;
+	    }
+            if (t > 1) {
+		    t -= 1;
+	    }
+            if (t < 1/6) {
+		    return p + (q - p) * 6 * t;
+	    }
+            if (t < 1/2) {
+		    return q;
+	    }
+            if (t < 2/3) {
+	    	return p + (q - p) * (2/3 - t) * 6;
+	    }
             return p;
         }
 

@@ -2,7 +2,4 @@
 <antlib>
 	<!-- Define the 'jsconcat' task -->
 	<taskdef name="jsconcat" classname="com.zarafa.jsconcat.JsConcatTask" onerror="report" />		<!-- report error and continue execution -->
-
-	<!-- Define the 'ext-doc' task -->
-	<taskdef name="ext-doc" classname="com.zarafa.extdoc.ExtDocTask" onerror="report" />
 </antlib>

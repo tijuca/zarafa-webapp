@@ -9,18 +9,6 @@ Ext.namespace('Zarafa.mail.settings');
  * the Out of Office settings in the {@link Zarafa.mail.settings.SettingsMailCategory mail category}.
  */
 Zarafa.mail.settings.SettingsOofWidget = Ext.extend(Zarafa.settings.ui.SettingsWidget, {
-
-	/**
-	 * The Out-of-Office functionality works differently on ZCP-servers &lt; 7.2.1
-	 * In the old version we can only allow the user to specify if he is in or out.
-	 * In the new version an out-of-office timespan can be added.
-	 * Note: The version of ZCP is now actually the version of PHP-MAPI and this can cause
-	 * errors when WebApp runs on its own server with a different PHP-MAPI version as the
-	 * ZCP server. (see https://jira.zarafa.com/browse/WA-8266)
-	 * @property
-	 * @private
-	 */
-	useOldVersion : false,
 	
 	/**
 	 * @constructor
@@ -30,88 +18,18 @@ Zarafa.mail.settings.SettingsOofWidget = Ext.extend(Zarafa.settings.ui.SettingsW
 	{
 		config = config || {};
 		
-		// Check if we are using ZCP < 7.2.1. If so, we must use the old oof behavior
-		// where don't have a time span but only in or out.
-		var versionObject = container.getVersion();
-		var zcpVersion = versionObject.getZCP();
-		this.useOldVersion = versionObject.versionCompare(zcpVersion, '7.2.1') === -1;
-
 		Ext.applyIf(config, {
 			title : _('Out of Office'),
-			favorite : true,
 			iconCls : 'zarafa-settings-favorite-oof'
 		});
 		
-		Ext.applyIf(config, this.useOldVersion ? this.getOldConfig() : this.getNewConfig());
+		Ext.applyIf(config, this.getNewConfig());
 
 		Zarafa.mail.settings.SettingsOofWidget.superclass.constructor.call(this, config);
 
-		if ( !this.useOldVersion ){
-			// Register 'selectnow' event for both the DateTimeFields
-			this.outOfOfficeDateTimeField.dateField.on('selectnow', this.onOutOfOfficeSelectNow, this);
-			this.backDateTimeField.dateField.on('selectnow', this.onBackSelectNow, this);
-		}
-	},
-	
-	/**
-	 * The configuration object for the old oof that does not allow the user to enter
-	 * a time span for when he is out.
-	 * @return {Object} Configuration object
-	 */
-	getOldConfig : function()
-	{
-		return {
-			items : [{
-				xtype : 'radiogroup',
-				name : 'zarafa/v1/contexts/mail/outofoffice/set',
-				ref : 'oofField',
-				columns : 1,
-				hideLabel : true,
-				items : [{
-					xtype : 'radio',
-					name : 'enableOof',
-					// ExtJs demands inputValue to be a string
-					inputValue : 'false',
-					boxLabel : _('I am currently in the office')
-				},{
-					xtype : 'radio',
-					name : 'enableOof',
-					// ExtJs demands inputValue to be a string
-					inputValue : 'true',
-					boxLabel : _('I am currently out of the office')
-				}],
-				listeners : {
-					change : this.onRadioChange,
-					scope : this
-				}
-			},{
-				xtype : 'textfield',
-				name : 'zarafa/v1/contexts/mail/outofoffice/subject',
-				ref : 'subjectField',
-				fieldLabel : _('Subject'),
-				emptyText : _('Out of Office'),
-				anchor : '100%',
-				listeners : {
-					change : this.onFieldChange,
-					scope : this
-				}
-			},{
-				xtype : 'displayfield',
-				hideLabel : true,
-				value : _('AutoReply only once to each sender with the following text') + ':'
-			},{
-				xtype : 'textarea',
-				name : 'zarafa/v1/contexts/mail/outofoffice/message',
-				ref : 'bodyField',
-				hideLabel : true,
-				emptyText : _('User is currently out of office.'),
-				anchor : '100%',
-				listeners : {
-					change : this.onFieldChange,
-					scope : this
-				}
-			}]
-		};
+		// Register 'selectnow' event for both the DateTimeFields
+		this.outOfOfficeDateTimeField.dateField.on('selectnow', this.onOutOfOfficeSelectNow, this);
+		this.backDateTimeField.dateField.on('selectnow', this.onBackSelectNow, this);
 	},
 	
 	/**
@@ -286,34 +204,27 @@ Zarafa.mail.settings.SettingsOofWidget = Ext.extend(Zarafa.settings.ui.SettingsW
 	{
 		this.model = settingsModel;
 
-		// Update based on the old version or the new version of oof.
-		if ( this.useOldVersion ){
-			this.oofField.setValue(settingsModel.get(this.oofField.name).toString());
-			this.subjectField.setValue(settingsModel.get(this.subjectField.name));
-			this.bodyField.setValue(settingsModel.get(this.bodyField.name));
-		} else {
-			var outOfOfficeSetting = settingsModel.get(this.inOfficeField.name);
-			this.inOfficeField.setValue(!outOfOfficeSetting);
-			this.outOfOfficeRadio.setValue(outOfOfficeSetting);
-	
-			if(outOfOfficeSetting){
-				var configuredFromSetting = settingsModel.get(this.outOfOfficeDateTimeField.name);
-				var configuredUntilDateSetting = settingsModel.get(this.backDateTimeField.name);
+		var outOfOfficeSetting = settingsModel.get(this.inOfficeField.name);
+		this.inOfficeField.setValue(!outOfOfficeSetting);
+		this.outOfOfficeRadio.setValue(outOfOfficeSetting);
 
-				// Check if the value in settings model is proper to be set into the respective field or not
-				if(configuredFromSetting !== 0) {
-					this.outOfOfficeDateTimeField.setValue(new Date(configuredFromSetting*1000));
-				}
+		if(outOfOfficeSetting){
+			var configuredFromSetting = settingsModel.get(this.outOfOfficeDateTimeField.name);
+			var configuredUntilDateSetting = settingsModel.get(this.backDateTimeField.name);
 
-				if(configuredUntilDateSetting !== 0) {
-					this.backDateTimeField.setValue(new Date(configuredUntilDateSetting*1000));
-					this.willBeBackCheckBox.setValue(true);
-				}
+			// Check if the value in settings model is proper to be set into the respective field or not
+			if(configuredFromSetting !== 0) {
+				this.outOfOfficeDateTimeField.setValue(new Date(configuredFromSetting*1000));
 			}
-	
-			this.subjectField.setValue(settingsModel.get(this.subjectField.name));
-			this.bodyField.setValue(settingsModel.get(this.bodyField.name));
+
+			if(configuredUntilDateSetting !== 0) {
+				this.backDateTimeField.setValue(new Date(configuredUntilDateSetting*1000));
+				this.willBeBackCheckBox.setValue(true);
+			}
 		}
+
+		this.subjectField.setValue(settingsModel.get(this.subjectField.name));
+		this.bodyField.setValue(settingsModel.get(this.bodyField.name));
 	},
 
 	/**
@@ -335,21 +246,15 @@ Zarafa.mail.settings.SettingsOofWidget = Ext.extend(Zarafa.settings.ui.SettingsW
 		settingsModel.set(this.subjectField.name, subject);
 		settingsModel.set(this.bodyField.name, body);
 		
-		// Update based on the old version or the new version of oof.
-		if ( this.useOldVersion ){
-			var set = this.oofField.getValue().inputValue === 'true';
-			settingsModel.set(this.oofField.name, set);
-		} else {
-			settingsModel.set(this.outOfOfficeRadio.name, this.outOfOfficeRadio.getValue());
+		settingsModel.set(this.outOfOfficeRadio.name, this.outOfOfficeRadio.getValue());
 
-			if(this.outOfOfficeRadio.getValue()){
-				settingsModel.set(this.outOfOfficeDateTimeField.name, this.outOfOfficeDateTimeField.getValue().getTime()/1000);
-	
-				if(this.willBeBackCheckBox.getValue() === true){
-					settingsModel.set(this.backDateTimeField.name, this.backDateTimeField.getValue().getTime()/1000);
-				} else {
-					settingsModel.set(this.backDateTimeField.name, 0);
-				}
+		if(this.outOfOfficeRadio.getValue()){
+			settingsModel.set(this.outOfOfficeDateTimeField.name, this.outOfOfficeDateTimeField.getValue().getTime()/1000);
+
+			if(this.willBeBackCheckBox.getValue() === true){
+				settingsModel.set(this.backDateTimeField.name, this.backDateTimeField.getValue().getTime()/1000);
+			} else {
+				settingsModel.set(this.backDateTimeField.name, 0);
 			}
 		}
 

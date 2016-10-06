@@ -18,11 +18,3 @@
 ## coverage.jar
 ##	Plugin for JsTestDriver (http://code.google.com/p/js-test-driver/) which
 ##	adds coverage measurements to the tested unittests
-
-# DOCUMENTATION
-## commons-cli-1.1.jar
-##	Needed by ext-doc
-## jaxb-impl.jar
-##	Needed by ext-doc
-## jaxb-xjc.jar
-##	Needed by ext-doc
