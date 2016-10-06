@@ -1,4 +1,4 @@
-Source: zarafa-webapp
+Source: kopano-webapp
 Section: web
 Priority: optional
 Maintainer: Giraffe Maintainers <pkg-giraffe-maintainers@lists.alioth.debian.org>
