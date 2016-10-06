@@ -1,0 +1,2 @@
+# source                                    # target
+/etc/kopano/webapp/config-webappmanual.php  usr/share/kopano-webapp/plugins/webappmanual/config.php

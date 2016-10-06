@@ -1,0 +1,7 @@
+#!/usr/bin/dh-exec
+# source                                    # target
+deploy/plugins/webappmanual/config.php   => etc/kopano/webapp/config-webappmanual.php
+
+deploy/plugins/webappmanual/js              usr/share/kopano-webapp/plugins/webappmanual
+deploy/plugins/webappmanual/php             usr/share/kopano-webapp/plugins/webappmanual
+deploy/plugins/webappmanual/manifest.xml    usr/share/kopano-webapp/plugins/webappmanual

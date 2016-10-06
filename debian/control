@@ -126,14 +126,14 @@ Description: Kopano WebApp Titlecounter plugin
  Titlecounter plugin for kopano-webapp which shows the amount of unread inbox
  mail items in the browsers title window.
 
-Package: zarafa-webapp-webappmanual
+Package: kopano-webapp-webappmanual
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp Manual plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp Manual plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- Adds a button in the top menu bar, which opens the user manual of the Zarafa
+ Adds a button in the top menu bar, which opens the user manual of the Kopano
  WebApp.
 
 Package: zarafa-webapp-xmpp
