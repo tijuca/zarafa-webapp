@@ -1,2 +1,0 @@
-# source                             # target
-/etc/zarafa/webapp/config-gmaps.php  usr/share/zarafa-webapp/plugins/gmaps/config.php

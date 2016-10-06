@@ -1,8 +1,0 @@
-#!/usr/bin/dh-exec
-# source                             # target
-deploy/plugins/gmaps/config.php   => etc/zarafa/webapp/config-gmaps.php
-
-deploy/plugins/gmaps/js              usr/share/zarafa-webapp/plugins/gmaps
-deploy/plugins/gmaps/md5             usr/share/zarafa-webapp/plugins/gmaps
-deploy/plugins/gmaps/php             usr/share/zarafa-webapp/plugins/gmaps
-deploy/plugins/gmaps/manifest.xml    usr/share/zarafa-webapp/plugins/gmaps

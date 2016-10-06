@@ -1,0 +1,2 @@
+# source                             # target
+/etc/kopano/webapp/config-gmaps.php  usr/share/kopano-webapp/plugins/gmaps/config.php

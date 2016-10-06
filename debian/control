@@ -84,14 +84,14 @@ Description: Kopano WebApp folder widgets plugin
  Folder widgets plugin for kopano-webapp. This is a collection of widgets which
  can show the contents of some of the default folders for a user.
 
-Package: zarafa-webapp-gmaps
+Package: kopano-webapp-gmaps
 Architecture: all
-Depends: ${misc:Depends}, zarafa-webapp (>= ${binary:Version})
-Description: Zarafa WebApp google maps plugin
- This package is a plugin for zarafa-webapp, a web interface for the
- Zarafa groupware suite ZCP.
+Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Description: Kopano WebApp google maps plugin
+ This package is a plugin for kopano-webapp, a web interface for Kopano from
+ Zarafa.
  .
- Google Maps plugin for zarafa-webapp, adds a new 'maps' tab in the contact
+ Google Maps plugin for kopano-webapp, adds a new 'maps' tab in the contact
  details which displays the location of the contact by using Google Maps.
 
 Package: zarafa-webapp-pimfolder
