@@ -1,0 +1,9 @@
+# this is no error about as it seems, we check the apache version
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=788991
+kopano-webapp: apache2-deprecated-auth-config Order
+kopano-webapp: apache2-deprecated-auth-config Allow
+# tinymce in Debian is to old
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=742832
+kopano-webapp: extra-license-file usr/share/kopano-webapp/client/tinymce/license.txt
+kopano-webapp: embedded-javascript-library usr/share/kopano-webapp/client/tinymce/plugins/compat3x/tiny_mce_popup.js please use tinymce
+kopano-webapp: font-in-non-font-package *
