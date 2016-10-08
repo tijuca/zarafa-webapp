@@ -10,10 +10,6 @@ override_dh_auto_clean:
 override_dh_auto_build:
 	# remove not needed sabredav files
 	rm -rf plugins/files/php/Files/sabredav/vendor/sabre
-	# remove the license files within tinymce-plugins/
-	rm  client/tinymce/license.txt \
-	    client/tinymce-plugins/powerpaste/License.txt \
-	    client/tinymce-plugins/powerpaste/agpl-3.0.txt
 	# now let's build the stuff
 	ant deploy deploy-plugins
 	mkdir $(CURDIR)/debian/tmp
