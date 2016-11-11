@@ -7,7 +7,7 @@ deploy/client                 usr/share/kopano-webapp
 #deploy/plugins               usr/share/kopano-webapp
 deploy/server                 usr/share/kopano-webapp
 
-deploy/.htaccess              etc/kopano/webapp
+#deploy/.htaccess              etc/kopano/webapp
 deploy/defaults.php           usr/share/kopano-webapp
 deploy/debug.php.dist         usr/share/kopano-webapp
 deploy/index.php              usr/share/kopano-webapp
