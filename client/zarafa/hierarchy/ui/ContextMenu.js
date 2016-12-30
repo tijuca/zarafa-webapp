@@ -149,20 +149,6 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 		}, {
 			xtype: 'menuseparator'
 		}, {
-			text : _('Add to favorites folder'),
-			iconCls : 'icon_folder_add_favorite',
-			beforeShow : function(item, record) {
-				// hide add to favorites button, as functionality still not implemented 
-				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_READ;
-				if (false && access && record.getMAPIStore().isPublicStore() && !record.isFavoriteFolder() && !Zarafa.core.EntryId.isFavoriteFolder(record.get('entryid'))) {
-					item.setDisabled(false);
-				} else { 
-					item.setDisabled(true);
-				}
-			}
-		}, {
-			xtype: 'menuseparator'
-		}, {
 			text : _('Close store'),
 			iconCls : 'icon_store_close',
 			handler : this.onContextItemCloseStore,
@@ -217,9 +203,10 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			beforeShow : function(item, record) {
 				var folderEntryId = this.contextNode.id;
 				var contextModel = this.contextTree.model;
-				if (!this.contextTree.colored || !Ext.isDefined(contextModel)) {
-					item.setDisabled(true);
-				} else {
+
+				// Allow user to choose calendar color from every calendar node wether it belongs to
+				// MultiSelectHierarchyTree or simple HierarchyTree
+				if (record.isCalendarFolder()) {
 					item.setDisabled(false);
 
 					// Store the color of the chosen color scheme, so we can use it later 
@@ -227,6 +214,8 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 					// in the context menu
 					var colorScheme = contextModel.getColorScheme(folderEntryId);
 					item.iconBG = colorScheme.base;
+				} else {
+					item.setDisabled(true);
 				}
 			},
 			menu : this.createSelectColorSubmenu(config)
@@ -453,6 +442,10 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 		if (store && store.lastOptions && !store.isExecuting('list')) {
 			store.fireEvent('load', store, store.getRange(), store.lastOptions);
 		}
+
+		// Update the color of svg-icon of same folder belongs to another available HierarchyTrees
+		// and favorites folder if exist
+		this.updateOtherHierarchyTreeNodes(folder.get('entryid'), colorScheme.base);
 	},
 	
 	/**
@@ -545,6 +538,44 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			store.remove(record);
 			record.removeFromFavorites();
 			store.save(record);
+		}
+	},
+
+	/**
+	 * Helper function to get all the available {@link Zarafa.hierarchy.ui.Tree tree} and update 
+	 * icon of respective folder with newly selected color.
+	 * @param {String} folderEntryid The entryid of the selected folder
+	 * @param {String} colorSchemeBase The chosen color
+	 * @private
+	 */
+	updateOtherHierarchyTreeNodes : function(folderEntryid, colorSchemeBase)
+	{
+		var navigationBar = container.getNavigationBar();
+		var centerPanel = navigationBar.centerPanel;
+		var allFoldersPanel = centerPanel.allFoldersPanel;
+		var multiSelectTree = centerPanel.multiSelectHierarchyTree;
+		var allFoldersTree = allFoldersPanel.allFoldersHierarchyTree;
+
+		this.setSvgIconColor(this.contextTree, "favorites-" + folderEntryid, colorSchemeBase);
+		this.setSvgIconColor(allFoldersTree, folderEntryid, colorSchemeBase);
+		this.setSvgIconColor(allFoldersTree, "favorites-" + folderEntryid, colorSchemeBase);
+		this.setSvgIconColor(multiSelectTree, folderEntryid, colorSchemeBase);
+	},
+
+	/**
+	 * Helper function to find node based on supplied entryid from {@link Zarafa.hierarchy.ui.Tree tree}
+	 * and set the style of particular node with supplied color.
+	 * @param {Zarafa.hierarchy.ui.Tree} hierarchyTree The tree in which node needs to be searched
+	 * @param {String} folderEntryid The entryid of the selected folder
+	 * @param {String} colorSchemeBase The chosen color
+	 * @private
+	 */
+	setSvgIconColor : function(hierarchyTree, folderEntryid, colorSchemeBase)
+	{
+		var respectiveNode = hierarchyTree.getNodeById(folderEntryid);
+		if (respectiveNode) {
+			var respectiveNodeSvg = respectiveNode.getUI().iconNode;
+			Ext.get(respectiveNodeSvg).setStyle('color', colorSchemeBase);
 		}
 	}
 });

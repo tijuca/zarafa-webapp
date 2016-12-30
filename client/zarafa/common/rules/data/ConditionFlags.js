@@ -67,5 +67,47 @@ Zarafa.common.rules.data.ConditionFlags = Zarafa.core.Enum.create({
 	 * @property
 	 * @type Number
 	 */
-	SENT_TO_ME_ONLY : 8
+	SENT_TO_ME_ONLY : 8,
+
+	/**
+	 * Indicates that the condition checks if the message has an attachment
+	 * @property
+	 * @type Number
+	 */
+	ATTACHMENT : 9,
+
+	/**
+	 * Indicates that the condition checks if the message was sent with a certain sensitivity
+	 * @property
+	 * @type Number
+	 */
+	SENSITIVITY : 10,
+
+	/**
+	 * Indicates that the condition checks if the user is in the To field
+	 * @property
+	 * @type Number
+	 */
+	SENT_TO_ME : 11,
+
+	/**
+	 * Indicates that the condition checks if the message has my name in the Cc field
+	 * @property
+	 * @type Number
+	 */
+	SENT_CC_ME : 12,
+
+	/**
+	 * Indicates that the condition checks if the message was received before a certain date range
+	 * @property
+	 * @type Number
+	 */
+	RECEIVED_BEFORE: 13,
+
+	/**
+	 * Indicates that the condition checks if the message was received after a specific date range
+	 * @property
+	 * @type Number
+	 */
+	RECEIVED_AFTER: 14
 });

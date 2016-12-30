@@ -167,7 +167,14 @@
 							$item['smtp_address'] = isset($item['smtp_address']) ? $item['smtp_address']: '';
 						}else{
 							$item['address_type'] = 'ZARAFA';
-							$item['email_address'] = isset($user_data[PR_EMAIL_ADDRESS]) ? $user_data[PR_EMAIL_ADDRESS] : '';
+							if (isset($user_data['address_type']) && $user_data['address_type'] === 'ZARAFA') {
+								$item['email_address'] = isset($user_data[PR_EMAIL_ADDRESS]) ? $user_data[PR_EMAIL_ADDRESS] : '';
+							} else {
+								// Fake being an ZARAFA account, since it's actually an SMTP addrtype the email address is in a different property.
+								$item['smtp_address'] = isset($user_data[PR_EMAIL_ADDRESS]) ? $user_data[PR_EMAIL_ADDRESS] : '';
+								// Keep the old scenario happy.
+								$item['email_address'] = isset($user_data[PR_EMAIL_ADDRESS]) ? $user_data[PR_EMAIL_ADDRESS] : '';
+							}
 						}
 					// It can be considered a GAB entry
 					} else {
@@ -220,7 +227,7 @@
 
 			// Get the 'Kopano Contact Folders'
 			$hierarchyTable = mapi_folder_gethierarchytable($abRootContainer, MAPI_DEFERRED_ERRORS);
-			$abHierarchyRows = mapi_table_queryallrows($hierarchyTable, array(PR_DISPLAY_NAME, PR_AB_PROVIDER_ID, PR_ENTRYID));
+			$abHierarchyRows = mapi_table_queryallrows($hierarchyTable, array(PR_AB_PROVIDER_ID, PR_ENTRYID));
 
 			// Look for the 'Kopano Contacts Folders'
 			for($i=0,$len=count($abHierarchyRows);$i<$len;$i++){

@@ -27,11 +27,28 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
+	 * @return {String} the base url of the WebApp
+	 */
+	getBaseUrl : function()
+	{
+		return this.meta.base_url;
+	},
+
+	/**
 	 * @return {Boolean} True if Plugins are enabled
 	 */
 	isPluginsEnabled : function()
 	{
 		return this.meta.enable_plugins;
+	},
+
+	/**
+	 * @return {String} A semicolon separated list of plugins that cannot be
+	 * disabled by the user.
+	 */
+	getAlwaysEnabledPluginsList : function()
+	{
+		return this.meta.always_enabled_plugins || '';
 	},
 
 	/**
