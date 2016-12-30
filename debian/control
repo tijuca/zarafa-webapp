@@ -13,16 +13,16 @@ Build-Depends: ant,
   gettext,
   liblocale-msgfmt-perl,
   libxml2-utils,
-  php5-cli
+  php-cli
 Standards-Version: 3.9.8
 
 Package: kopano-webapp
 Architecture: all
 Depends: ${misc:Depends},
  apache2 | http,
- libapache2-mod-php5,
+ libapache2-mod-php,
  php-gettext,
- php5-mapi (>= 8.1.0),
+ php7.0-mapi (>= 8.1.0),
  ssl-cert,
  kopano-contacts (>= 8.1.0)
 Recommends: ${misc:Recommends},
