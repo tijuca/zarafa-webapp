@@ -245,7 +245,7 @@
 											), TBL_BATCH
 		);
 
-		$folders = mapi_table_queryallrows($hierarchytable, array(PR_ENTRYID, PR_DISPLAY_NAME, PR_LAST_MODIFICATION_TIME));
+		$folders = mapi_table_queryallrows($hierarchytable, array(PR_ENTRYID));
 		foreach($folders as $folder){
 			mapi_folder_deletefolder($finderfolder, $folder[PR_ENTRYID]);
 		}
@@ -462,21 +462,23 @@
 	}
 
 	/**
-	 * Function to retrieve the HTML body (PR_HTML) of a message.
+	 * Helper to stream a MAPI property.
 	 *
-	 * @param MAPIMessage $message message
-	 * @return String $body the HTML body of a message
+	 * @param MAPIObject $mapiobj mapi message or store
+	 * @return String $datastring the streamed data
 	 */
-	function getMessageHTMLBody($message)
+	function streamProperty($mapiobj, $proptag)
 	{
-		$body = '';
-		$stream = mapi_openproperty($message, PR_HTML, IID_IStream, 0, 0);
+		$stream = mapi_openproperty($mapiobj, $proptag, IID_IStream, 0, 0);
 		$stat = mapi_stream_stat($stream);
 		mapi_stream_seek($stream, 0, STREAM_SEEK_SET);
-		for ($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
-			$body .= mapi_stream_read($stream, BLOCK_SIZE);
+
+		$datastring = '';
+		for($i = 0; $i < $stat['cb']; $i+= BLOCK_SIZE){
+			$datastring .= mapi_stream_read($stream, BLOCK_SIZE);
 		}
-		return $body;
+
+		return $datastring;
 	}
 
 	/**
@@ -517,5 +519,35 @@
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Fetches the full hierarchy and returns an array with a cache of the state
+	 * of the folders in the hierarchy.
+	 *
+	 * @return {Array} folderStatCache a cache of the hierarchy folders.
+	 */
+	function update_hierarchy_counters()
+	{
+		$props = array(PR_DISPLAY_NAME, PR_LOCAL_COMMIT_TIME_MAX, PR_CONTENT_COUNT, PR_CONTENT_UNREAD, PR_ENTRYID, PR_STORE_ENTRYID);
+
+		$store = $GLOBALS["mapisession"]->getDefaultMessageStore();
+		$storeProps = mapi_getprops($store, array(PR_IPM_SUBTREE_ENTRYID));
+		$ipmsubtree = mapi_msgstore_openentry($store, $storeProps[PR_IPM_SUBTREE_ENTRYID]);
+		$hierarchy =  mapi_folder_gethierarchytable($ipmsubtree, CONVENIENT_DEPTH);
+		$rows = mapi_table_queryallrows($hierarchy, $props);
+
+		$folderStatCache = array();
+		foreach($rows as $folder) {
+			$folderStatCache[$folder[PR_DISPLAY_NAME]] = array(
+				'commit_time' => isset($folder[PR_LOCAL_COMMIT_TIME_MAX]) ? $folder[PR_LOCAL_COMMIT_TIME_MAX] : "0000000000",
+				'entryid' => bin2hex($folder[PR_ENTRYID]),
+				'store_entryid' => bin2hex($folder[PR_STORE_ENTRYID]),
+				'content_count' => isset($folder[PR_CONTENT_COUNT]) ? $folder[PR_CONTENT_COUNT] : -1,
+				'content_unread' => isset($folder[PR_CONTENT_UNREAD]) ? $folder[PR_CONTENT_UNREAD] : -1,
+			);
+		}
+
+		return $folderStatCache;
 	}
 ?>

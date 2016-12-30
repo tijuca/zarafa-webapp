@@ -12,10 +12,10 @@ $version = trim(file_get_contents('version'));
 <html>
 
 	<head>
-		<meta name="Generator" content="Zarafa WebApp v<?php echo $version?>">
+		<meta name="Generator" content="Kopano WebApp v<?php echo $version?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>Kopano WebApp</title>
+		<title><?php echo $webappTitle; ?></title>
 		<link rel="icon" href="client/resources/images/favicon.ico?v2.2.0" type="image/x-icon">
 		<link rel="shortcut icon" href="client/resources/images/favicon.ico?v2.2.0" type="image/x-icon">
 
@@ -31,6 +31,12 @@ $version = trim(file_get_contents('version'));
 
 			$remoteFiles = $loader->getRemoteCSSFiles(DEBUG_LOADER);
 			$loader->printFiles($remoteFiles, $cssTemplate);
+
+			/* Add the styling of the theme */
+			$css = Theming::getCss($theme);
+			foreach ($css as $file) {
+				echo '<link rel="stylesheet" type="text/css" href="' . $file . '">';
+			}
 		?>
 	</head>
 

@@ -147,7 +147,28 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			id : baseId + '-to'
 		},{
 			xtype : 'zarafa.senttomelink',
+			id : baseId + '-to-me-only'
+		},{
+			xtype : 'zarafa.senttolink',
 			id : baseId + '-to-me'
+		},{
+			xtype : 'zarafa.attachmentlink',
+			id : baseId + '-attachment'
+		},{
+			xtype : 'zarafa.sentccmelink',
+			id : baseId + '-cc-me'
+		},{
+			xtype : 'zarafa.nametocclink',
+			id : baseId + '-name-to-cc'
+		},{
+			xtype : 'zarafa.sensitivitylink',
+			id : baseId + '-sensitivity'
+		},{
+			xtype : 'zarafa.receivedafterlink',
+			id : baseId + '-received-after'
+		},{
+			xtype : 'zarafa.receivedbeforelink',
+			id : baseId + '-received-before'
 		}];
 	},
 
@@ -301,15 +322,38 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 		// if this represents a single condition or a list of conditions.
 		if (conditions[0] === Zarafa.core.mapi.Restrictions.RES_AND) {
 			var single = false;
+			var totalConditions = conditions[1].length;
 
-			// Check if this AND/OR restriction represents a single
-			// condition or not.
-			for (var i = 0, len = conditions[1].length; i < len; i++) {
-				var sub = conditions[1][i];
-				if (sub && sub[0] === Zarafa.core.mapi.Restrictions.RES_PROPERTY &&
-					sub[1][Zarafa.core.mapi.Restrictions.ULPROPTAG] === 'PR_MESSAGE_TO_ME') {
-					single = true;
-					break;
+			// As of now, there are three property restrictions at most in single condition.
+			if (totalConditions >= 3) {
+				var conditionCounter = 0;
+				// Check if this AND/OR restriction represents a single
+				// condition or not.
+				for (var i = 0; i < totalConditions; i++) {
+					var innerCondition = conditions[1][i];
+					if (innerCondition) {
+						if (innerCondition[0] === Zarafa.core.mapi.Restrictions.RES_PROPERTY) {
+							var ulPropTagValue = innerCondition[1][Zarafa.core.mapi.Restrictions.ULPROPTAG];
+							var isPrMessageToMe = (ulPropTagValue === 'PR_MESSAGE_TO_ME');
+							var isPrMessageCcMe = (ulPropTagValue === 'PR_MESSAGE_CC_ME');
+							var isPrMessageRecipMe = (ulPropTagValue === 'PR_MESSAGE_RECIP_ME');
+							var isPrDisplayCc = (ulPropTagValue === 'PR_DISPLAY_CC');
+
+							if (isPrMessageToMe || isPrMessageCcMe || isPrMessageRecipMe || isPrDisplayCc) {
+								conditionCounter++;
+							}
+						} else if (innerCondition[0] === Zarafa.core.mapi.Restrictions.RES_NOT) {
+							innerCondition = innerCondition[1];
+							if ('PR_DISPLAY_TO' === innerCondition[1][Zarafa.core.mapi.Restrictions.ULPROPTAG]) {
+								conditionCounter++;
+							}
+						}
+
+						if (conditionCounter === 3) {
+							single = true;
+							break;
+						}
+					}
 				}
 			}
 
@@ -363,10 +407,15 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			case Zarafa.common.rules.data.ConditionFlags.SUBJECT_WORDS:
 			case Zarafa.common.rules.data.ConditionFlags.BODY_WORDS:
 			case Zarafa.common.rules.data.ConditionFlags.IMPORTANCE:
+			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_AFTER:
+			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_BEFORE:
 			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_FROM:
 			case Zarafa.common.rules.data.ConditionFlags.SENDER_WORDS:
+			case Zarafa.common.rules.data.ConditionFlags.SENSITIVITY:
 			case Zarafa.common.rules.data.ConditionFlags.SENT_TO:
+			case Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME:
 			case Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME_ONLY:
+			case Zarafa.common.rules.data.ConditionFlags.SENT_CC_ME:
 				layout.activeItem.setCondition(conditionFlag, condition);
 				break;
 		}
@@ -395,6 +444,7 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 			case Restrictions.RES_CONTENT:
 			case Restrictions.RES_PROPERTY:
 			case Restrictions.RES_SUBRESTRICTION:
+			case Restrictions.RES_BITMASK:
 				switch (condition[1][Restrictions.ULPROPTAG]) {
 					case 'PR_BODY':
 						return Zarafa.common.rules.data.ConditionFlags.BODY_WORDS;
@@ -404,8 +454,23 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 						return Zarafa.common.rules.data.ConditionFlags.IMPORTANCE;
 					case 'PR_MESSAGE_RECIPIENTS':
 						return Zarafa.common.rules.data.ConditionFlags.SENT_TO;
+					case 'PR_MESSAGE_TO_ME':
+						return Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME;
 					case 'PR_SENDER_SEARCH_KEY':
 						return Zarafa.common.rules.data.ConditionFlags.SENDER_WORDS;
+					case 'PR_MESSAGE_FLAGS':
+						return Zarafa.common.rules.data.ConditionFlags.ATTACHMENT;
+					case 'PR_MESSAGE_RECIP_ME':
+						return Zarafa.common.rules.data.ConditionFlags.NAME_TO_CC;
+					case 'PR_SENSITIVITY':
+						return Zarafa.common.rules.data.ConditionFlags.SENSITIVITY;
+					case 'PR_MESSAGE_DELIVERY_TIME':
+						if (condition[1][1] === Restrictions.RELOP_LT) {
+							return Zarafa.common.rules.data.ConditionFlags.RECEIVED_BEFORE;
+						} else if (condition[1][1] === Restrictions.RELOP_GT) {
+							return Zarafa.common.rules.data.ConditionFlags.RECEIVED_AFTER;
+						}
+						/* falls through*/
 					default:
 						return Zarafa.common.rules.data.ConditionFlags.UNKNOWN;
 				}
@@ -414,6 +479,11 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 				for (var i = 0, len = condition[1].length; i < len; i++) {
 					var sub = condition[1][i];
 
+					// PR_MESSAGE_CC_ME is only used in the SENT_CC_ME restriction for now
+					if (sub[0] === Restrictions.RES_PROPERTY &&
+					    sub[1][Restrictions.ULPROPTAG] === 'PR_MESSAGE_CC_ME') {
+						return Zarafa.common.rules.data.ConditionFlags.SENT_CC_ME;
+					}
 					// Check if the RES_AND contains the restriction for PR_MESSAGE_TO_ME,
 					// this indicates that this restriction is the SENT_TO_ME_ONLY condition
 					if (sub[0] === Restrictions.RES_PROPERTY &&
@@ -484,7 +554,35 @@ Zarafa.common.rules.dialogs.RulesConditionContainer = Ext.extend(Ext.Container, 
 				layout.activeItem.setCondition(value);
 				break;
 			case Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME_ONLY:
+				layout.setActiveItem(panel.id + '-to-me-only');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME:
 				layout.setActiveItem(panel.id + '-to-me');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.ATTACHMENT:
+				layout.setActiveItem(panel.id + '-attachment');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.SENSITIVITY:
+				layout.setActiveItem(panel.id + '-sensitivity');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.SENT_CC_ME:
+				layout.setActiveItem(panel.id + '-cc-me');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.NAME_TO_CC:
+				layout.setActiveItem(panel.id + '-name-to-cc');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_AFTER:
+				layout.setActiveItem(panel.id + '-received-after');
+				layout.activeItem.setCondition(value);
+				break;
+			case Zarafa.common.rules.data.ConditionFlags.RECEIVED_BEFORE:
+				layout.setActiveItem(panel.id + '-received-before');
 				layout.activeItem.setCondition(value);
 				break;
 		}
