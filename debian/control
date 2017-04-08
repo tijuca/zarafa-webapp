@@ -8,7 +8,6 @@ Build-Depends: ant,
   ant-optional,
   default-jdk,
   debhelper (>= 9.0.0),
-  dh-apache2,
   dh-exec,
   gettext,
   liblocale-msgfmt-perl,
@@ -26,6 +25,7 @@ Depends:
  ${misc:Depends},
 Recommends:
  kopano-server,
+ kopano-webapp-apache2,
  ${misc:Recommends},
 Description: WebApp for the Kopano Collaboration Platform - common files
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
@@ -35,6 +35,25 @@ Description: WebApp for the Kopano Collaboration Platform - common files
  .
  This package contains the common used files and dependencies on packages for
  all the webserver specific kopano-webapp packages.
+
+Package: kopano-webapp-apache2
+Architecture: all
+Depends:
+ apache2 | httpd,
+ libapache2-mod-php,
+ kopano-webapp-common (>= ${binary:Version}),
+ ${misc:Depends},
+Recommends:
+ kopano-server,
+ ${misc:Recommends},
+Description: WebApp for the Kopano Collaboration Platform - Apache2
+ Provides a web-client written in PHP that uses JSON and Ext JS to allow users
+ to make full use of the Kopano Collaboration Platform through a modern web
+ browser. The functionality of the web-client can be expanded by various
+ plugins.
+ .
+ Apache2 specific configuration and dependencies will be provided by this
+ package.
 
 Package: kopano-webapp-contactfax
 Architecture: all

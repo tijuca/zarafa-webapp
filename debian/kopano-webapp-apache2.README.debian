@@ -1,0 +1,45 @@
+= Notes for the kopano-webapp-apache2 package =
+
+This package contains a ready to use configuration for the Apache2 webserver
+for the kopano-webapp. To not conflict with possible existing running
+configurations for other sites and vhosts the provided Apache2 configuration
+isn't activated by default.
+
+Please note due the fact the kopano-webapp is using sensible data like account
+names and passwords the prepared configuration is combined with the usage of
+https transport for the web page. Far a easy start the package is using of the ssl-cert
+package so there is at least a working certificate authority available. The
+site configuration also automatically redirect from http to https.
+
+So what to do to getting kopano-webapp running?
+-----------------------------------------------
+
+After the installation of the package all you need to do is running a2enconf to
+enable the vhost configuration and reload the apache configuration.
+
+  $ sudo a2enconf kopano-webapp-apache2
+  $ sudo service apache2 reload
+  or
+  $ sudo systemctl reload apache2
+
+Next call in your prefered web browser the url 'https://[IP of webserver]/webapp'. 
+
+Afterwards you should ensure to place a valid certificate and key for convinent
+usage. Also you need to adjust the ServerName within th config file.
+
+
+Usage of kopano-webapp in more complex environments
+---------------------------------------------------
+
+You can include the prepared directory configuration for the kopano webapp in
+your local setup.
+If you want to do so simply use a Apache Include directive in your local setup.
+Just put the following lines into your configuration. Note you need to handle
+redirects and possible SSL certs on your own.
+
+  [snip]
+  # including the <Directory> handling for kopano-webapp
+  Include /etc/kopano/webapp/apache2.conf
+  [snip]
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 8 April 2017 20:21:00 +0200

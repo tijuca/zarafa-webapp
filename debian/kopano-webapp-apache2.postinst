@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# postinst script for kopano-webapp-apache2
+# see: dh_installdeb(1)
+
+# summary of how this script can be called:
+#                           --- $1 ---          --- $2 ---     --- $3 ---               --- $4 ---
+#            <new-postinst> 'configure'         <most-recently-configured-version>
+#            <old-postinst> 'abort-upgrade'     <new version>
+#   <conflictor's-postinst> 'abort-remove'      'in-favour'     <package>                <new-version>
+#                <postinst> 'abort-remove'
+# <deconfigured's-postinst> 'abort-deconfigure' 'in-favour'     <failed-install-package> <version>     'removing' <conflicting-package> <version>
+#
+# for details, see http://www.debian.org/doc/debian-policy/ or the
+# debian-policy package
+
+set -e
+#set -x # uncomment for verbose output
+
+case "$1" in
+    configure)
+        ### Apache2.4
+        # processing kopano-webapp for apache2
+        if [ -e /usr/share/apache2/apache2-maintscript-helper ]; then
+            . /usr/share/apache2/apache2-maintscript-helper
+
+            if [ ! -e "/etc/apache2/mods-enabled/ssl.load" ]; then
+                apache2_invoke enmod ssl || exit $?
+            fi
+            if [ ! -e "/etc/apache2/mods-enabled/rewrite.load" ]; then
+                apache2_invoke enmod rewrite || exit $?
+            fi
+        # Don't enabling the Apache2 website configuration here or automatically by
+        # dh-apache2, the user needs to enable the vhost config by himself if wanted.
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
