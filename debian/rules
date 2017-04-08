@@ -21,10 +21,10 @@ override_dh_install:
 	rm -rf $(CURDIR)/debian/kopano-webapp-files/usr/share/kopano-webapp/plugins/files/js/external
 	# figure out package version
 	dpkg-parsechangelog --show-field Version > \
-		$(CURDIR)/debian/kopano-webapp/usr/share/kopano-webapp/version
+		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
 	# remove files named *debug*.js
-	find $(CURDIR)/debian/kopano-webapp/usr/share/kopano-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
+	find $(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/kopano-webapp/tmp
-	chown www-data:www-data $(CURDIR)/debian/kopano-webapp/var/lib/kopano-webapp/tmp
+	chown www-data:www-data $(CURDIR)/debian/kopano-webapp-common/var/lib/kopano-webapp/tmp

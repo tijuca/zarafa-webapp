@@ -1,4 +1,0 @@
-# source                       # target
-/etc/kopano/webapp/config.php  usr/share/kopano-webapp/config.php
-# We don't use a file .htaccess right now like usptream.
-#/etc/kopano/webapp/.htaccess   usr/share/kopano-webapp/.htaccess

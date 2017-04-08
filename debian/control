@@ -16,26 +16,29 @@ Build-Depends: ant,
   php-cli
 Standards-Version: 3.9.8
 
-Package: kopano-webapp
+Package: kopano-webapp-common
 Architecture: all
-Depends: ${misc:Depends},
- apache2 | http,
- libapache2-mod-php,
+Depends:
+ kopano-contacts (>= 8.1.0),
  php-gettext,
  php7.0-mapi (>= 8.1.0),
  ssl-cert,
- kopano-contacts (>= 8.1.0)
-Recommends: ${misc:Recommends},
-  kopano-server
-Description: New and improved WebApp for the Kopano Collaboration Platform
+ ${misc:Depends},
+Recommends:
+ kopano-server,
+ ${misc:Recommends},
+Description: WebApp for the Kopano Collaboration Platform - common files
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Kopano Collaboration Platform through a modern web
  browser. The functionality of the web-client can be expanded by various
  plugins.
+ .
+ This package contains the common used files and dependencies on packages for
+ all the webserver specific kopano-webapp packages.
 
 Package: kopano-webapp-contactfax
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp fax plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -45,7 +48,7 @@ Description: Kopano WebApp fax plugin
 
 Package: kopano-webapp-folderwidgets
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp folder widgets plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -55,7 +58,7 @@ Description: Kopano WebApp folder widgets plugin
 
 Package: kopano-webapp-gmaps
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp google maps plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -65,7 +68,7 @@ Description: Kopano WebApp google maps plugin
 
 Package:  kopano-webapp-pimfolder
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp personal inbox plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -77,7 +80,7 @@ Description: Kopano WebApp personal inbox plugin
 
 Package: kopano-webapp-quickitems
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp quick items plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -87,7 +90,7 @@ Description: Kopano WebApp quick items plugin
 
 Package: kopano-webapp-titlecounter
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp Titlecounter plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -97,7 +100,7 @@ Description: Kopano WebApp Titlecounter plugin
 
 Package: kopano-webapp-webappmanual
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp Manual plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.
@@ -107,7 +110,7 @@ Description: Kopano WebApp Manual plugin
 
 Package: kopano-webapp-zdeveloper
 Architecture: all
-Depends: ${misc:Depends}, kopano-webapp (>= ${binary:Version})
+Depends: ${misc:Depends}, kopano-webapp-common (>= ${binary:Version})
 Description: Kopano WebApp developer plugin
  This package is a plugin for kopano-webapp, a web interface for Kopano from
  Zarafa.

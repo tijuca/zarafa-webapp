@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# postinst script for kopano-webapp
+# see: dh_installdeb(1)
+
+# summary of how this script can be called:
+#                           --- $1 ---          --- $2 ---     --- $3 ---               --- $4 ---
+#            <new-postinst> 'configure'         <most-recently-configured-version>
+#            <old-postinst> 'abort-upgrade'     <new version>
+#   <conflictor's-postinst> 'abort-remove'      'in-favour'     <package>                <new-version>
+#                <postinst> 'abort-remove'
+# <deconfigured's-postinst> 'abort-deconfigure' 'in-favour'     <failed-install-package> <version>     'removing' <conflicting-package> <version>
+#
+# for details, see http://www.debian.org/doc/debian-policy/ or the
+# debian-policy package
+
+set -e
+#set -x # uncomment for verbose output
+
+PACKAGE_NAME="kopano-webapp"
+PACKAGE_ETC_FOLDER="/etc/kopano/webapp"
+PACKAGE_VAR_FOLDER="/var/lib/kopano-webapp/tmp"
+
+case "$1" in
+    configure)
+        # check permissions on /var/lib/kopano-webapp/tmp
+        #dpkg-statoverride --add --update www-data www-data 0750 ${PACKAGE_VAR_FOLDER}
+
+        # check first for snakeoil key and certificate
+        echo "Updating default SSL certificate settings, if any..." >&2
+        if  [ ! -e "/etc/ssl/certs/ssl-cert-snakeoil.pem" ] || \
+            [ ! -e "/etc/ssl/private/ssl-cert-snakeoil.key" ];
+        then
+            echo "Create snakeoil CA and key for kopano-webapp ..." >&2
+            make-ssl-cert generate-default-snakeoil
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

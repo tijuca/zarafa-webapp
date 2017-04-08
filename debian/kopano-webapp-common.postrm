@@ -22,7 +22,7 @@ set -e
 case "$1" in
     purge)
         if [ -d /var/lib/kopano-webapp ]; then
-            echo "[kopano-webapp] purging directory '/var/lib/kopano-webapp'"
+            echo "[kopano-webapp-common] purging directory '/var/lib/kopano-webapp'"
             rm -rf /var/lib/kopano-webapp || true
         fi
     ;;
