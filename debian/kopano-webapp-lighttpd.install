@@ -1,0 +1,2 @@
+#!/usr/bin/dh-exec
+debian/kopano-webapp-lighttpd.conf => etc/kopano/webapp/lighttpd.conf
