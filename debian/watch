@@ -1,2 +1,4 @@
 version=3
-http://download.zarafa.com/community/final/WebApp/(\d\.\d\.\d)/sourcecode/webapp-(\d\.\d\.\d)\.tar\.gz
+
+opts="uversionmangle=s/\.-RC/~rc/\.(\d{3});s/.[0-9]+$//;s/$/+dfsg1/" \
+https://download.kopano.io/community/webapp:/sourcecode/kopano-webapp_(\d+)\.(\d+)\.(\d+)\.(\d{3})\.orig\.tar\.gz
