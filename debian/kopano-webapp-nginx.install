@@ -1,0 +1,5 @@
+#!/usr/bin/dh-exec
+# source                           target
+debian/kopano-webapp-nginx.conf => etc/nginx/sites-available/kopano-webapp.conf
+
+debian/kopano-webapp-nginx-ssl.conf etc/kopano/webapp

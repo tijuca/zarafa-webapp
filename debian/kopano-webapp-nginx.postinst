@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# postinst script for kopano-webapp-nginx
+# see: dh_installdeb(1)
+
+# summary of how this script can be called:
+#                           --- $1 ---          --- $2 ---     --- $3 ---               --- $4 ---
+#            <new-postinst> 'configure'         <most-recently-configured-version>
+#            <old-postinst> 'abort-upgrade'     <new version>
+#   <conflictor's-postinst> 'abort-remove'      'in-favour'     <package>                <new-version>
+#                <postinst> 'abort-remove'
+# <deconfigured's-postinst> 'abort-deconfigure' 'in-favour'     <failed-install-package> <version>     'removing' <conflicting-package> <version>
+#
+# for details, see http://www.debian.org/doc/debian-policy/ or the
+# debian-policy package
+
+set -e
+set -x # uncomment for verbose output
+
+PHPVERSION="7.0"
+NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
+NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
+
+case "$1" in
+    configure)
+        if [ -e /usr/lib/php/php-maintscript-helper ]; then
+            . /usr/lib/php/php-maintscript-helper
+
+            # calling php_invoke to enable 'mapi' for the PHP module fpm
+            php_invoke enmod ${PHPVERSION} fpm mapi
+        fi
+        # Don't enable the kopano-webapp site configuration on default. Just
+		# symlink the site to the conf.d.
+        #if [ ! -L "${NGINX_SITES_ENABLED}/kopano-webapp.conf" ]; then
+        #    echo "Enable Nginx kopano-webapp config ..." >&2
+        #    ln -s ${NGINX_SITES_AVAILABLE}/kopano-webapp.conf ${NGINX_SITES_ENABLED}/kopano-webapp.conf
+        #fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
