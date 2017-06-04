@@ -1,5 +1,5 @@
-# xregexp-unicode-base isn't packaged yet
-source: source-is-missing client/third-party/xregexp/xregexp-unicode-base.js *
+# These are all language files mostly UTF8 encoded
+source: source-is-missing client/tinymce-languages/*.js *
 # PreCached Icons
 source: source-is-missing client/zarafa/calendar/ui/IconCache.js *
 # JSON data fields
