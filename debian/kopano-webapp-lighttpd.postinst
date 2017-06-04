@@ -25,15 +25,19 @@ case "$1" in
         if [ -e /usr/lib/php/php-maintscript-helper ]; then
             . /usr/lib/php/php-maintscript-helper
 
-            # calling php_invoke to enable 'mapi' for the PHP module cgi
+            # Calling php_invoke to enable 'mapi' for the PHP module cgi
             php_invoke enmod ${PHPVERSION} cgi mapi
         fi
-        # handle 
-        if [ -x "`which lighty-enable-mod`" ] ; then
-            echo "Add link for Lighttpd config file"
-            ln -s ${PACKAGE_ETC_FOLDER}/lighttpd.conf /etc/lighttpd/conf-available/50-kopano-webapp.conf
-            # We enabled it
-            lighty-enable-mod kopano-webapp fastcgi-php
+        # Handle the lighttpd modules
+        if [ -x "`which lighty-enable-mod`" ]; then
+            echo "Add symlink for Lighttpd config file"
+            if [ ! -L /etc/lighttpd/conf-available/50-kopano-webapp.conf ]; then
+                ln -s ${PACKAGE_ETC_FOLDER}/lighttpd.conf /etc/lighttpd/conf-available/50-kopano-webapp.conf
+            fi
+            # We need some modules enabled, but let this all the user,
+            # note /usr/share/kopano-webapp-lighttpd/kopano-webapp-lighttpd.README.Debian
+            #lighty-enable-mod accesslog kopano-webapp fastcgi-php mod_alias || true
+            echo "kopano-webapp-lighttpd: not enable Lighttpd configuration by default!"
         fi
     ;;
 
@@ -43,7 +47,7 @@ case "$1" in
     *)
         echo "postinst called with unknown argument \`$1'" >&2
         exit 1
-    ;
+    ;;
 esac
 
 #DEBHELPER#

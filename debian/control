@@ -74,23 +74,23 @@ Description: WebApp for the Kopano Collaboration Platform - Nginx
  Nginx specific configuration and dependencies will be provided by this
  package.
 
-#Package: kopano-webapp-lighttpd
-#Architecture: all
-#Depends:
-# lighttpd,
-# kopano-webapp-common (>= ${binary:Version}),
-# php-cgi,
-# ${misc:Depends},
-#Recommends: ${misc:Recommends},
-#  kopano-server
-#Description: WebApp for the Kopano Collaboration Platform - Lighttpd
-# Provides a web-client written in PHP that uses JSON and Ext JS to allow users
-# to make full use of the Kopano Collaboration Platform through a modern web
-# browser. The functionality of the web-client can be expanded by various
-# plugins.
-# .
-# Lighttpd specific configuration and dependencies will be provided by this
-# package.
+Package: kopano-webapp-lighttpd
+Architecture: all
+Depends:
+ lighttpd,
+ kopano-webapp-common (>= ${binary:Version}),
+ php-cgi,
+ ${misc:Depends},
+Recommends: ${misc:Recommends},
+  kopano-server
+Description: WebApp for the Kopano Collaboration Platform - Lighttpd
+ Provides a web-client written in PHP that uses JSON and Ext JS to allow users
+ to make full use of the Kopano Collaboration Platform through a modern web
+ browser. The functionality of the web-client can be expanded by various
+ plugins.
+ .
+ Lighttpd specific configuration and dependencies will be provided by this
+ package.
 
 Package: kopano-webapp-contactfax
 Architecture: all

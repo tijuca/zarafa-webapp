@@ -1,0 +1,35 @@
+= Notes for the kopano-webapp-lighttpd package =
+
+This package contains a really simply and in some circumstances ready to use
+configuration for the kopano-webapp together with the Lighttpd webserver as
+linked configuration to /etc/lighttpd/conf-available/50-kopano-webapp.conf.
+
+The provided configuration for kopano-webapp is only providing a extra URL
+alias and has no additional extra VHOST or SSL configuration inside. That
+configuration makes kopano-webapp available under the URL '[webserver]/webapp'.
+To not conflict with possible existing running configurations for other sites
+and vhosts the provided Lighttpd configuration isn't activated by default.
+
+Please note due the fact the kopano-webapp is using sensible data like account
+names and passwords the prepared configuration shouldn't enabled until https
+transport for the webserver is properly configured!
+
+If you running a working SSL configuration or really know what you are doing
+you can enable the kopano-webapp config for lighttpd by the following steps.
+
+  $ sudo lighty-enable-mod kopano-webapp fastcgi-php
+  $ sudo service lighttpd force-reload
+  or
+  $ sudo systemctl reload lighttpd
+
+Usage of kopano-webapp in more complex environments
+---------------------------------------------------
+
+This requires typically more elaborate configurations in all parts of lighttpd
+which Debian in part of the kopano-webapp-lighttpd package can't provide for
+now. If you can provide some helpful hints or ready to use configurations for
+providing some more convenient user experience please let us know and get in
+contact with
+"Giraffe Maintainers <pkg-giraffe-maintainers@lists.alioth.debian.org>".
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 4 June 2017 13:56:00 +0200
