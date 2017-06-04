@@ -20,7 +20,7 @@ Architecture: all
 Depends:
  kopano-contacts (>= 8.1.0),
  php-gettext,
- php7.0-mapi (>= 8.1.0),
+ php-mapi (>= 8.1.0),
  ssl-cert,
  ${misc:Depends},
 Recommends:
