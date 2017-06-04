@@ -18,7 +18,7 @@ service.
 Please note that kopano-webapp is using https as default transport protocol as
 the kopano-webapp is using sensible data. To ensure a first working configuration
 the setup is using the snakeoil intermediate certificate created by the
-ssl-cert package. You will need to chnage SSL configuration for nginx in
+ssl-cert package. You will need to change SSL configuration for nginx in
 
   /etc/kopano/webapp/nginx-ssl.conf
 
