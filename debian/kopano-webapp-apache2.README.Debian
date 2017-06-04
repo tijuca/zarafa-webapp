@@ -7,9 +7,10 @@ isn't activated by default.
 
 Please note due the fact the kopano-webapp is using sensible data like account
 names and passwords the prepared configuration is combined with the usage of
-https transport for the web page. Far a easy start the package is using of the ssl-cert
-package so there is at least a working certificate authority available. The
-site configuration also automatically redirect from http to https.
+https transport for the web page. For a easy start the package is using
+ssl-cert package so there is at least a working certificate authority
+available. The site configuration also automatically redirect from http to
+https.
 
 So what to do to getting kopano-webapp running?
 -----------------------------------------------
@@ -22,16 +23,16 @@ enable the vhost configuration and reload the apache configuration.
   or
   $ sudo systemctl reload apache2
 
-Next call in your prefered web browser the url 'https://[IP of webserver]/webapp'. 
+Next call in your preferred web browser the URL 'https://[IP of webserver]/webapp'. 
 
-Afterwards you should ensure to place a valid certificate and key for convinent
-usage. Also you need to adjust the ServerName within th config file.
+Afterwards you should ensure to place a valid certificate and key for convenient
+usage. Also you need to adjust the ServerName within the config file.
 
 
 Usage of kopano-webapp in more complex environments
 ---------------------------------------------------
 
-You can include the prepared directory configuration for the kopano webapp in
+You can include the prepared directory configuration for the Kopano Webapp in
 your local setup.
 If you want to do so simply use a Apache Include directive in your local setup.
 Just put the following lines into your configuration. Note you need to handle
