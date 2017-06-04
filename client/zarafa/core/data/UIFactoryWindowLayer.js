@@ -37,12 +37,29 @@ Zarafa.core.data.UIFactoryWindowLayer = Ext.extend(Zarafa.core.data.UIFactoryLay
 	 */
 	create : function(component, config)
 	{
+		Ext.applyIf(config, {
+			statefulRelativeDimensions: false
+		});
+
 		var panel = new component(config);
+
+		var sm = container.getSettingsModel();
+		var stateWidth = sm.get('zarafa/v1/state/' + panel.getStateName() + '/width');
+		if ( stateWidth && stateWidth<1 ){
+			// dimensions are stored relatively, but we changed it to absolutely,
+			// so we will delete these state settings and recreate the panel with
+			// the default size.
+			sm.remove('zarafa/v1/state/' + panel.getStateName() + '/width');
+			sm.remove('zarafa/v1/state/' + panel.getStateName() + '/height');
+			panel = new component(config);
+		}
+
 		var windowCfg = {
 			modal : panel.modal,
 			manager : panel.manager,
 			constrainHeader : true,
-			minimizable: panel.minimizable || false,
+			resizable : Ext.isDefined(panel.resizable)? panel.resizable : true,
+			minimizable: Ext.isDefined(panel.minimizable)? panel.minimizable : false,
 			headerCfg : {
 				tag : 'div',
 				cls : 'zarafa-window-header x-window-header x-unselectable x-window-draggable'

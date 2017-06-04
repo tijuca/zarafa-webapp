@@ -1,7 +1,7 @@
 <?php
 
 	require_once( BASE_PATH . 'server/includes/core/class.properties.php' );
-	
+
 	/**
 	 * MAPI session handling
 	 *
@@ -135,7 +135,7 @@
 				$user_props = array(PR_DISPLAY_NAME, PR_SMTP_ADDRESS, PR_EMAIL_ADDRESS, PR_SEARCH_KEY, 0x8C9E0102, PR_ASSISTANT_TELEPHONE_NUMBER);
 				$properties = new properties();
 				$user_props = array_merge($user_props, $properties->getAddressBookItemMailuserProperties());
-				
+
 				$user_props = mapi_getprops($user, $user_props);
 
 				if (is_array($user_props) && isset($user_props[PR_DISPLAY_NAME]) && isset($user_props[PR_SMTP_ADDRESS])){
@@ -195,9 +195,11 @@
 		 *
 		 * @param string $fresh (optional) When set to true it will return an addressbook resource
 		 * without any Contact Provider set on it, defaults to false.
+		 * @param boolean $loadSharedContactsProvider When set to true it denotes that shared folders are
+		 * required to be configured to load the contacts from.
 		 * @return mapiaddressbook An addressbook object to be used with mapi_ab_*
 		 */
-		function getAddressbook($providerless = false)
+		function getAddressbook($providerless = false, $loadSharedContactsProvider = false)
 		{
 			if($providerless){
 				try {
@@ -210,7 +212,7 @@
 			$result = NOERROR;
 
 			if($this->ab === false){
-				$this->setupContactProviderAddressbook();
+				$this->setupContactProviderAddressbook($loadSharedContactsProvider);
 			}
 
 			try {
@@ -247,7 +249,7 @@
 		 * @deprecated 2.2.0 This function only exists for backward compatibility with
 		 * 		 older plugins that want to send the session id as a GET parameter with
 		 * 		 requests that they make to kopano.php. The script kopano.php does not
-		 * 		 expect this parameter anymore, but plugins that are not updated might 
+		 * 		 expect this parameter anymore, but plugins that are not updated might
 		 * 		 still call this function.
 		 * @return string Always empty
 		 */
@@ -262,7 +264,7 @@
 		 */
 		function getUserEntryID()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("userentryid",$this->session_info)?$this->session_info["userentryid"]:false;
 		}
@@ -273,7 +275,7 @@
 		 */
 		function getUserName()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("username",$this->session_info)?$this->session_info["username"]:false;
 		}
@@ -284,7 +286,7 @@
 		 */
 		function getFullName()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("fullname",$this->session_info)?$this->session_info["fullname"]:false;
 		}
@@ -295,7 +297,7 @@
 		 */
 		function getSMTPAddress()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("smtpaddress",$this->session_info)?$this->session_info["smtpaddress"]:false;
 		}
@@ -306,7 +308,7 @@
 		 */
 		function getEmailAddress()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("emailaddress",$this->session_info)?$this->session_info["emailaddress"]:false;
 		}
@@ -317,7 +319,7 @@
 		 */
 		function getUserImage()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("userimage",$this->session_info)? $this->session_info["userimage"]:false;
 		}
@@ -329,7 +331,7 @@
 		  * getSomeUserProperty() will look return a property called some_user_property if it exists and
 		  * throw an exception otherwise.
 		  * @param string $methodName The name of the method that was called
-		  * @param array $arguments The arguments that were passed in the call 
+		  * @param array $arguments The arguments that were passed in the call
 		  * @return String The requested property if it exists
 		  * @throws Exception
 		  */
@@ -394,7 +396,7 @@
 		 */
 		function getSearchKey()
 		{
-			$result = $this->retrieveUserData();
+			$this->retrieveUserData();
 
 			return array_key_exists("searchkey",$this->session_info)?$this->session_info["searchkey"]:false;
 		}
@@ -410,14 +412,17 @@
 				$storestables = mapi_getmsgstorestable($this->session);
 				$rows = mapi_table_queryallrows($storestables, array(PR_ENTRYID, PR_DEFAULT_STORE, PR_MDB_PROVIDER));
 				foreach($rows as $row) {
+					$name = '';
 					if($row[PR_ENTRYID]){
 						if(isset($row[PR_DEFAULT_STORE]) && $row[PR_DEFAULT_STORE] == true) {
 							$this->defaultstore = $row[PR_ENTRYID];
+							$name = 'Default store';
 						}elseif($row[PR_MDB_PROVIDER] == ZARAFA_STORE_PUBLIC_GUID){
 							$this->publicStore = $row[PR_ENTRYID];
+							$name = 'Public store';
 						}
 					}
-					$this->openMessageStore($row[PR_ENTRYID]);
+					$this->openMessageStore($row[PR_ENTRYID], $name);
 				}
 			}
 		}
@@ -442,7 +447,7 @@
 
 		/**
 		 * Get single store and it's archive store aswell if we are openig full store.
-		 * 
+		 *
 		 * @param $store object the store of the user
 		 * @param array $storeOptions contains folder_type of which folder to open
 		 * It is mapped to username, If folder_type is 'all' (i.e. Open Entire Inbox)
@@ -498,36 +503,7 @@
 			$this->getArchivedStores($this->getUserEntryID());
 			// The cache now contains all the stores in our profile. Next, add the stores
 			// for other users.
-			$otherusers = $this->retrieveOtherUsersFromSettings();
-			if(is_array($otherusers)) {
-				foreach($otherusers as $username=>$folder) {
-					if(is_array($folder) && !empty($folder)) {
-						try {
-							$user_entryid = mapi_msgstore_createentryid($this->getDefaultMessageStore(), $username);
-
-							$this->openMessageStore($user_entryid);
-							$this->userstores[$username] = $user_entryid;
-
-							// Check if an entire store will be loaded, if so load the archive store as well
-							if(isset($folder['all']) && $folder['all']['folder_type'] == 'all'){
-								$this->getArchivedStores($this->resolveStrictUserName($username));
-							}
-						} catch (MAPIException $e) {
-							if ($e->getCode() == MAPI_E_NOT_FOUND) {
-								// The user or the corresponding store couldn't be found,
-								// print an error to the log, and remove the user from the settings.
-								dump('Failed to load store for user ' . $username . ', user was not found. Removing it from settings.');
-								$GLOBALS["settings"]->delete("zarafa/v1/contexts/hierarchy/shared_stores/" . $username);
-							} else {
-								// That is odd, something else went wrong. Lets not be hasty and preserve
-								// the user in the settings, but do print something to the log to indicate
-								// something happened...
-								dump('Failed to load store for user ' . $username . '. ' . $e->getDisplayMessage());
-							}
-						}
-					}
-				}
-			}
+			$this->getOtherUserStore();
 
 			// Just return all the stores in our cache, even if we have some error in mapi
 			return $this->stores;
@@ -536,9 +512,12 @@
 		/**
 		 * Open the message store with entryid $entryid
 		 *
+		 * @param String $entryid String representation of the binary entryid of the store.
+		 * @param String $name The name of the store. Will be logged when opening fails.
+		 *
 		 * @return mapistore The opened store on success, false otherwise
 		 */
-		function openMessageStore($entryid)
+		function openMessageStore($entryid, $name='')
 		{
 			// Check the cache before opening
 			foreach($this->stores as $storeEntryId => $storeObj) {
@@ -553,6 +532,14 @@
 				// Cache the store for later use
 				$this->stores[$entryid] = $store;
 			} catch (MAPIException $e) {
+				error_log('Failed to open store with entryid ' . $entryid . ($name ? " ($name)":''));
+				error_log($e);
+				return $e->getCode();
+			} catch (Exception $e ) {
+				// mapi_openmsgstore seems to throw another exception than MAPIException
+				// sometimes, so we add a safety net.
+				error_log('Failed to open store with entryid ' . $entryid . ($name ? " ($name)":''));
+				error_log($e);
 				return $e->getCode();
 			}
 
@@ -560,9 +547,9 @@
 		}
 
 		/**
-		 * Searches for the PR_EC_ARCHIVE_SERVERS property of the user of the passed entryid in the 
+		 * Searches for the PR_EC_ARCHIVE_SERVERS property of the user of the passed entryid in the
 		 * Addressbook. It will get all his archive store objects and add those to the $this->stores
-		 * list. It will return an array with the list of archive stores where the key is the 
+		 * list. It will return an array with the list of archive stores where the key is the
 		 * entryid of the store and the value the store resource.
 		 * @param String $userEntryid Binary entryid of the user
 		 * @return MAPIStore[] List of store resources with the key being the entryid of the store
@@ -581,7 +568,7 @@
 			if(isset($userData[PR_EC_ARCHIVE_SERVERS]) && count($userData[PR_EC_ARCHIVE_SERVERS]) > 0){
 				for($i=0;$i<count($userData[PR_EC_ARCHIVE_SERVERS]);$i++){
 					try{
-						// Check if the store exists. It can be that the store archiving has been enabled, but no 
+						// Check if the store exists. It can be that the store archiving has been enabled, but no
 						// archived store has been created an none can be found in the PR_EC_ARCHIVE_SERVERS property.
 						$archiveStoreEntryid = mapi_msgstore_getarchiveentryid($userStore, $userData[PR_ACCOUNT], $userData[PR_EC_ARCHIVE_SERVERS][$i]);
 						$archiveStores[$archiveStoreEntryid] = mapi_openmsgstore($GLOBALS['mapisession']->getSession(), $archiveStoreEntryid);
@@ -604,8 +591,47 @@
 		}
 
 		/**
-		 * Resolve the username strictly by opening that user's store and returning the 
-		 * PR_MAILBOX_OWNER_ENTRYID. This can be used for resolving an username without the risk of 
+		 * Get all the available shared stores
+		 *
+		 * The store is opened only once, subsequent calls will return the previous store object
+		 */
+		function getOtherUserStore()
+		{
+			$otherusers = $this->retrieveOtherUsersFromSettings();
+			if(is_array($otherusers)) {
+				foreach($otherusers as $username=>$folder) {
+					if(is_array($folder) && !empty($folder)) {
+						try {
+							$user_entryid = mapi_msgstore_createentryid($this->getDefaultMessageStore(), $username);
+
+							$this->openMessageStore($user_entryid, $username);
+							$this->userstores[$username] = $user_entryid;
+
+							// Check if an entire store will be loaded, if so load the archive store as well
+							if(isset($folder['all']) && $folder['all']['folder_type'] == 'all'){
+								$this->getArchivedStores($this->resolveStrictUserName($username));
+							}
+						} catch (MAPIException $e) {
+							if ($e->getCode() == MAPI_E_NOT_FOUND) {
+								// The user or the corresponding store couldn't be found,
+								// print an error to the log, and remove the user from the settings.
+								dump('Failed to load store for user ' . $username . ', user was not found. Removing it from settings.');
+								$GLOBALS["settings"]->delete("zarafa/v1/contexts/hierarchy/shared_stores/" . $username);
+							} else {
+								// That is odd, something else went wrong. Lets not be hasty and preserve
+								// the user in the settings, but do print something to the log to indicate
+								// something happened...
+								dump('Failed to load store for user ' . $username . '. ' . $e->getDisplayMessage());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * Resolve the username strictly by opening that user's store and returning the
+		 * PR_MAILBOX_OWNER_ENTRYID. This can be used for resolving an username without the risk of
 		 * ambiguity since mapi_ab_resolve() does not strictly resolve on the username.
 		 * @param String $username The username
 		 * @return Binary|Integer Entryid of the user on success otherwise the hresult error code
@@ -671,7 +697,7 @@
 			if($user_entryid) {
 				$this->userstores[$username] = $user_entryid;
 
-				return $this->openMessageStore($user_entryid);
+				return $this->openMessageStore($user_entryid, $username);
 			}
 		}
 
@@ -739,8 +765,10 @@
 		/**
 		 * Setup the contact provider for the addressbook. It asks getContactFoldersForABContactProvider
 		 * for the entryids and display names for the contact folders in the user's store.
+		 * @param boolean $loadSharedContactsProvider When set to true it denotes that shared folders are
+		 * required to be configured to load the contacts from.
 		 */
-		function setupContactProviderAddressbook()
+		function setupContactProviderAddressbook($loadSharedContactsProvider)
 		{
 			$profsect = mapi_openprofilesection($GLOBALS['mapisession']->getSession(), pbGlobalProfileSectionGuid);
 			if ($profsect){
@@ -748,8 +776,61 @@
 				$defaultStore = $this->getDefaultMessageStore();
 				$contactFolders = $this->getContactFoldersForABContactProvider($defaultStore);
 
-				// include contact folders in addressbook if public folders are enabled, and Public contact folders is also disabled 
-				if(!DISABLE_PUBLIC_CONTACT_FOLDERS && ENABLE_PUBLIC_FOLDERS) {
+				// include shared contact folders in addressbook if shared contact folders are not disabled
+				if (!DISABLE_SHARED_CONTACT_FOLDERS && $loadSharedContactsProvider) {
+					if (empty($this->userstores)) {
+						$this->getOtherUserStore();
+					}
+
+					// Find available contact folders from all user stores, one by one.
+					foreach($this->userstores as $username => $storeEntryID) {
+						$userContactFolders = array();
+						$openedUserStore = $this->openMessageStore($storeEntryID, $username);
+
+						// Get settings of respective shared folder of given user
+						$sharedSetting = $GLOBALS["settings"]->get("zarafa/v1/contexts/hierarchy/shared_stores", null);
+						$sharedUserSetting = $sharedSetting[$username];
+
+						// Only add opened shared folders into addressbook contacts provider.
+						// If entire inbox is opened then add each and every contact folders of that particular user.
+						if (isset($sharedUserSetting['all'])) {
+							$userContactFolders = $this->getContactFoldersForABContactProvider($openedUserStore);
+						} else if (isset($sharedUserSetting['contact'])) {
+							// Add respective default contact folder which is opened.
+							// Get entryid of default contact folder from root.
+							$root = mapi_msgstore_openentry($openedUserStore, null);
+							$rootProps = mapi_getprops($root, array(PR_IPM_CONTACT_ENTRYID));
+
+							// Just add the default contact folder only.
+							$defaultContactFolder = array(
+								PR_STORE_ENTRYID => $storeEntryID,
+								PR_ENTRYID       => $rootProps[PR_IPM_CONTACT_ENTRYID],
+								PR_DISPLAY_NAME  => dgettext("zarafa", "Contacts")
+							);
+							array_push($userContactFolders, $defaultContactFolder);
+
+							// Go for sub folders only if configured in settings
+							if ($sharedUserSetting['contact']['show_subfolders'] == true) {
+								$subContactFolders =  $this->getContactFolders($openedUserStore, $rootProps[PR_IPM_CONTACT_ENTRYID], true);
+								if(is_array($subContactFolders)){
+									$userContactFolders = array_merge($userContactFolders, $subContactFolders);
+								}
+							}
+						}
+
+						// Postfix display name of every contact folder with respective owner name
+						// it is mandatory to keep display-name different
+						$userStoreProps = mapi_getprops($openedUserStore, array(PR_MAILBOX_OWNER_NAME));
+						for($i=0,$len=count($userContactFolders);$i<$len;$i++){
+							$userContactFolders[$i][PR_DISPLAY_NAME] = $userContactFolders[$i][PR_DISPLAY_NAME] . " - " . $userStoreProps[PR_MAILBOX_OWNER_NAME];
+						}
+
+						$contactFolders = array_merge($contactFolders, $userContactFolders);
+					}
+				}
+
+				// include public contact folders in addressbook if public folders are enabled, and Public contact folders is not disabled
+				if (!DISABLE_PUBLIC_CONTACT_FOLDERS && ENABLE_PUBLIC_FOLDERS) {
 					$publicStore = $this->getPublicMessageStore();
 					if($publicStore !== false) {
 						$contactFolders = array_merge($contactFolders, $this->getContactFoldersForABContactProvider($publicStore));

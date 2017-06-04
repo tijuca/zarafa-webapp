@@ -8,25 +8,6 @@ Ext.namespace('Zarafa.mail');
  */
 Zarafa.mail.Actions = {
 	/**
-	 * Open a Panel in which the {@link Zarafa.core.data.IPMRecord record}
-	 * can be viewed, or further edited.
-	 *
-	 * @param {Zarafa.core.data.IPMRecord} records The records to open
-	 * @param {Object} config (optional) Configuration object used to create
-	 * the Content Panel.
-	 */
-	openMailContent : function(records, config)
-	{
-		Ext.each(records, function(record) {
-			if (record.isUnsent() && !record.isFaultyMessage()) {
-				Zarafa.core.data.UIFactory.openCreateRecord(record, config);
-			} else {
-				Zarafa.core.data.UIFactory.openViewRecord(record, config);
-			}
-		});
-	},
-
-	/**
 	 * Open a Panel in which a new {@link Zarafa.core.data.IPMRecord record} can be
 	 * further edited.
 	 *
@@ -57,7 +38,7 @@ Zarafa.mail.Actions = {
 		var recipientStore = mailRecord.getRecipientStore();
 		var tasks = [];
 
-		contacts = Ext.isArray(contacts) ? contacts : [ contacts ];
+		contacts = Array.isArray(contacts) ? contacts : [ contacts ];
 		for (var i = 0, len = contacts.length; i < len; i++) {
 			var contact = contacts[i];
 
@@ -119,7 +100,7 @@ Zarafa.mail.Actions = {
 	 */
 	openCreateMailResponseContent : function(records, model, actionType, config)
 	{
-		if (!Ext.isArray(records)) {
+		if (!Array.isArray(records)) {
 			records = [records];
 		}
 
@@ -177,7 +158,7 @@ Zarafa.mail.Actions = {
 	 */
 	openMailOptionsContent : function(records, config)
 	{
-		if (Ext.isArray(records) && !Ext.isEmpty(records)) {
+		if (Array.isArray(records) && !Ext.isEmpty(records)) {
 			records = records[0];
 		}
 
@@ -199,7 +180,7 @@ Zarafa.mail.Actions = {
 	 */
 	openMailFlagsContent : function(records, config)
 	{
-		if (Ext.isArray(records) && !Ext.isEmpty(records)) {
+		if (Array.isArray(records) && !Ext.isEmpty(records)) {
 			records = records[0];
 		}
 
@@ -230,7 +211,7 @@ Zarafa.mail.Actions = {
 	 */
 	openRecipientSelectionContent : function(records, config)
 	{
-		if (Ext.isArray(records) && !Ext.isEmpty(records)) {
+		if (Array.isArray(records) && !Ext.isEmpty(records)) {
 			records = records[0];
 		}
 
@@ -315,6 +296,24 @@ Zarafa.mail.Actions = {
 		Zarafa.core.data.ContentPanelMgr.unregister(dialog);
 
 		// Use newly created copy of original record to load into separate browser window
-		Zarafa.mail.Actions.openMailContent(copy, configObj);
-	}
+		Zarafa.common.Actions.openMessageContent(copy, configObj);
+	},
+
+    /**
+     * Open a {@link Zarafa.mail.dialogs.DelayDeliveryContentPanel DelayDeliveryContentPanel} for
+     * set DEFERRED_SEND_TIME property  in new created mail base on enter Date and Time
+     *
+     * @param {Zarafa.core.data.IPMRecord} record mail record
+     * @param {Zarafa.core.ui.MessageContentPanel} dialog which contains the record.
+     */
+    openDelayedDeliveryContent: function (record, dialog)
+	{
+        Zarafa.core.data.UIFactory.openLayerComponent(Zarafa.core.data.SharedComponentType['mail.dialog.delayeddelivery'], record, {
+            manager: Ext.WindowMgr,
+            modal: true,
+            mailPanel: dialog,
+            resizable: false,
+            scope: this
+        });
+    }
 };

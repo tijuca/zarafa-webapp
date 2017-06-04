@@ -95,6 +95,12 @@ $menu-item-height : 30px;
 
 	.icon_createTask {
 		@extend .icon_new_task;
+		background-position: sprite-position($iconsmap, icon_new_task, $offset-y: 2, $offset-x: 3);
+	}
+
+	.icon_createTaskRequest {
+		@extend .icon_new-task_request;
+		background-position: sprite-position($iconsmap, icon_new-task_request, $offset-y: 2, $offset-x: 3);
 	}
 
 	.icon_createNote {
@@ -400,6 +406,14 @@ $menu-item-height : 30px;
       	background-position: sprite-position($icons, icon_send, $offset-y: 6, $offset-x: 1);
 	}
 
+	.icon_send_black {
+		background-position: sprite-position($icons, icon_send_black, $offset-y: 3, $offset-x: 1);
+	}
+
+	.icon_send_later_black {
+		background-position: sprite-position($icons, icon_send_later_black, $offset-y: 6, $offset-x: 1);
+	}
+
 	/* the white icons must be replaced by black ones in the (overflow) menu */
 	.buttons-icon_save_white {
 		@extend .icon_floppy;
@@ -408,6 +422,10 @@ $menu-item-height : 30px;
 
 	.icon_task_complete {
       	background-position: sprite-position($icons, icon_task_complete, $offset-y: 3, $offset-x: 3);
+	}
+
+	.icon_task_incomplete {
+		background-position: sprite-position($icons, icon_task_incomplete, $offset-y: 3, $offset-x: 3);
 	}
 
 	.icon_attachment {

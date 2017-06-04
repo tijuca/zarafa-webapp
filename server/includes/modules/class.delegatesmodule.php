@@ -363,9 +363,6 @@
 			foreach($this->getDefaultFolders($store) as $folderName => $folderEntryId) {
 				$folder = mapi_msgstore_openentry($store, $folderEntryId);
 
-				// check if folder is rootFolder, then we need the permissions from the store
-				$folderProps = mapi_getprops($folder, array(PR_DISPLAY_NAME, PR_STORE_ENTRYID));
-
 				// Get all users who has permissions
 				$grants = mapi_zarafa_getpermissionrules($folder, ACCESS_TYPE_GRANT);
 
@@ -390,14 +387,14 @@
 
 			// get delegate meeting rule
 			$restriction = Array(RES_CONTENT,
-								Array(
-									FUZZYLEVEL => FL_FULLSTRING | FL_IGNORECASE,
-									ULPROPTAG => PR_RULE_PROVIDER,
-									VALUE => Array(
-												PR_RULE_PROVIDER => 'Schedule+ EMS Interface'
-											)
-								)
-							);
+						Array(
+							FUZZYLEVEL => FL_FULLSTRING | FL_IGNORECASE,
+							ULPROPTAG => PR_RULE_PROVIDER,
+							VALUE => Array(
+								PR_RULE_PROVIDER => 'Schedule+ EMS Interface'
+							)
+						)
+			);
 
 			mapi_table_restrict($rulesTable, $restriction);
 
@@ -464,7 +461,7 @@
 				$this->setDelegateProps($delegate, $delegateIndex);
 
 				// set permissions on user's default folders
-				$this->setFolderPermissions($delegate, $delegateIndex);
+				$this->setFolderPermissions($delegate);
 
 				array_push($responseData, array('entryid' => $delegate['entryid']));
 			}
@@ -515,9 +512,8 @@
 		/**
 		 * Function will set folder permissions for a delegate user.
 		 * @param {Array} $delegate delegate information sent from client.
-		 * @param {Number} $delegateIndex index of the delegate that should be updated in delegate properties.
 		 */
-		function setFolderPermissions($delegate, $delegateIndex)
+		function setFolderPermissions($delegate)
 		{
 			$store = $this->getDefaultStore();
 
@@ -529,13 +525,13 @@
 
 					// Set new permissions.
 					$acls = array(
-								array(
-									'type' => ACCESS_TYPE_GRANT,
-									'userid' => hex2bin($delegate['entryid']),
-									'rights' => $delegate['props']['rights_' . $folderName],
-									'state' => RIGHT_NEW | RIGHT_AUTOUPDATE_DENIED
-								)
-							);
+							array(
+								'type' => ACCESS_TYPE_GRANT,
+								'userid' => hex2bin($delegate['entryid']),
+								'rights' => $delegate['props']['rights_' . $folderName],
+								'state' => RIGHT_NEW | RIGHT_AUTOUPDATE_DENIED
+							)
+					);
 
 					mapi_zarafa_setpermissionrules($folder, $acls);
 					mapi_savechanges($folder);
@@ -614,55 +610,55 @@
 
 			// no need to pass rule_id when creating new rule
 			$rule[PR_RULE_ACTIONS] = Array(
-										Array(
-											'action' => OP_DELEGATE,
-											// don't set this value it will have no effect, its harcoded to FWD_PRESERVE_SENDER | FWD_DO_NOT_MUNGE_MSG
-											'flavor' => 0,
-											'flags' => 0,
-											'adrlist' => $usersInfo
-										)
-									);
+							Array(
+								'action' => OP_DELEGATE,
+								// don't set this value it will have no effect, its harcoded to FWD_PRESERVE_SENDER | FWD_DO_NOT_MUNGE_MSG
+								'flavor' => 0,
+								'flags' => 0,
+								'adrlist' => $usersInfo
+							)
+			);
 
 			$rule[PR_RULE_CONDITION] = Array(RES_AND,
-											Array(
-												Array(RES_CONTENT,
-													Array(
-														FUZZYLEVEL => FL_PREFIX,
-														ULPROPTAG => PR_MESSAGE_CLASS,
-														VALUE => Array(PR_MESSAGE_CLASS => 'IPM.Schedule.Meeting')
-													)
-												),
-												Array(RES_NOT,
-													Array(
-														Array(RES_EXIST,
-															Array(
-																ULPROPTAG => PR_DELEGATED_BY_RULE
-															)
-														)
-													)
-												),
-												Array(RES_OR,
-													Array(
-														Array(RES_NOT,
-															Array(
-																Array(RES_EXIST,
-																	Array(
-																		ULPROPTAG => PR_SENSITIVITY
-																	)
-																)
-															)
-														),
-														Array(RES_PROPERTY,
-															Array(
-																RELOP => RELOP_NE,
-																ULPROPTAG => PR_SENSITIVITY,
-																VALUE => Array(PR_SENSITIVITY => SENSITIVITY_PRIVATE)
-															)
-														)
-													)
-												),
+								Array(
+									Array(RES_CONTENT,
+										Array(
+											FUZZYLEVEL => FL_PREFIX,
+											ULPROPTAG => PR_MESSAGE_CLASS,
+											VALUE => Array(PR_MESSAGE_CLASS => 'IPM.Schedule.Meeting')
+										)
+									),
+									Array(RES_NOT,
+										Array(
+											Array(RES_EXIST,
+												Array(
+													ULPROPTAG => PR_DELEGATED_BY_RULE
+												)
 											)
-										);
+										)
+									),
+									Array(RES_OR,
+										Array(
+											Array(RES_NOT,
+												Array(
+													Array(RES_EXIST,
+														Array(
+															ULPROPTAG => PR_SENSITIVITY
+														)
+													)
+												)
+											),
+											Array(RES_PROPERTY,
+												Array(
+													RELOP => RELOP_NE,
+													ULPROPTAG => PR_SENSITIVITY,
+													VALUE => Array(PR_SENSITIVITY => SENSITIVITY_PRIVATE)
+												)
+											)
+										)
+									),
+								)
+			);
 
 			$rule[PR_RULE_NAME] = 'Delegate Meetingrequest service';
 			$rule[PR_RULE_PROVIDER_DATA] = '';		// 0 byte binary string
@@ -673,11 +669,11 @@
 			$rule[PR_RULE_USER_FLAGS] = 0;
 
 			$rows = Array(
-						0 => Array(
-								'rowflags' => ROW_ADD,
-								'properties' => $rule
-							)
-					);
+					0 => Array(
+						'rowflags' => ROW_ADD,
+						'properties' => $rule
+					)
+			);
 
 			mapi_rules_modifytable($rulesTable, $rows);
 		}
@@ -739,11 +735,11 @@
 				$rulesTable = $this->getRulesTable();
 
 				$rows = Array(
-							Array(
-								'rowflags' => ROW_MODIFY,
-								'properties' => $delegateMeetingRule
-							)
-						);
+						Array(
+							'rowflags' => ROW_MODIFY,
+							'properties' => $delegateMeetingRule
+						)
+				);
 
 				mapi_rules_modifytable($rulesTable, $rows);
 			} else {
@@ -837,17 +833,16 @@
 			// Get all default folders and set permissions.
 			foreach($this->getDefaultFolders($store) as $folderName => $folderEntryID) {
 				$folder = mapi_msgstore_openentry($store, $folderEntryID);
-				$folderProps = mapi_getprops($folder, array(PR_DISPLAY_NAME, PR_STORE_ENTRYID, PR_ENTRYID));
 
 				// delete current acl's
 				$acls = array(
-							array(
-								'type' => ACCESS_TYPE_GRANT,
-								'userid' => hex2bin($delegate['entryid']),
-								'rights' => ecRightsNone,
-								'state' => RIGHT_DELETED | RIGHT_AUTOUPDATE_DENIED
-							)
-						);
+						array(
+							'type' => ACCESS_TYPE_GRANT,
+							'userid' => hex2bin($delegate['entryid']),
+							'rights' => ecRightsNone,
+							'state' => RIGHT_DELETED | RIGHT_AUTOUPDATE_DENIED
+						)
+				);
 
 				mapi_zarafa_setpermissionrules($folder, $acls);
 
@@ -899,11 +894,11 @@
 				$rulesTable = $this->getRulesTable();
 
 				$rows = Array(
-							0 => Array(
-									'rowflags' => ROW_REMOVE,
-									'properties' => $delegateMeetingRule
-								)
-						);
+						0 => Array(
+							'rowflags' => ROW_REMOVE,
+							'properties' => $delegateMeetingRule
+						)
+				);
 
 				mapi_rules_modifytable($rulesTable, $rows);
 			}

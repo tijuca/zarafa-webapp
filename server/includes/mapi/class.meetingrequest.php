@@ -799,7 +799,7 @@ If it is the first time this attendee has proposed a new date/time, increment th
 							// Find basedate of occurrence item
 							$basedate = $this->getBasedateFromGlobalID($occurrenceItemProps[$this->proptags['goid']]);
 							if ($basedate && $occurrenceItemProps[$this->proptags['recurring']] != true) {
-								$this->mergeException($calendarItem, $occurrenceItem, $basedate, $store, $isDelegate);
+								$this->mergeException($calendarItem, $occurrenceItem, $basedate, $store);
 							}
 						}
 					}
@@ -858,8 +858,6 @@ If it is the first time this attendee has proposed a new date/time, increment th
 						$old_entryid = mapi_getprops($this->message, Array(PR_ENTRYID));
 						$calmsg = mapi_folder_createmessage($calFolder);
 						mapi_copyto($this->message, array(), array(), $calmsg); /* includes attachments and recipients */
-						/* release old message */
-						$message = null;
 
 						$calItemProps = Array();
 						$calItemProps[PR_MESSAGE_CLASS] = 'IPM.Appointment';
@@ -1304,6 +1302,20 @@ If it is the first time this attendee has proposed a new date/time, increment th
 	}
 
 	/**
+	 * Convert epoch to MAPI FileTime, number of 100-nanosecond units since
+	 * the start of January 1, 1601.
+	 * https://msdn.microsoft.com/en-us/library/office/cc765906.aspx
+	 *
+	 * @param integer the current epoch
+	 * @return the MAPI FileTime equalevent to the given epoch time
+	 */
+	function epochToMapiFileTime($epoch)
+	{
+		$nanoseconds_between_epoch = 116444736000000000;
+		return ($epoch * 10000000) + $nanoseconds_between_epoch;
+	}
+
+	/**
 	 * Sets the properties in the message so that is can be sent
 	 * as a meeting request. The caller has to submit the message. This
 	 * is only used for new MeetingRequests. Pass the appointment item as $message
@@ -1314,8 +1326,19 @@ If it is the first time this attendee has proposed a new date/time, increment th
 		$props = mapi_getprops($this->message, Array($this->proptags['updatecounter']));
 
 		// Create a new global id for this item
+		// https://msdn.microsoft.com/en-us/library/ee160198(v=exchg.80).aspx
 		$goid = pack('H*', '040000008200E00074C5B7101A82E00800000000');
-		for ($i=0; $i<36; $i++)
+		// Creation Time
+		$time = $this->epochToMapiFileTime(time());
+		$highdatetime = $time >> 32;
+		$lowdatetime = $time & 0xffffffff;
+		$goid .= pack('II', $lowdatetime, $highdatetime);
+		// 8 Zeros
+		$goid .= pack('P', 0);
+		// Length of the random data
+		$goid .= pack('V', 16);
+		// Random data.
+		for ($i=0; $i<16; $i++)
 			$goid .= chr(rand(0, 255));
 
 		// Create a new appointment id for this item
@@ -1511,10 +1534,6 @@ If it is the first time this attendee has proposed a new date/time, increment th
 		} else {
 			// we are checking with meeting request / response / cancellation mail
 			// get calendar items
-
-			// get the basedate to check for exception
-			$basedate = $this->getBasedateFromGlobalID($props[$this->proptags['goid']]);
-
 			$calendarItem = $this->getCorrespondentCalendarItem(true);
 		}
 
@@ -1745,8 +1764,6 @@ If it is the first time this attendee has proposed a new date/time, increment th
 	 */
 	function checkCalendarWriteAccess($store = false)
 	{
-		$calFolder = false;
-
 		if($store === false) {
 			// If this meeting request is received by a delegate then open delegator's store.
 			$messageProps = mapi_getprops($this->message, array(PR_RCVD_REPRESENTING_NAME));
@@ -2108,7 +2125,6 @@ If it is the first time this attendee has proposed a new date/time, increment th
 	{
 		$storestable = mapi_getmsgstorestable($this->session);
 		$rows = mapi_table_queryallrows($storestable, array(PR_ENTRYID, PR_DEFAULT_STORE));
-		$entry = false;
 		
 		foreach($rows as $row) {
 			if(isset($row[PR_DEFAULT_STORE]) && $row[PR_DEFAULT_STORE]) {
@@ -2764,9 +2780,8 @@ If it is the first time this attendee has proposed a new date/time, increment th
 	 * @param resource $occurrenceItem reference to MAPI_message of occurrence
 	 * @param string $basedate basedate of occurrence
 	 * @param resource $store user store
-	 * @param boolean $isDelegate true if delegate is processing this meeting request
 	 */
-	function mergeException(&$recurringItem, &$occurrenceItem, $basedate, $store, $isDelegate = false)
+	function mergeException(&$recurringItem, &$occurrenceItem, $basedate, $store)
 	{
 		$recurr = new Recurrence($store, $recurringItem);
 

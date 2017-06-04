@@ -13,7 +13,7 @@ Zarafa.common.Actions = {
 	 * @property
 	 * @type Ext.Element
 	 */
-	downloadFrame : undefined,	
+	downloadFrame : undefined,
 	/**
 	 * Open a {@link Zarafa.common.dialogs.CopyMoveContentPanel CopyMoveContentPanel} for
 	 * copying or moving {@link Zarafa.core.data.IPMRecord records} to the
@@ -36,11 +36,11 @@ Zarafa.common.Actions = {
 	 * the recurrence of the given {@link Zarafa.core.data.IPMRecord record}.
 	 *
 	 * @param {Zarafa.core.data.IPMRecord} records The record for which the recurrence must be configured.
-	 * @param {Object} config Configuration object 
+	 * @param {Object} config Configuration object
 	 */
 	openRecurrenceContent : function(records, config)
 	{
-		if (Ext.isArray(records) && !Ext.isEmpty(records)) {
+		if (Array.isArray(records) && !Ext.isEmpty(records)) {
 			records = records[0];
 		}
 
@@ -63,7 +63,7 @@ Zarafa.common.Actions = {
 	 */
 	openCategoriesContent : function(records, config)
 	{
-		if (!Ext.isArray(records)) {
+		if (!Array.isArray(records)) {
 			records = [ records ];
 		}
 
@@ -87,7 +87,7 @@ Zarafa.common.Actions = {
 		config = Ext.applyIf(config || {}, {
 			modal : true
 		});
-		
+
 		var componentType = Zarafa.core.data.SharedComponentType['common.attachment.dialog.attachitem'];
 		Zarafa.core.data.UIFactory.openLayerComponent(componentType, record, config);
 	},
@@ -102,7 +102,7 @@ Zarafa.common.Actions = {
 		var componentType = Zarafa.core.data.SharedComponentType['common.dialog.widgets'];
 		Zarafa.core.data.UIFactory.openLayerComponent(componentType, undefined, config);
 	},
-	
+
 	/**
 	 * Will open the View ContentPanel for a recipient, before opening the recipient it will
 	 * first check the exact type of the recipient to see if it is an AddressBook item
@@ -136,7 +136,7 @@ Zarafa.common.Actions = {
 				// find a point where we can remove it again.
 				container.getShadowStore().add(recipient);
 			}
-			
+
 			config = Ext.applyIf(config || {}, { manager : Ext.WindowMgr });
 			Zarafa.core.data.UIFactory.openViewRecord(recipient, config);
 		}
@@ -243,7 +243,7 @@ Zarafa.common.Actions = {
 	{
 		if (Ext.isEmpty(records)) {
 			return;
-		} else if (Ext.isArray(records)) {
+		} else if (Array.isArray(records)) {
 			if (records.length > 1) {
 				Ext.MessageBox.alert(_('Print'), _('Printing of multiple items has not been implemented.'));
 				return;
@@ -314,7 +314,7 @@ Zarafa.common.Actions = {
 			modal : false,
 			manager : Ext.WindowMgr
 		});
-		
+
 		// check if panel is already open
 		var contentPanelInstances = Zarafa.core.data.ContentPanelMgr.getContentPanelInstances(component);
 
@@ -351,7 +351,7 @@ Zarafa.common.Actions = {
 	{
 		config = config || {};
 
-		if(Ext.isArray(record)){
+		if(Array.isArray(record)){
 			Ext.each(record, this.openReminderRecord, this);
 			return;
 		}
@@ -469,7 +469,7 @@ Zarafa.common.Actions = {
 		var title = _('Confirm Delete');
 		var acceptedText = _('This "{0}" meeting was already accepted.');
 		var noResponsedText = _('You have not responded to the meeting request "{0}".');
-		
+
 		var text;
 		if(record.get('responsestatus') == Zarafa.core.mapi.ResponseStatus.RESPONSE_NOT_RESPONDED){
 			text = String.format(noResponsedText, record.get('subject'));
@@ -502,12 +502,14 @@ Zarafa.common.Actions = {
 	 * @param {Array} records The array of records which must be deleted.
 	 * @param {Boolean} askOcc (private) False to prevent a dialog to appear to ask if the occurence or series must
 	 * be deleted
+	 * @param {Boolean} softDelete (optional) true to directly soft delete record(s) skipping deleted-items
+	 * folder, false otherwise
 	 *
 	 * FIXME: This introduces Calendar-specific actions into the Common Context, but there is no clean solution
 	 * for this at this time. But we need to split this up into context-specific actions while maintaining this
 	 * single-entrypoint for deleting records.
 	 */
-	deleteRecords : function(records, askOcc)
+	deleteRecords : function(records, askOcc, softDelete)
 	{
 		var store;
 		var saveRecords = [];
@@ -516,7 +518,7 @@ Zarafa.common.Actions = {
 			return;
 		}
 
-		if (!Ext.isArray(records)) {
+		if (!Array.isArray(records)) {
 			records = [ records ];
 		}
 
@@ -528,7 +530,7 @@ Zarafa.common.Actions = {
 			// if the occurence or series must be deleted
 			var deleteRecurring = Ext.isFunction(record.isRecurringOccurence) && record.isRecurringOccurence() && askOcc !== false;
 
-			// Meeting and task requests are always deleted as normal, 
+			// Meeting and task requests are always deleted as normal,
 			// we don't care for the recurring state of the record.
 			var messageClass = record.get('message_class');
 			if (Zarafa.core.MessageClass.isClass(messageClass, 'IPM.Schedule.Meeting', true) ||
@@ -553,9 +555,20 @@ Zarafa.common.Actions = {
 					});
 				} else if (record.isMeetingResponseRequired()) {
 					// We are the attendee of the meeting, lets ask if we should inform the organizer
-					Zarafa.common.Actions.deleteMeetingRequestConfirmationContent(record, this.declineInvitation, record);
+					this.deleteMeetingRequestConfirmationContent(record, this.declineInvitation, record);
 				} else {
 					// We are neither, we don't care, just delete the thing
+					store.remove(record);
+					saveRecords.push(record);
+				}
+			} else if (record.isMessageClass('IPM.TaskRequest') || (Ext.isFunction(record.isTaskReceived) && record.isTaskReceived())) {
+				// If task is assigned task by assigner and it is not completed then
+				// ask for the user conformation like "Delete", "Mark complete and delete"
+				// or "Mark decline and delete" and if task is already completed then we dont
+				// require any confirmation from user.
+				if (!record.get('complete')) {
+					this.deleteAssignedTaskConfirmationContent(record, this.declineTask, record);
+				} else {
 					store.remove(record);
 					saveRecords.push(record);
 				}
@@ -567,6 +580,12 @@ Zarafa.common.Actions = {
 		}
 
 		if(!Ext.isEmpty(saveRecords)) {
+			// Check if records are required to be soft deleted
+			if (softDelete === true) {
+				Ext.each(saveRecords, function(saveRecord) {
+					saveRecord.addMessageAction('soft_delete', true);
+				}, this);
+			}
 			store.save(saveRecords);
 		}
 
@@ -579,9 +598,63 @@ Zarafa.common.Actions = {
 	},
 
 	/**
-	 * Function which prompt user with deleting for recurring Meeting or normal recurring 
+	 * Function delete an assigned task and sends decline/complete task response message to assigner.
+	 * function was triggered in scope of the {@link Zarafa.task.TaskRecord TaskRecord}.
+	 *
+	 * @param {String} buttonClicked The ID of the button pressed,
+	 * here, one of: ok cancel.
+	 * @param {Ext.form.Radio} radio The Radio which was selected by the user.
+	 * @private
+	 */
+	declineTask : function (buttonClicked, radio)
+	{
+		if (buttonClicked === 'ok') {
+			this.deleteIncompleteTask(radio.id);
+		}
+	},
+
+	/**
+	 * Opens a {@link Zarafa.common.dialogs.MessageBox.select MessageBox} for
+	 * selecting if decline and delete, complete and delete task response
+	 * need to be sent to task assigner or silently deleted items.
+	 *
+	 * @param {Function} handler The handler which is invoked with the selected value
+	 * from the dialog. This function only takes one argument and is either 'declineAndDelete'
+	 * when the delete task and send decline response to assignor , 'completeAndDelete'
+	 * when the delete task and send complete task response to assigner or 'delete'
+	 * when the delete task without sending any response to assigner.
+	 *
+	 * @param {Object} scope (optional) The scope on which the handler must be invoked.
+	 */
+	deleteAssignedTaskConfirmationContent : function (record, handler, scope)
+	{
+		var title = _('Delete Incomplete Task');
+		var text = _('The task "{0}" has not been completed. What do you want to do?');
+
+		text = String.format(text, record.get('subject'));
+
+		Zarafa.common.dialogs.MessageBox.select(
+			title, text, handler, scope, [{
+				boxLabel: _('Decline and delete'),
+				id : 'declineAndDelete',
+				name: 'select',
+				checked: true
+			},{
+				boxLabel: _('Mark complete and delete'),
+				id : 'completeAndDelete',
+				name: 'select'
+			},{
+				boxLabel: _('Delete'),
+				id : 'delete',
+				name: 'select'
+			}]
+		);
+	},
+
+	/**
+	 * Function which prompt user with deleting for recurring Meeting or normal recurring
 	 * appointment and also manages sending response to meeting organizer.
-	 * 
+	 *
 	 * @param {Ext.data.Record} record that must be deleted
 	 * @private
 	 */
@@ -604,7 +677,7 @@ Zarafa.common.Actions = {
 
 	/**
 	 * Function cancels Meeting invitation and sends Meeting Cancellation message.
-	 * 
+	 *
 	 * @param {String} buttonClicked The ID of the button pressed,
 	 * @param {String} text Value of the input field, not useful here
 	 * @private
@@ -619,7 +692,7 @@ Zarafa.common.Actions = {
 
 	/**
 	 * Function declines a Meeting invitation and sends Meeting Decline message.
-	 * 
+	 *
 	 * @param {String} buttonClicked The ID of the button pressed,
 	 * here, one of: ok cancel.
 	 * @param {Ext.form.Radio} radio The Radio which was selected by the user.
@@ -654,7 +727,7 @@ Zarafa.common.Actions = {
 	 *
 	 * @param {Object} config Configuration object. For AB this normally includes:
 	 * 	callback - Callback function to be called with the user selected in the ContentPanel
-	 * 	hierarchyRestriction - Restriction that has to be applied on the hierarchy of the Addressbook
+	 * 	hideContactsFolders - Restriction that has to be applied on the hierarchy of the Addressbook
 	 * 	listRestriction - Restriction that has to be applied on the contents of the Addressbook
 	 */
 	openABUserSelectionContent : function(config)
@@ -697,7 +770,7 @@ Zarafa.common.Actions = {
 	 */
 	markAsRead : function(records, read)
 	{
-		records = !Ext.isArray(records) ? [ records ] : records;
+		records = !Array.isArray(records) ? [ records ] : records;
 		read = !Ext.isDefined(read) ? true : read;
 
 		var saveRecords = [];
@@ -737,7 +810,7 @@ Zarafa.common.Actions = {
 									this.save();
 								}, record);
 							break;
-						
+
 					}
 				} else {
 					record.setReadFlags(read);
@@ -753,7 +826,7 @@ Zarafa.common.Actions = {
 
 	/**
 	 * Will start the download by setting the dialogFrame's location to the download URL of the file.
-	 * 
+	 *
 	 * @param {Zarafa.core.data.IPMAttachmentRecord} records The record of the file to be downloaded
 	 * @param {Boolean} allAsZip (optional) True to downloading all the attachments as ZIP
 	 */
@@ -810,6 +883,15 @@ Zarafa.common.Actions = {
 			if (record.isUnsent() && !record.isFaultyMessage()) {
 				Zarafa.core.data.UIFactory.openCreateRecord(record, config);
 			} else {
+				if(record.isMessageClass('IPM.TaskRequest', true)) {
+					record = Zarafa.core.data.RecordFactory.createRecordObjectByMessageClass('IPM.Task', {
+						entryid : record.get('entryid'),
+						store_entryid : record.get('store_entryid'),
+						parent_entryid : record.get('parent_entryid'),
+						task_goid : record.get('task_goid')
+					}, record.get('entryid'));
+					record.addMessageAction('open_task', true);
+				}
 				Zarafa.core.data.UIFactory.openViewRecord(record, config);
 			}
 		});

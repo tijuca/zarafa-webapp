@@ -637,6 +637,8 @@
 				$properties["smtp_address"] = PR_SMTP_ADDRESS;
 				$properties["email_address"] = PR_EMAIL_ADDRESS;
 				$properties["display_name"] = PR_DISPLAY_NAME;
+				$properties["given_name"] = PR_GIVEN_NAME;
+				$properties["middle_name"] = PR_MIDDLE_NAME;
 				$properties["surname"] = PR_SURNAME;
 				$properties["display_type"] = PR_DISPLAY_TYPE;
 				$properties["display_type_ex"] = PR_DISPLAY_TYPE_EX;
@@ -875,6 +877,7 @@
 				$properties["meetingtype"] = "PT_LONG:PSETID_Meeting:0x26";
 				$properties["goid"] = "PT_BINARY:PSETID_Meeting:0x3";
 				$properties["goid2"] = "PT_BINARY:PSETID_Meeting:0x23";
+				$properties["task_goid"] = "PT_BINARY:PSETID_Common:0x8519";
 
 				// meeting request properties, which will be set when mr is auto forwarded using delegate meeting request rule
 				$properties["received_representing_name"] = PR_RCVD_REPRESENTING_NAME;
@@ -1001,6 +1004,7 @@
 				$properties["duedate"] = "PT_SYSTIME:PSETID_Task:0x8105";
 				$properties["status"] = "PT_LONG:PSETID_Task:0x8101";
 				$properties["percent_complete"] = "PT_DOUBLE:PSETID_Task:0x8102";
+                $properties["hide_attachments"] = "PT_BOOLEAN:PSETID_Common:0x8514";
 				$properties["startdate"] = "PT_SYSTIME:PSETID_Task:0x8104";
 				$properties["owner"] = "PT_STRING8:PSETID_Task:0x811f";
 				$properties["reminder_minutes"] = "PT_LONG:PSETID_Common:0x8501";
@@ -1045,15 +1049,17 @@
 				$properties["tasksoc"] = "PT_BOOLEAN:PSETID_Task:0x8119";
 				$properties["taskhistory"] = "PT_LONG:PSETID_Task:0x811a";
 				$properties["taskmode"] = "PT_LONG:PSETID_Common:0x8518";
-				$properties["taskglobalobjid"] = "PT_BINARY:PSETID_Common:0x8519";
-				$properties["assignedtime"] = "PT_SYSTIME:PSETID_Task:0x8115";
+				$properties["task_goid"] = "PT_BINARY:PSETID_Common:0x8519";
+				$properties["task_assigned_time"] = "PT_SYSTIME:PSETID_Task:0x8115";
 				$properties["task_f_creator"] = "PT_BOOLEAN:PSETID_Task:0x0x811e";
 				$properties["tasklastuser"] = "PT_STRING8:PSETID_Task:0x8122";
 				$properties["tasklastdelegate"] = "PT_STRING8:PSETID_Task:0x8125";
 				$properties["taskaccepted"] = "PT_BOOLEAN:PSETID_Task:0x8108";
 				$properties["ownership"] = "PT_LONG:PSETID_Task:0x8129";
-				$properties["delegationstate"] = "PT_LONG:PSETID_Task:0x812a";
+				$properties["task_acceptance_state"] = "PT_LONG:PSETID_Task:0x812a";
+				$properties["task_assigner"] = "PT_STRING8:PSETID_Task:0x8121";
 
+				$properties["conversation_topic"] = PR_CONVERSATION_TOPIC;
 				$properties["display_cc"] = PR_DISPLAY_CC;
 				$properties["display_to"] = PR_DISPLAY_TO;
 
@@ -1171,6 +1177,7 @@
 				$properties["task_startdate"] = "PT_SYSTIME:PSETID_Task:0x8104";			// PidLidTaskStartDate
 				$properties["task_resetreminder"] = "PT_BOOLEAN:PSETID_Task:0x8107";		// PidLidTaskResetReminder
 				$properties["task_recurring"] = "PT_BOOLEAN:PSETID_Task:0x8126";			// PidLidTaskFRecurring
+				$properties["taskmode"] = "PT_LONG:PSETID_Common:0x8518";
 
 				$properties["appointment_recurring"] = "PT_BOOLEAN:PSETID_Appointment:0x8223";			// PidLidRecurring
 				$properties["appointment_startdate"] = "PT_SYSTIME:PSETID_Appointment:0x820d";

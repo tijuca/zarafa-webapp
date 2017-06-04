@@ -4,7 +4,7 @@ Ext.namespace('Zarafa.hierarchy.dialogs');
  * @class Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab
  * @extends Ext.Panel
  * @xtype zarafa.folderpropertiespermissiontab
- * 
+ *
  * Permissions tab in the {@link Zarafa.hierarchy.dialogs.FolderPropertiesContentPanel}
  * that is used to set permissions on folder for other users.
  */
@@ -28,7 +28,6 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 				align: 'stretch'
 			},
 			border : false,
-			bodyStyle : 'background-color: inherit;',
 			items: [
 				this.createUserListPanel(),
 				this.createProfilePanel(),
@@ -60,7 +59,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 				border: true,
 				viewConfig : {
 					forceFit : true,
-					deferEmptyText: false,	
+					deferEmptyText: false,
 					emptyText: '<div class="emptytext">' + _('No permissions granted') + '</div>'
 				},
 				sm : new Ext.grid.RowSelectionModel({
@@ -81,6 +80,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 				}
 			}],
 			buttons : [{
+				cls : 'zarafa-normal',
 				text : _('Add'),
 				ref : '../../addUserBtn',
 				handler : this.onUserAdd,
@@ -184,7 +184,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 				cls : 'zarafa-fieldset',
 				items : [{
 					xtype : 'container',
-					layout : 'column',	
+					layout : 'column',
 					items : [{
 						xtype : 'checkboxgroup',
 						columnWidth : 0.5,
@@ -308,10 +308,8 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 		Zarafa.common.Actions.openABUserSelectionContent({
 			callback : this.onUserSelected,
 			scope : this,
-			hierarchyRestriction : {
-				hide_contacts : true
-			},
-			listRestriction : { 
+			hideContactsFolders : true,
+			listRestriction : {
 				hide_users : [ 'non_security' ],
 				hide_groups : [ 'non_security' ],
 				hide_companies : [ 'non_security' ]
@@ -334,7 +332,7 @@ Zarafa.hierarchy.dialogs.FolderPropertiesPermissionTab = Ext.extend(Ext.Panel, {
 			store.add(permission);
 			this.userView.getSelectionModel().selectRecords([permission]);
 		} else {
-			var msg; 
+			var msg;
 			if (permission.get('object_type') === Zarafa.core.mapi.ObjectType.MAPI_MAILUSER) {
 				msg = _('User already exists');
 			} else {

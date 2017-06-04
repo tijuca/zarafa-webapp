@@ -57,7 +57,23 @@ Zarafa.task.ui.TaskContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu,
 				Zarafa.task.Actions.openTaskContent(this.records);
 			},
 			scope: this
-		}];
+        }, {
+            xtype: 'zarafa.conditionalitem',
+            text: _('Mark Complete'),
+            iconCls: 'icon_task_complete',
+            isMarkComplete: true,
+            beforeShow: this.onMarkCompleteItemBeforeShow,
+            handler: this.onMarkCompleteItemClick,
+            scope: this
+        }, {
+            xtype: 'zarafa.conditionalitem',
+            text: _('Mark Incomplete'),
+            iconCls: 'icon_task_incomplete',
+            isMarkComplete: false,
+            beforeShow: this.onMarkCompleteItemBeforeShow,
+            handler: this.onMarkCompleteItemClick,
+            scope: this
+        }];
 	},
 
 
@@ -93,46 +109,74 @@ Zarafa.task.ui.TaskContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu,
 	 */
 	onContextItemDelete : function()
 	{
-		var store;
-
-		Ext.each(this.records, function(record) {
-			store = record.store;
-			store.remove(record);
-		}, this);
-
-		store.save(this.records);
+		Zarafa.common.Actions.deleteRecords(this.records);
 	},
 
 	/**
-	 * Event handler which determines if the Read Flag button must be shown.
-	 * There are two kind of read flag buttons which can both make use of this
-	 * function (Mark as Read and Mark as Unread buttons).
-	 *
-	 * This function will loop through all given {@link Zarafa.core.data.IPMRecord records}
-	 * and will determine if this button can be applied to any of the records.
-	 * For example, if 10 records are selected and one or more are marked as read,
-	 * the Mark as Unread button will be enabled. If no records are marked as read,
-	 * the button will not be enabled.
-	 *
-	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
-	 * @param {Zarafa.core.data.IPMRecord[]} records The records which must be checked
-	 * to see if the item must be enabled or disabled.
-	 * @param {Boolean} read The required Read state value for one or more Records before
-	 * this item is enabled.
+	 * Event handler which is called when the user select "Mark Complete / Mark InComplete" item in the context menu.
+	 * This will mark the all selected records as "complete/IncComplete".
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to Mark Complete/Mark InComplete
 	 * @private
 	 */
-	onReadFlagItemBeforeShow : function(item, records, read)
+	onMarkCompleteItemClick: function (item)
 	{
-		var count = 0;
+		var complete = item.isMarkComplete;
+		var showWarning = false;
+		Ext.each(this.records, function (record) {
+			record.beginEdit();
+			record.set('complete', complete);
+			record.set('percent_complete', complete);
+			record.set('status', complete ? Zarafa.core.mapi.TaskStatus.COMPLETE : Zarafa.core.mapi.TaskStatus.NOT_STARTED);
+			record.set('date_completed', complete ? new Date() : null);
+			record.endEdit();
 
-		Ext.each(records, function(record) {
-			if (record.isRead() === read) {
-				count++;
+			if (!record.isNormalTask()) {
+				if (!record.isTaskOwner() && !record.isTaskRequest()) {
+					showWarning = true;
+				} else {
+					record.addMessageAction('response_type', Zarafa.core.mapi.TaskMode.UPDATE);
+				}
 			}
 		}, this);
 
-		item.setDisabled(count === 0);
-	}
+		if (showWarning) {
+			Ext.MessageBox.show({
+				title: _('Kopano WebApp'),
+				msg :_('Please note that assigned task(s) will be overwritten when the assignee makes changes.'),
+				icon: Ext.MessageBox.WARNING,
+				buttons: Ext.MessageBox.OK
+			});
+		}
+		if (!Ext.isEmpty(this.records) && Ext.isDefined(this.records[0])) {
+			this.records[0].getStore().save();
+		}
+	},
+
+    /**
+     * Function will loop through all given {@link Zarafa.core.data.IPMRecord records}
+     * and will determine if this button can be applied to any of the records.
+     * For example, Selected task is marked completed then 'Mark Incomplete' button enabled,
+	 * if selected task is incomplete then 'Mark complete' button enabled.
+
+     *
+     * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
+     * @param {Zarafa.core.data.IPMRecord[]} records The records which must be checked
+     * to see if the item must be enabled or disabled.
+     * @private
+     */
+    onMarkCompleteItemBeforeShow: function (item, records)
+	{
+        var isDisabled = true;
+
+        Ext.each(records, function (record) {
+            if (record.get('complete') !== item.isMarkComplete) {
+                isDisabled = false;
+                return false;
+            }
+        }, this);
+
+        item.setDisabled(isDisabled);
+    }
 });
 
 Ext.reg('zarafa.taskcontextmenu', Zarafa.task.ui.TaskContextMenu);

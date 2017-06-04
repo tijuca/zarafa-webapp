@@ -26,10 +26,11 @@ Zarafa.common.settings.SettingsRuleCategory = Ext.extend(Zarafa.settings.ui.Sett
 		config = config || {};
 
 		Ext.applyIf(config, {
-			title : _('Mail filters'),
+			title : _('Rules'),
 			categoryIndex : 3,
 			xtype : 'zarafa.settingsrulecategory',
 			iconCls : 'zarafa-settings-category-rules',
+			layout: 'fit',
 			items : [{
 					xtype : 'zarafa.settingsrulewidget',
 					settingsContext : config.settingsContext
@@ -60,14 +61,11 @@ Zarafa.common.settings.SettingsRuleCategory = Ext.extend(Zarafa.settings.ui.Sett
 	/**
 	 * Event handler for the
 	 * {@link Zarafa.settings.SettingsContextModel ContextModel}#{@link Zarafa.settings.SettingsContextModel#beforesavesettings beforesavesettings}
-	 * event. It will reset the {@link #savingElCounter} and his will register the event handler for
-	 * {@link Zarafa.settings.SettingsModel#beforesave beforesave} event.
+	 * event. It will register the 'beforesave' event on {@link Zarafa.common.rules.data.RulesStore Rules Store}.
 	 * @private
 	 */
 	onBeforeSaveSettingsModel : function()
 	{
-		Zarafa.common.settings.SettingsRuleCategory.superclass.onBeforeSaveSettingsModel.apply(this, arguments);
-
 		var store = this.get(0).getRulesStore();
 		this.mon(store, 'beforesave', this.onBeforeSaveRules, this, { single : true });
 	},
