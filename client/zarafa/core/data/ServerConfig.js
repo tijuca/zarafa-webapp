@@ -35,6 +35,39 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
+	 * @return {String} the title of the WebApp
+	 */
+	getWebappTitle : function()
+	{
+		return this.meta.webapp_title;
+	},
+
+	/**
+	 * @return {Boolean} True if the GAB list should only be enabled when searching
+	 */
+	isFullGabDisabled : function()
+	{
+		return this.meta.disable_full_gab === true;
+	},
+
+	/**
+	 * @return {Boolean} True if it should be possible to set rules on the store
+	 * of other users.
+	 */
+	isSharedRulesEnabled : function()
+	{
+		return this.meta.enable_shared_rules === true;
+	},
+
+	/**
+	 * @return {Boolean} True if WebApp is using Single Sign-On to login
+	 */
+	usingSSO : function()
+	{
+		return this.meta.using_sso;
+	},
+
+	/**
 	 * @return {Boolean} True if Plugins are enabled
 	 */
 	isPluginsEnabled : function()

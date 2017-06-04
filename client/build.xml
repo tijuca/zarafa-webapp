@@ -187,15 +187,6 @@
 			</concatfiles>
 		</zConcat>
 
-		<!-- Concatenate third-party CSS files -->
-		<mkdir dir="${target-folder}/${thirdparty-css-folder}"/>
-		<echo message="Concatenating: ${thirdparty-css-file}"/>
-		<zConcat outputFolder="${target-folder}/${thirdparty-css-folder}" outputFile="${thirdparty-css-file}">
-			<concatfiles>
-				<fileset dir="${thirdparty-css-folder}" includes="**/*.css" />
-			</concatfiles>
-		</zConcat>
-
 		<!-- Concatenate zarafa file -->
 		<mkdir dir="${target-folder}/${kopano-folder}"/>
 		<echo message="Concatenating: ${kopano-debugfile}"/>
@@ -291,7 +282,6 @@
 				var version = {};
 				var urlActionData = {};
 				var console = {};
-				var XRegExp = function(arg1, arg2) {};
 				var _ = function(key, domain) {};
 				var dgettext = function(domain, msgid) {};
 				var dngettext = function(domain, msgid, msgid_plural, count) {};

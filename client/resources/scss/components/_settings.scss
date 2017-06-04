@@ -70,6 +70,10 @@
 
 		}
 
+		.zarafa-settings-widget:last-child {
+			margin-bottom: 0;
+		}
+
 		/* Inbox navigation */
 		.zarafa-settings-category-general-liveScroll {
 			opacity: 0.5;
@@ -210,6 +214,10 @@
  		margin-bottom: -1px;
 	 }
  }
+ .k-signature-editor textarea {
+	padding: $padding-extra-large;
+	font-family: monospace !important;
+ }
 
 .keyboard-type {
 	margin-left: 40px;
@@ -248,6 +256,13 @@
 
 /* Plugin list */
 .zarafa-settings-pluginavailable {
+	.zarafa-settings-widget-extrainfo {
+		margin: 0;
+	}
+	.k-settings-plugingrid {
+		padding-top: $padding-extra-large;
+	}
+
 	.zarafa-settings-pluginavailable-fixed {
 		.x-grid3-col-display_name {
 			span {

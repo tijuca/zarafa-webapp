@@ -36,11 +36,28 @@
 		 */
 		function execute()
 		{
-			$store = $GLOBALS['mapisession']->getDefaultMessageStore();
-
 			foreach($this->data as $actionType => $action)
 			{
+				// Determine if the request contains items or not. We couldn't add the storeEntryId to
+				// the action data if it contained items because it was an array, so the storeEntryId
+				// was added to all the items. We will pick it from the first item.
+				if (isset($action[0])) {
+					$storeGuid = $action[0]['message_action']['store'];
+				} else {
+					$storeGuid = $action['store'];
+				}
+
+				$ownStoreEntryId = bin2hex($GLOBALS['mapisession']->defaultstore);
+
 				try {
+					if ( ENABLE_SHARED_RULES !== true && !$GLOBALS['entryid']->compareEntryIds($storeGuid, $ownStoreEntryId) ){
+						// When the admin does not allow a user to set rules on the store of other users, but somehow
+						// the user still tries this (probably hacking) we will not allow this
+						throw new MAPIException(_('Setting mail filters on the stores of other users is not allowed.'));
+					} else {
+						$store = $GLOBALS['mapisession']->openMessageStore(hex2bin($storeGuid));
+					}
+
 					switch($actionType) {
 						case 'list':
 							$rules = $this->getRules($store);
@@ -171,7 +188,7 @@
 
 		/**
 		 * Function used to delete all the rules the user currently has.
-		 * @param {MAPIStore} $store current user's store.
+		 * @param {MAPIStore} $store in which we want to delete the rules.
 		 */
 		function deleteRules($store)
 		{
@@ -202,13 +219,11 @@
 		 * This function only usee ROW_MODIFY flag to save rules data, Which is correct when modifying existing rules
 		 * but for adding new rules Kopano Core automatically checks existence of rule id and if it si not then
 		 * use ROW_ADD flag.
-		 * @param {MAPIStore} $store current user's store.
+		 * @param {MAPIStore} $store The store into which the rules must be saved.
 		 * @param {Array} $rulesData rules data that should be deleted.
 		 */
 		function saveRules($store, $rulesData)
 		{
-			$responseData = array();
-
 			if (is_assoc_array($rulesData)) {
 				// wrap single rule in an array
 				$rulesData = array($rulesData);
@@ -262,7 +277,7 @@
 			}
 
 			if (!empty($saveRules)) {
-				mapi_rules_modifytable($this->getRulesModifyTable(), $saveRules);
+				mapi_rules_modifytable($this->getRulesModifyTable($store), $saveRules);
 			}
 		}
 
@@ -273,7 +288,7 @@
 		 * it will ask user to preserve whether client or server side rules, so everytime
 		 * we save rules we need to remove this outlook generated client rule to remove
 		 * ambigiuty.
-		 * 
+		 *
 		 * @param {MAPIStore} $store (optional) current user's store.
 		 */
 		function deleteOLClientRules($store = false)
@@ -288,15 +303,15 @@
 			$associatedTable = mapi_folder_getcontentstable($inbox, MAPI_ASSOCIATED);
 
 			mapi_table_restrict($associatedTable,
-									array(RES_CONTENT,
-										array(
-											FUZZYLEVEL	=>	FL_FULLSTRING | FL_IGNORECASE,
-											ULPROPTAG	=>	PR_MESSAGE_CLASS,
-											VALUE		=>	array(
-												PR_MESSAGE_CLASS	=>	"IPM.RuleOrganizer"
-											)
-										)
-									)
+						array(RES_CONTENT,
+							array(
+								FUZZYLEVEL	=>	FL_FULLSTRING | FL_IGNORECASE,
+								ULPROPTAG	=>	PR_MESSAGE_CLASS,
+								VALUE		=>	array(
+									PR_MESSAGE_CLASS	=>	"IPM.RuleOrganizer"
+								)
+							)
+						)
 								);
 			$messages = mapi_table_queryallrows($associatedTable, array(PR_ENTRYID));
 
@@ -314,7 +329,7 @@
 		 * Function does customization of MAPIException based on module data.
 		 * like, here it will generate display message based on actionType
 		 * for particular exception.
-		 * 
+		 *
 		 * @param object $e Exception object.
 		 * @param string $actionType the action type, sent by the client.
 		 * @param MAPIobject $store Store object of the message.

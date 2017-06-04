@@ -12,6 +12,16 @@ if(!defined('STATE_FILE_MAX_LIFETIME')) define('STATE_FILE_MAX_LIFETIME', 28*60*
 if(!defined('UPLOADED_ATTACHMENT_MAX_LIFETIME')) define('UPLOADED_ATTACHMENT_MAX_LIFETIME', 6*60*60);
 if(!defined('ENABLE_PUBLIC_FOLDERS')) define('ENABLE_PUBLIC_FOLDERS', true);
 
+
+/**
+ * Set to true to give users the possiblity to edit and create mail filters on the store
+ * of other users. The user needs owner permissions on the store and folder permissions on
+ * the inbox of the other user.
+ * SECURITY NOTE: This makes it possible for a user to create a filter on a folder for which
+ * he does not have read permissions to forward e-mail to his own mailbox and read it anyway.
+ */
+if(!defined('ENABLE_SHARED_RULES')) define('ENABLE_SHARED_RULES', false);
+
 /**
  * When set to true, we enable GZIP
  */
@@ -21,6 +31,7 @@ if(!defined('ENABLE_RESPONSE_COMPRESSION')) define('ENABLE_RESPONSE_COMPRESSION'
  * When set to true this disables the fitlering of the HTML body.
  */
 if(!defined('DISABLE_HTMLBODY_FILTER')) define('DISABLE_HTMLBODY_FILTER', false);
+
 /**
  * Set to true to disable login with Single Sign-On (SSO) on SSO environments.
  */
@@ -42,6 +53,12 @@ if(!defined('DISABLE_FULL_GAB')) define('DISABLE_FULL_GAB', false);
  * which, when enabled, may cause delay in loading of address-book
  */
 if(!defined('DISABLE_PUBLIC_CONTACT_FOLDERS')) define('DISABLE_PUBLIC_CONTACT_FOLDERS', true);
+
+/**
+ * By default we disable the shared contact folders, as it is a performance option
+ * which, when enabled, may cause delay in loading of address-book
+ */
+if(!defined('DISABLE_SHARED_CONTACT_FOLDERS')) define('DISABLE_SHARED_CONTACT_FOLDERS', true);
 
 /**
  * Limit the amount of members shown in the addressbook details dialog for a distlist. If the list

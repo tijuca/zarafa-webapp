@@ -212,7 +212,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 	{
 		var bid = -1;
 
-		if (Ext.isArray(record)) {
+		if (Array.isArray(record)) {
 			record = record[0];
 		}
 
@@ -310,6 +310,9 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 							break;
 						case Zarafa.calendar.data.DataModes.WEEK:
 							component = Zarafa.calendar.printer.WeekViewRenderer;
+							break;
+						case Zarafa.calendar.data.DataModes.DAY:
+							component = Zarafa.calendar.printer.DaysViewRenderer;
 							break;
 					}
 				}
@@ -604,7 +607,7 @@ Zarafa.calendar.CalendarContext = Ext.extend(Zarafa.core.Context, {
 				var model = item.scope.getModel();
 				var dataMode = model.getCurrentDataMode();
 
-				item.setDisabled(dataMode == Zarafa.calendar.data.DataModes.DAY || dataMode == Zarafa.calendar.data.DataModes.MONTH);
+				item.setDisabled(dataMode == Zarafa.calendar.data.DataModes.MONTH);
 			}
 		}];
 

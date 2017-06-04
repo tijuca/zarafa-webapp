@@ -53,6 +53,23 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 
 		var powerpasteConfig = container.getServerConfig().getPowerpasteConfig();
 
+		var baseUrl = container.getServerConfig().getBaseUrl();
+
+		var webdingsStyle = '';
+		if ( (Ext.isGecko && !Ext.isIE && !Ext.isEdge) || !Zarafa.wingdingsInstalled ){
+			webdingsStyle =
+				"@font-face {" +
+					"font-family: 'Wingdings';" +
+					"src: url('"+baseUrl+"client/resources/fonts/kopanowebappdings.eot');" +
+					"src: url('"+baseUrl+"client/resources/fonts/kopanowebappdings.eot?#iefix') format('embedded-opentype')," +
+						"url('"+baseUrl+"client/resources/fonts/kopanowebappdings.woff2') format('woff2')," +
+						"url('"+baseUrl+"client/resources/fonts/kopanowebappdings.woff') format('woff')," +
+						"url('"+baseUrl+"client/resources/fonts/kopanowebappdings.ttf') format('truetype');" +
+					"font-weight: normal;" +
+					"font-style: normal;" +
+				"}";
+		}
+
 		config = Ext.applyIf(config, {
 			xtype: 'zarafa.tinymcetextarea',
 			hideLabel: true,
@@ -60,18 +77,17 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			readOnly: false,
 			tinyMCEConfig :{
 				delta_height: 1,
-				plugins: ["advlist emoticons directionality lists link image charmap searchreplace textcolor"],
-
+				plugins: ["advlist emoticons directionality lists image charmap searchreplace textcolor"],
 				// Add the powerpaste as an external plugin so we can update tinymce by just replacing
 				// the contents of its folder without removing the powerpaste plugin
 				// Note: the path is relative to the path of tinymce
 				external_plugins: {
+					link: "../tinymce-plugins/link/plugin.js",
 					powerpaste: "../tinymce-plugins/powerpaste/plugin.min.js"
 				},
 				powerpaste_word_import: powerpasteConfig.powerpaste_word_import,
 				powerpaste_html_import: powerpasteConfig.powerpaste_html_import,
 				powerpaste_allow_local_images: powerpasteConfig.powerpaste_allow_local_images,
-
 				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat",
 				extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],table[style|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|width],tbody,tr[style|class],td[style|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style|br],p[class|style|span|br]',
 				paste_data_images : true,
@@ -100,6 +116,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 					'style' : 'padding: 0; margin: 0;'
 				},
 				content_style :
+					webdingsStyle +
 					'body{ '+
 						'word-wrap: break-word;' +
 					'}'
@@ -109,7 +126,6 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		});
 
 		// Set the correct language for tinymce
-		var baseUrl = container.getServerConfig().getBaseUrl();
 		var lang = container.getSettingsModel().get('zarafa/v1/main/language', true);
 		var tinyLanguageCode = Zarafa.common.ui.htmleditor.LanguageMap.getTinyLanguageCode(lang);
 		if ( !Ext.isEmpty(tinyLanguageCode) ){
@@ -597,11 +613,9 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		}
 
 		if(event.keyCode === Ext.EventObject.ENTER) {
-			/* When want to submit an email, TinyMCE interperts the Ctrl + Enter key as an enter
-			 * thus adding an extra unwanted enter. So we tell the browser to stop processing the
-			 * event and return false prevents this behaviour.
-			 */
-			if (event.ctrlKey) {
+			// Ctrl + ENTER (and CMD + ENTER on a Mac) is the shortcut for sending an item. Because
+			// we do not want to add the ENTER to the content then, we stop processing the event.
+			if (event.ctrlKey || ( Ext.isMac && event.metaKey) ) {
 				event.preventDefault();
 				return false;
 			}
@@ -616,20 +630,33 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				return false;
 			}
 
-
-			/*
-			 * After press enter if newly created P tag was empty then apply the default formatting.
-			 */
+			// We will do this in a deferred function to make sure that tiny first adds the bogus BR element to empty paragraphs
 			(function(){
 				var node = editor.selection.getNode();
+
+				// When we created an empty P tag by pressing ENTER we must apply default formatting to it.
+				// When we already have an empty SPAN with formatting in the P tag tiny adds a BR node with the attribute
+				// 'data-mce-bogus' because otherwise it is not possible to move the cursor there. Tiny will remove those
+				// bogus nodes when we get the content value. But we have removed the padding and margin of P-tags,
+				// resulting in empty P nodes not being visible to the user. That's why we will remove the attribute
+				// 'data-mce-bogus' of the BR nodes, so tiny will not remove them.
 				if(node.nodeName === 'P') {
 					if(!node.hasChildNodes() || node.firstChild.nodeName === 'BR') {
 						this.composeDefaultFormatting(editor);
 					}
 				} else if(node.nodeName === 'SPAN' && node.hasChildNodes() &&  node.firstChild.nodeName === 'BR') {
-					// To avoid removal of default formatting within SPAN, we must have to stop removal
-					// of BR tag which is marked as 'bogus', so we are removing bogus attribute to keep the default formatting.
+					// This one is for when we created an empty paragraph by pressing ENTER while on the cursor was on end of a line
 					node.firstChild.removeAttribute('data-mce-bogus');
+				} else {
+					// This one is for when we created an empty paragraph by pressing ENTER while the cursor was on the begin of a
+					// line that already contained text
+					var parentPNode = editor.dom.getParent(node, 'p');
+					var prevPNode = editor.dom.getPrev(parentPNode, 'p');
+					if ( prevPNode ){
+						if ( prevPNode.hasChildNodes() && prevPNode.firstChild.nodeName === 'SPAN' && prevPNode.firstChild.hasChildNodes() && prevPNode.firstChild.firstChild.nodeName === 'BR' ){
+							prevPNode.firstChild.firstChild.removeAttribute('data-mce-bogus');
+						}
+					}
 				}
 			}.createDelegate(this)).defer(1);
 		}

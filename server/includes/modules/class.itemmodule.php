@@ -155,7 +155,38 @@
 												}
 
 											break;
+											case "acceptTaskRequest":
+											case "declineTaskRequest":
+												$message = $GLOBALS["operations"]->openMessage($store, $entryid);
 
+												if (isset($action["props"]) && !empty($action["props"])) {
+													$properties = $GLOBALS["properties"]->getTaskProperties();
+													mapi_setprops($message, Conversion::mapXML2MAPI($properties, $action["props"]));
+													mapi_savechanges($message);
+												}
+												// The task may be a delegated task, do an update if needed (will fail for non-delegated tasks)
+												$tr = new TaskRequest($store, $message, $GLOBALS["mapisession"]->getSession());
+												$isAccept = $action["message_action"]["action_type"] == "acceptTaskRequest";
+												if (isset($action["message_action"]["task_comments_info"]) && !empty($action["message_action"]["task_comments_info"])) {
+													$tr->setTaskCommentsInfo($action["message_action"]["task_comments_info"]);
+												}
+												if ($isAccept) {
+													$result = $tr->doAccept();
+												} else {
+													$result = $tr->doDecline();
+												}
+
+												$this->sendFeedback(true);
+												if($result) {
+													$GLOBALS["bus"]->notify(bin2hex($result[PR_PARENT_ENTRYID]), TABLE_DELETE, $result);
+												}
+
+												$props = mapi_getprops($message, array(PR_ENTRYID, PR_STORE_ENTRYID, PR_PARENT_ENTRYID));
+												if(!$tr->isTaskRequest()) {
+													unset($props[PR_MESSAGE_CLASS]);
+													$GLOBALS["bus"]->notify(bin2hex($props[PR_PARENT_ENTRYID]), $isAccept ? TABLE_SAVE : TABLE_DELETE, $props);
+												}
+											break;
 											case "copy":
 											case "move":
 												$this->copy($store, $parententryid, $entryid, $action);
@@ -199,12 +230,12 @@
 									case "removeFromCalendar":
 										$basedate = (isset($action['basedate']) && !empty($action['basedate'])) ? $action['basedate'] : false;
 
-										$GLOBALS["operations"]->removeFromCalendar($store, $entryid, $basedate, $this->directBookingMeetingRequest);
+										$this->removeFromCalendar($store, $entryid, $basedate, $this->directBookingMeetingRequest);
 										$this->sendFeedback(true);
 										break;
 
 									case "cancelInvitation":
-										$GLOBALS["operations"]->cancelInvitation($store, $entryid, $action, $this->directBookingMeetingRequest);
+										$this->cancelInvitation($store, $entryid, $action, $this->directBookingMeetingRequest);
 										$this->sendFeedback(true);
 										break;
 
@@ -231,7 +262,6 @@
 										$GLOBALS["bus"]->notify(bin2hex($messageProps[PR_PARENT_ENTRYID]), $basedate ? TABLE_SAVE : TABLE_DELETE, $messageProps);
 
 										break;
-
 									default:
 										// Deleting an occurence means that we have to save the message to
 										// generate an exception. So when the basedate is provided, we actually
@@ -248,30 +278,6 @@
 
 							case "resolveConflict":
 								$this->resolveConflict($store, $parententryid, $entryid, $action);
-								break;
-
-							case "reclaimownership":
-								$message = $GLOBALS["operations"]->openMessage($store, $entryid);
-								$tr = new TaskRequest($store, $message, $GLOBALS["mapisession"]->getSession());
-								$tr->reclaimownership();
-								break;
-
-							case "acceptTaskRequest":
-							case "declineTaskRequest":
-								$message = $GLOBALS["operations"]->openMessage($store, $entryid);
-								// The task may be a delegated task, do an update if needed (will fail for non-delegated tasks)
-								$tr = new TaskRequest($store, $message, $GLOBALS["mapisession"]->getSession());
-								if ($action["attributes"]["type"] == "acceptTaskRequest") {
-									$result = $tr->doAccept(_("Task Accepted:") . " ");
-								} else {
-									$result = $tr->doDecline(_("Task Declined:") . " ");
-								}
-
-								// Notify Inbox that task request has been deleted
-								if (is_array($result))
-									$GLOBALS["bus"]->notify(bin2hex($result[PR_PARENT_ENTRYID]), TABLE_DELETE, $result);
-
-								mapi_savechanges($message);
 								break;
 							default:
 								$this->handleUnknownActionType($actionType);
@@ -507,34 +513,10 @@
 							throw $e;
 						}
 					}
-				} else if (stripos($messageClass, 'IPM.TaskRequest') !== false) {
-					$tr = new TaskRequest($store, $message, $GLOBALS['mapisession']->getSession());
-					$properties = $GLOBALS['properties']->getTaskProperties();
-
-					if($tr->isTaskRequest()) {
-						$tr->processTaskRequest();
-						$task = $tr->getAssociatedTask(false);
-						$taskProps = $GLOBALS['operations']->getMessageProps($store, $task, $properties, true);
-						$data['item'] = $taskProps;
-
-						// notify task folder that new task has been created
-						$GLOBALS['bus']->notify($taskProps['parent_entryid'], TABLE_SAVE, array(
-							PR_ENTRYID => hex2bin($taskProps['entryid']),
-							PR_PARENT_ENTRYID => hex2bin($taskProps['parent_entryid']),
-							PR_STORE_ENTRYID => hex2bin($taskProps['store_entryid'])
-						));
-					}
-
-					if($tr->isTaskRequestResponse()) {
-						$tr->processTaskResponse();
-						$task = $tr->getAssociatedTask(false);
-
-						$data['item'] = $GLOBALS['operations']->getMessageProps($store, $task, $properties, true);
-					}
 				} else if(stripos($messageClass, 'REPORT.IPM.NOTE.NDR') !== false) {
 					// check if this message is a NDR (mail)message, if so, generate a new body message
 					$data['item']['props']['isHTML'] = false;
-					$data['item']['props']['body'] = $GLOBALS['operations']->getNDRbody($message);
+					$data['item']['props']['body'] = $this->getNDRbody($message);
 				}
 			}
 
@@ -617,7 +599,7 @@
 				$storeprops = mapi_getprops($store, array(PR_ENTRYID));
 				$props[PR_STORE_ENTRYID] = $storeprops[PR_ENTRYID];
 
-				$result = $GLOBALS["operations"]->deleteMessages($store, $parententryid, $entryid, isset($action['soft_delete']) ? $action['soft_delete'] : false);
+				$result = $GLOBALS["operations"]->deleteMessages($store, $parententryid, $entryid, isset($action['message_action']['soft_delete']) ? $action['message_action']['soft_delete'] : false);
 
 				if($result) {
 					$GLOBALS["bus"]->notify(bin2hex($parententryid), TABLE_DELETE, $props);
@@ -849,6 +831,105 @@
 			}
 
 			return false;
+		}
+
+		/**
+		* Get a text body for a Non-Delivery report
+		*
+		* This function reads the necessary properties from the passed message and constructs
+		* a user-readable NDR message from those properties
+		*
+		* @param mapimessage $message The NDR message to read the information from
+		* @return string NDR body message as plaintext message.
+		*/
+		function getNDRbody($message)
+		{
+			$message_props  = mapi_getprops($message, array(PR_ORIGINAL_SUBJECT,PR_ORIGINAL_SUBMIT_TIME, PR_BODY));
+			$body = '';
+
+			// use PR_BODY if it's there, otherwise create a recipient failed message
+			if(isset($message_props[PR_BODY]) || propIsError(PR_BODY, $message_props) == MAPI_E_NOT_ENOUGH_MEMORY) {
+				$body = mapi_openproperty($message, PR_BODY);
+			}
+
+			if (empty($body)) {
+				$body = _("Your message did not reach some or all of the intended recipients")."\n\n";
+				$body .= "\t"._("Subject").": ".$message_props[PR_ORIGINAL_SUBJECT]."\n";
+				$body .= "\t"._("Sent").":    ".strftime("%a %x %X",$message_props[PR_ORIGINAL_SUBMIT_TIME])."\n\n";
+				$body .= _("The following recipient(s) could not be reached").":\n";
+
+				$recipienttable = mapi_message_getrecipienttable($message);
+				$recipientrows = mapi_table_queryallrows($recipienttable,array(PR_DISPLAY_NAME,PR_REPORT_TIME,PR_REPORT_TEXT));
+				foreach ($recipientrows as $recipient){
+					$body .= "\n\t".$recipient[PR_DISPLAY_NAME]." on ".strftime("%a %x %X",$recipient[PR_REPORT_TIME])."\n";
+					$body .= "\t\t".$recipient[PR_REPORT_TEXT]."\n";
+				}
+			}
+
+			return $body;
+		}
+
+		/**
+		* Send a meeting cancellation
+		*
+		* This function sends a meeting cancellation for the meeting references by the passed entryid. It
+		* will send the meeting cancellation and move the item itself to the waste basket.
+		*
+		* @param mapistore $store The store in which the meeting request resides
+		* @param string $entryid Entryid of the appointment for which the cancellation should be sent.
+		* @param Object $action data sent by client.
+		* @param boolean $directBookingMeetingRequest Indicates if a Meeting Request should use direct booking or not
+		*/
+		function cancelInvitation($store, $entryid, $action, $directBookingMeetingRequest) {
+			$message = $GLOBALS['operations']->openMessage($store, $entryid);
+
+			// @TODO move this to meeting request class ?
+			$req = new Meetingrequest($store, $message, $GLOBALS['mapisession']->getSession(), $directBookingMeetingRequest);
+
+			// Update extra body information
+			if(isset($action['message_action']['meetingTimeInfo']) && !empty($action['message_action']['meetingTimeInfo'])) {
+				$req->setMeetingTimeInfo($action["message_action"]['meetingTimeInfo']);
+				unset($action["message_action"]['meetingTimeInfo']);
+			}
+
+			// get basedate from action data and pass to meeting request class
+			$basedate = !empty($action['basedate']) ? $action['basedate'] : false;
+
+			$req->doCancelInvitation($basedate);
+
+			if($basedate !== false) {
+				// if basedate is specified then we have created exception in recurring meeting request
+				// so send notification of creation of exception
+				$messageProps = mapi_getprops($message, array(PR_ENTRYID, PR_STORE_ENTRYID, PR_PARENT_ENTRYID));
+				$GLOBALS["bus"]->notify(bin2hex($messageProps[PR_PARENT_ENTRYID]), TABLE_SAVE, $messageProps);
+			} else {
+				// for normal/recurring meetings send delete notification
+				$messageProps = mapi_getprops($message, array(PR_ENTRYID, PR_STORE_ENTRYID, PR_PARENT_ENTRYID));
+				$GLOBALS["bus"]->notify(bin2hex($messageProps[PR_PARENT_ENTRYID]), TABLE_DELETE, $messageProps);
+			}
+		}
+
+		/**
+		* Remove all appointments for a certain meeting request
+		*
+		* This function searches the default calendar for all meeting requests for the specified
+		* meeting. All those appointments are then removed.
+		*
+		* @param mapistore $store Mapi store in which the meeting request and the calendar reside
+		* @param string $entryid Entryid of the meeting request or appointment for which all items should be deleted
+		* @param string $basedate if specified contains starttime of day of an occurrence
+		* @param boolean $directBookingMeetingRequest Indicates if a Meeting Request should use direct booking or not
+		*/
+		function removeFromCalendar($store, $entryid, $basedate, $directBookingMeetingRequest) {
+			$message = $GLOBALS["operations"]->openMessage($store, $entryid);
+
+			$req = new Meetingrequest($store, $message, $GLOBALS["mapisession"]->getSession(), $directBookingMeetingRequest);
+
+			$req->doRemoveFromCalendar($basedate);
+
+			// Notify the bus that the message has been deleted
+			$messageProps = mapi_getprops($message, array(PR_ENTRYID, PR_STORE_ENTRYID, PR_PARENT_ENTRYID));
+			$GLOBALS["bus"]->notify(bin2hex($messageProps[PR_PARENT_ENTRYID]), $basedate? TABLE_SAVE : TABLE_DELETE, $messageProps);
 		}
 	}
 ?>

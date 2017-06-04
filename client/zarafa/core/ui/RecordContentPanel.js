@@ -129,7 +129,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 	 * the {@link Zarafa.core.data.UIFactoryLayer UIFactoryLayer}.
 	 */
 	removeRecordOnCancel : false,
-	
+
 	/**
 	 * If set to true when the component is layed out, the loading mask will be displayed
 	 * @property
@@ -300,9 +300,18 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			return;
 		}
 
+		// Don't display save notification while system is marking the record as unread
+		// which 'belongs to ShadowStore' and 'only message_flags gets modified'.
+		// This happens when unread mail gets popped out.
+		var modifications = this.record.modified;
+		var isModifiedOnlyFlags = (modifications && Object.keys(modifications).length === 1 && Ext.isDefined(modifications.message_flags));
+		var isShadowStore = (this.record.getStore() === container.getShadowStore());
+		if (isModifiedOnlyFlags && isShadowStore) {
+			return;
+		}
+
 		this.savingEl = container.getNotifier().notify('info.saving', this.savingText.title, this.savingText.msg, {
-			container : this.getEl(),
-			persistent : true
+			container : this.getEl()
 		});
 	},
 
@@ -355,7 +364,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			// and unlikely to be available anywhere else, while a real Record can
 			// be displayed in many UI components.
 			if (this.recordComponentPlugin.allowWrite === true) {
-				
+
 				// Check if the record is created but not saved on the server yet, but is attached to a store.
 				// In that case we must wait until the record is saved before we can start working with it.
 				// This can happen when creating a quick appointment in the calendar. (Select a timeslot,
@@ -370,12 +379,12 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 						this.showLoadMaskOnStart = true;
 					}
 					record.store.on('save', Ext.createDelegate(this.onStoreSave, this, [record]), this, {single: true});
-					
+
 					return;
 				}
 
 				if (this.isModal() && !this.showModalWithoutParent) {
-					
+
 					this.modalRecord = record;
 					record = record.copy('modal-' + record.id);
 
@@ -387,7 +396,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			this.recordComponentPlugin.setRecord(record, cheapCopy);
 		}
 	},
-	
+
 	/**
 	 * Event listener that is used when the panel is opened with a record that is being saved.
 	 * This can happen when the user creates a quick appointment and opens it before the save
@@ -451,6 +460,13 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 				return;
 			}
 
+			// When the HTML body has been modified we must also send the isHTML property
+			// with the save request because otherwise the backend will think this is an
+			// plaintext record. (See Conversion::mapXML2MAPI())
+			if ( record.isModified('html_body') ){
+				record.set('isHTML', record.get('isHTML'), true);
+			}
+
 			record.save();
 		}
 	},
@@ -491,7 +507,7 @@ Zarafa.core.ui.RecordContentPanel = Ext.extend(Zarafa.core.ui.ContentPanel, {
 			Zarafa.common.Actions.deleteRecords(this.modalRecord || this.record);
 		}
 	},
-	
+
 	/**
 	 * Event handler that will make sure that the loadmask is shown when the panel is rendered
 	 * and the {#link showLoadMaskOnStart} property has been set to true.

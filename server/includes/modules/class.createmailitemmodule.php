@@ -28,7 +28,6 @@
 		 */
 		function save($store, $parententryid, $entryid, $action)
 		{
-			global $state;
 			$result = false;
 			$send = false;
 
@@ -147,7 +146,7 @@
 						 */
 						if ($entryid) {
 							$message = $GLOBALS['operations']->openMessage($store, $entryid);
-							$savedRecipients = $GLOBALS['operations']->getRecipientsInfo($store, $message);
+							$savedRecipients = $GLOBALS['operations']->getRecipientsInfo($message);
 							foreach ($savedRecipients as $recipient) {
 								$savedUnsavedRecipients["saved"][] = $recipient['props'];
 							}

@@ -7,14 +7,6 @@ Ext.namespace('Zarafa.addressbook.ui');
  */
 Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	/**
-	 * @cfg {Zarafa.addressbook.AddressBookHierarchyStore} hierarchyStore
-	 * The hierarchyStore which should be used for displaying the hierarchy
-	 * items inside the combobox. If not provided, a new store will be
-	 * allocated.
-	 */
-	hierarchyStore : undefined,
-
-	/**
 	 * @cfg {Zarafa.addressbook.AddressBookStore} addressBookStore
 	 * The store which should be used for displaying the contents of the
 	 * addressbook inside the grid. If not provided, a new store will
@@ -23,11 +15,10 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	addressBookStore : undefined,
 
 	/**
-	 * @cfg {Object} hierarchyRestriction The default restriction
-	 * which must be applied on the hierarchy to limit the type of
-	 * containers which will be shown in the hierarchy.
+	 * @cfg (Boolean) Set to true to hide contacts folders in the address book
+	 * hierarchy dropdown.
 	 */
-	hierarchyRestriction : undefined,
+	hideContactsFolders : false,
 
 	/**
 	 * @cfg {Object} listRestriction The default restriction which
@@ -43,13 +34,19 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	singleSelect : false,
 
 	/**
-	 * The LoadMask object which will be shown when the {@link Zarafa.addressbook.AddressBookHierarchyStore HierarchyStore}
-	 * is being loaded, and the dialog is waiting for the server to respond with the desired data.
-	 * This will only be set if {@link #loadMask} is undefined.
+	 * The text that will be shown in the grid when the user has to do a search before
+	 * results are shown. (for the GAB when the admin has set DISABLE_FULL_GAB to true)
 	 * @property
-	 * @type Zarafa.common.ui.LoadMask
+	 * @type {String}
 	 */
-	loadMask : undefined,
+	emptyGridText : _('Use the search bar to get results'),
+
+	/**
+	 * The text that will be shown in the grid when a search gave no results.
+	 * @property
+	 * @type {String}
+	 */
+	noResultsGridText : _('There are no items to show in this list'),
 
 	/**
  	 * @constructor
@@ -57,11 +54,19 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	 */
 	constructor : function(config)
 	{
-		config = config || {};
-
-		if (!Ext.isDefined(config.hierarchyStore)) {
-			config.hierarchyStore = new Zarafa.addressbook.AddressBookHierarchyStore();
+		// Let's remove the state settings of the addres book panel once so
+		// everyone will start again with the new default settings (januari 2017)
+		var sm = container.getSettingsModel();
+		var stateUpdated = sm.get('zarafa/v1/contexts/addressbook/stateUpdated');
+		if ( Ext.isEmpty(stateUpdated) ){
+			sm.remove('zarafa/v1/state/dialogs/addressbookcontentpanel');
+			sm.remove('zarafa/v1/state/dialogs/abuserselectioncontentpanel');
+			sm.remove('zarafa/v1/state/gab/contacts');
+			sm.remove('zarafa/v1/state/gab/globaladdressbook');
+			sm.set('zarafa/v1/contexts/addressbook/stateUpdated', 1);
 		}
+
+		config = config || {};
 
 		if (!Ext.isDefined(config.addressBookStore)) {
 			config.addressBookStore = new Zarafa.addressbook.AddressBookStore();
@@ -70,14 +75,14 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		var items = config.items || [];
 		// whatever items passed in config should be added at last place
 		config.items = [
-			this.createHeaderPanel(config.hierarchyStore),
+			this.createHeaderPanel(config.hideContactsFolders),
 			this.createViewPanel(config.addressBookStore, { singleSelect : Ext.isDefined(config.singleSelect) ? config.singleSelect : this.singleSelect})
 		].concat(items);
 
 		Ext.applyIf(config, {
 			xtype : 'zarafa.addressbookmainpanel',
 			border : false,
-			bodyStyle: 'padding: 5px;',
+			cls: 'k-addressbookmainpanel',
 			layout: {
 				type:'vbox',
 				align:'stretch'
@@ -87,14 +92,11 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		// Call parent constructor
 		Zarafa.addressbook.ui.AddressBookMainPanel.superclass.constructor.call(this, config);
 
-		// Register to events
-		this.mon(this.hierarchyStore, 'load', this.onHierarchyStoreLoad, this);
-		this.on('afterlayout', this.onAfterLayout, this, { single: true });
-		this.mon(this.hierarchyStore, 'beforeload', this.showLoadMask, this);
+		// Load the addres book
+		this.initDialog();
 
 		// When the MainPanel is destroyed, also destroy the store,
 		// this ensures that any pending requests will be cancelled.
-		this.on('destroy', this.hierarchyStore.destroy, this.hierarchyStore);
 		this.on('destroy', this.addressBookStore.destroy, this.addressBookStore);
 	},
 
@@ -102,16 +104,14 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	 * Initialize the header panel in which the search bar, and the
 	 * container selection components are placed which can filter the
 	 * contents of the {@link Ext.grid.GridPanel gridpanel}.
-	 * @param {Zarafa.addressbook.AddressBookHierarchyStore} hierarchyStore The store
-	 * to be used for the Container Combobox containing the hierarchy.
 	 * @return {Object} Configuration object for the header panel
 	 * @private
 	 */
-	createHeaderPanel : function(hierarchyStore)
+	createHeaderPanel : function(hideContactsFolders)
 	{
 		var hierarchyTpl = new Ext.XTemplate(
 			'<tpl for=".">',
-				'<div class="x-combo-list-item">',
+				'<div class="x-combo-list-item<tpl if="group_header"> k-combo-list-item-header</tpl>">',
 					'{depth:indent}{display_name:htmlEncode}',
 				'</div>',
 			'</tpl>',
@@ -122,15 +122,14 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 
 		return {
 			xtype: 'panel',
-			height : 50,
+			cls: 'k-addressbookmainpanel-header',
 			border: false,
 			layout: 'hbox',
 			items: [{
 				xtype: 'trigger',
 				ref : '../searchText',
-				flex: 0.45,
-				plugins: [ 'zarafa.fieldlabeler' ],
-				fieldLabel : _('Type Name'),
+				flex: 1,
+				hideFieldLabel : true,
 				enableKeyEvents : true,
 				triggerClass : 'icon_search',
 				triggerScope: this,
@@ -138,32 +137,39 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 				wrapFocusClass: '',
 				listeners:{
 					scope: this,
-					'keyup' : this.onSearchTextFiledKeyUp
+					render : this.onRenderSearchField,
+					keyup : this.onSearchTextFiledKeyUp
 				}
 			},{
 				xtype: 'spacer',
-				flex: 0.10,
+				width: 30,
 				height: 10
 			},{
-				xtype : 'combo',
-				flex: 0.45,
-				plugins: [ 'zarafa.fieldlabeler', 'zarafa.comboautowidth' ],
-				fieldLabel: _('Show Names from the'),
-				labelWidth : 150,
-				editable : false,
-				mode : 'local',
-				triggerAction : 'all',
-				store : hierarchyStore,
-				displayField : 'display_name',
-				valueField : 'entryid',
-				ref : '../addressBookSelectionCB',
-				tpl : hierarchyTpl,
-				autoSelect : true,
-				minListWidth : 150,
-				listeners:{
-					'select': this.onAddressBookChange,
-					scope: this
-				}
+				xtype: 'container',
+				width: 355,
+				items: [{
+					xtype : 'combo',
+					width: 200,
+					plugins: [ 'zarafa.fieldlabeler', 'zarafa.comboautowidth' ],
+					fieldLabel: _('Show Names from the'),
+					labelWidth : 150,
+					editable : false,
+					mode : 'local',
+					triggerAction : 'all',
+					store : Zarafa.addressbook.AddressBookHierarchyStore,
+					displayField : 'display_name',
+					valueField : 'entryid',
+					ref : '../../addressBookSelectionCB',
+					tpl : hierarchyTpl,
+					autoSelect : true,
+					minListWidth : 150,
+					listeners:{
+						beforeselect: this.onBeforeSelectAddressBook,
+						select: this.onAddressBookChange,
+						scope: this
+					},
+					onLoad : this.onAddressBookComboLoad.createDelegate(this, [hideContactsFolders])
+				}]
 			}]
 		};
 	},
@@ -184,6 +190,11 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 			xtype: 'zarafa.addressbookgrid',
 			hideLabel: true,
 			name: 'viewpanel',
+			cls: 'k-addressbookmainpanel-grid',
+			viewConfig : {
+				emptyText: this.emptyGridText,
+				deferEmptyText: false
+			},
 			store : addressBookStore,
 			border : false,
 			ref : 'viewPanel',
@@ -202,6 +213,28 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	},
 
 	/**
+	 * Event handler for the render event of the searchfield. Will add a placeholder
+	 * attribute to the input.
+	 */
+	onRenderSearchField : function(triggerField)
+	{
+		triggerField.getEl().set({'placeholder': _('Search...')});
+	},
+
+	/**
+	 * Event handler for the onbeforeselect event of the Address Book combo. Will
+	 * make sure group headers cannot be selected.
+	 *
+	 * @param {Ext.form.ComboBox} combo The Address Book combobox
+	 * @param (Zarafa.core.data.IPMRecord IPMRecord) record The selected Address Book record
+	 * @param {Number} index The index of the selected record in the combo
+	 */
+	onBeforeSelectAddressBook : function(combo, record, index)
+	{
+		return !record.get('group_header');
+	},
+
+	/**
 	 * Event handler which is triggered when the addressbook
 	 * combobox has been used to change the selected addressbook
 	 *
@@ -212,44 +245,32 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	 */
 	onAddressBookChange : function(field, record, index)
 	{
-		var actionTypeParameters = {
-			actionType : Zarafa.core.Actions['list'],
-			params: {
-				subActionType : Zarafa.core.Actions['globaladdressbook'],
-				entryid : record.get('entryid'),
-				store_entryid : record.get('store_entryid'),
-				restriction : Ext.applyIf({}, this.listRestriction),
-				folderType: record.get('type')
-			}
-		};
-
-		this.addressBookStore.load(actionTypeParameters);
+		// Trigger a search
+		this.onSearchButtonClick();
 	},
 
 	/**
-	 * Event handler which is triggered when the layout
-	 * for the {@link Ext.Panel panel} has been completed.
-	 * @private
+	 * Overriding the onLoad function of the combobox to be able to use the filter
+	 * on the store of the combobox. The doQuery function of {@Ext.form.ComboBox}
+	 * will clear the filter before calling onLoad, so we set it in this
+	 * override.
 	 */
-	onAfterLayout : function()
-	{
-		this.hierarchyStore.load({
-			actionType : Zarafa.core.Actions['list'],
-			params : {
-				subActionType : Zarafa.core.Actions['hierarchy'],
-				gab : 'all',
-				restriction: Ext.applyIf({}, this.hierarchyRestriction)
-			}
-		});
+	onAddressBookComboLoad : function(hideContactsFolders){
+		if ( hideContactsFolders === true ){
+			Zarafa.addressbook.AddressBookHierarchyStore.filter('type', 'gab');
+		} else {
+			Zarafa.addressbook.AddressBookHierarchyStore.clearFilter();
+		}
+
+		Ext.form.ComboBox.prototype.onLoad.call(this.addressBookSelectionCB);
 	},
 
 	/**
-	 * Event handler which is triggered when the Hierarchy Store
-	 * has been loaded. This will select the default Hierarchy container
-	 * inside the Hierarchy combobox.
+	 * Initializes the dialog by selecting the default address book in the dropdown
+	 * and triggering a search to fill the grid.
 	 * @private
 	 */
-	onHierarchyStoreLoad : function()
+	initDialog : function()
 	{
 		var record;
 
@@ -259,7 +280,7 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		}
 
 		// Check that we have at least obtained one item
-		if (this.hierarchyStore.getCount() === 0) {
+		if (Zarafa.addressbook.AddressBookHierarchyStore.getCount() === 0) {
 			return;
 		}
 
@@ -269,26 +290,12 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		// If there is no configuration for default address book into setting,
 		// than we by default displays the 'Global Address Book'
 		if (!Ext.isEmpty(folderEntryId)) {
-			record = this.hierarchyStore.getById(folderEntryId);
+			record = Zarafa.addressbook.AddressBookHierarchyStore.getById(folderEntryId);
 		}
 
 		if (Ext.isEmpty(record)) {
-			record = this.hierarchyStore.getAt(0);
+			record = Zarafa.addressbook.AddressBookHierarchyStore.getAt(0);
 		}
-
-		// Hiding the load mask of dialog box, and Grid loadMask will be shown.
-		this.hideLoadMask();
-
-		this.addressBookStore.load({
-			actionType : Zarafa.core.Actions['list'],
-			params: {
-				subActionType : Zarafa.core.Actions['globaladdressbook'],
-				entryid : record.get('entryid'),
-				store_entryid : record.get('store_entryid'),
-				restriction : Ext.applyIf({}, this.listRestriction),
-				folderType: record.get('type')
-			}
-		});
 
 		var entryid = record.get('entryid');
 		if (!Ext.isDefined(entryid)) {
@@ -296,6 +303,15 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 		}
 
 		this.addressBookSelectionCB.setValue(entryid);
+
+		// Trigger a search when the grid has been rendered. We do this
+		// because Ext 'forgets' to add the scrollOfset to an empty grid
+		// when the store fires the load event, but it does do this when
+		// rendering an empty grid on start. Since we don't want the
+		// emptyText to jump because of this we will make sure the store
+		// fires the load event when the grid is rendered and not before
+		// it is rendered.
+		this.viewPanel.on('render', this.onSearchButtonClick, this);
 	},
 
 	/**
@@ -306,15 +322,48 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSearchButtonClick : function()
 	{
-		var searchText = this.searchText.getValue().trim();
+		var selectedFolder = this.getSelectedFolderRecord();
+		if ( !Ext.isDefined(selectedFolder) ){
+			return;
+		}
+
+		var folderType = selectedFolder.get('type');
+		var fullGabDisabled = container.getServerConfig().isFullGabDisabled();
+		var searchText = (this.searchText.getValue() || '').trim();
+
+		// Do not load when we are doing a GAB load without a search text
+		// and the admin has configured to not load the GAB in that case
+		if ( folderType === 'gab' && fullGabDisabled && Ext.isEmpty(searchText) ){
+			this.viewPanel.getView().emptyText = '<div class="emptytext">' + this.emptyGridText + '</div>';
+			this.addressBookStore.removeAll();
+			return;
+		}
+
+		this.viewPanel.getView().emptyText = '<div class="emptytext">' + this.noResultsGridText + '</div>';
+
 		this.addressBookStore.load({
 			actionType : Zarafa.core.Actions['list'],
 			params: {
 				subActionType : Zarafa.core.Actions['globaladdressbook'],
+				entryid : selectedFolder.get('entryid'),
+				store_entryid : selectedFolder.get('store_entryid'),
 				restriction : Ext.applyIf({searchstring : searchText}, this.listRestriction),
-				folderType: this.addressBookStore.lastOptions.params.folderType
+				folderType: folderType
 			}
 		});
+	},
+
+	/**
+	 * Returns the currently selected folder in the hierarchy combobox
+	 *
+	 *@return {Zarafa.core.data.IPMRecord IPMRecord} The selected record from the
+	 * {#hierarchyStore}
+	 */
+	getSelectedFolderRecord : function()
+	{
+		var entryid = this.addressBookSelectionCB.getValue();
+		var index = Zarafa.addressbook.AddressBookHierarchyStore.find('entryid', entryid);
+		return Zarafa.addressbook.AddressBookHierarchyStore.getAt(index);
 	},
 
 	/**
@@ -329,34 +378,6 @@ Zarafa.addressbook.ui.AddressBookMainPanel = Ext.extend(Ext.Panel, {
 	{
 		if (e.getKey() === e.ENTER) {
 			this.onSearchButtonClick();
-		}/* @TODO: Auto select and set focus to addressbook entry which
-			partially matches to the entered search text.
-		else {
-			this.addressBookStore.filter('display_name', field.getValue(), true);
-		}*/
-	},
-
-	/**
-	 * If {@link #loadMask} is not undefined, this function will display the {@link #loadMask}.
-	 * @protected
-	 */
-	showLoadMask : function()
-	{
-		if (!this.loadMask) {
-			this.loadMask = new Zarafa.common.ui.LoadMask(this.el);
-		}
-
-		this.loadMask.show();
-	},
-
-	/**
-	 * If {@link #LoadMask} is defined, this function will hide the {@link #loadMask}.
-	 * @protected
-	 */
-	hideLoadMask : function()
-	{
-		if (this.loadMask) {
-			this.loadMask.hide();
 		}
 	}
 });

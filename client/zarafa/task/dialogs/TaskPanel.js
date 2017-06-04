@@ -13,7 +13,7 @@ Zarafa.task.dialogs.TaskPanel = Ext.extend(Ext.Panel, {
 	/**
 	 * @insert context.task.taskeditcontent.tabs
 	 * can be used to add extra tabs to taskeditcontentpanel by 3rd party plugins
-	 * @param {Zarafa.task.dialogs.TaskPanel} panel This panel 
+	 * @param {Zarafa.task.dialogs.TaskPanel} panel This panel
 	 */
 
 	/**
@@ -45,10 +45,8 @@ Zarafa.task.dialogs.TaskPanel = Ext.extend(Ext.Panel, {
 		return [{
 			xtype : 'tabpanel',
 			activeTab : 0,
+			layoutOnTabChange : true,
 			border : false,
-			defaults: {
-				bodyStyle: 'background-color: inherit; padding: 5px;'
-			},
 			items : [{
 				xtype : 'zarafa.taskgeneraltab'
 			},{

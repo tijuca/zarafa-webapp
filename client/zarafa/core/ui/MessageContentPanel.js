@@ -45,15 +45,6 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 	isSending : false,
 
 	/**
-	 * The reference as returned by {@link Zarafa.core.ui.notifier.Notifier#notify} to reference the
-	 * message in order to remove the message as soon as the send was completed.
-	 * @property
-	 * @type Ext.Element
-	 * @private
-	 */
-	sendingEl : undefined,
-
-	/**
 	 * @cfg {Boolean} closeOnSend Config option to close the panel when client recieves confirmation of message is sent.
 	 */
 	closeOnSend : false,
@@ -67,12 +58,11 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		config = config || {};
 
 		config.plugins = Ext.value(config.plugins, []);
-		if (container.getSettingsModel().get('zarafa/v1/contexts/mail/readflag_time_enable') === true) {
-			config.plugins.push({
-				ptype : 'zarafa.markasreadplugin',
-				ignoreReadFlagTimer : true
-			});
-		}
+		config.plugins.push({
+			ptype : 'zarafa.markasreadplugin',
+			ignoreReadFlagTimer : true
+		});
+
 		
 		this.addEvents(
 			/**
@@ -117,6 +107,44 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		if (Ext.isString(this.sendingDoneText)) {
 			this.sendingDoneText = { title : '', msg : this.sendingDoneText };
 		}
+
+		if(this.record) {
+			var store = this.record.getStore();
+			if (store) {
+				store.on('update', this.syncUpdatesToShadowStore, this);
+			}
+		}
+	},
+
+	/**
+	 * Event handler which is triggered when a {@link Zarafa.core.data.IPMRecord record} has been
+	 * updated from the server.
+	 * When any record which belongs to {@link Zarafa.core.data.IPMStore} gets updated, respective
+	 * {@link Zarafa.core.data.ShadowStore ShadowStore} record needs to be updated, if any.
+	 *
+	 * @param {Zarafa.core.data.IPMStore} store The store which performs the update
+	 * @param {Zarafa.core.data.IPMRecord} record The Record which has been updated
+	 * @param {String} operation  The update operation being performed. 
+	 * ({@link Ext.data.Record#EDIT}, {@link Ext.data.Record#REJECT}, {@link Ext.data.Record#COMMIT}).
+	 * @private
+	 */
+	syncUpdatesToShadowStore : function(store, record, operation)
+	{
+		if (Zarafa.core.EntryId.compareEntryIds(record.get('entryid'), this.record.get('entryid'))) {
+			if(operation === Ext.data.Record.COMMIT){
+				// Stop modification-tracking to prevent dirty mark
+				this.record.setUpdateModificationsTracking(false);
+
+				// As of now, message_flags property is being processed only because some properties seems
+				// to be missing in MailStore-record as compare to ShadowStore-record result into some weired
+				// behavior with mail-formatting and meeting-request-accept functionalities.
+				this.record.set('message_flags', record.get('message_flags'));
+				this.record.commit(true);
+
+				// Start modification-tracking back for future user changes
+				this.record.setUpdateModificationsTracking(true);
+			}
+		}
 	},
 
 	/**
@@ -151,9 +179,8 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		}
 
 		if (this.record.hasMessageAction('send') || this.record.getMessageAction('sendResponse')) {
-			this.sendingEl = container.getNotifier().notify('info.sending', this.sendingText.title, this.sendingText.msg, {
-				container : this.getEl(),
-				persistent : true
+			container.getNotifier().notify('info.sending', this.sendingText.title, this.sendingText.msg, {
+				container : this.getEl()
 			});
 		} else {
 			Zarafa.core.ui.MessageContentPanel.superclass.displayInfoMask.apply(this, arguments);
@@ -176,13 +203,6 @@ Zarafa.core.ui.MessageContentPanel = Ext.extend(Zarafa.core.ui.RecordContentPane
 		}
 
 		if (this.record.hasMessageAction('send') || this.record.getMessageAction('sendResponse')) {
-			if (this.sendingEl) {
-				container.getNotifier().notify('info.sending', null, null, {
-					container : this.getEl(),
-					destroy : true,
-					reference : this.sendingEl
-				});
-			}
 			if (success !== false) {
 				container.getNotifier().notify('info.sent', this.sendingDoneText.title, this.sendingDoneText.msg);
 			}
