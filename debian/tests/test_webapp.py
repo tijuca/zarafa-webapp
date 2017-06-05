@@ -1,4 +1,4 @@
-# Simple selenium test for zarafa webapp
+# Simple selenium test for kopano webapp
 # Simply invoke 'nosetests' in this directry
 
 import os
