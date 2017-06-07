@@ -89,7 +89,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 				powerpaste_html_import: powerpasteConfig.powerpaste_html_import,
 				powerpaste_allow_local_images: powerpasteConfig.powerpaste_allow_local_images,
 				toolbar1 : "fontselect fontsizeselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | ltr rtl | bullist numlist | searchreplace | link unlink | undo redo | charmap emoticons image hr removeformat",
-				extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],table[style|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|width],tbody,tr[style|class],td[style|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style|br],p[class|style|span|br]',
+				extended_valid_elements : 'a[name|href|target|title|onclick|dir],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],table[style|dir|class|border=2|width|cellspacing|cellpadding|bgcolor],colgroup,col[style|dir|width],tbody,tr[style|dir|class],td[style|dir|class|colspan|rowspan|width|height],hr[class|width|size|noshade],font[face|size|color|style|dir],span[class|align|style|dir|br],p[class|style|dir|span|br]',
 				paste_data_images : true,
 				automatic_uploads: false,
 				remove_trailing_brs: false,
@@ -717,10 +717,13 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 		var splitElement = editor.dom.get('zarafa-splitter');
 		editor.dom.split(blockquote, splitElement);
 
-		// Add some margin to the blockquotes for readability
 		var firstBlockquoteElement = editor.dom.getPrev(splitElement, 'blockquote');
 		var secondBlockquoteElement = editor.dom.getNext(splitElement, 'blockquote');
-		editor.dom.setStyle(firstBlockquoteElement, 'margin-bottom', '1em');
+
+		// Add some margin to the blockquotes for readability
+		if ( firstBlockquoteElement ){
+			editor.dom.setStyle(firstBlockquoteElement, 'margin-bottom', '1em');
+		}
 
 		// If the user pressed ENTER at the end of a blockquote, a new blockquote
 		// will not be created, so check if it exists
