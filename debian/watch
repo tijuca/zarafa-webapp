@@ -1,4 +1,18 @@
+# watch file for kopano-webapp from Kopano
+#
+# Kopano is mirroring some of there git trees on GitHub, so also kopano-webapp.
+# That's makes it a lot easier to use uscan for tracking new upstream versions.
+#
+# Release Tags are currently not signed!
+#
+# Also there aren't any armored detached signing files (*.asc), thus we can't use
+# any cryptographic signature verification and don't use 'pgpsigurlmangle'.
+
+# opts= ...
+# pgpsigurlmangle=s/archive\/(\d\S+)\.tar\.gz/releases\/download\/$1\/$1\.tar\.gz\.asc/ \
+# ...
+
 version=3
 
-opts="uversionmangle=s/\.-RC/~rc/\.(\d{3});s/.[0-9]+$//;s/$/+dfsg1/" \
-https://download.kopano.io/community/webapp:/sourcecode/kopano-webapp_(\d+)\.(\d+)\.(\d+)\.(\d{3})\.orig\.tar\.gz
+opts=uversionmangle=s/(\d)[_\.\-\+]?((RC|.RC|.RC.|rc|.rc|.rc.|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+ https://github.com/Kopano-mirror/kopano-webapp/tags .*/v(\d\S+)\.tar\.gz
