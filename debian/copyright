@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Kopano-WebApp
 Source: https://stash.kopano.io/projects/KW/repos/kopano-webapp
 Disclaimer: The original source tarball is modified by git-buildpackage while
