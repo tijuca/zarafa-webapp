@@ -2,6 +2,9 @@
 
 #export DH_VERBOSE=1
 
+include /usr/share/dpkg/pkg-info.mk
+RELEASE := $(DEB_DISTRIBUTION)
+
 %:
 	dh $@ 
 
@@ -20,7 +23,7 @@ override_dh_install:
 	# remove empty folders, please note README.source
 	rm -rf $(CURDIR)/debian/kopano-webapp-files/usr/share/kopano-webapp/plugins/files/js/external
 	# figure out package version
-	dpkg-parsechangelog --show-field Version > \
+	echo $(DEB_VERSION) > \
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
 	# remove files named *debug*.js
 	find $(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
