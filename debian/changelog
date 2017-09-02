@@ -1,3 +1,115 @@
+kopano-webapp (3.3.1-1) experimental; urgency=medium
+
+  * Initial Upload
+    Closes: #783640
+
+  [ Carsten Schoenert ]
+  * [2322e52] Imported Upstream version 2.1.0~rc1
+  * [50df361] rebuild patch queue from patch-queue branch
+  * [b2eff8b] d/c-u-t.sh: remove more files and folders from upstream
+  * [3585010] debian/copyright: adopt new included 'powerpaste' plugin
+  * [c74eb6d] debian/rules: removing unneeded license text files
+  * [434ff7b] debian/copyright: update after removing PHP-2.02 related file
+  * [2299c8b] debian/control: zarafa-webapp-files needs php5-curl
+  * [7292ac2] debian/rules: remove unneeded sabredav folder before install
+  * [d1fe95d] remove unneeded libjs-jac build dependency
+  * [489cc91] Imported Upstream version 2.1.0
+  * [1ff73a9] debian/rules: don't be verbose for now any longer
+  * [d1bcb83] debian/control: adding Jelle as uploader
+  * [0c3e08a] d/zarafa-webapp.conf: adding a Apache vhost config
+  * [dcbe334] adopting z-w.{postinst,prerm} scripts to ssl configuration
+  * [d908aad] remove no longer needed zarafa-webapp.preinst
+  * [fd664d9] lintian: do not depend on apache2 only
+  * [f546c82] adding debhelper for Apache2 stuff
+  * [0626557] adding build dependency on msgfmt for translations
+  * [e65445b] apache2: adding a redirect from http to https for z-w
+  * [c6a2216] adding recommends on zarafa-server
+  * [2ac54ab] add base test skeleton for autopkg tests
+  * [ca4fc4a] debian/watch: adopt to new upstream layout
+
+  [ Guido Günther ]
+  * [5ea7457] Add simple logon smoke test
+
+  [ Carsten Schoenert ]
+  * [a0d201f] adopting helper script to new upstream source naming
+  * [067fc05] Imported Upstream version 2.1.1
+  * [a27f159] rebuild patch queue from patch-queue branch
+  * [0f59851] zarafa-webapp: adding new introduced file robots.txt
+
+  [ Guido Günther ]
+  * [720609d] Build-Depend on gettext
+
+  [ Carsten Schoenert ]
+  * [b8357a0] Imported Upstream version 2.1.2
+  * [4629e29] debian/control: remove packages due no longer shipped source
+  * [91869b2] remove control files for zarafa-webapp-dropboxattachment
+  * [8d86206] remove control files for zarafa-webapp-feedback
+  * [a8783d0] remove control files for zarafa-webapp-salesforce
+  * [c832a00] remove control files for zarafa-webapp-shellgame
+  * [0e7c23e] remove control files for zarafa-webapp-spreed
+  * [27236b6] remove control files for zarafa-webapp-statslogging
+  * [729f457] remove control files for zarafa-webapp-sugarcrm
+  * [a76ea97] remove control files for zarafa-webapp-zperformance
+  * [f110a27] zarafa-webapp: moving .htaccess to /e/z/w
+  * [0c95837] debian/copyright: adopt file changes from upstream
+  * [aafea49] Imported Upstream version 2.2.0
+  * [b3b31f1] rebuild patch queue from patch-queue branch
+  * [a8d4935] remove control files for zarafa-webapp-extbox
+  * [88ca1ea] remove control files for zarafa-webapp-oauthlib
+  * [9fc2ed7] remove control files for zarafa-webapp-pdfbox
+  * [2c87d91] remove control files for zarafa-webapp-webodf
+  * [6a11adf] adjust zarafa-webapp due upstream changes
+  * [6c28a47] increase Standard-Versions to 3.9.8
+  * [0d28488] debian/gbp.conf: adding some filters for not wanted stuff
+  * [ad4317e] debian/control: change source package to kopano-webapp
+  * [bd563f2] New upstream version 3.1.0
+  * [2085ece] *-contactfax: rename to kopano-webapp-contactfax
+  * [48f4e79] *-folderwidgets: rename to kopano-webapp-folderwidgets
+  * [a92fa47] *-gmaps: rename to kopano-webapp-gmaps
+  * [3636b55] *-pimfolders: rename to kopano-webapp-pimfolders
+  * [eba27c8] *-quickitems: rename to kopano-webapp-quickitems
+  * [8704b99] *-titlecounter: rename to kopano-webapp-titlecounter
+  * [7afe573] *-webappmanual: rename to kopano-webapp-webappmanual
+  * [b81126a] *-zdeveloper: rename to kopano-webapp-zdeveloper
+  * [cc0615d] remove no longer living AddOns
+  * [4407d64] *-webapp: rename to kopano-webapp
+  * [cfc47ba] debian/rules: reflecting name change to kopano*
+  * [21d8b39] lintian-overrides: adding some source related overrides
+  * [3c1d213] rebuild patch queue from patch-queue branch
+  * [0e98834] kopano-webapp.lintian-overrides: avoid tinymce related messages
+  * [4ac8145] debian/rules: don't try to remove tinymce-plugings
+  * [9ecab75] debian/copyright: update the copyright information
+  * [7bbece3] kopano-wepapp: adopting .htaccess directives from upstream
+  * [61f07fd] New upstream version 3.1.1
+  * [c1baaab] debian/README.source: update package to kopano-webapp
+  * [fb993ed] debian/control: switch PHP related packages to v7
+  * [b6a1d5e] New upstream version 3.2.0
+  * [82084f7] move kopano-webapp.* into kopano-webapp-common.*
+  * [3fa6f11] splitting of the apache2 configuration into own package
+  * [ccd8b38] adding separate package for nginx configuration
+  * [4f24b48] Adding basic stuff for a lighttpd configuration
+  * [85072ac] debian/watch: moving over the watch mechanism to kopano.io
+  * [fc1543c] debian/control: let kopano-webapp-common depend on php-mapi
+  * [d0d803c] rename k-w-a.R.debian -> k-w-a.R.Debian so dh can pick it up
+  * [9a44e4e] kopano-webapp-nginx.conf: normalize indentation
+  * [7f5e5f1] kopano-webapp-apache2: small additions to the dh files
+  * [9f5f68d] kopano-webapp-lighttpd: enable additional package
+  * [2f11092] New upstream version 3.3.0
+  * [2c3cd94] debian/copyright: update after upstream changes
+  * [8a7a0dc] lintian-overrides: updates due upstream changes
+  * [30311c0] rebuild patch queue from patch-queue branch
+  * [a85e807] autopkg: rename all references of zarafa into kopano
+  * [f232c93] New upstream version 3.3.1
+  * [2c214d0] debian/watch: use the GitHub mirror from Kopano
+  * [350dd3c] debian/control: increase Standards-Version to 4.1.0
+  * [8dbde67] debian/control: Update email contact for Jelle v.d. Waa
+  * [3b62a82] bump debhelper and compat version to 10
+  * [966ae5f] d/rules: use DEB_* variables for entries from changelog
+  * [145e9ef] debian/copyright: adjust URI http -> https
+  * [2ed5c31] d/kopano-webapp-common.links: symlink tinymce license.txt
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 23 Jul 2017 19:48:43 +0200
+
 zarafa-webapp (2.1.0~beta1-1) experimental; urgency=medium
 
   [ Carsten Schoenert ]
