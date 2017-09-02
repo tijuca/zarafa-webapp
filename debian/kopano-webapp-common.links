@@ -1,2 +1,3 @@
-# source                       # target
-etc/kopano/webapp/config.php   usr/share/kopano-webapp/config.php
+# source                            # target
+etc/kopano/webapp/config.php        usr/share/kopano-webapp/config.php
+usr/share/common-licenses/LGPL-2.1  usr/share/kopano-webapp/client/tinymce/license.txt
