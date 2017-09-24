@@ -32,7 +32,7 @@ case "$1" in
             fi
         # Don't enabling the Apache2 website configuration here or automatically by
         # dh-apache2, the user needs to enable the vhost config by himself if wanted.
-        echo "kopano-webapp-apache2: not enable Apache2 configuration by default!"
+        echo "kopano-webapp-apache2: not enabling Apache2 configuration by default!"
         fi
     ;;
 
