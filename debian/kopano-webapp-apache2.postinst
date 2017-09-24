@@ -34,6 +34,11 @@ case "$1" in
         # dh-apache2, the user needs to enable the vhost config by himself if wanted.
         echo "kopano-webapp-apache2: not enabling Apache2 configuration by default!"
         fi
+
+        APP_PROFILE="/etc/apparmor.d/usr.sbin.apache2"
+        if [ -f "$APP_PROFILE" ] && aa-status --enabled 2>/dev/null; then
+            apparmor_parser -rTW "$APP_PROFILE" || true
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

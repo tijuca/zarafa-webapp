@@ -1,3 +1,5 @@
 #!/usr/bin/dh-exec
 debian/kopano-webapp-vhost-apache2.conf => etc/apache2/conf-available/kopano-webapp-apache2.conf
 debian/kopano-webapp-apache2.conf       => etc/kopano/webapp/apache2.conf
+debian/apparmor/kopano-webapp           => etc/apparmor.d/apache2.d/kopano-webapp
+
