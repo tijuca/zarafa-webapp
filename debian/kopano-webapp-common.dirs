@@ -1,3 +1,4 @@
 etc/kopano/webapp
 usr/share/kopano-webapp
+usr/share/kopano-webapp/plugins
 var/lib/kopano-webapp/tmp
