@@ -22,4 +22,7 @@
     # FIXME: we should use separate logfiles for kopano upfront
     /var/log/apache2/error.log rw,
     /var/log/apache2/other_vhosts_access.log rw,
+
+    # Useful when in debugging mode
+    /usr/share/kopano-webapp/debug.txt rw,
   }
