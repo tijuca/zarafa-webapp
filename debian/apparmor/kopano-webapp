@@ -12,7 +12,7 @@
     /etc/gss/mech.d/ r,
     /etc/gss/mech.d/*.conf r,
 
-    /etc/kopano/webapp/config.php r,
+    /etc/kopano/webapp/*.php r,
 
     /usr/share/kopano-webapp/** r,
 
