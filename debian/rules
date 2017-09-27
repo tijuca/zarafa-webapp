@@ -11,8 +11,6 @@ RELEASE := $(DEB_DISTRIBUTION)
 override_dh_auto_clean:
 
 override_dh_auto_build:
-	# remove not needed sabredav files
-	rm -rf plugins/files/php/Files/sabredav/vendor/sabre
 	# now let's build the stuff
 	ant deploy deploy-plugins
 	mkdir $(CURDIR)/debian/tmp
@@ -20,8 +18,6 @@ override_dh_auto_build:
 
 override_dh_install:
 	dh_install
-	# remove empty folders, please note README.source
-	rm -rf $(CURDIR)/debian/kopano-webapp-files/usr/share/kopano-webapp/plugins/files/js/external
 	# figure out package version
 	echo $(DEB_VERSION) > \
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
