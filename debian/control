@@ -13,7 +13,7 @@ Build-Depends: ant,
   liblocale-msgfmt-perl,
   libxml2-utils,
   php-cli
-Standards-Version: 4.1.0
+Standards-Version: 4.1.1
 
 Package: kopano-webapp-common
 Architecture: all
