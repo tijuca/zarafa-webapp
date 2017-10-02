@@ -23,6 +23,8 @@ override_dh_install:
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
 	# remove files named *debug*.js
 	find $(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/ -name "*debug*.js" -print0 | xargs -0 rm
+	# remove additional license files
+	rm $(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/client/tinymce-plugins/powerpaste/License.txt
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/kopano-webapp/tmp
