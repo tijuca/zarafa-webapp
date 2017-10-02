@@ -26,7 +26,6 @@ Depends:
 Recommends:
  kopano-server,
  kopano-webapp-apache2 | kopano-webapp-nginx | kopano-webapp-lighttpd,
- ${misc:Recommends},
 Description: WebApp for the Kopano Collaboration Platform - common files
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Kopano Collaboration Platform through a modern web
@@ -45,7 +44,6 @@ Depends:
  ${misc:Depends},
 Recommends:
  kopano-server,
- ${misc:Recommends},
 Description: WebApp for the Kopano Collaboration Platform - Apache2
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Kopano Collaboration Platform through a modern web
@@ -64,7 +62,6 @@ Depends:
  ${misc:Depends},
 Recommends:
   kopano-server,
-  ${misc:Recommends},
 Description: WebApp for the Kopano Collaboration Platform - Nginx
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Kopano Collaboration Platform through a modern web
@@ -81,8 +78,8 @@ Depends:
  kopano-webapp-common (>= ${binary:Version}),
  php-cgi,
  ${misc:Depends},
-Recommends: ${misc:Recommends},
-  kopano-server
+Recommends:
+  kopano-server,
 Description: WebApp for the Kopano Collaboration Platform - Lighttpd
  Provides a web-client written in PHP that uses JSON and Ext JS to allow users
  to make full use of the Kopano Collaboration Platform through a modern web
