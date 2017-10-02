@@ -24,6 +24,10 @@ Files: client/tinymce-plugins/link/plugin.js
 Copyright: 1999-2015 Ephox Corp
 License: LGPL-2.1+
 
+Files: client/tinymce-plugins/powerpaste/*
+Copyright: 2015 Ephox Corp
+License: AGPL-3
+
 Files: client/third-party/tinymce/TinyMceTextArea.js
 Copyright: 2013, Oleg Schildt
 License: LGPL-2.1+
