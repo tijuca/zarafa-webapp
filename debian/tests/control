@@ -1,5 +1,5 @@
 Tests: smoke
-Depends: chromedriver,
+Depends: chromium-driver,
  phantomjs,
  python-nose,
  python-selenium
