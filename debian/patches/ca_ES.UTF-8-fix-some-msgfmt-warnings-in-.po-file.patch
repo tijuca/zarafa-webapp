@@ -1,0 +1,43 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Wed, 4 Oct 2017 20:58:09 +0200
+Subject: ca_ES.UTF-8: fix some msgfmt warnings in *.po file
+
+---
+ .../language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po   | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
+index 34b8dc8..b7d8771 100644
+--- a/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
++++ b/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
+@@ -1,21 +1,22 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
++# Kopano Webapp Catalan (Spain) translation.
++# Copyright (C) 2017
++# This file is distributed under the same license as the kopano-webapp package.
+ # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
++"Project-Id-Version: Kopano Webapp Catalan (Spain)\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+-"PO-Revision-Date: 2015-07-18 11:39+0200\n"
++"PO-Revision-Date: 2017-10-04 20:55+0200\n"
+ "Last-Translator: Angel <craem@craem.net>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: ca\n"
++"Language-Team: Catalan (Spain) <https://translate.kopano.io/projects/kopano/"
++"kopano-webapp/ca/>\n"
++"Language: ca_ES\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+-"X-Generator: Pootle 2.1.6\n"
++"X-Generator: Poedit 2.0.4\n"
+ 
+ #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
+ msgid "Wk"

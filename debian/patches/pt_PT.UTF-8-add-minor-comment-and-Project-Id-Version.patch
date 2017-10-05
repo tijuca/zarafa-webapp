@@ -1,0 +1,44 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Thu, 5 Oct 2017 20:25:07 +0200
+Subject: pt_PT.UTF-8: add minor comment and Project-Id-Version
+
+---
+ .../pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
+index 515fbef..e9ca6f8 100644
+--- a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
++++ b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
+@@ -1,18 +1,22 @@
+-# foo <foo@bar.foobar>, 2005.
+-#
+-#, fuzzy
++# Kopano Webapp Portuguese (Portugal) translation.
++# Copyright (C) 2017
++# This file is distributed under the same license as the kopano-webapp package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: PHP-Langadmin 1.0\n"
++"Project-Id-Version: Kopano Webapp Portuguese (Portugal)\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+-"PO-Revision-Date: 2008-12-16 16:18:06+0100\n"
+-"Last-Translator: PHP-Langadmin automatic translator <foo@bar.foobar>\n"
+-"Language-Team: pt_PT <pt@li.org>\n"
+-"Language: \n"
++"PO-Revision-Date: 2017-10-05 20:26+0200\n"
++"Last-Translator: \n"
++"Language-Team: Portuguese (Portugal) <https://translate.kopano.io/projects/"
++"kopano/kopano-webapp/pt_PT/>\n"
++"Language: pt_PT\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=iso-8859-1\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Generator: Poedit 2.0.4\n"
+ 
+ #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
+ #, fuzzy

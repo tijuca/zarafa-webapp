@@ -1,0 +1,20 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Mon, 2 Oct 2017 13:10:48 +0200
+Subject: always let msgfmt check the po files
+
+---
+ server/build.xml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/server/build.xml b/server/build.xml
+index 38ffb68..34437fe 100644
+--- a/server/build.xml
++++ b/server/build.xml
+@@ -83,6 +83,7 @@
+ 		<dirname property="outdir" file="${outfile}"/>
+ 		<mkdir dir="${outdir}"/>
+ 		<exec executable="msgfmt" failonerror="true">
++			<arg value="-c"/>
+ 			<arg value="-v"/>
+ 			<arg value="-o"/>
+ 			<arg value="${outfile}"/>

@@ -1,0 +1,44 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Thu, 5 Oct 2017 19:58:26 +0200
+Subject: fr_FR.UTF-8: add minor comment and Project-Id-Version
+
+---
+ .../language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po  | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
+index 3574d00..442b1fe 100644
+--- a/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
++++ b/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
+@@ -1,22 +1,22 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
++# Kopano Webapp French (France) translation.
++# Copyright (C) 2017
++# This file is distributed under the same license as the kopano-webapp package.
+ # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
++"Project-Id-Version: Kopano Webapp French (France)\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+-"PO-Revision-Date: 2017-03-13 13:25+0000\n"
++"PO-Revision-Date: 2017-10-05 19:57+0200\n"
+ "Last-Translator: C <c.maltot@synairgis.com>\n"
+-"Language-Team: French <http://translate.kopano.io/projects/kopano/kopano-"
+-"webapp/fr/>\n"
++"Language-Team: French (France) <http://translate.kopano.io/projects/kopano/"
++"kopano-webapp/fr/>\n"
+ "Language: fr_FR\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+-"X-Generator: Weblate 2.4\n"
++"Plural-Forms: nplurals=2; plural=(n > 1);\n"
++"X-Generator: Poedit 2.0.4\n"
+ 
+ #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
+ msgid "Wk"

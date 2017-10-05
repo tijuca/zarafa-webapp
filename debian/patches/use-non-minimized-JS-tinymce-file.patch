@@ -9,11 +9,11 @@ tinymce.js file.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/server/includes/loader.php b/server/includes/loader.php
-index fd8cfad..f35425d 100644
+index f7234c1..312d1d0 100644
 --- a/server/includes/loader.php
 +++ b/server/includes/loader.php
-@@ -21,7 +21,7 @@ class FileLoader {
- 			$jsLoadingSequence[] = "client/extjs/ext-all.js";
+@@ -31,7 +31,7 @@ class FileLoader {
+ 			$jsLoadingSequence[] = "client/extjs/ext-base-all.js";
  			$jsLoadingSequence[] = "client/extjs/ux/ux-all.js";
  			$jsLoadingSequence[] = "client/extjs-mod/extjs-mod.js";
 -			$jsLoadingSequence[] = "client/tinymce/tinymce.min.js";

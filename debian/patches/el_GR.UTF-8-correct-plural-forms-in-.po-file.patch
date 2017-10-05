@@ -1,0 +1,44 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Tue, 3 Oct 2017 21:22:25 +0200
+Subject: el_GR.UTF-8: correct plural forms in *.po file
+
+---
+ .../language/el_GR.UTF-8/LC_MESSAGES/zarafa_webapp.po | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/server/language/el_GR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/el_GR.UTF-8/LC_MESSAGES/zarafa_webapp.po
+index 4014fa8..3a99c07 100644
+--- a/server/language/el_GR.UTF-8/LC_MESSAGES/zarafa_webapp.po
++++ b/server/language/el_GR.UTF-8/LC_MESSAGES/zarafa_webapp.po
+@@ -1,21 +1,22 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
++# Kopano Webapp Greek translation.
++# Copyright (C) 2017
++# This file is distributed under the same license as the kopano-webapp package.
+ # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
++"Project-Id-Version: Kopano Webapp Greek\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
++"PO-Revision-Date: 2017-10-03 21:19+0200\n"
++"Last-Translator: \n"
++"Language-Team: Greek <http://translate.kopano.io/projects/kopano/kopano-"
++"webapp/el\n"
+ "Language: el\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+-"X-Generator: Translate Toolkit 1.8.1\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Generator: Poedit 2.0.4\n"
+ 
+ #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
+ msgid "Wk"
