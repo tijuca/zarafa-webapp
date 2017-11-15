@@ -5,13 +5,12 @@ The upstream source contains some files we don't want because they are not
 compatable with the Debian Free Software Guide. In detail there are javascript
 files that are minimized without source, *.swf files and other files we have to
 filter out.
-Currently also the Powerpaste plugin is filtered out.
 
 To get rid of these files (or folders) we use git-buildpackage and the
 directives for [import-orig] in debian/gbp.conf.
 You can use uscan to download the upstream source.
 
-Use the file *.orig.tar.xz to imported the new sources with git-buildpackage.
+Use the file *.orig.tar.xz to import the new sources with git-buildpackage.
 
   $ gbp import-orig --sign-tags [--verbose] ../kopano-webapp_VERSION.orig.tar.xz
 
