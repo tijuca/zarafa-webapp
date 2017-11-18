@@ -14,6 +14,5 @@
 
 version=4
 
-opts=uversionmangle=s/(\d)[_\.\-\+]?((RC|.RC|.RC.|rc|.rc|.rc.|pre|dev|beta|alpha)\d*)$/$1~$2/,\
-dversionmangle=s/\+(debian|dfsg|ds|deb)(\.?\d+)?$// \
-https://github.com/Kopano-dev/kopano-webapp/tags .*/v(\d\S+)\.tar\.gz
+opts="uversionmangle=s/-beta/~beta/;s/\.-(beta)\d//" \
+https://github.com/Kopano-dev/kopano-webapp/tags .*/v(\d.\d.\d(-(beta)\d)?)\.tar\.gz
