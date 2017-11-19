@@ -28,6 +28,7 @@ Zarafa.task.TaskContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		}
 
 		Ext.applyIf(config, {
+			statefulRecordSelection: true,
 			current_data_mode : Zarafa.task.data.DataModes.ALL
 		});
 
@@ -50,6 +51,11 @@ Zarafa.task.TaskContextModel = Ext.extend(Zarafa.core.ContextModel, {
 	createRecord : function(folder)
 	{
 		folder = folder || this.getDefaultFolder();
+
+		if (folder.isTodoListFolder()) {
+			folder = container.getHierarchyStore().getDefaultFolderFromMessageClass('IPM.Task');
+		}
+
 		var defaultStore = folder.getMAPIStore();
 
 		var record = Zarafa.core.data.RecordFactory.createRecordObjectByMessageClass('IPM.Task', {
@@ -161,5 +167,33 @@ Zarafa.task.TaskContextModel = Ext.extend(Zarafa.core.ContextModel, {
 			this.setDataMode(this.oldDataMode);
 		}
 		delete this.oldDataMode;
+	},
+
+	/**
+	 * Function will check if last used folders is empty then
+	 * Sets todolist folder as an {@link #defaultFolder default folder} for the
+	 * {@link Zarafa.task.TaskContext task context}.
+	 *
+	 * @param {Zarafa.core.hierarchyStore} hierarchyStore that holds hierarchy data.
+	 * @private
+	 */
+	onHierarchyLoad : function(hierarchyStore)
+	{
+		// only continue when hierarchyStore has data
+		if (hierarchyStore.getCount() === 0) {
+			return;
+		}
+
+		if (Ext.isEmpty(this.last_used_folders)) {
+			var folder = hierarchyStore.getDefaultFolder('todolist');
+			if(folder) {
+				var entryid = folder.get('entryid');
+				var storeentryid = folder.get('store_entryid');
+				this.last_used_folders = {};
+				this.last_used_folders[storeentryid] = [entryid];
+			}
+		}
+
+		Zarafa.task.TaskContextModel.superclass.onHierarchyLoad.call(this, hierarchyStore);
 	}
 });

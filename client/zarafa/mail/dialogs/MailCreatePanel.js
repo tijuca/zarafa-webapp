@@ -70,7 +70,7 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 
 		if(Ext.isEmpty(recipients)) {
 			items.push({
-				text : _('No send as address configured!')
+				text : _('No from addresses configured!')
 			});
 			return items;
 		}
@@ -98,6 +98,12 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 	initMessageFormPanel : function(config)
 	{
 		return [{
+			xtype: 'container',
+			cls: 'zarafa-mailcreatepanel-extrainfo',
+			ref: 'extraInfoPanel',
+			autoHeight: true,
+			hidden: true
+		},{
 			xtype: 'zarafa.compositefield',
 			hideLabel: true,
 			ref: 'fromField',
@@ -275,6 +281,50 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 				this.editorField.setValue(record.getBody(this.editorField.isHtmlEditor()));
 			}
 		}
+
+		this.updateExtraInfoPanel();
+	},
+
+	/**
+	 * Function will update the {@link #extraInfoPanel} with extra information that should be shown
+	 * @private
+	 */
+	updateExtraInfoPanel : function()
+	{
+		// clear the previous contents
+		var el = this.extraInfoPanel.getEl();
+		if(Ext.isDefined(el.dom)) {
+			el.dom.innerHTML = '';
+		}
+
+		var infoMessage = this.getExtraInfoMessage();
+
+		if (infoMessage) {
+			el.createChild({tag: 'div', html: pgettext('calendar.dialog', infoMessage)});
+		}
+
+		this.extraInfoPanel.setVisible(infoMessage !== false);
+		this.doLayout();
+	},
+
+	/**
+	 * Helper function to prepare extra-info-message based on configured flag properties.
+	 *
+	 * @param {String|Boolean} Message to show, false otherwise.
+	 */
+	getExtraInfoMessage : function()
+	{
+		var flagStatus = this.record.get('flag_status');
+		if (flagStatus !== Zarafa.core.mapi.FlagStatus.flagged) {
+			return false;
+		}
+
+		var configuredFlag = Zarafa.common.flags.Util.getConfiguredFlag(this.record);
+		if (configuredFlag === 'no_date') {
+			return _("This message will be flagged for follow up when it is sent.");
+		} else {
+			return String.format("This message will be flagged for follow up {0} when it is sent.", configuredFlag);
+		}
 	},
 
 	/**
@@ -296,6 +346,38 @@ Zarafa.mail.dialogs.MailCreatePanel = Ext.extend(Ext.form.FormPanel, {
 			record.data.html_body = record.inlineImgZarafaToOutlook(value);
 		} else {
 			record.data.body = value;
+		}
+
+		// Go for valuecorrection after record gets opened
+		this.record.store.on('open', this.onRecordOpen, this);
+	},
+
+	/**
+	 * Event Handler for {@link Zarafa.core.data.IPMStore store} open event. Handling a
+	 * special situation where two open requests made to server while double clicking
+	 * the mail from grid, first for tab panel, second for preview panel.
+	 * The html_body property of record, which belongs to tab panel, gets updated while
+	 * handling the response of second open request discarding the tinyMCE incurred changes,
+	 * left us with the situation where UI and underlying record differs.
+	 * To resolve this, we need to go for valuecorrection once the record gets opened successfully.
+	 *
+	 * @param {Zarafa.core.data.IPMStore} store The store of the record.
+	 * @param {Zarafa.core.data.IPMRecord} record The record which will be converted to a task
+	 */
+	onRecordOpen : function(store, record)
+	{
+		if (this.editorField) {
+			var fieldValue = this.editorField.getValue();
+			var recordBody = false;
+
+			if (Ext.isFunction(record.getBody)) {
+				recordBody = record.getBody(this.editorField.isHtmlEditor());
+			}
+
+			// Go further only if editor value differs with html_body of record
+			if ( fieldValue !== recordBody ) {
+				this.onBodyValueCorrection(this.editorField, fieldValue);
+			}
 		}
 	},
 

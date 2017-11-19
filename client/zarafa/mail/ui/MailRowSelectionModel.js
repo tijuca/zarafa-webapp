@@ -21,7 +21,7 @@ Zarafa.mail.ui.MailRowSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
 	 * @param {Zarafa.mail.ui.MailGrid} g The mail grid from which the event came
 	 * @param {Number} rowIndex Index of the row that was clicked
 	 * @param {Ext.EventObject} event The mouse event
-	 * 
+	 *
 	 * @override
 	 * @private
 	 */
@@ -33,12 +33,21 @@ Zarafa.mail.ui.MailRowSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
 
 		// boolean to determine what we are going to do
 		var preventRowSelection = false;
-		if (cellIndex !== false && cellIndex >= 0) {
+		if (Ext.get(event.target).hasClass('icon_flag')) {
+			preventRowSelection = true;
+		} else if (cellIndex !== false && cellIndex >= 0) {
 			preventRowSelection = cm.config[cellIndex].preventRowSelection;
+		} else if ( cellIndex === false && Ext.get(event.target).hasClass('k-category-add') ){
+			// Prevent selection when the mousedown event is on the 'add category icon'
+			preventRowSelection = true;
 		}
 
 		if (preventRowSelection !== true) {
 			Zarafa.mail.ui.MailRowSelectionModel.superclass.handleMouseDown.call(this, g, rowIndex, event);
+		} else {
+			// We must still set the focus on the clicked element, or else the grid will jump to
+			// the previous focussed element when we close a dialog
+			g.getView().focusRow(rowIndex);
 		}
 	}
 });

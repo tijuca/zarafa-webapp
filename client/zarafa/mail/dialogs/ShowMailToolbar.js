@@ -127,7 +127,6 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 
 	/**
 	 * Create all buttons which should be added by default the the `Options` buttons.
-	 * This contains the buttons flag the message according to a particular color.
 	 *
 	 * @return {Array} The {@link Ext.Button} elements which should be added in the Options section of the {@link Ext.Toolbar}.
 	 * @private
@@ -146,16 +145,26 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 			handler : this.onMailOptionsButton,
 			scope: this
 		},{
-			xtype: 'button',
-			ref: 'flagsBtn',
-			overflowText: _('Set flag'),
-			tooltip: {
-				title: _('Set flag'),
-				text: _('Set flag on this email')
+			xtype : 'button',
+			overflowText: _('Set Category'),
+			tooltip : {
+				title : _('Categories'),
+				text : _('Open the categories dialog.')
 			},
-			iconCls: 'icon_flag_red',
-			handler: this.onSetFlagButton,
-			scope: this
+			iconCls : 'icon_categories',
+			handler : this.onOpenCategories,
+			scope : this
+		},{
+			xtype : 'button',
+			ref: 'setFlagBtn',
+			overflowText : _('Set flag'),
+			tooltip : {
+				title : _('Set flag'),
+				text : _('Set flag on this email')
+			},
+			iconCls : 'icon_flag_red',
+			handler : this.onSetFlagButton,
+			scope : this
 		},{
 			xtype: 'splitbutton',
 			cls: 'zarafa-more-options-btn',
@@ -212,8 +221,8 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 		}
 
 		this.deleteBtn.setVisible(!isSubMessage);
+		this.setFlagBtn.setVisible(!isSubMessage);
 		this.optionsBtn.setVisible(!isSubMessage && !isFaultyMessage);
-		this.flagsBtn.setVisible(!isSubMessage && !isFaultyMessage);
 
 		this.replyBtn.setVisible(!isFaultyMessage);
 		this.replyAllBtn.setVisible(!isFaultyMessage);
@@ -224,29 +233,47 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	 * The menu items of the more button.
 	 *
 	 * @param {Zarafa.mail.dialogs.ShowMailToolbar} scope The scope for the menu items
-	 * @return {Ext.menu.Menu} the dropdown menu for the more button
+	 * @return {Zarafa.core.ui.menu.ConditionalMenu} the dropdown menu for the more button
 	 */
 	moreMenuButtons : function(scope)
 	{
 		return {
-			xtype: 'menu',
+			xtype: 'zarafa.conditionalmenu',
 			items: [{
-				text: _('Copy/Move'),
-				iconCls: 'icon_copy',
-				handler: this.onCopyMove,
-				scope: scope
+                xtype: 'zarafa.conditionalitem',
+				text : _('Mark Read'),
+				iconCls : 'icon_mail icon_message_read',
+                hideMode : 'offsets',
+                readState: true,
+                beforeShow : this.onBeforeShowMoreMenu,
+                handler : this.onReadFlagMenuItemClicked,
+                scope: scope
+			}, {
+                xtype: 'zarafa.conditionalitem',
+				text : _('Mark Unread'),
+                hideMode : 'offsets',
+				iconCls : 'icon_mail icon_message_unread',
+                readState: false,
+                beforeShow : this.onBeforeShowMoreMenu,
+				handler : this.onReadFlagMenuItemClicked,
+				scope : scope
+			}, {
+				text : _('Copy/Move'),
+				iconCls : 'icon_copy',
+				handler : this.onCopyMove,
+				scope : scope
 			}, {
 				text: _('Print'),
 				iconCls: 'icon_print',
 				handler: this.onPrintButton,
 				scope: this
-			},{
+			}, {
 				text: _('Edit as New Message'),
 				iconCls: 'icon_editAsNewEmail',
 				actionType: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
 				handler: this.onMailResponseButton,
 				scope: scope
-			},{
+			}, {
 				text: _('Download'),
 				iconCls: 'icon_saveaseml',
 				actionType: Zarafa.mail.data.ActionTypes.EDIT_AS_NEW,
@@ -257,17 +284,28 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	},
 
 	/**
-	 * Event handler when the "Set Flag" button has been pressed.
-	 * This will call the {@link Zarafa.mail.Actions#openMailFlagsContent}.
+	 * Handler for the beforeshow event of the {@link Zarafa.core.ui.menu.ConditionalItem menu item}. Will
+	 * show and hide the menu item depends on record read status.
 	 *
-	 * @param {Ext.Button} button The button which has been pressed
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item to enable/disable
 	 * @private
 	 */
-	onSetFlagButton : function(button)
+	onBeforeShowMoreMenu : function (item)
 	{
-		Zarafa.mail.Actions.openMailFlagsContent(this.record, {
-			autoSave : true
-		});
+		// show and hide the 'Mark Read' and 'Mark Unread' if record read status is unread or read respectively.
+		item.setVisible(this.record.isRead() ? !item.readState : item.readState);
+	},
+
+	/**
+	 * Event handler which is called when the item has been clicked.
+	 * This will mark record as read or unread.
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The item which has been clicked.
+	 * @private
+	 */
+	onReadFlagMenuItemClicked : function (item)
+	{
+		Zarafa.common.Actions.markAsRead(this.record, item.readState);
 	},
 
 	/**
@@ -285,6 +323,19 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	},
 
 	/**
+	 * Event handler when the "Set Flag" button has been pressed.
+	 * This will call the {@link Zarafa.common.Actions#openFlagsMenu}.
+	 *
+	 * @param {Ext.Button} button The button which has been pressed
+	 * @param {Ext.EventObject} eventObject event object
+	 * @private
+	 */
+	onSetFlagButton : function (button, eventObject)
+	{
+		Zarafa.common.Actions.openFlagsMenu(this.record, eventObject.getXY(), false);
+	},
+
+	/**
 	 * Event handler when the "Delete" button has been pressed.
 	 * This will {@link Zarafa.core.data.RecordContentPanel#deleteRecord delete} the given record.
 	 *
@@ -294,6 +345,16 @@ Zarafa.mail.dialogs.ShowMailToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTool
 	onDeleteButton : function(button)
 	{
 		this.dialog.deleteRecord();
+	},
+
+	/**
+	 * Handler for the Categories toolbar button
+	 * This will call {@link Zarafa.common.Actions#openCategoriesContent}.
+	 * @private
+	 */
+	onOpenCategories : function()
+	{
+		Zarafa.common.Actions.openCategoriesContent(this.record);
 	},
 
 	/**

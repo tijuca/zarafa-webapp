@@ -176,6 +176,31 @@ Zarafa.core.ui.PreviewPanel = Ext.extend(Ext.Panel, {
 		if (this.recordComponentPlugin) {
 			this.recordComponentPlugin.setRecord(record);
 		}
+
+		// Remove the update handler of the record in the preview panel
+		// before we set a new one
+		if ( this.record && this.record.store ){
+			this.record.store.un('update', this.updatePreviewPanel, this);
+		}
+		if ( record && record.store ){
+			record.store.on('update', this.updatePreviewPanel, this);
+		}
+	},
+
+	/**
+	 * Updates the categories in the preview panel when the data of the record changes.
+	 *
+	 * @param {Zarafa.core.data.IPMStore} store The store to which the record belongs
+	 * that is shown in the preview panel
+	 * @param {Zarafa.core.data.IPMRecord} record The Record that was updated
+	 */
+	updatePreviewPanel : function(store, record)
+	{
+		// Only update when we are showing a record in the preview panel
+		if ( this.record && record.equals(this.record) ){
+			this.record.set('categories', record.get('categories'));
+			this.doLayout();
+		}
 	},
 
 	/**

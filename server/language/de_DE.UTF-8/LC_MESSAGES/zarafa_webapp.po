@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-18 15:31+0200\n"
-"PO-Revision-Date: 2017-05-02 13:54+0000\n"
+"PO-Revision-Date: 2017-11-03 11:12+0000\n"
 "Last-Translator: Andreas <a.roesler@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
@@ -559,6 +559,21 @@ msgstr "Letztes Jahr"
 msgid "Custom date"
 msgstr "Zeitspanne angeben"
 
+msgid "Add to favorites"
+msgstr "Zu Favoriten hinzufügen"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "You must specify a name."
+msgstr "Sie müssen einen Namen angeben."
+
+msgid "Add a folder to favorites based on your search query"
+msgstr "Ergebnisse einer Suche als Favoriten speichern"
+
+msgid "Folder name"
+msgstr "Ordnername"
+
 msgid "All folders are selected"
 msgstr "Alle Ordner ausgewählt"
 
@@ -636,9 +651,18 @@ msgstr "Betreff"
 msgid "Body & Attachments"
 msgstr "Text & Anhängen"
 
+msgid "Favorites"
+msgstr "Favoriten"
+
+msgid "Add a folder to favorites based on this search query"
+msgstr "Einen Ordner basierend auf dieser Suche zu den Favoriten hinzufügen"
+
 # 76%
 msgid "Select Folder"
 msgstr "Ordner auswählen"
+
+msgid "Delete search folder"
+msgstr "Suchordner löschen"
 
 # 81%
 # 75%
@@ -1040,9 +1064,6 @@ msgstr "Erinnerung"
 msgid "Show as"
 msgstr "Zeigen als"
 
-msgid "Label"
-msgstr "Beschriftung"
-
 msgid "Attachments"
 msgstr "Anhänge"
 
@@ -1270,6 +1291,12 @@ msgstr "Neue Terminanfrage"
 msgid "Switch calendar range back and forth"
 msgstr "Kalenderblättern wechseln"
 
+msgid "Copy selected item"
+msgstr "Selektion kopieren"
+
+msgid "Paste selected item"
+msgstr "Selektion einfügen"
+
 # 87%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
@@ -1491,6 +1518,9 @@ msgstr "Fällig am"
 msgid "Sort by: Due By"
 msgstr "Sortieren nach: Fällig"
 
+msgid "Label"
+msgstr "Beschriftung"
+
 # 81%
 # 75%
 # 76%
@@ -1560,6 +1590,9 @@ msgstr "Änderungen speichern und die Aktualisierung an alle Teilnehmer senden"
 
 msgid "Open meeting request with changes"
 msgstr "Besprechungsanfrage mit den Änderungen öffnen"
+
+msgid "Copy"
+msgstr "Kopieren"
 
 # 89%
 # 100%
@@ -1709,32 +1742,57 @@ msgstr "Dieses Serienelement öffnen"
 msgid "Open the series"
 msgstr "Die Serie öffnen"
 
+msgid "Paste Recurring {0}"
+msgstr "Serientermin {0} einfügen"
+
+msgid ""
+"This is a recurring {0}. Do you want to paste only this occurrence or the "
+"series?"
+msgstr ""
+"Dies ist ein wiederholender {0}. Möchten Sie nur diese Wiederholung oder die "
+"Serie einfügen?"
+
+msgid "message"
+msgstr "Nachricht"
+
+msgid "meeting request"
+msgstr "Termineinladung"
+
+msgid "appointment"
+msgstr "Termin"
+
+msgid "Paste this occurrence only"
+msgstr "Nur diese Wiederholung einfügen"
+
+msgid "Paste the series..."
+msgstr "Die Terminserie einfügen..."
+
 msgid ""
 "This is a recurring message. Do you want to delete only this occurrence or "
 "the series?"
 msgstr ""
-"Dies ist eine Seriennachricht. Wollen Sie nur diese Nachricht löschen oder "
+"Dies ist eine Nachrichtserie. Wollen Sie nur diese Nachricht löschen oder "
 "die Serie?"
 
 msgid ""
 "This is a recurring appointment. Do you want to delete only this occurrence "
 "or the series?"
 msgstr ""
-"Dies ist ein Serientermin. Möchten sie nur diesen Termin löschen oder die "
+"Dies ist ein Serientermin. Möchten Sie nur diesen Termin löschen oder die "
 "Serie?"
 
 msgid ""
 "This is a recurring meeting request. Do you want to delete only this "
 "occurrence or the series?"
 msgstr ""
-"Dies ist eine Serieneinladung. Möchten sie nur diese Einladung löschen oder "
+"Dies ist eine Serieneinladung. Möchten Sie nur diese Einladung löschen oder "
 "die Serie?"
 
 msgid ""
 "This is a recurring task request. Do you want to delete only this occurrence "
 "or the series?"
 msgstr ""
-"Dies ist eine Serienaufgabe. Möchten sie nur diese Aufgabe löschen oder die "
+"Dies ist eine Serienaufgabe. Möchten Sie nur diese Aufgabe löschen oder die "
 "Serie?"
 
 # 95%
@@ -1868,14 +1926,80 @@ msgstr "Die folgenden Formate werden für Kontaktbilder unterstützt"
 msgid "Attachment Error"
 msgstr "Fehler beim Anhängen"
 
-msgid "Item belongs to these categories"
-msgstr "Element gehört zu diesen Kategorien"
+msgid "Manage Categories"
+msgstr "Kategorien verwalten"
 
-msgid "Available categories"
-msgstr "Vorhandene Kategorien"
+msgid "Apply"
+msgstr "Anwenden"
 
-msgid "Category"
-msgstr "Kategorie"
+msgid "New"
+msgstr "Neu"
+
+msgid "Delete Category"
+msgstr "Kategorie löschen"
+
+msgid ""
+"Are you sure you want to delete the category \"{0}\"? Items already assigned "
+"this category won't be affected."
+msgstr ""
+"Möchten Sie wirklich die Kategorie \"{0}\" löschen? Dies hat keinen Einfluss "
+"auf Elemente mit dieser Kategorie."
+
+msgid "Rename Category"
+msgstr "Kategorie umbenennen"
+
+msgid "A category named \""
+msgstr "Eine Kategorie mit dem Namen \""
+
+msgid "Create New Category"
+msgstr "Neue Kategorie erstellen"
+
+msgid "Pin to quick access"
+msgstr "Für schnellen Zugriff anheften"
+
+msgid "Create"
+msgstr "Erstellen"
+
+msgid ""
+"You must apply the changes you have made to the categories before you can "
+"create this category."
+msgstr ""
+"Sie müssen zuerst die Änderungen anwenden bevor Sie die Kategorie speichern "
+"können."
+
+msgid "You already have a category named '{0}'. Please use another name."
+msgstr ""
+"Sie haben bereits eine Kategorie mit dem Namen '{0}'. Bitte verwenden Sie "
+"einen anderen Namen."
+
+msgid ""
+"You already have a category named '{0}' in your pending changes. Please use "
+"another name."
+msgstr ""
+"Sie haben bereits eine Kategorie mit den Namen '{0}' in Ihren ausstehenden "
+"Änderungen. Bitte verwenden Sie einen anderen Namen."
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgid "This is the first time you have used \"{0}\" category."
+msgstr "Dies ist das erste Mal das Sie die Kategorie \"{0}\" benutzen."
+
+msgid "Do you want to rename it?"
+msgstr "Möchten Sie diese umbenennen?"
+
+msgid ""
+"The category \"{0}\" already exists. Do you want to merge the \"{1}\" and "
+"\"{2}\" categories?"
+msgstr ""
+"Die Kategorie \"{0}\" existiert bereits. Möchten Sie die Kategorien \"{1}\" "
+"und \"{2}\" zusammenführen?"
+
+msgid "Merge"
+msgstr "Zusammenführen"
+
+msgid "Remove"
+msgstr "Entfernen"
 
 # 90%
 msgid "Check Names"
@@ -1963,12 +2087,6 @@ msgstr ""
 "Recht in Ihrem Auftrag zu senden zu erteilen, gehen Sie bitte in die "
 "Eigenschaften des jeweiligen Ordners."
 
-msgid "Add"
-msgstr "Hinzufügen"
-
-msgid "Remove"
-msgstr "Entfernen"
-
 # 90%
 msgid "Permission"
 msgstr "Berechtigung"
@@ -1985,9 +2103,6 @@ msgstr "Nachrichten Kopieren/Verschieben"
 msgid "Move"
 msgstr "Verschieben"
 
-msgid "Copy"
-msgstr "Kopieren"
-
 # 90%
 # 100%
 msgid "New folder"
@@ -2003,6 +2118,39 @@ msgstr[1] "Es sind {0} Nachrichten ausgewählt."
 
 msgid "Folder '{0}' selected."
 msgstr "Ordner '{0}' ausgewählt."
+
+msgid "Do not show this message again."
+msgstr "Diese Nachricht nicht wieder anzeigen."
+
+msgid "Tomorrow"
+msgstr "Morgen"
+
+msgid "This week"
+msgstr "Diese Woche"
+
+msgid "Next week"
+msgstr "Nächste Woche"
+
+msgid "No date"
+msgstr "Kein Datum"
+
+msgid "Edit reminder"
+msgstr "Erinnerung bearbeiten"
+
+msgid "Complete"
+msgstr "Erledigt"
+
+msgid "today"
+msgstr "Heute"
+
+msgid "tomorrow"
+msgstr "Morgen"
+
+msgid "this week"
+msgstr "Diese Woche"
+
+msgid "next week"
+msgstr "Nächste Woche"
 
 msgid "Edit recipient"
 msgstr "Empfänger bearbeiten"
@@ -2490,9 +2638,6 @@ msgstr "oder"
 msgid "No rule exists"
 msgstr "Es ist keine Regel angelegt"
 
-msgid "New"
-msgstr "Neu"
-
 msgid "Active"
 msgstr "Aktiv"
 
@@ -2532,23 +2677,24 @@ msgstr "Andere..."
 msgid "Search in.."
 msgstr "Suche in ..."
 
+msgid ""
+"The folder you are searching through no longer exists. Please select another "
+"folder"
+msgstr ""
+"Der Ordner in dem Sie suchen wollen existiert nicht mehr. Bitte wählen Sie "
+"einen anderen"
+
 msgid "Add/Edit sender"
 msgstr "Versender Hinzufügen/Ändern"
 
-# 96%
-# 100%
-msgid "No send as address configured"
-msgstr "Es ist keine \"Senden als\" Adresse eingerichtet"
+msgid "No from addresses configured"
+msgstr "Keine Adresse konfiguriert"
 
-# 96%
-# 100%
-msgid "Loading send as addresses"
-msgstr "Lade \"Senden als\" Adressen"
+msgid "Loading from addresses"
+msgstr "Lade Absenderadressen"
 
-# 96%
-# 100%
-msgid "Please select a send as record."
-msgstr "Bitte wählen Sie einen \"Senden als\" Eintrag."
+msgid "Please select a from address record."
+msgstr "Bitte wählen Sie eine Absenderadresse."
 
 msgid "Here you can setup your alias email addresses."
 msgstr ""
@@ -2572,11 +2718,11 @@ msgstr "Stellvertreter Einstellungen"
 msgid "Rules"
 msgstr "Regeln"
 
-msgid "Send As"
-msgstr "Senden als"
+msgid "From Addresses"
+msgstr "Absenderadressen"
 
-msgid "Send As settings"
-msgstr "\"Senden als\" Einstellungen"
+msgid "From Addresses settings"
+msgstr "Einstellung für Absenderadressen"
 
 msgid "No preview"
 msgstr "Keine Vorschau"
@@ -2641,7 +2787,7 @@ msgid "{0} overdue"
 msgstr "{0} überfällig"
 
 msgid "Loading..."
-msgstr "Laden..."
+msgstr "Laden ..."
 
 msgid "Failed"
 msgstr "Fehlgeschlagen"
@@ -2721,7 +2867,7 @@ msgstr "{0} hat im Auftrag von {1} abgelehnt."
 
 msgctxt "mail.previewpanel"
 msgid "{0} tentatively accepted and proposed a new time for this meeting."
-msgstr "{0} hat unter Vorbehalt akzepziert und eine neue Zeit vorgeschlagen."
+msgstr "{0} hat unter Vorbehalt akzeptiert und eine neue Zeit vorgeschlagen."
 
 msgctxt "mail.previewpanel"
 msgid ""
@@ -2784,6 +2930,14 @@ msgid "Received for {0}."
 msgstr "Empfangen für {0}."
 
 msgctxt "mail.previewpanel"
+msgid "You replied to this message."
+msgstr "Sie haben auf diese Nachricht geantwortet."
+
+msgctxt "mail.previewpanel"
+msgid "You forwarded this message."
+msgstr "SIe haben diese Nachricht weitergeleitet."
+
+msgctxt "mail.previewpanel"
 msgid "You replied to this message on {0}."
 msgstr "Sie haben am {0} auf diese Nachricht geantwortet."
 
@@ -2842,6 +2996,10 @@ msgctxt "mail.previewpanel"
 msgid "Bcc"
 msgstr "BCC"
 
+msgctxt "mail.previewpanel"
+msgid "Categories"
+msgstr "Kategorien"
+
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent
 msgctxt "mail.previewpanel"
 msgid "Recipients"
@@ -2870,6 +3028,12 @@ msgstr "In einem eigenen Fenster öffnen"
 
 msgid "Pop-Out"
 msgstr "Abkoppeln"
+
+msgid "Mark Read"
+msgstr "Als gelesen markieren"
+
+msgid "Mark Unread"
+msgstr "Als ungelesen markieren"
 
 msgid "in"
 msgstr "in"
@@ -3508,7 +3672,7 @@ msgstr "Hoch"
 
 # 75%
 msgid "Canceled"
-msgstr "Abgesagt"
+msgstr "Abgebrochen"
 
 msgid "Blue"
 msgstr "Blau"
@@ -3524,10 +3688,6 @@ msgstr "Weiß"
 
 msgid "Yellow"
 msgstr "Gelb"
-
-# 88%
-msgid "Meeting organiser"
-msgstr "Organisator"
 
 msgid "No response"
 msgstr "Keine Antwort"
@@ -3549,9 +3709,6 @@ msgstr "Nicht begonnen"
 
 msgid "In Progress"
 msgstr "In Bearbeitung"
-
-msgid "Complete"
-msgstr "Erledigt"
 
 msgid "Wait for other person"
 msgstr "Wartet auf jemand anderen"
@@ -3705,9 +3862,6 @@ msgstr[1] "Im Ordner {1} befinden sich {0} ungelesene Nachrichten"
 msgid "New Mail"
 msgstr "Neue E-Mail"
 
-msgid "Favorites"
-msgstr "Favoriten"
-
 # 100%
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
 msgid "{0} in {1}"
@@ -3726,7 +3880,7 @@ msgid "No rights"
 msgstr "Keine Rechte"
 
 msgid "Create New Folder"
-msgstr "Neuen Ordner erstellen"
+msgstr "Einen neuen Ordner erstellen"
 
 msgid "Folder contains"
 msgstr "Ordner enthält"
@@ -3748,9 +3902,6 @@ msgstr "Aufgaben"
 
 msgid "Select where to place the folder"
 msgstr "Ordner soll angelegt werden unter"
-
-msgid "You must specify a name."
-msgstr "Sie müssen einen Namen angeben."
 
 msgid "You must select a destination folder."
 msgstr "Sie müssen einen Zielordner angeben."
@@ -4021,10 +4172,12 @@ msgstr "G:i"
 msgid "Message Options"
 msgstr "Nachrichtenoptionen"
 
-# 96%
-# 100%
-msgid "No send as address configured!"
-msgstr "Keine \"Senden als\" Adresse eingerichtet!"
+msgid "No from addresses configured!"
+msgstr "Keine Absendeadressen konfiguriert!"
+
+msgid "This message will be flagged for follow up when it is sent."
+msgstr ""
+"Diese Nachricht wird beim absenden als zur Nachverfolgung gekennzeichnet."
 
 msgid "Send email"
 msgstr "E-Mail senden"
@@ -4113,9 +4266,6 @@ msgstr "Keine Signaturen konfiguriert"
 msgid "E-Mail Flags"
 msgstr "E-Mail Kategorien"
 
-msgid "Set Flag"
-msgstr "Zur Nachverfolgung markieren"
-
 msgid "Color of Flag"
 msgstr "Farbe der Nachverfolgung"
 
@@ -4149,6 +4299,9 @@ msgstr "E-Mail löschen"
 # 100%
 msgid "Delete this mail."
 msgstr "Diese E-Mail löschen."
+
+msgid "Set Category"
+msgstr "Kategorie setzen"
 
 # 87%
 # 100%
@@ -4326,22 +4479,19 @@ msgstr "Geändert"
 msgid "Sort by: Modified"
 msgstr "Sortieren nach: Geändert"
 
-msgid "Flag Status"
-msgstr "Nachverfolgung"
+msgid "Flag"
+msgstr "Flagge"
 
-msgid "Sort by: Flag Status"
-msgstr "Sortieren nach: Nachverfolgung"
+msgid "Sort by: flag"
+msgstr "Nach Flagge sortieren"
 
 # 95%
 # 100%
 msgid "Forward as Attachment"
 msgstr "Als Anhang weiterleiten"
 
-msgid "Mark Read"
-msgstr "Als gelesen markieren"
-
-msgid "Mark Unread"
-msgstr "Als ungelesen markieren"
+msgid "Follow up"
+msgstr "Nachverfolgung"
 
 msgid "Move to Junk Folder"
 msgstr "In Junk-E-Mail verschieben"
@@ -4370,9 +4520,6 @@ msgstr "Notiz löschen"
 
 msgid "Delete this note"
 msgstr "Notiz löschen"
-
-msgid "Set Category"
-msgstr "Kategorie setzen"
 
 msgid "Print this note"
 msgstr "Diese Notiz drucken"
@@ -4429,54 +4576,6 @@ msgstr "Lade Notizen"
 
 msgid "Loading notes"
 msgstr "Lade Notizen"
-
-msgid "Competition"
-msgstr "Wettbewerb"
-
-msgid "Gifts"
-msgstr "Geschenke"
-
-msgid "Goals/Objectives"
-msgstr "Zeile/Grundsätze"
-
-msgid "Holiday Cards"
-msgstr "Urlaubskarten"
-
-msgid "Hot Contacts"
-msgstr "Häufige Kontakte"
-
-msgid "Ideas"
-msgstr "Ideen"
-
-msgid "International"
-msgstr "International"
-
-msgid "Key Customer"
-msgstr "Key Account"
-
-msgid "Miscellaneous"
-msgstr "Verschiedenes"
-
-msgid "Phone Calls"
-msgstr "Anrufe"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Strategies"
-msgstr "Strategien"
-
-msgid "Suppliers"
-msgstr "Lieferanten"
-
-msgid "Time & Expenses"
-msgstr "Zeit & Ausgaben"
-
-msgid "VIP"
-msgstr "VIP"
-
-msgid "Waiting"
-msgstr "Wartend"
 
 msgid "In order for the changes to take effect, please reload WebApp."
 msgstr "Bitte laden Sie die WebApp neu, um die Änderungen zu übernehmen."
@@ -4573,9 +4672,6 @@ msgstr "Basis-Tastenkombinationen nutzen"
 
 msgid "All keyboard shortcuts on"
 msgstr "Alle Tastenkombinationen nutzen"
-
-msgid "Apply"
-msgstr "Anwenden"
 
 msgid "Discard"
 msgstr "Verwerfen"
@@ -4681,12 +4777,23 @@ msgstr "WebApp"
 msgid "Kopano Core"
 msgstr "Kopano Core"
 
-msgid "Server"
-msgstr "Server"
+msgid "Delete confirmation"
+msgstr "Bestätigung löschen"
+
+msgid "Deleting the item(s) will also delete the original item(s)."
+msgstr ""
+"Wenn Sie diese Elemente löschen werden auch die ursprünglichen Elemente "
+"gelöscht."
+
+msgid "Do you want to delete the item(s)?"
+msgstr "Möchten Sie diese Elemente löschen?"
 
 # 82%
 msgid "Sort by: Priority"
 msgstr "Nach Priorität sortieren"
+
+msgid "Status"
+msgstr "Status"
 
 # 75%
 msgid "Sort by: Status"
@@ -4847,7 +4954,7 @@ msgstr ""
 # 79%
 # 100%
 msgid "Mark this task as private"
-msgstr "Diesen Kontakt als privat markieren"
+msgstr "Diese Aufgabe als privat markieren"
 
 msgid "New task"
 msgstr "Neue Aufgabe"
@@ -4876,25 +4983,11 @@ msgstr "{Ist-Aufwand} Stunden"
 msgid "Open Shared Tasks"
 msgstr "Gemeinsame Aufgaben öffnen"
 
-msgid "Simple Tasks"
-msgstr "Einfache Aufgaben"
+msgid "Simple view"
+msgstr "Einfache Ansicht"
 
-msgid "Active Tasks"
-msgstr "Aktive Aufgaben"
-
-# 80%
-msgid "Next Seven Days"
-msgstr "Die nächsten sieben Tage"
-
-# 92%
-msgid "Overdue Tasks"
-msgstr "Überfällige Aufgaben"
-
-msgid "OverDue Tasks"
-msgstr "Überfällige Aufgaben"
-
-msgid "Completed Tasks"
-msgstr "Erledigte Aufgaben"
+msgid "Detailed view"
+msgstr "Detaillierte Ansicht"
 
 # 92%
 # 100%
@@ -4929,14 +5022,21 @@ msgstr ""
 "Bitte beachten Sie, dass alle von Ihnen gemachten Änderungen überschrieben "
 "werden, wenn der Zuständige die Aufgabe aktualisiert."
 
+msgid "Sort by: Complete"
+msgstr "Sortieren nach: Erledigt"
+
 msgid "Reminder Time"
 msgstr "Erinnerungszeit"
 
 msgid "Sort by: Reminder Time"
 msgstr "Sortieren nach: Erinnerungszeit"
 
-msgid "Sort by: Complete"
-msgstr "Sortieren nach: Erledigt"
+msgid "Assigned To"
+msgstr "Zugewiesen an"
+
+# 70%
+msgid "Sort by: Assignee"
+msgstr "Sortieren nach: Beauftragten"
 
 msgid "Sort by: Start Date"
 msgstr "Sortieren nach: Startdatum"
@@ -4947,35 +5047,6 @@ msgstr "Sortieren nach: Startdatum"
 # 78%
 msgid "Sort by: Owner"
 msgstr "Sortieren nach: Besitzer"
-
-msgid "Sort by: Company"
-msgstr "Sortieren nach: Firma"
-
-# 92%
-msgid "Date Completed"
-msgstr "Erledigt am"
-
-msgid "Sort by: Date Completed"
-msgstr "Sortieren nach: Enddatum"
-
-msgid "Sort by: Total Work"
-msgstr "Sortieren nach: Gesamtaufwand"
-
-msgid "Sort by: Actual Work"
-msgstr "Sortieren nach: Ist-Aufwand"
-
-msgid "Assigned To"
-msgstr "Zugewiesen an"
-
-# 70%
-msgid "Sort by: Assignee"
-msgstr "Sortieren nach: Beauftragten"
-
-msgid "Sort by: Mileage"
-msgstr "Sortieren nach: Reisekilometer"
-
-msgid "Sort by: Billing Information"
-msgstr "Sortieren nach: Rechnungsinformationen"
 
 msgid "Loading tasks"
 msgstr "Lade Aufgaben"
@@ -4996,12 +5067,94 @@ msgstr "Liste aktualisieren"
 msgid "D d-m-Y"
 msgstr "D, d.m.Y"
 
-# 78%
-msgid "You cannot accept the task \""
-msgstr "Sie können die Aufgabe \""
+msgid "Improved categories"
+msgstr "Verbesserte Kategorien"
 
-msgid "\" because it is not assigned to you."
-msgstr "\" nicht akzeptieren, weil sie Ihn nicht zugewiesen ist."
+msgid ""
+"Categories now have a prominent place in your overviews of Mail, Calendar, "
+"Tasks and more."
+msgstr "Kategorien haben nun einen präsenteren Platz in Ihrer Übersicht."
+
+msgid ""
+"Adding a category is easy and can be done from the overview. Move your mouse "
+"over an email to see the \"Add category\" icon and click it, or right-click "
+"an item to open the context menu."
+msgstr ""
+"Es ist besonders einfach von der Übersicht neue Kategorien hinzuzufügen. "
+"Wenn Sie Ihren Mauszeiger über eine Mail bewegen können Sie das \"Kategorie "
+"hinzufügen\" Icon sehen und anklicken. Alternativ können Sie dies auch über "
+"einen Rechtsklick auf das Element erreichen."
+
+msgid "Flag item for follow up"
+msgstr "Element zur Nachverfolgung kennzeichnen"
+
+msgid ""
+"You can now mark email items for follow-up by setting a flag. In the new "
+"flags menu you can select the follow-up date. A reminder will be shown that "
+"day."
+msgstr ""
+"Sie können nun E-Mails zur Nachverfolgung markieren. Im neuen "
+"Nachverfolgungsmenü können Sie das Datum hierfür setzen an dem eine "
+"Erinnerung angezeigt wird."
+
+msgid ""
+"The Tasks context provides a complete overview of your to-do's. All tasks "
+"and flagged emails will be shown in this to-do list."
+msgstr ""
+"Die Aufgaben-Ansicht gibt einen kompletten Überblick über Ihre Aufgaben. "
+"Alle Aufgaben und markierten E-Mails werden in der To-Do-Listen-Ansicht "
+"gezeigt."
+
+msgid "Transformation of flags into follow-ups and categories"
+msgstr ""
+"Änderung von Flaggen in Kennzeichnungen zur Nachverfolgung und Kategorien"
+
+msgid ""
+"Your former flagged items are transformed into items with a color category "
+"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
+"now have a category named \"Blue\"."
+msgstr ""
+"Ihre mit einer Flagge markierten E-Elemente wurden als Elemente mit einer "
+"farbigen Kategorie zur Nachverfolgung ohne Datumsangabe geändert. Zum "
+"Beispiel gehört ein Element mit einer blauen Flagge nun zur Kategorie \""
+"Blau\"."
+
+msgid ""
+" You have the option to rename a color category when you first use it and "
+"all items with this category will get updated."
+msgstr ""
+" Sie haben die Möglichkeit, eine Kategorie einmalig umzubenennen, wenn Sie "
+"diese zum ersten Mal nutzen. Alle mit dieser Kategorie markierten Elemente "
+"werden dann angepasst."
+
+msgid "Search folders"
+msgstr "Suchordner"
+
+msgid ""
+"If there is a search query you use frequently you are in luck! After you "
+"have completed a search you can now save it as a \"search folder\" which "
+"will show up in your favorites! You can then do the same search again with a "
+"single click."
+msgstr ""
+"Sie suchen öfters nach derselben Anfrage? Nachdem Sie diese Suche "
+"erfolgreich ausgeführt haben, können Sie sie als \"Suchordner\" speichern, "
+"der in Ihren Favoriten auftaucht. Damit können Sie diese Suchanfrage ab "
+"sofort mit einem einzelnen Mausklick ausführen."
+
+msgid "What's new"
+msgstr "Neuigkeiten"
+
+msgid "Don't show me new features again."
+msgstr "Neue Funktionen nicht mehr vorstellen."
+
+msgid "Skip"
+msgstr "Überspringen"
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
 
 msgid "The server reported an unknown error on your request."
 msgstr "Der Server hat Ihre Anfrage mit unbekanntem Fehler zurückgewiesen."
@@ -5149,8 +5302,11 @@ msgstr "Kontakt Fax"
 msgid "Configure widget"
 msgstr "Widget konfigurieren"
 
-msgid "Reload interval (s)"
-msgstr "Aktualisierungsintervall (s)"
+msgid "Reload interval"
+msgstr "Aktualisieren nach"
+
+msgid "seconds."
+msgstr "Sekunden."
 
 msgid "No appointments for today."
 msgstr "Heute keine Termine."
@@ -5261,20 +5417,62 @@ msgstr "Minze"
 msgid "Pearl aqua"
 msgstr "Hellblau"
 
-msgid "Sky blue"
-msgstr "Himmelblau"
+msgid "Kopano blue"
+msgstr "Kopanoblau"
 
 msgid "Baby blue"
 msgstr "Babyblau"
-
-msgid "Kopano blue"
-msgstr "Kopanoblau"
 
 msgid "Mauve"
 msgstr "Lila"
 
 msgid "Silver sand"
 msgstr "Silber"
+
+msgid "Competition"
+msgstr "Wettbewerb"
+
+msgid "Gifts"
+msgstr "Geschenke"
+
+msgid "Goals/Objectives"
+msgstr "Zeile/Grundsätze"
+
+msgid "Holiday Cards"
+msgstr "Urlaubskarten"
+
+msgid "Hot Contacts"
+msgstr "Häufige Kontakte"
+
+msgid "Ideas"
+msgstr "Ideen"
+
+msgid "International"
+msgstr "International"
+
+msgid "Key Customer"
+msgstr "Key Account"
+
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+msgid "Phone Calls"
+msgstr "Anrufe"
+
+msgid "Strategies"
+msgstr "Strategien"
+
+msgid "Suppliers"
+msgstr "Lieferanten"
+
+msgid "Time & Expenses"
+msgstr "Zeit & Ausgaben"
+
+msgid "VIP"
+msgstr "VIP"
+
+msgid "Waiting"
+msgstr "Wartend"
 
 msgid "You have been automatically logged out"
 msgstr "Sie wurden automatisch ausgeloggt"
@@ -5304,6 +5502,9 @@ msgstr "Unbekannter Notifier '%s'"
 msgid "An unexpected error has occurred"
 msgstr "Ein unerwarteter Fehler ist aufgetreten"
 
+msgid "To-do list"
+msgstr "To-Do Liste"
+
 #. TRANSLATORS: This indicates that the opened folder belongs to a particular user,
 #. * for example: 'Calendar of Holiday', in this case %1$s is 'Calendar' (the foldername)
 #. * and %2$s is 'Holiday' (the username).
@@ -5317,6 +5518,9 @@ msgstr "Objekteinstellungen sind nicht initialisiert"
 
 msgid "Error retrieving existing settings"
 msgstr "Die Einstellungen konnten nicht empfangen werden"
+
+msgid "Error retrieving existing persistent settings"
+msgstr "Fehler beim Laden der bestehenden Einstellungen"
 
 # 93%
 msgid "Logon failed. Please verify your credentials and try again."
@@ -5333,6 +5537,9 @@ msgstr "Login fehlgeschlagen. Es existiert bereits eine andere Sitzung."
 
 msgid "Unknown MAPI Error"
 msgstr "Unbekannter MAPI Fehler"
+
+msgid "Click the link to open the URL in a new window."
+msgstr "Klicken Sie auf den Link um die URL in einem neuen Fenster zu öffnen."
 
 msgid "This external link will open in a new window"
 msgstr "Der externe Link wird in einem neuen Fenster geöffnet"
@@ -5640,6 +5847,12 @@ msgstr "Der Ordner konnte nicht geleert werden."
 msgid "Could not perform action correctly."
 msgstr "Die Aktion konnte nicht ausgeführt werden."
 
+msgid ""
+"A favorite folder with this name already exists, please use another name."
+msgstr ""
+"Es gibt bereits einen Favoritenordner mit diesem Namen. Bitte wählen Sie "
+"einen anderen Namen."
+
 msgid "Could not add folder to favorites."
 msgstr "Der Ordner konnte den Favoriten nicht hinzugefügt werden."
 
@@ -5687,7 +5900,7 @@ msgstr ""
 
 # 85%
 msgid "unknown"
-msgstr "Unbekannt"
+msgstr "unbekannt"
 
 # 95%
 msgid "Could not move folder"
@@ -5832,6 +6045,24 @@ msgstr "Konnte den Inhalt diesen Ordners nicht laden."
 
 msgid "Error in search, please try again"
 msgstr "Fehler in der Suche, führen Sie die Suche nochmals durch"
+
+msgid "Unable to perform search query, no permissions to create search folder."
+msgstr ""
+"Die Suchanfrage kann nicht ausgeführt werden, da Sie kein Recht zum Anlegen "
+"von Suchordnern haben."
+
+msgid "Unable to perform search query, search folder not found."
+msgstr ""
+"Die Suchanfrage kann nicht ausgeführt werden, da der Suchordner nicht "
+"gefunden wurde."
+
+msgid "Unable to perform search query, store might not support searching."
+msgstr ""
+"Die Suchanfrage kann nicht ausgeführt werden, da das Postfach keine Suchen "
+"erlaubt."
+
+msgid "Error in creating search folder."
+msgstr "Fehler beim Erstellen des Suchordners."
 
 msgid ""
 "You have insufficient privileges to perform search operation in this folder."

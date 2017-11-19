@@ -96,36 +96,18 @@ Zarafa.common.ui.grid.Renderers = {
 	},
 
 	/**
-	 * Render the cell as Flag
+	 * Renders the cell as categories view
 	 *
 	 * @param {Object} value The data value for the cell.
 	 * @param {Object} p An object with metadata
 	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
 	 * @return {String} The formatted string
 	 */
-	flag : function(value, p, record)
+	categories : function(value, p, record)
 	{
-		var flagStatus = Zarafa.core.mapi.FlagStatus.get(record.get('flag_status'));
-
-		// If the record is not a mail, don't show a flag
-		if(!record.isMessageClass(['IPM.Note', 'IPM.Schedule.Meeting', 'REPORT.IPM', 'REPORT.IPM.Note', 'IPM.TaskRequest'], true)) {
-			return '';
-		}
-
-		switch (flagStatus)
-		{
-			case Zarafa.core.mapi.FlagStatus.completed:
-				p.css = 'icon_mail_completed';
-				break;
-			case Zarafa.core.mapi.FlagStatus.flagged:
-				p.css = 'icon_mail_flag_' + Zarafa.core.mapi.FlagIcon.getName(record.get('flag_icon'));
-				break;
-			default:
-				p.css = 'icon_mail_flag';
-				break;
-		}
-
-		return '';
+		// Render the categories
+		var categories = Zarafa.common.categories.Util.getCategories(record);
+		return Zarafa.common.categories.Util.getCategoriesHtml(categories);
 	},
 
 	/**
@@ -310,6 +292,14 @@ Zarafa.common.ui.grid.Renderers = {
 	percentage : function (value, p, record)
 	{
 		p.css = 'task_percentage';
+		if ( isNaN(value) ){
+			// 'value' will not be available as there is no 'complete' property while
+			// rendering this column for mail record, using 'flag_status' instead.
+			if ( record.get('flag_status') === Zarafa.core.mapi.FlagStatus.completed ) {
+				return Ext.util.Format.percentage(1);
+			}
+			return '';
+		}
 		return Ext.util.Format.percentage(value);
 	},
 
@@ -395,6 +385,9 @@ Zarafa.common.ui.grid.Renderers = {
 	durationHours : function(value, p, record)
 	{
 		p.css = 'mail_duration';
+		if ( !Ext.isDefined(value) ){
+			return '';
+		}
 
 		return String.format(ngettext('{0} hour', '{0} hours', value), value);
 	},
@@ -506,6 +499,73 @@ Zarafa.common.ui.grid.Renderers = {
 	responsestatus : function(value, p, record)
 	{
 		return Zarafa.core.mapi.ResponseStatus.getDisplayName(value);
+	},
+
+	/**
+	 * Render the Follow-up Flag Status.
+	 *
+	 * @param {Object} value The data value for the cell.
+	 * @param {Object} p An object with metadata
+	 * @param {Ext.data.record} record The {Ext.data.Record} from which the data was extracted.
+	 * @return {String} The formatted string
+	 */
+	flag : function(value, p, record)
+	{
+		var flagStatus = record.get('flag_status');
+
+		// add extra css class for empty cell
+		p.css += 'zarafa-grid-empty-cell';
+
+		if ( flagStatus === Zarafa.core.mapi.FlagStatus.completed ){
+			p.css += ' icon_flag_complete';
+			return '';
+		}
+
+		if ( !record.isMessageClass('IPM.Task') && flagStatus!==Zarafa.core.mapi.FlagStatus.flagged ){
+			p.css += ' icon_flag';
+			return '<div class="k-followup-flag"></div>';
+		}
+
+		// Now find the color we must show
+		var dueDate = record.get('task_due_date') || record.get('duedate');
+
+		if ( !dueDate ){
+			p.css += ' icon_flag_red';
+			return '';
+		}
+
+		// Since we are interested in days and not in the exact time,
+		// we will set all times to 12am so it will be easy to compare days
+		dueDate.setToNoon();
+		var dueDateTimestamp = dueDate.getTime();
+		var today = new Date().setToNoon();
+		var todayTimestamp = today.getTime();
+
+		// If the due date is today or before today we will show a red flag
+		if ( dueDateTimestamp <= todayTimestamp ){
+			p.css += ' icon_flag_red';
+			return '';
+		}
+
+		// If the due date is tomorrow (timestamp difference will be 24 hours),
+		// we will show a dark orange flag
+		if ( dueDateTimestamp-todayTimestamp === 24*60*60*1000 ){
+			p.css += ' icon_flag_orange_dark';
+			return '';
+		}
+
+		if ( dueDate.inSameWeekAs(today) ){
+			p.css += ' icon_flag_orange';
+			return '';
+		}
+
+		if ( today.inNextWeek(dueDate) ){
+			p.css += ' icon_flag_yellow';
+			return '';
+		}
+
+		p.css += ' icon_flag_red';
+		return '';
 	},
 
 	/**

@@ -25,7 +25,9 @@ Zarafa.calendar.Actions = {
 					if (button != 'ok') {
 						return;
 					}
-
+					if (Ext.isEmpty(record.getStore())) {
+						record = this.getById(record.get('entryid'));
+					}
 					// Convert the record to the requested type
 					if (radio.id !== 'recurrence_series') {
 						record = record.convertToOccurenceRecord();
@@ -34,7 +36,7 @@ Zarafa.calendar.Actions = {
 					}
 
 					Zarafa.core.data.UIFactory.openViewRecord(record, config);
-				});
+				}, record.getStore());
 			} else {
 				Zarafa.core.data.UIFactory.openViewRecord(record, config);
 			}
@@ -316,8 +318,32 @@ Zarafa.calendar.Actions = {
 		var context = container.getContextByFolder(mapiFolderRecord);
 		var model = context.getModel();
 
+		// Load the folder if it is not
+		var foldersToLoad = model.getFolders();
+		var folderEntryid = mapiFolderRecord.get('entryid');
+		var folderIndex = foldersToLoad.indexOf(mapiFolderRecord);
+		if (folderIndex === -1) {
+			foldersToLoad.push(mapiFolderRecord);
+		}
+
+		if (model.default_merge_state && folderIndex !== -1) {
+			// Check if folder is already there in one of the groups, find it.
+			for (var key in model.groupings) {
+				var groupFolders = model.groupings[key].folders;
+				if(groupFolders.indexOf(folderEntryid) > -1) {
+					// Respective group found, Make it active
+					model.active_group = key;
+					model.groupings[key].active = folderEntryid;
+				}
+			}
+		} else {
+			// Create a new group, add it to groupings as an active one
+			model.active_group = Ext.id(null, 'group-');
+			model.groupings[model.active_group] = { folders : [ folderEntryid ], active : folderEntryid };
+		}
+
 		// Enable the context, but keep is suspended to prevent loading data
-		container.switchContext(context, mapiFolderRecord, true);
+		container.switchContext(context, foldersToLoad, true);
 
 		// define which view to load
 		context.switchView(Zarafa.calendar.data.Views.BLOCKS, Zarafa.calendar.data.ViewModes.DAYS);
@@ -327,8 +353,51 @@ Zarafa.calendar.Actions = {
 		model.setDataMode(Zarafa.calendar.data.DataModes.DAY);
 		model.setDate(appointmentDate);
 
+		// Select the appointment
+		model.setSelectedRecords([record.convertToAppointmentRecord()]);
+
 		// We are done initializing the context & model.
 		// Time to start loading
 		model.resumeLoading();
+	},
+
+	/**
+	 * Function which show the {@link Zarafa.common.dialogs.MessageBox.select selectMessageBox} dialog
+	 * if selected record is recurring items and based on selected option record is converted to either
+	 * {@link Zarafa.calendar.AppointmentRecord.convertToSeriesRecord seriesRecord} or
+	 * {@link Zarafa.calendar.AppointmentRecord.convertToOccurenceRecord OccurenceRecord}. Also it will open
+	 * the record if it is not.
+	 *
+	 * @param {Zarafa.core.data.IPMRecord} record A selected calender item in calender view.
+	 * @param {Object} config Configuration object which contains {@link Ext.Component component}
+	 * on which key event is fired and scope of the {@link Zarafa.calendar.KeyMapping KeyMapping} object.
+	 */
+	copyRecurringItemContent : function(record, config)
+	{
+		Zarafa.common.Actions.copyRecurringSelectionContent(record, function(button, radio) {
+			// Action cancelled.
+			if (button === 'cancel') {
+				return;
+			}
+
+			var clipBoardRecord = '';
+			// Convert the record to the requested type
+			if (radio.id !== 'recurrence_series') {
+				clipBoardRecord = record.convertToOccurenceRecord();
+			} else {
+				clipBoardRecord = record.convertToSeriesRecord();
+			}
+
+			// Open record if record is not opened. we need to open record
+			// because we requires "body", "recurrence_*" property information to
+			// create proper normal/recurring record with proper recurring pattern .
+			if(!record.isOpened()) {
+				this.openRecord(config.component, clipBoardRecord);
+			} else {
+				config.component.clipBoardData = clipBoardRecord;
+				config.component.doPaste();
+			}
+
+		}, config.scope);
 	}
 };

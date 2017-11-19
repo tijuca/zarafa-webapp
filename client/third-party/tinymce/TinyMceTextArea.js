@@ -210,7 +210,7 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 		var ed = browserWindow.tinymce.get(me.getInputId());
 
 		// if the editor is not available at all than simply return.
-		if(!ed){
+		if(!ed || !ed.iframeElement){
 			return;
 		}
 
@@ -258,7 +258,9 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 		if (ed){
 			// if editor is created but not initialized then reschedule the function call on init event.
 			if(!ed.initialized){
-				ed.on("init", function() { me.withEd(func); }, me);
+				this.on("initialized", function() {
+					me.withEd(func);
+				}, me);
 			} else if(ed.initialized){
 				me.editor = ed;
 				func.call(me);
@@ -442,130 +444,6 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 	},
 
 	/**
-	 * Returns true/false if the editor is hidden or not.
-	 * @return {Boolean} the hidden state of an editor.
-	 */
-	isEditorHidden: function()
-	{
-		var me = this;
-
-		if (!me.wysiwygIntialized) {
-			return true;
-		}
-
-		var ed = me.getEditor();
-		if (!ed) {
-			return true;
-		}
-
-		return ed.isHidden();
-	},
-
-	/**
-	 * Shows the editor and call {@link #initEditor} method if the editor is not initialized.
-	 */
-	showEditor: function()
-	{
-		var me = this;
-
-		me.storedCursorPosition = null;
-
-		if (!me.wysiwygIntialized) {
-			me.noWysiwyg = false;
-			me.initEditor();
-			return;
-		}
-
-		var ed = me.getEditor();
-		if (!ed) {
-			return;
-		}
-
-		ed.show();
-
-		ed.nodeChanged();
-
-		if (me.lastHeight) {
-			me.syncEditorHeight(me.lastHeight);
-		}
-	},
-
-	/**
-	 * Hides the editor.
-	 */
-	hideEditor: function()
-	{
-		var me = this;
-
-		if (!me.wysiwygIntialized) {
-			return;
-		}
-
-		var ed = me.getEditor();
-		if (!ed) {
-			return;
-		}
-
-		var node = ed.selection.getNode();
-
-		if (!node || node.nodeName === "#document" || node.nodeName === "BODY" || node.nodeName === "body") {
-			ed.hide();
-
-			return;
-		}
-
-		// otherwise try to position the cursor
-
-		var marker = '<a id="_____sys__11223___"></a>';
-		ed.selection.collapse(true);
-		ed.execCommand('mceInsertContent', 0, marker);
-
-		ed.hide();
-
-		var ctrl = document.getElementById(me.getInputId());
-
-		var pos = -1;
-		var txt = "";
-
-		if (ctrl) {
-			txt = ctrl.value;
-			pos = txt.indexOf(marker);
-		}
-
-		if (pos !== -1) {
-			var re = new RegExp(marker, "g");
-			txt = txt.replace(re, "");
-			ctrl.value = txt;
-
-			if (ctrl.setSelectionRange) {
-				ctrl.focus();
-				ctrl.setSelectionRange(pos, pos);
-			}
-		}
-	},
-
-	/**
-	 * Shows/Hides the editor, will call {@link #hideEditor} or {@link #showEditor}.
-	 */
-	toggleEditor: function()
-	{
-		var me = this;
-
-		if (!me.wysiwygIntialized) {
-			me.showEditor();
-			return;
-		}
-
-		var ed = me.getEditor();
-
-		if (ed.isHidden()) {
-			me.showEditor();
-		} else {
-			me.hideEditor();
-		}
-	},
-
-	/**
 	 * Destroys the editor instance by removing all events, element references.
 	 * @return {Object} me the current scope or container instance.
 	 */
@@ -736,11 +614,15 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 
 		var ed = me.getEditor();
 
-		if (ed && !ed.isHidden()) {
+		if (ed && !ed.isHidden() && ed.initialized) {
 			Ext.ux.form.TinyMCETextArea.superclass.focus.call(this, arguments);
 
 			ed.focus();
 		} else {
+			this.withEd(function () {
+				ed.focus();
+			});
+
 			return Ext.ux.form.TinyMCETextArea.superclass.focus.call(this, arguments);
 		}
 
@@ -783,11 +665,11 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 			return result;
 		}
 
-		var ed = me.getEditor();
-		if(ed) {
+		me.withEd(function () {
+			var ed = me.getEditor();
 			ed.theme.panel.find('*').disabled(true);
 			this.getEditorBody().setAttribute('contenteditable', false);
-		}
+		});
 
 		return me;
 	},
@@ -803,18 +685,13 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 		Ext.ux.form.TinyMCETextArea.superclass.hide.call(this, arguments);
 
 		var ed = me.getEditor();
-		if(ed){
+		if (ed && ed.iframeElement) {
 			ed.hide();
 		} else {
-			// There are multiple tinymce editors loaded in multiple browser windows,
-			// Use global object of currently active window to register AddEditor event.
-			var editorGlobalInstance = me.getEditorOwnerWindow().tinymce;
-			editorGlobalInstance.EditorManager.on("AddEditor", function() {
-				me.withEd(function() {
-					var ed = me.getEditor();
-					ed.hide();
-				});
-			}, this);
+			me.withEd(function () {
+				var ed = me.getEditor();
+				ed.hide();
+			});
 		}
 
 		return me;
@@ -836,99 +713,6 @@ Ext.ux.form.TinyMCETextArea = Ext.extend(Ext.form.TextArea, {
 		}
 
 		return me;
-	},
-
-	/**
-	 * Keep bookmark location for the current selection in a class property named into {@link #storedCursorPosition}.
-	 * which can be used to restore the selection after some content modification to the document.
-	 */
-	storeCurrentSelection: function()
-	{
-		var me = this;
-
-		var wwg_mode = false;
-
-		var ed = me.getEditor();
-
-		if (me.wysiwygIntialized) {
-			if (ed && !ed.isHidden()) {
-				wwg_mode = true;
-			}
-		}
-
-		var ctrl = document.getElementById(me.getInputId());
-
-		if (wwg_mode) {
-			me.storedCursorPosition = ed.selection.getBookmark('simple');
-		} else if (ctrl) {
-			me.storedCursorPosition = me.positionBeforeBlur;
-		}
-	},
-
-	/**
-	 * Restores the selection to the specified bookmark stored into {@link #storedCursorPosition} property.
-	 */
-	restoreCurrentSelection: function()
-	{
-		var me = this;
-
-		if (!me.storedCursorPosition) {
-			return;
-		}
-
-		var wwg_mode = false;
-
-		var ed = me.getEditor();
-
-		if (me.wysiwygIntialized) {
-			if (ed && !ed.isHidden()) {
-				wwg_mode = true;
-			}
-		}
-
-		var ctrl = document.getElementById(me.getInputId());
-
-		if (wwg_mode) {
-			ed.selection.moveToBookmark(me.storedCursorPosition);
-		} else if (ctrl) {
-			ctrl.setSelectionRange(me.storedCursorPosition.start, me.storedCursorPosition.end);
-		}
-	},
-
-	/**
-	 * Insert text at the cursor position by executing 'mceInsertContent' tinymce command
-	 * if the editor is initialized and not hidden. Otherwise, it will get the size of
-	 * existing content up till the cursor position of the editor and append the text.
-	 * @param {String} txt the text which needs to be inserted
-	 */
-	insertText: function(txt)
-	{
-		var me = this;
-
-		var wwg_mode = false;
-
-		var ed = me.getEditor();
-
-		if (me.wysiwygIntialized) {
-			if (ed && !ed.isHidden()) {
-				wwg_mode = true;
-			}
-		}
-
-		var ctrl = document.getElementById(me.getInputId());
-
-		if (wwg_mode) {
-			ed.focus();
-			ed.execCommand('mceInsertContent', 0, txt);
-		} else if (ctrl) {
-			ctrl.focus();
-
-			var start = ctrl.selectionStart + txt.length;
-
-			ctrl.value = ctrl.value.slice(0, ctrl.selectionStart) + txt + ctrl.value.slice(ctrl.selectionEnd);
-
-			ctrl.setSelectionRange(start, start);
-		}
 	}
 });
 Ext.reg('zarafa.tinymcetextarea', Ext.ux.form.TinyMCETextArea);

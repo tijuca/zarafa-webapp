@@ -232,6 +232,7 @@
 
 			$this->searchFolderList = true; // Set to indicate this is not the normal folder, but a search folder
 			$this->restriction = false;
+			$searchInTodoList = $GLOBALS['entryid']->compareEntryIds(bin2hex($entryid), bin2hex(TodoList::getEntryId()));
 
 			// Parse Restriction
 			$this->parseRestriction($action);
@@ -244,24 +245,57 @@
 				return $this->sendSearchErrorToClient($store, $entryid, $action, $errorInfo);
 			}
 
+			if ( $searchInTodoList ){
+				// Since we cannot search in a search folder, we will combine the search restriction
+				// with the search restriction of the to-do list to mimic searching in the To-do list
+				$this->restriction = array(
+		            RES_AND,
+					array(
+						$this->restriction,
+						TodoList::_createRestriction()
+					)
+				);
+
+				// When searching in the To-do list we will actually always search in the IPM subtree, so
+				// set the entryid to that.
+		        $userStore = WebAppAuthentication::getMapiSession()->getDefaultMessageStore();
+		        $root = mapi_msgstore_openentry($userStore, null);
+		        $props = mapi_getprops($userStore, array(PR_IPM_SUBTREE_ENTRYID));
+		        $entryid = $props[PR_IPM_SUBTREE_ENTRYID];
+			}
+
 			$isSetSearchFolderEntryId = isset($action['search_folder_entryid']);
 			if($isSetSearchFolderEntryId) {
 				$this->sessionData['searchFolderEntryId'] = $action['search_folder_entryid'];
 			}
 
+			if (isset($action['forceCreateSearchFolder']) && $action['forceCreateSearchFolder']) {
+				$isSetSearchFolderEntryId = false;
+			}
+
 			// create or open search folder
 			$searchFolder = $this->createSearchFolder($store, $isSetSearchFolderEntryId);
-			if($searchFolder === false) {
+			if ($searchFolder === false) {
 				// if error in creating search folder then send error to client
 				$errorInfo = array();
-				$errorInfo["error_message"] = _("Error in search, please try again") . ".";
-				$errorInfo["original_error_message"] = "Error in creating search folder.";
+				switch(mapi_last_hresult()) {
+				case MAPI_E_NO_ACCESS:
+					$errorInfo["error_message"] = _("Unable to perform search query, no permissions to create search folder.");
+					break;
+				case MAPI_E_NOT_FOUND:
+					$errorInfo["error_message"] = _("Unable to perform search query, search folder not found.");
+					break;
+				default:
+					$errorInfo["error_message"] = _("Unable to perform search query, store might not support searching.");
+				}
+
+				$errorInfo["original_error_message"] = _("Error in creating search folder.");
 
 				return $this->sendSearchErrorToClient($store, $entryid, $action, $errorInfo);
 			}
 
 			$subfolder_flag = 0;
-			if(isset($action["subfolders"]) && $action["subfolders"] == "true") {
+			if ($searchInTodoList || (isset($action["subfolders"]) && $action["subfolders"] == "true")) {
 				$subfolder_flag = RECURSIVE_SEARCH;
 			}
 
@@ -354,6 +388,7 @@
 
 			$data["search_meta"] = array();
 			$data["search_meta"]["searchfolder_entryid"] = $searchFolderEntryId;
+			$data["search_meta"]["search_store_entryid"] = $action["store_entryid"];
 			$data["search_meta"]["searchstate"] = $result["searchstate"];
 			$data["search_meta"]["results"] = count($searchResults);
 
@@ -457,6 +492,7 @@
 			$data = array();
 			$data["search_meta"] = array();
 			$data["search_meta"]["searchfolder_entryid"] = $entryid;
+			$data["search_meta"]["search_store_entryid"] = $action["store_entryid"];
 			$data["search_meta"]["searchstate"] = $searchState;
 			$data["search_meta"]["results"] = $numberOfResults;		// actual number of items that we are sending to client
 
@@ -576,8 +612,8 @@
 		 *	Function will create a search folder in FINDER_ROOT folder
 		 *	if folder exists then it will open it
 		 *	@param		object				$store			MAPI Message Store Object
-		 *	@param		boolean				$openIfExists	open if folder exists
-		 *	@return		mapiFolderObject	$folder			created search folder
+		 *	@param		boolean				$openIfExists		open if folder exists
+		 *	@return		resource|boolean		$folder			created search folder
 		 */
 		function createSearchFolder($store, $openIfExists = true)
 		{
@@ -626,31 +662,27 @@
 		/**
 		 *	Function will open FINDER_ROOT folder in root container
 		 *	public folder's don't have FINDER_ROOT folder
-		 *	@param		object				$store		MAPI message store object
-		 *	@return		mapiFolderObject	root		folder for search folders
+		 *	@param		object			store MAPI message store object
+		 *	@return		resource|boolean	finder root folder for search folders
 		 */
 		function getSearchFoldersRoot($store)
 		{
-			$searchRootFolder = true;
+			$searchRootFolder = false;
 
 			// check if we can create search folders
-			$storeProps = mapi_getprops($store, array(PR_STORE_SUPPORT_MASK, PR_FINDER_ENTRYID));
-			if(($storeProps[PR_STORE_SUPPORT_MASK] & STORE_SEARCH_OK) != STORE_SEARCH_OK) {
-				// store doesn't support search folders
-				// public store don't have FINDER_ROOT folder
-				$searchRootFolder = false;
+			$storeProps = mapi_getprops($store, array(PR_STORE_SUPPORT_MASK, PR_FINDER_ENTRYID, PR_DISPLAY_NAME));
+			if (($storeProps[PR_STORE_SUPPORT_MASK] & STORE_SEARCH_OK) !== STORE_SEARCH_OK) {
+				// store doesn't support search folders, public store don't have FINDER_ROOT folder
+				return false;
 			}
 
-			if($searchRootFolder) {
-				// open search folders root
-				try {
-					$searchRootFolder = mapi_msgstore_openentry($store, $storeProps[PR_FINDER_ENTRYID]);
-				} catch (MAPIException $e) {
-					$searchRootFolder = false;
-
-					// don't propogate the event to higher level exception handlers
-					$e->setHandled();
-				}
+			try {
+				$searchRootFolder = mapi_msgstore_openentry($store, $storeProps[PR_FINDER_ENTRYID]);
+			} catch (MAPIException $e) {
+				$msg ="Unable to open FINDER_ROOT for store: %s. Run kopano-search-upgrade-findroots.py to resolve the permission issue";
+				error_log(sprintf($msg, $storeProps[PR_DISPLAY_NAME]));
+				// don't propogate the event to higher level exception handlers
+				$e->setHandled();
 			}
 
 			return $searchRootFolder;
@@ -684,7 +716,7 @@
 		 */
 		function parseRestriction($action)
 		{
-			if(isset($action["restriction"])) {
+			if (isset($action["restriction"]) && is_array($action['restriction'])) {
 				if(isset($action["restriction"]["start"])) {
 					// Set start variable
 					$this->start = $action["restriction"]["start"];

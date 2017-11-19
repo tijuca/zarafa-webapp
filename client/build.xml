@@ -1,8 +1,8 @@
 <project default="all">
 
 	<property name="root-folder" value="${basedir}/.."/>
-	<property name="target-folder" value="${root-folder}/deploy/client/"/>
-	<property name="tools-folder" value="${root-folder}/tools/"/>
+	<property name="target-folder" value="${root-folder}/deploy/client"/>
+	<property name="tools-folder" value="${root-folder}/tools"/>
 	<property name="doc-folder" value="${root-folder}/doc/client"/>
 
 	<import file="${tools-folder}/antutil.xml"/>
@@ -19,6 +19,7 @@
 	<property name="extjs-base-file" value="ext-base.js"/>
 	<property name="extjs-all-debugfile" value="ext-all-debug.js"/>
 	<property name="extjs-all-file" value="ext-all.js"/>
+	<property name="extjs-base-all-file" value="ext-base-all.js"/>
 
 	<!-- The Ext-Ux distribution files -->
 	<property name="ux-folder" value="extjs/ux"/>
@@ -48,6 +49,11 @@
 	<property name="fingerprint-folder" value=""/>
 	<property name="fingerprint-debugfile" value="fingerprint-debug.js"/>
 	<property name="fingerprint-file" value="fingerprint.js"/>
+
+	<!-- The resize script -->
+	<property name="resize-folder" value=""/>
+	<property name="resize-debugfile" value="resize-debug.js"/>
+	<property name="resize-file" value="resize.js"/>
 
 	<!-- Third-party plugins CSS files -->
 	<property name="thirdparty-css-folder" value="${thirdparty-folder}/resources/css"/>
@@ -110,6 +116,11 @@
                 <include name="${fingerprint-file}"/>
             </fileset>
 
+            <!-- Delete the resize script -->
+            <fileset dir="${target-folder}/${resize-folder}">
+                <include name="${resize-file}"/>
+            </fileset>
+
 			<!-- Delete the Extjs-mod files -->
 			<fileset dir="${target-folder}/${extjs-mod-folder}">
 				<include name="${extjs-mod-debugfile}"/>
@@ -133,14 +144,20 @@
 
 	<!-- Prepare build, copy ExtJs files to target folder -->
 	<target name="prepare">
-		<mkdir dir="${target-folder}"/>
 		<!-- Copy files which will not be compiled, but are needed for compilation of the other components -->
+		<mkdir dir="${target-folder}/${extjs-folder}"/>
+		<!-- Concatenate small files so we have to load less files -->
+		<concat destfile="${target-folder}/${extjs-folder}/${extjs-base-all-file}">
+			<filelist dir="${extjs-folder}">
+				<file name="${extjs-base-file}"/>
+				<file name="${extjs-all-file}"/>
+			</filelist>
+		</concat>
+
 		<copy todir="${target-folder}/${extjs-folder}">
 			<fileset dir="${extjs-folder}">
 				<include name="${extjs-base-debugfile}"/>
-				<include name="${extjs-base-file}"/>
 				<include name="${extjs-all-debugfile}"/>
-				<include name="${extjs-all-file}"/>
 			</fileset>
 		</copy>
 		<copy todir="${target-folder}/${ux-folder}">
@@ -150,6 +167,7 @@
 			</fileset>
 		</copy>
         <copy file="${fingerprint-file}" tofile="${target-folder}/${fingerprint-folder}/${fingerprint-debugfile}"></copy>
+        <copy file="${resize-file}" tofile="${target-folder}/${resize-folder}/${resize-debugfile}"></copy>
         <copy todir="${target-folder}/${tinymce-folder}">
             <fileset dir="${tinymce-folder}">
                 <include name="**/*.*"/>
@@ -259,6 +277,12 @@
 			</externs>
 		</zCompile>
 
+		<echo message="Compiling: ${resize-file}" />
+		<zCompile inputFolder="${target-folder}/${resize-folder}" inputFile="${resize-debugfile}" outputFolder="${target-folder}/${resize-folder}" outputFile="${resize-file}" warningLevel="default">
+			<externs>
+			</externs>
+		</zCompile>
+
 		<echo message="Compiling: ${thirdparty-file}" />
 		<zCompile inputFolder="${target-folder}/${thirdparty-folder}" inputFile="${thirdparty-debugfile}" outputFolder="${target-folder}/${thirdparty-folder}" outputFile="${thirdparty-file}" warningLevel="default">
 			<externs>
@@ -290,7 +314,7 @@
 				var ngettext = function(msgid, msgid_plural, count) {};
 				var npgettext = function(msgctxt, msgid, msgid_plural, count) {};
 				var pgettext = function(msgctxt, msgid) {};
-				var onResize = function() {};
+				var resizeLoginBox = function() {};
 			</externs>
 		</zCompile>
 	</target>

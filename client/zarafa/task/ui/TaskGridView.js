@@ -38,7 +38,7 @@ Zarafa.task.ui.TaskGridView = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, 
 			loadMask : this.initLoadMask(),
 			viewConfig : this.initViewConfig(),
 			selModel : this.initSelectionModel(),
-			colModel : this.initColumnModel(),
+			colModel : this.initColumnModel(config.model),
 			enableDragDrop : true,
 			ddGroup : 'dd.mapiitem'
 		});
@@ -72,12 +72,14 @@ Zarafa.task.ui.TaskGridView = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, 
 
 	/**
 	 * creates and returns a column model object, used in {@link Ext.grid.EditorGridPanel.colModel colModel} config
+	 *
+	 * @param {Zarafa.task.TaskContextModel} model The {@link Zarafa.task.TaskContextModel}.
 	 * @return {Ext.grid.ColumnModel} column model object
 	 * @private
 	 */
-	initColumnModel : function()
+	initColumnModel : function(model)
 	{
-		return new Zarafa.task.ui.TaskGridColumnModel();
+		return new Zarafa.task.ui.TaskGridColumnModel({model : model});
 	},
 
 	/**
@@ -105,11 +107,19 @@ Zarafa.task.ui.TaskGridView = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, 
 		Zarafa.task.ui.TaskGridView.superclass.initEvents.call(this);
 
 		this.on({
-			'cellcontextmenu': this.onCellContextMenu,
 			'rowdblclick': this.onRowDblClick,
-			'rowbodycontextmenu': this.onRowBodyContextMenu,
 			scope: this
 		});
+
+		this.mon(this.context, 'viewmodechange', this.onContextViewModeChange, this);
+
+		// Call the handler manually as task-context-object isn't initialized yet,
+		// while switching to task context for the first time.
+		this.onContextViewModeChange(this.context, this.context.getCurrentViewMode());
+
+		// Add an event handler that will reload the store when the flag status of
+		// a record has been changed
+		this.mon(this.getStore(), 'update', this.onStoreUpdate, this);
 	},
 
 	/**
@@ -125,69 +135,22 @@ Zarafa.task.ui.TaskGridView = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, 
 	},
 
 	/**
-	 * Event handler which is triggered when user opens context menu
-	 * @param {Ext.grid.GridPanel} grid grid panel object
-	 * @param {Number} rowIndex	index of row
-	 * @param {Ext.EventObject} eventObj eventObj object of the event
+	 * Event handler for the update event of the store of the grid. Will reload the store (and thus update
+	 * the view) when  the flag status of a record has been changed.
+	 * @param  {Zarafa.core.data.IPMStore} store The store with the data that is being displayed in the grid
+	 * @param  {Zarafa.core.data.IPMRecord} record The Record that was updated
 	 * @private
 	 */
-	onRowBodyContextMenu : function(grid, rowIndex, eventObj)
+	onStoreUpdate : function(store, record)
 	{
-		// check row is already selected or not, if its not selected then select it first
-		var selectionModel = this.getSelectionModel();
-		if (!selectionModel.isSelected(rowIndex)) {
-			selectionModel.selectRow(rowIndex);
+		var todoListEntryId = container.getHierarchyStore().getDefaultFolder('todolist').get('entryid');
+		if ( !Zarafa.core.EntryId.compareEntryIds(todoListEntryId, store.entryId) ){
+			// Only reload when watching the To-do list
+			return;
 		}
 
-		Zarafa.core.data.UIFactory.openDefaultContextMenu(selectionModel.getSelections(), { position : eventObj.getXY() });
-	},
-
-	/**
-	 * Event handler which is triggered when the user opems the context menu.
-	 *
-	 * There are some selection rules regarding the context menu. If no rows where
-	 * selected, the row on which the context menu was requested will be marked
-	 * as selected. If there have been rows selected, but the context menu was
-	 * requested on a different row, then the old selection is lost, and the new
-	 * row will be selected. If the row on which the context menu was selected is
-	 * part of the previously selected rows, then the context menu will be applied
-	 * to all selected rows.
-	 *
-	 * @param {Zarafa.task.ui.TaskGridView} grid The grid which was right clicked
-	 * @param {Number} rowIndex The index number of the row which was right clicked
-	 * @param {Number} cellIndex The index number of the column which was right clicked
-	 * @param {Ext.EventObject} event The event structure
-	 * @private
-	 */
-	onCellContextMenu : function(grid, rowIndex, cellIndex, event)
-	{
-		var sm = this.getSelectionModel();
-		var cm = this.getColumnModel();
-
-		if (sm.hasSelection()) {
-			// Some records were selected...
-			if (!sm.isSelected(rowIndex)) {
-				// But none of them was the record on which the
-				// context menu was invoked. Reset selection.
-				sm.clearSelections();
-				sm.selectRow(rowIndex);
-			}
-		} else {
-			// No records were selected,
-			// select row on which context menu was invoked
-			sm.selectRow(rowIndex);
-		}
-
-		var column = cm.getColumnById(cm.getColumnId(cellIndex));
-		var records = sm.getSelections();
-
-		switch (column.dataIndex) {
-		case 'importance':
-			Zarafa.core.data.UIFactory.openContextMenu(Zarafa.core.data.SharedComponentType['common.contextmenu.importance'], records, { position : event.getXY() });
-			break;
-		default:
-			Zarafa.core.data.UIFactory.openDefaultContextMenu(records, { position : event.getXY() });
-			break;
+		if ( record.modified && (record.isModified('flag_due_by') || record.isModified('flag_request')) ){
+			store.reload();
 		}
 	},
 
@@ -221,19 +184,52 @@ Zarafa.task.ui.TaskGridView = Ext.extend(Zarafa.common.ui.grid.MapiMessageGrid, 
 	viewConfigGetRowClass : function(record, rowIndex, rowParams, store)
 	{
 		var cssClass = '';
+		var complete;
+		var duedate;
 
-		var task_complete = record.get('complete');
-		var task_duedate = record.get('duedate');
+		// For TaskRecords we will use the complete and duedate fields to style it. For
+		// other records (in the Todo-list) we will use the flag fields.
+		if ( record instanceof Zarafa.task.TaskRecord ){
+			complete = record.get('complete');
+			duedate = record.get('duedate');
+		} else {
+			complete = record.get('flag_status') === Zarafa.core.mapi.FlagStatus.completed;
+			duedate = record.get('flag_due_by');
+		}
 
-		if (Ext.isDate(task_duedate) && task_duedate.getTime() < new Date().getTime()) {
+		if (Ext.isDate(duedate) && duedate.getTime() < new Date().getTime()) {
 			cssClass += 'zarafa-task-overdue ';
 		}
 
-		if (task_complete) {
+		if (complete) {
 			cssClass += 'zarafa-task-complete ';
 		}
 
 		return cssClass;
+	},
+
+	/**
+	 * Event handler which is fired when the {@link Zarafa.core.Context} fires the
+	 * {@link Zarafa.core.Context#viewmodechange viewmodechange} event.
+	 * This will check the selected mode, and if needed change the
+	 * {@link Ext.grid.Column columns} inside the {@link Ext.grid.ColumnModel ColumnModel}
+	 * of this grid. Either use the simple set or the detailed set.
+	 *
+	 * @param {Zarafa.core.Context} context The context which fired the event
+	 * @param {Zarafa.mail.data.ViewModes} newViewMode The new active mode
+	 * @param {Zarafa.mail.data.ViewModes} oldViewMode The previous mode
+	 * @private
+	 */
+	onContextViewModeChange : function(context, newViewMode, oldViewMode)
+	{
+		switch(newViewMode){
+			case Zarafa.task.data.ViewModes.SIMPLE :
+				this.getColumnModel().setSimpleView(true);
+				break;
+			case Zarafa.task.data.ViewModes.DETAILED :
+				this.getColumnModel().setSimpleView(false);
+				break;
+		}
 	}
 });
 

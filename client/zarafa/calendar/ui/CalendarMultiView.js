@@ -349,52 +349,19 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 	},
 
 	/**
-	 * Obtain the singleton instance of the {@link Zarafa.calendar.ui.canvas.ToolTip Tooltip}.
-	 * @return {Zarafa.calendar.ui.canvas.ToolTip} The tooltip
+	 * Obtain the singleton instance of the {@link Zarafa.calendar.ui.ToolTip Tooltip}.
+	 * @return {Zarafa.calendar.ui.ToolTip} The tooltip
 	 */
 	getTooltipInstance : function()
 	{
 		if (!this.tooltip) {
-			this.tooltip = new Zarafa.calendar.ui.canvas.ToolTip({
-				container : this.container
+			this.tooltip = new Zarafa.calendar.ui.ToolTip({
+				target: this.el,
+				view: this
 			});
-
-			this.tooltip.on('tooltipmousemove', this.onTooltipMouseMove, this);
 		}
 
 		return this.tooltip;
-	},
-
-	/**
-	 * Event handler for the {@link Zarafa.calendar.ui.canvas.ToolTip#tooltipmousemove MouseMove}
-	 * event on the {@link #tooltip}. This will search for the {@link Zarafa.calendar.ui.AbstractCalendarView calendar}
-	 * over which the mouse is moving, and will delegate the event to that calendar.
-	 * @param {Zarafa.calendar.ui.canvas.ToolTip} tooltip The tooltip which fired the event
-	 * @param {Ext.EventObject} event The event object
-	 * @private
-	 */
-	onTooltipMouseMove : function(tooltip, event)
-	{
-		for (var i = 0; i < this.calendars.length; i++) {
-			var calendar = this.calendars[i];
-
-			// We don't have a proper box model for an individual calendar,
-			// so we have to piece everything together..
-			// The x & y coordinates, as well as the header always come from the header.
-			// the height depends on the scrollable container.
-			var header = calendar.getCalendarHeader();
-			var box = {
-				x : header.getX(),
-				y : header.getY(),
-				width : header.getWidth(),
-				height: this.scrollable.getHeight()
-			};
-
-			if (Zarafa.core.Util.inside(box, event.getPageX(), event.getPageY())) {
-				calendar.onMouseMove(event);
-				break;
-			}
-		}
 	},
 
 	/**
@@ -823,9 +790,10 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 
 	/**
 	 * Positions the DOM elements that make up the four separate areas of the view (tab, header, scrollable (body), bottom).
+	 * @param {Boolean} skipResizingScrollPosition True will skip resizing scrollbar position.
 	 * @private
 	 */
-	resizeAreas : function()
+	resizeAreas : function(skipResizingScrollPosition)
 	{
 		var tabHeight = this.getTabHeight();
 
@@ -858,7 +826,7 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 		// so divide by 60 to get the number of hours. We don't need to
 		// round the value because that way we can support having time
 		// which is not an entire hour (9:30 for example).
-		if (this.showTimeStrips) {
+		if (this.showTimeStrips && !skipResizingScrollPosition) {
 			var targetScrollHeight = (this.firstWorkingHour / 60) * this.getHourHeight();
 			this.scrollable.scrollTo('top', targetScrollHeight);
 		}
@@ -1262,10 +1230,6 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 		for (var i = 0, len = this.calendars.length; i < len; i++) {
 			this.calendars[i].onAppointmentAdd(store, record, operation);
 		}
-
-		if (Date.diff(Date.DAY, record.get('duedate'), record.get('startdate')) >= 1) {
-			this.resizeAreas();
-		}
 	},
 
 	/**
@@ -1289,8 +1253,9 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 			this.calendars[i].onAppointmentRemove(store, record, operation);
 		}
 
-		if (Date.diff(Date.DAY, record.get('duedate'), record.get('startdate')) >= 1) {
-			this.resizeAreas();
+		// Resize calendar view after removing record.
+		if (record.get('alldayevent') === true && Date.diff(Date.DAY, record.get('duedate'), record.get('startdate')) >= 1) {
+			this.resizeAreas(true);
 		}
 	},
 
@@ -1323,10 +1288,6 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 			} else {
 				this.calendars[i].onAppointmentUpdate(store, record, operation);
 			}
-		}
-
-		if (record.isModifiedSinceLastUpdate('startdate') || record.isModifiedSinceLastUpdate('duedate')) {
-			this.resizeAreas();
 		}
 	},
 
@@ -1524,6 +1485,11 @@ Zarafa.calendar.ui.CalendarMultiView = Ext.extend(Zarafa.core.ui.View, {
 
 		if (this.header) {
 			Ext.dd.ScrollManager.unregister(this.header);
+		}
+
+		// Remove the tooltip when the view is destroyed
+		if ( this.tooltip ){
+			this.tooltip.destroy();
 		}
 	}
 });

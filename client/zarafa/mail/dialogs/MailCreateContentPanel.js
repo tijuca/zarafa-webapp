@@ -217,7 +217,6 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 					case Zarafa.mail.data.ActionTypes.FORWARD_ATTACH:
 					/* falls through */
 					default:
-						// Simply focus on the To input field.
 						this.inputAutoFocusPlugin.setAutoFocus(this.mainPanel.toRecipientField);
 						break;
 				}

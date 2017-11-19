@@ -30,6 +30,16 @@ Zarafa.hierarchy.ui.Tree = Ext.extend(Ext.tree.TreePanel, {
 	hideDeletedFolders : false,
 
 	/**
+	 * @cfg {Boolean} hideTodoList True to hide the To-do list.
+	 */
+	hideTodoList : false,
+
+	/**
+	 * @cfg {Boolean} hideFavorites True to hide the favorites folder in hierarchy.
+	 */
+	hideFavorites : false,
+
+	/**
 	 * @cfg {Object} config option for {@link Zarafa.hierarchy.ui.FolderNode foldernode}
 	 */
 	nodeConfig : undefined,
@@ -234,6 +244,16 @@ Zarafa.hierarchy.ui.Tree = Ext.extend(Ext.tree.TreePanel, {
 			hide = folder.isInDeletedItems();
 		}
 
+		// Check if the to-do list should be shown
+		if (!hide && this.hideTodoList) {
+			hide = folder.isTodoListFolder();
+		}
+
+		// Check if the favorites list folder should be shown
+		if (!hide && this.hideFavorites) {
+			hide = folder.isFavoritesRootFolder();
+		}
+
 		return !hide;
 	},
 
@@ -251,13 +271,21 @@ Zarafa.hierarchy.ui.Tree = Ext.extend(Ext.tree.TreePanel, {
 	 * This will first ensure the given folder {@link #ensureFolderVisible is visible}
 	 * and will then {@link Ext.tree.DefaultSelectionModel#select select the given node} in the tree.
 	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord} folder The folder to select
+	 * @param {Boolean} ensureVisibility True to make given folder visible in screen moving scroll bar.
 	 * @return {Boolean} True when the TreeNode for the given folder existed, and could be selected.
 	 */
-	selectFolderInTree : function(folder)
+	selectFolderInTree : function(folder, ensureVisibility)
 	{
-		var treeNode = this.ensureFolderVisible(folder);
+		var treeNode;
+
+		if (ensureVisibility !== false) {
+			treeNode = this.ensureFolderVisible(folder);
+		} else {
+			treeNode = this.getTreeNode(folder);
+		}
+
 		if (treeNode) {
-			this.getSelectionModel().select(treeNode);
+			this.getSelectionModel().select(treeNode, undefined, ensureVisibility);
 			return true;
 		} else {
 			return false;
@@ -357,7 +385,7 @@ Zarafa.hierarchy.ui.Tree = Ext.extend(Ext.tree.TreePanel, {
 	 * Function is used to find the {@link Zarafa.hierarchy.ui.FolderNode} based on the folder.
 	 * If selected folder is {@link Zarafa.common.favorites.data.FavoritesFolderRecord favorites} folder then
 	 * we append "favorites-" keyword with folder entryid to uniquely identify and get the favorites marked folder node.
-	 * 
+	 *
 	 * @param {Zarafa.hierarchy.data.MAPIFolderRecord | Zarafa.common.favorites.data.FavoritesFolderRecord} folder the folder
 	 * can be favorites folder or any noramal folder.
 	 * @returns {Zarafa.hierarchy.ui.FolderNode} folder node object

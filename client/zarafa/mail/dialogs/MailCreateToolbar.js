@@ -176,12 +176,12 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			scope : this
 		}];
 	},
-	
+
 	/**
 	 * Event listener for the added event of the {@link Zarafa.common.attachment.ui.AttachmentButton attachmentButton}
 	 * Adds the update function to the item when Ext converts the button to a menu item
 	 * (which happens when the toolbar overflows, i.e. is too wide for the containing panel)
-	 * 
+	 *
 	 * @param {Ext.Component} item The item that was added. This can be a {@link Zarafa.common.attachment.ui.AttachmentButton}
 	 * or a {@link Ext.menu.Item}
 	 */
@@ -469,16 +469,15 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 
 	/**
 	 * Event handler when the "Set Flag" button has been pressed.
-	 * This will call the {@link Zarafa.mail.Actions#openMailFlagsContent}.
+	 * This will call the {@link Zarafa.common.Actions#openFlagsMenu}.
 	 *
 	 * @param {Ext.Button} button The button which has been pressed
+	 * @param {Ext.EventObject} eventObject event object
 	 * @private
 	 */
-	onSetFlagButton : function (button)
+	onSetFlagButton : function (button, eventObject)
 	{
-		Zarafa.mail.Actions.openMailFlagsContent(this.record, {
-			autoSave : false
-		});
+		Zarafa.common.Actions.openFlagsMenu(this.record, eventObject.getXY(), false);
 	},
 
 	/**

@@ -15,10 +15,10 @@ Ext.namespace('Zarafa.core.data');
 /**
  * @class Zarafa.core.data.MAPIRecord
  * @extends Ext.data.Record
- * 
+ *
  * An extension to the {@link Ext.data.Record Record} that adds the open() method for loading
  * the 'full' contents of a MAPI item. The list modules on the server side only return partial records,
- * omitting, for example, the body of e-mail messages. The open() method can be used to retrieve 
+ * omitting, for example, the body of e-mail messages. The open() method can be used to retrieve
  * these fields.
  *
  */
@@ -44,7 +44,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	/**
 	 * The key-value object of {@link Zarafa.core.data.MAPISubStore MAPISubStore} which stores
 	 * data of the complex properties like recipients, attachments etc. This container is mainly
-	 * created to hold all {@link Zarafa.core.data.MAPISubStore MAPISubStore} at one place so 
+	 * created to hold all {@link Zarafa.core.data.MAPISubStore MAPISubStore} at one place so
 	 * {@link Zarafa.core.data.JsonWriter JsonWriter} can determine which {@link Zarafa.core.data.MAPISubStore MAPISubStore}
 	 * it needs to serialize when serializing an {@link Zarafa.core.data.MAPIRecord MAPIRecord}.
 	 * @property
@@ -78,7 +78,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	 * True to enable fine-grained modifications tracking between individual {@link Ext.data.Store#update} events.
 	 * When trackUpdateModifications is true, {@link #updateModifications} will keep track of all properties
 	 * which were updated since the last {@link Ext.data.Store#update} event.
-	 * Must be updated through {@link #setUpdateModificationsTracking}. 
+	 * Must be updated through {@link #setUpdateModificationsTracking}.
 	 * @property
 	 * @type Boolean
 	 * @private
@@ -124,6 +124,16 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	actions : undefined,
 
 	/**
+	 * True if record is used for modal dialog. This is required because modal dialog will be the second dialog,
+	 * with the same record (even though they are copies the entryid will be the same for both)
+	 *
+	 * @property
+	 * @type Boolean
+	 * @private
+	 */
+	isModalDialogRecord : false,
+
+	/**
 	 * @constructor
 	 * @param {Object} data The data which must be applied to this record
 	 * @param {Object} id The unique id for this record
@@ -165,7 +175,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	/**
 	 * Applies all data from an {@link Zarafa.core.data.MAPIRecord Record}
 	 * to this instance. This will update all data, attachments, recipients, etc..
-	 * 
+	 *
 	 * @param {Zarafa.core.data.MAPIRecord} record The record to apply to this
 	 * @param {Boolean} cheapCopy True to allow cheap assignment rather then the more
 	 * expensive copying of all data.
@@ -183,7 +193,9 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 		// it inside our own dataset. This ensures that the 'modified' and
 		// 'updateModifications' fields will automatically be updated to contain
 		// the correct set of data.
-		for (var key in record.data) {
+		// if record is modal dialog record then instead of all merge only those properties which was changed
+		var data = record.isModalDialogRecord ? record.modified : record.data;
+		for (var key in data) {
 			if(key === 'message_class') {
 				// Don't update record's message_class while updating the record
 				// As it is it's identity of record type and fields assigned to it.
@@ -217,7 +229,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 			// We are done with merging everything,
 			// call afterOpen() if needed to ensure the
 			// last initialization of the record occurs,
-			// and if record which refered by "this" 
+			// and if record which refered by "this"
 			// is not opened.
 			if (record.isOpened() && !this.isOpened()) {
 				this.afterOpen();
@@ -273,7 +285,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	/**
 	 * Enable/disable UpdateModifications tracking. This will keep track of the
 	 * exact modifications between two {@link Ext.data.Store#update} events. This allows
-	 * finegrained tuning of UI components which constantly listen to 
+	 * finegrained tuning of UI components which constantly listen to
 	 * {@link Ext.data.Store#update} events and only require the modifications since the
 	 * last update call.
 	 * @param {Boolean} enable Enable updatemodification tracking
@@ -325,7 +337,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	},
 
 	/**
-	 * @return {Boolean} true iff the record has been fully loaded. 
+	 * @return {Boolean} true iff the record has been fully loaded.
 	 */
 	isOpened : function()
 	{
@@ -706,7 +718,10 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	 */
 	getSubStore : function(name)
 	{
-		return this.subStores[name];
+		if (this.subStores !== null) {
+			return this.subStores[name];
+		}
+		return undefined;
 	},
 
 	/**
@@ -716,7 +731,11 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	 */
 	setSubStore : function(name, store)
 	{
-		this.subStores[name] = store;
+		if (this.subStores === null) {
+			this.subStores = {name : store};
+		} else {
+			this.subStores[name] = store;
+		}
 		store.setParentRecord(this);
 		return store;
 	},
@@ -731,7 +750,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	mergeSubStore : function(name, remoteStore, cheapCopy)
 	{
 		var store = this.getSubStore(name);
-		
+
 		if (store && remoteStore) {
 			if (cheapCopy !== true) {
 				// When we are not performing a cheap copy we wish to preserve
@@ -740,23 +759,16 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 				// Go over the current store, and start searching for the corresponding
 				// record in the remote store.
 				store.each(function(record) {
-					var newRecord = remoteStore.getById(remoteStore.data.getKey(record));
-					if (!newRecord) {
+					if (!remoteStore.getById(remoteStore.data.getKey(record))) {
 						// The other store doesn't contain this record,
 						// remove it from the current store.
 						store.remove(record);
-					} else {
-						// The record is present in the other store,
-						// and might have been modified.
-						// Apply it to the current record.
-						record.applyData(newRecord);
 					}
 				});
 
 				// Go over the remote store to search for any new records which were added
 				remoteStore.each(function(record) {
-					var origRecord = store.getById(store.data.getKey(record));
-					if (!origRecord) {
+					if (!store.getById(store.data.getKey(record))) {
 						// New record, add it to the current store.
 						store.add(record.copy());
 					}
@@ -907,7 +919,7 @@ Zarafa.core.data.MAPIRecord = Ext.extend(Ext.data.Record, {
 	/**
 	 * Convinience method to get {@link Zarafa.core.mapi.DisplayType} or {@link Zarafa.core.mapi.DisplayTypeEx}
 	 * property value from {@link Zarafa.core.data.IPMRecord}.
-	 * 
+	 *
 	 * @return {Zarafa.core.mapi.DisplayType|Zarafa.core.mapi.DisplayTypeEx} The display type value.
 	 */
 	getDisplayType : function()

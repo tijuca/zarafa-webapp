@@ -106,43 +106,6 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 							 */
 							'page_size' : 50,
 
-							/**
-							 * zarafa/v1/main/categories
-							 * @property
-							 * @type String[]
-							 */
-							'categories' : [
-								_('Business'),
-								_('Competition'),
-								_('Favorites'),
-								_('Gifts'),
-								_('Goals/Objectives'),
-								_('Holiday'),
-								_('Holiday Cards'),
-								_('Hot Contacts'),
-								_('Ideas'),
-								_('International'),
-								_('Key Customer'),
-								_('Miscellaneous'),
-								_('Personal'),
-								_('Phone Calls'),
-								_('Status'),
-								_('Strategies'),
-								_('Suppliers'),
-								_('Time & Expenses'),
-								_('VIP'),
-								_('Waiting')
-							],
-
-							'search' : {
-								/**
-								 * zarafa/v1/main/search/updatesearch_timeout (in ms)
-								 * @property
-								 * @type Number
-								 */
-								'updatesearch_timeout' : 500
-							},
-
 							'notifier' : {
 								/**
 								 * zarafa/v1/main/notifier/default
@@ -351,6 +314,25 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 								 * @type Number
 								 */
 								'polling_interval' : 60 * 5
+							},
+
+							'search' : {
+								/**
+								 * zarafa/v1/contexts/search/updatesearch_timeout (in ms)
+								 * defer timeout to triggered update search if searching is running.
+								 * @property
+								 * @type Number
+								 */
+								'updatesearch_timeout' : 500,
+
+								/**
+								 * zarafa/v1/contexts/search/search_criteria
+								 * Object which holds search tool box information for
+								 * saved search folder.
+								 * @property
+								 * @type Object
+								 */
+								'search_criteria' : {}
 							},
 
 							'calendar' : {

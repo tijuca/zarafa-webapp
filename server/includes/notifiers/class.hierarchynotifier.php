@@ -21,7 +21,7 @@
 		function __construct()
 		{
 			/*
-			 * Initialize hierarchy store's size, so in future on change events of 
+			 * Initialize hierarchy store's size, so in future on change events of
 			 * folder object or message item we can check store's previous size,
 			 * and if it is changed then send notification to server.
 			 */
@@ -32,7 +32,7 @@
 
 		/**
 		 * @return Number Return the bitmask of events which are handled
-		 * by this notifier. The bitmask can consist of the 
+		 * by this notifier. The bitmask can consist of the
 		 * OBJECT_SAVE, OBJECT_DELETE, TABLE_SAVE, TABLE_DELETE, REQUEST_START and REQUEST_END flags
 		 */
 		public function getEvents()
@@ -66,48 +66,59 @@
 						$folderEntryid = $props[PR_ENTRYID];
 					}
 
-					if (isset($props[PR_STORE_ENTRYID]) && $folderEntryid) {
-						$store = $GLOBALS["mapisession"]->openMessageStore($props[PR_STORE_ENTRYID]);
+					// We won't send notifiers for changes to the todolist folder, since there is nothing to
+					// be updated by the client.
+					$entryIdUtil = new EntryId();
+					if ( $entryIdUtil->compareEntryIds(bin2hex($folderEntryid), bin2hex(TodoList::getEntryId())) ){
+						return;
+					}
 
-						$folder = mapi_msgstore_openentry($store, $folderEntryid);
-						if ($folder) {
-							$properties = $GLOBALS["properties"]->getFolderListProperties();
-							$folderProps = mapi_folder_getprops($folder, $properties);
+					if (!isset($props[PR_STORE_ENTRYID]) && !$folderEntryid) {
+						break;
+					}
 
-							// If this folder belongs to Favorites folder,then change PARENT_ENTRYID manually.
-							if ($GLOBALS["entryid"]->isFavoriteFolder($folderProps[PR_ENTRYID])) {
-								$storeProps = mapi_getprops($store, array(PR_IPM_FAVORITES_ENTRYID));
+					$store = $GLOBALS["mapisession"]->openMessageStore($props[PR_STORE_ENTRYID]);
 
-								if (isset($storeProps[PR_IPM_FAVORITES_ENTRYID])) {
-									$favFolder = mapi_msgstore_openentry($store, $storeProps[PR_IPM_FAVORITES_ENTRYID]);
-									$favHierarchyTable = mapi_folder_gethierarchytable($favFolder, MAPI_DEFERRED_ERRORS);
-									$folders = mapi_table_queryallrows($favHierarchyTable, array(PR_DISPLAY_NAME, PR_STORE_ENTRYID),
-										array(RES_PROPERTY,
-											array(
-												RELOP => RELOP_EQ,
-												ULPROPTAG => PR_ENTRYID,
-												VALUE => array(
-													PR_ENTRYID => $folderProps[PR_ENTRYID]
-												)
+					$folder = mapi_msgstore_openentry($store, $folderEntryid);
+					if ($folder) {
+						$properties = $GLOBALS["properties"]->getFolderListProperties();
+						$folderProps = mapi_folder_getprops($folder, $properties);
+
+						// If this folder belongs to Favorites folder,then change PARENT_ENTRYID manually.
+						if ($GLOBALS["entryid"]->isFavoriteFolder($folderProps[PR_ENTRYID])) {
+							$storeProps = mapi_getprops($store, array(PR_IPM_FAVORITES_ENTRYID));
+
+							if (isset($storeProps[PR_IPM_FAVORITES_ENTRYID])) {
+								$favFolder = mapi_msgstore_openentry($store, $storeProps[PR_IPM_FAVORITES_ENTRYID]);
+								$favHierarchyTable = mapi_folder_gethierarchytable($favFolder, MAPI_DEFERRED_ERRORS);
+								$folders = mapi_table_queryallrows($favHierarchyTable, array(PR_DISPLAY_NAME, PR_STORE_ENTRYID),
+									array(RES_PROPERTY,
+										array(
+											RELOP => RELOP_EQ,
+											ULPROPTAG => PR_ENTRYID,
+											VALUE => array(
+												PR_ENTRYID => $folderProps[PR_ENTRYID]
 											)
 										)
-									);
+									)
+								);
 
+								if (!empty($folders)) {
 									// Update folderProps to properties of folder which is under 'FAVORITES'
 									$folderProps[PR_DISPLAY_NAME] = $folders[0][PR_DISPLAY_NAME];
 									$folderProps[PR_PARENT_ENTRYID] = $storeProps[PR_IPM_FAVORITES_ENTRYID];
 								}
 							}
-
-							$data[] = $GLOBALS["operations"]->setFolder($folderProps);
 						}
 
-						$this->addNotificationActionData("folders", array( "item" => $data ));
-						$GLOBALS["bus"]->addData($this->createNotificationResponseData());
-
-						// data is changed in store so message size will be updated so reopen store to get correct data
-						$this->reopenStore = true;
+						$data[] = $GLOBALS["operations"]->setFolder($folderProps);
 					}
+
+					$this->addNotificationActionData("folders", array( "item" => $data ));
+					$GLOBALS["bus"]->addData($this->createNotificationResponseData());
+
+					// data is changed in store so message size will be updated so reopen store to get correct data
+					$this->reopenStore = true;
 					break;
 				case OBJECT_DELETE:
 					if (isset($props[PR_ENTRYID]) && isset($props[PR_PARENT_ENTRYID])) {

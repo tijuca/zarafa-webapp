@@ -40,9 +40,14 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	{
 		config = config || {};
 
+		Ext.applyIf(config, {
+			deferRowRender : false
+		});
+
 		if(Ext.isEmpty(config.view)) {
 			config.viewConfig = Ext.applyIf(config.viewConfig || {}, {
-				autoFill : true
+				autoFill : true,
+				markDirty: false
 			});
 
 			Ext.applyIf(config, {
@@ -103,6 +108,29 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 		this.store.on('write', this.onWriteRecord, this);
 
 		this.on('viewready', this.onViewReady, this);
+
+		if (this.model && this.model.statefulRecordSelection) {
+			this.mon(this.model, 'recordselectionchange', this.onRecordSelectionChange, this);
+		}
+
+		this.mon(this.getSelectionModel(), 'selectionchange', this.onGridSelectionChange, this);
+	},
+
+	/**
+	 * Event handler which is fired when the recordselection in the {@link #model} has been changed.
+	 * If no selection is currently active, this will automatically select the given records in the grid.
+	 *
+	 * @param {Zarafa.core.ContextModel} model this model.
+	 * @param {Zarafa.core.data.IPMRecord[]} records The selected records
+	 * @private
+	 */
+	onRecordSelectionChange : function(model, records)
+	{
+		if (!this.getSelectionModel().hasSelection() && !Ext.isEmpty(records)) {
+			var index = model.getStore().indexOf(records[0]);
+			this.getSelectionModel().selectRecords(records);
+			this.getView().focusRow(index);
+		}
 	},
 
 	/**
@@ -254,8 +282,8 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	onStoreBeforeLoad : function(store, options)
 	{
 		/*
-		 * if action type is updatelist and grid has no dummy row with warped 
-		 * loading mask, then show the loading mask on the grid row rather to 
+		 * if action type is updatelist and grid has no dummy row with warped
+		 * loading mask, then show the loading mask on the grid row rather to
 		 * show load mask on whole grid.
 		 */
 		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
@@ -271,7 +299,7 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 		if ( !Ext.isEmpty(store) && store.hasSearchResults ===true ){
 			return;
 		}
-		
+
 		var model = this.getColumnModel();
 		var folder = options.folder;
 		var entryId;
@@ -310,7 +338,7 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	{
 		/*
 		 * if action type is updatelist and grid has dummy row which was warped
-		 * with loading mask, then remove that dummy row from grid. also don't 
+		 * with loading mask, then remove that dummy row from grid. also don't
 		 * show the loading mask on whole grid.
 		 */
 		if(options && (options.actionType === Zarafa.core.Actions['updatelist'])) {
@@ -339,6 +367,33 @@ Zarafa.common.ui.grid.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * @private
 	 */
 	onConfigChange : Ext.emptyFn,
+
+	/**
+	 * Event handler for the selectionchange event of the grid's selectionmodel.
+	 * Will set the class 'zarafa-multiselection' on selected rows when more than
+	 * one row is selected. This class can then be used to not show the
+	 * 'add categories' button when hovering.
+	 *
+	 * @param {Ext.grid.RowSelectionModel} selectionModel The selection model of this grid
+	 */
+	onGridSelectionChange : function(selectionModel)
+	{
+		var view = this.getView();
+		var store = this.getStore();
+
+		// First remove the multiple selection class from all rows
+		for ( var i=0; i<store.getCount(); i++ ){
+			view.removeRowClass(i, 'zarafa-multiselection');
+		}
+
+		var selection = selectionModel.getSelections();
+		if ( selection.length > 1 ){
+			// Multiple rows are selected. Make sure they all have the multiple selection class.
+			Ext.each(selection, function(record){
+				view.addRowClass(store.indexOf(record), 'zarafa-multiselection');
+			}, this);
+		}
+	},
 
 	/**
 	 * Called to get grid's drag proxy text. Opposite to the superclass,

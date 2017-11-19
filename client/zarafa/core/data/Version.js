@@ -45,14 +45,6 @@ Zarafa.core.data.Version = Ext.extend(Object, {
 	},
 
 	/**
-	 * @return {String} Return the Server name
-	 */
-	getServer : function()
-	{
-		return this.meta.server;
-	},
-
-	/**
 	 * @return {String} Return the current Git branch
 	 */
 	getGit : function()
@@ -79,6 +71,15 @@ Zarafa.core.data.Version = Ext.extend(Object, {
 		
 		version1 = version1.split('.');
 		version2 = version2.split('.');
+
+		// Only compare major, minor, patch version.
+		if (version1.length > 3) {
+			version1 = version1.splice(0,3);
+		}
+
+		if (version2.length > 3) {
+			version2 = version2.splice(0,3);
+		}
 		
 		for ( var i=0; i<version1.length; i++ ){
 			if ( !Ext.isDefined(version2[i]) ){
