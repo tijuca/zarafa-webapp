@@ -1,3 +1,52 @@
+kopano-webapp (3.4.0+dfsg1-1) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * [edc719f] postinst: Fix typo
+  * [2c298e3] apparmor: add hat name if apache module is enabled
+  * [7310d19] Add apparmor profile
+  * [e9f346e] Create empty plugin folder
+  * [f03dd82, 273adee, 3c6251c] uscan: simplify the rule set
+     Use a more strictly kopano-webapp specific set up, which means
+     * Don't prefer rc and beta over releases
+     * Handle dot in front of beta and rc versions numbers
+
+  [ Jelle van der Waa ]
+  * [5b7d1ec] rules: remove left-over files plugin references
+     Remove cruft in debian/rules which isn't needed and used any more.
+
+  [ Carsten Schoenert ]
+  * [429e8ed] gbp.conf: don't remove powerpaste plugin
+     Don't remove the Powerpaste plugin in future imports, it's free
+     software.
+  * [7613a3c] New upstream version 3.3.1+dfsg1
+  * [05cc6e2] debian/watch: update content due needed dversionmangle
+     We mark the source tarbal with the 'dfsg' suffix to show we have filtered
+     out some non DFSG compatible parts. Thus needs to be mangled by uscan.
+  * [8ac43f8] debian/control: increase Standards-Version to 4.1.1
+     No further changes are needed.
+  * [d20d14b] debian/control: remove not needed ${misc:Recommends}
+     Just a clean out of these not needed variables in Architecture: all
+     packages.
+  * [c1d3521] s/lintian-overrides: add extra JS files
+    We need to add some minor overrides related to the powerpaste plugin.
+  * [98edf68] debian/rules: remove License.txt from powerpaste folder
+  * [3216194] debian/copyright: add information for powerpaste plugin
+  * [3738132] debian/watch: update due changed GitHub organisation
+  * [c586f03] autopkgtest: adjust chromiumdriver -> chromium-driver
+  * [49801f2] k-w-c.lintian-overrides: avoid lintian warning about empty folder
+  * [f313807] New upstream version 3.4.0+dfsg1
+  * [845c8f8] rebuild patch queue from patch-queue branch
+     Adding few i18n related patches for QS purpose of the language files. To
+     be forwarded upstream.
+  * [443d2ce] README.source: update content
+  * [78c842f] src:kopano-webapp: add some additional fields
+     Adding now we have a working Git repository on Alioth also the VCS fields
+     and also a Homepage field pointing to the upstream GitHub tree.
+  * [568e86b] debian/watch: (re)adding dversionmangle due 'dfsg' suffix
+  * [421c4fe] lintian: adding override for kopanowebappdings.ttf
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 19 Nov 2017 13:24:04 +0100
+
 kopano-webapp (3.3.1-1) experimental; urgency=medium
 
   * Initial Upload
