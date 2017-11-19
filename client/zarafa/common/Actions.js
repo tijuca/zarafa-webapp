@@ -54,6 +54,45 @@ Zarafa.common.Actions = {
 	},
 
 	/**
+	 * Opens the {@link Zarafa.common.categories.ui.CategoriesContextMenu CategoriesContextMenu} for
+	 * the given {@link Zarafa.core.data.IPMRecord records}.
+	 *
+	 * @param {Zarafa.core.data.IPMRecord} records The record, or records for which the categories
+	 * menu will be shown.
+	 * @param {Array} position An array with the [x, y] position where the menu will be shown.
+	 */
+	openCategoriesMenu : function(records, position)
+	{
+		Zarafa.core.data.UIFactory.openContextMenu(Zarafa.core.data.SharedComponentType['common.contextmenu.categories'], records, {
+			position : position
+		});
+	},
+
+	/**
+	 * Opens the {@link Zarafa.common.flags.ui.FlagsMenu FlagsMenu} for
+	 * the given {@link Zarafa.core.data.IPMRecord records}.
+	 *
+	 * @param {Zarafa.core.data.IPMRecord} records The record, or records for which the flags
+	 * menu will be shown.
+	 * @param {Array} position An array with the [x, y] position where the menu will be shown.
+	 * @param {Boolean} shadowEdit True to create copy of this record and push it to ShadowStore.
+	 */
+	openFlagsMenu : function(records, position, shadowEdit)
+	{
+		if (!Ext.isArray(records)) {
+			records = [ records ];
+		}
+
+		var menu = new Zarafa.common.flags.ui.FlagsMenu({
+			records: records,
+			shadowEdit : shadowEdit,
+			store : records[0].getStore()
+		});
+
+		menu.showAt(position);
+	},
+
+	/**
 	 * Opens a {@link Zarafa.common.categories.dialogs.CategoriesContentPanel CategoriesContentPanel} for configuring
 	 * the categories of the given {@link Zarafa.core.data.IPMRecord records}.
 	 *
@@ -71,8 +110,53 @@ Zarafa.common.Actions = {
 			autoSave : true,
 			modal : true
 		});
+
+		// Callback function added in config object if
+		// selected records is belongs to search store.
+		var store = records[0].getStore();
+		if(Ext.isFunction(store.isAdvanceSearchStore) && store.isAdvanceSearchStore()) {
+			config.callback = function() {
+				Ext.each(records, function(record){
+					var foundRecord = this.record.find(function(rec){
+						return rec.get('entryid') === record.get('entryid');
+					});
+					record.applyData(foundRecord);
+				}, this);
+			};
+		}
+
 		var componentType = Zarafa.core.data.SharedComponentType['common.dialog.categories'];
 		Zarafa.core.data.UIFactory.openLayerComponent(componentType, records, config);
+	},
+
+	/**
+	 * Opens a {@link Zarafa.common.categories.dialogs.NewCategoryPanel NewCategoryPanel} for creating
+	 * a new category.
+	 *
+	 * @param {Object} config (optional) Configuration object for creating the NewCategoryPanel
+	 */
+	openNewCategoryContent : function(config)
+	{
+		config = Ext.applyIf(config || {}, {
+			modal : true
+		});
+		var componentType = Zarafa.core.data.SharedComponentType['common.categories.dialogs.newcategory'];
+		Zarafa.core.data.UIFactory.openLayerComponent(componentType, undefined, config);
+	},
+
+	/**
+	 * Opens a {@link Zarafa.common.categories.dialogs.RenameCategoryPanel RenameCategoryPanel} for renaming
+	 * a standard category.
+	 *
+	 * @param {Object} config (optional) Configuration object for renaming the {@link Zarafa.common.categories.dialogs.RenameCategoryPanel RenameCategoryPanel}.
+	 */
+	openRenameCategoryContent : function(config)
+	{
+		config = Ext.applyIf(config || {}, {
+			modal : true
+		});
+		var componentType = Zarafa.core.data.SharedComponentType['common.categories.dialogs.renamecategory'];
+		Zarafa.core.data.UIFactory.openLayerComponent(componentType, undefined, config);
 	},
 
 	/**
@@ -414,6 +498,55 @@ Zarafa.common.Actions = {
 
 	/**
 	 * Opens a {@link Zarafa.common.dialogs.MessageBox.select MessageBox} for
+	 * selecting if either a recurrence or the entire series must be paste for the Recurring
+	 * appointment/meeting.
+	 *
+	 * @param {Function} handler The handler which is invoked with the selected value
+	 * from the dialog. This function only takes one argument and is either 'recurrence_occurence'
+	 * when the single-occurence was selected or 'recurrence_series' when the series was selected.
+	 * @param {Object} scope (optional) The scope on which the handler must be invoked.
+	 */
+	copyRecurringSelectionContent : function(record, handler, scope)
+	{
+		var title = _('Paste Recurring {0}');
+		var text =  _('This is a recurring {0}. Do you want to paste only this occurrence or the series?');
+
+		var msgText = _('message');
+		if (record.isMessageClass('IPM.Appointment', true)) {
+			msgText = record.isMeeting() ? _('meeting request') : _('appointment');
+		}
+
+		title = String.format(title,Ext.util.Format.capitalize(msgText));
+		text =  String.format(text, msgText);
+
+		Zarafa.common.dialogs.MessageBox.select(
+			title, text, handler, scope, [{
+				boxLabel: _('Paste this occurrence only'),
+				id : 'recurrence_occurence',
+				name: 'select',
+				checked: true,
+				showButtonText : 'ok',
+				hideButtonText : 'next'
+			},{
+				boxLabel: _('Paste the series...'),
+				id : 'recurrence_series',
+				name: 'select',
+				showButtonText : 'next',
+				hideButtonText : 'ok'
+			}],
+			undefined,
+			[{
+				text : _('Ok'),
+				name : 'ok'
+			}, {
+				text : _('Cancel'),
+				name : 'cancel'
+			}]
+		);
+	},
+
+	/**
+	 * Opens a {@link Zarafa.common.dialogs.MessageBox.select MessageBox} for
 	 * selecting if either a recurrence or the entire series must be deleted.
 	 *
 	 * @param {Function} handler The handler which is invoked with the selected value
@@ -493,8 +626,42 @@ Zarafa.common.Actions = {
 
 	/**
 	 * Deletes all {@link Zarafa.core.data.IPMRecord records} from the {@link Zarafa.core.data.IPMStore store}.
+	 * If the records are deleted from the To-do list the deleting is delegated to
+	 * {@link Zarafa.task.Actions.deleteRecordsFromTodoList} otherwise it is delegated to {#doDeleteRecords}
+	 *
+	 * @param {Array} records The array of records which must be deleted.
+	 * @param {Boolean} askOcc (private) False to prevent a dialog to appear to ask if the occurence or series must
+	 * be deleted
+	 * @param {Boolean} softDelete (optional) true to directly soft delete record(s) skipping deleted-items
+	 * folder, false otherwise
+	 *
+	 * FIXME: This introduces Calendar-specific and To-do list (Task)-specific actions into the Common Context,
+	 * but there is no clean solution for this at this time. But we need to split this up into context-specific
+	 * actions while maintaining this single-entrypoint for deleting records.
+	 */
+	deleteRecords : function(records, askOcc, softDelete)
+	{
+		if (Ext.isEmpty(records)) {
+			return;
+		}
+		if (!Array.isArray(records)) {
+			records = [ records ];
+		}
+
+		// Check if the records are deleted from the todolist
+		var recordsFolderEntryid = records[0].getStore().entryId;
+		var folder = container.getHierarchyStore().getFolder(recordsFolderEntryid);
+		if ( folder && folder.isTodoListFolder() ){
+			Zarafa.task.Actions.deleteRecordsFromTodoList(records);
+		} else {
+			this.doDeleteRecords(records, askOcc, softDelete);
+		}
+	},
+
+	/**
+	 * Deletes all {@link Zarafa.core.data.IPMRecord records} from the {@link Zarafa.core.data.IPMStore store}.
 	 * If any of the given {@link Zarafa.core.data.IPMRecord records} is an recurring item, then
-	 * an {@link Zarafa.common.dialogs.MessageBox.select MessageBox} will be prompted which lets the user
+	 * a {@link Zarafa.common.dialogs.MessageBox.select MessageBox} will be prompted which lets the user
 	 * select between the series or the single occurence.
 	 * All given {@link Zarafa.core.data.IPMRecord records} must be located in the same
 	 * {@link Zarafa.core.data.IPMStore store}.
@@ -509,18 +676,10 @@ Zarafa.common.Actions = {
 	 * for this at this time. But we need to split this up into context-specific actions while maintaining this
 	 * single-entrypoint for deleting records.
 	 */
-	deleteRecords : function(records, askOcc, softDelete)
+	doDeleteRecords : function(records, askOcc, softDelete)
 	{
 		var store;
 		var saveRecords = [];
-
-		if (Ext.isEmpty(records)) {
-			return;
-		}
-
-		if (!Array.isArray(records)) {
-			records = [ records ];
-		}
 
 		for (var i = 0, len = records.length; i < len; i++) {
 			var record = records[i];
@@ -553,7 +712,7 @@ Zarafa.common.Actions = {
 						scope: record,
 						buttons: Ext.MessageBox.YESNO
 					});
-				} else if (record.isMeetingResponseRequired()) {
+				} else if (record.isMeetingResponseRequired() && !record.isCopied()) {
 					// We are the attendee of the meeting, lets ask if we should inform the organizer
 					this.deleteMeetingRequestConfirmationContent(record, this.declineInvitation, record);
 				} else {
@@ -780,8 +939,11 @@ Zarafa.common.Actions = {
 
 			// If the read status already matches the desired state,
 			// we don't need to do anything.
-			if (read !== record.isRead()) {
-				if (read === true && record.needsReadReceipt()) {
+			if (read === record.isRead()) {
+        continue;
+      }
+
+      if (read === true && record.needsReadReceipt()) {
 					switch (container.getSettingsModel().get('zarafa/v1/contexts/mail/readreceipt_handling')) {
 						case 'never':
 							record.setReadFlags(read);
@@ -800,24 +962,28 @@ Zarafa.common.Actions = {
 						case 'ask':
 						/* falls through*/
 						default:
+							const store = record.getStore();
 							// Ask if a read receipt must be send.
 							Ext.MessageBox.confirm(_('Kopano WebApp'), _('The sender of this message has asked to be notified when you read this message. Do you wish to notify the sender?'),
 								// This function will execute when user provide some inputs,
 								// So other external changes should not affect the record.
 								function(buttonClicked) {
-									this.setReadFlags(read);
-									this.addMessageAction('send_read_receipt', buttonClicked !== 'no');
-									this.save();
+									// If the mailgrid has reloaded, retrieve the newly updated record.
+									var record = this;
+									if (!record.getStore()) {
+										record = store.getById(record.id);
+									}
+									record.setReadFlags(read);
+									record.addMessageAction('send_read_receipt', buttonClicked !== 'no');
+									record.save();
 								}, record);
 							break;
-
 					}
 				} else {
-					record.setReadFlags(read);
-					saveRecords.push(record);
+				record.setReadFlags(read);
+				saveRecords.push(record);
 				}
 			}
-		}
 
 		if (!Ext.isEmpty(saveRecords)) {
 			saveRecords[0].store.save(saveRecords);

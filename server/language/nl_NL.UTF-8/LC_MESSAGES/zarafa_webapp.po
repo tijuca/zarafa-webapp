@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-18 15:31+0200\n"
-"PO-Revision-Date: 2017-05-04 13:30+0000\n"
+"PO-Revision-Date: 2017-11-03 10:32+0000\n"
 "Last-Translator: Sean <s.vanderspek@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
@@ -572,6 +572,18 @@ msgstr "Afgelopen jaar"
 msgid "Custom date"
 msgstr "Aangepaste datum"
 
+msgid "Add to favorites"
+msgstr "Voeg toe aan favorieten"
+
+msgid "Add"
+msgstr "Voeg toe"
+
+msgid "Add a folder to favorites based on your search query"
+msgstr "Voeg een folder toe aan favorieten gebaseerd op uw zoekopdracht"
+
+msgid "Folder name"
+msgstr "Foldernaam"
+
 msgid "All folders are selected"
 msgstr "Alle mappen zijn geselecteerd"
 
@@ -649,9 +661,18 @@ msgstr "Onderwerp"
 msgid "Body & Attachments"
 msgstr "Inhoud & bijlagen"
 
+msgid "Favorites"
+msgstr "Favorieten"
+
+msgid "Add a folder to favorites based on this search query"
+msgstr "Voeg een folder toe aan favorieten gebaseerd op deze zoekopdracht"
+
 # 76%
 msgid "Select Folder"
 msgstr "Selecteer Map"
+
+msgid "Delete search folder"
+msgstr "Verwijder een zoekfolder"
 
 # 76%
 # 84%
@@ -1047,9 +1068,6 @@ msgstr "Herinnering"
 msgid "Show as"
 msgstr "Toon als"
 
-msgid "Label"
-msgstr "Label"
-
 msgid "Attachments"
 msgstr "Bijlagen"
 
@@ -1273,6 +1291,12 @@ msgstr "Nieuw Vergaderverzoek"
 
 msgid "Switch calendar range back and forth"
 msgstr "Kalender bereik heen en terug wisselen"
+
+msgid "Copy selected item"
+msgstr "Kopieer geselecteerd item"
+
+msgid "Paste selected item"
+msgstr "Plak geselecteerd item"
 
 # 87%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -1500,6 +1524,9 @@ msgstr "Vervalt Op"
 msgid "Sort by: Due By"
 msgstr "Sorteer op: Vervaldatum"
 
+msgid "Label"
+msgstr "Label"
+
 # 76%
 # 78%
 msgid "Sort by: Label"
@@ -1568,6 +1595,9 @@ msgstr "Bewaar wijzigingen en verstuur een update naar alle genodigden"
 
 msgid "Open meeting request with changes"
 msgstr "Open het vergaderverzoek met wijzigingen"
+
+msgid "Copy"
+msgstr "Kopiëren"
 
 # 89%
 # 100%
@@ -1717,6 +1747,31 @@ msgstr "Open deze herhaling"
 msgid "Open the series"
 msgstr "Open de serie"
 
+msgid "Paste Recurring {0}"
+msgstr "Plak Herhaling {0}"
+
+msgid ""
+"This is a recurring {0}. Do you want to paste only this occurrence or the "
+"series?"
+msgstr ""
+"Dit is een terugkerende {0}. Wilt u alleen deze herhaling of de serie "
+"plakken?"
+
+msgid "message"
+msgstr "bericht"
+
+msgid "meeting request"
+msgstr "vergaderverzoek"
+
+msgid "appointment"
+msgstr "afspraak"
+
+msgid "Paste this occurrence only"
+msgstr "Plak alleen deze herhaling"
+
+msgid "Paste the series..."
+msgstr "Plak de serie..."
+
 msgid ""
 "This is a recurring message. Do you want to delete only this occurrence or "
 "the series?"
@@ -1829,7 +1884,7 @@ msgid "Download as ZIP"
 msgstr "Downloaden als ZIP"
 
 msgid "Continue"
-msgstr "Ga door"
+msgstr "Doorgaan"
 
 msgid ""
 "These attachments have an unsupported file type and can not be added to the "
@@ -1879,14 +1934,75 @@ msgstr "Ondersteunde formaten voor afbeeldingen van contactpersonen zijn"
 msgid "Attachment Error"
 msgstr "Fout in de bijlage"
 
-msgid "Item belongs to these categories"
-msgstr "Item behoort tot deze categorieën"
+msgid "Manage Categories"
+msgstr "Beheer Categorieën"
 
-msgid "Available categories"
-msgstr "Beschikbare categorieën"
+msgid "Apply"
+msgstr "Toepassen"
 
-msgid "Category"
-msgstr "Categorie"
+msgid "Delete Category"
+msgstr "Verwijder Categorie"
+
+msgid ""
+"Are you sure you want to delete the category \"{0}\"? Items already assigned "
+"this category won't be affected."
+msgstr ""
+"Weet u zeker dat u de categorie \"{0}\" wilt verwijderen? Items die deze "
+"categorie al hebben worden niet beïnvloed."
+
+msgid "Rename Category"
+msgstr "Hernoem Categorie"
+
+msgid "A category named \""
+msgstr "Een categorie genaamd \""
+
+msgid "Create New Category"
+msgstr "Creëer Nieuwe Categorie"
+
+msgid "Pin to quick access"
+msgstr "Aan snelle toegang vastmaken"
+
+msgid "Create"
+msgstr "Creëer"
+
+msgid ""
+"You must apply the changes you have made to the categories before you can "
+"create this category."
+msgstr ""
+"U moet the gemaakte wijzigingen toepassen voordat u deze categorie kunt "
+"aanmaken."
+
+msgid "You already have a category named '{0}'. Please use another name."
+msgstr "U heeft al een categorie genaamd '{0}'. Gebruik een andere naam."
+
+msgid "New"
+msgstr "Nieuw"
+
+msgid ""
+"You already have a category named '{0}' in your pending changes. Please use "
+"another name."
+msgstr ""
+"U heeft al een categorie genaamd '{0}' waarvoor wijzigingen in behandeling "
+"zijn. Gebruik een andere naam."
+
+msgid "Rename"
+msgstr "Hernoem"
+
+msgid "This is the first time you have used \"{0}\" category."
+msgstr "Dit is de eerste keer dat u categorie \"{0}\" heeft gebruikt."
+
+msgid "Do you want to rename it?"
+msgstr "Wilt u het hernoemen?"
+
+msgid ""
+"The category \"{0}\" already exists. Do you want to merge the \"{1}\" and "
+"\"{2}\" categories?"
+msgstr ""
+"De categorie \"{0}\" bestaat al. Wilt u de categorie \"{1}\" en \"{2}\" "
+"samenvoegen?"
+
+msgid "Merge"
+msgstr "Voeg samen"
 
 # 90%
 msgid "Check Names"
@@ -1973,9 +2089,6 @@ msgstr ""
 "versturen, ga naar de eigenschappen van elke map en wijzig te opties in de "
 "permissie tab."
 
-msgid "Add"
-msgstr "Toevoegen"
-
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -1995,9 +2108,6 @@ msgstr "Berichten Kopiëren/Verplaatsen"
 msgid "Move"
 msgstr "Verplaatsen"
 
-msgid "Copy"
-msgstr "Kopiëren"
-
 # 90%
 # 100%
 msgid "New folder"
@@ -2013,6 +2123,39 @@ msgstr[1] "Er zijn {0} berichten geselecteerd."
 
 msgid "Folder '{0}' selected."
 msgstr "Map '{0}' geselecteerd."
+
+msgid "Do not show this message again."
+msgstr "Toon dit bericht niet meer."
+
+msgid "Tomorrow"
+msgstr "Morgen"
+
+msgid "This week"
+msgstr "Deze week"
+
+msgid "Next week"
+msgstr "Volgende week"
+
+msgid "No date"
+msgstr "Geen datum"
+
+msgid "Edit reminder"
+msgstr "Bewerk herinnering"
+
+msgid "Complete"
+msgstr "Voltooid"
+
+msgid "today"
+msgstr "vandaag"
+
+msgid "tomorrow"
+msgstr "morgen"
+
+msgid "this week"
+msgstr "deze week"
+
+msgid "next week"
+msgstr "volgende week"
 
 msgid "Edit recipient"
 msgstr "Bewerk geadresseerde"
@@ -2497,9 +2640,6 @@ msgstr "of"
 msgid "No rule exists"
 msgstr "Er bestaan geen regels"
 
-msgid "New"
-msgstr "Nieuw"
-
 msgid "Active"
 msgstr "Actief"
 
@@ -2539,17 +2679,23 @@ msgstr "Andere..."
 msgid "Search in.."
 msgstr "Zoeken in..."
 
+msgid ""
+"The folder you are searching through no longer exists. Please select another "
+"folder"
+msgstr ""
+"De folder waardoor u zoekt bestaat niet meer. Selecteer een andere folder"
+
 msgid "Add/Edit sender"
 msgstr "Verzender toevoegen/wijzigen"
 
-msgid "No send as address configured"
-msgstr "Er werd geen verzenden als adres geconfigureerd"
+msgid "No from addresses configured"
+msgstr "Geen afzenders geconfigureerd"
 
-msgid "Loading send as addresses"
-msgstr "Verzenden als adressen worden geladen"
+msgid "Loading from addresses"
+msgstr "Afzenders laden"
 
-msgid "Please select a send as record."
-msgstr "Selecteer een 'verzenden als' item."
+msgid "Please select a from address record."
+msgstr "Selecteer een afzender."
 
 msgid "Here you can setup your alias email addresses."
 msgstr "Hier kan je een alias instellen voor je e-mailadres."
@@ -2571,11 +2717,11 @@ msgstr "Gemachtigdeninstellingen"
 msgid "Rules"
 msgstr "Regels"
 
-msgid "Send As"
-msgstr "Verzenden als"
+msgid "From Addresses"
+msgstr "Afzenders"
 
-msgid "Send As settings"
-msgstr "instellingen Verzenden als"
+msgid "From Addresses settings"
+msgstr "Afzenders instellingen"
 
 msgid "No preview"
 msgstr "Geen voorbeeld"
@@ -2646,7 +2792,7 @@ msgid "Loading..."
 msgstr "Laden..."
 
 msgid "Failed"
-msgstr "Mislukt"
+msgstr "Gefaald"
 
 # 100%
 #. TRANSLATORS: This message is used as label for the field which indicates which attachments are inside the message
@@ -2780,6 +2926,14 @@ msgid "Received for {0}."
 msgstr "Ontvangen voor {0}."
 
 msgctxt "mail.previewpanel"
+msgid "You replied to this message."
+msgstr "U heeft gereageerd op dit bericht."
+
+msgctxt "mail.previewpanel"
+msgid "You forwarded this message."
+msgstr "U heeft dit bericht doorgestuurd."
+
+msgctxt "mail.previewpanel"
 msgid "You replied to this message on {0}."
 msgstr "U heeft op dit bericht gereageerd op {0}."
 
@@ -2838,6 +2992,10 @@ msgctxt "mail.previewpanel"
 msgid "Bcc"
 msgstr "Bcc"
 
+msgctxt "mail.previewpanel"
+msgid "Categories"
+msgstr "Categorieën"
+
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent
 msgctxt "mail.previewpanel"
 msgid "Recipients"
@@ -2866,6 +3024,12 @@ msgstr "Open in nieuw browser venster"
 
 msgid "Pop-Out"
 msgstr "Pop-out"
+
+msgid "Mark Read"
+msgstr "Markeer Gelezen"
+
+msgid "Mark Unread"
+msgstr "Markeer Ongelezen"
 
 msgid "in"
 msgstr "over"
@@ -3567,9 +3731,6 @@ msgstr "Wit"
 msgid "Yellow"
 msgstr "Geel"
 
-msgid "Meeting organiser"
-msgstr "Organisator vergadering"
-
 msgid "No response"
 msgstr "Geen antwoord"
 
@@ -3590,9 +3751,6 @@ msgstr "Niet Gestart"
 
 msgid "In Progress"
 msgstr "Word uitgevoerd"
-
-msgid "Complete"
-msgstr "Voltooid"
 
 msgid "Wait for other person"
 msgstr "Wacht op iemand anders"
@@ -3745,9 +3903,6 @@ msgstr[1] "Er zijn {0} ongelezen berichten in de map {1}"
 msgid "New Mail"
 msgstr "Nieuwe E-mail"
 
-msgid "Favorites"
-msgstr "Favorieten"
-
 # 100%
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
 msgid "{0} in {1}"
@@ -3766,7 +3921,7 @@ msgid "No rights"
 msgstr "Geen rechten"
 
 msgid "Create New Folder"
-msgstr "Nieuwe Map Maken"
+msgstr "Nieuwe map aanmaken"
 
 msgid "Folder contains"
 msgstr "Map bevat"
@@ -3787,10 +3942,10 @@ msgid "Task Items"
 msgstr "Taakitems"
 
 msgid "Select where to place the folder"
-msgstr "Selecteer de locatie voor de map"
+msgstr "Selecteer locatie voor de map"
 
 msgid "You must specify a name."
-msgstr "U moet een naam opgeven."
+msgstr "Specificeer een naam."
 
 msgid "You must select a destination folder."
 msgstr "U moet een bestemmingsmap selecteren."
@@ -4060,10 +4215,11 @@ msgstr "G:i"
 msgid "Message Options"
 msgstr "Berichtopties"
 
-# 96%
-# 100%
-msgid "No send as address configured!"
-msgstr "Er is geen \"verzenden als\" adres geconfigureerd!"
+msgid "No from addresses configured!"
+msgstr "Geen afzenders geconfigureerd!"
+
+msgid "This message will be flagged for follow up when it is sent."
+msgstr "Dit bericht wordt gemarkeerd voor opvolging als het is verstuurd."
 
 msgid "Send email"
 msgstr "Verzend e-mail"
@@ -4151,9 +4307,6 @@ msgstr "Geen handtekeningen geconfigureerd"
 msgid "E-Mail Flags"
 msgstr "E-mailmarkeringen"
 
-msgid "Set Flag"
-msgstr "Markeer"
-
 msgid "Color of Flag"
 msgstr "Markeringskleur"
 
@@ -4187,6 +4340,9 @@ msgstr "E-mail verwijderen"
 # 100%
 msgid "Delete this mail."
 msgstr "Verwijder deze e-mail."
+
+msgid "Set Category"
+msgstr "Stel categorie in"
 
 # 87%
 # 100%
@@ -4357,22 +4513,17 @@ msgstr "Aangepast"
 msgid "Sort by: Modified"
 msgstr "Sorteer op: Aangepast"
 
-msgid "Flag Status"
-msgstr "Vlag status"
+msgid "Flag"
+msgstr "Opvolgen"
 
-# 78%
-# 85%
-msgid "Sort by: Flag Status"
-msgstr "Sorteer op: Markering"
+msgid "Sort by: flag"
+msgstr "Sorteer op: opvolgen"
 
 msgid "Forward as Attachment"
 msgstr "Doorsturen als bijlage"
 
-msgid "Mark Read"
-msgstr "Markeer Gelezen"
-
-msgid "Mark Unread"
-msgstr "Markeer Ongelezen"
+msgid "Follow up"
+msgstr "Opvolgen"
 
 msgid "Move to Junk Folder"
 msgstr "Verplaats naar Junk Folder"
@@ -4403,9 +4554,6 @@ msgstr "Notitie verwijderen"
 # 100%
 msgid "Delete this note"
 msgstr "Verwijder deze notitie"
-
-msgid "Set Category"
-msgstr "Stel categorie in"
 
 msgid "Print this note"
 msgstr "Druk deze notitie af"
@@ -4462,55 +4610,6 @@ msgstr "Notities Laden"
 # 76%
 msgid "Loading notes"
 msgstr "Notities laden"
-
-msgid "Competition"
-msgstr "Concurrentie"
-
-msgid "Gifts"
-msgstr "Geschenken"
-
-msgid "Goals/Objectives"
-msgstr "Doelen/Doelstellingen"
-
-msgid "Holiday Cards"
-msgstr "Vakantiekaarten"
-
-# 75%
-msgid "Hot Contacts"
-msgstr "Belangrijke Contactpersonen"
-
-msgid "Ideas"
-msgstr "Ideeën"
-
-msgid "International"
-msgstr "Internationaal"
-
-msgid "Key Customer"
-msgstr "Belangrijke Klant"
-
-msgid "Miscellaneous"
-msgstr "Diversen"
-
-msgid "Phone Calls"
-msgstr "Telefoongesprekken"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Strategies"
-msgstr "Strategieën"
-
-msgid "Suppliers"
-msgstr "Leveranciers"
-
-msgid "Time & Expenses"
-msgstr "Tijd & Kosten"
-
-msgid "VIP"
-msgstr "VIP"
-
-msgid "Waiting"
-msgstr "Aan het wachten"
 
 msgid "In order for the changes to take effect, please reload WebApp."
 msgstr "Om de wijziging toe te passen moet WebApp opnieuw worden geladen."
@@ -4606,9 +4705,6 @@ msgstr "Basis sneltoetsen ingeschakeld"
 
 msgid "All keyboard shortcuts on"
 msgstr "Alle sneltoetsen ingeschakeld"
-
-msgid "Apply"
-msgstr "Toepassen"
 
 msgid "Discard"
 msgstr "Niet opslaan"
@@ -4713,12 +4809,22 @@ msgstr "WebApp"
 msgid "Kopano Core"
 msgstr "Kopano Core"
 
-msgid "Server"
-msgstr "Server"
+msgid "Delete confirmation"
+msgstr "Bevestig verwijderen"
+
+msgid "Deleting the item(s) will also delete the original item(s)."
+msgstr ""
+"Het verwijderen van de item(s) zal ook de originele item(s) verwijderen."
+
+msgid "Do you want to delete the item(s)?"
+msgstr "Wilt u de item(s) verwijderen?"
 
 # 82%
 msgid "Sort by: Priority"
 msgstr "Sorteer op: Prioriteit"
+
+msgid "Status"
+msgstr "Status"
 
 # 80%
 msgid "Sort by: Status"
@@ -4909,25 +5015,11 @@ msgstr "{actualwork} uren"
 msgid "Open Shared Tasks"
 msgstr "Open Gedeelde Taken"
 
-msgid "Simple Tasks"
-msgstr "Eenvoudige Taken"
+msgid "Simple view"
+msgstr "Eenvoudige weergave"
 
-msgid "Active Tasks"
-msgstr "Actieve Taken"
-
-# 80%
-msgid "Next Seven Days"
-msgstr "Volgende Zeven Dagen"
-
-# 92%
-msgid "Overdue Tasks"
-msgstr "Verlopen Taken"
-
-msgid "OverDue Tasks"
-msgstr "Verlopen Taken"
-
-msgid "Completed Tasks"
-msgstr "Voltooide Taken"
+msgid "Detailed view"
+msgstr "Gedetailleerde weergave"
 
 # 92%
 # 100%
@@ -4962,46 +5054,16 @@ msgstr ""
 "Let op: alle gemaakte wijzigingen zullen worden overschreven wanneer de "
 "toegewezen taak wordt bijgewerkt door de geadresseerde."
 
+# 82%
+msgid "Sort by: Complete"
+msgstr "Sorteer op: Voltooid"
+
 msgid "Reminder Time"
 msgstr "Herinneringstijd"
 
 # 86%
 msgid "Sort by: Reminder Time"
 msgstr "Sorteer op: Herinneringstijd"
-
-# 82%
-msgid "Sort by: Complete"
-msgstr "Sorteer op: Voltooid"
-
-# 84%
-msgid "Sort by: Start Date"
-msgstr "Sorteer op: Startdatum"
-
-# 78%
-msgid "Sort by: Owner"
-msgstr "Sorteer op: Eigenaar"
-
-# 75%
-# 81%
-msgid "Sort by: Company"
-msgstr "Sorteer op: Bedrijf"
-
-# 92%
-msgid "Date Completed"
-msgstr "Datum Voltooid"
-
-# 76%
-# 86%
-msgid "Sort by: Date Completed"
-msgstr "Sorteer op: Datum Voltooid"
-
-# 84%
-msgid "Sort by: Total Work"
-msgstr "Sorteer op: Totale Tijd"
-
-# 85%
-msgid "Sort by: Actual Work"
-msgstr "Sorteer op: Werkelijk Verricht"
 
 msgid "Assigned To"
 msgstr "Toegewezen Aan"
@@ -5010,14 +5072,13 @@ msgstr "Toegewezen Aan"
 msgid "Sort by: Assignee"
 msgstr "Sorteer op: Toegewezene"
 
-# 86%
-# 81%
-msgid "Sort by: Mileage"
-msgstr "Sorteer op: Voortgang"
+# 84%
+msgid "Sort by: Start Date"
+msgstr "Sorteer op: Startdatum"
 
-# 89%
-msgid "Sort by: Billing Information"
-msgstr "Sorteer op: Factuurinformatie"
+# 78%
+msgid "Sort by: Owner"
+msgstr "Sorteer op: Eigenaar"
 
 # 76%
 msgid "Loading tasks"
@@ -5039,13 +5100,94 @@ msgstr "Lijst bijwerken"
 msgid "D d-m-Y"
 msgstr "D d-m-Y"
 
-# 78%
-#, fuzzy
-msgid "You cannot accept the task \""
-msgstr "Kon Taakverzoek niet accepteren."
+msgid "Improved categories"
+msgstr "Verbeterde categorieën"
 
-msgid "\" because it is not assigned to you."
+msgid ""
+"Categories now have a prominent place in your overviews of Mail, Calendar, "
+"Tasks and more."
 msgstr ""
+"Categorieën hebben nu een prominente plek in uw overzichten van Mail, "
+"Kalender, Taken en meer."
+
+msgid ""
+"Adding a category is easy and can be done from the overview. Move your mouse "
+"over an email to see the \"Add category\" icon and click it, or right-click "
+"an item to open the context menu."
+msgstr ""
+"Het toevoegen van een categorie is makkelijk en kan worden gedaan vanuit het "
+"overzicht. Beweeg uw muis over een email om het \"Voeg categorie toe\" icoon "
+"te zien en klik erop, of klik er met de rechtermuisknop op om het context "
+"menu te openen."
+
+msgid "Flag item for follow up"
+msgstr "Markeer item voor opvolgen"
+
+msgid ""
+"You can now mark email items for follow-up by setting a flag. In the new "
+"flags menu you can select the follow-up date. A reminder will be shown that "
+"day."
+msgstr ""
+"U kunt nu uw items markeren voor opvolging door het zetten van een vlag. In "
+"dit nieuwe \"Opvolgen\" menu kunt u de datum voor opvolgen selecteren. Er "
+"zal op die dag een herinnering worden getoond."
+
+msgid ""
+"The Tasks context provides a complete overview of your to-do's. All tasks "
+"and flagged emails will be shown in this to-do list."
+msgstr ""
+"De Taken context verschaft een compleet overzicht van uw to-do's. Alle taken "
+"en emails gemarkeerd voor opvolgen worden getoond in deze to-do lijst."
+
+msgid "Transformation of flags into follow-ups and categories"
+msgstr "Transformatie van vlaggen naar markeren voor opvolgen en categorieën"
+
+msgid ""
+"Your former flagged items are transformed into items with a color category "
+"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
+"now have a category named \"Blue\"."
+msgstr ""
+"De items waar u voorheen een vlag op heeft gezet, zijn getransformeerd naar "
+"items met een categorie en kleur en een \"Geen datum\" opvolg vlag. "
+"Bijvoorbeeld: een item met een blauwe vlag zal nu een categorie genaamd \""
+"Blauw\" hebben."
+
+msgid ""
+" You have the option to rename a color category when you first use it and "
+"all items with this category will get updated."
+msgstr ""
+" U heeft de optie om een categorie met kleur te hernoemen wanneer u deze "
+"voor het eerst gebruikt. Alle items met deze categorie zullen worden "
+"bijgewerkt."
+
+msgid "Search folders"
+msgstr "Zoekfolders"
+
+msgid ""
+"If there is a search query you use frequently you are in luck! After you "
+"have completed a search you can now save it as a \"search folder\" which "
+"will show up in your favorites! You can then do the same search again with a "
+"single click."
+msgstr ""
+"Als u regelmatig een zoekopdracht gebruikt dan zult u hier blij mee zijn! Na "
+"het uitvoeren van een zoekopdracht kunt u nu de zoekopdracht opslaan als \""
+"zoekfolder\" welke onder uw favorieten komt te staan! U kunt dan dezelfde "
+"zoekopdracht uitvoeren met een enkele muisklik."
+
+msgid "What's new"
+msgstr "Wat is er nieuw"
+
+msgid "Don't show me new features again."
+msgstr "Toon me geen nieuwe features meer."
+
+msgid "Skip"
+msgstr "Sla over"
+
+msgid "Previous"
+msgstr "Vorige"
+
+msgid "Next"
+msgstr "Volgende"
 
 msgid "The server reported an unknown error on your request."
 msgstr "De server rapporteerde een onbekende fout in het verzoek."
@@ -5189,8 +5331,11 @@ msgstr "Contact Fax"
 msgid "Configure widget"
 msgstr "Configureer widget"
 
-msgid "Reload interval (s)"
-msgstr "Herlaad interval (s)"
+msgid "Reload interval"
+msgstr "Herlaad interval"
+
+msgid "seconds."
+msgstr "seconden."
 
 msgid "No appointments for today."
 msgstr "Geen afspraken vandaag."
@@ -5301,20 +5446,63 @@ msgstr "Munt"
 msgid "Pearl aqua"
 msgstr "Pearl aqua"
 
-msgid "Sky blue"
-msgstr "Lichtblauw"
+msgid "Kopano blue"
+msgstr "Kopano blauw"
 
 msgid "Baby blue"
 msgstr "Baby blauw"
-
-msgid "Kopano blue"
-msgstr "Kopano blauw"
 
 msgid "Mauve"
 msgstr "Lila"
 
 msgid "Silver sand"
 msgstr "Zilver zand"
+
+msgid "Competition"
+msgstr "Concurrentie"
+
+msgid "Gifts"
+msgstr "Geschenken"
+
+msgid "Goals/Objectives"
+msgstr "Doelen/Doelstellingen"
+
+msgid "Holiday Cards"
+msgstr "Vakantiekaarten"
+
+# 75%
+msgid "Hot Contacts"
+msgstr "Belangrijke Contactpersonen"
+
+msgid "Ideas"
+msgstr "Ideeën"
+
+msgid "International"
+msgstr "Internationaal"
+
+msgid "Key Customer"
+msgstr "Belangrijke Klant"
+
+msgid "Miscellaneous"
+msgstr "Diversen"
+
+msgid "Phone Calls"
+msgstr "Telefoongesprekken"
+
+msgid "Strategies"
+msgstr "Strategieën"
+
+msgid "Suppliers"
+msgstr "Leveranciers"
+
+msgid "Time & Expenses"
+msgstr "Tijd & Kosten"
+
+msgid "VIP"
+msgstr "VIP"
+
+msgid "Waiting"
+msgstr "Aan het wachten"
 
 msgid "You have been automatically logged out"
 msgstr "U bent automatisch uitgelogd"
@@ -5342,6 +5530,9 @@ msgstr "Onbekende notificatie '%s'"
 msgid "An unexpected error has occurred"
 msgstr "Een onverwachte fout is opgetreden"
 
+msgid "To-do list"
+msgstr "To-do lijst"
+
 #. TRANSLATORS: This indicates that the opened folder belongs to a particular user,
 #. * for example: 'Calendar of Holiday', in this case %1$s is 'Calendar' (the foldername)
 #. * and %2$s is 'Holiday' (the username).
@@ -5355,6 +5546,9 @@ msgstr "Instellingen object niet geïnitialiseerd"
 
 msgid "Error retrieving existing settings"
 msgstr "Fout bij ophalen van bestaande instellingen"
+
+msgid "Error retrieving existing persistent settings"
+msgstr "Fout bij het ophalen van bestaande aanhoudende instellingen"
 
 # 93%
 msgid "Logon failed. Please verify your credentials and try again."
@@ -5370,6 +5564,9 @@ msgstr "Aanmelden mislukt, er is al een andere sessie."
 
 msgid "Unknown MAPI Error"
 msgstr "Onbekende MAPI-Fout"
+
+msgid "Click the link to open the URL in a new window."
+msgstr "Klik op de link om de URL in een nieuw venster te openen."
 
 msgid "This external link will open in a new window"
 msgstr "Deze externe koppeling wordt in een nieuw venster geopend"
@@ -5674,6 +5871,11 @@ msgstr "Kon map niet legen."
 msgid "Could not perform action correctly."
 msgstr "Kon de actie niet correct uitvoeren."
 
+msgid ""
+"A favorite folder with this name already exists, please use another name."
+msgstr ""
+"Een 'favoriete' folder met deze naam bestaat al, gebruik een andere naam."
+
 msgid "Could not add folder to favorites."
 msgstr "Kon de map niet toevoegen aan favorieten."
 
@@ -5848,6 +6050,24 @@ msgstr "Kon de inhoud van deze map niet laden."
 
 msgid "Error in search, please try again"
 msgstr "Fout bij zoeken, probeer opnieuw"
+
+msgid "Unable to perform search query, no permissions to create search folder."
+msgstr ""
+"Niet in staat om de zoekopdracht uit te voeren, geen permissies om de "
+"zoekfolder te creëren."
+
+msgid "Unable to perform search query, search folder not found."
+msgstr ""
+"Niet mogelijk om de zoekopdracht uit te voeren, de zoekfolder kan niet "
+"gevonden worden."
+
+msgid "Unable to perform search query, store might not support searching."
+msgstr ""
+"Niet mogelijk om zoekopdracht uit te voeren, de store ondersteunt mogelijk "
+"geen zoeken."
+
+msgid "Error in creating search folder."
+msgstr "Fout in het creëren van een zoekfolder."
 
 msgid ""
 "You have insufficient privileges to perform search operation in this folder."

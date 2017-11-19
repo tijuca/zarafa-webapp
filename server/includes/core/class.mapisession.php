@@ -128,7 +128,7 @@
 				$store_props = mapi_getprops($this->getDefaultMessageStore(), array(PR_USER_ENTRYID));
 
 				// open the user entry
-				$user = mapi_ab_openentry($this->getAddressbook(), $store_props[PR_USER_ENTRYID]);
+				$user = mapi_ab_openentry($this->getAddressbook(true), $store_props[PR_USER_ENTRYID]);
 
 				// receive userdata
 				// TODO: 0x8C9E0102 represents an LDAP jpegPhoto and should get a named property PR_EMS_AB_THUMBNAIL_PHOTO
@@ -560,12 +560,12 @@
 			$abitem = mapi_ab_openentry($ab, $userEntryid);
 			$userData = mapi_getprops($abitem, Array(PR_ACCOUNT, PR_EC_ARCHIVE_SERVERS));
 
-			// Get the store of the user, need this for the call to mapi_msgstore_getarchiveentryid()
-			$userStoreEntryid = mapi_msgstore_createentryid($this->getDefaultMessageStore(), $userData[PR_ACCOUNT]);
-			$userStore = mapi_openmsgstore($GLOBALS['mapisession']->getSession(), $userStoreEntryid);
-
 			$archiveStores = Array();
 			if(isset($userData[PR_EC_ARCHIVE_SERVERS]) && count($userData[PR_EC_ARCHIVE_SERVERS]) > 0){
+				// Get the store of the user, need this for the call to mapi_msgstore_getarchiveentryid()
+				$userStoreEntryid = mapi_msgstore_createentryid($this->getDefaultMessageStore(), $userData[PR_ACCOUNT]);
+				$userStore = mapi_openmsgstore($GLOBALS['mapisession']->getSession(), $userStoreEntryid);
+
 				for($i=0;$i<count($userData[PR_EC_ARCHIVE_SERVERS]);$i++){
 					try{
 						// Check if the store exists. It can be that the store archiving has been enabled, but no
@@ -616,7 +616,7 @@
 								// The user or the corresponding store couldn't be found,
 								// print an error to the log, and remove the user from the settings.
 								dump('Failed to load store for user ' . $username . ', user was not found. Removing it from settings.');
-								$GLOBALS["settings"]->delete("zarafa/v1/contexts/hierarchy/shared_stores/" . $username);
+								$GLOBALS["settings"]->delete("zarafa/v1/contexts/hierarchy/shared_stores/" . $username, true);
 							} else {
 								// That is odd, something else went wrong. Lets not be hasty and preserve
 								// the user in the settings, but do print something to the log to indicate

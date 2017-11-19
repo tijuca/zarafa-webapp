@@ -161,7 +161,6 @@ define('PR_COLLECTOR'                                 ,mapi_prop_tag(PT_OBJECT, 
 
 define('PR_SMTP_ADDRESS'                              ,mapi_prop_tag(PT_TSTRING,     0x39FE));
 
-
 /*
  *  Message content properties
  */
@@ -280,6 +279,7 @@ define('PR_PREPROCESS'                                ,mapi_prop_tag(PT_BOOLEAN,
 define('PR_ORIGINATING_MTA_CERTIFICATE'               ,mapi_prop_tag(PT_BINARY,      0x0E25));
 define('PR_PROOF_OF_SUBMISSION'                       ,mapi_prop_tag(PT_BINARY,      0x0E26));
 
+define('PR_TODO_ITEM_FLAGS'                           ,mapi_prop_tag(PT_LONG,        0x0E2B));
 
 /*
  * The range of non-message and non-recipient property IDs (0x3000 - 0x3FFF)); is
@@ -743,6 +743,9 @@ PR_IPM_OL2007_ENTRYIDS:
 	00000000 (terminator?)
 */
 define('PR_IPM_OL2007_ENTRYIDS'                       ,mapi_prop_tag(PT_BINARY,      0x36D9));
+// Note: PR_IPM_OL2007_ENTRYIDS is the same property as PR_ADDITIONAL_REN_ENTRYIDS_EX, but Microsoft
+// seems to use the latter hence we will also use that to not confuse developers that want to Google it.
+define('PR_ADDITIONAL_REN_ENTRYIDS_EX'                ,mapi_prop_tag(PT_BINARY,      0x36D9));
 
 
 
@@ -780,6 +783,9 @@ define('PR_EC_RECIPIENT_HISTORY'                      ,mapi_prop_tag(PT_STRING8,
 /* storage for the settings for the webaccess 7.xx */
 define('PR_EC_WEBACCESS_SETTINGS_JSON'                ,mapi_prop_tag(PT_STRING8,     PR_EC_BASE+0x72));
 define('PR_EC_RECIPIENT_HISTORY_JSON'                 ,mapi_prop_tag(PT_STRING8,     PR_EC_BASE+0x73));
+
+/* The peristent settings are settings that will not be touched when the settings are reset */
+define('PR_EC_WEBAPP_PERSISTENT_SETTINGS_JSON'        ,mapi_prop_tag(PT_STRING8,     PR_EC_BASE+0x74));
 
 /* statistics properties */
 define('PR_EC_STATSTABLE_SYSTEM'		, mapi_prop_tag(PT_OBJECT,		PR_EC_BASE+0x30));
@@ -892,6 +898,7 @@ define('PR_WLINK_STORE_ENTRYID'              ,mapi_prop_tag(PT_BINARY,     0x684
 define('PR_WLINK_TYPE'                       ,mapi_prop_tag(PT_LONG,       0x6849));
 define('PR_WLINK_SECTION'                    ,mapi_prop_tag(PT_LONG,       0x6852));
 define('PR_WLINK_RECKEY'                     ,mapi_prop_tag(PT_BINARY,     0x684D));
+define('PR_WB_SF_ID'                         ,mapi_prop_tag(PT_BINARY,     0x6842));
 
 /* Search folder properties */
 define('PR_EC_SUGGESTION'					,mapi_prop_tag(PT_TSTRING, 0x6707));

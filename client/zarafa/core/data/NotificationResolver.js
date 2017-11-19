@@ -46,7 +46,11 @@ Zarafa.core.data.NotificationResolver = Ext.extend(Ext.util.Observable, {
 			return null;
 		}
 
-		if (moduleName == 'hierarchynotifier' || moduleName == 'newmailnotifier') {
+		if (moduleName == 'hierarchynotifier' ||
+			moduleName == 'newmailnotifier' ||
+			moduleName =='addressbooknotifier' ||
+			moduleName =='newtodotasknotifier'
+		) {
 			handlers = this.getHandlersForIPFResponse(response);
 		} else {
 			handlers = this.getHandlersForIPMResponse(response);
@@ -104,12 +108,6 @@ Zarafa.core.data.NotificationResolver = Ext.extend(Ext.util.Observable, {
 				}
 
 				return responseHandlers;
-			} else {
-				return new Zarafa.hierarchy.data.HierarchyNotificationResponseHandler({
-					store : folderStores,
-					reader : folderStores.reader,
-					notifyObject : folderStores
-				});
 			}
 		} else if (response['stores']) {
 			// get handlers for stores's notifications.
@@ -118,6 +116,18 @@ Zarafa.core.data.NotificationResolver = Ext.extend(Ext.util.Observable, {
 				store : hierarchyStore,
 				reader : hierarchyStore.reader,
 				notifyObject : hierarchyStore
+			});
+		} else if(response['addressbook']) {
+			var addressBookStore = Zarafa.addressbook.AddressBookHierarchyStore;
+			return new Zarafa.addressbook.AddressBookHierarchyNotificationResponseHandler({
+				store: addressBookStore,
+				notifyObject: addressBookStore
+			});
+		} else if(response['newtodotask']) {
+			var taskStore = container.getContextByName('task').getModel().getStore();
+			return new Zarafa.task.data.TodoTaskListNotificationResponseHandler({
+				store: taskStore,
+				notifyObject: taskStore
 			});
 		}
 	},

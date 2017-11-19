@@ -121,9 +121,10 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 
 		// When this meeting is current, and the user didn't send the meeting request himself,
 		// then the user is allowed to accept or decline the meeting.
-		this.acceptButton.setVisible(isMeeting && !isSubMessage && !senderIsReceiver && !isMeetingOutOfDate && !isMeetingCanceled && !senderIsStoreOwner && requestReceived);
-		this.tentativeButton.setVisible(isMeeting && !isSubMessage && !senderIsReceiver && !isMeetingOutOfDate && !isMeetingCanceled && !senderIsStoreOwner && requestReceived);
-		this.declineButton.setVisible(isMeeting && !isSubMessage && !senderIsReceiver && !isMeetingOutOfDate && !isMeetingCanceled && !senderIsStoreOwner && requestReceived);
+		var showButton = isMeeting && !isSubMessage && !senderIsReceiver && !isMeetingOutOfDate && !isMeetingCanceled && !senderIsStoreOwner && requestReceived;
+		this.acceptButton.setVisible(showButton);
+		this.tentativeButton.setVisible(showButton);
+		this.declineButton.setVisible(showButton);
 
 		// A user can only propose a new time for non-recurring meetings, or occurences. For the rest,
 		// the same rules apply as for accepting.
@@ -137,18 +138,12 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 		this.calendarButton.setVisible((isMeetingRequest || isMeetingResponse) && !isSubMessage && !apptNotFound);
 
 		// Determine the action button
-		this.acceptButton.getEl().removeClass('zarafa-action');
-		this.nonCurrentButton.getEl().removeClass('zarafa-action');
-		this.calendarButton.getEl().removeClass('zarafa-action');
-		this.removeFromCalendarButton.getEl().removeClass('zarafa-action');
 		if ( this.acceptButton.isVisible() ){
-			this.acceptButton.getEl().addClass('zarafa-action');
+			this.calendarButton.getEl().removeClass('zarafa-action');
 		} else if ( this.nonCurrentButton.isVisible() ){
-			this.nonCurrentButton.getEl().addClass('zarafa-action');
+			this.calendarButton.getEl().removeClass('zarafa-action');
 		} else if ( this.calendarButton.isVisible() ){
 			this.calendarButton.getEl().addClass('zarafa-action');
-		} else if ( this.removeFromCalendarButton.isVisible() ){
-			this.removeFromCalendarButton.getEl().addClass('zarafa-action');
 		}
 
 		// Determine if there are any visible buttons, if that is not the case,
@@ -179,7 +174,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Remove From Calendar'),
 				text: _('Remove From Calendar')
 			},
-			cls: 'tb-calendar-btn-remove',
+			cls: 'tb-calendar-btn-remove zarafa-action',
 			handler : this.onRemoveFromCalendar,
 			scope: this
 		};
@@ -200,7 +195,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('Not Current'),
 				text: _('Meeting Request is out of date')
 			},
-			cls: 'tb-calendar-btn-not-current',
+			cls: 'tb-calendar-btn-not-current zarafa-action',
 			handler : this.onNotCurrent,
 			scope: this
 		};
@@ -372,7 +367,7 @@ Zarafa.calendar.ui.MeetingRequestButtons = Ext.extend(Ext.ButtonGroup, {
 				title: _('View in calendar'),
 				text: _('View in calendar')
 			},
-			cls: 'tb-calendar-btn-calendar',
+			cls: 'tb-calendar-btn-calendar zarafa-action',
 			iconCls : 'icon_calendar_view',
 			handler : this.showMeetingInCalendar,
 			scope: this

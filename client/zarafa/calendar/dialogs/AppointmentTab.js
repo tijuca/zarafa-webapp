@@ -303,7 +303,10 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				this.createBusyStatusPanel(),
 
 				this.createReminderPanel(),
-				this.createLabelPanel()
+				{
+					xtype: 'container',
+					cls: 'filler'
+				}
 			]
 		};
 	},
@@ -476,63 +479,6 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				lazyInit: false,
 				forceSelection: true,
 				editable: false,
-				listeners: {
-					select: this.onFieldSelect,
-					scope: this
-				}
-			}]
-		};
-	},
-
-	/**
-	 * Create the {@link Ext.Panel Panel} containing the form fields
-	 * for setting a label on the appointment.
-	 * @return {Object} Configuration object for the panel with reminder fields
-	 * @private
-	 */
-	createLabelPanel : function()
-	{
-		var labelStore = {
-			xtype: 'jsonstore',
-			fields: ['name', 'value'],
-			data : Zarafa.calendar.data.AppointmentLabels
-		};
-
-		return {
-			xtype: 'panel',
-			cls: 'k-label-panel',
-			layout: 'form',
-			autoHeight: true,
-			border: false,
-			labelAlign: 'left',
-			items: [{
-				xtype: 'combo',
-				name: 'label',
-				fieldLabel: _('Label'),
-				store: labelStore,
-				mode: 'local',
-				triggerAction: 'all',
-				displayField: 'name',
-				valueField: 'value',
-				lazyInit: false,
-				forceSelection: true,
-				editable: false,
-				autoSelect: true,
-				tpl: new Ext.XTemplate(
-					'<tpl for=".">',
-						'<div class="x-combo-list-item zarafa-calendar-appointment-{[this.getCSSLabel(values.value)]}">',
-							'{name}',
-						'</div>',
-					'</tpl>',
-					{
-						getCSSLabel : function(label)
-						{
-							label = Zarafa.core.mapi.AppointmentLabels.getName(label);
-							label = label.toLowerCase();
-							label = label.replace('_', '-');
-							return 'label-' + label;
-						}
-					}),
 				listeners: {
 					select: this.onFieldSelect,
 					scope: this
@@ -795,10 +741,10 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		 * to update reminder_time and flagdueby aswell, When
 		 * 1) flagdueby is changed
 		 * 2) reminder minutes is changed
-		 * 3) startdate is changed
+		 * 3) startdate and reminder time not same
 		 */
 		if (record.get('reminder') === true) {
-			if(!record.get('flagdueby') || record.isModifiedSinceLastUpdate('reminder_minutes') || record.isModifiedSinceLastUpdate('startdate')) {
+			if(!record.get('flagdueby') ||  record.isModifiedSinceLastUpdate('reminder_minutes') || record.get('reminder_time') !== record.get('startdate')) {
 				var reminderDate;
 
 				if (record.isRecurring() || record.isRecurringOccurence()) {
@@ -954,6 +900,11 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 					record.set('flagdueby', reminderDate.add(Date.MINUTE, -record.get('reminder_minutes')));
 				}
 			}
+		}
+
+		// Remove auxiliary_flags if unset copy meeting is going to send.
+		if (record.hasMessageAction('send') && record.isCopied()) {
+			record.set('auxiliary_flags', 0);
 		}
 
 		this.onBodyChange(this.editorField.getEditor(), this.editorField.getValue());
@@ -1264,8 +1215,8 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				}
 			}
 		} else {
-			// Meeting is in future, but not replied yet
 			if(Ext.isDate(dueDate) && dueDate.getTime() >= (new Date().getTime())) {
+				// Meeting is in future, but not replied yet
 				responseString = this.responseRequiredString;
 			}
 		}

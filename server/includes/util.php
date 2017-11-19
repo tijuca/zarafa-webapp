@@ -4,7 +4,7 @@
 	 *
 	 * @package core
 	 */
-	 
+
 	 require_once(BASE_PATH . 'server/includes/exceptions/class.JSONException.php');
 
 	/**
@@ -71,7 +71,7 @@
 	 * upload_max_filesize specifies maximum upload size for attachments
 	 * post_max_size must be larger then upload_max_filesize.
 	 * these values are overwritten in .htaccess file of WA
-	 * 
+	 *
 	 * @return string return max value either upload max filesize or post max size.
 	 */
 	function getMaxUploadSize($as_string = false)
@@ -118,9 +118,9 @@
 
 	/**
 	 * Gets maximum post request size of attachment from php ini settings.
-	 * post_max_size specifies maximum size of a post request, 
+	 * post_max_size specifies maximum size of a post request,
 	 * we are uploading attachment using post method
-	 * 
+	 *
 	 * @return string returns the post request size with proper unit(MB, GB, KB etc.).
 	 */
 	function getMaxPostRequestSize()
@@ -142,7 +142,7 @@
 	/**
 	 * Get maximum number of files that can be uploaded in single request from php ini settings.
 	 * max_file_uploads specifies maximum number of files allowed in post request.
-	 * 
+	 *
 	 * @return number maximum number of files can uploaded in single request.
 	 */
 	function getMaxFileUploads()
@@ -327,6 +327,48 @@
 		}
 	}
 
+	/**
+	* Checks if the given url is allowed as redirect url.
+	* @param String $url The url that will be checked
+	*
+	* @return Boolean True is the url is allowed as redirect url,
+	* false otherwise
+	*/
+	function isContinueRedirectAllowed($url) {
+		// First check the protocol
+		$selfProtocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'https' : 'http';
+		$parsed = parse_url($url);
+		if ( $parsed === false || !isset($parsed['scheme']) || strtolower($parsed['scheme'])!==$selfProtocol ){
+			return false;
+		}
+
+		// The same domain as the WebApp is always allowed
+		if ( $parsed['host'] === $_SERVER['HTTP_HOST'] ){
+			return true;
+		}
+
+		// Check if the domain is white listed
+		$allowedDomains = explode(' ', preg_replace('/\s+/', ' ', REDIRECT_ALLOWED_DOMAINS));
+		if ( count($allowedDomains) && !empty($allowedDomains[0]) ){
+			foreach ( $allowedDomains as $domain ){
+				$parsedDomain = parse_url($domain);
+
+				// Handle invalid configuration options
+				if (!isset($parsedDomain['scheme']) || !isset($parsedDomain['host'])) {
+					error_log("Invalid 'REDIRECT_ALLOWED_DOMAINS' " . $domain);
+					continue;
+				}
+
+				if ( $parsedDomain['scheme'].'://'.$parsedDomain['host'] === $parsed['scheme'].'://'.$parsed['host'] ){
+					// This domain was allowed to redirect to by the administrator
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	// Constants for regular expressions which are used in get method to verify the input string
 	define("ID_REGEX", "/^[a-z0-9_]+$/im");
 	define("STRING_REGEX", "/^[a-z0-9_\s()@]+$/im");
@@ -399,7 +441,7 @@
 	function parse_smime($store, $message)
 	{
 		$props = mapi_getprops($message, array(PR_MESSAGE_CLASS));
-		
+
 		if(isset($props[PR_MESSAGE_CLASS]) && stripos($props[PR_MESSAGE_CLASS], 'IPM.Note.SMIME.MultipartSigned') !== false) {
 			// this is a signed message. decode it.
 			$atable = mapi_message_getattachmenttable($message);
@@ -530,7 +572,15 @@
 
 		$store = $GLOBALS["mapisession"]->getDefaultMessageStore();
 		$storeProps = mapi_getprops($store, array(PR_IPM_SUBTREE_ENTRYID));
-		$ipmsubtree = mapi_msgstore_openentry($store, $storeProps[PR_IPM_SUBTREE_ENTRYID]);
+		try {
+			$ipmsubtree = mapi_msgstore_openentry($store, $storeProps[PR_IPM_SUBTREE_ENTRYID]);
+		} catch (MAPIException $e) {
+			if ($e->getCode() == MAPI_E_NOT_FOUND || $e->getCode() == MAPI_E_INVALID_ENTRYID) {
+				$username = $GLOBALS["mapisession"]->getUserName();
+				error_log(sprintf('Unable to open IPM_SUBTREE for %s, trying to correct PR_IPM_SUBTREE_ENTRYID', $username));
+				$ipmsbutree = fix_ipmsubtree($store);
+			}
+		}
 		$hierarchy =  mapi_folder_gethierarchytable($ipmsubtree, CONVENIENT_DEPTH);
 		$rows = mapi_table_queryallrows($hierarchy, $props);
 
@@ -546,5 +596,45 @@
 		}
 
 		return $folderStatCache;
+	}
+
+	/**
+	 * Fix the PR_IPM_SUBTREE_ENTRYID in the Store properties when it is broken,
+	 * by looking up the IPM_SUBTREE in the Hierarchytable and fetching the entryid
+	 * and if found, setting the PR_IPM_SUBTREE_ENTRYID to that found entryid.
+	 *
+	 * @param {Object} store the users MAPI Store
+	 * @return {mixed} false if unable to correct otherwise return the subtree.
+	 */
+	function fix_ipmsubtree($store)
+	{
+		$root = mapi_msgstore_openentry($store, null);
+		$username = $GLOBALS["mapisession"]->getUserName();
+		$hierarchytable = mapi_folder_gethierarchytable($root);
+		mapi_table_restrict($hierarchytable, [RES_CONTENT,
+				[
+					FUZZYLEVEL	=> FL_PREFIX,
+					ULPROPTAG	=> PR_DISPLAY_NAME,
+					VALUE		=> [PR_DISPLAY_NAME => "IPM_SUBTREE"]
+				]
+		]);
+
+		$folders = mapi_table_queryallrows($hierarchytable, array(PR_ENTRYID));
+		if (empty($folders)) {
+			error_log(sprintf("No IPM_SUBTREE found for %s, store is broken", $username));
+			return false;
+		}
+
+		try {
+			$entryid = $folders[0][PR_ENTRYID];
+			$ipmsubtree = mapi_msgstore_openentry($store, $entryid);
+		} catch (MAPIException $e) {
+			error_log(sprintf('Unable to open IPM_SUBTREE for %s, IPM_SUBTREE folder can not be opened. MAPI error: %s',
+					$username, get_mapi_error_name($e->getCode())));
+			return false;
+		}
+
+		mapi_setprops($store, [PR_IPM_SUBTREE_ENTRYID => $entryid]);
+		error_log(sprintf('Fixed PR_IPM_SUBTREE_ENTRYID for %s', $username));
 	}
 ?>

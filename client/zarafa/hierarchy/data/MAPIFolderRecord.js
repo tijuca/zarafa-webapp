@@ -18,6 +18,7 @@ Zarafa.hierarchy.data.MAPIFolderRecordFields = [
 	{name: 'parent_entryid'},
 	{name: 'store_entryid'},
 	{name: 'object_type', type: 'int', defaultValue: Zarafa.core.mapi.ObjectType.MAPI_FOLDER},
+	{name: 'folder_type', type: 'int', defaultValue: Zarafa.core.mapi.MAPIFolderType.FOLDER_GENERIC},
 	{name: 'folder_pathname'},
 	{name: 'display_name'},
 	{name: 'container_class', type: 'string', defaultValue: 'IPF.Note'},
@@ -125,7 +126,12 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	 */
 	getSharedFolderKey : function()
 	{
-		return this.getMAPIStore().getSharedFolderKey(this.get('entryid'));
+		var MAPIStore = this.getMAPIStore();
+		if(MAPIStore) {
+			return MAPIStore.getSharedFolderKey(this.get('entryid'));
+		}
+
+		return undefined;
 	},
 
 	/**
@@ -172,6 +178,18 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	},
 
 	/**
+	 * @return {Boolean} true if the folder is the to-do list search folder of the store, else false.
+	 */
+	isTodoListFolder : function()
+	{
+		var MAPIStore = container.getHierarchyStore().getDefaultStore();
+		if (MAPIStore) {
+			return Zarafa.core.EntryId.compareEntryIds(this.get('entryid'), MAPIStore.get('default_folder_todolist'));
+		}
+		return false;
+	},
+
+	/**
 	 * @return {Boolean} true if the folder is the subtree folder of its store else false.
 	 */
 	isFavoritesRootFolder : function()
@@ -205,6 +223,14 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 	isCalendarFolder : function()
 	{
 		return Zarafa.core.ContainerClass.isClass(this.get('container_class'), 'IPF.Appointment', true);
+	},
+
+	/**
+	 * @return {Boolean} true if the folder is search folder else false.
+	 */
+	isSearchFolder : function()
+	{
+		return this.get('folder_type') === Zarafa.core.mapi.MAPIFolderType.FOLDER_SEARCH;
 	},
 
 	/**
@@ -372,18 +398,30 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 
 	/**
 	 * Add current {@link Zarafa.hierarchy.data.MAPIFolderRecord folder} to Favorites list
+	 * it can be favorites/search folder.
+	 *
+	 * @param {String} searchStoreEntryId store entryId in which this search folder is belongs.
 	 */
-	addToFavorites : function()
+	addToFavorites : function(searchStoreEntryId)
 	{
 		this.addMessageAction('action_type', 'addtofavorites');
+		var isSearchFolder = this.isSearchFolder();
+		if (isSearchFolder) {
+			this.addMessageAction('isSearchFolder', isSearchFolder);
+			this.addMessageAction('search_store_entryid', searchStoreEntryId);
+		}
 	},
 
 	/**
-	 * Remove current {@link Zarafa.hierarchy.data.FavoritesFolderRecord folder} to Favorites list
+	 * Remove current {@link Zarafa.hierarchy.data.FavoritesFolderRecord folder} to Favorites list.
 	 */
 	removeFromFavorites : function()
 	{
 		this.addMessageAction('action_type', 'removefavorites');
+		var isSearchFolder = this.isSearchFolder();
+		if (isSearchFolder) {
+			this.addMessageAction('isSearchFolder', isSearchFolder);
+		}
 	},
 
 	/**
@@ -446,7 +484,7 @@ Zarafa.hierarchy.data.MAPIFolderRecord = Ext.extend(Zarafa.core.data.IPFRecord, 
 				// Is it also logical that unread count for 'Drafts', 'Outbox' or Junk Mails' should be displayed?
 				return Zarafa.hierarchy.data.CounterTypes.UNREAD;
 			}
-		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT) === Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT && 
+		} else if ((extendedFlags & Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT) === Zarafa.core.mapi.FolderExtendedFlags.USE_UNREAD_COUNT &&
 				this.get('content_unread') > 0) {
 			// ExtendedFlags says use unread count
 			return Zarafa.hierarchy.data.CounterTypes.UNREAD;

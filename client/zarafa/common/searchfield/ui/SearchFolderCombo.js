@@ -168,6 +168,7 @@ Zarafa.common.searchfield.ui.SearchFolderCombo = Ext.extend(Ext.form.ComboBox, {
 		Zarafa.common.searchfield.ui.SearchFolderCombo.superclass.initEvents.apply(this, arguments);
 
 		this.on('beforeselect', this.onBeforeSelectSearchFolder, this);
+        this.on('select', this.onSelectSearchFolder, this);
 		this.mon(this.model, 'folderchange', this.onFolderChange, this);
 		this.mon(this.model, 'activate', this.onActiveFolder, this);
 		this.mon(container, 'aftercontextswitch', this.onAfterContextSwitch, this);
@@ -192,7 +193,13 @@ Zarafa.common.searchfield.ui.SearchFolderCombo = Ext.extend(Ext.form.ComboBox, {
 				model : this.model
 			});
 			return false;
+		} else if (!container.getHierarchyStore().getFolder(combo.getValue())) {
+			// Check if current selected folder is available in hierarchy tree,
+			// If not then remove that folder from search combo box.
+			var folderRecord = this.findRecord('value', combo.getValue());
+			this.getStore().remove(folderRecord);
 		}
+
 		return true;
 	},
 
@@ -256,6 +263,16 @@ Zarafa.common.searchfield.ui.SearchFolderCombo = Ext.extend(Ext.form.ComboBox, {
 		if (changeCurrentFolder) {
 			this.doChangeCurrentFolder(store, folder);
 		}
+
+		// Check if closed or deleted folder is available in hierarchy tree,
+		// If yes then remove that folder from search combo box.
+		this.getStore().each(function (record) {
+			var value = record.get('value');
+			if (value !== 'other' && !container.getHierarchyStore().getFolder(value)) {
+				this.getStore().remove(record);
+				return false;
+			}
+		}, this);
 
 		// Select 'All folders' if select folder is 'Inbox' folder of own store.
 		if (folder.getDefaultFolderKey() === 'inbox' && !folder.getMAPIStore().isSharedStore()) {
@@ -322,7 +339,21 @@ Zarafa.common.searchfield.ui.SearchFolderCombo = Ext.extend(Ext.form.ComboBox, {
 			this.list.setWidth(listWidth);
 			this.innerList.setWidth(listWidth - this.list.getFrameWidth('lr'));
 		}
-	}
+	},
+
+    /**
+	 * Event handler triggered when a search combo list item is selected.
+	 * It will fire click event of search button to automatically triggers a search
+	 * when user selects a different folder from the search-tab drop-down.
+     *
+     */
+    onSelectSearchFolder: function ()
+	{
+        var searchTextField = this.searchFieldContainer.searchTextField;
+        if (searchTextField.searchPanelRendered) {
+            searchTextField.onTriggerClick();
+        }
+    }
 });
 
 Ext.reg('zarafa.searchfoldercombo', Zarafa.common.searchfield.ui.SearchFolderCombo);

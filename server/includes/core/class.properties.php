@@ -153,6 +153,8 @@
 				$properties["recurrence_data"] = "PT_BINARY:PSETID_Appointment:0x8216";
 				$properties["reminderminutes"] = "PT_LONG:PSETID_Common:0x8501";
 				$properties["reminderset"] = "PT_BOOLEAN:PSETID_Common:0x8503";
+				$properties["flag_request"] = "PT_STRING8:PSETID_Common:0x8530";
+				$properties["flag_due_by"] = "PT_SYSTIME:PSETID_Common:0x8560";
 				$properties["sendasical"] = "PT_BOOLEAN:PSETID_Appointment:0x8200";
 				$properties["updatecounter"] = "PT_LONG:PSETID_Appointment:0x8201";                                     // AppointmentSequenceNumber
 				$properties["last_updatecounter"] = "PT_LONG:PSETID_Appointment:0x8203";                        // AppointmentLastSequence
@@ -258,6 +260,7 @@
 				$properties["commonend"] = "PT_SYSTIME:PSETID_Common:0x8517";
 				$properties["basedate"] = "PT_SYSTIME:PSETID_Appointment:0x8228";
 				$properties["timezone_data"] = "PT_BINARY:PSETID_Appointment:0x8233";
+				$properties["auxiliary_flags"] = "PT_LONG:PSETID_Appointment:0x8207";
 				$properties["commonassign"] = "PT_LONG:PSETID_Common:0x8518";
 				$properties["last_modification_time"] = PR_LAST_MODIFICATION_TIME;
 				$properties["creation_time"] = PR_CREATION_TIME;
@@ -834,9 +837,11 @@
 				$properties["flag_icon"] = PR_FLAG_ICON;
 				$properties["block_status"] = PR_BLOCK_STATUS;
 				$properties["reminder_time"] = "PT_SYSTIME:PSETID_Common:0x8502";
-				$properties["reminder_set"] = "PT_BOOLEAN:PSETID_Common:0x8503";
+				$properties["reminder"] = "PT_BOOLEAN:PSETID_Common:0x8503";
 				$properties["flag_request"] = "PT_STRING8:PSETID_Common:0x8530";
 				$properties["flag_due_by"] = "PT_SYSTIME:PSETID_Common:0x8560";
+				$properties["task_due_date"] = "PT_SYSTIME:PSETID_Task:0x8105";
+				$properties["task_start_date"] = "PT_SYSTIME:PSETID_Task:0x8104";
 				$properties["reply_requested"] = PR_REPLY_REQUESTED;
 				$properties["reply_time"] = PR_REPLY_TIME;
 				$properties["response_requested"] = PR_RESPONSE_REQUESTED;
@@ -1022,10 +1027,15 @@
 				$properties["commonstart"] = "PT_SYSTIME:PSETID_Common:0x8516";
 				$properties["commonend"] = "PT_SYSTIME:PSETID_Common:0x8517";
 				$properties["commonassign"] = "PT_LONG:PSETID_Common:0x8518";
-				$properties["flagdueby"] = "PT_SYSTIME:PSETID_Common:0x8560";
+				$properties["flag_icon"] = PR_FLAG_ICON;
+				$properties["flag_due_by"] = "PT_SYSTIME:PSETID_Common:0x8560";
+				$properties["flag_status"] = PR_FLAG_STATUS;
+				$properties["flag_complete_time"] = PR_FLAG_COMPLETE_TIME;
+				$properties["flag_request"] = "PT_STRING8:PSETID_Common:0x8530";
 				$properties["recurring"] = "PT_BOOLEAN:PSETID_Task:0x8126";
 				$properties["recurring_data"] = "PT_BINARY:PSETID_Task:0x8116";
 				$properties["dead_occurrence"] = "PT_BOOLEAN:PSETID_Task:0x8109";
+
 				// Conflict properties
 				$properties["conflictitems"] = PR_CONFLICT_ITEMS;
 
@@ -1092,6 +1102,7 @@
 				$properties["entryid"] = PR_ENTRYID;
 				$properties["parent_entryid"] = PR_PARENT_ENTRYID;
 				$properties["store_entryid"] = PR_STORE_ENTRYID;
+				$properties["folder_type"] = PR_FOLDER_TYPE;
 				$properties["object_type"] = PR_OBJECT_TYPE;
 				$properties["display_name"] = PR_DISPLAY_NAME;
 				$properties["container_class"] = PR_CONTAINER_CLASS;
@@ -1137,6 +1148,7 @@
 		function getFavoritesFolderProperties()
 		{
 			$properties = $this->getFolderListProperties();
+			$properties["search_folder_id"] = PR_WB_SF_ID;
 			$properties["message_class"] = PR_MESSAGE_CLASS;
 			$properties["subject"] = PR_SUBJECT;
 			$properties["favorites_folder_entryid"] = PR_WLINK_ENTRYID;

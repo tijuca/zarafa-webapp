@@ -16,6 +16,16 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 	editRecurrence : false,
 
 	/**
+	 * True when recurring item is being created by pasting. When this is true,
+	 * {@link #onOk} will request to create new recurring message in calendar.
+	 * default is false.
+	 * @property
+	 * @type Boolean
+	 * @private
+	 */
+	pasteItem : false,
+
+	/**
 	 * @constructor
 	 * @param config Configuration structure
 	 */
@@ -45,7 +55,7 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 				xtype: 'zarafa.recurrencepanel',
 				ref: 'recurrencePanel',
 				buttons : [{
-					text : _('Ok'),
+					text : config.pasteItem ? _('Create') : _('Ok'),
 					handler : this.onOk,
 					scope : this,
 					ref : '../../okBtn'
@@ -158,6 +168,27 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 				this
 			);
 		} else {
+			// If we are adding recurrence for the first time, we have set properties in onBeforeSetRecord(). We must
+			// make sure these properties will be put in the modified property of the record or they will not be
+			// applied to the original record when applyData is called. (the setRecord method has emptied the modified
+			// property)
+			if ( !this.editRecurrence ){
+				this.record.modified['recurring'] = this.record.data['recurring'];
+				this.record.modified['recurrence_type'] = this.record.data['recurrence_type'];
+				this.record.modified['recurrence_subtype'] = this.record.data['recurrence_subtype'];
+				this.record.modified['recurrence_regen'] = this.record.data['recurrence_regen'];
+				this.record.modified['recurrence_term'] = this.record.data['recurrence_term'];
+				this.record.modified['recurrence_start'] = this.record.data['recurrence_start'];
+				this.record.modified['recurrence_startocc'] = this.record.data['recurrence_startocc'];
+				this.record.modified['recurrence_endocc'] = this.record.data['recurrence_endocc'];
+				this.record.modified['recurrence_everyn'] = this.record.data['recurrence_everyn'];
+				this.record.modified['recurrence_weekdays'] = this.record.data['recurrence_weekdays'];
+			}
+
+			if(this.pasteItem) {
+				this.store.add(this.modalRecord);
+			}
+
 			Zarafa.common.recurrence.dialogs.RecurrenceContentPanel.superclass.onOk.apply(this, arguments);
 		}
 	},
@@ -172,9 +203,13 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 	 */
 	onSaveRecord : function(contentpanel, record)
 	{
-		// Recurrence has been changed, inform the server
-		// to reset the recurrence.
-		record.set('recurring_reset', true);
+		// Do not set recurring_reset to true while pasting recurring meeting/appointment
+		// because we are creating recurring item and not resetting recurring item.
+		if(!this.pasteItem) {
+			// Recurrence has been changed, inform the server
+			// to reset the recurrence.
+			record.set('recurring_reset', true);
+		}
 
 		// This is not a recurring message, clear the recurring pattern
 		if (!record.get('recurring')) {
@@ -205,7 +240,11 @@ Zarafa.common.recurrence.dialogs.RecurrenceContentPanel = Ext.extend(Zarafa.core
 			disabled = true;
 		}
 
-		this.removeReccurrenceBtn.setDisabled(disabled);
+		if(this.pasteItem) {
+			this.removeReccurrenceBtn.setVisible(false);
+		} else {
+			this.removeReccurrenceBtn.setDisabled(disabled);
+		}
 		this.okBtn.setDisabled(disabled);
 	},
 

@@ -33,6 +33,7 @@ Zarafa.calendar.AppointmentRecordFields = [
 	{name: 'meeting', type: 'int', defaultValue: Zarafa.core.mapi.MeetingStatus.NONMEETING},
 	{name: 'location', type: 'string'},
 	{name: 'duration', type: 'int'},
+	{name: 'auxiliary_flags', type: 'int'},
 	{name: 'responsestatus', type: 'int', defaultValue: Zarafa.core.mapi.ResponseStatus.RESPONSE_NONE},
 	{name: 'reminder', type: 'boolean'},
 	{name: 'reminder_minutes', type: 'int'},
@@ -402,7 +403,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 	 */
 	generateProposeNewTimeBody : function (comment, startDate, endDate)
 	{
-		var proposeNewTimeBody = comment + '\n\n\n-----------\n' + _('New Meeting Time Proposed') + ' :\n';
+		var proposeNewTimeBody = comment + '\n\n\n-----------\n' + _('New Meeting Time Proposed') + ':\n';
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 		proposeNewTimeBody += startDate.format(_('l jS F Y G:i')) + ' - ';
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -639,7 +640,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 	},
 
 	/**
-	 * @return {Boolean} true iff the record has been fully loaded.
+	 * @return {Boolean} true if the record has been fully loaded.
 	 */
 	isOpened : function()
 	{
@@ -648,6 +649,14 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 		} else {
 			return this.openedSeries === true;
 		}
+	},
+
+	/**
+	 * @return {Boolean} true if the record is copied record.
+	 */
+	isCopied : function ()
+	{
+		return (this.get('auxiliary_flags') & Zarafa.core.mapi.AppointmentAuxiliaryFlags.auxApptFlagCopied) > 0;
 	},
 
 	/**
@@ -736,7 +745,7 @@ Zarafa.calendar.AppointmentRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 				var props = {
 					recipient_type : Zarafa.core.mapi.RecipientType.MAPI_ORIG,
 					recipient_flags : Zarafa.core.mapi.RecipientFlags.recipSendable | Zarafa.core.mapi.RecipientFlags.recipOrganizer,
-					recipient_trackstatus : Zarafa.core.mapi.RecipientTrackStatus.RECIPIENT_TRACKSTATUS_NONE
+					recipient_trackstatus : Zarafa.core.mapi.ResponseStatus.RESPONSE_ORGANIZED
 				};
 
 				// Check if the sent_representing_* properties are there,

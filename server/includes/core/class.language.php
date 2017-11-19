@@ -104,7 +104,7 @@
 
 				textdomain('zarafa_webapp');
 			}else{
-				trigger_error("Unknown language: '".$lang."'", E_USER_WARNING);
+				error_log(sprintf("Unknown language: '%s'", $lang));
 			}
 		}
 
@@ -129,15 +129,15 @@
 		 */
 		function getJSON()
 		{
-			$json = array();
+			$json = [];
 			$languages = $this->getLanguages();
 			foreach ($languages as $key => $lang) {
-				$json[] = array(
+				$json[] = [
 					"lang" => $key,
 					"name" => $lang
-				);
+				];
 			}
-			return $json;
+			return json_encode($json);
 		}
 	
 		/**

@@ -31,14 +31,14 @@ Zarafa.core.data.MessageRecordFields = [
 /**
  * @class Zarafa.core.data.MessageRecord
  * @extends Zarafa.core.data.IPMRecord
- * 
+ *
  * An extension to the {@link Zarafa.core.data.IPMRecord IPMRecord} specific to records which are
  * sendable / receivable.
  */
 Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 	/**
 	 * Flag will be used to indicate {@link Zarafa.core.data.MessageRecord MessageRecord} contains external content
-	 * in the body property or not. Flag is used here because everytime we load the same mail then we don't have to 
+	 * in the body property or not. Flag is used here because everytime we load the same mail then we don't have to
 	 * run through {@link Zarafa.core.HTMLParser HTMLParser} to find out if it contains external content or not
 	 * as checking whole body consumes lots of resources so we check only once and store the value for further uses.
 	 * @property
@@ -113,6 +113,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 			subject : this.get('subject'),
 			body : this.getBody(false),
 			importance : this.get('importance'),
+			categories : this.get('categories'),
 			owner : defaultStore.isPublicStore() ? container.getUser().getFullName() : defaultStore.get('mailbox_owner_name')
 		});
 
@@ -155,13 +156,13 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 
 		var blockExternalContent = true;
 		var ignoreChecks = false;
-		var senderSMTPAddress = this.get('sent_representing_email_address') || this.get('sender_email_address');
+		var senderSMTPAddress = (this.get('sent_representing_email_address') || this.get('sender_email_address')).toLowerCase();
 		var blockedSenders = container.getSettingsModel().get('zarafa/v1/contexts/mail/blocked_senders_list', true);
 		var safeSenders = container.getSettingsModel().get('zarafa/v1/contexts/mail/safe_senders_list', true);
 
 		// settings are in object format so convert it to an array
-		blockedSenders = Zarafa.core.Util.objToArray(blockedSenders);
-		safeSenders = Zarafa.core.Util.objToArray(safeSenders);
+		blockedSenders = Zarafa.core.Util.objToArray(blockedSenders).map(function(s){return s.toLowerCase();});
+		safeSenders = Zarafa.core.Util.objToArray(safeSenders).map(function(s){return s.toLowerCase();});
 
 		// if block_status property is set correctly then ignore all settings and show external content
 		if(this.checkBlockStatus()) {
@@ -205,7 +206,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 	/**
 	 * Function will check block_status property value and compare it with generated value from
 	 * message_delivery_time property value and if both matches then we can say that external content
-	 * should be shown. 
+	 * should be shown.
 	 * @return {Boolean} returns true if external content should be blocked else false
 	 */
 	checkBlockStatus : function()
@@ -223,7 +224,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 
 	/**
 	 * Function will calculate value of block_status property based on message_delivery_time property value.
-	 * Formula for calculation of block status value can be checked at 
+	 * Formula for calculation of block status value can be checked at
 	 * http://msdn.microsoft.com/en-us/library/ee219242(v=EXCHG.80).aspx.
 	 * @return {Number} calculated value of block status property.
 	 */
@@ -246,7 +247,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 
 		return result;
 	},
-	
+
 	/**
 	 * Function is used to check if the sender and receiver in the message is same or different
 	 * first it checks for entryids of sender and receiver and if no entryids are present then it checks
@@ -274,7 +275,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 
 		return false;
 	},
-	
+
 	/**
 	 * Function is used to check if the sender in the message and user logged-in is same or different.
 	 * @return {Boolean} true if sender and user logged-in is same user else false.
@@ -283,14 +284,14 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 	{
 		var senderEntryId = this.get('sent_representing_entryid') || this.get('sender_entryid');
 		var userEntryId = container.getUser().getEntryId();
-		
+
 		if(!Ext.isEmpty(senderEntryId) && !Ext.isEmpty(userEntryId)) {
 			return Zarafa.core.EntryId.compareABEntryIds(senderEntryId, userEntryId);
 		}
-		
+
 		return false;
 	},
-	
+
 	/**
 	 * Function is used to check if the sender in the message and user message sender is same or different.
 	 * @return {Boolean} true if sender and user logged-in is same user else false.
@@ -362,7 +363,7 @@ Zarafa.core.data.MessageRecord = Ext.extend(Zarafa.core.data.IPMRecord, {
 			return false;
 		}
 
-		var sender = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, { 
+		var sender = Zarafa.core.data.RecordFactory.createRecordObjectByCustomType(Zarafa.core.data.RecordCustomObjectType.ZARAFA_RECIPIENT, {
 			smtp_address : this.get('sender_email_address'),
 			display_name : this.get('sender_name'),
 			address_type : this.get('sender_address_type'),

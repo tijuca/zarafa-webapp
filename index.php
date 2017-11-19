@@ -7,6 +7,24 @@
 	// Bootstrap the script
 	require_once('server/includes/bootstrap.php');
 
+	// Added in 3.4.0, remove check in 3.5.0
+	if (!function_exists('gitversion')) {
+		/**
+		 * Obtain the current Git working branch
+		 * @return string the current git working branch
+		 */
+		function gitversion()
+		{
+			if (is_dir(BASE_PATH . DIRECTORY_SEPARATOR . '.git')) {
+				return trim(@shell_exec("git symbolic-ref --short HEAD || git rev-parse --short HEAD ."));
+			} else {
+				return '';
+			}
+		}
+	} else {
+		error_log('Remove gitversion() function in debug.php it\'s deprecated');
+	}
+
 	/*
 	 * Get the favicon either from theme or use the default.
 	 *
@@ -48,6 +66,12 @@
 		storeURLDataToSession();
 	}
 
+	// Check if the continue parameter was set. This will be set e.g. when someone
+	// uses the WebApp to login to another application with OpenID Connect.
+	if ( isset($_GET['continue']) && !empty($_GET['continue']) && !isset($_GET['wacontinue']) ) {
+		$_SESSION['continue'] = $_GET['continue'];
+	}
+
 	// Try to authenticate the user
 	WebAppAuthentication::authenticate();
 
@@ -69,11 +93,7 @@
 
 		// Set some template variables for the login page
 		$branch = DEBUG_LOADER===LOAD_SOURCE ? gitversion() : '';
-		$server = DEBUG_SHOW_SERVER ? DEBUG_SERVER_ADDRESS : '';
 		$version = 'WebApp ' . trim(file_get_contents('version'));
-		if (!empty($server)) {
-			$version = _('Server') . ': ' . $server . ' - ' . $version;
-		}
 		$zcpversion = 'Kopano Core' . ' ' . phpversion('mapi');
 		$user = sanitizeGetValue('user', '', USERNAME_REGEX);
 
@@ -104,6 +124,29 @@
 	}
 
 	// The user is authenticated! Let's get ready to start the webapp.
+
+	// Check if we need to redirect the user after login (e.g. when using the WebApp
+	// to login to another application with OIDC).
+	if ( isset($_SESSION['continue']) ){
+		$continue = $_SESSION['continue'];
+		unset($_SESSION['continue']);
+
+		if ( isContinueRedirectAllowed($continue) ){
+			// Add the parameter 'wacontinue' to make sure we will not keep redirecting
+			// to ourself.
+			$continue = explode('#', $continue);
+			if ( strpos($continue[0], '?') === false ){
+				$continue[0] .= '?';
+			} else {
+				$continue[0] .= '&';
+			}
+			$continue[0] .= 'wacontinue';
+			$continue = implode('#', $continue);
+
+			header('Location: ' . $continue , true, 302);
+			die();
+		}
+	}
 
 	// If the user just logged in or if url data was stored in the session,
 	// we will redirect to make sure that a browser refresh will not post
