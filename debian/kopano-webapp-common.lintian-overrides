@@ -1,1 +1,3 @@
 kopano-webapp-common: package-contains-empty-directory usr/share/kopano-webapp/plugins/
+# this is a small font only used by kopano-webapp
+kopano-webapp-common: font-in-non-font-package usr/share/kopano-webapp/client/resources/fonts/kopanowebappdings.ttf
