@@ -169,6 +169,7 @@ class Meetingrequest {
 		$properties['timezone'] = 'PT_STRING8:PSETID_Appointment:0x8234';
 		$properties['toattendeesstring'] = 'PT_STRING8:PSETID_Appointment:0x823B';
 		$properties['ccattendeesstring'] = 'PT_STRING8:PSETID_Appointment:0x823C';
+		$properties["categories"] = "PT_MV_STRING8:PS_PUBLIC_STRINGS:Keywords";
 
 		$this->proptags = getPropIdsFromStrings($store, $properties);
 	}
@@ -638,6 +639,17 @@ If it is the first time this attendee has proposed a new date/time, increment th
 		if($this->isMeetingRequest($messageprops[PR_MESSAGE_CLASS]) && $userAction == false) {
 			if(isset($messageprops[PR_PROCESSED]) && $messageprops[PR_PROCESSED] == true) {
 				// if meeting request is already processed then don't do anything
+				return false;
+			}
+
+			// if correspondent calendar item is already processed then don't do anything
+			$calendarItem = $this->getCorrespondentCalendarItem();
+			$calendarItemProps = mapi_getprops($calendarItem, array(PR_PROCESSED));
+			if(isset($calendarItemProps) && $calendarItemProps[PR_PROCESSED] == true) {
+				// mark meeting-request mail as processed as well
+				mapi_setprops($this->message, Array(PR_PROCESSED => true));
+				mapi_savechanges($this->message);
+
 				return false;
 			}
 		}
@@ -2928,6 +2940,10 @@ If it is the first time this attendee has proposed a new date/time, increment th
 		if ($prefix && isset($newmessageprops[PR_SUBJECT]))
 			$newmessageprops[PR_SUBJECT] = $prefix . $newmessageprops[PR_SUBJECT];
 
+		if(isset($newmessageprops[$this->proptags['categories']]) &&
+			!empty($newmessageprops[$this->proptags['categories']])) {
+			unset($newmessageprops[$this->proptags['categories']]);
+		}
 		mapi_setprops($new, $newmessageprops);
 
 		// Copy attachments

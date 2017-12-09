@@ -52,8 +52,6 @@ Zarafa.task.TaskRecordFields = [
 	{name: 'flag_request'},
 	{name: 'flag_due_by', type:'date', dateFormat:'timestamp', defaultValue: null},
 	{name: 'flag_complete_time', type:'date', dateFormat:'timestamp', defaultValue: null},
-	{name: 'task_start_date', type: 'date', dateFormat: 'timestamp', defaultValue: null},
-	{name: 'task_due_date', type: 'date', dateFormat: 'timestamp', defaultValue: null},
 	{name: 'task_acceptance_state', type : 'int', defaultValue:Zarafa.core.mapi.TaskAcceptanceState.NOT_DELEGATED},
 	{name: 'updatecount', type : 'int'},
 	{name: 'task_not_found', type : 'boolean'}
@@ -189,7 +187,7 @@ Zarafa.task.TaskRecord = Ext.extend(Zarafa.core.data.MessageRecord, {
 	 */
 	isTaskDeclined : function ()
 	{
-		return (this.get('taskstate') === Zarafa.core.mapi.TaskState.ACCEPT &&
+		return (this.get('taskstate') === Zarafa.core.mapi.TaskState.DECLINE &&
 			this.get('taskhistory') === Zarafa.core.mapi.TaskHistory.DECLINED);
 	},
 
