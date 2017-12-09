@@ -16,7 +16,7 @@ Build-Depends: ant,
 Vcs-Git: https://anonscm.debian.org/cgit/pkg-giraffe/kopano-webapp.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-giraffe/kopano-webapp.git
 Homepage: https://github.com/Kopano-dev/kopano-webapp
-Standards-Version: 4.1.1
+Standards-Version: 4.1.2
 
 Package: kopano-webapp-common
 Architecture: all
