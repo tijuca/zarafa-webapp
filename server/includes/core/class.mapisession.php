@@ -55,7 +55,6 @@
 
 		function __construct()
 		{
-			$this->session_info = array("auth"=>false);
 			$this->stores = array();
 			$this->defaultstore = 0;
 			$this->publicStore = 0;
@@ -91,9 +90,6 @@
 								   $sslcert_pass, 1, $webapp_version, $browser_version);
 				if ($this->session !== false){
 					$this->session_info["username"] = $username;
-
-					// we are authenticated
-					$this->session_info["auth"] = true;
 				}
 			} catch (MAPIException $e) {
 				$result = $e->getCode();
@@ -191,6 +187,15 @@
 		}
 
 		/**
+		 * Set MAPI session object
+		 *
+		 * @param mapisession The MAPI session
+		 */
+		function setSession($session) {
+			$this->session = $session;
+		}
+
+		/**
 		 * Get MAPI addressbook object
 		 *
 		 * @param string $fresh (optional) When set to true it will return an addressbook resource
@@ -241,7 +246,8 @@
 		 */
 		function isLoggedOn()
 		{
-			return array_key_exists("auth",$this->session_info)?$this->session_info["auth"]:false;
+			trigger_error("isLoggedOn is deprecated, use WebAppAuthentication::isAuthenticated()", E_USER_NOTICE);
+			return WebAppAuthentication::isAuthenticated();
 		}
 
 		/**
@@ -275,9 +281,8 @@
 		 */
 		function getUserName()
 		{
-			$this->retrieveUserData();
-
-			return array_key_exists("username",$this->session_info)?$this->session_info["username"]:false;
+			$encryptionStore = EncryptionStore::getInstance();
+			return $encryptionStore->get('username') ? $encryptionStore->get('username'): '';
 		}
 
 		/**

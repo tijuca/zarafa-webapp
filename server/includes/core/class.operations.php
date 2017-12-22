@@ -78,7 +78,7 @@
 
 			foreach($storelist as $store)
 			{
-				$msgstore_props = mapi_getprops($store, array(PR_ENTRYID, PR_DISPLAY_NAME, PR_IPM_SUBTREE_ENTRYID, PR_IPM_OUTBOX_ENTRYID, PR_IPM_SENTMAIL_ENTRYID, PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_PUBLIC_FOLDERS_ENTRYID, PR_IPM_FAVORITES_ENTRYID, PR_OBJECT_TYPE, PR_STORE_SUPPORT_MASK, PR_MAILBOX_OWNER_ENTRYID, PR_MAILBOX_OWNER_NAME, PR_USER_ENTRYID, PR_USER_NAME, PR_QUOTA_WARNING_THRESHOLD, PR_QUOTA_SEND_THRESHOLD, PR_QUOTA_RECEIVE_THRESHOLD, PR_MESSAGE_SIZE_EXTENDED, PR_MAPPING_SIGNATURE, PR_COMMON_VIEWS_ENTRYID, PR_FINDER_ENTRYID));
+				$msgstore_props = mapi_getprops($store, array(PR_ENTRYID, PR_DISPLAY_NAME, PR_IPM_SUBTREE_ENTRYID, PR_IPM_OUTBOX_ENTRYID, PR_IPM_SENTMAIL_ENTRYID, PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_PUBLIC_FOLDERS_ENTRYID, PR_IPM_FAVORITES_ENTRYID, PR_OBJECT_TYPE, PR_STORE_SUPPORT_MASK, PR_MAILBOX_OWNER_ENTRYID, PR_MAILBOX_OWNER_NAME, PR_USER_ENTRYID, PR_USER_NAME, PR_QUOTA_WARNING_THRESHOLD, PR_QUOTA_SEND_THRESHOLD, PR_QUOTA_RECEIVE_THRESHOLD, PR_MESSAGE_SIZE_EXTENDED, PR_COMMON_VIEWS_ENTRYID, PR_FINDER_ENTRYID));
 
 				$inboxProps = array();
 				$storeType = $msgstore_props[PR_MDB_PROVIDER];
@@ -104,11 +104,9 @@
 						"display_name" => str_replace('Inbox - ', '', $msgstore_props[PR_DISPLAY_NAME]),
 						"subtree_entryid" => bin2hex($msgstore_props[PR_IPM_SUBTREE_ENTRYID]),
 						"mdb_provider" => bin2hex($msgstore_props[PR_MDB_PROVIDER]),
-						"mapping_signature" => bin2hex($msgstore_props[PR_MAPPING_SIGNATURE]),
 						"object_type" => $msgstore_props[PR_OBJECT_TYPE],
 						"store_support_mask" => $msgstore_props[PR_STORE_SUPPORT_MASK],
 						"user_name" => $storeUserName,
-						"user_entryid" => bin2hex($msgstore_props[PR_USER_ENTRYID]),
 						"store_size" => round($msgstore_props[PR_MESSAGE_SIZE_EXTENDED]/1024),
 						"quota_warning" => isset($msgstore_props[PR_QUOTA_WARNING_THRESHOLD]) ? $msgstore_props[PR_QUOTA_WARNING_THRESHOLD] : 0,
 						"quota_soft" => isset($msgstore_props[PR_QUOTA_SEND_THRESHOLD]) ? $msgstore_props[PR_QUOTA_SEND_THRESHOLD] : 0,
@@ -300,7 +298,7 @@
 											// Change the parent so the folder will be shown in the hierarchy
 											$todoSearchFolderProps[PR_PARENT_ENTRYID] = $subtreeFolderEntryID;
 											// Change the display name of the folder
-											$todoSearchFolderProps[PR_DISPLAY_NAME] = _('To-do list');
+											$todoSearchFolderProps[PR_DISPLAY_NAME] = _('To-Do List');
 											// Never show unread content for the To-do list
 											$todoSearchFolderProps[PR_CONTENT_UNREAD] = 0;
 											$todoSearchFolderProps[PR_CONTENT_COUNT] = 0;
@@ -2387,9 +2385,7 @@
 
 				$sendMeetingRequestResult = $request->sendMeetingRequest($delete, false, $basedate, $modifiedRecipients, $deletedRecipients);
 
-				if ($recips) {
-					$this->addEmailsToRecipientHistory($recips);
-				}
+				$this->addEmailsToRecipientHistory($message);
 
 				if($sendMeetingRequestResult === true){
 					mapi_savechanges($message);
@@ -2733,7 +2729,7 @@
 					$messageProps[PR_PARENT_ENTRYID] = $tmp_props[PR_PARENT_ENTRYID];
 					$result = true;
 
-					$this->addEmailsToRecipientHistory($recipients);
+					$this->addEmailsToRecipientHistory($message);
 				}
 			}
 
@@ -3400,28 +3396,6 @@
 						//Open contact photo attachement in binary format.
 						$attach = mapi_message_openattach($message, $props["attach_num"]);
 						$photo = mapi_attach_openbin($attach,PR_ATTACH_DATA_BIN);
-
-						// Process photo and restrict its size to 96.
-						if ($photo) {
-							$compressionRatio=1;
-							for ($length=2, $len = strlen($photo); $length <= $len;) {
-								$partinfo = unpack("Cmarker/Ccode/nlength",substr($photo,$length,4));
-								if ($partinfo['marker'] != 0xff) break; // error in structure???
-								if ($partinfo['code'] >= 0xc0 &&
-									$partinfo['code'] <= 0xc3) { // this is the size block
-									$photo_size = unpack("Cunknown/ny/nx",substr($photo,$length+4,5));
-									// find the resize factor, picture should be not higher than 96 pixel.
-									$compressionRatio = ceil($photo_size['y']/96);
-									break;
-								} else { // jump to next block
-									$length = $length+$partinfo['length']+2;
-								}
-							}
-							if ($partinfo['marker'] == 0xff) {
-								$props["attachment_contactphoto_sizex"] = (int)($photo_size['x'] / $compressionRatio);
-								$props["attachment_contactphoto_sizey"] = (int)($photo_size['y'] / $compressionRatio);
-							}
-						}
 					}
 
 					if ($props["attach_method"] == ATTACH_EMBEDDED_MSG){
@@ -4007,120 +3981,116 @@
 		* opens the recipient history property (PR_EC_RECIPIENT_HISTORY_JSON) and updates or appends
 		* it with the passed email addresses.
 		*
-		* @param emailAddresses XML array structure with recipients
+		* @param MAPIMessage the MAPI Mail message which is send
 		*/
-		function addEmailsToRecipientHistory($emailAddresses){
-			if(is_array($emailAddresses) && !empty($emailAddresses)) {
-				// Retrieve the recipient history
-				$store = $GLOBALS["mapisession"]->getDefaultMessageStore();
-				$storeProps  = mapi_getprops($store, array(PR_EC_RECIPIENT_HISTORY_JSON));
-				$recipient_history = false;
-
-				if(isset($storeProps[PR_EC_RECIPIENT_HISTORY_JSON]) || propIsError(PR_EC_RECIPIENT_HISTORY_JSON, $storeProps) == MAPI_E_NOT_ENOUGH_MEMORY) {
-					$datastring = streamProperty($store, PR_EC_RECIPIENT_HISTORY_JSON);
-
-					if(!empty($datastring)) {
-						$recipient_history = json_decode_data($datastring, true);
-					}
-				}
-
-				/**
-				 * recipient structure passed to this function will be wrapped in add, modify and remove tags
-				 * so we need to remove that wrapping of identifiers.
-				 */
-				$tmpEmailAddresses = $emailAddresses;
-				$emailAddresses = array();
-				foreach($tmpEmailAddresses as $key => $recipients) {
-					if(!empty($recipients)) {
-						$emailAddresses = array_merge($emailAddresses, $recipients);
-					}
-				}
-
-				$l_aNewHistoryItems = Array();
-				// Loop through all new recipients
-				for($i = 0, $len = count($emailAddresses); $i < $len; $i++){
-					if ($emailAddresses[$i]['address_type'] == 'SMTP') {
-						$emailAddress = $emailAddresses[$i]['smtp_address'];
-						if (empty($emailAddress)) {
-							$emailAddress = $emailAddresses[$i]['email_address'];
-						}
-					} else { // address_type == 'ZARAFA' || address_type == 'MAPIPDL'
-						$emailAddress = $emailAddresses[$i]['email_address'];
-						if (empty($emailAddress)) {
-							$emailAddress = $emailAddresses[$i]['smtp_address'];
-						}
-					}
-
-					// If no email address property is found, then we can't
-					// generate a valid suggestion.
-					if (empty($emailAddress)) {
-						continue;
-					}
-
-
-					$l_bFoundInHistory = false;
-					// Loop through all the recipients in history
-					if(is_array($recipient_history) && !empty($recipient_history['recipients'])) {
-						for($j = 0, $lenJ = count($recipient_history['recipients']); $j < $lenJ;$j++){
-							// Email address already found in history
-							$l_bFoundInHistory = false;
-
-							// The address_type property must exactly match,
-							// when it does, a recipient matches the suggestion
-							// if it matches to either the email_address or smtp_address.
-							if ($emailAddresses[$i]['address_type'] === $recipient_history['recipients'][$j]['address_type']) {
-								if ($emailAddress == $recipient_history['recipients'][$j]['email_address'] ||
-								    $emailAddress == $recipient_history['recipients'][$j]['smtp_address']) {
-									$l_bFoundInHistory = true;
-								}
-							}
-
-							if($l_bFoundInHistory == true){
-								// Check if a name has been supplied.
-								$newDisplayName = trim($emailAddresses[$i]['display_name']);
-								if(!empty($newDisplayName)){
-									$oldDisplayName = trim($recipient_history['recipients'][$j]['display_name']);
-
-									// Check if the name is not the same as the email address
-									if ($newDisplayName != $emailAddresses[$i]['smtp_address']) {
-										$recipient_history['recipients'][$j]['display_name'] = $newDisplayName;
-									// Check if the recipient history has no name for this email
-									} else if(empty($oldDisplayName)) {
-										$recipient_history['recipients'][$j]['display_name'] = $newDisplayName;
-									}
-								}
-								$recipient_history['recipients'][$j]['count']++;
-								$recipient_history['recipients'][$j]['last_used'] = time();
-								break;
-							}
-						}
-					}
-					if(!$l_bFoundInHistory && !isset($l_aNewHistoryItems[$emailAddress])){
-						$l_aNewHistoryItems[$emailAddress] = Array(
-							'display_name' => $emailAddresses[$i]['display_name'],
-							'smtp_address' => $emailAddresses[$i]['smtp_address'],
-							'email_address' => $emailAddresses[$i]['email_address'],
-							'address_type' => $emailAddresses[$i]['address_type'],
-							'count' => 1,
-							'last_used' => time(),
-							'object_type' => $emailAddresses[$i]['object_type']
-						);
-					}
-				}
-				if(!empty($l_aNewHistoryItems)){
-					foreach($l_aNewHistoryItems as $l_aValue){
-						$recipient_history['recipients'][] = $l_aValue;
-					}
-				}
-
-				$l_sNewRecipientHistoryJSON = json_encode($recipient_history);
-
-				$stream = mapi_openproperty($store, PR_EC_RECIPIENT_HISTORY_JSON, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
-				mapi_stream_setsize($stream, strlen($l_sNewRecipientHistoryJSON));
-				mapi_stream_write($stream, $l_sNewRecipientHistoryJSON);
-				mapi_stream_commit($stream);
-				mapi_savechanges($store);
+		function addEmailsToRecipientHistory($message) {
+			$emailAddress = [];
+			foreach($this->getRecipientsInfo($message) as $key => $value) {
+				$emailAddresses[] = $value['props'];
 			}
+
+			if (empty($emailAddresses)) {
+				return;
+			}
+
+			// Retrieve the recipient history
+			$store = $GLOBALS["mapisession"]->getDefaultMessageStore();
+			$storeProps  = mapi_getprops($store, array(PR_EC_RECIPIENT_HISTORY_JSON));
+			$recipient_history = false;
+
+			if(isset($storeProps[PR_EC_RECIPIENT_HISTORY_JSON]) || propIsError(PR_EC_RECIPIENT_HISTORY_JSON, $storeProps) == MAPI_E_NOT_ENOUGH_MEMORY) {
+				$datastring = streamProperty($store, PR_EC_RECIPIENT_HISTORY_JSON);
+				dump($datastring);
+
+				if(!empty($datastring)) {
+					$recipient_history = json_decode_data($datastring, true);
+				}
+			}
+
+			$l_aNewHistoryItems = Array();
+			// Loop through all new recipients
+			for($i = 0, $len = count($emailAddresses); $i < $len; $i++){
+				if ($emailAddresses[$i]['address_type'] == 'SMTP') {
+					$emailAddress = $emailAddresses[$i]['smtp_address'];
+					if (empty($emailAddress)) {
+						$emailAddress = $emailAddresses[$i]['email_address'];
+					}
+				} else { // address_type == 'ZARAFA' || address_type == 'MAPIPDL'
+					$emailAddress = $emailAddresses[$i]['email_address'];
+					if (empty($emailAddress)) {
+						$emailAddress = $emailAddresses[$i]['smtp_address'];
+					}
+				}
+
+				// If no email address property is found, then we can't
+				// generate a valid suggestion.
+				if (empty($emailAddress)) {
+					continue;
+				}
+
+
+				$l_bFoundInHistory = false;
+				// Loop through all the recipients in history
+				if(is_array($recipient_history) && !empty($recipient_history['recipients'])) {
+					for($j = 0, $lenJ = count($recipient_history['recipients']); $j < $lenJ;$j++){
+						// Email address already found in history
+						$l_bFoundInHistory = false;
+
+						// The address_type property must exactly match,
+						// when it does, a recipient matches the suggestion
+						// if it matches to either the email_address or smtp_address.
+						if ($emailAddresses[$i]['address_type'] === $recipient_history['recipients'][$j]['address_type']) {
+							if ($emailAddress == $recipient_history['recipients'][$j]['email_address'] ||
+							    $emailAddress == $recipient_history['recipients'][$j]['smtp_address']) {
+								$l_bFoundInHistory = true;
+							}
+						}
+
+						if($l_bFoundInHistory == true){
+							// Check if a name has been supplied.
+							$newDisplayName = trim($emailAddresses[$i]['display_name']);
+							if(!empty($newDisplayName)){
+								$oldDisplayName = trim($recipient_history['recipients'][$j]['display_name']);
+
+								// Check if the name is not the same as the email address
+								if ($newDisplayName != $emailAddresses[$i]['smtp_address']) {
+									$recipient_history['recipients'][$j]['display_name'] = $newDisplayName;
+								// Check if the recipient history has no name for this email
+								} else if(empty($oldDisplayName)) {
+									$recipient_history['recipients'][$j]['display_name'] = $newDisplayName;
+								}
+							}
+							$recipient_history['recipients'][$j]['count']++;
+							$recipient_history['recipients'][$j]['last_used'] = time();
+							break;
+						}
+					}
+				}
+				if(!$l_bFoundInHistory && !isset($l_aNewHistoryItems[$emailAddress])){
+					$l_aNewHistoryItems[$emailAddress] = Array(
+						'display_name' => $emailAddresses[$i]['display_name'],
+						'smtp_address' => $emailAddresses[$i]['smtp_address'],
+						'email_address' => $emailAddresses[$i]['email_address'],
+						'address_type' => $emailAddresses[$i]['address_type'],
+						'count' => 1,
+						'last_used' => time(),
+						'object_type' => $emailAddresses[$i]['object_type']
+					);
+				}
+			}
+			if(!empty($l_aNewHistoryItems)){
+				foreach($l_aNewHistoryItems as $l_aValue){
+					$recipient_history['recipients'][] = $l_aValue;
+				}
+			}
+
+			$l_sNewRecipientHistoryJSON = json_encode($recipient_history);
+
+			$stream = mapi_openproperty($store, PR_EC_RECIPIENT_HISTORY_JSON, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
+			mapi_stream_setsize($stream, strlen($l_sNewRecipientHistoryJSON));
+			mapi_stream_write($stream, $l_sNewRecipientHistoryJSON);
+			mapi_stream_commit($stream);
+			mapi_savechanges($store);
 		}
 
 		/**
