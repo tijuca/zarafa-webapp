@@ -30,9 +30,20 @@ case "$1" in
             if [ ! -e "/etc/apache2/mods-enabled/rewrite.load" ]; then
                 apache2_invoke enmod rewrite || exit $?
             fi
-        # Don't enabling the Apache2 website configuration here or automatically by
-        # dh-apache2, the user needs to enable the vhost config by himself if wanted.
-        echo "kopano-webapp-apache2: not enabling Apache2 configuration by default!"
+
+            # preparations made, try to activate or reload apache2 config
+            if test -n "$2"; then
+                # we are updating to the new version
+                if apache2ctl -S | grep "kopano-webapp" > /dev/null ;then
+                    # vhost config from previous version is active, reload server config
+                    apache2_reload || exit $?
+                else
+                    echo "kopano-webapp config for Apache2 wasn't active, doing nothing further"
+                fi
+            else
+                # we are on a first time installation
+                apache2_invoke enconf kopano-webapp-apache2 || exit $?
+            fi
         fi
 
         APP_PROFILE="/etc/apparmor.d/usr.sbin.apache2"
@@ -53,3 +64,5 @@ esac
 #DEBHELPER#
 
 exit 0
+
+# vim: autoindent ts=4 sw=4 expandtab softtabstop=4 ft=conf
