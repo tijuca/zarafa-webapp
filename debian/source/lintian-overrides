@@ -10,3 +10,5 @@ source: source-is-missing client/zarafa/hierarchy/dialogs/FolderPropertiesGenera
 # these files contain some long lines of JS code
 source: source-is-missing client/tinymce-plugins/powerpaste/plugin.js *
 source: source-is-missing client/tinymce-plugins/powerpaste/js/wordimport.js *
+# Unit testing file with single long lines
+source: source-is-missing test/js/unittest/HTMLParser.js *
