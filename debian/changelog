@@ -1,3 +1,32 @@
+kopano-webapp (3.4.3+dfsg1-1) experimental; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [95af975] New upstream version 3.4.1+dfsg1
+  * [877e01f, 73d82f3] debian/control: increase Standards-Version to 4.1.2
+     and 4.1.3
+     No further changes are needed.
+  * [e445a2c] debian/gbp.conf: don't relay hard on xz compression
+  * [c22dd62] New upstream version 3.4.2+dfsg1
+  * [69f69f8] k-w-apache2: enhance postinst procedure
+     Don't let the website configuration disabled and try to activate the
+     configuration while installing k-w for the first time. Don't force to
+     re-enable k-w in case the user has disabled the current configuration
+     and the installation of k-w is a update.
+     Closes: #876668
+  * [c4740a8] k-w-apache2: adding a postrm script
+     Remove the symlink from /e/a/conf-enabled in case the user is purging the
+     package.
+  * [0753d23] k-w-a: modify README after changed behavior
+     Adding some notes about the current behavior for k-w-a to the README of
+     the package, explain how the website configuration is intended and why it
+     is now enabled after the installation of k-w-a.
+  * [2277f4b] New upstream version 3.4.3+dfsg1
+  * [7036d6c] lintian-overrides: add one more override
+     Adding a l-o to a almost readable and not minified JS file that is only
+     used for unit testing.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 06 Jan 2018 20:43:35 +0100
+
 kopano-webapp (3.4.0+dfsg1-1) experimental; urgency=medium
 
   [ Guido Günther ]
