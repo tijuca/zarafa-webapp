@@ -1,3 +1,15 @@
+kopano-webapp (3.4.4+dfsg1-1) unstable; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [f804b49] New upstream version 3.4.4+dfsg1
+  * [cd3b3dd] rebuild patch queue from patch-queue branch
+  * [5977cd7] kopano-webapp: switch to upstream apparmor profile
+     Thanks to Kopano which have accepted a pull request to include the
+     apparmor profile Guido has prepared and we included since version
+     3.4.0+dfsg1-1.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 21 Jan 2018 19:34:06 +0100
+
 kopano-webapp (3.4.3+dfsg1-1) experimental; urgency=medium
 
   [ Carsten Schoenert ]
