@@ -3,14 +3,14 @@ Date: Thu, 5 Oct 2017 20:15:07 +0200
 Subject: nb_NO.UTF-8: add minor comment and Project-Id-Version
 
 ---
- server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 8a05a52..0175ec8 100644
+index 71e81d6..d991dc2 100644
 --- a/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,22 +1,22 @@
+@@ -1,10 +1,10 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -24,13 +24,8 @@ index 8a05a52..0175ec8 100644
 +"Project-Id-Version: Kopano Webapp Norwegian (Bokmål)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2017-04-18 15:31+0200\n"
- "PO-Revision-Date: 2017-05-09 13:51+0000\n"
- "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
--"Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano/"
--"kopano-webapp/nb_NO/>\n"
-+"Language-Team: Norwegian (Bokmål) <http://translate.kopano.io/projects/"
-+"kopano/kopano-webapp/nb_NO/>\n"
- "Language: nb_NO\n"
+ "PO-Revision-Date: 2017-12-02 12:49+0000\n"
+@@ -15,8 +15,8 @@ msgstr ""
  "MIME-Version: 1.0\n"
  "Content-Type: text/plain; charset=UTF-8\n"
  "Content-Transfer-Encoding: 8bit\n"

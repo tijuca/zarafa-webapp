@@ -3,14 +3,14 @@ Date: Wed, 4 Oct 2017 21:09:55 +0200
 Subject: de_DE.UTF-8: add minor comment and Project-Id-Version
 
 ---
- server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 73cb9fb..9a240e1 100644
+index 9b20bf6..c4842be 100644
 --- a/server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/de_DE.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,15 +1,15 @@
+@@ -1,10 +1,10 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -24,10 +24,4 @@ index 73cb9fb..9a240e1 100644
 +"Project-Id-Version: Kopano Webapp German (Germany)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2017-04-18 15:31+0200\n"
- "PO-Revision-Date: 2017-11-03 11:12+0000\n"
- "Last-Translator: Andreas <a.roesler@kopano.com>\n"
--"Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
-+"Language-Team: German (Germany) <http://translate.kopano.io/projects/kopano/kopano-"
- "webapp/de/>\n"
- "Language: de_DE\n"
- "MIME-Version: 1.0\n"
+ "PO-Revision-Date: 2018-01-15 06:35+0000\n"

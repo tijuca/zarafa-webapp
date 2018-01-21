@@ -3,14 +3,14 @@ Date: Wed, 4 Oct 2017 21:05:18 +0200
 Subject: da_DK.UTF-8: add minor comment and Project-Id-Version
 
 ---
- server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index be24b49..04359a9 100644
+index 55fa0d6..86f20de 100644
 --- a/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,15 +1,15 @@
+@@ -1,10 +1,10 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -24,10 +24,4 @@ index be24b49..04359a9 100644
 +"Project-Id-Version: Kopano Webapp Danish (Denmark)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2016-12-14 13:34+0100\n"
- "PO-Revision-Date: 2017-10-21 13:21+0000\n"
- "Last-Translator: Klaus Vink Slott <klaus@vink-slott.dk>\n"
--"Language-Team: Danish <http://translate.kopano.io/projects/kopano/kopano-"
-+"Language-Team: Danish (Denmark) <http://translate.kopano.io/projects/kopano/kopano-"
- "webapp/da/>\n"
- "Language: da_DK\n"
- "MIME-Version: 1.0\n"
+ "PO-Revision-Date: 2017-11-06 20:45+0000\n"
