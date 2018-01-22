@@ -17,7 +17,7 @@ override_dh_auto_build:
 	cp -a $(CURDIR)/deploy $(CURDIR)/debian/tmp/
 
 override_dh_install:
-	dh_install
+	dh_install -X.js.map
 	# figure out package version
 	echo $(DEB_VERSION) > \
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
