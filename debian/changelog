@@ -1,3 +1,16 @@
+kopano-webapp (3.4.5+dfsg1-1) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * [abd06ef] ignore *.js.map file while installation (Closes: #887989)
+
+  [ Carsten Schoenert ]
+  * [9a9c678] ignore *debug.js file too while installation
+  * [5c1cc85] New upstream version 3.4.5+dfsg1
+  * [9ea9ec1] rebuild patch queue from patch-queue branch
+  * [4aba63e] adjust Vcs fields to salsa.debian.org
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 02 Feb 2018 20:52:16 +0100
+
 kopano-webapp (3.4.4+dfsg1-1) unstable; urgency=medium
 
   [ Carsten Schoenert ]
