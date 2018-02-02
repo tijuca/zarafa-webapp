@@ -7,7 +7,7 @@ Subject: en_US.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/server/language/en_US.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/en_US.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 67fae79..7924d76 100644
+index 6f9e37f..bd59475 100644
 --- a/server/language/en_US.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/en_US.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -24,4 +24,4 @@ index 67fae79..7924d76 100644
 +"Project-Id-Version: Kopano Webapp English (United States)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2017-04-18 15:31+0200\n"
- "PO-Revision-Date: 2016-12-07 11:02+0000\n"
+ "PO-Revision-Date: 2018-01-23 14:36+0000\n"

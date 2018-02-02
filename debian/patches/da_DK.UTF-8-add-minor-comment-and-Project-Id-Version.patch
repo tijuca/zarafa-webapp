@@ -7,7 +7,7 @@ Subject: da_DK.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 55fa0d6..86f20de 100644
+index 4c30329..2478794 100644
 --- a/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/da_DK.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -24,4 +24,4 @@ index 55fa0d6..86f20de 100644
 +"Project-Id-Version: Kopano Webapp Danish (Denmark)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2016-12-14 13:34+0100\n"
- "PO-Revision-Date: 2017-11-06 20:45+0000\n"
+ "PO-Revision-Date: 2018-01-23 22:15+0000\n"
