@@ -2298,6 +2298,8 @@
 			$result = false;
 			// Check to see if it should be sent as a meeting request
 			if($send === true && $isExceptionAllowed){
+				$savedUnsavedRecipients = array();
+				$remove = array();
 				if(!isset($action['basedate'])) {
 					// retrieve recipients from saved message
 					$savedRecipients = $GLOBALS['operations']->getRecipientsInfo($message);
@@ -2306,7 +2308,6 @@
 					}
 
 					//retrieve removed recipients.
-					$remove = array();
 					if (!empty($recips) && !empty($recips["remove"])) {
 						$remove = $recips["remove"];
 					}
@@ -2385,9 +2386,12 @@
 
 				$sendMeetingRequestResult = $request->sendMeetingRequest($delete, false, $basedate, $modifiedRecipients, $deletedRecipients);
 
-				$this->addEmailsToRecipientHistory($message);
+				$this->addRecipientsToRecipientHistory($this->getRecipientsInfo($message));
 
 				if($sendMeetingRequestResult === true){
+
+					$this->parseDistListAndAddToRecipientHistory($savedUnsavedRecipients, $remove);
+
 					mapi_savechanges($message);
 
 					// We want to sent the 'request_sent' property, to have it properly
@@ -2506,6 +2510,30 @@
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * Function is used to identify the local distribution list from all recipients and
+		 * Add distribution list to recipient history.
+		 *
+		 * @param array $savedUnsavedRecipients array of recipients either saved or add
+		 * @param array $remove array of recipients that was removed
+		 */
+		function parseDistListAndAddToRecipientHistory($savedUnsavedRecipients, $remove)
+		{
+			$distLists = array();
+			foreach ($savedUnsavedRecipients as $key => $recipient) {
+				foreach ($recipient as $recipientItem) {
+					if ($recipientItem['address_type'] == 'MAPIPDL') {
+						$isExistInRemove = $this->isExistInRemove($recipientItem['entryid'], $remove);
+						if (!$isExistInRemove) {
+							array_push($distLists, array("props" => $recipientItem));
+						}
+					}
+				}
+			}
+
+			$this->addRecipientsToRecipientHistory($distLists);
 		}
 
 		/**
@@ -2729,7 +2757,7 @@
 					$messageProps[PR_PARENT_ENTRYID] = $tmp_props[PR_PARENT_ENTRYID];
 					$result = true;
 
-					$this->addEmailsToRecipientHistory($message);
+					$this->addRecipientsToRecipientHistory($this->getRecipientsInfo($message));
 				}
 			}
 
@@ -3042,7 +3070,11 @@
 				$deleted = $attachment_state->getDeletedAttachments($attachments['dialog_attachments']);
 				if ($deleted) {
 					foreach ($deleted as $attach_num) {
-						mapi_message_deleteattach($message, (int) $attach_num);
+						try {
+							mapi_message_deleteattach($message, (int) $attach_num);
+						} catch (Exception $e) {
+							continue;
+						}
 					}
 					$attachment_state->clearDeletedAttachments($attachments['dialog_attachments']);
 				}
@@ -3098,6 +3130,7 @@
 
 						// get message and copy it to attachment table as embedded attachment
 						$props = array();
+						$props[PR_EC_WA_ATTACHMENT_ID] = $fileinfo['attach_id'];
 						$props[PR_ATTACH_METHOD] = ATTACH_EMBEDDED_MSG;
 						$props[PR_DISPLAY_NAME] = !empty($msgProps[PR_SUBJECT]) ? $msgProps[PR_SUBJECT] : _('Untitled');
 
@@ -3140,7 +3173,9 @@
 								PR_ATTACH_METHOD => ATTACH_BY_VALUE,
 								PR_ATTACH_DATA_BIN => "",
 								PR_ATTACH_MIME_TAG => $mimeType,
-								PR_ATTACHMENT_HIDDEN => !empty($cid) ? true : false
+								PR_ATTACHMENT_HIDDEN => !empty($cid) ? true : false,
+								PR_EC_WA_ATTACHMENT_ID => $fileinfo["attach_id"],
+								PR_ATTACH_EXTENSION => pathinfo($fileinfo["name"], PATHINFO_EXTENSION)
 							);
 
 							if(isset($fileinfo['sourcetype']) && $fileinfo['sourcetype'] === 'contactphoto') {
@@ -3349,7 +3384,7 @@
 				$attachments = mapi_table_queryallrows($attachmentTable, array(PR_ATTACH_NUM, PR_ATTACH_SIZE, PR_ATTACH_LONG_FILENAME,
 																			PR_ATTACH_FILENAME, PR_ATTACHMENT_HIDDEN, PR_DISPLAY_NAME, PR_ATTACH_METHOD,
 																			PR_ATTACH_CONTENT_ID, PR_ATTACH_MIME_TAG,
-																			PR_ATTACHMENT_CONTACTPHOTO, PR_OBJECT_TYPE));
+																			PR_ATTACHMENT_CONTACTPHOTO, PR_RECORD_KEY, PR_EC_WA_ATTACHMENT_ID, PR_OBJECT_TYPE, PR_ATTACH_EXTENSION));
 				foreach($attachments as $attachmentRow) {
 					$props = array();
 
@@ -3366,6 +3401,7 @@
 					}
 
 					$props["object_type"] = $attachmentRow[PR_OBJECT_TYPE];
+					$props["attach_id"] = isset($attachmentRow[PR_EC_WA_ATTACHMENT_ID]) ? $attachmentRow[PR_EC_WA_ATTACHMENT_ID] : bin2hex($attachmentRow[PR_RECORD_KEY]);
 					$props["attach_num"] = $attachmentRow[PR_ATTACH_NUM];
 					$props["attach_method"] = $attachmentRow[PR_ATTACH_METHOD];
 					$props["size"] = $attachmentRow[PR_ATTACH_SIZE];
@@ -3387,6 +3423,13 @@
 						$props["name"] = $attachmentRow[PR_DISPLAY_NAME];
 					} else {
 						$props["name"] = "untitled";
+					}
+
+					if(isset($attachmentRow[PR_ATTACH_EXTENSION]) && $attachmentRow[PR_ATTACH_EXTENSION]) {
+						$props["extension"] = $attachmentRow[PR_ATTACH_EXTENSION];
+					} else {
+						// For backward compatibility where attachments doesn't have the extension property
+						$props["extension"] = pathinfo($props["name"], PATHINFO_EXTENSION);
 					}
 
 					if(isset($attachmentRow[PR_ATTACHMENT_CONTACTPHOTO]) && $attachmentRow[PR_ATTACHMENT_CONTACTPHOTO]) {
@@ -3981,11 +4024,12 @@
 		* opens the recipient history property (PR_EC_RECIPIENT_HISTORY_JSON) and updates or appends
 		* it with the passed email addresses.
 		*
-		* @param MAPIMessage the MAPI Mail message which is send
+		* @param array $recipients list of recipients
 		*/
-		function addEmailsToRecipientHistory($message) {
+		function addRecipientsToRecipientHistory($recipients)
+		{
 			$emailAddress = [];
-			foreach($this->getRecipientsInfo($message) as $key => $value) {
+			foreach ($recipients as $key => $value) {
 				$emailAddresses[] = $value['props'];
 			}
 
@@ -4000,7 +4044,6 @@
 
 			if(isset($storeProps[PR_EC_RECIPIENT_HISTORY_JSON]) || propIsError(PR_EC_RECIPIENT_HISTORY_JSON, $storeProps) == MAPI_E_NOT_ENOUGH_MEMORY) {
 				$datastring = streamProperty($store, PR_EC_RECIPIENT_HISTORY_JSON);
-				dump($datastring);
 
 				if(!empty($datastring)) {
 					$recipient_history = json_decode_data($datastring, true);
