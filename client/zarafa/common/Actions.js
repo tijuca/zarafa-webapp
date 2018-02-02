@@ -83,13 +83,12 @@ Zarafa.common.Actions = {
 			records = [ records ];
 		}
 
-		var menu = new Zarafa.common.flags.ui.FlagsMenu({
-			records: records,
+		var component = Zarafa.core.data.SharedComponentType['common.contextmenu.flags'];
+		Zarafa.core.data.UIFactory.openContextMenu(component, records, {
+			position : position,
 			shadowEdit : shadowEdit,
 			store : records[0].getStore()
 		});
-
-		menu.showAt(position);
 	},
 
 	/**
@@ -1053,6 +1052,20 @@ Zarafa.common.Actions = {
 		if(record) {
 			Zarafa.core.data.UIFactory.openViewRecord(record, config);
 		}
+	},
+
+	/**
+	 * Raised a dialog to choose destination folder to import attachments.
+	 * @param {Zarafa.core.data.IPMAttachmentRecord} record The attachment record which should be imported.
+	 * @param {Object} config configuration object.
+	 */
+	importToFolder: function(record, config)
+	{
+		config = Ext.applyIf(config || {}, {
+			modal : true
+		});
+		var componentType = Zarafa.core.data.SharedComponentType['common.attachment.dialog.importtofolder'];
+		Zarafa.core.data.UIFactory.openLayerComponent(componentType, record, config);
 	},
 
 	/**
