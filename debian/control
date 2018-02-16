@@ -13,6 +13,7 @@ Build-Depends: ant,
   liblocale-msgfmt-perl,
   libxml2-utils,
   php-cli
+Rules-Requires-Root: binary-targets
 Vcs-Git: https://salsa.debian.org/giraffe-team/kopano-webapp.git
 Vcs-Browser: https://salsa.debian.org/giraffe-team/kopano-webapp
 Homepage: https://github.com/Kopano-dev/kopano-webapp
