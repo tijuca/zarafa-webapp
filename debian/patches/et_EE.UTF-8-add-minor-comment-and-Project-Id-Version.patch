@@ -7,7 +7,7 @@ Subject: et_EE.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/et_EE.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/et_EE.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index cabd929..7a45721 100644
+index 0bd910f..2e9503c 100644
 --- a/server/language/et_EE.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/et_EE.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -23,7 +23,7 @@ index cabd929..7a45721 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Estonian (Estonia)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
  "PO-Revision-Date: 2017-07-06 15:09+0000\n"
  "Last-Translator: Jaan <kopano-translation@janesmae.com>\n"
 -"Language-Team: Estonian <http://translate.kopano.io/projects/kopano/kopano-"

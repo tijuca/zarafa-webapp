@@ -7,7 +7,7 @@ Subject: hu_HU.UTF-8: correct various missformed strings within *.po file
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 604f021..8fe5ef7 100644
+index 820dd7c..12696b7 100644
 --- a/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -23,7 +23,7 @@ index 604f021..8fe5ef7 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webbapp Hungarian\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2017-04-18 15:31+0200\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
  "PO-Revision-Date: 2017-10-02 16:14+0000\n"
 @@ -15,8 +15,8 @@ msgstr ""
  "MIME-Version: 1.0\n"
@@ -34,9 +34,9 @@ index 604f021..8fe5ef7 100644
 +"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 +"X-Generator: Poedit 2.0.4\n"
  
+ #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
- msgstr "Hét"
-@@ -5495,7 +5495,7 @@ msgstr[1] "Ismétlődés minden %s érvényes %s %s-tól/től %s-ig/%s-ig."
+@@ -5559,7 +5559,7 @@ msgstr[1] "Ismétlődés minden %s érvényes %s %s-tól/től %s-ig/%s-ig."
  # Have to look at it in action.
  # 76%
  # 95%
@@ -44,8 +44,8 @@ index 604f021..8fe5ef7 100644
 +#, fuzzy, php-format
  msgid "Occurs every %s %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s %s effective %s for %s occurences %s to %s."
- msgstr[0] "Ismétlődés minden %s %s, érvényes %s %s előfordulásra %s-tól/től %s-ig."
-@@ -5596,7 +5596,7 @@ msgstr ""
+ msgstr[0] ""
+@@ -5661,7 +5661,7 @@ msgstr ""
  "'%s' erőforrásként lett megjelölve. Nem tud '%s' megadásával értekezletet "
  "szervezni, mert ehhez nincs meg a jogosultsága ezzel a fiókkal. Adja meg a "
  "nevet kötelező, vagy opcionális résztvevőként, vagy lépjen kapcsolatba "
