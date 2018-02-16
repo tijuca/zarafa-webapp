@@ -1189,20 +1189,35 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 			],
 			handler: this.onBoxKeyDelete,
 			scope: this
+		},{
+			key: [
+				Ext.EventObject.C
+			],
+			ctrl: true,
+			handler: this.onBoxKeyCopy,
+			scope: this
 		}];
 
 		// disable modifier keys in the bindings
 		for(var i = 0, len = bindings.length; i < len; i++) {
 			var binding = bindings[i];
 
-			Ext.apply(binding, {
+			Ext.applyIf(binding, {
 				shift: false,
 				alt: false,
 				ctrl: false
 			});
 		}
-
 		return new Ext.KeyMap(focusEl, bindings);
+	},
+
+	/**
+	 * Event handler for the keydown event of the {@link Ext.KeyMap KeyMap}
+	 * when the user wants to copy email address of resolved recipient.
+	 */
+	onBoxKeyCopy : function ()
+	{
+		Zarafa.common.Actions.copyEmailAddress(this.currentFocus.record);
 	},
 
 	/**
@@ -1508,6 +1523,18 @@ Zarafa.common.ui.BoxField = Ext.extend(Ext.form.ComboBox, {
 				ctrl: false
 			});
 		}
+
+		// Add combination of TAB with shift as well to trigger blur and handle input text
+		bindings.push({
+			key: [
+				Ext.EventObject.TAB
+			],
+			shift: true,
+			alt: false,
+			ctrl: false,
+			handler: this.onInputKeyTab,
+			scope: this
+		});
 
 		return new Ext.KeyMap(focusEl, bindings);
 	},
