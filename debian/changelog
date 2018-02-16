@@ -1,3 +1,12 @@
+kopano-webapp (3.4.6+dfsg1-1) unstable; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [4a7b3cc] New upstream version 3.4.6+dfsg1
+  * [9471ff5] rebuild patch queue from patch-queue branch
+  * [b85f8d1] debian/control: adding new field Rules-Requires-Root
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 16 Feb 2018 19:22:29 +0100
+
 kopano-webapp (3.4.5+dfsg1-1) unstable; urgency=medium
 
   [ Chris Lamb ]
