@@ -3,11 +3,11 @@ Date: Thu, 5 Oct 2017 19:58:26 +0200
 Subject: fr_FR.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po  | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 3574d00..442b1fe 100644
+index c105480..701f873 100644
 --- a/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/fr_FR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -23,10 +23,9 @@ index 3574d00..442b1fe 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp French (France)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2017-04-18 15:31+0200\n"
--"PO-Revision-Date: 2017-03-13 13:25+0000\n"
-+"PO-Revision-Date: 2017-10-05 19:57+0200\n"
- "Last-Translator: C <c.maltot@synairgis.com>\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
+ "PO-Revision-Date: 2018-02-09 09:18+0000\n"
+ "Last-Translator: jengelh <jengelh@inai.de>\n"
 -"Language-Team: French <http://translate.kopano.io/projects/kopano/kopano-"
 -"webapp/fr/>\n"
 +"Language-Team: French (France) <http://translate.kopano.io/projects/kopano/"

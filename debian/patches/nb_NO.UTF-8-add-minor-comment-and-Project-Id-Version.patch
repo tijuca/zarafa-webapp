@@ -7,7 +7,7 @@ Subject: nb_NO.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 71e81d6..d991dc2 100644
+index a965613..e0a42d0 100644
 --- a/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/nb_NO.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -23,8 +23,8 @@ index 71e81d6..d991dc2 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Norwegian (Bokmål)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2017-04-18 15:31+0200\n"
- "PO-Revision-Date: 2017-12-02 12:49+0000\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
+ "PO-Revision-Date: 2018-02-13 19:23+0000\n"
 @@ -15,8 +15,8 @@ msgstr ""
  "MIME-Version: 1.0\n"
  "Content-Type: text/plain; charset=UTF-8\n"

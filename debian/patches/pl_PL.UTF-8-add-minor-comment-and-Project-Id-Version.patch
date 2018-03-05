@@ -3,11 +3,11 @@ Date: Thu, 5 Oct 2017 20:21:14 +0200
 Subject: pl_PL.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 59 +++++++++++++++-------
- 1 file changed, 42 insertions(+), 17 deletions(-)
+ .../pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 57 ++++++++++++++++------
+ 1 file changed, 41 insertions(+), 16 deletions(-)
 
 diff --git a/server/language/pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 1e63602..d7b6c26 100644
+index 65f6d80..7d1c006 100644
 --- a/server/language/pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/pl_PL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -23,8 +23,7 @@ index 1e63602..d7b6c26 100644
 -"Project-Id-Version: Kopano WebApp\n"
 +"Project-Id-Version: Kopano Webapp Polish (Poland)\n"
  "Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2016-12-14 13:34+0100\n"
-+"POT-Creation-Date: 2017-04-18 15:31+0200\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
  "PO-Revision-Date: 2017-10-21 13:21+0000\n"
  "Last-Translator: Mark <rittinghaus.mark@lumberg.com>\n"
 -"Language-Team: Polish <http://translate.kopano.io/projects/kopano/kopano-"
@@ -98,7 +97,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "The quick brown fox jumps over the lazy dog"
  msgstr "Wójt dźgnął boży puch, sześć frań, milkę."
-@@ -737,6 +746,7 @@ msgstr[0] ""
+@@ -734,6 +743,7 @@ msgstr[0] ""
  "Występuje co {0} , zaczynając w {1} dla {2} powtórzenia od {3} do {4}."
  msgstr[1] ""
  "Występuje co {0} , zaczynając w {1} dla {2} powtórzeń od {3} do {4}."
@@ -106,7 +105,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Occurs every {0} {1} effective {2} for {3} occurence from {4} to {5}."
  msgid_plural ""
-@@ -745,16 +755,19 @@ msgstr[0] ""
+@@ -742,16 +752,19 @@ msgstr[0] ""
  "Wyustępuje co {0} {1} , zaczynając w {2} dla {3} powtórzenia od {4} do {5}."
  msgstr[1] ""
  "Występuje co {0}{1} , zaczynając w {2} dla {3} powtórzeń od {4} do {5}."
@@ -126,7 +125,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Occurs every {0} effective {1} until {2} from {3} to {4}."
  msgstr "Występuje co {0} , zaczynając w {1} do {2} od {3} do {4}."
-@@ -1355,6 +1368,7 @@ msgid "{0} selected item"
+@@ -1353,6 +1366,7 @@ msgid "{0} selected item"
  msgid_plural "{0} selected items"
  msgstr[0] "{0} wybrany element"
  msgstr[1] "{0} wybrane elementy"
@@ -134,7 +133,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "New Appointment"
  msgstr "Nowy termin"
-@@ -1961,6 +1975,7 @@ msgid "There is {0} message selected."
+@@ -1974,6 +1988,7 @@ msgid "There is {0} message selected."
  msgid_plural "There are {0} messages selected."
  msgstr[0] "Wybrano {0} wiadomość."
  msgstr[1] "Wybrano {0} wiadomości."
@@ -142,7 +141,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Folder '{0}' selected."
  msgstr "Wybrano '{0}' folderów."
-@@ -2232,6 +2247,7 @@ msgid "There is {0} reminder"
+@@ -2264,6 +2279,7 @@ msgid "There is {0} reminder"
  msgid_plural "There are {0} reminders"
  msgstr[0] "Masz {0} przypomnienie"
  msgstr[1] "Masz {0} przypomnień"
@@ -150,7 +149,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Reminders"
  msgstr "Przypomnienia"
-@@ -2266,6 +2282,7 @@ msgid "{0} reminder is selected."
+@@ -2298,6 +2314,7 @@ msgid "{0} reminder is selected."
  msgid_plural "{0} reminders are selected."
  msgstr[0] "{0} Przypomnienie wybrane."
  msgstr[1] "{0} Przypomnienia wybrane."
@@ -158,7 +157,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Restore Softdeleted Items"
  msgstr "Przywróć elementy usunięte"
-@@ -2298,6 +2315,7 @@ msgid "Total {0} recoverable item"
+@@ -2330,6 +2347,7 @@ msgid "Total {0} recoverable item"
  msgid_plural "Total {0} recoverable items"
  msgstr[0] "Łącznie {0} przywrócony element"
  msgstr[1] "Łącznie {0} przywróconych elementów"
@@ -166,15 +165,15 @@ index 1e63602..d7b6c26 100644
  
  msgid "Deleted On"
  msgstr "Usunięto w "
-@@ -2575,6 +2593,7 @@ msgid "{0} selected row"
+@@ -2602,6 +2620,7 @@ msgid "{0} selected row"
  msgid_plural "{0} selected rows"
  msgstr[0] "{0} wybrany wiersz"
  msgstr[1] "{0} wybrane wiersze"
 +msgstr[2] ""
  
- #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
- msgid "l d/m/Y G:i"
-@@ -3578,6 +3597,7 @@ msgid "There is {0} unread message in the folder {1}"
+ msgid "Reminder is set on: {0}, {1}"
+ msgstr ""
+@@ -3619,6 +3638,7 @@ msgid "There is {0} unread message in the folder {1}"
  msgid_plural "There are {0} unread messages in the folder {1}"
  msgstr[0] "W folderze {1} znajduje się {0} nieprzeczytana wiadomość"
  msgstr[1] "W folderze {1} znajduje się {0} nieprzeczytanych wiadomości"
@@ -182,7 +181,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "New Mail"
  msgstr "Nowy e-mail"
-@@ -4860,6 +4880,7 @@ msgid "The following required folder is missing in the hierarchy: {0}"
+@@ -4919,6 +4939,7 @@ msgid "The following required folder is missing in the hierarchy: {0}"
  msgid_plural "The following required folders are missing in the hierarchy: {0}"
  msgstr[0] "Brak następującego folderu w hierarchii: {0}"
  msgstr[1] "Brak następujących folderów w hierarchii: {0}"
@@ -190,7 +189,7 @@ index 1e63602..d7b6c26 100644
  
  msgid "Loading model from server failed"
  msgstr "Ładowanie modułu z serwera nie powiodło się"
-@@ -5202,26 +5223,29 @@ msgstr "Występuje co %s %s, zaczynając w %s."
+@@ -5260,26 +5281,29 @@ msgstr "Występuje co %s %s, zaczynając w %s."
  msgid "Occurs every %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s effective %s for %s occurences from %s to %s."
  msgstr[0] "Występuje co %s, zaczynając w %s dla %s powtórzenia od %s do %s."
@@ -228,7 +227,7 @@ index 1e63602..d7b6c26 100644
  
  #, php-format
  msgid "Occurs every %s effective %s until %s from %s to %s."
-@@ -5514,6 +5538,7 @@ msgid_plural ""
+@@ -5569,6 +5593,7 @@ msgid_plural ""
  "appointments."
  msgstr[0] "%s Czas tego powtórzonego terminu koliduje z innym terminem."
  msgstr[1] "%s Czasy tego powtórzonego terminu kolidują z innymi terminami."

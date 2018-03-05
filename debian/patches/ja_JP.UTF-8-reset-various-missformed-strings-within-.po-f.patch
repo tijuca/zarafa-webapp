@@ -5,14 +5,14 @@ Subject: ja_JP.UTF-8: reset various missformed strings within *.po file
 The missformed strings are deleted and set back to the original string,
 obviously they need to adjusted anyway.
 ---
- .../ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 38 +++++++++++-----------
- 1 file changed, 19 insertions(+), 19 deletions(-)
+ .../ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 36 +++++++++++-----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 33fee4b..6dada88 100644
+index c39812d..fd9e1cf 100644
 --- a/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,13 +1,13 @@
+@@ -1,10 +1,10 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -25,12 +25,8 @@ index 33fee4b..6dada88 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Japanese\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2017-04-18 15:31+0200\n"
--"PO-Revision-Date: 2016-10-06 21:49+0000\n"
-+"PO-Revision-Date: 2017-10-03 21:59+0200\n"
- "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
- "Language-Team: Japanese <http://translate.kopano.io/projects/kopano/kopano-"
- "webapp/ja/>\n"
+ "POT-Creation-Date: 2018-02-15 15:16+0100\n"
+ "PO-Revision-Date: 2018-02-06 18:06+0000\n"
 @@ -16,7 +16,7 @@ msgstr ""
  "Content-Type: text/plain; charset=UTF-8\n"
  "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +36,7 @@ index 33fee4b..6dada88 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5377,74 +5377,74 @@ msgstr "Y/m/d"
+@@ -5436,74 +5436,74 @@ msgstr "新しい日時の提示"
  # 76%
  #, php-format
  msgid "Occurs every %s effective %s from %s to %s."
@@ -127,7 +123,7 @@ index 33fee4b..6dada88 100644
  
  msgid "Task Accepted:"
  msgstr "タスクの承諾:"
-@@ -5496,7 +5496,7 @@ msgstr ""
+@@ -5555,7 +5555,7 @@ msgstr ""
  msgid ""
  "'%s' has declined your meeting because '%s' does not automatically accept "
  "meeting requests."
