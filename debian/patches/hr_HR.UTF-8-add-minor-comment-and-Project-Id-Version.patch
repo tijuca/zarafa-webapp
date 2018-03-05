@@ -7,7 +7,7 @@ Subject: hr_HR.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index d854b71..98e2047 100644
+index d854b71..ed61c64 100644
 --- a/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -29,8 +29,8 @@ index d854b71..98e2047 100644
  "Last-Translator: Tomislav <tomislav.malnar@tzv-gredelj.hr>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
 -"Language: hr\n"
-+"Language-Team: Croatian (Croatia) <https://translate.kopano.io/projects/kopano/"
-+"kopano-webapp/hr/>\n"
++"Language-Team: Kopano Webapp Croatian (Croatia) <https://translate.kopano.io/"
++"projects/kopano/kopano-webapp/hr/>\n"
 +"Language: hr_HR\n"
  "MIME-Version: 1.0\n"
  "Content-Type: text/plain; charset=UTF-8\n"

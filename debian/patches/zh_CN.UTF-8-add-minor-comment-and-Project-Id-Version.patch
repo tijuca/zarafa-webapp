@@ -7,7 +7,7 @@ Subject: zh_CN.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/zh_CN.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/zh_CN.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index ddeacda..b0ef7d7 100644
+index ddeacda..4a6c379 100644
 --- a/server/language/zh_CN.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/zh_CN.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -29,7 +29,7 @@ index ddeacda..b0ef7d7 100644
  "Last-Translator: Björn <b.neumann@kopano.com>\n"
 -"Language-Team: Chinese (China) <http://translate.kopano.io/projects/kopano/"
 -"kopano-webapp/zh_CN/>\n"
-+"Language-Team: Chinese (Simplified) <http://translate.kopano.io/projects/"
++"Language-Team: Chinese (Simplified) <https://translate.kopano.io/projects/"
 +"kopano/kopano-webapp/zh_CN/>\n"
  "Language: zh_CN\n"
  "MIME-Version: 1.0\n"

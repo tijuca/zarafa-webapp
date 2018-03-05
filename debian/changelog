@@ -1,3 +1,12 @@
+kopano-webapp (3.4.7+dfsg1-1) unstable; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [e30d290] New upstream version 3.4.7+dfsg1
+  * [99c8675] rebuild patch queue from patch-queue branch
+  * [ef340eb] d/control: adding Rules-Requires-Root to source section
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 05 Mar 2018 19:30:16 +0100
+
 kopano-webapp (3.4.6+dfsg1-1) unstable; urgency=medium
 
   [ Carsten Schoenert ]

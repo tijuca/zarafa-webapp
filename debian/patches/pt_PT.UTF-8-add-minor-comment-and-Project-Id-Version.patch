@@ -3,11 +3,11 @@ Date: Thu, 5 Oct 2017 20:25:07 +0200
 Subject: pt_PT.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po         | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ .../pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index afaf823..0e89931 100644
+index afaf823..7db08a0 100644
 --- a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,18 +1,22 @@
@@ -25,10 +25,11 @@ index afaf823..0e89931 100644
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2018-02-15 15:16+0100\n"
 -"PO-Revision-Date: 2008-12-16 16:18:06+0100\n"
-+"PO-Revision-Date: 2017-10-05 20:26+0200\n"
- "Last-Translator: PHP-Langadmin automatic translator <foo@bar.foobar>\n"
+-"Last-Translator: PHP-Langadmin automatic translator <foo@bar.foobar>\n"
 -"Language-Team: pt_PT <pt@li.org>\n"
 -"Language: \n"
++"PO-Revision-Date: 2017-10-05 20:26+0200\n"
++"Last-Translator: \n"
 +"Language-Team: Portuguese (Portugal) <https://translate.kopano.io/projects/"
 +"kopano/kopano-webapp/pt_PT/>\n"
 +"Language: pt_PT\n"
