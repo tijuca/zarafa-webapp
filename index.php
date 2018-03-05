@@ -54,7 +54,8 @@
 		// or because he logged out in another window.
 		$username = sanitizeGetValue('user', '', USERNAME_REGEX);
 		$webappSession->destroy();
-		header('Location: ' . dirname($_SERVER['PHP_SELF']) . ($username?'?user='.rawurlencode($username):''), true, 303);
+		$location =  rtrim(dirname($_SERVER['PHP_SELF']), '/').'/';
+		header('Location: ' . $location . ($username?'?user='.rawurlencode($username):''), true, 303);
 		die();
 	}
 
@@ -94,7 +95,6 @@
 		// Set some template variables for the login page
 		$branch = DEBUG_LOADER===LOAD_SOURCE ? gitversion() : '';
 		$version = 'WebApp ' . trim(file_get_contents('version'));
-		$zcpversion = 'Kopano Core' . ' ' . phpversion('mapi');
 		$user = sanitizeGetValue('user', '', USERNAME_REGEX);
 
 		$url = '?logon';
@@ -159,7 +159,8 @@
 	// the credentials again, and that the url data is taken away from the
 	// url in the address bar (so a browser refresh will not pass them again)
 	if ( WebAppAuthentication::isUsingLoginForm() || isset($_GET['action']) && !empty($_GET['action']) ){
-		header('Location: ' . dirname($_SERVER['PHP_SELF']) , true, 303);
+		$location =  rtrim(dirname($_SERVER['PHP_SELF']), '/').'/';
+		header('Location: ' . $location , true, 303);
 		die();
 	}
 
