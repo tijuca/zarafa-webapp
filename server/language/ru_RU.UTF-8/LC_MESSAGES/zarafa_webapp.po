@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 "PO-Revision-Date: 2013-10-29 05:36+0200\n"
 "Last-Translator: Ainur <shakirov.aynur@cg.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -685,6 +685,9 @@ msgstr ""
 msgid "Did you mean"
 msgstr ""
 
+msgid "With"
+msgstr ""
+
 msgid "Error"
 msgstr "Ошибка"
 
@@ -1328,6 +1331,14 @@ msgstr "Конец рабочего дня"
 
 msgid "Calendar resolution"
 msgstr "Размер календаря"
+
+#, fuzzy
+msgid "Default appointment duration {A} minutes"
+msgstr "Стандартное время оповещения для вседневных встреч"
+
+#, fuzzy
+msgid "Duration must be between 1 and 120 minutes."
+msgstr "Значение должно быть между 0% и 100%."
 
 msgid "Working days"
 msgstr ""
@@ -2499,6 +2510,12 @@ msgstr "Содержит слова в теме..."
 # 100%
 #, fuzzy
 msgid "includes these words in the body ..."
+msgstr "Содержит слова в теме..."
+
+# 84%
+# 100%
+#, fuzzy
+msgid "includes these words in the transport-headers ..."
 msgstr "Содержит слова в теме..."
 
 msgid "has importance ..."
@@ -3959,8 +3976,14 @@ msgstr "Отметить все сообщения прочитанными"
 msgid "Delete Folder"
 msgstr "Удалить каталог"
 
-msgid "Empty folder"
-msgstr "Очистить каталог"
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Нежелательная почта"
+
+# 92%
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Удаленные"
 
 msgid "Close store"
 msgstr "Закрыть хранилище"
@@ -5427,6 +5450,9 @@ msgstr ""
 msgid "This external link will open in a new window"
 msgstr "Эта внешняя ссылка откроется в новом окне"
 
+msgid "Eml is corrupted"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5809,6 +5835,15 @@ msgstr "Не удалось сохранить письмо"
 
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr "Недостаточно прав для удаление элемента с календаря."
+
+msgid ""
+"Message is no longer in the outgoing queue, typically because it has already "
+"been sent."
+msgstr ""
+
+#, fuzzy
+msgid "Message cannot be aborted"
+msgstr "Нельзя выключить это расширение."
 
 #, fuzzy
 msgid "You have insufficient privileges to delete items in this folder"
