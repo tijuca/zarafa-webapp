@@ -1914,7 +1914,7 @@
 		 * @param boolean $copyRecipients If set we copy all recipients from the $copyFromMessage.
 		 * @param boolean $copyInlineAttachmentsOnly if true then copy only inline attachments.
 		 * @param boolean $saveChanges if true then save all change in mapi message
-		 * @param boolean $send true if this function is called from submiteMessage else false.
+		 * @param boolean $send true if this function is called from submitMessage else false.
 		 * @return mapimessage Saved MAPI message resource
 		 */
 		function saveMessage($store, $entryid, $parententryid, $props, &$messageProps, $recipients = array(), $attachments = array(), $propertiesToDelete = array(), $copyFromMessage = false, $copyAttachments = false, $copyRecipients = false, $copyInlineAttachmentsOnly = false, $saveChanges = true, $send = false)
@@ -2043,7 +2043,7 @@
 					$attachment_state->close();
 				}
 
-				// Set 'hideattacments' if message has only inline attachments.
+				// Set 'hideattachments' if message has only inline attachments.
 				$properties = $GLOBALS['properties']->getMailProperties();
 				if($this->hasOnlyInlineAttachments($message)){
 					mapi_setprops($message, array($properties['hide_attachments'] => true));
@@ -2789,7 +2789,7 @@
 
 			$folder = mapi_msgstore_openentry($store, $parententryid);
 
-			$msgprops = mapi_getprops($store, array(PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER));
+			$msgprops = mapi_getprops($store, array(PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_OUTBOX_ENTRYID));
 
 			switch($msgprops[PR_MDB_PROVIDER]){
 				case ZARAFA_STORE_DELEGATE_GUID:
@@ -2826,8 +2826,19 @@
 						$result = mapi_folder_deletemessages($folder, $entryids);
 					}else{
 						try {
+							// if the message is deleting from outbox then first delete the
+							// message from an outgoing queue.
+							if (function_exists("mapi_msgstore_abortsubmit") && isset($msgprops[PR_IPM_OUTBOX_ENTRYID]) && $msgprops[PR_IPM_OUTBOX_ENTRYID] === $parententryid) {
+								foreach ($entryids as $entryid) {
+									mapi_msgstore_abortsubmit($store, $entryid);
+								}
+							}
 							$result = $this->copyMessages($store, $parententryid, $store, $msgprops[PR_IPM_WASTEBASKET_ENTRYID], $entryids, array(), true);
 						} catch (MAPIException $e) {
+							if($e->getCode() === MAPI_E_NOT_IN_QUEUE || $e->getCode() === MAPI_E_UNABLE_TO_ABORT) {
+								throw $e;
+							}
+
 							$e->setHandled();
 							// if moving fails, try normal delete
 							$result = mapi_folder_deletemessages($folder, $entryids);
@@ -3174,7 +3185,7 @@
 								PR_ATTACH_DATA_BIN => "",
 								PR_ATTACH_MIME_TAG => $mimeType,
 								PR_ATTACHMENT_HIDDEN => !empty($cid) ? true : false,
-								PR_EC_WA_ATTACHMENT_ID => $fileinfo["attach_id"],
+								PR_EC_WA_ATTACHMENT_ID => isset($fileinfo["attach_id"]) && !empty($fileinfo["attach_id"]) ? $fileinfo["attach_id"] : uniqid(),
 								PR_ATTACH_EXTENSION => pathinfo($fileinfo["name"], PATHINFO_EXTENSION)
 							);
 

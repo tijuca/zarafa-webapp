@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 "PO-Revision-Date: 2017-10-02 16:14+0000\n"
 "Last-Translator: Zoltan Kiss <zoltan.kiss@serverside.hu>\n"
 "Language-Team: Hungarian <http://translate.kopano.io/projects/kopano/kopano-"
@@ -681,6 +681,9 @@ msgstr ""
 
 msgid "Did you mean"
 msgstr "Arra gondolt, hogy"
+
+msgid "With"
+msgstr ""
 
 msgid "Error"
 msgstr "Hiba"
@@ -1357,6 +1360,14 @@ msgstr "Munkanap vége"
 
 msgid "Calendar resolution"
 msgstr "Naptár felosztása"
+
+#, fuzzy
+msgid "Default appointment duration {A} minutes"
+msgstr "Egész napos események alapértelmezett emlékeztetési ideje"
+
+#, fuzzy
+msgid "Duration must be between 1 and 120 minutes."
+msgstr "Az értéknek 0% és 100% között kell lennie"
 
 msgid "Working days"
 msgstr "Munkanapok"
@@ -2541,6 +2552,10 @@ msgid "includes these words in the subject ..."
 msgstr "tárgya tartalmazza ezeket a szavakat ..."
 
 msgid "includes these words in the body ..."
+msgstr "levéltörzse tartalmazza ezeket a szavakat..."
+
+#, fuzzy
+msgid "includes these words in the transport-headers ..."
 msgstr "levéltörzse tartalmazza ezeket a szavakat..."
 
 msgid "has importance ..."
@@ -4006,8 +4021,13 @@ msgstr "Minden üzenet megjelölése olvasottként"
 msgid "Delete Folder"
 msgstr "Mappa törlése"
 
-msgid "Empty folder"
-msgstr "Mappa ürítése"
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Levélszemét"
+
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Törölt elemek"
 
 msgid "Close store"
 msgstr "Tároló bezárása"
@@ -5451,6 +5471,9 @@ msgstr ""
 msgid "This external link will open in a new window"
 msgstr "Ez a külső link egy új ablakban fog megnyílni"
 
+msgid "Eml is corrupted"
+msgstr ""
+
 #, fuzzy
 msgid "Attachment is not imported successfully"
 msgstr "A ZIP fájl nem lett sikeresen létrehozva"
@@ -5859,6 +5882,15 @@ msgstr "Nem menthető üzenet"
 
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr "Nincs elég jogosultsága az elem eltávolításához a naptárból."
+
+msgid ""
+"Message is no longer in the outgoing queue, typically because it has already "
+"been sent."
+msgstr ""
+
+#, fuzzy
+msgid "Message cannot be aborted"
+msgstr "Ezt a beépülőmodult nem lehet engedélyezni"
 
 msgid "You have insufficient privileges to delete items in this folder"
 msgstr "Nincsen jogosultsága az elemek eltávolításához ebben a mappában"

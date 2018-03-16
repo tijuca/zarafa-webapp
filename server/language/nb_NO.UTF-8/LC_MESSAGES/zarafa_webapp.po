@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 "PO-Revision-Date: 2018-02-13 19:23+0000\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano/"
@@ -672,6 +672,9 @@ msgstr ""
 msgid "Did you mean"
 msgstr "Mente du"
 
+msgid "With"
+msgstr ""
+
 msgid "Error"
 msgstr "Feil"
 
@@ -1313,6 +1316,14 @@ msgstr "Arbeidsdagens slutt"
 
 msgid "Calendar resolution"
 msgstr "Kalenderoppløsning"
+
+#, fuzzy
+msgid "Default appointment duration {A} minutes"
+msgstr "Standard påminnelsestid for heldagsavtale"
+
+#, fuzzy
+msgid "Duration must be between 1 and 120 minutes."
+msgstr "Verdien må være mellom 0% og 100%"
 
 msgid "Working days"
 msgstr "Arbeidsdager"
@@ -2480,6 +2491,10 @@ msgid "includes these words in the subject ..."
 msgstr "inneholder følgende ord i emnefeltet ..."
 
 msgid "includes these words in the body ..."
+msgstr "inneholder følgende ord i meldingsteksten ..."
+
+#, fuzzy
+msgid "includes these words in the transport-headers ..."
 msgstr "inneholder følgende ord i meldingsteksten ..."
 
 msgid "has importance ..."
@@ -3940,8 +3955,13 @@ msgstr "Merk alle meldinger som lest"
 msgid "Delete Folder"
 msgstr "Slett mappe"
 
-msgid "Empty folder"
-msgstr "Tøm mappe"
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Søppelpost"
+
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Slettede elementer"
 
 msgid "Close store"
 msgstr "Lukk e-postboks"
@@ -5355,6 +5375,9 @@ msgstr "Klikk på lenken for å åpne den i et nytt vindu."
 msgid "This external link will open in a new window"
 msgstr "Denne eksterne lenken vil bli åpnet i et nytt vindu"
 
+msgid "Eml is corrupted"
+msgstr ""
+
 #, fuzzy
 msgid "Attachment is not imported successfully"
 msgstr "ZIP-filen kunne ikke lages"
@@ -5727,6 +5750,15 @@ msgstr "Kunne ikke lagre meldingen"
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr ""
 "Du har ikke tilstrekkelige rettigheter til å fjerne elementer fra kalenderen."
+
+msgid ""
+"Message is no longer in the outgoing queue, typically because it has already "
+"been sent."
+msgstr ""
+
+#, fuzzy
+msgid "Message cannot be aborted"
+msgstr "Denne pluginen kan ikke aktiveres"
 
 msgid "You have insufficient privileges to delete items in this folder"
 msgstr ""

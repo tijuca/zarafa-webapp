@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 "PO-Revision-Date: 2016-10-11 20:43+0000\n"
 "Last-Translator: Viktor <viktor.bale@anodyne.cz>\n"
 "Language-Team: Czech <http://translate.kopano.io/projects/kopano/kopano-"
@@ -677,6 +677,9 @@ msgstr ""
 msgid "Did you mean"
 msgstr ""
 
+msgid "With"
+msgstr ""
+
 msgid "Error"
 msgstr "Chyba"
 
@@ -1317,6 +1320,14 @@ msgstr "Konec pracovního dne"
 
 msgid "Calendar resolution"
 msgstr "Rozlišení kalendáře"
+
+#, fuzzy
+msgid "Default appointment duration {A} minutes"
+msgstr "Výchozí doba připomínky pro celodenní události"
+
+#, fuzzy
+msgid "Duration must be between 1 and 120 minutes."
+msgstr "Hodnota musí být mezi 0% a 100%"
 
 msgid "Working days"
 msgstr "Pracovní dny"
@@ -2484,6 +2495,12 @@ msgstr "obsahuje tato slova v předmětu ..."
 # 84%
 # 100%
 msgid "includes these words in the body ..."
+msgstr "obsahuje tato slova v obsahu ..."
+
+# 84%
+# 100%
+#, fuzzy
+msgid "includes these words in the transport-headers ..."
 msgstr "obsahuje tato slova v obsahu ..."
 
 msgid "has importance ..."
@@ -3950,8 +3967,12 @@ msgstr "Označit všechny přečtené zprávy"
 msgid "Delete Folder"
 msgstr "Odstranit složku"
 
-msgid "Empty folder"
-msgstr "Vyprázdnit složku"
+msgid "Empty Junk E-mail"
+msgstr ""
+
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Odstraněné položky"
 
 msgid "Close store"
 msgstr "Zavřít úložiště"
@@ -5404,6 +5425,9 @@ msgstr ""
 msgid "This external link will open in a new window"
 msgstr "Tento externí odkaz se otevře v novém okně"
 
+msgid "Eml is corrupted"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5795,6 +5819,14 @@ msgstr "Nelze uložit zprávu"
 
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr "Nemáte oprávnění odstranit položku z kalendáře."
+
+msgid ""
+"Message is no longer in the outgoing queue, typically because it has already "
+"been sent."
+msgstr ""
+
+msgid "Message cannot be aborted"
+msgstr ""
 
 #, fuzzy
 msgid "You have insufficient privileges to delete items in this folder"

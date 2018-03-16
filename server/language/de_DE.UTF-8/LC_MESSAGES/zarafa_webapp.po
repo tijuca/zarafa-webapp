@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 "PO-Revision-Date: 2018-02-20 14:50+0000\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
@@ -682,6 +682,9 @@ msgstr ""
 
 msgid "Did you mean"
 msgstr "Meinten Sie"
+
+msgid "With"
+msgstr ""
 
 msgid "Error"
 msgstr "Fehler"
@@ -1362,6 +1365,14 @@ msgstr "Ende des Arbeitstages"
 
 msgid "Calendar resolution"
 msgstr "Kalenderauflösung"
+
+#, fuzzy
+msgid "Default appointment duration {A} minutes"
+msgstr "Standarderinnerungszeit für ganztägige Termine"
+
+#, fuzzy
+msgid "Duration must be between 1 and 120 minutes."
+msgstr "Der Wert muss zwischen 0% und 100% liegen"
 
 msgid "Working days"
 msgstr "Arbeitstage"
@@ -2576,6 +2587,12 @@ msgstr "enthält diese Wörter im Betreff ..."
 # 84%
 # 100%
 msgid "includes these words in the body ..."
+msgstr "enthält diese Wörter im Text ..."
+
+# 84%
+# 100%
+#, fuzzy
+msgid "includes these words in the transport-headers ..."
 msgstr "enthält diese Wörter im Text ..."
 
 msgid "has importance ..."
@@ -4090,8 +4107,14 @@ msgstr "Alle Nachrichten als gelesen markieren"
 msgid "Delete Folder"
 msgstr "Ordner löschen"
 
-msgid "Empty folder"
-msgstr "Ordner leeren"
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Spam"
+
+# 92%
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Gelöschte Objekte"
 
 msgid "Close store"
 msgstr "Postfach schließen"
@@ -5607,6 +5630,9 @@ msgstr "Klicken Sie auf den Link, um die URL in einem neuen Fenster zu öffnen."
 msgid "This external link will open in a new window"
 msgstr "Der externe Link wird in einem neuen Fenster geöffnet"
 
+msgid "Eml is corrupted"
+msgstr ""
+
 #, fuzzy
 msgid "Attachment is not imported successfully"
 msgstr "ZIP-Datei konnte nicht erstellt werden"
@@ -6030,6 +6056,15 @@ msgstr "Die Nachricht konnte nicht gespeichert werden"
 msgid "You have insufficient privileges to remove item from the calendar."
 msgstr ""
 "Sie haben nicht genügend Berechtigungen, um den Kalendereintrag zu löschen."
+
+msgid ""
+"Message is no longer in the outgoing queue, typically because it has already "
+"been sent."
+msgstr ""
+
+#, fuzzy
+msgid "Message cannot be aborted"
+msgstr "Dieses Plugin kann nicht aktiviert werden"
 
 # 81%
 msgid "You have insufficient privileges to delete items in this folder"
