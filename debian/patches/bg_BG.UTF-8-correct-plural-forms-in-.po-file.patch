@@ -7,7 +7,7 @@ Subject: bg_BG.UTF-8: correct plural forms in *.po file
  1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index dddbb0c..b8b2e90 100644
+index 7c64b89..6f132f6 100644
 --- a/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index dddbb0c..b8b2e90 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Bulgarian\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-02-15 15:16+0100\n"
+ "POT-Creation-Date: 2018-03-13 14:35+0100\n"
 -"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 -"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"

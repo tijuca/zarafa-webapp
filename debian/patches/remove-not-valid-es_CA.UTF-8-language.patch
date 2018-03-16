@@ -3,18 +3,18 @@ Date: Thu, 5 Oct 2017 20:58:17 +0200
 Subject: remove not valid es_CA.UTF-8 language
 
 ---
- .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6156 --------------------
+ .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6186 --------------------
  server/language/es_CA.UTF-8/language.txt           |    1 -
- 2 files changed, 6157 deletions(-)
+ 2 files changed, 6187 deletions(-)
  delete mode 100644 server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
  delete mode 100644 server/language/es_CA.UTF-8/language.txt
 
 diff --git a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 deleted file mode 100644
-index 7df5cec..0000000
+index a435ef0..0000000
 --- a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ /dev/null
-@@ -1,6156 +0,0 @@
+@@ -1,6186 +0,0 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,7 +23,7 @@ index 7df5cec..0000000
 -msgstr ""
 -"Project-Id-Version: PACKAGE VERSION\n"
 -"Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2018-02-15 15:16+0100\n"
+-"POT-Creation-Date: 2018-03-13 14:35+0100\n"
 -"PO-Revision-Date: 2013-02-22 23:00+0200\n"
 -"Last-Translator: Manuel <info@picholeiro.info>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
@@ -707,6 +707,9 @@ index 7df5cec..0000000
 -msgid "Did you mean"
 -msgstr ""
 -
+-msgid "With"
+-msgstr ""
+-
 -msgid "Error"
 -msgstr "Error"
 -
@@ -1360,6 +1363,13 @@ index 7df5cec..0000000
 -
 -msgid "Calendar resolution"
 -msgstr "Resolución del Calendario"
+-
+-#, fuzzy
+-msgid "Default appointment duration {A} minutes"
+-msgstr "Hora por defecto del recordatorio Todo el Día"
+-
+-msgid "Duration must be between 1 and 120 minutes."
+-msgstr ""
 -
 -msgid "Working days"
 -msgstr ""
@@ -2550,6 +2560,9 @@ index 7df5cec..0000000
 -msgstr ""
 -
 -msgid "includes these words in the body ..."
+-msgstr ""
+-
+-msgid "includes these words in the transport-headers ..."
 -msgstr ""
 -
 -msgid "has importance ..."
@@ -4047,8 +4060,14 @@ index 7df5cec..0000000
 -msgid "Delete Folder"
 -msgstr "Borrar Carpeta"
 -
--msgid "Empty folder"
--msgstr "Carpeta vacía"
+-#, fuzzy
+-msgid "Empty Junk E-mail"
+-msgstr "papelera de reciclaje"
+-
+-# 92%
+-#, fuzzy
+-msgid "Empty Deleted Items"
+-msgstr "Elementos eliminados"
 -
 -msgid "Close store"
 -msgstr "Cerrar Buzón"
@@ -5507,6 +5526,9 @@ index 7df5cec..0000000
 -msgid "This external link will open in a new window"
 -msgstr ""
 -
+-msgid "Eml is corrupted"
+-msgstr ""
+-
 -#, fuzzy
 -msgid "Attachment is not imported successfully"
 -msgstr "Grabación finalizada"
@@ -5910,6 +5932,14 @@ index 7df5cec..0000000
 -
 -msgid "You have insufficient privileges to remove item from the calendar."
 -msgstr "No tiene privilegios necesarios para borrar objetos en esta carpeta"
+-
+-msgid ""
+-"Message is no longer in the outgoing queue, typically because it has already "
+-"been sent."
+-msgstr ""
+-
+-msgid "Message cannot be aborted"
+-msgstr ""
 -
 -#, fuzzy
 -msgid "You have insufficient privileges to delete items in this folder"
