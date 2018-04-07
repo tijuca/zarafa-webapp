@@ -7,7 +7,7 @@ Subject: lt_LT.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/lt_LT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/lt_LT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index f5157cc..c801662 100644
+index fee2e7d..83ef7e3 100644
 --- a/server/language/lt_LT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/lt_LT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -23,7 +23,7 @@ index f5157cc..c801662 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Lithuanian (Lithuania)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-13 14:35+0100\n"
+ "POT-Creation-Date: 2018-03-27 14:28+0200\n"
 -"PO-Revision-Date: 2011-03-08 15:51+0200\n"
 +"PO-Revision-Date: 2017-10-05 20:10+0200\n"
  "Last-Translator: Anonymous Pootle User\n"

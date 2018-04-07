@@ -7,7 +7,7 @@ Subject: ca_ES.UTF-8: fix some msgfmt warnings in *.po file
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index bf7eea2..2b1dff4 100644
+index 35b927e..ceb692b 100644
 --- a/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ca_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index bf7eea2..2b1dff4 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Catalan (Spain)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-13 14:35+0100\n"
+ "POT-Creation-Date: 2018-03-27 14:28+0200\n"
 -"PO-Revision-Date: 2015-07-18 11:39+0200\n"
 +"PO-Revision-Date: 2017-10-04 20:55+0200\n"
  "Last-Translator: Angel <craem@craem.net>\n"

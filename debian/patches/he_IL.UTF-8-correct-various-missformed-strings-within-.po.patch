@@ -7,7 +7,7 @@ Subject: he_IL.UTF-8: correct various missformed strings within *.po file
  1 file changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 3c066ca..bb2f558 100644
+index b5d2ea2..98bb2f8 100644
 --- a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index 3c066ca..bb2f558 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Hebrew (Israel)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-13 14:35+0100\n"
+ "POT-Creation-Date: 2018-03-27 14:28+0200\n"
 -"PO-Revision-Date: 2012-06-01 09:31+0200\n"
 +"PO-Revision-Date: 2017-10-03 22:09+0200\n"
  "Last-Translator: Maria <m.ulyashyn@Kopano.com>\n"
