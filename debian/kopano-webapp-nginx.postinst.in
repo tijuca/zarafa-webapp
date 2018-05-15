@@ -17,7 +17,7 @@
 set -e
 set -x # uncomment for verbose output
 
-PHPVERSION="7.0"
+PHPVERSION="@version@"
 NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
 NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
 

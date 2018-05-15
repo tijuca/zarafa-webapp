@@ -4,6 +4,7 @@
 
 include /usr/share/dpkg/pkg-info.mk
 RELEASE := $(DEB_DISTRIBUTION)
+PHP_VERSION = 7.2
 
 %:
 	dh $@ 
@@ -15,6 +16,7 @@ override_dh_auto_build:
 	ant deploy deploy-plugins
 	mkdir $(CURDIR)/debian/tmp
 	cp -a $(CURDIR)/deploy $(CURDIR)/debian/tmp/
+	sed -e "s/@version@/$(PHP_VERSION)/g" debian/kopano-webapp-nginx.postinst.in > debian/kopano-webapp-nginx.postinst
 
 override_dh_install:
 	dh_install -X.js.map -X*debug.js
