@@ -25,6 +25,7 @@ override_dh_install:
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
 	# remove additional license files
 	rm $(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/client/tinymce-plugins/powerpaste/License.txt
+	sed -i "s/@version@/$(PHP_VERSION)/g" debian/kopano-webapp-nginx/etc/nginx/sites-available/kopano-webapp.conf
 
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/kopano-webapp/tmp
