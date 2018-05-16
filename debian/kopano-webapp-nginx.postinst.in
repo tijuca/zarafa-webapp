@@ -15,7 +15,7 @@
 # debian-policy package
 
 set -e
-set -x # uncomment for verbose output
+#set -x # uncomment for verbose output
 
 PHPVERSION="@version@"
 NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
@@ -29,12 +29,36 @@ case "$1" in
             # calling php_invoke to enable 'mapi' for the PHP module fpm
             php_invoke enmod ${PHPVERSION} fpm mapi
         fi
-        # Don't enable the kopano-webapp site configuration on default. Just
-		# symlink the site to the conf.d.
-        #if [ ! -L "${NGINX_SITES_ENABLED}/kopano-webapp.conf" ]; then
-        #    echo "Enable Nginx kopano-webapp config ..." >&2
-        #    ln -s ${NGINX_SITES_AVAILABLE}/kopano-webapp.conf ${NGINX_SITES_ENABLED}/kopano-webapp.conf
-        #fi
+        # preparations made, try to activate or reload nginx config
+        if test -n "$2"; then
+            # we are updating to a new version
+            if [ `find "${NGINX_SITES_ENABLED}/" -type f -iname kopano-webapp*.conf | wc -l` -gt 0 ]; then
+                # the user has enabled site(s) for kopano-webapp
+                if [ -x /etc/init.d/nginx ]; then
+                    if [ -s /run/nginx.pid ] && pidof /usr/sbin/nginx >/dev/null; then
+                        echo "Triggering nginx reload ..."
+                        invoke-rc.d nginx reload || true
+                    fi
+                 else
+                    echo "Couldn't find Nginx and reload the configuration. Package nginx not installed?"
+                fi
+            fi
+        else
+            # we are on a first time installation
+            if [ ! -L "${NGINX_SITES_ENABLED}/kopano-webapp.conf" ]; then
+                echo "Enable Nginx kopano-webapp config ..." >&2
+                ln -s ${NGINX_SITES_AVAILABLE}/kopano-webapp.conf ${NGINX_SITES_ENABLED}/kopano-webapp.conf
+                if [ -x /etc/init.d/nginx ]; then
+                    if [ -s /run/nginx.pid ] && pidof /usr/sbin/nginx >/dev/null; then
+                        echo "Triggering nginx reload ..."
+                        invoke-rc.d nginx reload || true
+                    fi
+                 else
+                    # we should never came to this as we depend on the nginx package
+                    echo "Couldn't find Nginx and activate the kopano-webapp configuration. Package nginx not installed?"
+                fi
+            fi
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
