@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
-"PO-Revision-Date: 2018-03-19 11:35+0000\n"
-"Last-Translator: Hans-Peter <h.stradinger@kopano.com>\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
+"PO-Revision-Date: 2018-05-08 11:41+0000\n"
+"Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
 "Language: de_DE\n"
@@ -104,6 +104,27 @@ msgstr "Freitag"
 
 msgid "Saturday"
 msgstr "Samstag"
+
+msgid "Sun"
+msgstr "So"
+
+msgid "Mon"
+msgstr "Mo"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Fr"
+
+msgid "Sat"
+msgstr "Sa"
 
 msgid "January"
 msgstr "Januar"
@@ -584,7 +605,8 @@ msgstr "Allen antworten"
 msgid "Forward"
 msgstr "Weiterleiten"
 
-msgid "Edit as New Message"
+#, fuzzy
+msgid "Edit as New"
 msgstr "Nachricht erneut senden"
 
 msgid "Search tools"
@@ -625,11 +647,13 @@ msgstr "Anhänge"
 msgid "Date"
 msgstr "Datum"
 
+msgctxt "search.date"
 msgid "From"
 msgstr "Von"
 
+msgctxt "search.date"
 msgid "To"
-msgstr "An"
+msgstr "Bis"
 
 msgid "Search.."
 msgstr "Suche in ..."
@@ -665,13 +689,13 @@ msgstr "Suchordner löschen"
 # 84%
 # 100%
 msgid "Sort by: Date"
-msgstr "Sortieren nach: Name"
+msgstr "Sortieren nach: Datum"
 
 msgid "Loading Search results"
 msgstr "Lade Suchergebnisse"
 
 msgid "Sorting tip"
-msgstr "Sortieren Tipp"
+msgstr "Tipp für das Sortieren"
 
 msgid ""
 "You can sort by date if you narrow down your search results. Enable filters "
@@ -685,6 +709,9 @@ msgstr "Meinten Sie"
 
 msgid "With"
 msgstr "Mit"
+
+msgid "To"
+msgstr "An"
 
 msgid "No date"
 msgstr "Kein Datum"
@@ -1369,34 +1396,13 @@ msgid "Calendar resolution"
 msgstr "Kalenderauflösung"
 
 msgid "Default appointment duration {A} minutes"
-msgstr "Standarderinnerungszeit für {A} Minuten"
+msgstr "Standardzeit für {A} Minuten"
 
 msgid "Duration must be between 1 and 120 minutes."
 msgstr "Der Wert muss zwischen 1 und 120 Minuten liegen."
 
 msgid "Working days"
 msgstr "Arbeitstage"
-
-msgid "Mon"
-msgstr "Mo"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Fr"
-
-msgid "Sat"
-msgstr "Sa"
-
-msgid "Sun"
-msgstr "So"
 
 msgid "Show busy dates as bold in the date picker"
 msgstr "Belegte Termine in der Datumsauswahl in fett anzeigen"
@@ -1859,6 +1865,9 @@ msgstr "CC"
 msgid "Bcc"
 msgstr "BCC"
 
+msgid "From"
+msgstr "Von"
+
 msgid "Insert item"
 msgstr "Element einfügen"
 
@@ -1934,6 +1943,13 @@ msgstr "Alle als ZIP-Datei herunterladen"
 
 msgid "Import to folder"
 msgstr "Import in Ordner"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
+"Um das vCard Import Feature zu verwenden müssen Sie Kopano Core auf die "
+"Version 8.3 und neuer updaten"
 
 msgid "Attachment error"
 msgstr "Problem mit dem Anhang"
@@ -2810,6 +2826,12 @@ msgid_plural "{0} selected rows"
 msgstr[0] "{0} ausgewählte Zeile"
 msgstr[1] "{0} ausgewählte Zeilen"
 
+# 86%
+# 100%
+# 76%
+msgid "Loaded {0} of {1}"
+msgstr "{0} von {1} Elementen geladen"
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr "Erinnerung ist auf {0}, {1} gesetzt"
 
@@ -3477,6 +3499,9 @@ msgstr "Gruppe"
 msgid "Work"
 msgstr "Arbeit"
 
+msgid "Export as"
+msgstr "Exportieren als"
+
 msgid "Sort by: Full Name"
 msgstr "Sortieren nach: Vollständiger Name"
 
@@ -3623,6 +3648,9 @@ msgstr "Bild ändern"
 msgid "Remove Picture"
 msgstr "Bild entfernen"
 
+msgid "VCF file(s)"
+msgstr "VCF Datei(en)"
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3665,6 +3693,12 @@ msgid ""
 msgstr ""
 "Anlage konnte nicht hochgeladen werden. Sie versuchen, {0} Anhänge "
 "hochzuladen, während nur {1} Anhänge erlaubt sind."
+
+msgid "Successfully imported item(s) to {0}"
+msgstr "Erfolgreich importierte Elemente in {0}"
+
+msgid "Failed to import item(s) to {0}"
+msgstr "Import fehlgeschlagen in {0}"
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
@@ -4488,7 +4522,6 @@ msgstr "Ich bin nicht im Büro vom"
 msgid "I will be back on"
 msgstr "Ich werde zurück sein am"
 
-#, fuzzy
 msgid "Automatically reply once per day, per sender with the following text"
 msgstr "Jedem Absender nur einmal automatisch mit dem folgenden Text antworten"
 
@@ -4550,27 +4583,53 @@ msgstr "Flagge"
 msgid "Sort by: flag"
 msgstr "Nach Flagge sortieren"
 
+# 85%
+# 100%
+msgid "Older"
+msgstr "Älter"
+
+msgid "Yesterday"
+msgstr "Gestern"
+
+msgid "Last Week"
+msgstr "Letzte Woche"
+
+msgid "Two Weeks Ago"
+msgstr "Vorletzte Woche"
+
+msgid "Three Weeks Ago"
+msgstr "Vorvorletzte Woche"
+
+msgid "Last Month"
+msgstr "Letzter Monat"
+
+msgid "Small"
+msgstr "Klein"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Large"
+msgstr "Groß"
+
+msgid "Very large"
+msgstr "Sehr groß"
+
+msgid "Huge"
+msgstr "Enorm"
+
 msgid "Follow up"
 msgstr "Nachverfolgung"
 
 msgid "Move to Junk Folder"
-msgstr "Nach Spam verschieben"
+msgstr "Nach Junk-E-Mail verschieben"
 
 # 75%
 msgid "Send to"
 msgstr "Senden an"
 
-msgid "Export as"
-msgstr "Exportieren als"
-
 msgid "Loading mail"
 msgstr "Lade E-Mail"
-
-# 86%
-# 100%
-# 76%
-msgid "Loaded {0} of {1}"
-msgstr "{0} von {1} Elementen geladen"
 
 msgid "Save Note"
 msgstr "Notiz speichern"
@@ -5612,6 +5671,12 @@ msgstr "Der externe Link wird in einem neuen Fenster geöffnet"
 msgid "Eml is corrupted"
 msgstr "EML ist defekt"
 
+msgid "The eml Attachment is not imported successfully"
+msgstr "Der Anhang konnte nicht erfolgreich importiert werden"
+
+msgid "The vcf attachment is not imported successfully"
+msgstr "Der VCF Anhang konnte nicht erfolgreich importiert werden"
+
 msgid "Attachment is not imported successfully"
 msgstr "Der Anhang konnte nicht erfolgreich importiert werden"
 
@@ -5630,10 +5695,6 @@ msgstr "Der Anhang konnte nicht gefunden werden."
 # 100%
 msgid "Operation failed"
 msgstr "Vorgang fehlgeschlagen"
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
-msgstr "Aus \"%s\" konnte keine EML-Datei erstellt werden"
 
 # 70%
 # 90%

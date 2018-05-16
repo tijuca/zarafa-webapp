@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: 2013-10-29 05:36+0200\n"
 "Last-Translator: Ainur <shakirov.aynur@cg.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,6 +114,27 @@ msgstr "Пятница"
 
 msgid "Saturday"
 msgstr "Суббота"
+
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
+msgstr ""
 
 msgid "January"
 msgstr "Январь"
@@ -586,8 +607,9 @@ msgstr "Ответить всем"
 msgid "Forward"
 msgstr "Переслать"
 
-msgid "Edit as New Message"
-msgstr ""
+#, fuzzy
+msgid "Edit as New"
+msgstr "Изменить настройки"
 
 msgid "Search tools"
 msgstr ""
@@ -631,9 +653,13 @@ msgstr "Вложения"
 msgid "Date"
 msgstr "Дата"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "От"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "Кому"
 
@@ -687,6 +713,9 @@ msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "Кому"
 
 msgid "No date"
 msgstr ""
@@ -1346,27 +1375,6 @@ msgstr "Значение должно быть между 0% и 100%."
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "При выборе даты показать дни занятости полужирным"
 
@@ -1830,6 +1838,9 @@ msgstr "Копия"
 msgid "Bcc"
 msgstr "СК"
 
+msgid "From"
+msgstr "От"
+
 msgid "Insert item"
 msgstr "Вставить объект"
 
@@ -1905,6 +1916,11 @@ msgstr ""
 #, fuzzy
 msgid "Import to folder"
 msgstr "Очистить каталог"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Ошибка вложения"
@@ -2744,6 +2760,9 @@ msgstr[0] "Выбрана {0} строка"
 msgstr[1] "Выбраны {0} строки"
 msgstr[2] "Выбрано {0} строк"
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3388,6 +3407,9 @@ msgstr "Группа"
 msgid "Work"
 msgstr "Работа"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Сортировать по полному имени"
 
@@ -3525,6 +3547,9 @@ msgstr ""
 msgid "Remove Picture"
 msgstr ""
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3555,6 +3580,12 @@ msgstr ""
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
+msgstr ""
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
@@ -4426,6 +4457,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Каталоги"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Последняя страница"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Месяц"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4438,14 +4507,8 @@ msgstr "Отправить в папку «Нежел. почта»"
 msgid "Send to"
 msgstr "Отправить"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Загрузка почты"
-
-msgid "Loaded {0} of {1}"
-msgstr ""
 
 msgid "Save Note"
 msgstr "Сохранить заметку"
@@ -5454,6 +5517,12 @@ msgstr "Эта внешняя ссылка откроется в новом ок
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5471,10 +5540,6 @@ msgstr "Не удалось загрузить вложение."
 
 msgid "Operation failed"
 msgstr "Операция не удалась"
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
-msgstr ""
 
 # 90%
 # 100%

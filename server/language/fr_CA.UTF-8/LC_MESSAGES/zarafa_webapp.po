@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp French (Canada)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Canadian French <http://translate.kopano.io/projects/kopano/"
@@ -100,6 +100,27 @@ msgid "Friday"
 msgstr ""
 
 msgid "Saturday"
+msgstr ""
+
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
 msgstr ""
 
 msgid "January"
@@ -558,7 +579,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-msgid "Edit as New Message"
+msgid "Edit as New"
 msgstr ""
 
 msgid "Search tools"
@@ -597,9 +618,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgctxt "search.date"
 msgid "From"
 msgstr ""
 
+msgctxt "search.date"
 msgid "To"
 msgstr ""
 
@@ -648,6 +671,9 @@ msgid "Did you mean"
 msgstr ""
 
 msgid "With"
+msgstr ""
+
+msgid "To"
 msgstr ""
 
 msgid "No date"
@@ -1255,27 +1281,6 @@ msgstr ""
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
 msgid "Show busy dates as bold in the date picker"
 msgstr ""
 
@@ -1681,6 +1686,9 @@ msgstr ""
 msgid "Bcc"
 msgstr ""
 
+msgid "From"
+msgstr ""
+
 msgid "Insert item"
 msgstr ""
 
@@ -1748,6 +1756,11 @@ msgid "Download all as ZIP"
 msgstr ""
 
 msgid "Import to folder"
+msgstr ""
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
 msgstr ""
 
 msgid "Attachment error"
@@ -2536,6 +2549,9 @@ msgid_plural "{0} selected rows"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3133,6 +3149,9 @@ msgstr ""
 msgid "Work"
 msgstr ""
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr ""
 
@@ -3268,6 +3287,9 @@ msgstr ""
 msgid "Remove Picture"
 msgstr ""
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3298,6 +3320,12 @@ msgstr ""
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
+msgstr ""
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
@@ -4106,6 +4134,39 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+msgid "Older"
+msgstr ""
+
+msgid "Yesterday"
+msgstr ""
+
+msgid "Last Week"
+msgstr ""
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+msgid "Last Month"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4115,13 +4176,7 @@ msgstr ""
 msgid "Send to"
 msgstr ""
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
-msgstr ""
-
-msgid "Loaded {0} of {1}"
 msgstr ""
 
 msgid "Save Note"
@@ -5044,6 +5099,12 @@ msgstr ""
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5057,10 +5118,6 @@ msgid "Could not find attachment."
 msgstr ""
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 msgid "Sticky Note"

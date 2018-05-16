@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: 2017-06-12 15:20+0000\n"
 "Last-Translator: Pascual <pascual.gadea@dulcesol.es>\n"
 "Language-Team: Spanish <http://translate.kopano.io/projects/kopano/kopano-"
@@ -103,6 +103,27 @@ msgstr "Viernes"
 
 msgid "Saturday"
 msgstr "Sábado"
+
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
+msgstr ""
 
 msgid "January"
 msgstr "Enero"
@@ -580,7 +601,8 @@ msgstr "Responder a todos"
 msgid "Forward"
 msgstr "Reenviar"
 
-msgid "Edit as New Message"
+#, fuzzy
+msgid "Edit as New"
 msgstr "Editar como Nuevo Mensaje"
 
 msgid "Search tools"
@@ -625,9 +647,13 @@ msgstr "Adjuntos"
 msgid "Date"
 msgstr "Fecha"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "De"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "A"
 
@@ -681,6 +707,9 @@ msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "A"
 
 msgid "No date"
 msgstr ""
@@ -1353,27 +1382,6 @@ msgstr "El valor debe estar entre 0% y 100%"
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "Mostrar fechas ocupadas en negrita en el selector de fechas"
 
@@ -1840,6 +1848,9 @@ msgstr "Cc"
 msgid "Bcc"
 msgstr "Cco"
 
+msgid "From"
+msgstr "De"
+
 msgid "Insert item"
 msgstr "Insertar elemento"
 
@@ -1921,6 +1932,11 @@ msgstr "Descargar todo como un archivo ZIP"
 #, fuzzy
 msgid "Import to folder"
 msgstr "Vaciar Carpeta"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Error"
@@ -2782,6 +2798,13 @@ msgid_plural "{0} selected rows"
 msgstr[0] "{0} ítem seleccionado"
 msgstr[1] "{0} ítems seleccionados"
 
+# 86%
+# 100%
+# 76%
+#, fuzzy
+msgid "Loaded {0} of {1}"
+msgstr "Página {A} de {0}"
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3460,6 +3483,9 @@ msgstr "Grupo"
 msgid "Work"
 msgstr "Trabajo"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Ordenar por: Nombre Completo"
 
@@ -3604,6 +3630,9 @@ msgstr "Cambiar Imagen"
 msgid "Remove Picture"
 msgstr "Remover Imagen"
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3645,6 +3674,12 @@ msgid ""
 msgstr ""
 "No es posible subir el adjunto, el total de adjuntos es {0} mientras que el "
 "número máximo de archivos permitidos en una petición simple es de {1}."
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
+msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
@@ -4522,6 +4557,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Carpetas"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Última Página"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Mes"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4533,18 +4606,8 @@ msgstr "Mover a Papelera"
 msgid "Send to"
 msgstr "Enviar"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Cargando correo"
-
-# 86%
-# 100%
-# 76%
-#, fuzzy
-msgid "Loaded {0} of {1}"
-msgstr "Página {A} de {0}"
 
 msgid "Save Note"
 msgstr "Guardar nota"
@@ -5548,6 +5611,12 @@ msgstr ""
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5564,10 +5633,6 @@ msgid "Could not find attachment."
 msgstr "No se puede subir adjunto."
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 # 90%

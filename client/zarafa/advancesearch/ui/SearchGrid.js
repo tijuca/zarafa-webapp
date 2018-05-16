@@ -74,6 +74,7 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 			enableColumnMove: false,
 			enableColumnResize: false,
 			enableHdMenu: false,
+			supportLiveScroll : true,
 			autoExpandMin : 200,
 			// The maximum number of records that the store can hold and still be sortable
 			//TODO: This value should probably be configurable, but let's not do that until we are absolutely sure
@@ -470,8 +471,10 @@ Zarafa.advancesearch.ui.SearchGrid = Ext.extend(Zarafa.common.ui.grid.MapiMessag
 	 */
 	onBeforeSort : function(gridView)
 	{
-		// Only check when sorting on the second row, because the first row does not have sorting enabled
-		if ( gridView.activeHdIndex === 1 ){
+		var cm = this.getColumnModel();
+		var dataIndex = cm.getDataIndex(gridView.activeHdIndex);
+		// Apply sorting only on search date column, Because other columns doesn't support sorting.
+		if (dataIndex === 'searchdate') {
 
 			// Check if the total number of results is less then the maximum for which we will enable sorting
 			var store = this.getStore();

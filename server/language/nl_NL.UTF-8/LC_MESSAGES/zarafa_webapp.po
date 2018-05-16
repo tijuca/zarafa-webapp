@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
-"PO-Revision-Date: 2018-02-12 07:30+0000\n"
-"Last-Translator: Robin <r.vangenderen@zarafa.com>\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
+"PO-Revision-Date: 2018-05-08 11:43+0000\n"
+"Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
 "Language: nl_NL\n"
@@ -104,6 +104,27 @@ msgstr "Vrijdag"
 
 msgid "Saturday"
 msgstr "Zaterdag"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
 
 msgid "January"
 msgstr "Januari"
@@ -599,8 +620,8 @@ msgstr "Beantwoord Allen"
 msgid "Forward"
 msgstr "Doorsturen"
 
-msgid "Edit as New Message"
-msgstr "Als nieuw bericht bewerken"
+msgid "Edit as New"
+msgstr "Als nieuw bewerken"
 
 msgid "Search tools"
 msgstr "Zoek opties"
@@ -619,9 +640,8 @@ msgstr "Toon..."
 msgid "Mails"
 msgstr "E-mails"
 
-#, fuzzy
 msgid "Appointments"
-msgstr "Afspraak"
+msgstr "Afspraken"
 
 msgid "Contacts"
 msgstr "Contactpersonen"
@@ -641,11 +661,13 @@ msgstr "Bijlagen"
 msgid "Date"
 msgstr "Datum"
 
+msgctxt "search.date"
 msgid "From"
-msgstr "Afzender"
+msgstr "Van"
 
+msgctxt "search.date"
 msgid "To"
-msgstr "Aan"
+msgstr "Tot"
 
 msgid "Search.."
 msgstr "Zoeken..."
@@ -684,20 +706,24 @@ msgstr "Sorteer op: Datum"
 msgid "Loading Search results"
 msgstr "Zoekresultaten laden"
 
-#, fuzzy
 msgid "Sorting tip"
-msgstr "Sorteren niet mogelijk"
+msgstr "Sorteer tip"
 
 msgid ""
 "You can sort by date if you narrow down your search results. Enable filters "
 "or adjust your input."
 msgstr ""
+"Sorteren op datum is mogelijk indien de zoekresultaten specifieker zijn. Zet "
+"filters aan of pas de zoekopdracht aan."
 
 msgid "Did you mean"
 msgstr "Bedoelde u"
 
 msgid "With"
-msgstr ""
+msgstr "Met"
+
+msgid "To"
+msgstr "Aan"
 
 msgid "No date"
 msgstr "Geen datum"
@@ -1059,9 +1085,8 @@ msgstr ""
 "vergaderverzoek wordt bijgewerkt door de organisator"
 
 # 90%
-#, fuzzy
 msgid "Create in"
-msgstr "Aangemaakt Op"
+msgstr "Maak in"
 
 msgid "Time"
 msgstr "Tijd"
@@ -1370,48 +1395,25 @@ msgstr "Einde van de werkdag"
 msgid "Calendar resolution"
 msgstr "Kalenderresolutie"
 
-#, fuzzy
 msgid "Default appointment duration {A} minutes"
-msgstr "Standaard herinneringstijd voor heledagafspraken"
+msgstr "Standaard afspraak tijdsduur {A} minuten"
 
-#, fuzzy
 msgid "Duration must be between 1 and 120 minutes."
-msgstr "Waarde moet tussen 0% en 100% liggen"
+msgstr "Tijdsduur moet tussen 1 en 120 minuten liggen."
 
 msgid "Working days"
 msgstr "Werkdagen"
 
-msgid "Mon"
-msgstr "Maa"
-
-msgid "Tue"
-msgstr "Din"
-
-msgid "Wed"
-msgstr "Woe"
-
-msgid "Thu"
-msgstr "Don"
-
-msgid "Fri"
-msgstr "Vrij"
-
-msgid "Sat"
-msgstr "Zat"
-
-msgid "Sun"
-msgstr "Zon"
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "Geef dagen met afspraken vet weer in het datumkeuzeveld"
 
-#, fuzzy
 msgid ""
 "Free/busy information is used by people sending meeting requests, to "
 "determine when you are available for meetings."
 msgstr ""
 "Beschikbaarheids informatie wordt gebruikt door de verzender van "
-"vergaderverzoeken, "
+"vergaderverzoeken, om te vast te stellen wanneer u beschikbaar bent voor "
+"vergaderingen."
 
 msgid "Free/Busy permission"
 msgstr "Beschikbaarheids informatie permissie"
@@ -1872,6 +1874,9 @@ msgstr "Cc"
 msgid "Bcc"
 msgstr "Bcc"
 
+msgid "From"
+msgstr "Afzender"
+
 msgid "Insert item"
 msgstr "Item invoegen"
 
@@ -1898,13 +1903,11 @@ msgstr "Item invoegen"
 msgid "No message selected"
 msgstr "Geen bericht geselecteerd"
 
-#, fuzzy
 msgid "Import to"
-msgstr "Belangrijk"
+msgstr "Importeren naar"
 
-#, fuzzy
 msgid "Import"
-msgstr "Belangrijk"
+msgstr "Importeren"
 
 # 90%
 # 100%
@@ -1948,9 +1951,15 @@ msgstr "Downloaden"
 msgid "Download all as ZIP"
 msgstr "Allen downloaden als ZIP"
 
-#, fuzzy
 msgid "Import to folder"
-msgstr "Map legen"
+msgstr "Importeren naar map"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
+"Om de vCard import functionaliteit te gebruiken, moet uw Kopano Core worden "
+"bijgewerkt naar versie 8.3+"
 
 msgid "Attachment error"
 msgstr "Bijlagefout"
@@ -2157,9 +2166,8 @@ msgstr "Map '{0}' geselecteerd."
 msgid "Do not show this message again."
 msgstr "Toon dit bericht niet meer."
 
-#, fuzzy
 msgid "Set custom flag"
-msgstr "Markeer"
+msgstr "Speciale vlag instellen"
 
 # 90%
 msgid "Start date"
@@ -2178,13 +2186,11 @@ msgstr "Deze week"
 msgid "Next week"
 msgstr "Volgende week"
 
-#, fuzzy
 msgid "Custom"
-msgstr "Aangepaste datum"
+msgstr "Aangepast"
 
-#, fuzzy
 msgid "Set reminder"
-msgstr "Bewerk herinnering"
+msgstr "Herinnering instellen"
 
 msgid "Complete"
 msgstr "Voltooid"
@@ -2325,9 +2331,8 @@ msgstr ""
 msgid "Edit Recipient"
 msgstr "Bewerk Geadresseerde"
 
-#, fuzzy
 msgid "Copy e-mail address"
-msgstr "Nieuw e-mailadres"
+msgstr "E-mail adres kopiëren"
 
 # 90%
 msgid "Send e-mail"
@@ -2590,9 +2595,8 @@ msgstr "bevat deze woorden in de inhoud..."
 
 # 84%
 # 100%
-#, fuzzy
 msgid "includes these words in the transport-headers ..."
-msgstr "bevat deze woorden in de inhoud..."
+msgstr "bevat deze woorden in de transport-headers..."
 
 msgid "has importance ..."
 msgstr "heeft belangrijkheid ..."
@@ -2812,17 +2816,22 @@ msgstr "Webpagina"
 msgid "IM Address"
 msgstr "IM-Adres"
 
-#, fuzzy
 msgid "D, d-m-Y, G:i"
-msgstr "D d-m-Y"
+msgstr "D, d-m-Y, G:i"
 
 msgid "{0} selected row"
 msgid_plural "{0} selected rows"
 msgstr[0] "{0} geselecteerde rij"
 msgstr[1] "{0} geselecteerde rijen"
 
+# 86%
+# 100%
+# 76%
+msgid "Loaded {0} of {1}"
+msgstr "Geladen {0} van {1}"
+
 msgid "Reminder is set on: {0}, {1}"
-msgstr ""
+msgstr "Herinnering ingesteld voor: {0}, {1}"
 
 msgid "d-m-Y"
 msgstr "d-m-Y"
@@ -2830,9 +2839,8 @@ msgstr "d-m-Y"
 msgid "l d/m/Y G:i"
 msgstr "l d/m/Y G:i"
 
-#, fuzzy
 msgid "d-m-Y G:i"
-msgstr "d-m-Y H:i"
+msgstr "d-m-Y G:i"
 
 # 85%
 msgid "Unknown"
@@ -3481,6 +3489,9 @@ msgstr "Groep"
 msgid "Work"
 msgstr "Werk"
 
+msgid "Export as"
+msgstr "Exporteren als"
+
 msgid "Sort by: Full Name"
 msgstr "Sorteer op: Volledige Naam"
 
@@ -3676,6 +3687,9 @@ msgstr "Wijzig Afbeelding"
 msgid "Remove Picture"
 msgstr "Verwijder Afbeelding"
 
+msgid "VCF file(s)"
+msgstr "VCF bestand(en)"
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3718,6 +3732,12 @@ msgid ""
 msgstr ""
 "Kan bijlage niet uploaden, totaal aantal bijlagen {0} en het maximum "
 "toegestaan aantal bijlagen in een enkel verzoek is {1}."
+
+msgid "Successfully imported item(s) to {0}"
+msgstr "Item(s) succesvol geimporteerd naar {0}"
+
+msgid "Failed to import item(s) to {0}"
+msgstr "Kon item(s) niet succesvol importeren naar {0}"
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
@@ -3935,11 +3955,11 @@ msgstr "De wijzigingen worden niet opgeslagen wanneer u deze pagina verlaat."
 # 80%
 #, fuzzy
 msgid "D G:i"
-msgstr "j F G:i"
+msgstr "D G:i"
 
 #, fuzzy
 msgid "D d-m"
-msgstr "D d-m-Y"
+msgstr "D d-m"
 
 msgid ""
 "Not enough permissions to open this store, do you want to remove it from the "
@@ -4145,14 +4165,12 @@ msgstr "Markeer Alle Berichten Gelezen"
 msgid "Delete Folder"
 msgstr "Verwijder Map"
 
-#, fuzzy
 msgid "Empty Junk E-mail"
-msgstr "Ongewenste E-mail"
+msgstr "Ongewenste E-mail legen"
 
 # 92%
-#, fuzzy
 msgid "Empty Deleted Items"
-msgstr "Verwijderde items"
+msgstr "Verwijderde items legen"
 
 msgid "Close store"
 msgstr "Store sluiten"
@@ -4536,9 +4554,9 @@ msgstr "Ik ben niet aanwezig van"
 msgid "I will be back on"
 msgstr "Ik ben terug op"
 
-#, fuzzy
 msgid "Automatically reply once per day, per sender with the following text"
-msgstr "Antwoord automatisch eenmaal naar elke afzender met de volgende tekst"
+msgstr ""
+"Antwoord automatisch eenmaal per dag naar elke afzender met de volgende tekst"
 
 msgid "User is currently out of office."
 msgstr "Gebruiker is nu niet aanwezig."
@@ -4556,9 +4574,8 @@ msgstr "Handtekening voor nieuwe berichten"
 msgid "Signature for replies and forwards"
 msgstr "Handtekening voor antwoorden en doorsturen"
 
-#, fuzzy
 msgid "Save Signature"
-msgstr "Handtekeningen"
+msgstr "Handtekening opslaan"
 
 msgid "<None>"
 msgstr "<Geen>"
@@ -4571,11 +4588,10 @@ msgid "New signature"
 msgstr "Nieuwe handtekening"
 
 msgid "EML file(s)"
-msgstr ""
+msgstr "EML bestand(en)"
 
-#, fuzzy
 msgid "ZIP file"
-msgstr "Profiel"
+msgstr "ZIP bestand"
 
 msgid "max. "
 msgstr "max. "
@@ -4597,6 +4613,41 @@ msgstr "Opvolgen"
 msgid "Sort by: flag"
 msgstr "Sorteer op: opvolgen"
 
+# 85%
+# 100%
+msgid "Older"
+msgstr "Ouder"
+
+msgid "Yesterday"
+msgstr "Gisteren"
+
+msgid "Last Week"
+msgstr "Vorige week"
+
+msgid "Two Weeks Ago"
+msgstr "Twee weken geleden"
+
+msgid "Three Weeks Ago"
+msgstr "Drie weken geleden"
+
+msgid "Last Month"
+msgstr "Vorige maand"
+
+msgid "Small"
+msgstr "Klein"
+
+msgid "Medium"
+msgstr "Middelgroot"
+
+msgid "Large"
+msgstr "Groot"
+
+msgid "Very large"
+msgstr "Heel groot"
+
+msgid "Huge"
+msgstr "Enorm groot"
+
 msgid "Follow up"
 msgstr "Opvolgen"
 
@@ -4604,22 +4655,12 @@ msgid "Move to Junk Folder"
 msgstr "Verplaats naar Junk Folder"
 
 # 75%
-#, fuzzy
 msgid "Send to"
-msgstr "Verzenden"
-
-msgid "Export as"
-msgstr ""
+msgstr "Verzenden naar"
 
 # 80%
 msgid "Loading mail"
 msgstr "Bericht laden"
-
-# 86%
-# 100%
-# 76%
-msgid "Loaded {0} of {1}"
-msgstr "Geladen {0} van {1}"
 
 msgid "Save Note"
 msgstr "Bewaar Notitie"
@@ -4742,13 +4783,13 @@ msgid "About"
 msgstr "Over"
 
 msgid "I want to display date and time in this format:"
-msgstr ""
+msgstr "Laat de datum en tijd in dit formaat zien:"
 
 msgid "Short"
-msgstr ""
+msgstr "Kort"
 
 msgid "Long"
-msgstr ""
+msgstr "Lang"
 
 msgid "Inbox navigation"
 msgstr "Postvak navigatie"
@@ -5616,9 +5657,8 @@ msgstr "Onbekende notificatie '%s'"
 msgid "An unexpected error has occurred"
 msgstr "Een onverwachte fout is opgetreden"
 
-#, fuzzy
 msgid "To-Do List"
-msgstr "Telefoonlijst"
+msgstr "Takenlijst"
 
 #. TRANSLATORS: This indicates that the opened folder belongs to a particular user,
 #. * for example: 'Calendar of Holiday', in this case %1$s is 'Calendar' (the foldername)
@@ -5641,7 +5681,7 @@ msgstr "Inloggen mislukt. Controleer inloggegevens en probeer opnieuw."
 # 94%
 # 83%
 msgid "Cannot connect to Kopano Core."
-msgstr "Kan geen verbinding maken met de Kopano server."
+msgstr "Kan niet verbinden met Kopano Core."
 
 msgid "Logon failed, another session already exists."
 msgstr "Aanmelden mislukt, er is al een andere sessie."
@@ -5656,11 +5696,16 @@ msgid "This external link will open in a new window"
 msgstr "Deze externe koppeling wordt in een nieuw venster geopend"
 
 msgid "Eml is corrupted"
-msgstr ""
+msgstr "Eml is corrupt"
 
-#, fuzzy
+msgid "The eml Attachment is not imported successfully"
+msgstr "De EML bijlage kon niet succesvol worden geimporteerd"
+
+msgid "The vcf attachment is not imported successfully"
+msgstr "De vcf bijlage kon niet succesvol worden geimporteerd"
+
 msgid "Attachment is not imported successfully"
-msgstr "ZIP bestand kon niet worden aangemaakt"
+msgstr "Bijlage kon niet succesvol worden geimporteerd"
 
 msgid "ZIP is not created successfully"
 msgstr "ZIP bestand kon niet worden aangemaakt"
@@ -5675,10 +5720,6 @@ msgstr "Kon bijlage niet vinden."
 
 msgid "Operation failed"
 msgstr "Activiteit mislukt"
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
-msgstr "Eml maken van \"%s\" wordt niet ondersteund"
 
 # 90%
 # 100%
@@ -6073,10 +6114,11 @@ msgid ""
 "Message is no longer in the outgoing queue, typically because it has already "
 "been sent."
 msgstr ""
+"Bericht zit niet meer in de uitgaande wachtrij, normaal gesproken omdat het "
+"al is verzonden."
 
-#, fuzzy
 msgid "Message cannot be aborted"
-msgstr "Deze plugin kan niet worden ingeschakeld"
+msgstr "Bericht kan niet worden geannuleerd"
 
 msgid "You have insufficient privileges to delete items in this folder"
 msgstr "U heeft niet voldoende permissies om items in deze map te verwijderen"

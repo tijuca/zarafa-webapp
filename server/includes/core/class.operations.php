@@ -1667,27 +1667,39 @@
 				}
 
 				// Get body content
+				// TODO: Move retrieving the body to a separate function.
 				$plaintext = $this->isPlainText($message);
-				$tmpProps = mapi_getprops($message, array(PR_BODY, PR_HTML));
+				$htmlprop = KC_FILTERED_BODY ? PR_EC_BODY_FILTERED : PR_HTML;
+				$tmpProps = mapi_getprops($message, array(PR_BODY, $htmlprop));
+
+				// TODO: Fallback for older Kopano Core < 8.5.0, remove when unsupported.
+				if (KC_FILTERED_BODY  && propIsError($htmlprop, $tmpProps) === MAPI_E_NOT_FOUND) {
+					$htmlprop = PR_HTML;
+					$tmpProps = mapi_getprops($message, array(PR_BODY, $htmlprop));
+				}
 
 				$htmlcontent = '';
 				$plaincontent = '';
 				if (!$plaintext) {
 					$cpprops = mapi_message_getprops($message, array(PR_INTERNET_CPID));
 					$codepage = isset($cpprops[PR_INTERNET_CPID]) ? $cpprops[PR_INTERNET_CPID] : 1252;
-					if(isset($tmpProps[PR_HTML]) || propIsError(PR_HTML, $tmpProps) == MAPI_E_NOT_ENOUGH_MEMORY) {
-						// only open property if it exists
-						$htmlcontent = Conversion::convertCodepageStringToUtf8($codepage, mapi_message_openproperty($message, PR_HTML));
+					if (propIsError($htmlprop, $tmpProps) == MAPI_E_NOT_ENOUGH_MEMORY) {
+						$htmlcontent = Conversion::convertCodepageStringToUtf8($codepage, mapi_message_openproperty($message, $htmlprop));
+					} else if (isset($tmpProps[$htmlprop])) {
+						$htmlcontent = Conversion::convertCodepageStringToUtf8($codepage, $tmpProps[$htmlprop]);
 					}
 
 					if(!empty($htmlcontent)) {
-
-						if(!$html2text) {
-							$filter = new filter();
-							$htmlcontent = $filter->safeHTML($htmlcontent);
-							$props["props"]["isHTML"] = true;
-						} else {
+						if ($html2text) {
 							$htmlcontent = '';
+						} else {
+							// TODO: remove when KC 8.5.0 is not supported. Instead of checking if KC_FILTERED_BODY is set,
+							// check if the content type is unfiltered.
+							if ($htmlprop === PR_HTML) {
+								$filter = new filter();
+								$htmlcontent = $filter->safeHTML($htmlcontent);
+							}
+							$props["props"]["isHTML"] = true;
 						}
 					}
 
@@ -2788,7 +2800,7 @@
 			}
 
 			$folder = mapi_msgstore_openentry($store, $parententryid);
-
+			
 			$msgprops = mapi_getprops($store, array(PR_IPM_WASTEBASKET_ENTRYID, PR_MDB_PROVIDER, PR_IPM_OUTBOX_ENTRYID));
 
 			switch($msgprops[PR_MDB_PROVIDER]){
@@ -2830,7 +2842,11 @@
 							// message from an outgoing queue.
 							if (function_exists("mapi_msgstore_abortsubmit") && isset($msgprops[PR_IPM_OUTBOX_ENTRYID]) && $msgprops[PR_IPM_OUTBOX_ENTRYID] === $parententryid) {
 								foreach ($entryids as $entryid) {
-									mapi_msgstore_abortsubmit($store, $entryid);
+									$message = mapi_msgstore_openentry($store, $entryid);
+									$messageProps = mapi_getprops($message, array(PR_DEFERRED_SEND_TIME));
+									if (isset($messageProps[PR_DEFERRED_SEND_TIME])) {
+										mapi_msgstore_abortsubmit($store, $entryid);
+									}
 								}
 							}
 							$result = $this->copyMessages($store, $parententryid, $store, $msgprops[PR_IPM_WASTEBASKET_ENTRYID], $entryids, array(), true);
@@ -3449,7 +3465,6 @@
 
 						//Open contact photo attachement in binary format.
 						$attach = mapi_message_openattach($message, $props["attach_num"]);
-						$photo = mapi_attach_openbin($attach,PR_ATTACH_DATA_BIN);
 					}
 
 					if ($props["attach_method"] == ATTACH_EMBEDDED_MSG){

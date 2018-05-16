@@ -233,6 +233,21 @@ td.x-grid3-hd-menu-open .x-grid3-hd-inner {
 }
 
 /******************************************************************************
+ * Group headers
+ ******************************************************************************/
+.x-grid-group-hd {
+	border: none;
+	background: $grey;
+	padding: $padding-small $padding-small;
+
+	div.x-grid-group-title {
+		color: $font-color-dark;
+		background-image : none;
+		font-weight: normal;
+	}
+}
+
+/******************************************************************************
  * Grid columns
  ******************************************************************************/
 .x-grid3-row {
@@ -670,4 +685,16 @@ td.x-grid3-hd-menu-open .x-grid3-hd-inner {
 	.k-colorpicker-ct {
 		display: block;
 	}
+}
+
+.k-slider
+{
+	position : absolute;
+	z-index : 1000000000;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.35);
+	background-color: #FFFFFF;
+	height: 30px;
+	padding-left: 12px;
+	padding-right: 12px;
+	line-height: 2.5;
 }
