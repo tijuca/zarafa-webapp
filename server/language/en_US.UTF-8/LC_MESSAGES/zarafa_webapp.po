@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
-"PO-Revision-Date: 2018-02-12 11:50+0000\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
+"PO-Revision-Date: 2018-04-04 08:42+0000\n"
 "Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: English (United States) <http://translate.kopano.io/projects/"
 "kopano/kopano-webapp/en_US/>\n"
@@ -101,6 +101,27 @@ msgid "Friday"
 msgstr ""
 
 msgid "Saturday"
+msgstr ""
+
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
 msgstr ""
 
 msgid "January"
@@ -559,7 +580,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-msgid "Edit as New Message"
+msgid "Edit as New"
 msgstr ""
 
 msgid "Search tools"
@@ -598,9 +619,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgctxt "search.date"
 msgid "From"
 msgstr ""
 
+msgctxt "search.date"
 msgid "To"
 msgstr ""
 
@@ -649,6 +672,9 @@ msgid "Did you mean"
 msgstr ""
 
 msgid "With"
+msgstr ""
+
+msgid "To"
 msgstr ""
 
 msgid "No date"
@@ -1262,27 +1288,6 @@ msgstr ""
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
 msgid "Show busy dates as bold in the date picker"
 msgstr ""
 
@@ -1454,9 +1459,8 @@ msgstr ""
 # 90%
 # 80%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-#, fuzzy
 msgid "jS F G:i"
-msgstr "F j, Y g:i A"
+msgstr "jS F g:i A"
 
 # 83%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -1692,6 +1696,9 @@ msgstr ""
 msgid "Bcc"
 msgstr ""
 
+msgid "From"
+msgstr ""
+
 msgid "Insert item"
 msgstr ""
 
@@ -1759,6 +1766,11 @@ msgid "Download all as ZIP"
 msgstr ""
 
 msgid "Import to folder"
+msgstr ""
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
 msgstr ""
 
 msgid "Attachment error"
@@ -2540,14 +2552,16 @@ msgstr ""
 msgid "IM Address"
 msgstr ""
 
-#, fuzzy
 msgid "D, d-m-Y, G:i"
-msgstr "l m/d/Y g:i A"
+msgstr "D, m-d-Y, g:i A"
 
 msgid "{0} selected row"
 msgid_plural "{0} selected rows"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Loaded {0} of {1}"
+msgstr ""
 
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
@@ -2558,9 +2572,8 @@ msgstr "m-d-Y"
 msgid "l d/m/Y G:i"
 msgstr "l m/d/Y g:i A"
 
-#, fuzzy
 msgid "d-m-Y G:i"
-msgstr "l m/d/Y g:i A"
+msgstr "m-d-Y g:i A"
 
 msgid "Unknown"
 msgstr ""
@@ -3147,6 +3160,9 @@ msgstr ""
 msgid "Work"
 msgstr ""
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr ""
 
@@ -3282,6 +3298,9 @@ msgstr ""
 msgid "Remove Picture"
 msgstr ""
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3312,6 +3331,12 @@ msgstr ""
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
+msgstr ""
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
@@ -3515,9 +3540,8 @@ msgstr ""
 
 # 90%
 # 80%
-#, fuzzy
 msgid "D G:i"
-msgstr "F j, Y g:i A"
+msgstr "D g:i A"
 
 msgid "D d-m"
 msgstr ""
@@ -4102,9 +4126,8 @@ msgstr ""
 msgid "EML file(s)"
 msgstr ""
 
-#, fuzzy
 msgid "ZIP file"
-msgstr "Profile"
+msgstr "ZIP file"
 
 msgid "max. "
 msgstr ""
@@ -4124,6 +4147,39 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+msgid "Older"
+msgstr ""
+
+msgid "Yesterday"
+msgstr ""
+
+msgid "Last Week"
+msgstr ""
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+msgid "Last Month"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4133,13 +4189,7 @@ msgstr ""
 msgid "Send to"
 msgstr ""
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
-msgstr ""
-
-msgid "Loaded {0} of {1}"
 msgstr ""
 
 msgid "Save Note"
@@ -4618,9 +4668,8 @@ msgstr ""
 msgid "Loading tasks"
 msgstr ""
 
-#, fuzzy
 msgid "Date completed"
-msgstr "Delete"
+msgstr "Date completed"
 
 msgid "hours"
 msgstr ""
@@ -5063,6 +5112,12 @@ msgstr ""
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5076,10 +5131,6 @@ msgid "Could not find attachment."
 msgstr ""
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 msgid "Sticky Note"

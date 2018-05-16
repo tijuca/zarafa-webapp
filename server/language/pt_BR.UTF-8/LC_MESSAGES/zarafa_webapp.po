@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PHP-Langadmin 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: 2016-10-14 07:34+0000\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: Portuguese (Brazil) <http://translate.kopano.io/projects/"
@@ -100,6 +100,27 @@ msgstr "Sexta-feira"
 
 msgid "Saturday"
 msgstr "Sábado"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Seg"
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr "Qua"
+
+msgid "Thu"
+msgstr "Qui"
+
+msgid "Fri"
+msgstr "Sex"
+
+msgid "Sat"
+msgstr ""
 
 msgid "January"
 msgstr "janeiro"
@@ -565,7 +586,8 @@ msgstr "Responder a todos"
 msgid "Forward"
 msgstr "Encaminhar"
 
-msgid "Edit as New Message"
+#, fuzzy
+msgid "Edit as New"
 msgstr "Editar como nova mensagem"
 
 msgid "Search tools"
@@ -611,9 +633,13 @@ msgstr "Anexos"
 msgid "Date"
 msgstr "Data"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "De"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "Para"
 
@@ -667,6 +693,9 @@ msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "Para"
 
 msgid "No date"
 msgstr ""
@@ -1354,27 +1383,6 @@ msgstr ""
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr "Dom"
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "Mostrar datas ocupadas em negrito no selecionador de datas"
 
@@ -1832,6 +1840,9 @@ msgstr "Cc"
 msgid "Bcc"
 msgstr "Cco"
 
+msgid "From"
+msgstr "De"
+
 msgid "Insert item"
 msgstr "Inserir item"
 
@@ -1908,6 +1919,11 @@ msgstr ""
 #, fuzzy
 msgid "Import to folder"
 msgstr "Esvaziar pastas"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Erro de anexo"
@@ -2742,6 +2758,9 @@ msgid_plural "{0} selected rows"
 msgstr[0] "{0} selecionado"
 msgstr[1] "{0} selecionados"
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3378,6 +3397,9 @@ msgstr "Grupos"
 msgid "Work"
 msgstr "Trabalho"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Ordenar por: Nome Completo"
 
@@ -3513,6 +3535,9 @@ msgstr ""
 msgid "Remove Picture"
 msgstr ""
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3547,6 +3572,12 @@ msgstr ""
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
+msgstr ""
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
@@ -4423,6 +4454,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Pasta"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Última Página"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Mês"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4433,14 +4502,8 @@ msgstr "Mover para pasta de lixo eletrônico"
 msgid "Send to"
 msgstr "Enviar"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Carregando E-Mail"
-
-msgid "Loaded {0} of {1}"
-msgstr ""
 
 msgid "Save Note"
 msgstr "Salvar Nota"
@@ -5440,6 +5503,12 @@ msgstr "Este link externo será aberto em uma nova janela"
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5456,10 +5525,6 @@ msgid "Could not find attachment."
 msgstr "Não foi possível enviar o anexo."
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 # 90%

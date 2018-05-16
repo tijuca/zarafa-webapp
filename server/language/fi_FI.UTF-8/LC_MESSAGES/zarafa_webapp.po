@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: 2013-02-21 09:59+0200\n"
 "Last-Translator: Verkkotaito <Kopano@verkkotaito.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,6 +102,27 @@ msgstr "Perjantai"
 
 msgid "Saturday"
 msgstr "Lauantai"
+
+msgid "Sun"
+msgstr ""
+
+msgid "Mon"
+msgstr ""
+
+msgid "Tue"
+msgstr ""
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+msgid "Fri"
+msgstr ""
+
+msgid "Sat"
+msgstr ""
 
 msgid "January"
 msgstr "Tammikuu"
@@ -578,8 +599,9 @@ msgstr "Vastaa kaikille"
 msgid "Forward"
 msgstr "Välitä"
 
-msgid "Edit as New Message"
-msgstr ""
+#, fuzzy
+msgid "Edit as New"
+msgstr "Muokkaa asetusta"
 
 msgid "Search tools"
 msgstr ""
@@ -624,9 +646,13 @@ msgstr "Liitetiedostot"
 msgid "Date"
 msgstr "Päivä"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "Lähettäjä"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "Vastaanottaja"
 
@@ -679,6 +705,9 @@ msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "Vastaanottaja"
 
 msgid "No date"
 msgstr ""
@@ -1347,27 +1376,6 @@ msgstr ""
 msgid "Working days"
 msgstr ""
 
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "Näytä varatut päivät lihavoituina päivämäärän valinnassa"
 
@@ -1826,6 +1834,9 @@ msgstr "Kopio"
 msgid "Bcc"
 msgstr "Piilokopio"
 
+msgid "From"
+msgstr "Lähettäjä"
+
 msgid "Insert item"
 msgstr ""
 
@@ -1904,6 +1915,11 @@ msgstr ""
 #, fuzzy
 msgid "Import to folder"
 msgstr "Tyhjennä kansio"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Liitevirhe"
@@ -2742,6 +2758,9 @@ msgid_plural "{0} selected rows"
 msgstr[0] "{0} valittu rivi"
 msgstr[1] "{0} valittua riviä"
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3395,6 +3414,9 @@ msgstr "Ryhmä"
 msgid "Work"
 msgstr "Työ"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Järjestä: Koko nimi"
 
@@ -3533,6 +3555,9 @@ msgstr ""
 msgid "Remove Picture"
 msgstr ""
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3565,6 +3590,12 @@ msgstr ""
 msgid ""
 "Cannot upload attachment, total attachments are {0} files while the maximum "
 "{1} files are allowed in single request."
+msgstr ""
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
 msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
@@ -4436,6 +4467,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Kansio"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Viimeinen sivu"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Kuukausi"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4447,14 +4516,8 @@ msgstr "Siirrä roskapostikansioon"
 msgid "Send to"
 msgstr "Lähetä"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Ladataan postia"
-
-msgid "Loaded {0} of {1}"
-msgstr ""
 
 msgid "Save Note"
 msgstr "Tallenna Merkintä"
@@ -5451,6 +5514,12 @@ msgstr "Ulkopuolinen linkki avataan uudessa ikkunassa"
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5467,10 +5536,6 @@ msgid "Could not find attachment."
 msgstr "Liitettä ei voitu ladata."
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 # 90%

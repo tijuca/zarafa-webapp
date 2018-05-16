@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
 "PO-Revision-Date: 2014-12-19 20:00+0200\n"
 "Last-Translator: Zoran <zolo@intelego.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,6 +121,27 @@ msgstr "Petek"
 
 msgid "Saturday"
 msgstr "Sobota"
+
+msgid "Sun"
+msgstr "Ned"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Tor"
+
+msgid "Wed"
+msgstr "Sre"
+
+msgid "Thu"
+msgstr "Čet"
+
+msgid "Fri"
+msgstr "Pet"
+
+msgid "Sat"
+msgstr "Sob"
 
 msgid "January"
 msgstr "Januar"
@@ -596,8 +617,9 @@ msgstr "Odgovori vsem"
 msgid "Forward"
 msgstr "Posreduj"
 
-msgid "Edit as New Message"
-msgstr ""
+#, fuzzy
+msgid "Edit as New"
+msgstr "Uredi nastavitve"
 
 msgid "Search tools"
 msgstr ""
@@ -643,9 +665,13 @@ msgstr "Priloge"
 msgid "Date"
 msgstr "Datum"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "Od"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "Za"
 
@@ -698,6 +724,9 @@ msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "Za"
 
 msgid "No date"
 msgstr ""
@@ -1374,27 +1403,6 @@ msgstr ""
 msgid "Working days"
 msgstr "Delovniki"
 
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Tor"
-
-msgid "Wed"
-msgstr "Sre"
-
-msgid "Thu"
-msgstr "Čet"
-
-msgid "Fri"
-msgstr "Pet"
-
-msgid "Sat"
-msgstr "Sob"
-
-msgid "Sun"
-msgstr "Ned"
-
 msgid "Show busy dates as bold in the date picker"
 msgstr "V zbirniku datumov prikaži zasedene datume krepko"
 
@@ -1854,6 +1862,9 @@ msgstr "Kp"
 msgid "Bcc"
 msgstr "Skp"
 
+msgid "From"
+msgstr "Od"
+
 msgid "Insert item"
 msgstr "Vstavi predmet"
 
@@ -1931,6 +1942,11 @@ msgstr ""
 #, fuzzy
 msgid "Import to folder"
 msgstr "Izprazni mapo"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Napaka priloge"
@@ -2795,6 +2811,9 @@ msgstr[1] "{0} izbrane vrstice"
 msgstr[2] "{0} izbrane vrstice"
 msgstr[3] "{0} izbrane vrstice"
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3462,6 +3481,9 @@ msgstr "Skupina"
 msgid "Work"
 msgstr "Delo"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Razvrsti po: Polno ime"
 
@@ -3614,6 +3636,9 @@ msgstr "Spremeni sliko"
 msgid "Remove Picture"
 msgstr "Odstrani sliko"
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3652,6 +3677,12 @@ msgid ""
 msgstr ""
 "Ne morem naložiti priloge. Skupno število priloge je {0} datotek medtem ko "
 "je dovoljeno število datotek {1}."
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
+msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
@@ -4524,6 +4555,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Mapa"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Zadnja stran"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Mesec"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4535,14 +4604,8 @@ msgstr "Premakni v mapo Vsiljena pošta"
 msgid "Send to"
 msgstr "Pošlji"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Nalaganje sporočila"
-
-msgid "Loaded {0} of {1}"
-msgstr ""
 
 msgid "Save Note"
 msgstr "Shrani opombo"
@@ -5540,6 +5603,12 @@ msgstr "Ta zunanji link se bo odprl v novem oknu"
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5556,10 +5625,6 @@ msgid "Could not find attachment."
 msgstr "Ne morem naložiti priloge."
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 # 90%

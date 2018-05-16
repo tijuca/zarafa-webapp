@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-27 14:28+0200\n"
-"PO-Revision-Date: 2016-10-11 20:43+0000\n"
-"Last-Translator: Viktor <viktor.bale@anodyne.cz>\n"
+"POT-Creation-Date: 2018-05-08 13:43+0200\n"
+"PO-Revision-Date: 2018-05-01 19:12+0000\n"
+"Last-Translator: Luba <luba.neuwirth@maincube.net>\n"
 "Language-Team: Czech <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/cs/>\n"
 "Language: cs_CZ\n"
@@ -31,9 +31,8 @@ msgstr "Hodnota musí být mezi 0% a 100%"
 msgid "Number must be higher than zero"
 msgstr "Číslice musí být vyšší než nula"
 
-#, fuzzy
 msgid "More options"
-msgstr "Možnosti zpráv"
+msgstr "Více možností"
 
 msgid "{0} byte"
 msgid_plural "{0} bytes"
@@ -114,6 +113,27 @@ msgstr "pátek"
 
 msgid "Saturday"
 msgstr "sobota"
+
+msgid "Sun"
+msgstr "ne"
+
+msgid "Mon"
+msgstr "po"
+
+msgid "Tue"
+msgstr "út"
+
+msgid "Wed"
+msgstr "st"
+
+msgid "Thu"
+msgstr "čt"
+
+msgid "Fri"
+msgstr "pá"
+
+msgid "Sat"
+msgstr "so"
 
 msgid "January"
 msgstr "leden"
@@ -455,9 +475,8 @@ msgid "Show Details"
 msgstr "Ukázat detaily"
 
 msgid "Use the search bar to get results"
-msgstr ""
+msgstr "Chcete-li získat výsledky, použijte vyhledávací panel"
 
-#, fuzzy
 msgid "There are no items to show in this list"
 msgstr "V tomto náhledu není žádná položka k zobrazení"
 
@@ -465,7 +484,7 @@ msgid "Show Names from the"
 msgstr "Ukázat jména od"
 
 msgid "Search..."
-msgstr ""
+msgstr "Hledat..."
 
 msgid "Sort by: Icon"
 msgstr "Třídit podle: Ikony"
@@ -489,7 +508,7 @@ msgid "First Name"
 msgstr "Jméno"
 
 msgid "Sort by: First Name"
-msgstr ""
+msgstr "Třídit podle křestního jména"
 
 # 77%
 msgid "Last Name"
@@ -555,7 +574,7 @@ msgid "Custom date"
 msgstr "Výbrat datumy"
 
 msgid "Add to favorites"
-msgstr ""
+msgstr "Přidat k oblíbeným"
 
 msgid "Add"
 msgstr "Přidat"
@@ -564,10 +583,10 @@ msgid "You must specify a name."
 msgstr "Musíte uvést název."
 
 msgid "Add a folder to favorites based on your search query"
-msgstr ""
+msgstr "Přidejte složku do oblíbených na základě vašeho vyhledávacího dotazu"
 
 msgid "Folder name"
-msgstr ""
+msgstr "Název složky"
 
 #, fuzzy
 msgid "All folders are selected"
@@ -582,7 +601,8 @@ msgstr "Odpovědět všem"
 msgid "Forward"
 msgstr "Přeposlat"
 
-msgid "Edit as New Message"
+#, fuzzy
+msgid "Edit as New"
 msgstr "Upravit jako novou zprávu"
 
 msgid "Search tools"
@@ -591,9 +611,8 @@ msgstr "Vyhledávací nástroje"
 # 85%
 # 100%
 msgid "Folders"
-msgstr "Složka"
+msgstr "Složky"
 
-#, fuzzy
 msgid "Include subfolders"
 msgstr "Vytvořit podsložky"
 
@@ -603,9 +622,8 @@ msgstr "Ukázat.."
 msgid "Mails"
 msgstr "Zprávy"
 
-#, fuzzy
 msgid "Appointments"
-msgstr "Termín"
+msgstr "Schůzky"
 
 msgid "Contacts"
 msgstr "Kontakty"
@@ -625,9 +643,13 @@ msgstr "Přílohy"
 msgid "Date"
 msgstr "Datum"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "From"
 msgstr "Od"
 
+#, fuzzy
+msgctxt "search.date"
 msgid "To"
 msgstr "Komu"
 
@@ -650,35 +672,40 @@ msgid "Favorites"
 msgstr "Oblíbené"
 
 msgid "Add a folder to favorites based on this search query"
-msgstr ""
+msgstr "Přidejte složku do oblíbených na základě vašeho vyhledávacího dotazu"
 
 # 76%
 msgid "Select Folder"
 msgstr "Vybrat složku"
 
 msgid "Delete search folder"
-msgstr ""
+msgstr "Odstranit složku vyhledávání"
 
 msgid "Sort by: Date"
-msgstr ""
+msgstr "Seřadit podle: data"
 
 msgid "Loading Search results"
 msgstr "Nahrávání výsledků vyhledávání"
 
-#, fuzzy
 msgid "Sorting tip"
-msgstr "Nelze seřadit"
+msgstr "Tip pro třídění"
 
+#, fuzzy
 msgid ""
 "You can sort by date if you narrow down your search results. Enable filters "
 "or adjust your input."
 msgstr ""
+"Pokud zúžíte výsledky vyhledávání, můžete seřadit podle data. Povolte "
+"filtry, nebo upravte zadání."
 
 msgid "Did you mean"
 msgstr ""
 
 msgid "With"
 msgstr ""
+
+msgid "To"
+msgstr "Komu"
 
 msgid "No date"
 msgstr ""
@@ -1025,7 +1052,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Create in"
-msgstr "Vytvořeno"
+msgstr "Vytvořit"
 
 msgid "Time"
 msgstr "Čas"
@@ -1155,7 +1182,7 @@ msgstr "Označit tuto schůzku jako soukromou"
 # 100%
 #, fuzzy
 msgid "Save meeting request and close dialog"
-msgstr "Uložit tento kontakt a zavřít okno"
+msgstr "Uložit žádost o schůzku a zavřít dialog"
 
 msgid "Proposed Date and Time"
 msgstr "Navrhované datum a čas"
@@ -1257,7 +1284,7 @@ msgid "Switch calendar range back and forth"
 msgstr "Přepnout rozsah kalendáře"
 
 msgid "Copy selected item"
-msgstr ""
+msgstr "Kopírovat vybranou položku"
 
 msgid "Paste selected item"
 msgstr ""
@@ -1324,37 +1351,15 @@ msgstr "Konec pracovního dne"
 msgid "Calendar resolution"
 msgstr "Rozlišení kalendáře"
 
-#, fuzzy
 msgid "Default appointment duration {A} minutes"
-msgstr "Výchozí doba připomínky pro celodenní události"
+msgstr "Výchozí doba trvání události {A} minut"
 
 #, fuzzy
 msgid "Duration must be between 1 and 120 minutes."
-msgstr "Hodnota musí být mezi 0% a 100%"
+msgstr "Doba trvání musí být mezi 1 a 120 minutami."
 
 msgid "Working days"
 msgstr "Pracovní dny"
-
-msgid "Mon"
-msgstr "po"
-
-msgid "Tue"
-msgstr "út"
-
-msgid "Wed"
-msgstr "st"
-
-msgid "Thu"
-msgstr "čt"
-
-msgid "Fri"
-msgstr "pá"
-
-msgid "Sat"
-msgstr "so"
-
-msgid "Sun"
-msgstr "ne"
 
 msgid "Show busy dates as bold in the date picker"
 msgstr "Zobrazit tučně 'již obsazené' data při výběru termínu"
@@ -1365,7 +1370,7 @@ msgid ""
 "determine when you are available for meetings."
 msgstr ""
 "Informace o dostupnosti je používána ostatními uživateli při tvorbě žádosti "
-"o schůzku, "
+"o schůzku,"
 
 msgid "Free/Busy permission"
 msgstr "Práva náhledu dostupnosti"
@@ -1805,6 +1810,9 @@ msgstr "Kopie"
 msgid "Bcc"
 msgstr "Skrytá kopie"
 
+msgid "From"
+msgstr "Od"
+
 msgid "Insert item"
 msgstr "Vložit položku"
 
@@ -1883,6 +1891,11 @@ msgstr "Stáhnout vše jako ZIP"
 #, fuzzy
 msgid "Import to folder"
 msgstr "Vyprázdnit složku"
+
+msgid ""
+"In order to use the vCard import feature, upgrade your Kopano Core to "
+"version 8.3+"
+msgstr ""
 
 msgid "Attachment error"
 msgstr "Chyba přílohy"
@@ -2727,6 +2740,9 @@ msgstr[0] "{0} vybraný řádek"
 msgstr[1] "{0} vybrané řádky"
 msgstr[2] "{0} vybraných řádků"
 
+msgid "Loaded {0} of {1}"
+msgstr ""
+
 msgid "Reminder is set on: {0}, {1}"
 msgstr ""
 
@@ -3377,6 +3393,9 @@ msgstr "Skupina"
 msgid "Work"
 msgstr "Práce"
 
+msgid "Export as"
+msgstr ""
+
 msgid "Sort by: Full Name"
 msgstr "Třídit podle: Celé jméno"
 
@@ -3514,6 +3533,9 @@ msgstr "Změnit obrázek"
 msgid "Remove Picture"
 msgstr "Odstranit obrázek"
 
+msgid "VCF file(s)"
+msgstr ""
+
 msgid ""
 "Your browser seems to have blocked one or more pop-ups. Please change your "
 "browser's settings to always allow pop-ups from WebApp."
@@ -3553,6 +3575,12 @@ msgid ""
 msgstr ""
 "Nelze uložit přílohu, celkem příloh je {0} souborů, zatímco povolené maximum "
 "v jednom požadavku je {1}."
+
+msgid "Successfully imported item(s) to {0}"
+msgstr ""
+
+msgid "Failed to import item(s) to {0}"
+msgstr ""
 
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
@@ -4422,6 +4450,44 @@ msgstr ""
 msgid "Sort by: flag"
 msgstr ""
 
+# 85%
+# 100%
+#, fuzzy
+msgid "Older"
+msgstr "Složka"
+
+msgid "Yesterday"
+msgstr ""
+
+#, fuzzy
+msgid "Last Week"
+msgstr "Minulý týden"
+
+msgid "Two Weeks Ago"
+msgstr ""
+
+msgid "Three Weeks Ago"
+msgstr ""
+
+#, fuzzy
+msgid "Last Month"
+msgstr "Minulý měsíc"
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Very large"
+msgstr ""
+
+msgid "Huge"
+msgstr ""
+
 msgid "Follow up"
 msgstr ""
 
@@ -4433,14 +4499,8 @@ msgstr "Přesunout do složky Nevyžádané"
 msgid "Send to"
 msgstr "Odeslat"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Loading mail"
 msgstr "Načítání pošty"
-
-msgid "Loaded {0} of {1}"
-msgstr ""
 
 msgid "Save Note"
 msgstr "Uložit Poznámku"
@@ -5429,6 +5489,12 @@ msgstr "Tento externí odkaz se otevře v novém okně"
 msgid "Eml is corrupted"
 msgstr ""
 
+msgid "The eml Attachment is not imported successfully"
+msgstr ""
+
+msgid "The vcf attachment is not imported successfully"
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5445,10 +5511,6 @@ msgid "Could not find attachment."
 msgstr "Nelze nahrát přílohu"
 
 msgid "Operation failed"
-msgstr ""
-
-#, php-format
-msgid "Eml creation of '%s' is not supported"
 msgstr ""
 
 # 90%

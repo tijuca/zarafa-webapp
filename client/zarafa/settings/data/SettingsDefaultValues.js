@@ -190,6 +190,16 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 										'value' : 'popup'
 									},
 
+									'import' : {
+										/**
+										 * zarafa/v1/main/notifier/info/import/value
+										 * Default plugin for the "Import" user notifications
+										 * @property
+										 * @type String
+										 */
+										'value' : 'dropdown'
+									},
+
 									'sent' : {
 										/**
 										 * zarafa/v1/main/notifier/info/sent/value
@@ -487,6 +497,13 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 								 * @type Boolean
 								 */
 								'close_on_respond' : true,
+
+								/**
+								 * zarafa/v1/contexts/mail/enable_grouping
+								 * @property
+								 * @type Boolean
+								 */
+								'enable_grouping' : false,
 
 								// Small hack, the server determines these defaults
 								// but we copy them here so the user can press
