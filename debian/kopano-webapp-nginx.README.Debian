@@ -1,27 +1,20 @@
 = Notes for the kopano-webapp-nginx package =
 
 This package is providing a ready to work nginx configuration for
-kopano-webapp. The prepared configuration can be found in
+kopano-webapp. The prepared Nginx configuration can be found in
 
   /etc/nginx/sites-available/kopano-webapp.conf
 
-If you want to use this configuration you need to enable the prepared site
-configuration by yourself. You can simply do this by linking the site into
-the sites-enabled/ folder of the nginx configuration and reload the nginx
-service.
+This site configuration will be enabled and activated while the package
+installation. Please do not modify this file directly as it will be overridden
+while package upgrades. Use the file
 
-  $ sudo sh -c "ln -s /etc/nginx/sites-available/kopano-webapp.conf /etc/nginx/sites-enabled/kopano-webapp.conf"
-  $ sudo service nginx reload
-  or
-  $ sudo systemctl reload nginx
+   /etc/kopano/webapp/kopano-webapp-nginx-servers.conf
 
-Please note that kopano-webapp is using https as default transport protocol as
-the kopano-webapp is using sensible data. To ensure a first working configuration
-the setup is using the snakeoil intermediate certificate created by the
-ssl-cert package. You will need to change SSL configuration for nginx in
+for all needed modification and specifications like your server name(s) and
+own SSL certificates.
 
-  /etc/kopano/webapp/nginx-ssl.conf
+kopano-webapp is using https as default transport protocol as the kopano-webapp
+is using sensible data.
 
-to some certificate under your control in the longterm.
-
- -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 8 April 2017 21:25:00 +0200
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Wed, 16 May 2018 15:06:00 +0200
