@@ -1,3 +1,30 @@
+kopano-webapp (3.4.13+dfsg1-1) unstable; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [680949a] use PHP_VERSION from one central place
+     We need the used PHP version in various files and places, define the PHP
+     version within debian/rules and substitute this into the needed files. By
+     this we won't forget to collate the PHP version in the other files.
+  * [51d7810] kopano-webapp-nginx: also substitute PHP version here
+     Use also the PHP version from debian/rules for kopano-webapp-nginx.
+  * [0372b15] k-w-nginx: enable web site activation
+     By this version we will enable the Nginx web site configuration for
+     kopano-webapp.
+  * [fb30e45] k-w-nginx: create dedicated user config file
+     Providing a dedicated file where the user needs to add the needed web
+     site configuration and modifications.
+  * [8a9c68c] k-w-n: modify README after changed behavior
+  * [260aaa1] New upstream version 3.4.13+dfsg1
+  * [66c03a4] rebuild patch queue from patch-queue branch
+     Added a patch for the new shipped l10n files for Arabic (Algeria).
+  * [9feeca2] debian/control: increase Standards-Version to 4.1.4
+     No further changes needed.
+  * [33af810] debian/rules: override the dh_autotest target
+     kopano-webapp comes now with automated tests which doesn't work inside
+     the buildd infrastructure and we need to disable.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 17 May 2018 12:13:52 +0200
+
 kopano-webapp (3.4.10+dfsg1-1) unstable; urgency=medium
 
   [ Carsten Schoenert ]
