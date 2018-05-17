@@ -30,3 +30,5 @@ override_dh_install:
 override_dh_fixperms:
 	dh_fixperms -Xvar/lib/kopano-webapp/tmp
 	chown www-data:www-data $(CURDIR)/debian/kopano-webapp-common/var/lib/kopano-webapp/tmp
+
+override_dh_auto_test:
