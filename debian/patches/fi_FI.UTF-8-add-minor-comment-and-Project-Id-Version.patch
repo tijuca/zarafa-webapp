@@ -7,7 +7,7 @@ Subject: fi_FI.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/fi_FI.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/fi_FI.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index c3e1e02..1da7741 100644
+index 6c6290f..817e645 100644
 --- a/server/language/fi_FI.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/fi_FI.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index c3e1e02..1da7741 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Finnish (Finland)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-27 14:28+0200\n"
+ "POT-Creation-Date: 2018-05-08 13:43+0200\n"
 -"PO-Revision-Date: 2013-02-21 09:59+0200\n"
 +"PO-Revision-Date: 2017-10-05 19:52+0200\n"
  "Last-Translator: Verkkotaito <Kopano@verkkotaito.fi>\n"

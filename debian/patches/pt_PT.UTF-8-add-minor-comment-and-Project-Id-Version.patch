@@ -3,17 +3,16 @@ Date: Thu, 5 Oct 2017 20:25:07 +0200
 Subject: pt_PT.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po         | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 4e2b11d..6d3f8b2 100644
+index 566f544..20f403d 100644
 --- a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,18 +1,22 @@
+@@ -1,8 +1,10 @@
 -# foo <foo@bar.foobar>, 2005.
 -#
--#, fuzzy
 +# Kopano Webapp Portuguese (Portugal) translation.
 +# Copyright (C) 2017
 +# This file is distributed under the same license as the kopano-webapp package.
@@ -23,21 +22,19 @@ index 4e2b11d..6d3f8b2 100644
 -"Project-Id-Version: PHP-Langadmin 1.0\n"
 +"Project-Id-Version: Kopano Webapp Portuguese (Portugal)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-27 14:28+0200\n"
--"PO-Revision-Date: 2008-12-16 16:18:06+0100\n"
-+"PO-Revision-Date: 2017-10-05 20:26+0200\n"
- "Last-Translator: PHP-Langadmin automatic translator <foo@bar.foobar>\n"
--"Language-Team: pt_PT <pt@li.org>\n"
--"Language: \n"
-+"Language-Team: Portuguese (Portugal) <https://translate.kopano.io/projects/"
-+"kopano/kopano-webapp/pt_PT/>\n"
-+"Language: pt_PT\n"
+ "POT-Creation-Date: 2018-05-08 13:43+0200\n"
+ "PO-Revision-Date: 2018-04-26 15:25+0000\n"
+@@ -11,10 +13,10 @@ msgstr ""
+ "kopano/kopano-webapp/pt_PT/>\n"
+ "Language: pt_PT\n"
  "MIME-Version: 1.0\n"
 -"Content-Type: text/plain; charset=iso-8859-1\n"
 +"Content-Type: text/plain; charset=ISO-8859-1\n"
  "Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+-"X-Generator: Weblate 2.4\n"
 +"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 +"X-Generator: Poedit 2.0.4\n"
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
- #, fuzzy
+ msgid "Wk"

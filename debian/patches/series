@@ -1,5 +1,6 @@
 use-non-minimized-JS-tinymce-file.patch
 always-let-msgfmt-check-the-po-files.patch
+ar_DZ.UTF-8-add-minor-comment-and-Project-Id-Version.patch
 bg_BG.UTF-8-correct-plural-forms-in-.po-file.patch
 ca_ES.UTF-8-fix-some-msgfmt-warnings-in-.po-file.patch
 cs_CZ.UTF-8-add-minor-comment-and-Project-Id-Version.patch

@@ -3,14 +3,14 @@ Date: Tue, 3 Oct 2017 21:27:09 +0200
 Subject: bg_BG.UTF-8: correct plural forms in *.po file
 
 ---
- .../bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ .../bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po        | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 6273e43..8c75a29 100644
+index 22dcade..bf84d30 100644
 --- a/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/bg_BG.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,21 +1,23 @@
+@@ -1,21 +1,22 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,13 +23,12 @@ index 6273e43..8c75a29 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Bulgarian\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-27 14:28+0200\n"
+ "POT-Creation-Date: 2018-05-08 13:43+0200\n"
 -"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 -"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
 -"Language: bg\n"
-+"POT-Creation-Date: 2018-03-13 14:35+0100\n"
-+"PO-Revision-Date: 2017-10-04 20:43+0200\n"
++"PO-Revision-Date: 2018-05-15 10:27+0200\n"
 +"Last-Translator: \n"
 +"Language-Team: Bulgarian <https://translate.kopano.io/projects/kopano/kopano-"
 +"webapp/bg/>\n"

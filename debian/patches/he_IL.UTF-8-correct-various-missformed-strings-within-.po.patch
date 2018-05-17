@@ -7,7 +7,7 @@ Subject: he_IL.UTF-8: correct various missformed strings within *.po file
  1 file changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index b5d2ea2..98bb2f8 100644
+index 531dd54..c9d003a 100644
 --- a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index b5d2ea2..98bb2f8 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Hebrew (Israel)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-27 14:28+0200\n"
+ "POT-Creation-Date: 2018-05-08 13:43+0200\n"
 -"PO-Revision-Date: 2012-06-01 09:31+0200\n"
 +"PO-Revision-Date: 2017-10-03 22:09+0200\n"
  "Last-Translator: Maria <m.ulyashyn@Kopano.com>\n"
@@ -41,7 +41,7 @@ index b5d2ea2..98bb2f8 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5441,7 +5442,7 @@ msgstr "לא ניתן לקבל מידע"
+@@ -5503,7 +5504,7 @@ msgstr "לא ניתן לקבל מידע"
  
  #, php-format
  msgid "Unknown module '%s' with id '%s'"
@@ -50,7 +50,7 @@ index b5d2ea2..98bb2f8 100644
  
  msgid ""
  "Server encountered some problem, so it was not able to handle the request."
-@@ -5719,11 +5720,11 @@ msgstr "פגישה פרטית"
+@@ -5783,11 +5784,11 @@ msgstr "פגישה פרטית"
  
  #, php-format
  msgid "%s's Birthday"

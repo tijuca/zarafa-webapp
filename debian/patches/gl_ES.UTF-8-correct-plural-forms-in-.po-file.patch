@@ -7,7 +7,7 @@ Subject: gl_ES.UTF-8: correct plural forms in *.po file
  1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/server/language/gl_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/gl_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index b11fc6b..a591f19 100644
+index 8e61cfa..5ab13dd 100644
 --- a/server/language/gl_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/gl_ES.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,22 @@
@@ -23,7 +23,7 @@ index b11fc6b..a591f19 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Galician (Spain)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-03-27 14:28+0200\n"
+ "POT-Creation-Date: 2018-05-08 13:43+0200\n"
 -"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 -"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
