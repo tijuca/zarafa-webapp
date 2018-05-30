@@ -67,3 +67,17 @@ div.zarafa-contact-cardview-selected {
 	border:none;
 	font-weight:normal;
 }
+
+.k-recipient-card-view {
+	.x-window-footer {
+		border-top: 1px solid $grey;
+	}
+
+	.x-panel-btns {
+		padding: 0px !important;
+	}
+}
+
+.contact-characterstrip .x-btn-pressed .x-btn-small {
+	background-color: $grid-active-color;
+}
