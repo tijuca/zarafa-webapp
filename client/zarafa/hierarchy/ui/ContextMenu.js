@@ -265,17 +265,104 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			},
 			handler : this.onContextItemFavoritesRemove
 		},{
-			text : _('Properties'),
-			handler : this.onContextItemProperties,
-			iconCls : 'icon_openMessageOptions',
+			text : _('Share folder...'),
+			iconCls : 'icon_share',
+			name : 'shareFolder',
+			beforeShow : this.onBeforeContextItem,
+			handler : this.onContextItemSharedFolderAndProperties
+		},{
+			xtype: 'menuseparator'
+		},{
+			text : _('Import emails'),
+			handler : this.onContextImportEml,
+			iconCls: 'icon_import_attachment',
 			beforeShow : function(item, record) {
-				if (!record.get('access') || record.isTodoListFolder()) {
+				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_CREATE_CONTENTS;
+				var isIPFNote = Zarafa.core.ContainerClass.isClass(record.get('container_class'), 'IPF.Note', true);
+
+				if (
+					!access ||
+					!isIPFNote ||
+					record.isIPMSubTree() ||
+					record.isTodoListFolder() ||
+					record.isRSSFolder()
+				) {
 					item.setDisabled(true);
 				} else {
 					item.setDisabled(false);
 				}
 			}
+		},{
+			xtype: 'menuseparator'
+		},{
+			text : _('Properties'),
+			handler : this.onContextItemSharedFolderAndProperties,
+			iconCls : 'icon_openMessageOptions',
+			beforeShow : this.onBeforeContextItem
 		}];
+	},
+
+	/**
+	 * Fires on selecting 'Share folder...'  or 'Properties' menu option from
+	 * {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu} Opens
+	 * {@link Zarafa.hierarchy.dialogs.FolderPropertiesContent FolderPropertiesContent}
+	 *
+	 * @param {Ext.Button} btn The context menu item which is clicked.
+	 * @private
+	 */
+	onContextItemSharedFolderAndProperties : function(btn)
+	{
+		var folder = this.records;
+		var mapiStore;
+		if (folder.isFavoritesFolder()) {
+			mapiStore = folder.getOriginalRecordFromFavoritesRecord().getMAPIStore();
+		} else {
+			mapiStore = folder.getMAPIStore();
+		}
+
+		var storeName = mapiStore.get('display_name');
+		var folderName = folder.get('display_name');
+		var formattedTitle = '';
+		var emptyText = '';
+		var isIPMSubTree = folder.isIPMSubTree();
+
+		if (mapiStore.isDefaultStore() || isIPMSubTree) {
+			var text = isIPMSubTree ? storeName : folderName;
+			formattedTitle = String.format(_('Properties of {0}'), text);
+			emptyText = String.format(_('Share {0} with...'), text);
+		} else {
+			formattedTitle = String.format(_('Properties of {0} - {1}'), folderName, storeName);
+			emptyText = String.format(_('Share {0} with...'), folderName);
+		}
+
+		var config = {
+			modal: true,
+			showModalWithoutParent: true,
+			title : formattedTitle,
+			emptyText : emptyText
+		};
+
+		if (btn.name == 'shareFolder') {
+			config.activeTab = 1;
+		}
+		Zarafa.hierarchy.Actions.openFolderPropertiesContent(folder, config);
+	},
+
+	/**
+	 * Event handler triggered before the "Shared folder..." or "Properties"
+	 * context menu item show.
+	 *
+	 * @param {Ext.Button} item The item which is going to show.
+	 * @param {Zarafa.core.data.IPFRecord} record The folder record on which
+	 * this context menu item shows.
+	 */
+	onBeforeContextItem : function(item, record)
+	{
+		if (!record.get('access') || record.isTodoListFolder()) {
+			item.setDisabled(true);
+		} else {
+			item.setDisabled(false);
+		}
 	},
 
 	/**
@@ -470,19 +557,6 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	},
 
 	/**
-	 * Fires on selecting 'Properties' menu option from {@link Zarafa.hierarchy.ui.ContextMenu ContextMenu}
-	 * Opens {@link Zarafa.hierarchy.dialogs.FolderPropertiesContent FolderPropertiesContent}
-	 * @private
-	 */
-	onContextItemProperties : function()
-	{
-		Zarafa.hierarchy.Actions.openFolderPropertiesContent(this.records, {
-			modal: true,
-			showModalWithoutParent: true
-		});
-	},
-
-	/**
 	 * Fires on selecting "Close Store" menu option from the contextmenu. This
 	 * will remove the shared store from the settings and closes the store on the server.
 	 * @private
@@ -527,6 +601,15 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	onContextItemRestore : function()
 	{
 		Zarafa.common.Actions.openRestoreContent(this.records);
+	},
+
+	/**
+	 * Open upload files dialog to import into folder.
+	 * @private
+	 */
+	onContextImportEml : function()
+	{
+		Zarafa.common.Actions.openImportEmlContent(this.records);
 	},
 
 	/**
