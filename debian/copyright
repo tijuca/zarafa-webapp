@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Kopano-WebApp
 Source: https://stash.kopano.io/projects/KW/repos/kopano-webapp
-Disclaimer: The original source tarball is modified by git-buildpackage while
+Comment: The original source tarball is modified by git-buildpackage while
  importing the source. Some *.min.js and *.swf files get cleaned out extracting
  the upstream source. This is related to the shipped tinymce source that
  contains that files.
@@ -39,7 +39,7 @@ License: AGPL-3
 
 Files: debian/*
 Copyright: 2014-2015, Zarafa B.V.
-           2015-2017, Carsten Schoenert <c.schoenert@t-online.de>
+           2015-2018, Carsten Schoenert <c.schoenert@t-online.de>
 License: AGPL-3
 
 License: AGPL-3
