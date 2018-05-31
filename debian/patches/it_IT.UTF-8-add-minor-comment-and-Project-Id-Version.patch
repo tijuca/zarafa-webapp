@@ -3,11 +3,11 @@ Date: Thu, 5 Oct 2017 20:05:23 +0200
 Subject: it_IT.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po  | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ server/language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 24839fb..935756c 100644
+index 5248bad..b9f90a2 100644
 --- a/server/language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/it_IT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -24,8 +24,7 @@ index 24839fb..935756c 100644
 +"Project-Id-Version: Kopano Webapp Italian (Italy)\n"
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2018-05-08 13:43+0200\n"
--"PO-Revision-Date: 2017-03-02 10:06+0000\n"
-+"PO-Revision-Date: 2017-10-05 20:04+0200\n"
+ "PO-Revision-Date: 2018-05-08 15:53+0000\n"
  "Last-Translator: Marco <MARCO@COSTANTINO.CO.UK>\n"
 -"Language-Team: Italian <http://translate.kopano.io/projects/kopano/kopano-"
 -"webapp/it/>\n"
