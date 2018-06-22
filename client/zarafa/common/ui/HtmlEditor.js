@@ -323,6 +323,23 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 			}
 		}
 
+		// Tinymce parse url with some default entities which convert '&' to '&amp;'
+		// So here we just replace '&amp;' to '&' before inserting content into body.
+		editor.once('BeforeExecCommand', function (args) {
+			if (args.command === 'mceInsertContent') {
+				var content = args.value.content;
+				// Get all anchor tags and replace '&amp;' to '&'.
+				var subStrings = content.match(/<a.*\/a>/g);
+				if (!Ext.isEmpty(subStrings)) {
+					for (var i = 0; i < subStrings.length; i++) {
+						var decodedSubStr = tinymce.html.Entities.decode(subStrings[i]);
+						args.value.content = content.replace(subStrings[i], decodedSubStr);
+					}
+				}
+			}
+			return args;
+		});
+
 		/**
 		 * If browser is IE then before the paste content in editor make it proper formatted content.
 		 */
@@ -397,7 +414,7 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	 */
 	applyEmptyLines: function (tinymceEditor)
 	{
-		if (!this.isDisabled() && this.record && this.record.phantom) {
+		if (!this.isDisabled() && this.record && this.record.phantom && Zarafa.core.BrowserWindowMgr.isMainWindowActive()) {
 
 			// When using the html editor without a MAPIRecord (e.g. for the signature editor), the getMessageAction
 			// is not defined, so check for it.
@@ -585,6 +602,21 @@ Zarafa.common.ui.HtmlEditor = Ext.extend(Ext.ux.form.TinyMCETextArea, {
 	onKeyDown : function(event)
 	{
 		var editor = this.getEditor();
+
+		if(!Zarafa.core.BrowserWindowMgr.isMainWindowActive()) {
+			switch (event.keyCode) {
+				case 116 : //F5 button
+					event.returnValue = false;
+					event.keyCode = 0;
+					return false;
+				case 82 : //R button
+					if (event.ctrlKey) {
+						event.returnValue = false;
+						event.keyCode = 0;
+						return false;
+					}
+			}
+		}
 
 		/*
 		 * HACK: for IE and webkit browsers backspace/delete removes default formatting, so we have to

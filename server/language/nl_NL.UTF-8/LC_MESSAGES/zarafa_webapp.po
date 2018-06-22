@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 13:43+0200\n"
-"PO-Revision-Date: 2018-05-28 14:31+0000\n"
+"POT-Creation-Date: 2018-06-19 11:59+0200\n"
+"PO-Revision-Date: 2018-06-19 12:25+0000\n"
 "Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
@@ -1408,23 +1408,25 @@ msgid "Show busy dates as bold in the date picker"
 msgstr "Geef dagen met afspraken vet weer in het datumkeuzeveld"
 
 msgid ""
-"Free/busy information is used by people sending meeting requests, to "
+"Free/Busy information is used by people sending meeting requests, to "
 "determine when you are available for meetings."
 msgstr ""
-"Beschikbaarheids informatie wordt gebruikt door de verzender van "
+"Beschikbaarheidsinformatie wordt gebruikt door de verzender van "
 "vergaderverzoeken, om te vast te stellen wanneer u beschikbaar bent voor "
 "vergaderingen."
 
-msgid "Free/Busy permission"
-msgstr "Beschikbaarheids informatie permissie"
+msgid "Free/Busy publishing"
+msgstr "Beschikbaarheidsinformatie publiceren"
 
-msgid "Publish {A} month(s) of Calendar free/busy information on the server."
-msgstr "Publiceer {A} maand(en) beschikbaarheids informatie op de server."
+msgid "Publish {A} month(s) of Calendar Free/Busy information on the server."
+msgstr "Publiceer {A} maand(en) beschikbaarheidsinformatie op de server."
 
-msgid "You can only publish a free/busy period from 1 to 36 months."
+msgid ""
+"You can only publish a Free/Busy period from 0 to 36 months. 0 means Free/"
+"Busy information is not published."
 msgstr ""
-"U kunt alleen beschikbaarheids informatie publiceren in een periode van 1 "
-"tot 36 maanden."
+"U kunt alleen beschikbaarheidsinformatie publiceren in een periode van 0 tot "
+"36 maanden. 0 betekent dat informatie niet wordt gepubliceerd."
 
 msgid "Side-by-side mode"
 msgstr "Naast-elkaarmodus"
@@ -1868,6 +1870,24 @@ msgstr ""
 "De afzender van dit bericht heeft gevraagd kennis te geven wanneer dit "
 "bericht is gelezen. Wilt u deze kennisgeving sturen naar de afzender?"
 
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Successfully imported item(s) to {0}"
+msgstr "Item(s) succesvol geimporteerd naar {0}"
+
+msgid "Failed to import item(s) to {0}"
+msgstr "Kon item(s) niet succesvol importeren naar {0}"
+
+msgid "Import error"
+msgstr "Probleem met importeren"
+
+msgid "Unable to import {0}. The file is not valid"
+msgstr "{0} kan niet geïmporteerd worden. Het bestand is niet valide"
+
+msgid "Close"
+msgstr "Sluiten"
+
 msgid "Cc"
 msgstr "Cc"
 
@@ -1905,9 +1925,6 @@ msgstr "Geen bericht geselecteerd"
 
 msgid "Import to"
 msgstr "Importeren naar"
-
-msgid "Import"
-msgstr "Importeren"
 
 # 90%
 # 100%
@@ -2340,6 +2357,12 @@ msgstr "Verzend e-mail"
 
 msgid "Delete recipient from suggestion list"
 msgstr "Verwijder de geadresseerde uit de suggestielijst"
+
+msgid "Copy email address"
+msgstr "Emailadres kopiëren"
+
+msgid "Send email"
+msgstr "Verzend e-mail"
 
 msgid "View recipient"
 msgstr "Bekijk geadresseerde"
@@ -2823,12 +2846,6 @@ msgid "{0} selected row"
 msgid_plural "{0} selected rows"
 msgstr[0] "{0} geselecteerde rij"
 msgstr[1] "{0} geselecteerde rijen"
-
-# 86%
-# 100%
-# 76%
-msgid "Loaded {0} of {1}"
-msgstr "Geladen {0} van {1}"
 
 msgid "Reminder is set on: {0}, {1}"
 msgstr "Herinnering ingesteld voor: {0}, {1}"
@@ -3425,11 +3442,11 @@ msgstr "Druk deze distributielijst af."
 msgid "Mark this Distribution list as private."
 msgstr "Markeer deze Distributielijst als privé."
 
-msgid "New e-mail address"
-msgstr "Nieuw e-mailadres"
+msgid "New email address"
+msgstr "Nieuw emailadres"
 
-msgid "Please input a valid email address!"
-msgstr "Voer een valide e-mailadres in!"
+msgid "Please enter a valid email address"
+msgstr "Voer een geldig emailadres in"
 
 msgid "E-mail Address"
 msgstr "E-mail adres"
@@ -3733,12 +3750,6 @@ msgstr ""
 "Kan bijlage niet uploaden, totaal aantal bijlagen {0} en het maximum "
 "toegestaan aantal bijlagen in een enkel verzoek is {1}."
 
-msgid "Successfully imported item(s) to {0}"
-msgstr "Item(s) succesvol geimporteerd naar {0}"
-
-msgid "Failed to import item(s) to {0}"
-msgstr "Kon item(s) niet succesvol importeren naar {0}"
-
 #. TRANSLATORS: {0} indicates name/email address of secretary and {1} indicates boss' name/email address
 msgid "{0} on behalf of {1}"
 msgstr "{0} namens {1}"
@@ -3832,9 +3843,6 @@ msgstr "Wacht op iemand anders"
 msgid "Deferred"
 msgstr "Uitgesteld"
 
-msgid "Close"
-msgstr "Sluiten"
-
 msgid "Dark"
 msgstr "Donker"
 
@@ -3901,6 +3909,18 @@ msgstr "Hiërarchie uitklappen"
 
 msgid "Folders List"
 msgstr "Mappenlijst"
+
+msgid "Copy Details"
+msgstr "Details Kopiëren"
+
+msgid "Hide Details"
+msgstr "Details verbergen"
+
+# 86%
+# 100%
+# 76%
+msgid "Loaded {0} of {1}"
+msgstr "Geladen {0} van {1}"
 
 msgid "Saving"
 msgstr "Opslaan"
@@ -4000,6 +4020,12 @@ msgstr "Volledig beheer"
 
 msgid "No rights"
 msgstr "Geen rechten"
+
+msgid "Unable to import:"
+msgstr "Kan de volgende bestanden niet importeren:"
+
+msgid "The files are not valid"
+msgstr "De bestanden zijn niet valide"
 
 msgid "Create New Folder"
 msgstr "Nieuwe map aanmaken"
@@ -4193,6 +4219,21 @@ msgstr "Aan favorieten toevoegen"
 msgid "Remove From Favorites"
 msgstr "Uit favorieten verwijderen"
 
+msgid "Share folder..."
+msgstr "Deel folder..."
+
+msgid "Import emails"
+msgstr "Importeer emails"
+
+msgid "Properties of {0}"
+msgstr "Eigenschappen van {0}"
+
+msgid "Share {0} with..."
+msgstr "Deel {0] met..."
+
+msgid "Properties of {0} - {1}"
+msgstr "Eigenschappen van {0} - {1}"
+
 msgid ""
 "Are you sure you want to permanently delete all the items and subfolders in "
 "the \"{0}\" folder?"
@@ -4300,9 +4341,6 @@ msgstr "Geen afzenders geconfigureerd!"
 msgid "This message will be flagged for follow up when it is sent."
 msgstr "Dit bericht wordt gemarkeerd voor opvolging als het is verstuurd."
 
-msgid "Send email"
-msgstr "Verzend e-mail"
-
 msgid "Send email to recipients"
 msgstr "Verzend e-mail naar ontvangers"
 
@@ -4320,8 +4358,8 @@ msgstr "Sla e-mail op"
 # 94%
 # 76%
 # 100%
-msgid "Delete this mail"
-msgstr "Verwijder deze e-mail"
+msgid "Delete this email"
+msgstr "Verwijder deze email"
 
 # 86%
 msgid "Add attachments to this email"
@@ -4407,18 +4445,8 @@ msgstr "Verzoek een leesbevestiging voor dit bericht."
 msgid "no subject"
 msgstr "geen onderwerp"
 
-# 94%
-msgid "Delete this item."
-msgstr "Verwijder dit item."
-
 msgid "Delete mail"
 msgstr "E-mail verwijderen"
-
-# 94%
-# 76%
-# 100%
-msgid "Delete this mail."
-msgstr "Verwijder deze e-mail."
 
 msgid "Set Category"
 msgstr "Stel categorie in"
@@ -5681,8 +5709,12 @@ msgstr "Inloggen mislukt. Controleer inloggegevens en probeer opnieuw."
 msgid "Cannot connect to Kopano Core."
 msgstr "Kan niet verbinden met Kopano Core."
 
-msgid "Logon failed, another session already exists."
-msgstr "Aanmelden mislukt, er is al een andere sessie."
+msgid ""
+"Login did not work due to a duplicate session. The issue was automatically "
+"resolved, please log in again."
+msgstr ""
+"Inloggen is niet gelukt vanwege een dubbele sessie. De issue is automatisch "
+"opgelost, graag opnieuw inloggen."
 
 msgid "Unknown MAPI Error"
 msgstr "Onbekende MAPI-Fout"
@@ -5692,6 +5724,9 @@ msgstr "Klik op de link om de URL in een nieuw venster te openen."
 
 msgid "This external link will open in a new window"
 msgstr "Deze externe koppeling wordt in een nieuw venster geopend"
+
+msgid "Destination folder not found."
+msgstr "Bestemmingsmap niet gevonden."
 
 msgid "Eml is corrupted"
 msgstr "Eml is corrupt"
@@ -5704,6 +5739,10 @@ msgstr "De vcf bijlage kon niet succesvol worden geimporteerd"
 
 msgid "Attachment is not imported successfully"
 msgstr "Bijlage kon niet succesvol worden geimporteerd"
+
+# 81%
+msgid "Embedded attachment not found."
+msgstr "Ingesloten bijlage niet gevonden."
 
 msgid "ZIP is not created successfully"
 msgstr "ZIP bestand kon niet worden aangemaakt"
@@ -6332,8 +6371,15 @@ msgstr "Wachtwoord"
 msgid "Sign in"
 msgstr "Inloggen"
 
-msgid "Could not upload attachment."
-msgstr "Kon de bijlage niet uploaden."
+msgid "File is not imported successfully"
+msgstr "Bijlage kon niet succesvol worden geïmporteerd"
+
+#, php-format
+msgid "Unable to import '%s'"
+msgstr "'%s' kon niet worden geïmporteerd"
+
+msgid "The EML is not valid"
+msgstr "De EML is niet valide"
 
 msgid "GB"
 msgstr "GB"

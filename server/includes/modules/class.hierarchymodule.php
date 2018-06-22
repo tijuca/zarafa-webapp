@@ -130,6 +130,7 @@
 										if (isset($action["message_action"]["isSearchFolder"])
 											&& $action["message_action"]["isSearchFolder"]) {
 											$result = $this->deleteSearchFolder($store, $parententryid, $entryid, $action);
+											dump($result, '$result');
 											if ($result) {
 												$this->sendFeedback(true);
 											}
@@ -663,11 +664,9 @@
 			// check if the folder is the default calendar, if so we also need to set the same permissions on the freebusy folder
 			$root = mapi_msgstore_openentry($store, null);
 			if($root) {
-				$rootProps = mapi_getprops($root, array(PR_IPM_APPOINTMENT_ENTRYID, PR_FREEBUSY_ENTRYIDS));
+				$rootProps = mapi_getprops($root, array(PR_IPM_APPOINTMENT_ENTRYID));
 				if ($folderProps[PR_ENTRYID] == $rootProps[PR_IPM_APPOINTMENT_ENTRYID]){
-					if(isset($rootProps[PR_FREEBUSY_ENTRYIDS]) && isset($rootProps[PR_FREEBUSY_ENTRYIDS][3])){
-						$freebusy = mapi_msgstore_openentry($store, $rootProps[PR_FREEBUSY_ENTRYIDS][3]);
-					}
+					$freebusy = freebusy::getLocalFreeBusyFolder($store);
 				}
 			}
 
@@ -933,7 +932,7 @@
             // This flag indicates there is currently an open search tab which uses this search folder.
             if (!isset($action["message_action"]["keepSearchFolder"])) {
                 $finderFolder = mapi_msgstore_openentry($store, $parententryid);
-	            return mapi_folder_deletefolder($finderFolder, $entryid);
+                return mapi_folder_deletefolder($finderFolder, $entryid , DEL_FOLDERS | DEL_MESSAGES | DELETE_HARD_DELETE);
             } else {
                 // Rename search folder to default search folder name otherwise,
                 // It will not be picked up by our search folder cleanup logic.

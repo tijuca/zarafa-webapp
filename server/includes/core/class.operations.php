@@ -925,7 +925,12 @@
 				$hierarchyTable = mapi_folder_gethierarchytable($finderFolder, MAPI_DEFERRED_ERRORS);
 				$folders = mapi_table_queryallrows($hierarchyTable, array(PR_ENTRYID));
 				foreach($folders as $folder) {
-					mapi_folder_deletefolder($finderFolder, $folder[PR_ENTRYID]);
+					try{
+						mapi_folder_deletefolder($finderFolder, $folder[PR_ENTRYID] );
+					} catch (MAPIException $e) {
+						$msg = "Problem in deleting search folder while reset settings. MAPI Error %s.";
+						error_log(sprintf($msg, get_mapi_error_name($e->getCode())));
+					}
 				}
 				// Restriction used to find only Inbox and Sent folder's link messages from
 				// Associated contains table of IPM_COMMON_VIEWS folder, if exist in it.
@@ -3728,15 +3733,16 @@
 		}
 
 		/**
-		 * Function which is use to check the distribution list belongs to any external folder or not.
-		 * @param string $entryid entryid of distribution list
-		 * @return boolean true if distribution list from external folder otherwise false.
+		 * Function which is use to check the contact item (distribution list / contact)
+		 * belongs to any external folder or not.
+		 * @param string $entryid entryid of contact item
+		 * @return boolean true if contact item from external folder otherwise false.
 		 *
 		 * FIXME: this function is broken and returns true if the user is a contact in a shared store.
 		 * Also research if we cannot just extract the GUID and compare it with our own GUID.
 		 * FIXME This function should be renamed, because it's also meant for normal shared folder contacts.
 		 */
-		function isExternalDistList($entryid)
+		function isExternalContactItem($entryid)
 		{
 			try {
 				if (!$GLOBALS['entryid']->hasContactProviderGUID(bin2hex($entryid))) {
@@ -3782,7 +3788,7 @@
 		{
 			$properties = $GLOBALS['properties']->getDistListProperties();
 
-			$isExternalDistList = $this->isExternalDistList(hex2bin($distlistEntryid));
+			$isExternalDistList = $this->isExternalContactItem(hex2bin($distlistEntryid));
 
 			if($isExternalDistList) {
 				$store = $this->getOtherStoreFromEntryid($distlistEntryid);
@@ -4218,9 +4224,7 @@
 				$storeProps = mapi_getprops($store, array(PR_MAILBOX_OWNER_ENTRYID));
 				if (isset($storeProps[PR_MAILBOX_OWNER_ENTRYID])){
 					$freeBusyRange = $GLOBALS['settings']->get('zarafa/v1/contexts/calendar/free_busy_range', 2);
-					$localFreeBusyEntryids = mapi_getprops($rootFolder, array(PR_FREEBUSY_ENTRYIDS));
-					$localFreeBusyMessage = mapi_msgstore_openentry($store, $localFreeBusyEntryids[PR_FREEBUSY_ENTRYIDS][1]);
-
+					$localFreeBusyMessage = freebusy::getLocalFreeBusyMessage($store);
 					$freeBusyFolderAccess = mapi_getprops($localFreeBusyMessage, array(PR_ACCESS));
 					// If Free/busy folder have Modification access then update PR_FREEBUSY_COUNT_MONTHS.
 					if (($freeBusyFolderAccess[PR_ACCESS] & MAPI_ACCESS_MODIFY) === MAPI_ACCESS_MODIFY) {
