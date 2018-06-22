@@ -195,7 +195,7 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	{
 		var parentRecord = this.getParentRecord();
 		var entryID = parentRecord.get('entryid') || '';
-		var storeEntryId =  parentRecord.get('store_entryid');
+		var storeEntryId =  parentRecord.get('store_entryid') || '';
 		var messageAction = parentRecord.getMessageActions();
 
 		if (Ext.isEmpty(entryID) && messageAction) {
@@ -263,8 +263,13 @@ Zarafa.core.data.IPMAttachmentStore = Ext.extend(Zarafa.core.data.MAPISubStore, 
 	getImportAttachmentUrl : function(attachmentRecord, folder)
 	{
 		var url = this.getDownloadAttachmentUrl(attachmentRecord);
+		var isEmbedded = attachmentRecord.isEmbeddedMessage();
 		url = Ext.urlAppend(url, 'import=true');
 		url = Ext.urlAppend(url, 'destination_folder=' + folder.get('entryid'));
+
+		if (isEmbedded) {
+			url = Ext.urlAppend(url, 'is_embedded=' + isEmbedded);
+		}
 
 		return url;
 	},

@@ -10,6 +10,7 @@
 /* menus */
 /* grids */
 /* fonts */
+/* Tooltip */
 /* different padding sizes (and margins) used in the WebApp */
 /* sizes of the buttons */
 /* triggers of comboboxes and up-down inputs */
@@ -3681,16 +3682,16 @@ button::-moz-focus-inner {
   /* focused action button */
 }
 /* line 292, ../scss/components/_buttons.scss */
-.x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-small, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-medium, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-large,
-.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-small,
-.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-medium,
-.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-large,
-.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-small,
-.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-medium,
-.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-large,
-.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-small,
-.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-medium,
-.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn .x-btn-large {
+.x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-small, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-medium, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-large,
+.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-small,
+.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-medium,
+.x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-large,
+.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-small,
+.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-medium,
+.x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-large,
+.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-small,
+.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-medium,
+.x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .x-btn:not(.k-window-text-button) .x-btn-large {
   border: 1px solid transparent !important;
 }
 /* line 299, ../scss/components/_buttons.scss */
@@ -3957,43 +3958,64 @@ div.x-btn-group-bc {
   background-image: none;
 }
 
-/* line 454, ../scss/components/_buttons.scss */
+/* line 455, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .x-btn-small {
   background-color: transparent !important;
   box-shadow: none !important;
 }
-/* line 459, ../scss/components/_buttons.scss */
+/* line 460, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .icon_contact {
   background-position: 0 -1475px !important;
 }
-/* line 464, ../scss/components/_buttons.scss */
+/* line 465, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .icon_copy {
   background-position: 4px -506px !important;
 }
-/* line 468, ../scss/components/_buttons.scss */
+/* line 469, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .icon_send_email_to_recipient {
   background-position: 0 -3550px !important;
-  background-image: url('../images/icons-s4d78048d22.png');
+  background-image: url('../images/icons-s5e0631df8c.png');
 }
-/* line 473, ../scss/components/_buttons.scss */
+/* line 474, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .icon_new_contact, .x-window .k-recipient-hover-card-button .x-menu .icon_createContact, .x-menu .x-window .k-recipient-hover-card-button .icon_createContact {
   background-position: 0 -3470px !important;
 }
-/* line 478, ../scss/components/_buttons.scss */
+/* line 479, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button .icon_edit_recipient {
   background-position: 0 -1854px !important;
 }
-/* line 484, ../scss/components/_buttons.scss */
+/* line 485, ../scss/components/_buttons.scss */
 .x-window .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-small, .x-window .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-medium, .x-window .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-large {
   border: 1px solid #dadada !important;
 }
-/* line 493, ../scss/components/_buttons.scss */
+/* line 494, ../scss/components/_buttons.scss */
 .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-small, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-medium, .x-window .x-panel-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-large, .x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-small, .x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-medium, .x-window .x-panel-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-large, .x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-small, .x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-medium, .x-window .x-window-footer .x-toolbar-left-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-large, .x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-small, .x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-medium, .x-window .x-window-footer .x-toolbar-right-row .x-toolbar-cell:not(.x-hide-offsets) .k-recipient-hover-card-button.x-btn.x-btn-over .x-btn-large {
   border: 1px solid #dadada !important;
 }
-/* line 501, ../scss/components/_buttons.scss */
+/* line 502, ../scss/components/_buttons.scss */
 .x-window .k-hover-card-email-text {
   padding-right: 6px !important;
+}
+
+/* line 508, ../scss/components/_buttons.scss */
+.k-window-text-button .x-btn-small {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* line 512, ../scss/components/_buttons.scss */
+.k-window-text-button .x-btn-text {
+  font-weight: bold;
+}
+
+/* line 517, ../scss/components/_buttons.scss */
+.k-window-text-button.x-btn.x-btn-over .x-btn-small {
+  background: transparent !important;
+  border: 1px solid #dadada !important;
+}
+
+/* line 523, ../scss/components/_buttons.scss */
+.x-window.k-show-more-details .icon_copy {
+  background-position: 3px -506px !important;
 }
 
 /* line 1, ../scss/components/_panels.scss */
@@ -5150,12 +5172,12 @@ td.x-grid3-hd-menu-open .x-grid3-hd-inner {
 /* line 690, ../scss/components/_grids.scss */
 .k-slider {
   position: absolute;
-  z-index: 1000000000;
+  z-index: 9001;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.35);
-  background-color: #FFFFFF;
-  height: 30px;
   padding-left: 12px;
   padding-right: 12px;
+  background-color: #FFFFFF;
+  height: 30px;
   line-height: 2.5;
 }
 
@@ -11922,6 +11944,22 @@ ul.x-tab-strip li .x-tab-right .x-tab-left .x-tab-strip-inner .x-panel-ghost .x-
   padding-top: 6px !important;
 }
 
+/* Custom message box with show more details  */
+/* line 468, ../scss/components/_popups.scss */
+.x-window.k-show-more-details .x-dlg-icon {
+  display: flex;
+  align-items: center;
+}
+/* line 473, ../scss/components/_popups.scss */
+.x-window.k-show-more-details .k-show-more-details-textarea {
+  margin-top: 10px;
+}
+
+/* line 478, ../scss/components/_popups.scss */
+.x-window.k-show-more-details .x-dlg-icon .ext-mb-content {
+  margin-left: 0 !important;
+}
+
 /* line 1, ../scss/components/_scheduling.scss */
 .zarafa-freebusy-panel {
   /* Timeline */
@@ -13706,25 +13744,29 @@ body .k-category-block {
 
 /* line 1, ../scss/components/_tooltip.scss */
 .x-tip {
-  border: solid 1px #a7a7a7;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 2px;
 }
 
-/* tooltip  for example Addrss book button large */
+/* tooltip for example Addrss book button large */
 /* line 6, ../scss/components/_tooltip.scss */
 .x-tip .x-tip-tc, .x-tip .x-tip-tl, .x-tip .x-tip-tr, .x-tip .x-tip-bc, .x-tip .x-tip-bl, .x-tip .x-tip-br, .x-tip .x-tip-ml, .x-tip .x-tip-mr {
   background-image: none;
-  background-color: #f1f1f1;
+  background: transparent;
+}
+
+/* Tooltip header text */
+/* line 12, ../scss/components/_tooltip.scss */
+.x-tip .x-tip-header-text {
+  color: #ffffff;
 }
 
 /* The tooltip for the calendar appointments */
-/* line 12, ../scss/components/_tooltip.scss */
+/* line 17, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip {
-  border: 1px solid black;
-  border-radius: 0;
   z-index: 9000 !important;
 }
-/* line 17, ../scss/components/_tooltip.scss */
+/* line 20, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip .x-tip-tc,
 .zarafa-appointment-tooltip .x-tip-tl,
 .zarafa-appointment-tooltip .x-tip-tr,
@@ -13733,41 +13775,42 @@ body .k-category-block {
 .zarafa-appointment-tooltip .x-tip-br,
 .zarafa-appointment-tooltip .x-tip-ml,
 .zarafa-appointment-tooltip .x-tip-mr {
-  background: white;
+  background-color: transparent;
 }
-/* line 28, ../scss/components/_tooltip.scss */
+/* line 31, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip .x-tip-tc {
   padding-top: 6px;
 }
-/* line 31, ../scss/components/_tooltip.scss */
+/* line 34, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip .x-tip-body {
-  color: black;
+  color: #ffffff;
 }
-/* line 35, ../scss/components/_tooltip.scss */
+/* line 38, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip h2 {
   line-height: 20px;
   font-weight: bold;
   margin-bottom: 3px;
 }
-/* line 41, ../scss/components/_tooltip.scss */
+/* line 44, ../scss/components/_tooltip.scss */
 .zarafa-appointment-tooltip p {
   line-height: 20px;
   padding-bottom: 6px;
 }
 
-/* line 47, ../scss/components/_tooltip.scss */
+/* line 50, ../scss/components/_tooltip.scss */
 .x-tip .x-tip-body {
   word-wrap: break-word;
+  color: #ffffff;
 }
 
 /* Seemingly unused icon, removed so we do not load the ExtJS image */
-/* line 52, ../scss/components/_tooltip.scss */
+/* line 56, ../scss/components/_tooltip.scss */
 .x-tip-anchor.x-tip-anchor-top {
   background-image: none;
 }
 
 /* The tooltip for 'nice' dates in grids */
-/* line 58, ../scss/components/_tooltip.scss */
+/* line 62, ../scss/components/_tooltip.scss */
 .k-griddatetooltip .x-tip-body {
   white-space: nowrap;
 }
