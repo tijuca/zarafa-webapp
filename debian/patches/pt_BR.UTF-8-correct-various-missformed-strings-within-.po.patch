@@ -7,7 +7,7 @@ Subject: pt_BR.UTF-8: correct various missformed strings within *.po file
  1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/pt_BR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pt_BR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index dbbeeb1..b497f1a 100644
+index bd38500..7c6f638 100644
 --- a/server/language/pt_BR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/pt_BR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,13 @@
@@ -21,7 +21,7 @@ index dbbeeb1..b497f1a 100644
 -"Project-Id-Version: PHP-Langadmin 1.0\n"
 +"Project-Id-Version: Kopano Webapp Portuguese (Brazil)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-05-08 13:43+0200\n"
+ "POT-Creation-Date: 2018-06-19 11:59+0200\n"
 -"PO-Revision-Date: 2016-10-14 07:34+0000\n"
 +"PO-Revision-Date: 2017-10-03 21:54+0200\n"
  "Last-Translator: Björn <b.neumann@kopano.com>\n"
@@ -38,7 +38,7 @@ index dbbeeb1..b497f1a 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5615,11 +5618,11 @@ msgstr[1] "Ocorre cada %s efetivamente %s para %s ocorrências de %s até %s."
+@@ -5664,11 +5667,11 @@ msgstr[1] "Ocorre cada %s efetivamente %s para %s ocorrências de %s até %s."
  # 76%
  # 75%
  # 95%
@@ -52,7 +52,7 @@ index dbbeeb1..b497f1a 100644
  
  # 77%
  # 76%
-@@ -5962,7 +5965,8 @@ msgid_plural ""
+@@ -6011,7 +6014,8 @@ msgid_plural ""
  msgstr[0] ""
  "%s ocorrência deste compromisso recorrente conflita com outro compromisso."
  msgstr[1] ""

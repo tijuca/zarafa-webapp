@@ -7,7 +7,7 @@ Subject: hu_HU.UTF-8: correct various missformed strings within *.po file
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index d45b202..5bd2bdb 100644
+index d48c138..940df3f 100644
 --- a/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/hu_HU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -23,7 +23,7 @@ index d45b202..5bd2bdb 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webbapp Hungarian\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-05-08 13:43+0200\n"
+ "POT-Creation-Date: 2018-06-19 11:59+0200\n"
  "PO-Revision-Date: 2018-03-19 16:32+0000\n"
 @@ -15,8 +15,8 @@ msgstr ""
  "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ index d45b202..5bd2bdb 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5631,7 +5631,7 @@ msgstr[1] "Ismétlődés minden %s érvényes %s %s-tól/től %s-ig/%s-ig."
+@@ -5685,7 +5685,7 @@ msgstr[1] "Ismétlődés minden %s érvényes %s %s-tól/től %s-ig/%s-ig."
  # Have to look at it in action.
  # 76%
  # 95%
@@ -45,7 +45,7 @@ index d45b202..5bd2bdb 100644
  msgid "Occurs every %s %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s %s effective %s for %s occurences %s to %s."
  msgstr[0] ""
-@@ -5733,7 +5733,7 @@ msgstr ""
+@@ -5787,7 +5787,7 @@ msgstr ""
  "'%s' erőforrásként lett megjelölve. Nem tud '%s' megadásával értekezletet "
  "szervezni, mert ehhez nincs meg a jogosultsága ezzel a fiókkal. Adja meg a "
  "nevet kötelező, vagy opcionális résztvevőként, vagy lépjen kapcsolatba "
