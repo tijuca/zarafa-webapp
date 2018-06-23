@@ -1,3 +1,11 @@
+kopano-webapp (3.4.16-1) unstable; urgency=medium
+
+  * [5019d3e] uscan: also match minor versions with more than one digest
+  * [58e8132] New upstream version 3.4.16
+  * [e6355a5] rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 23 Jun 2018 10:59:22 +0200
+
 kopano-webapp (3.4.15+dfsg1-1) unstable; urgency=medium
 
   * [5b4a74b] New upstream version 3.4.15+dfsg1
