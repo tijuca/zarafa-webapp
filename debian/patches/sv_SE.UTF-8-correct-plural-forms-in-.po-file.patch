@@ -7,7 +7,7 @@ Subject: sv_SE.UTF-8: correct plural forms in *.po file
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/server/language/sv_SE.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/sv_SE.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index fa7fdae..80b89cc 100644
+index d39b7fb..7a1544a 100644
 --- a/server/language/sv_SE.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/sv_SE.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,21 +1,21 @@
@@ -23,7 +23,7 @@ index fa7fdae..80b89cc 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Swedish\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-06-19 11:59+0200\n"
+ "POT-Creation-Date: 2018-07-02 15:50+0200\n"
  "PO-Revision-Date: 2018-02-07 12:19+0000\n"
  "Last-Translator: jengelh <jengelh@inai.de>\n"
 -"Language-Team: Swedish <http://translate.kopano.io/projects/kopano/kopano-"

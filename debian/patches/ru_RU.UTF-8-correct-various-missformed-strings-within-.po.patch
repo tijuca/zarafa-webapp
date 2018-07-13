@@ -9,7 +9,7 @@ obviously they need to adjusted anyway.
  1 file changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/server/language/ru_RU.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ru_RU.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index dd4b73e..83d17ef 100644
+index c51d212..1b9eb7e 100644
 --- a/server/language/ru_RU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ru_RU.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -25,7 +25,7 @@ index dd4b73e..83d17ef 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Russian\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-06-19 11:59+0200\n"
+ "POT-Creation-Date: 2018-07-02 15:50+0200\n"
 -"PO-Revision-Date: 2013-10-29 05:36+0200\n"
 +"PO-Revision-Date: 2017-10-03 22:26+0200\n"
  "Last-Translator: Ainur <shakirov.aynur@cg.ru>\n"
@@ -43,7 +43,7 @@ index dd4b73e..83d17ef 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5773,8 +5774,8 @@ msgid ""
+@@ -5789,8 +5790,8 @@ msgid ""
  "'%s' has declined your meeting because '%s' does not automatically accept "
  "meeting requests."
  msgstr ""
@@ -54,7 +54,7 @@ index dd4b73e..83d17ef 100644
  
  #, php-format
  msgid ""
-@@ -6005,10 +6006,13 @@ msgid_plural ""
+@@ -6021,10 +6022,13 @@ msgid_plural ""
  "%s occurrences of this recurring appointment conflicts with other "
  "appointments."
  msgstr[0] ""

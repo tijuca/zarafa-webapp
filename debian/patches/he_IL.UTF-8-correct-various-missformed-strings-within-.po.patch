@@ -3,14 +3,14 @@ Date: Tue, 3 Oct 2017 22:12:46 +0200
 Subject: he_IL.UTF-8: correct various missformed strings within *.po file
 
 ---
- .../he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 24 ++++++++++++----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ .../he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 23 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 42ea5fe..1b3218b 100644
+index 7ef0570..65b5ceb 100644
 --- a/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/he_IL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,21 +1,23 @@
+@@ -1,21 +1,22 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,9 +23,8 @@ index 42ea5fe..1b3218b 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Hebrew (Israel)\n"
  "Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2018-06-19 11:59+0200\n"
- "PO-Revision-Date: 2012-06-01 09:31+0200\n"
-+"POT-Creation-Date: 2018-06-19 11:59+0200\n"
+ "POT-Creation-Date: 2018-07-02 15:50+0200\n"
+-"PO-Revision-Date: 2012-06-01 09:31+0200\n"
 +"PO-Revision-Date: 2017-10-03 22:09+0200\n"
  "Last-Translator: Maria <m.ulyashyn@Kopano.com>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +41,7 @@ index 42ea5fe..1b3218b 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5541,7 +5543,7 @@ msgstr "לא ניתן לקבל מידע"
+@@ -5547,7 +5548,7 @@ msgstr "לא ניתן לקבל מידע"
  
  #, php-format
  msgid "Unknown module '%s' with id '%s'"
@@ -51,7 +50,7 @@ index 42ea5fe..1b3218b 100644
  
  msgid ""
  "Server encountered some problem, so it was not able to handle the request."
-@@ -5831,11 +5833,11 @@ msgstr "פגישה פרטית"
+@@ -5847,11 +5848,11 @@ msgstr "פגישה פרטית"
  
  #, php-format
  msgid "%s's Birthday"

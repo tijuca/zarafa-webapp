@@ -7,7 +7,7 @@ Subject: tr_TR.UTF-8: correct plural forms in *.po file
  1 file changed, 15 insertions(+), 9 deletions(-)
 
 diff --git a/server/language/tr_TR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/tr_TR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 700776d..3870d49 100644
+index b490e54..ef6152f 100644
 --- a/server/language/tr_TR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/tr_TR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -23,7 +23,7 @@ index 700776d..3870d49 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Turkish\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-06-19 11:59+0200\n"
+ "POT-Creation-Date: 2018-07-02 15:50+0200\n"
 -"PO-Revision-Date: 2017-01-11 15:00+0000\n"
 +"PO-Revision-Date: 2017-10-03 21:34+0200\n"
  "Last-Translator: Smart <sadi.tanis@smartdata.com.tr>\n"
@@ -41,7 +41,7 @@ index 700776d..3870d49 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -2505,6 +2505,7 @@ msgstr "Tüm öğeleri geri yüklemek istediğinizden emin misiniz?"
+@@ -2512,6 +2512,7 @@ msgstr "Tüm öğeleri geri yüklemek istediğinizden emin misiniz?"
  msgid "Total {0} recoverable item"
  msgid_plural "Total {0} recoverable items"
  msgstr[0] "toplam {0} kurtarılabilir öğe"
@@ -49,7 +49,7 @@ index 700776d..3870d49 100644
  
  msgid "Deleted On"
  msgstr "Sil"
-@@ -5336,6 +5337,7 @@ msgstr "eksik klasörler"
+@@ -5343,6 +5344,7 @@ msgstr "eksik klasörler"
  msgid "The following required folder is missing in the hierarchy: {0}"
  msgid_plural "The following required folders are missing in the hierarchy: {0}"
  msgstr[0] "aşağıdaki gerekli klasör hiyerarşide eksik: {0}"
@@ -57,7 +57,7 @@ index 700776d..3870d49 100644
  
  msgid "Loading model from server failed"
  msgstr "Sunucudan model yüklenmesi başarısız"
-@@ -5712,6 +5714,7 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
+@@ -5719,6 +5721,7 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s effective %s for %s occurences from %s to %s."
  msgstr[0] ""
  "Her {0} gerçekleşir, başlangıç: {1} {2} oluşum var, saat {3} - {4} arası."
@@ -65,7 +65,7 @@ index 700776d..3870d49 100644
  
  # 78%
  # 76%
-@@ -5721,6 +5724,7 @@ msgid "Occurs every %s %s effective %s for %s occurence from %s to %s."
+@@ -5728,6 +5731,7 @@ msgid "Occurs every %s %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s %s effective %s for %s occurences %s to %s."
  msgstr[0] ""
  "Her {0} gerçekleşir, başlangıç: {1} {2} oluşum var, saat {3} - {4} arası."
@@ -73,7 +73,7 @@ index 700776d..3870d49 100644
  
  # 77%
  # 81%
-@@ -6059,7 +6063,7 @@ msgstr "Toplantı isteği reddettilmiyor"
+@@ -6076,7 +6080,7 @@ msgstr "Toplantı isteği reddettilmiyor"
  msgid "Conflicts with another appointment."
  msgstr "bir diğer toplantı ile çelişiyor."
  
@@ -82,7 +82,7 @@ index 700776d..3870d49 100644
  msgid ""
  "%s occurrence of this recurring appointment conflicts with other appointment."
  msgid_plural ""
-@@ -6067,6 +6071,8 @@ msgid_plural ""
+@@ -6084,6 +6088,8 @@ msgid_plural ""
  "appointments."
  msgstr[0] ""
  "Bu yinelenen randevu %s gerçekleşmesi bir diğer randevu ile çakışıyor."
