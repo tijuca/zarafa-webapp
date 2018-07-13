@@ -1,3 +1,15 @@
+kopano-webapp (3.4.17+dfsg1-1) unstable; urgency=medium
+
+  * [d3dbe35] New upstream version 3.4.17+dfsg1
+  * [fb602d7] rebuild patch queue from patch-queue branch
+  * [423df90] update Maintainers to new contact address
+     Updating the Maintainer email address to 
+     pkg-giraffe-maintainers@alioth-lists.debian.net
+  * [05e8fb1] debian/control: increase Standards-Version to 4.1.5
+     No further changes needed.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 13 Jul 2018 20:54:19 +0200
+
 kopano-webapp (3.4.16-1) unstable; urgency=medium
 
   * [5019d3e] uscan: also match minor versions with more than one digest
