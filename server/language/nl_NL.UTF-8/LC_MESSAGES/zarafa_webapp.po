@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 11:59+0200\n"
-"PO-Revision-Date: 2018-06-19 12:25+0000\n"
+"POT-Creation-Date: 2018-07-02 15:50+0200\n"
+"PO-Revision-Date: 2018-07-02 13:47+0000\n"
 "Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
@@ -608,6 +608,12 @@ msgstr "Voeg een folder toe aan favorieten gebaseerd op uw zoekopdracht"
 msgid "Folder name"
 msgstr "Foldernaam"
 
+msgid "Select Category"
+msgstr "Selecteer categorie"
+
+msgid "Apply"
+msgstr "Toepassen"
+
 msgid "All folders are selected"
 msgstr "Alle mappen zijn geselecteerd"
 
@@ -668,6 +674,9 @@ msgstr "Van"
 msgctxt "search.date"
 msgid "To"
 msgstr "Tot"
+
+msgid "Filter category.."
+msgstr "Filteren op categorie.."
 
 msgid "Search.."
 msgstr "Zoeken..."
@@ -1998,9 +2007,6 @@ msgstr "Fout in de bijlage"
 msgid "Manage Categories"
 msgstr "Beheer Categorieën"
 
-msgid "Apply"
-msgstr "Toepassen"
-
 msgid "New"
 msgstr "Nieuw"
 
@@ -2474,10 +2480,8 @@ msgstr "Info"
 msgid "Not supported at the moment."
 msgstr "Op dit moment niet ondersteund."
 
-msgid "There is {0} reminder"
-msgid_plural "There are {0} reminders"
-msgstr[0] "Er is {0} herinnering"
-msgstr[1] "Er zijn {0} herinneringen"
+msgid "There are no reminders"
+msgstr "Er zijn geen herinnering"
 
 # 88%
 msgid "Reminders"
@@ -5899,6 +5903,19 @@ msgstr "Taak is bijgewerkt:"
 
 msgid "Task Completed:"
 msgstr "Taak is Voltooid:"
+
+msgid "Contact not found"
+msgstr "Contact niet gevonden"
+
+msgid ""
+"Contact information could not be displayed because the server \n"
+"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
+"system administrator if the\n"
+"\t\t\t\t\t\t\tproblem persists."
+msgstr ""
+"Contact informatie kan niet worden getoond, omdat de server problemen heeft "
+"met het ophalen van de informatie. Neem contact op met uw "
+"systeemadministrator als het probleem zich blijft voordoet."
 
 msgid "Could not handle this type of object."
 msgstr "Kon dit type object niet behandelen."

@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 11:59+0200\n"
-"PO-Revision-Date: 2018-06-13 09:28+0000\n"
-"Last-Translator: Björn <b.neumann@kopano.com>\n"
+"POT-Creation-Date: 2018-07-02 15:50+0200\n"
+"PO-Revision-Date: 2018-06-29 12:51+0000\n"
+"Last-Translator: Felix <f.bartels@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
 "Language: de_DE\n"
@@ -593,6 +593,12 @@ msgstr "Einen Ordner basierend auf dieser Suche zu den Favoriten hinzufügen"
 msgid "Folder name"
 msgstr "Ordnername"
 
+msgid "Select Category"
+msgstr "Kategorie auswählen"
+
+msgid "Apply"
+msgstr "Übernehmen"
+
 msgid "All folders are selected"
 msgstr "Alle Ordner ausgewählt"
 
@@ -653,6 +659,9 @@ msgstr "Von"
 msgctxt "search.date"
 msgid "To"
 msgstr "Bis"
+
+msgid "Filter category.."
+msgstr "Kategorie filtern.."
 
 msgid "Search.."
 msgstr "Suche in ..."
@@ -1989,9 +1998,6 @@ msgstr "Problem mit dem Anhang"
 msgid "Manage Categories"
 msgstr "Kategorien verwalten"
 
-msgid "Apply"
-msgstr "Übernehmen"
-
 msgid "New"
 msgstr "Neu"
 
@@ -2476,10 +2482,8 @@ msgstr "Informationen"
 msgid "Not supported at the moment."
 msgstr "Wird momentan nicht unterstützt."
 
-msgid "There is {0} reminder"
-msgid_plural "There are {0} reminders"
-msgstr[0] "Es gibt {0} Erinnerung"
-msgstr[1] "Es gibt {0} Erinnerungen"
+msgid "There are no reminders"
+msgstr "Es gibt keine Erinnerungen"
 
 # 88%
 msgid "Reminders"
@@ -5883,6 +5887,20 @@ msgstr "Aufgabe aktualisiert:"
 
 msgid "Task Completed:"
 msgstr "Aufgabe erledigt:"
+
+msgid "Contact not found"
+msgstr "Kontakt wurde nicht gefunden"
+
+msgid ""
+"Contact information could not be displayed because the server \n"
+"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
+"system administrator if the\n"
+"\t\t\t\t\t\t\tproblem persists."
+msgstr ""
+"Kontaktinformationen konnten nicht angezeigt werden da der Server \n"
+"\t\t\t\t\t\t\tProbleme beim Abrufen der Informationen hatte. Bitte "
+"kontaktieren Sie Ihren Systemadministrator\n"
+"\t\t\t\t\t\t\tfalls das Problem erneut auftritt."
 
 msgid "Could not handle this type of object."
 msgstr "Der Typ dieses Objekts konnte nicht verarbeitet werden."
