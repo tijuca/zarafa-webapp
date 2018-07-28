@@ -1,3 +1,10 @@
+kopano-webapp (3.4.19+dfsg1-1) unstable; urgency=medium
+
+  * [06cd21e] New upstream version 3.4.19+dfsg1
+  * [4ffc195] rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 28 Jul 2018 14:12:22 +0800
+
 kopano-webapp (3.4.17+dfsg1-1) unstable; urgency=medium
 
   * [d3dbe35] New upstream version 3.4.17+dfsg1
