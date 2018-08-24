@@ -7,7 +7,7 @@ Subject: sl_SI.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/sl_SI.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/sl_SI.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 075be4b..8d7d7cc 100644
+index 6a338d1..ba92227 100644
 --- a/server/language/sl_SI.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/sl_SI.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -23,7 +23,7 @@ index 075be4b..8d7d7cc 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Slovenian (Slovenia)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-07-02 15:50+0200\n"
+ "POT-Creation-Date: 2018-08-14 11:18+0200\n"
 -"PO-Revision-Date: 2014-12-19 20:00+0200\n"
 +"PO-Revision-Date: 2017-10-05 20:30+0200\n"
  "Last-Translator: Zoran <zolo@intelego.net>\n"

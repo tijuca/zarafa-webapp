@@ -1,45 +1,41 @@
 From: Carsten Schoenert <c.schoenert@t-online.de>
-Date: Fri, 24 Aug 2018 21:23:09 +0200
-Subject: ar_DZ.UTF-8: add minor comment and Project-Id-Version
+Date: Fri, 24 Aug 2018 09:07:12 +0200
+Subject: ar_LY.UTF-8: add minor comment and Project-Id-Version
 
 ---
- .../ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 117 ++++++++++++++++++++-
- 1 file changed, 112 insertions(+), 5 deletions(-)
+ .../ar_LY.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 121 +++++++++++++++++++++
+ 1 file changed, 121 insertions(+)
 
-diff --git a/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 0ecdb00..b1d9fbb 100644
---- a/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
-+++ b/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
-@@ -1,16 +1,23 @@
-+# Kopano Webapp Arabic (Algeria) translation.
+diff --git a/server/language/ar_LY.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ar_LY.UTF-8/LC_MESSAGES/zarafa_webapp.po
+index c783aee..8ca87a5 100644
+--- a/server/language/ar_LY.UTF-8/LC_MESSAGES/zarafa_webapp.po
++++ b/server/language/ar_LY.UTF-8/LC_MESSAGES/zarafa_webapp.po
+@@ -1,3 +1,24 @@
++# Kopano Webapp Arabic (Libya) translation.
 +# Copyright (C) 2018
 +# This file is distributed under the same license as the kopano-webapp package.
 +# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
- msgid ""
- msgstr ""
--"Project-Id-Version: PACKAGE VERSION\n"
-+"Project-Id-Version: Kopano Webapp Arabic (Algeria)\n"
- "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
--"PO-Revision-Date: 2018-07-23 14:50+0200\n"
--"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
--"Language-Team: Moamen Zarkawie <moamen.zarkawie@gmail.com>\n"
-+"PO-Revision-Date: 2018-08-24 20:58+0200\n"
-+"Last-Translator: Moamen Zarkawie <moamen.zarkawie@gmail.com>\n"
-+"Language-Team: Arabic (Algeria) <https://translate.kopano.io/projects/kopano/"
-+"kopano-webapp/ar_DZ/>\n"
- "Language: ar_DZ\n"
- "MIME-Version: 1.0\n"
- "Content-Type: text/plain; charset=UTF-8\n"
- "Content-Transfer-Encoding: 8bit\n"
--"X-Generator: Translate Toolkit 1.13.0\n"
++msgid ""
++msgstr ""
++"Project-Id-Version: Kopano Webapp Arabic (Libya)\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2018-08-14 11:18+0200\n"
++"PO-Revision-Date: 2018-08-24 09:04+0200\n"
++"Last-Translator: Carsten Schoenert <c.schoenert@t-online.de>\n"
++"Language-Team: Arabic (Libya) <https://translate.kopano.io/projects/kopano/kopano-"
++"webapp/ar_LY/>\n"
++"Language: ar_LY\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
 +"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 +"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 +"X-Generator: Poedit 2.1.1\n"
- 
++
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -32,46 +39,82 @@ msgid "{0} byte"
+ msgstr ""
+@@ -18,46 +39,82 @@ msgid "{0} byte"
  msgid_plural "{0} bytes"
  msgstr[0] ""
  msgstr[1] ""
@@ -122,7 +118,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "The quick brown fox jumps over the lazy dog"
  msgstr ""
-@@ -758,22 +801,38 @@ msgid_plural ""
+@@ -744,22 +801,38 @@ msgid_plural ""
  "Occurs every {0} effective {1} for {2} occurences from {3} to {4}."
  msgstr[0] ""
  msgstr[1] ""
@@ -161,7 +157,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Occurs every {0} effective {1} until {2} from {3} to {4}."
  msgstr ""
-@@ -1355,6 +1414,10 @@ msgid "{0} selected item"
+@@ -1340,6 +1413,10 @@ msgid "{0} selected item"
  msgid_plural "{0} selected items"
  msgstr[0] ""
  msgstr[1] ""
@@ -172,7 +168,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "New Appointment"
  msgstr ""
-@@ -1974,6 +2037,10 @@ msgid "There is {0} message selected."
+@@ -1959,6 +2036,10 @@ msgid "There is {0} message selected."
  msgid_plural "There are {0} messages selected."
  msgstr[0] ""
  msgstr[1] ""
@@ -183,7 +179,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Folder '{0}' selected."
  msgstr ""
-@@ -2283,6 +2350,10 @@ msgid "{0} reminder is selected."
+@@ -2268,6 +2349,10 @@ msgid "{0} reminder is selected."
  msgid_plural "{0} reminders are selected."
  msgstr[0] ""
  msgstr[1] ""
@@ -194,7 +190,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Restore Softdeleted Items"
  msgstr ""
-@@ -2315,6 +2386,10 @@ msgid "Total {0} recoverable item"
+@@ -2300,6 +2385,10 @@ msgid "Total {0} recoverable item"
  msgid_plural "Total {0} recoverable items"
  msgstr[0] ""
  msgstr[1] ""
@@ -205,7 +201,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Deleted On"
  msgstr ""
-@@ -2585,6 +2660,10 @@ msgid "{0} selected row"
+@@ -2570,6 +2659,10 @@ msgid "{0} selected row"
  msgid_plural "{0} selected rows"
  msgstr[0] ""
  msgstr[1] ""
@@ -216,7 +212,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Reminder is set on: {0}, {1}"
  msgstr ""
-@@ -3585,6 +3664,10 @@ msgid "There is {0} unread message in the folder {1}"
+@@ -3570,6 +3663,10 @@ msgid "There is {0} unread message in the folder {1}"
  msgid_plural "There are {0} unread messages in the folder {1}"
  msgstr[0] ""
  msgstr[1] ""
@@ -227,7 +223,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "New Mail"
  msgstr ""
-@@ -4891,6 +4974,10 @@ msgid "The following required folder is missing in the hierarchy: {0}"
+@@ -4875,6 +4972,10 @@ msgid "The following required folder is missing in the hierarchy: {0}"
  msgid_plural "The following required folders are missing in the hierarchy: {0}"
  msgstr[0] ""
  msgstr[1] ""
@@ -238,7 +234,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Loading model from server failed"
  msgstr ""
-@@ -5234,24 +5321,40 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
+@@ -5218,24 +5319,40 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s effective %s for %s occurences from %s to %s."
  msgstr[0] ""
  msgstr[1] ""
@@ -279,7 +275,7 @@ index 0ecdb00..b1d9fbb 100644
  
  #, php-format
  msgid "Occurs every %s effective %s until %s from %s to %s."
-@@ -5535,6 +5638,10 @@ msgid_plural ""
+@@ -5519,6 +5636,10 @@ msgid_plural ""
  "appointments."
  msgstr[0] ""
  msgstr[1] ""

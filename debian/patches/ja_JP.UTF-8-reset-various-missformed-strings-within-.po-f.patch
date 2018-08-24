@@ -9,7 +9,7 @@ obviously they need to adjusted anyway.
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 2161ee5..f20775b 100644
+index f54b32b..22fd5c2 100644
 --- a/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ja_JP.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -25,7 +25,7 @@ index 2161ee5..f20775b 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Japanese\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-07-02 15:50+0200\n"
+ "POT-Creation-Date: 2018-08-14 11:18+0200\n"
  "PO-Revision-Date: 2018-02-06 18:06+0000\n"
 @@ -16,7 +16,7 @@ msgstr ""
  "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ index 2161ee5..f20775b 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5585,74 +5585,74 @@ msgstr "新しい日時の提示"
+@@ -5597,74 +5597,74 @@ msgstr "新しい日時の提示"
  # 76%
  #, php-format
  msgid "Occurs every %s effective %s from %s to %s."
@@ -123,7 +123,7 @@ index 2161ee5..f20775b 100644
  
  msgid "Task Accepted:"
  msgstr "タスクの承諾:"
-@@ -5714,7 +5714,7 @@ msgstr ""
+@@ -5726,7 +5726,7 @@ msgstr ""
  msgid ""
  "'%s' has declined your meeting because '%s' does not automatically accept "
  "meeting requests."
