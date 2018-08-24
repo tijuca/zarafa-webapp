@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-02 15:50+0200\n"
-"PO-Revision-Date: 2018-06-29 12:51+0000\n"
-"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"POT-Creation-Date: 2018-08-14 11:18+0200\n"
+"PO-Revision-Date: 2018-08-07 19:29+0000\n"
+"Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
 "Language: de_DE\n"
@@ -961,6 +961,22 @@ msgstr "Kein Termin ausgewählt"
 
 msgid "Calendar"
 msgstr "Kalender"
+
+msgid "Create in other calendar"
+msgstr "In anderem Kalender anlegen"
+
+msgid ""
+"The selected calendar has \"read-only\" permissions. Instead you can create "
+"an item in your own calendar."
+msgstr ""
+"Sie haben auf den ausgewählten Kalender nur Leserechte. Sie können Element "
+"stattdessen in Ihrem eigenen Kalender anlegen."
+
+msgid "What would you like?"
+msgstr "Was möchten Sie?"
+
+msgid "Own calendar"
+msgstr "Eigener Kalender"
 
 msgid "F Y"
 msgstr "F Y"
@@ -3915,12 +3931,11 @@ msgstr ""
 msgid "Welcome to Kopano WebApp"
 msgstr "Willkommen bei Kopano WebApp"
 
-msgid ""
-"This is the first time you are using WebApp. <br />Please check the "
-"following settings before continuing."
-msgstr ""
-"Sie benutzen WebApp zum ersten Mal.<br />Bitte überprüfen Sie die folgenden "
-"Einstellungen bevor Sie fortfahren."
+msgid "This is the first time you are using WebApp. "
+msgstr "Sie verwenden WebApp zum ersten Mal. "
+
+msgid "Please check the following settings before continuing."
+msgstr "Bitte überprüfen Sie die folgenden Einstellungen bevor Sie fortfahren."
 
 msgid "Add widgets"
 msgstr "Alle Widgets"
@@ -4249,8 +4264,8 @@ msgstr "Geplante E-Mails"
 msgid "Your message will be sent at "
 msgstr "Ihre Nachricht wird versandt um "
 
-msgid "Go to your <b>Outbox</b> to edit your email."
-msgstr "Ihre E-Mail kann weiterhin im <b>Postausgang</b> bearbeitet werden."
+msgid "Go to your Outbox to edit your email."
+msgstr "Navigieren Sie zu Ihrem Postausgang um die E-Mail zu bearbeiten."
 
 msgid "hour(s)"
 msgstr "Stunde(n)"
@@ -4461,11 +4476,14 @@ msgstr "Eine neue E-Mail-Nachricht an diesen Empfänger erstellen."
 msgid "Print single e-mail"
 msgstr "Einzelne E-Mail drucken"
 
-msgid "FW"
-msgstr "WG"
+msgid "Filter"
+msgstr "Filter"
 
 msgid "RE"
 msgstr "AW"
+
+msgid "FW"
+msgstr "WG"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4577,9 +4595,6 @@ msgstr "Signatur für Antworten und Weiterleitungen"
 
 msgid "Save Signature"
 msgstr "Signaturen speichern"
-
-msgid "<None>"
-msgstr "<Keine>"
 
 msgid "You have unsaved changes. Do you wish to save the changes?"
 msgstr ""
@@ -5475,12 +5490,6 @@ msgstr "Heute keine Termine."
 #. icons.
 msgid "Today: {1} {0}"
 msgstr "Heute: {1} {0}"
-
-#. TRANSLATORS: {0} is the subject of an
-#. appointment; {1} is the start time, {2} is the
-#. end time, {3} is the html code to display icons.
-msgid "{1}&minus;{2}: {3} {0}"
-msgstr "{1}&minus;{2}: {3} {0}"
 
 msgid "Today's Appointments"
 msgstr "Heutige Termine"

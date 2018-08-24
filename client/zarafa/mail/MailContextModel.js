@@ -132,7 +132,7 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		}
 
 		if (isMultipleItems) {
-			responseRecord.set('subject', _('FW') + ': ');
+			responseRecord.set('subject', '');
 		}
 
 		// If the record we are replying is in other user's store then set delegator info.
@@ -202,10 +202,10 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 				subjectPrefix = _('RE') + ': ';
 				break;
 			case Zarafa.mail.data.ActionTypes.FORWARD:
-			case Zarafa.mail.data.ActionTypes.FORWARD_ATTACH:
 				subjectPrefix = _('FW') + ': ';
 				break;
 			case Zarafa.mail.data.ActionTypes.EDIT_AS_NEW:
+			case Zarafa.mail.data.ActionTypes.FORWARD_ATTACH:
 				subjectPrefix = '';
 				break;
 			default:
@@ -654,6 +654,36 @@ Zarafa.mail.MailContextModel = Ext.extend(Zarafa.core.ContextModel, {
 		});
 		
 		return signatureContent;
+	},
+
+	/**
+	 * Load the store using the given (optional) restriction. if
+	 * {@link Zarafa.core.data.ListModuleStore#hasFilterApplied} then
+	 * set the filter restriction in params and if context is going to switch
+	 * then clear the filter.
+	 * @param {Object} options The options object to load the store with
+	 * @private
+	 */
+	load : function(options)
+	{
+		var store = this.getStore();
+		// suspended is only true when context is going to switch
+		// on context witch if filter is enabled then clear the filter.
+		if (this.suspended && store.hasFilterApplied) {
+			store.stopFilter();
+		} else if(store.hasFilterApplied) {
+			// If user switch folder within the context we have to
+			// persist the filter so, set the filter restriction
+			// in restriction/params object.
+			options = Ext.apply(options || {}, {
+				params : {
+					restriction: {
+						filter: store.getFilterRestriction(Zarafa.common.data.Filters.UNREAD)
+					}
+				}
+			});
+		}
+		Zarafa.mail.MailContextModel.superclass.load.call(this, options);
 	},
 
 	/**
