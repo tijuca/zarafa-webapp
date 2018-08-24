@@ -8,7 +8,7 @@ Comment: The original source tarball is modified by git-buildpackage while
 
 Files: *
 Copyright: 2005-2015 Zarafa B.V. and its licensors <info@zarafa.com>
-           2016-2017 Kopano
+           2016-2018 Kopano
 License: AGPL-3
 
 Files: client/extjs/*
