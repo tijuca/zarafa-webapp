@@ -7,7 +7,7 @@ Subject: nl_NL.UTF-8: correct plural forms in *.po file
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/nl_NL.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/nl_NL.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index d849836..ad730d0 100644
+index 7d77631..9c53811 100644
 --- a/server/language/nl_NL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/nl_NL.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,10 +1,10 @@
@@ -23,8 +23,8 @@ index d849836..ad730d0 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Dutch\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-07-02 15:50+0200\n"
- "PO-Revision-Date: 2018-07-02 13:47+0000\n"
+ "POT-Creation-Date: 2018-08-14 11:18+0200\n"
+ "PO-Revision-Date: 2018-08-08 08:47+0000\n"
 @@ -15,8 +15,8 @@ msgstr ""
  "MIME-Version: 1.0\n"
  "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ index d849836..ad730d0 100644
  
  #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
  msgid "Wk"
-@@ -5856,8 +5856,8 @@ msgstr[1] "Vind elke %s %s plaats vanaf %s voor %s herhalingen van %s tot %s."
+@@ -5865,8 +5865,8 @@ msgstr[1] "Vind elke %s %s plaats vanaf %s voor %s herhalingen van %s tot %s."
  #, php-format
  msgid "Occurs every %s effective %s for %s occurence."
  msgid_plural "Occurs every %s effective %s for %s occurences."
