@@ -703,6 +703,17 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 	 */
 	createRecord : Ext.emptyFn,
 
+	/*
+	 * Check if user has enough permissions to create record in given folder.
+	 * A confirmation message will be raised when user don't have enough permissions
+	 * asking to use default folder instead.
+	 * @param {Function} callback The callback function which will be called once the record gets created.
+	 * @param {Zarafa.core.IPMFolder} folder The target folder in which the new record will be created.
+	 * @param {Zarafa.core.DateRange} dateRange The {@link Zarafa.core.DateRange DateRange} object
+	 * @return {Boolean} true if user has enough permissions, false otherwise.
+	 */
+	checkCreateRights : Ext.emptyFn,
+
 	/**
 	 * Set the {@link Zarafa.core.data.IPMRecord records} which have been
 	 * selected within the {@link Zarafa.core.Context context}. Raise the
@@ -985,7 +996,16 @@ Zarafa.core.ContextModel = Ext.extend(Zarafa.core.data.StatefulObservable, {
 				};
 				options.restriction['start'] = cursor;
 				options.restriction['limit'] = container.getSettingsModel().get('zarafa/v1/main/page_size');
-				this.store.liveScroll({
+				var store = this.store;
+				// If filter was applied already then set the
+				// filter restriction in params.
+				if (store.hasFilterApplied) {
+					var filter = store.getFilterRestriction(Zarafa.common.data.Filters.UNREAD);
+					if (store.hasFilterApplied) {
+						options.restriction['filter'] = filter;
+					}
+				}
+				store.liveScroll({
 					folder : [this.getDefaultFolder()],
 					params : options,
 					add : true
