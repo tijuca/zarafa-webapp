@@ -1,3 +1,32 @@
+kopano-webapp (3.4.20+dfsg1-1) unstable; urgency=medium
+
+  * [38175e2] New upstream version 3.4.20+dfsg1
+  * [17d4e69] rebuild patch queue from patch-queue branch
+    added patches:
+    ar.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_AE.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_BH.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_EG.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_IQ.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_JO.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_KW.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_LB.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_LY.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_MA.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_OM.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_QA.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_SA.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_SD.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_SY.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_TN.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+    ar_YE.UTF-8-add-minor-comment-and-Project-Id-Version.patch
+  * [0476734] debian/control: increase Standards-Version to 4.2.1
+     No further changes needed.
+  * [a0c4364] bump compat and debhelper to version 11
+  * [18682c4] debian/copyright: update copyright information
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 27 Aug 2018 20:18:01 +0200
+
 kopano-webapp (3.4.19+dfsg1-1) unstable; urgency=medium
 
   * [06cd21e] New upstream version 3.4.19+dfsg1
