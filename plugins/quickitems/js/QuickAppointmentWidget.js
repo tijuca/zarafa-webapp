@@ -42,14 +42,10 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 						hideLabel: true,
 						anchor: '100%',
 						items: [{
-							xtype: 'label',
-							width: 100,
-							text: _('Subject') + ':'
-						},{
 							xtype: 'textfield',
 							flex: 1,
 							name: 'subject',
-							value: undefined,
+							emptyText: _('Subject') + ':',
 							listeners: {
 								change : this.onChange,
 								scope : this
@@ -60,19 +56,14 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 						ref: '../datetimePeriod',
 						defaultPeriod: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_appointment_period'),
 						timeIncrement: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_zoom_level'),
-						width: 300,
 						listeners: {
 							change: this.onDateRangeFieldChange,
 							scope: this
 						},
 						startFieldConfig: {
-							fieldLabel: _('Start time'),
-							labelWidth: 100,
 							minValue : new Date().clearTime()
 						},
 						endFieldConfig: {
-							fieldLabel: _('End time'),
-							labelWidth: 100,
 							minValue : new Date().clearTime()
 						}
 					},{
@@ -80,14 +71,12 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 						hideLabel: true,
 						anchor: '100%',
 						items: [{
-							xtype: 'spacer',
-							width: 100
-						},{
 							xtype: 'checkbox',
 							name: 'alldayevent',
 							ref : '../../alldayCheck',
 							hideLabel : false,
 							boxLabel: _('All Day Event'),
+							height: 15,
 							handler: this.onToggleAllDay,
 							scope: this
 						}]
@@ -109,47 +98,19 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 			},
 			buttons : [{
 				text : _('Save'),
+				cls : 'zarafa-action',
+				style: 'padding-bottom: 5px',
 				handler : this.onSave,
 				scope : this
 			},{
 				text : _('Discard'),
+				style: 'padding-bottom: 5px',
 				handler : this.onDiscard,
 				scope : this
 			}]
 		});
 
 		Zarafa.widgets.quickitems.QuickAppointmentWidget.superclass.constructor.call(this, config);
-	},
-
-	/**
-	 * @param {Object} field The field updated field
-	 * @param {Object} value The value of the field updated
-	 * @private
-	 */
-	onChange : function(field, value)
-	{
-		this.wrap.record.set(field.name, value);
-	},
-
-	/**
-	 * Event handler which is triggered when one of the Input fields
-	 * has been changed by the user. It will validate the new value,
-	 * and if correct, will apply it to the {@link Zarafa.core.data.IPMRecord record}.
-	 * @param {Ext.form.Field} field The {@link Ext.form.Field field} which was changed.
-	 * @param {Mixed} newValue The new value
-	 * @param {Mixed} oldValue The old value
-	 * @private
-	 */
-	onBodyChange : function(field, newValue, oldValue)
-	{
-		this.wrap.record.beginEdit();
-		if (field instanceof Ext.form.HtmlEditor) {
-			this.wrap.record.set('isHTML', true);
-		} else {
-			this.wrap.record.set('isHTML', false);
-		}
-		this.wrap.record.set(field.name, newValue);
-		this.wrap.record.endEdit();
 	},
 
 	/**
@@ -250,7 +211,7 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 		var context = container.getContextByName('calendar');
 		var model = context.getModel();
 
-		return model.createRecord(folder);
+		return model.createRecord(undefined, folder);
 	},
 
 	/**
@@ -311,27 +272,6 @@ Zarafa.widgets.quickitems.QuickAppointmentWidget = Ext.extend(Zarafa.widgets.qui
 		this.onToggleAllDay(this.wrap.alldayCheck, this.wrap.alldayCheck.getValue());
 		this.onBodyChange(this.wrap.editorField, this.wrap.editorField.getValue());
 		record.endEdit();
-	},
-
-	/**
-	 * Event handler which is fired when the user pressed the 'Save' button.
-	 * This will call {@link Zarafa.core.ui.MessageContentPanel#saveRecord} to start
-	 * sending the mail.
-	 * @private
-	 */
-	onSave : function()
-	{
-		this.wrap.saveRecord();
-	},
-
-	/**
-	 * Event handler which is fired when the user pressed the 'Disacrd' button.
-	 * This will call {@link #reset} to clear the contents.
-	 * @private
-	 */
-	onDiscard : function()
-	{
-		this.reset();
 	}
 });
 
@@ -339,7 +279,6 @@ Zarafa.onReady(function() {
 	container.registerWidget(new Zarafa.core.ui.widget.WidgetMetaData({
 		name : 'quickappt',
 		displayName : _('Quick Appointment'),
-		iconPath : 'plugins/quickitems/resources/images/quickappt.png',
 		widgetConstructor : Zarafa.widgets.quickitems.QuickAppointmentWidget
 	}));
 });

@@ -385,6 +385,9 @@ if (!defined('DEFAULT_CATEGORIES')) define('DEFAULT_CATEGORIES', json_encode(arr
 // Maximum reminder items we can show on client side.
 if(!defined('MAX_NUM_REMINDERS')) define('MAX_NUM_REMINDERS', 99);
 
+// Shared store polling timer in minutes
+if(!defined('SHARED_STORE_POLLING_INTERVAL')) define('SHARED_STORE_POLLING_INTERVAL', 15);
+
 // Defaults for powerpaste
 if(!defined('POWERPASTE_WORD_IMPORT')) define('POWERPASTE_WORD_IMPORT', 'merge');
 if(!defined('POWERPASTE_HTML_IMPORT')) define('POWERPASTE_HTML_IMPORT', 'merge');
@@ -400,4 +403,9 @@ if(!defined('DEBUG_JSONOUT_GZIP')) define('DEBUG_JSONOUT_GZIP', false);
 if(!defined('DEBUG_PLUGINS')) define('DEBUG_PLUGINS', false);
 if(!defined('DEBUG_PLUGINS_DISABLE_CACHE')) define('DEBUG_PLUGINS_DISABLE_CACHE', false);
 if(!defined('DEBUG_DUMP_FILE')) define('DEBUG_DUMP_FILE', 'debug.txt');
+
+// Defaults for Logger
+if(!defined('LOG_USER_LEVEL')) define('LOG_USER_LEVEL', LOGLEVEL_OFF);
+if(!defined('LOG_USERS')) define('LOG_USERS', '');
+if(!defined('LOG_FILE_DIR')) define('LOG_FILE_DIR', '');
 ?>
