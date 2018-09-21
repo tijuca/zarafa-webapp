@@ -1,3 +1,9 @@
 # source                            # target
 etc/kopano/webapp/config.php        usr/share/kopano-webapp/config.php
 usr/share/common-licenses/LGPL-2.1  usr/share/kopano-webapp/client/tinymce/license.txt
+
+usr/share/fonts/svg/kopanowebapp/KopanoWebAppDings.svg       usr/share/kopano-webapp/client/resources/fonts/KopanoWebAppDings.svg
+usr/share/fonts/eot/kopanowebapp/kopanowebappdings.eot       usr/share/kopano-webapp/client/resources/fonts/kopanowebappdings.eot
+usr/share/fonts/truetype/kopanowebapp/kopanowebappdings.ttf  usr/share/kopano-webapp/client/resources/fonts/kopanowebappdings.ttf
+usr/share/fonts/woff/kopanowebapp/kopanowebappdings.woff     usr/share/kopano-webapp/client/resources/fonts/kopanowebappdings.woff
+usr/share/fonts/woff/kopanowebapp/kopanowebappdings.woff2    usr/share/kopano-webapp/client/resources/fonts/kopanowebappdings.woff2

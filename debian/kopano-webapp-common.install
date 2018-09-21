@@ -14,3 +14,9 @@ deploy/index.php              usr/share/kopano-webapp
 deploy/init.php               usr/share/kopano-webapp
 deploy/robots.txt             usr/share/kopano-webapp
 deploy/kopano.php             usr/share/kopano-webapp
+
+deploy/client/resources/fonts/KopanoWebAppDings.svg   usr/share/fonts/svg/kopanowebapp
+deploy/client/resources/fonts/kopanowebappdings.eot   usr/share/fonts/eot/kopanowebapp
+deploy/client/resources/fonts/kopanowebappdings.ttf   usr/share/fonts/truetype/kopanowebapp
+deploy/client/resources/fonts/kopanowebappdings.woff  usr/share/fonts/woff/kopanowebapp
+deploy/client/resources/fonts/kopanowebappdings.woff2 usr/share/fonts/woff/kopanowebapp
