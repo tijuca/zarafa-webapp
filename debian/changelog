@@ -1,3 +1,13 @@
+kopano-webapp (3.4.22+dfsg1-1) unstable; urgency=medium
+
+  * [d65e82d] New upstream version 3.4.22+dfsg1
+  * [f1056a0] rebuild patch queue from patch-queue branch
+  * [c2bf107] d/kopano-webapp-common: install and use Kopano fonts
+     Installing the Kopano specific fonts into the system folder and linking
+     them into the package again.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 21 Sep 2018 19:43:39 +0200
+
 kopano-webapp (3.4.20+dfsg1-1) unstable; urgency=medium
 
   * [38175e2] New upstream version 3.4.20+dfsg1
