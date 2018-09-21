@@ -7,7 +7,7 @@ Subject: uk_UA.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/uk_UA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/uk_UA.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 2194f00..c7b9803 100644
+index 48606f8..51a67c9 100644
 --- a/server/language/uk_UA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/uk_UA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -23,7 +23,7 @@ index 2194f00..c7b9803 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Ukrainian (Ukraine)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
+ "POT-Creation-Date: 2018-09-17 14:57+0200\n"
 -"PO-Revision-Date: 2012-04-29 15:45+0200\n"
 +"PO-Revision-Date: 2017-10-05 20:33+0200\n"
  "Last-Translator: Igor <Igor_halka@mail.ru>\n"

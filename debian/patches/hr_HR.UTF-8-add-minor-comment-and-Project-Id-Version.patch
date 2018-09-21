@@ -7,7 +7,7 @@ Subject: hr_HR.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 9441a36..3d9758a 100644
+index 332ced4..3845e13 100644
 --- a/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/hr_HR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,23 @@
@@ -23,7 +23,7 @@ index 9441a36..3d9758a 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Croatian (Croatia)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
+ "POT-Creation-Date: 2018-09-17 14:57+0200\n"
 -"PO-Revision-Date: 2012-08-09 07:35+0200\n"
 +"PO-Revision-Date: 2017-10-05 20:01+0200\n"
  "Last-Translator: Tomislav <tomislav.malnar@tzv-gredelj.hr>\n"

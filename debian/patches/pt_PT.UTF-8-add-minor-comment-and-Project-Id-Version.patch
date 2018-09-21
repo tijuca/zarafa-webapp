@@ -7,7 +7,7 @@ Subject: pt_PT.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index df69569..6f87d8b 100644
+index ac84737..8fa6556 100644
 --- a/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/pt_PT.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,8 +1,10 @@
@@ -22,8 +22,8 @@ index df69569..6f87d8b 100644
 -"Project-Id-Version: PHP-Langadmin 1.0\n"
 +"Project-Id-Version: Kopano Webapp Portuguese (Portugal)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
- "PO-Revision-Date: 2018-07-09 09:54+0000\n"
+ "POT-Creation-Date: 2018-09-17 14:57+0200\n"
+ "PO-Revision-Date: 2018-08-20 16:07+0000\n"
 @@ -11,10 +13,10 @@ msgstr ""
  "kopano/kopano-webapp/pt_PT/>\n"
  "Language: pt_PT\n"

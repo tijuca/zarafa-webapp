@@ -7,7 +7,7 @@ Subject: ar_DZ.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 112 insertions(+), 5 deletions(-)
 
 diff --git a/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index 0ecdb00..b1d9fbb 100644
+index e7fa9d5..80ab0ac 100644
 --- a/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ar_DZ.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,16 +1,23 @@
@@ -20,7 +20,7 @@ index 0ecdb00..b1d9fbb 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Arabic (Algeria)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
+ "POT-Creation-Date: 2018-09-17 14:57+0200\n"
 -"PO-Revision-Date: 2018-07-23 14:50+0200\n"
 -"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 -"Language-Team: Moamen Zarkawie <moamen.zarkawie@gmail.com>\n"
@@ -161,7 +161,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Occurs every {0} effective {1} until {2} from {3} to {4}."
  msgstr ""
-@@ -1355,6 +1414,10 @@ msgid "{0} selected item"
+@@ -1316,6 +1375,10 @@ msgid "{0} selected item"
  msgid_plural "{0} selected items"
  msgstr[0] ""
  msgstr[1] ""
@@ -172,7 +172,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "New Appointment"
  msgstr ""
-@@ -1974,6 +2037,10 @@ msgid "There is {0} message selected."
+@@ -1932,6 +1995,10 @@ msgid "There is {0} message selected."
  msgid_plural "There are {0} messages selected."
  msgstr[0] ""
  msgstr[1] ""
@@ -183,7 +183,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Folder '{0}' selected."
  msgstr ""
-@@ -2283,6 +2350,10 @@ msgid "{0} reminder is selected."
+@@ -2241,6 +2308,10 @@ msgid "{0} reminder is selected."
  msgid_plural "{0} reminders are selected."
  msgstr[0] ""
  msgstr[1] ""
@@ -194,7 +194,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Restore Softdeleted Items"
  msgstr ""
-@@ -2315,6 +2386,10 @@ msgid "Total {0} recoverable item"
+@@ -2273,6 +2344,10 @@ msgid "Total {0} recoverable item"
  msgid_plural "Total {0} recoverable items"
  msgstr[0] ""
  msgstr[1] ""
@@ -205,7 +205,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Deleted On"
  msgstr ""
-@@ -2585,6 +2660,10 @@ msgid "{0} selected row"
+@@ -2543,6 +2618,10 @@ msgid "{0} selected row"
  msgid_plural "{0} selected rows"
  msgstr[0] ""
  msgstr[1] ""
@@ -216,7 +216,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Reminder is set on: {0}, {1}"
  msgstr ""
-@@ -3585,6 +3664,10 @@ msgid "There is {0} unread message in the folder {1}"
+@@ -3516,6 +3595,10 @@ msgid "There is {0} unread message in the folder {1}"
  msgid_plural "There are {0} unread messages in the folder {1}"
  msgstr[0] ""
  msgstr[1] ""
@@ -227,7 +227,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "New Mail"
  msgstr ""
-@@ -4891,6 +4974,10 @@ msgid "The following required folder is missing in the hierarchy: {0}"
+@@ -4768,6 +4851,10 @@ msgid "The following required folder is missing in the hierarchy: {0}"
  msgid_plural "The following required folders are missing in the hierarchy: {0}"
  msgstr[0] ""
  msgstr[1] ""
@@ -238,7 +238,7 @@ index 0ecdb00..b1d9fbb 100644
  
  msgid "Loading model from server failed"
  msgstr ""
-@@ -5234,24 +5321,40 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
+@@ -5119,24 +5206,40 @@ msgid "Occurs every %s effective %s for %s occurence from %s to %s."
  msgid_plural "Occurs every %s effective %s for %s occurences from %s to %s."
  msgstr[0] ""
  msgstr[1] ""
@@ -279,7 +279,7 @@ index 0ecdb00..b1d9fbb 100644
  
  #, php-format
  msgid "Occurs every %s effective %s until %s from %s to %s."
-@@ -5535,6 +5638,10 @@ msgid_plural ""
+@@ -5420,6 +5523,10 @@ msgid_plural ""
  "appointments."
  msgstr[0] ""
  msgstr[1] ""

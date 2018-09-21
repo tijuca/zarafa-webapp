@@ -7,7 +7,7 @@ Subject: ar_QA.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 21 insertions(+)
 
 diff --git a/server/language/ar_QA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ar_QA.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index c783aee..c8a77a0 100644
+index 2c6815a..00f5689 100644
 --- a/server/language/ar_QA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ar_QA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,3 +1,24 @@

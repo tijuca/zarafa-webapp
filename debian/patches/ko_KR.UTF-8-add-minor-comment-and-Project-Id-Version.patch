@@ -7,7 +7,7 @@ Subject: ko_KR.UTF-8: add minor comment and Project-Id-Version
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/server/language/ko_KR.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/ko_KR.UTF-8/LC_MESSAGES/zarafa_webapp.po
-index bc38b06..2f25db9 100644
+index 89a313c..6a87573 100644
 --- a/server/language/ko_KR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ b/server/language/ko_KR.UTF-8/LC_MESSAGES/zarafa_webapp.po
 @@ -1,22 +1,22 @@
@@ -23,7 +23,7 @@ index bc38b06..2f25db9 100644
 -"Project-Id-Version: PACKAGE VERSION\n"
 +"Project-Id-Version: Kopano Webapp Korean (Korea)\n"
  "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2018-08-14 11:18+0200\n"
+ "POT-Creation-Date: 2018-09-17 14:57+0200\n"
 -"PO-Revision-Date: 2016-10-06 21:36+0000\n"
 +"PO-Revision-Date: 2017-10-05 20:07+0200\n"
  "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
