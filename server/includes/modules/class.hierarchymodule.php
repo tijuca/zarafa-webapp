@@ -285,26 +285,51 @@
 							case "opensharedfolder":
 								$username = strtolower($action["user_name"]);
 								$store = $GLOBALS["mapisession"]->addUserStore($username);
-								if ($store) {
-									$options = array( $username => array( $action["folder_type"] => $action ));
-									$data = $GLOBALS["operations"]->getHierarchyList($this->list_properties, HIERARCHY_GET_ONE, $store, $options, $username);
-
-									// Check if we have obtained a store, and if that store has read access
-									if (!empty($data["item"][0]["folders"]["item"]) &&
-										// We expect multiple folders, as it should always return the IPM_SUBTREE 
-										// besides the actual opened folder
-										count($data["item"][0]["folders"]["item"]) > 1 && 
-										// Check the second folder as the first one is the IPM_SUBTREE
-										$data["item"][0]["folders"]["item"][1]["props"]["access"] !== 0) {
-										$this->addActionData("list", $data);
-									} else {
-										// Throw an exception that we couldn't open the shared store,
-										// lets have processException() fill in our error message.
-										throw new MAPIException(null, MAPI_E_NO_ACCESS);
-									}
-									$GLOBALS["bus"]->addData($this->getResponseData());
-									$GLOBALS["bus"]->notify(ADDRESSBOOK_ENTRYID,OBJECT_SAVE);
+								if (!$store) {
+									break;
 								}
+
+								$options = array( $username => array( $action["folder_type"] => $action ));
+								$data = $GLOBALS["operations"]->getHierarchyList($this->list_properties, HIERARCHY_GET_ONE, $store, $options, $username);
+
+								if (empty($data["item"][0]["folders"]["item"])) {
+									throw new MAPIException(null, MAPI_E_NO_ACCESS);
+								}
+
+								$folders = count($data["item"][0]["folders"]["item"]);
+								if ($folders === 0) {
+									throw new MAPIException(null, MAPI_E_NO_ACCESS);
+								}
+
+								$noPermissionFolders = array_filter($data['item'][0]['folders']['item'], function($item) {
+									return $item['props']['access'] === 0;
+								});
+								if (count($noPermissionFolders) >= $folders) {
+									// Throw an exception that we couldn't open the shared store,
+									// lets have processException() fill in our error message.
+									throw new MAPIException(null, MAPI_E_NO_ACCESS);
+								}
+
+								$this->addActionData("list", $data);
+								$GLOBALS["bus"]->addData($this->getResponseData());
+								$GLOBALS["bus"]->notify(ADDRESSBOOK_ENTRYID,OBJECT_SAVE);
+								break;
+							case "sharedstoreupdate":
+								$supported_types = ['inbox' => 1, 'all' => 1];
+								$users = $GLOBALS["settings"]->get("zarafa/v1/contexts/hierarchy/shared_stores", []);
+
+								foreach($users as $username => $data) {
+									$key = array_keys($data)[0];
+									$folder_type = $data[$key]['folder_type'];
+
+									if (!isset($supported_types[$folder_type])) {
+										continue;
+									}
+
+									$GLOBALS["bus"]->notify(REQUEST_ENTRYID, HIERARCHY_UPDATE, array($username, $folder_type));
+								}
+
+								$this->sendFeedback(true);
 								break;
 							default:
 								$this->handleUnknownActionType($actionType);

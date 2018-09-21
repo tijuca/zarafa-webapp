@@ -1022,7 +1022,7 @@ Zarafa.calendar.ui.CalendarPanel = Ext.extend(Ext.Panel, {
 	 */
 	createRecordCopy: function (copiedRecord)
 	{
-		var record = this.model.createRecord(undefined, this.getNewDateRange(copiedRecord));
+		var record = this.model.createRecord(undefined, undefined, this.getNewDateRange(copiedRecord));
 		var remainder = copiedRecord.get('reminder');
 
 		// Outlook add's this 0x00000008 and 0x00000080 flags along with auxApptFlagCopied in
@@ -1031,7 +1031,7 @@ Zarafa.calendar.ui.CalendarPanel = Ext.extend(Ext.Panel, {
 		// between original and copied appointment/meeting record in calender.
 		var auxiliaryFlags = Zarafa.core.mapi.AppointmentAuxiliaryFlags.auxApptFlagCopied | 0x00000008 | 0x00000080;
 		Ext.apply(record.data, {
-			'subject' : !copiedRecord.isCopied() ? _('Copy')+":"+copiedRecord.get('subject') : copiedRecord.get('subject'),
+			'subject' : !copiedRecord.isCopied() ? _('Copy')+": "+copiedRecord.get('subject') : copiedRecord.get('subject'),
 			'body' : copiedRecord.get('body'),
 			'location' : copiedRecord.get('location'),
 			'importance' : copiedRecord.get('importance'),

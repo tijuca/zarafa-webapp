@@ -47,26 +47,19 @@ Zarafa.widgets.quickitems.QuickNoteWidget = Ext.extend(Zarafa.widgets.quickitems
 			},
 			buttons : [{
 				text : _('Save'),
+				cls : 'zarafa-action',
+				style: 'padding-bottom: 5px',
 				handler : this.onSave,
 				scope : this
 			},{
 				text : _('Discard'),
+				style: 'padding-bottom: 5px',
 				handler : this.onDiscard,
 				scope : this
 			}]
 		});
 
 		Zarafa.widgets.quickitems.QuickNoteWidget.superclass.constructor.call(this, config);
-	},
-
-	/**
-	 * @param {Object} field The field updated field
-	 * @param {Object} value The value of the field updated
-	 * @private
-	 */
-	onChange : function(field, value)
-	{
-		this.wrap.record.set(field.name, value);
 	},
 
 	/**
@@ -135,27 +128,6 @@ Zarafa.widgets.quickitems.QuickNoteWidget = Ext.extend(Zarafa.widgets.quickitems
 		this.wrap.formPanel.getForm().updateRecord(record);
 		this.record.generateSubject();
 		record.endEdit();
-	},
-
-	/**
-	 * Event handler which is fired when the user pressed the 'Save' button.
-	 * This will call {@link Zarafa.core.ui.MessageContentPanel#saveRecord} to start
-	 * sending the mail.
-	 * @private
-	 */
-	onSave : function()
-	{
-		this.wrap.saveRecord();
-	},
-
-	/**
-	 * Event handler which is fired when the user pressed the 'Disacrd' button.
-	 * This will call {@link #reset} to clear the contents.
-	 * @private
-	 */
-	onDiscard : function()
-	{
-		this.reset();
 	}
 });
 
@@ -163,7 +135,6 @@ Zarafa.onReady(function() {
 	container.registerWidget(new Zarafa.core.ui.widget.WidgetMetaData({
 		name : 'quicknote',
 		displayName : _('Quick Note'),
-		iconPath : 'plugins/quickitems/resources/images/quicknote.png',
 		widgetConstructor : Zarafa.widgets.quickitems.QuickNoteWidget
 	}));
 });

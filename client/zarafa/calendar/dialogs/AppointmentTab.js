@@ -1124,6 +1124,12 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				return;
 			}
 
+			// Workaround for KC-1270, backend should not return
+			// folders with inaccessible parent folder.
+			if (!dataItem.getParentFolder()) {
+				return;
+			}
+
 			var displayString = dataItem.get('display_name');
 			var mapiStore = dataItem.getParentFolder().getMAPIStore();
 
@@ -1186,6 +1192,24 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		createInStore.add(readerData.records);
 		createInStore.applySort();
 		combo.view.bindStore(createInStore);
+
+		// Add tool-tip
+		this.addToolTip(combo);
+	},
+
+	/**
+	 * Helper function which add tool-tip only if text-overflowed.
+	 * @param {Ext.form.ComboBox} combo The combobox which was selected
+	 * @private
+	 */
+	addToolTip : function(combo){
+		var children = combo.innerList.dom.children;
+		for (var i = 0; i < children.length; i++) {
+			// check if text gets overflowed or not
+			if (children[i].offsetWidth < children[i].scrollWidth) {
+				children[i].setAttribute('ext:qtip', children[i].textContent);
+			}
+		}
 	},
 
 	/**

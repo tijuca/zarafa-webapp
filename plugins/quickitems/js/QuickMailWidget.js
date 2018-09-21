@@ -49,7 +49,7 @@ Zarafa.widgets.quickitems.QuickMailWidget = Ext.extend(Zarafa.widgets.quickitems
 						autoHeight: true,
 						items: [{
 							xtype: 'label',
-							width: 100,
+							width: 20,
 							text: _('To') + ':'
 						},{
 							xtype: 'zarafa.recipientfield',
@@ -63,14 +63,10 @@ Zarafa.widgets.quickitems.QuickMailWidget = Ext.extend(Zarafa.widgets.quickitems
 						hideLabel: true,
 						anchor: '100%',
 						items: [{
-							xtype: 'label',
-							width: 100,
-							text: _('Subject') + ':'
-						},{
 							xtype: 'textfield',
 							flex: 1,
 							name: 'subject',
-							value: undefined,
+							emptyText: _('Subject') + ':',
 							listeners: {
 								change : this.onChange,
 								scope : this
@@ -94,47 +90,19 @@ Zarafa.widgets.quickitems.QuickMailWidget = Ext.extend(Zarafa.widgets.quickitems
 			},
 			buttons : [{
 				text : _('Send'),
+				cls : 'zarafa-action',
+				style: 'padding-bottom: 5px',
 				handler : this.onSend,
 				scope : this
 			},{
 				text : _('Discard'),
+				style: 'padding-bottom: 5px',
 				handler : this.onDiscard,
 				scope : this
 			}]
 		});
 
 		Zarafa.widgets.quickitems.QuickMailWidget.superclass.constructor.call(this, config);
-	},
-
-	/**
-	 * @param {Object} field The field updated field
-	 * @param {Object} value The value of the field updated
-	 * @private
-	 */
-	onChange : function(field, value)
-	{
-		this.wrap.record.set(field.name, value);
-	},
-
-	/**
-	 * Event handler which is triggered when one of the Input fields
-	 * has been changed by the user. It will validate the new value,
-	 * and if correct, will apply it to the {@link Zarafa.core.data.IPMRecord record}.
-	 * @param {Ext.form.Field} field The {@link Ext.form.Field field} which was changed.
-	 * @param {Mixed} newValue The new value
-	 * @param {Mixed} oldValue The old value
-	 * @private
-	 */
-	onBodyChange : function(field, newValue, oldValue)
-	{
-		this.wrap.record.beginEdit();
-		if (field instanceof Ext.form.HtmlEditor) {
-			this.wrap.record.set('isHTML', true);
-		} else {
-			this.wrap.record.set('isHTML', false);
-		}
-		this.wrap.record.set(field.name, newValue);
-		this.wrap.record.endEdit();
 	},
 
 	/**
@@ -180,33 +148,22 @@ Zarafa.widgets.quickitems.QuickMailWidget = Ext.extend(Zarafa.widgets.quickitems
 		record.endEdit();
 	},
 
-	/**
-	 * Event handler which is fired when the user pressed the 'Send' button.
-	 * This will call {@link Zarafa.core.ui.MessageContentPanel#sendRecord} to start
-	 * sending the mail.
-	 * @private
-	 */
-	onSend : function()
-	{
-		this.wrap.sendRecord();
-	},
-
-	/**
-	 * Event handler which is fired when the user pressed the 'Disacrd' button.
-	 * This will call {@link #reset} to clear the contents.
-	 * @private
-	 */
-	onDiscard : function()
-	{
-		this.reset();
-	}
+       /**
+        * Event handler which is fired when the user pressed the 'Send' button.
+        * This will call {@link Zarafa.core.ui.MessageContentPanel#sendRecord} to start
+        * sending the mail.
+        * @private
+        */
+       onSend : function()
+       {
+               this.wrap.sendRecord();
+       }
 });
 
 Zarafa.onReady(function() {
 	container.registerWidget(new Zarafa.core.ui.widget.WidgetMetaData({
 		name : 'quickmail',
 		displayName : _('Quick Mail'),
-		iconPath : 'plugins/quickitems/resources/images/quickmail.png',
 		widgetConstructor : Zarafa.widgets.quickitems.QuickMailWidget
 	}));
 });
