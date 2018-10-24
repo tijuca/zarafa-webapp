@@ -4,7 +4,7 @@
 
 include /usr/share/dpkg/pkg-info.mk
 RELEASE := $(DEB_DISTRIBUTION)
-PHP_VERSION = 7.2
+PHP_VERSION = $(shell basename $$(readlink -f /usr/bin/php-config) | sed 's/php-config//g')
 
 %:
 	dh $@ 
