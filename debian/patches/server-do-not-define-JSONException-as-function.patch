@@ -1,0 +1,50 @@
+From: Mark Dufour <m.dufour@kopano.com>
+Date: Mon, 17 Dec 2018 17:52:32 +0100
+Subject: server: do not define JSONException as function
+
+PHP 7.3 now has a builtin "JSONException", so do not define it again
+---
+ server/includes/core/class.webappsession.php       | 2 +-
+ server/includes/exceptions/class.JSONException.php | 2 +-
+ server/includes/util.php                           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/server/includes/core/class.webappsession.php b/server/includes/core/class.webappsession.php
+index 0996edd..de2ee7c 100644
+--- a/server/includes/core/class.webappsession.php
++++ b/server/includes/core/class.webappsession.php
+@@ -156,7 +156,7 @@ class WebAppSession
+ 				// decode JSON data
+ 				$requestJsonString = readData();
+ 				$requestJson = json_decode_data($requestJsonString, true);
+-			}catch(JSONException $e){
++			}catch(ZarafaJSONException $e){
+ 				// Invalid json sent with the request
+ 				// Log the error and do nothing is best option
+ 				dump($e->getDisplayMessage());
+diff --git a/server/includes/exceptions/class.JSONException.php b/server/includes/exceptions/class.JSONException.php
+index 1465956..41315c3 100644
+--- a/server/includes/exceptions/class.JSONException.php
++++ b/server/includes/exceptions/class.JSONException.php
+@@ -7,7 +7,7 @@ require_once(__DIR__ . '/class.ZarafaException.php');
+  * in server/util.php
+  * getCode() method will return actual JSON error constant.
+  */
+-class JSONException extends ZarafaException
++class ZarafaJSONException extends ZarafaException
+ {
+ }
+ ?>
+diff --git a/server/includes/util.php b/server/includes/util.php
+index 08235f6..7fe3bfb 100644
+--- a/server/includes/util.php
++++ b/server/includes/util.php
+@@ -572,7 +572,7 @@
+ 		}
+ 
+ 		if(!empty($errorString)) {
+-			throw new JSONException(sprintf(_("JSON Error: - %s") , $errorString), json_last_error(), null, _("Some problem encountered when encoding/decoding JSON data."));
++			throw new ZarafaJSONException(sprintf(_("JSON Error: - %s") , $errorString), json_last_error(), null, _("Some problem encountered when encoding/decoding JSON data."));
+ 		}
+ 
+ 		return $data;
