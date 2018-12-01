@@ -9,9 +9,19 @@ PHP_VERSION = $(shell basename $$(readlink -f /usr/bin/php-config) | sed 's/php-
 %:
 	dh $@ 
 
+check_php_version:
+	@if [ "x$(PHP_VERSION)" = "x" ]; then \
+		echo "Variable \$$(PHP_VERSION) is empty! Giving up!" ;\
+		exit 99 ;\
+	else \
+		echo "##########################" ;\
+		echo "# Using PHP_VERSION: '$(PHP_VERSION)'" ;\
+		echo "##########################" ;\
+	fi
+
 override_dh_auto_clean:
 
-override_dh_auto_build:
+override_dh_auto_build: check_php_version
 	# now let's build the stuff
 	ant deploy deploy-plugins
 	mkdir $(CURDIR)/debian/tmp
