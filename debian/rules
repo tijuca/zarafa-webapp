@@ -6,6 +6,10 @@ include /usr/share/dpkg/pkg-info.mk
 RELEASE := $(DEB_DISTRIBUTION)
 PHP_VERSION = $(shell basename $$(readlink -f /usr/bin/php-config) | sed 's/php-config//g')
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+endif
+
 %:
 	dh $@ 
 
@@ -23,7 +27,7 @@ override_dh_auto_clean:
 
 override_dh_auto_build: check_php_version
 	# now let's build the stuff
-	ant deploy deploy-plugins
+	make -j$(NUMJOBS)
 	mkdir $(CURDIR)/debian/tmp
 	cp -a $(CURDIR)/deploy $(CURDIR)/debian/tmp/
 	sed -e "s/@version@/$(PHP_VERSION)/g" debian/kopano-webapp-nginx.postinst.in > debian/kopano-webapp-nginx.postinst
