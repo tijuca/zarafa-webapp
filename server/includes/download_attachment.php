@@ -95,6 +95,11 @@ class DownloadAttachment
 	private $isEmbedded;
 
 	/**
+	 * Resource of the shared MAPIStore into which attachments needs to be imported.
+	 */
+	private $otherStore;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -112,6 +117,7 @@ class DownloadAttachment
 		$this->destinationFolder = false;
 		$this->import = false;
 		$this->isEmbedded = false;
+		$this->otherStore = false;
 	}
 
 	/**
@@ -120,6 +126,7 @@ class DownloadAttachment
 	 */
 	public function init($data)
 	{
+		error_log(var_export($data, true));
 		if(isset($data['store'])) {
 			$this->store = sanitizeValue($data['store'], '', ID_REGEX);
 		}
@@ -158,7 +165,7 @@ class DownloadAttachment
 		}
 
 		if(isset($data['attachCid'])) {
-			$this->attachCid = sanitizeValue($data['attachCid'], '', FILENAME_REGEX);
+			$this->attachCid = rawurldecode($data['attachCid']);
 		}
 
 		if(isset($data['AllAsZip'])) {
@@ -182,7 +189,7 @@ class DownloadAttachment
 		if($this->store && $this->entryId) {
 			$this->store = $GLOBALS['mapisession']->openMessageStore(hex2bin($this->store));
 			$this->message = mapi_msgstore_openentry($this->store, hex2bin($this->entryId));
-			
+
 			// Decode smime signed messages on this message
 			parse_smime($this->store, $this->message);
 		}
@@ -195,11 +202,14 @@ class DownloadAttachment
 					$this->destinationFolder = mapi_msgstore_openentry($this->store, hex2bin($this->destinationFolderId));
 				} catch(Exception $e) {
 					// Try to find the folder from shared stores in case if it is not found in current user's store
-					$otherStore = $GLOBALS['operations']->getOtherStoreFromEntryid($this->destinationFolderId);
-					if ($otherStore !== false) {
-						$this->destinationFolder = mapi_msgstore_openentry($otherStore, hex2bin($this->destinationFolderId));
+					$this->otherStore = $GLOBALS['operations']->getOtherStoreFromEntryid($this->destinationFolderId);
+					if ($this->otherStore !== false) {
+						$this->destinationFolder = mapi_msgstore_openentry($this->otherStore, hex2bin($this->destinationFolderId));
 					} else {
-						throw new ZarafaException(_("Destination folder not found."));
+						$this->destinationFolder = mapi_msgstore_openentry($GLOBALS["mapisession"]->getPublicMessageStore(), hex2bin($this->destinationFolderId));
+						if (!$this->destinationFolder) {
+							throw new ZarafaException(_("Destination folder not found."));
+						}
 					}
 				}
 			}
@@ -338,7 +348,7 @@ class DownloadAttachment
 			if(isset($props[PR_ATTACH_MIME_TAG])) {
 				$contentType = $props[PR_ATTACH_MIME_TAG];
 			}
-			
+
 			$contentIsSentAsUTF8 = false;
 			// For ODF files we must change the content type because otherwise
 			// IE<11 cannot properly read it in the xmlhttprequest object
@@ -349,8 +359,8 @@ class DownloadAttachment
 					$contentType = 'text/plain; charset=UTF-8';
 					$contentIsSentAsUTF8 = true;
 				}
-			}	
-			
+			}
+
 			// Set the headers
 			header('Pragma: public');
 			header('Expires: 0'); // set expiration time
@@ -370,7 +380,7 @@ class DownloadAttachment
 			for($i = 0; $i < $stat['cb']; $i += BLOCK_SIZE) {
 				$body .= mapi_stream_read($stream, BLOCK_SIZE);
 			}
-			
+
 			// Convert the content to UTF-8 if we want to send it like that
 			if ( $contentIsSentAsUTF8 ){
 				$body = mb_convert_encoding($body, 'UTF-8');
@@ -387,7 +397,7 @@ class DownloadAttachment
 	public function sendZipResponse($randomZipName)
 	{
 		$subject = isset($this->messageSubject) ? ' '.$this->messageSubject : '';
-		
+
 		// Set the headers
 		header('Pragma: public');
 		header('Expires: 0'); // set expiration time
@@ -455,7 +465,7 @@ class DownloadAttachment
 	 */
 	public function downloadUnsavedAttachment()
 	{
-		// return recently uploaded file 
+		// return recently uploaded file
 		$attachment_state = new AttachmentState();
 		$attachment_state->open();
 
@@ -478,6 +488,40 @@ class DownloadAttachment
 			$file = fopen($tmpname, 'r');
 			fpassthru($file);
 			fclose($file);
+		} else if($fileinfo['sourcetype'] === 'icsfile') {
+			// When "Send to" option used with calendar item. which create the new mail with
+			// ics file as an attachment and now user try to download the ics attachment before saving
+			// mail at that time this code is used to download the ics file successfully.
+			$messageStore = $GLOBALS['mapisession']->openMessageStore(hex2bin($fileinfo['store_entryid']));
+			$message = mapi_msgstore_openentry($messageStore , hex2bin($fileinfo['entryid']));
+
+			// Get address book for current session
+			$addrBook = $GLOBALS['mapisession']->getAddressbook();
+
+			// get message properties.
+			$messageProps = mapi_getprops($message, array(PR_SUBJECT));
+
+			// Read the appointment as RFC2445-formatted ics stream.
+			$appointmentStream = mapi_mapitoical($GLOBALS['mapisession']->getSession(), $addrBook, $message, array());
+
+			$filename = (!empty($messageProps[PR_SUBJECT])) ? $messageProps[PR_SUBJECT] : _('Untitled');
+			$filename .= '.ics';
+			// Set the headers
+			header('Pragma: public');
+			header('Expires: 0'); // set expiration time
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Content-Transfer-Encoding: binary');
+
+			// Set Content Disposition header
+			header('Content-Disposition: ' . $this->contentDispositionType . '; filename="' . addslashes(browserDependingHTTPHeaderEncode($filename)) . '"');
+			// Set content type header
+			header('Content-Type: application/octet-stream');
+
+			// Set the file length
+			header('Content-Length: ' . strlen($appointmentStream));
+
+			$split = str_split($appointmentStream, BLOCK_SIZE);
+			foreach ($split as $s) echo $s;
 		}
 		$attachment_state->close();
 	}
@@ -537,10 +581,53 @@ class DownloadAttachment
 					throw new ZarafaException(_("The vcf attachment is not imported successfully"));
 				}
 				break;
+			case 'vcs':
+			case 'ics':
+				try {
+					// Convert vCalendar 1.0 or iCalendar to a MAPI Appointment
+					$ok = mapi_icaltomapi($GLOBALS['mapisession']->getSession(), $this->store, $addrBook, $newMessage, $attachmentStream, false);
+				} catch(Exception $e) {
+					$destinationFolderProps = mapi_getprops($this->destinationFolder, array(PR_DISPLAY_NAME, PR_MDB_PROVIDER));
+					$fullyQualifiedFolderName = $destinationFolderProps[PR_DISPLAY_NAME];
+					if ($destinationFolderProps[PR_MDB_PROVIDER] === ZARAFA_STORE_PUBLIC_GUID) {
+						$publicStore = $GLOBALS["mapisession"]->getPublicMessageStore();
+						$publicStoreName = mapi_getprops($publicStore, array(PR_DISPLAY_NAME));
+						$fullyQualifiedFolderName .= " - " . $publicStoreName[PR_DISPLAY_NAME];
+					} else if ($destinationFolderProps[PR_MDB_PROVIDER] === ZARAFA_STORE_DELEGATE_GUID) {
+						$sharedStoreOwnerName = mapi_getprops($this->otherStore, array(PR_MAILBOX_OWNER_NAME));
+						$fullyQualifiedFolderName .= " - " . $sharedStoreOwnerName[PR_MAILBOX_OWNER_NAME];
+					}
+
+					$message = sprintf(_("Unable to import '%s' to '%s'. "), $attachmentProps[PR_ATTACH_LONG_FILENAME], $fullyQualifiedFolderName);
+					if ($e->getCode() === MAPI_E_TABLE_EMPTY) {
+						$message .= _("There is no appointment found in this file.");
+					} else if ($e->getCode() === MAPI_E_CORRUPT_DATA) {
+						$message .= _("The file is corrupt.");
+					} else if ($e->getCode() === MAPI_E_INVALID_PARAMETER) {
+						$message .= _("The file is invalid.");
+					} else {
+						$message = sprintf(_("Unable to import '%s'. "), $attachmentProps[PR_ATTACH_LONG_FILENAME]) . _("Please contact your system administrator if the problem persists.");
+					}
+
+					$e = new ZarafaException($message);
+					$e->setTitle(_("Import error"));
+					throw $e;
+				}
+				break;
 		}
 
 		if($ok === true) {
-			mapi_message_savechanges($newMessage);
+			mapi_savechanges($newMessage);
+
+			// Check that record is not appointment record. we have to only convert the
+			// Meeting request record to appointment record.
+			$newMessageProps = mapi_getprops($newMessage, array(PR_MESSAGE_CLASS));
+			if (isset($newMessageProps[PR_MESSAGE_CLASS]) && $newMessageProps[PR_MESSAGE_CLASS] !== 'IPM.Appointment') {
+				// Convert the Meeting request record to proper appointment record so we can
+				// properly show the appointment in calendar.
+				$req = new Meetingrequest($this->store, $newMessage, $GLOBALS['mapisession']->getSession(), ENABLE_DIRECT_BOOKING);
+				$req->doAccept(true, false, false, false,false,false, false, false,false, true);
+			}
 			$storeProps = mapi_getprops($this->store, array(PR_ENTRYID));
 			$destinationFolderProps = mapi_getprops($this->destinationFolder, array(PR_PARENT_ENTRYID, PR_CONTENT_UNREAD));
 
@@ -554,25 +641,31 @@ class DownloadAttachment
 								'success'=> true
 							)
 						)
-					),
-					'hierarchynotifier' => Array(
-						'hierarchynotifier1' => Array(
-							'folders' => Array(
-								'item' => Array(
-									0 => Array(
-										'entryid' => $this->destinationFolderId,
-										'parent_entryid' => bin2hex($destinationFolderProps[PR_PARENT_ENTRYID]),
-										'store_entryid' => bin2hex($storeProps[PR_ENTRYID]),
-										'props' => Array(
-											'content_unread' => $destinationFolderProps[PR_CONTENT_UNREAD] + 1
-										)
+					)
+				)
+			);
+
+			// send hierarchy notification only in case of 'eml'
+			if (pathinfo($attachmentProps[PR_ATTACH_LONG_FILENAME], PATHINFO_EXTENSION) === 'eml') {
+				$hierarchynotifier = Array(
+					'hierarchynotifier1' => Array(
+						'folders' => Array(
+							'item' => Array(
+								0 => Array(
+									'entryid' => $this->destinationFolderId,
+									'parent_entryid' => bin2hex($destinationFolderProps[PR_PARENT_ENTRYID]),
+									'store_entryid' => bin2hex($storeProps[PR_ENTRYID]),
+									'props' => Array(
+										'content_unread' => $destinationFolderProps[PR_CONTENT_UNREAD] + 1
 									)
 								)
 							)
 						)
 					)
-				)
-			);
+				);
+
+				$return['zarafa']['hierarchynotifier'] = $hierarchynotifier;
+			}
 
 			echo json_encode($return);
 		} else {
@@ -581,7 +674,7 @@ class DownloadAttachment
 	}
 
 	/**
-	 * Function will get the embedded attachement and import it to the given MAPIFolder as webapp item.
+	 * Function will get the embedded attachment and import it to the given MAPIFolder as webapp item.
 	 */
 	public function importEmbeddedAttachment()
 	{

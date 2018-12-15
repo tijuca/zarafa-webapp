@@ -1,21 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp Chinese (Taiwan) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp Chinese (Taiwan)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2013-02-18 13:13+0200\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2017-10-05 20:40+0200\n"
 "Last-Translator: Evan <evan@ulink.com.tw>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Chinese (Taiwan) <https://translate.kopano.io/projects/kopano/"
+"kopano-webapp/zh_TW/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.1.6\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
 msgid "Wk"
@@ -962,8 +963,9 @@ msgstr "收件人或副本"
 msgid "Meeting"
 msgstr "會議"
 
+#, fuzzy
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
+msgid "Resources have been planned"
 msgstr "資源已被預約"
 
 msgid ""
@@ -1249,6 +1251,10 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#, fuzzy
+msgid "Location: "
+msgstr "位置"
+
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
 msgstr "l jS F Y"
@@ -1391,6 +1397,13 @@ msgstr "暫定"
 msgid "Decline"
 msgstr "拒絕"
 
+#, fuzzy
+msgid "Send to..."
+msgstr "傳送"
+
+msgid "Export as"
+msgstr ""
+
 # 80%
 # 100%
 #, fuzzy
@@ -1515,29 +1528,6 @@ msgstr ""
 
 msgid "Copy"
 msgstr "複製"
-
-# 89%
-# 100%
-# 84%
-#, fuzzy
-msgid "a meeting request"
-msgstr "新增會議"
-
-# 93%
-# 100%
-# 80%
-#, fuzzy
-msgid "an appointment"
-msgstr "新增約會"
-
-msgid "Insufficient privileges"
-msgstr ""
-
-# 79%
-# 100%
-#, fuzzy
-msgid "You have insufficient privileges to move "
-msgstr "您沒有足夠的權限複製資料夾"
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1757,7 +1747,7 @@ msgstr ""
 msgid "Import error"
 msgstr "重要的"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr ""
 
 msgid "Cc"
@@ -1846,7 +1836,12 @@ msgstr "空的資料夾"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
+msgstr ""
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
 msgstr ""
 
 msgid "Attachment error"
@@ -2010,6 +2005,10 @@ msgstr ""
 msgid "Permission"
 msgstr "權限"
 
+#, fuzzy
+msgid "Duplicate delegate"
+msgstr "拒絕會議邀請"
+
 msgid "Delegate already exists in the list."
 msgstr "代理人在列表中已經存在"
 
@@ -2033,6 +2032,9 @@ msgid "Folder '{0}' selected."
 msgstr "選擇了 '{0}' 資料夾"
 
 msgid "Do not show this message again."
+msgstr ""
+
+msgid "ICS"
 msgstr ""
 
 #, fuzzy
@@ -2323,12 +2325,17 @@ msgid "Not supported at the moment."
 msgstr "此時不支援"
 
 #, fuzzy
-msgid "There are no reminders"
-msgstr "有 {0} 提醒"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "有 {0} 提醒"
 
 # 88%
 msgid "Reminders"
 msgstr "提醒"
+
+#, fuzzy
+msgid "There are no reminders"
+msgstr "有 {0} 提醒"
 
 msgid "Due In"
 msgstr "到期於"
@@ -2539,6 +2546,9 @@ msgstr "When the message"
 msgid "Do the following"
 msgstr "Do the following"
 
+msgid "Apply only when Out of Office is active"
+msgstr ""
+
 msgid "Stop processing more rules"
 msgstr "Stop processing more rules"
 
@@ -2564,6 +2574,10 @@ msgstr "沒有規則存在"
 
 msgid "Active"
 msgstr "啟動"
+
+#, fuzzy
+msgid "Out of office"
+msgstr "不在辦公室"
 
 # 80%
 msgid "Rule"
@@ -3289,9 +3303,6 @@ msgstr "群組"
 msgid "Work"
 msgstr "工作"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Sort by: Full Name"
 msgstr "依全名排序"
 
@@ -3578,12 +3589,9 @@ msgstr "切換檢視"
 msgid "Widgets"
 msgstr "新增小工具"
 
-msgid "Sending"
+#, fuzzy
+msgid "Sending..."
 msgstr "傳送中"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "已傳送"
 
 msgid "Sent successfully"
 msgstr "傳送成功"
@@ -3664,6 +3672,25 @@ msgstr "新增小工具"
 
 msgid "No widgets installed."
 msgstr "沒有安裝小工具"
+
+msgid "Configure widget"
+msgstr "配置工具"
+
+#, fuzzy
+msgid "Remove widget"
+msgstr "移除"
+
+#, fuzzy
+msgid "Collapse widget"
+msgstr "無法讀取階層"
+
+#, fuzzy
+msgid "Expand widget"
+msgstr "新增小工具"
+
+#, fuzzy
+msgid "Add new widget"
+msgstr "新增小工具"
 
 msgid "Collapse widget panel"
 msgstr ""
@@ -3875,6 +3902,19 @@ msgstr "顯示子資料夾"
 msgid "Open shared folder/store"
 msgstr ""
 
+#, fuzzy
+msgid "Empty folder"
+msgstr "空的資料夾"
+
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "垃圾郵件"
+
+# 92%
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "刪除郵件"
+
 msgid "Rename Folder"
 msgstr "重新命名資料夾"
 
@@ -3886,15 +3926,6 @@ msgstr "標記所有郵件為讀取"
 
 msgid "Delete Folder"
 msgstr "刪除資料夾"
-
-#, fuzzy
-msgid "Empty Junk E-mail"
-msgstr "垃圾郵件"
-
-# 92%
-#, fuzzy
-msgid "Empty Deleted Items"
-msgstr "刪除郵件"
 
 msgid "Close store"
 msgstr "關閉收存"
@@ -3929,6 +3960,12 @@ msgstr "開始資料夾"
 #, fuzzy
 msgid "Import emails"
 msgstr "重要的"
+
+# 93%
+# 100%
+#, fuzzy
+msgid "Import appointments"
+msgstr "新增約會"
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -3968,6 +4005,10 @@ msgstr "依重要性排序"
 
 msgid "Sort by: To"
 msgstr "依收件者排序"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "已傳送"
 
 msgid "Red"
 msgstr "紅色"
@@ -4091,6 +4132,9 @@ msgstr "顯示寄件者"
 msgid "No signatures configured"
 msgstr "沒有設定簽名檔"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr ""
+
 msgid "E-Mail Flags"
 msgstr "電子郵件旗標"
 
@@ -4162,11 +4206,11 @@ msgstr "列印此任務"
 msgid "Filter"
 msgstr ""
 
-msgid "RE"
-msgstr "回覆"
-
 msgid "FW"
 msgstr "轉寄"
+
+msgid "RE"
+msgstr "回覆"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4179,6 +4223,10 @@ msgstr "編輯郵件設定"
 
 msgid "Compose mail in this format"
 msgstr "編輯郵件格式"
+
+#, fuzzy
+msgid "Editor"
+msgstr "編輯"
 
 msgid "Default font"
 msgstr "預設字型"
@@ -4460,6 +4508,10 @@ msgstr "回復預設值"
 msgid "Delete settings"
 msgstr "刪除設定"
 
+#, fuzzy
+msgid "{0} Iconset"
+msgstr "圖示"
+
 msgid "About"
 msgstr "關於"
 
@@ -4470,6 +4522,18 @@ msgid "Short"
 msgstr ""
 
 msgid "Long"
+msgstr ""
+
+# 88%
+#, fuzzy
+msgid "Favorite settings"
+msgstr "刪除設定"
+
+#, fuzzy
+msgid "Hide favorites"
+msgstr "我的最愛"
+
+msgid "Unpin favorites from top"
 msgstr ""
 
 msgid "Inbox navigation"
@@ -4833,6 +4897,10 @@ msgstr "依開始日期排序"
 msgid "Sort by: Owner"
 msgstr "依擁有者排序"
 
+#, fuzzy
+msgid "Sort by: Percentage Completed"
+msgstr "依完成百分比排序"
+
 msgid "Loading tasks"
 msgstr "載入任務中"
 
@@ -4855,56 +4923,39 @@ msgstr "更新列表"
 msgid "D d-m-Y"
 msgstr "d-m-Y"
 
-msgid "Improved categories"
+#, fuzzy
+msgid "Import / Export"
+msgstr "重要的"
+
+msgid ""
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
+msgstr ""
+
+msgid "Exporting can be done from the context menu of an item."
+msgstr ""
+
+#, fuzzy
+msgid "Icon packs"
+msgstr "圖示"
+
+msgid ""
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
 
-msgid "Flag item for follow up"
-msgstr ""
-
-msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
-msgstr ""
-
-msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-
-msgid "Transformation of flags into follow-ups and categories"
-msgstr ""
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-
-msgid "Search folders"
-msgstr ""
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
+msgid "Left: Breeze - Right: Classic"
 msgstr ""
 
 msgid "What's new"
@@ -5055,26 +5106,61 @@ msgstr "傳送傳真"
 msgid "Contact Fax"
 msgstr ""
 
-msgid "Configure widget"
-msgstr "配置工具"
+#, fuzzy
+msgid "Widget height"
+msgstr "新增小工具"
+
+msgid "pixels"
+msgstr ""
 
 msgid "Reload interval"
 msgstr ""
 
-msgid "seconds."
+msgid "seconds"
 msgstr ""
 
-msgid "No appointments for today."
-msgstr "今日沒有約會"
+#, fuzzy
+msgid "Loading appointments..."
+msgstr "載入會議中"
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
+# 93%
+# 100%
+#, fuzzy
+msgid "No appointments"
+msgstr "新增約會"
+
+msgid "Number of days"
+msgstr ""
+
+#, fuzzy
+msgid "Today {0} - {1}"
 msgstr "今日: {1} {0}"
 
-msgid "Today's Appointments"
-msgstr "今天的約會"
+msgid "Today (all day)"
+msgstr ""
+
+# 100%
+#, fuzzy
+msgid "{0} - {1}"
+msgstr "{0} 在 {1}"
+
+#, fuzzy
+msgid "d/m/y G:i"
+msgstr "l d/m/Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "d/m/y"
+msgstr "d/m/Y"
+
+#, fuzzy
+msgid "Upcoming Appointments"
+msgstr "載入會議中"
+
+msgid "Datepicker"
+msgstr ""
 
 msgid "No unread mail."
 msgstr "沒有未讀郵件"
@@ -5084,6 +5170,9 @@ msgstr "未讀郵件"
 
 msgid "No tasks."
 msgstr "沒有任務"
+
+msgid "Tasks / To-Do"
+msgstr ""
 
 msgid "Google Maps"
 msgstr "Google地圖"
@@ -5112,6 +5201,9 @@ msgstr "選擇其他的資料夾"
 
 msgid "E-mails are moved to {0}"
 msgstr "E-mails搬移到{0}"
+
+msgid "Open in new tab"
+msgstr ""
 
 msgid "Quick Appointment"
 msgstr "新增約會"
@@ -5311,6 +5403,28 @@ msgstr ""
 msgid "The vcf attachment is not imported successfully"
 msgstr ""
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr ""
+
+#, fuzzy
+msgid "There is no appointment found in this file."
+msgstr "此約會在過去的時間發生"
+
+msgid "The file is corrupt."
+msgstr ""
+
+#, fuzzy
+msgid "The file is invalid."
+msgstr "{0} 不是一個有效的時間"
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr ""
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5451,10 +5565,8 @@ msgid "Contact not found"
 msgstr ""
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 
 msgid "Could not handle this type of object."
@@ -5468,6 +5580,29 @@ msgstr "無法開啟事件"
 
 msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr "無法開啟事件,此事件已被刪除"
+
+# 89%
+# 100%
+# 84%
+#, fuzzy
+msgid "a meeting request"
+msgstr "新增會議"
+
+# 93%
+# 100%
+# 80%
+#, fuzzy
+msgid "an appointment"
+msgstr "新增約會"
+
+# 79%
+# 100%
+#, fuzzy
+msgid "You have insufficient privileges to move "
+msgstr "您沒有足夠的權限複製資料夾"
+
+msgid "Insufficient privileges"
+msgstr ""
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

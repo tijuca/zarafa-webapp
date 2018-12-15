@@ -16,23 +16,23 @@ Zarafa.mail.printer.MailRenderer = Ext.extend(Zarafa.common.printer.renderers.Re
 	 */
 	generateBodyTemplate: function(record) {
 		var html = '';
-		html += '<b>{fullname:htmlEncode}</b>\n';
+		html += '<b>{fullname}</b>\n';
 		html += '<hr>\n';
 		html += '<table>\n';
-		html += this.addRow(_('From'), '{formatted_from:htmlEncode}');
+		html += this.addRow(_('From'), '{formatted_from}');
 		// # TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 		html += this.addRow(_('Sent'), '{message_delivery_time:date("' + _("l jS F Y G:i") + '")}');
-		html += this.optionalRow(_('To'), 'display_to', '{formatted_to:htmlEncode}');
-		html += this.optionalRow(_('Cc'), 'display_cc', '{formatted_Cc:htmlEncode}');
-		html += this.optionalRow(_('Bcc'), 'display_bcc', '{formatted_Bcc:htmlEncode}');
-		html += this.addRow(_('Subject'), '{subject:htmlEncode}');
+		html += this.optionalRow(_('To'), 'display_to', '{formatted_to}');
+		html += this.optionalRow(_('Cc'), 'display_cc', '{formatted_Cc}');
+		html += this.optionalRow(_('Bcc'), 'display_bcc', '{formatted_Bcc}');
+		html += this.addRow(_('Subject'), '{subject}');
 		html += this.addRow('', '');   // separator
 		html += this.optionalRow(_('Sensitivity'), 'sensitivity', '{sensitivity:sensitivityString}');
 		html += this.optionalRow(_('Importance'), 'importance', '{importance:importanceString}');
 		html += '<tpl if="!Ext.isEmpty(values.sensitivity) || !Ext.isEmpty(values.importance)">';
 		html += this.addRow('', '');   // separator
 		html += '</tpl>';
-		html += this.optionalRow(_('Attachments'), 'attachment_names', '{attachment_names:htmlEncode}');
+		html += this.optionalRow(_('Attachments'), 'attachment_names', '{attachment_names}');
 		html += '</table><br><p>\n';
 		// Strip tags such as {foo.bar}, otherwise they will be interpreted as XTemplate tag.
 		// Strip line separator and paragraph separator, since they break JavaScript strings which breaks XTemplate's eval().

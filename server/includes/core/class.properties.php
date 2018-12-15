@@ -182,8 +182,6 @@
 				$properties["meetingtype"] = "PT_LONG:PSETID_Meeting:0x26";
 				$properties["timezone_data"] = "PT_BINARY:PSETID_Appointment:0x8233";
 				$properties["timezone"] = "PT_STRING8:PSETID_Appointment:0x8234";
-				$properties["toattendeesstring"] = "PT_STRING8:PSETID_Appointment:0x823B";
-				$properties["ccattendeesstring"] = "PT_STRING8:PSETID_Appointment:0x823C";
 
 				$this->mapping[$this->storeMapping]['meeting'] = getPropIdsFromStrings($this->store, $properties);
 			}
@@ -208,7 +206,8 @@
 	  			$properties["message_class"] = PR_MESSAGE_CLASS;
 				$properties["message_flags"] = PR_MESSAGE_FLAGS;
 	  			$properties["icon_index"] = PR_ICON_INDEX;
-	  			$properties["subject"] = PR_SUBJECT;
+				$properties["normalized_subject"] = PR_NORMALIZED_SUBJECT;
+				$properties["subject"] = PR_SUBJECT;
 	  			$properties["display_to"] = PR_DISPLAY_TO;
 	  			$properties["display_cc"] = PR_DISPLAY_CC;
 	  			$properties["display_bcc"] = PR_DISPLAY_BCC;

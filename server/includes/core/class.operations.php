@@ -40,8 +40,8 @@
 		* @param array $properties MAPI property mapping for folders
 		* @param int $type Which stores to fetch (HIERARCHY_GET_ALL | HIERARCHY_GET_DEFAULT | HIERARCHY_GET_ONE)
 		* @param object $store Only when $type == HIERARCHY_GET_ONE
-		* @param array $storeOptions Only whe $type == HIERARCHY_GET_ONE, this overrides the  loading options which is normally
-		* obtained frrom the settings for loading the store (e.g. only load calendar).
+		* @param array $storeOptions Only when $type == HIERARCHY_GET_ONE, this overrides the  loading options which is normally
+		* obtained from the settings for loading the store (e.g. only load calendar).
 		* @param String $username The username
 		*
 		* @return array Return structure
@@ -126,7 +126,7 @@
 					$inbox = mapi_msgstore_getreceivefolder($store);
 					$inboxProps = mapi_getprops($inbox, array(PR_ENTRYID));
 				} catch (MAPIException $e) {
-					// don't propogate this error to parent handlers, if store doesn't support it
+					// don't propagate this error to parent handlers, if store doesn't support it
 					if($e->getCode() === MAPI_E_NO_SUPPORT) {
 						$e->setHandled();
 					}
@@ -725,10 +725,10 @@
 		function getFavoriteLinkedFolderProps($linkMessageProps)
 		{
 			// In webapp we use IPM_SUBTREE as root folder for the Hierarchy but OL is use IMsgStore as a
-			// Root folder. OL never mark favorites to IPM_SUBTREE. so to make favorites compatible with OL
+			// Root folder. OL never mark favorites to IPM_SUBTREE. So to make favorites compatible with OL
 			// we need this check.
-			// Here we check PR_WLINK_STORE_ENTRYID and PR_WLINK_ENTRYID is same. which same only in one case
-			// where some user has mark favorites to root(Inbox-<user name>) folder from OL. so here if condition
+			// Here we check PR_WLINK_STORE_ENTRYID and PR_WLINK_ENTRYID is same. Which same only in one case
+			// where some user has mark favorites to root(Inbox-<user name>) folder from OL. So here if condition
 			// gets true we get the IPM_SUBTREE and send it to response as favorites folder to webapp.
 			if($GLOBALS['entryid']->compareEntryIds($linkMessageProps[PR_WLINK_STORE_ENTRYID], $linkMessageProps[PR_WLINK_ENTRYID])) {
 				$storeObj = $GLOBALS["mapisession"]->openMessageStore($linkMessageProps[PR_WLINK_STORE_ENTRYID]);
@@ -1329,9 +1329,11 @@
 		 * @param string $entryid The entryid of the folder which will be emptied
 		 * @param array $folderProps reference to an array which will be filled with PR_ENTRYID and PR_STORE_ENTRYID of the emptied folder
 		 * @param Boolean $hardDelete flag to indicate if messages will be hard deleted and can not be recoved using restore soft deleted items
+		 * @param Boolean $emptySubFolders true to remove all messages with child folders of selected folder else false will
+		 * remove only message of selected folder.
 		 * @return boolean true if action succeeded, false if not
 		 */
-		function emptyFolder($store, $entryid, &$folderProps, $hardDelete = false)
+		function emptyFolder($store, $entryid, &$folderProps, $hardDelete = false, $emptySubFolders = true)
 		{
 			$result = false;
 			$folder = mapi_msgstore_openentry($store, $entryid);
@@ -1343,7 +1345,22 @@
 					$flag |= DELETE_HARD_DELETE;
 				}
 
-				$result = mapi_folder_emptyfolder($folder, $flag);
+				if($emptySubFolders) {
+					$result = mapi_folder_emptyfolder($folder, $flag);
+				} else {
+					// Delete all items of selected folder without 
+					// removing child folder and it's content.
+					// FIXME: it is effecting performance because mapi_folder_emptyfolder function not provide facility to
+					// remove only selected folder items without touching child folder and it's items.
+					// for more check KC-1268
+					$table = mapi_folder_getcontentstable($folder, MAPI_DEFERRED_ERRORS);
+					$rows = mapi_table_queryallrows($table, array(PR_ENTRYID));
+					$messages = array();
+					foreach ($rows as $row) {
+						array_push($messages, $row[PR_ENTRYID]);
+					}
+					$result = mapi_folder_deletemessages($folder, $messages, $flag);
+				}
 
 				// Update freebusy in case we just emptied the calendar folder
 				$GLOBALS["operations"]->publishFreeBusy($store, $entryid);
@@ -1469,7 +1486,7 @@
 				$data["item"] = array();
 
 				/**
-				 * Retrieving the entries should be done in batches to prevent large ammounts of
+				 * Retrieving the entries should be done in batches to prevent large amounts of
 				 * items in one list clogging up the memory limit. This is especially important when
 				 * dealing with contactlists in the addressbook. Those lists can contain 10K items.
 				 */
@@ -1737,8 +1754,8 @@
 		}
 
 		/**
-		 * Get the email address either from entryid or search key. function is helpful
-		 * to reqtrive the email address of already deleted contact which is use as a
+		 * Get the email address either from entryid or search key. Function is helpful
+		 * to retrieve the email address of already deleted contact which is use as a
 		 * recipient in message.
 		 *
 		 * @param String $entryId The entryId of an item/recipient.
@@ -2132,7 +2149,7 @@
 									$isReminderTimeAllowed = $recurrence->isValidReminderTime($basedate, $action['props']['reminder_minutes'], $action['props']['startdate']);
 								}
 
-								// As the reminder minutes occurs before other occurences don't modify the item.
+								// As the reminder minutes occurs before other occurrences don't modify the item.
 								if($isReminderTimeAllowed){
 									if($recurrence->isException($basedate)){
 										$oldProps = $recurrence->getExceptionProperties($recurrence->getChangeException($basedate));
@@ -2156,7 +2173,7 @@
 							// Check if the meeting is recurring
 							if($recips && $recurrenceProps[$properties["recurring"]] && isset($recurrenceProps[$properties['startdate_recurring']]) && isset($recurrenceProps[$properties['enddate_recurring']])) {
 								// If recipient of meeting is modified than that modification needs to be applied
-								// to reccurring exception as well, if any.
+								// to recurring exception as well, if any.
 								$exception_recips = array();
 								if (isset($recips['add'])) {
 									$exception_recips['add'] = $this->createRecipientList($recips['add'], 'add', true, true);
@@ -2771,8 +2788,9 @@
 
 			switch($msgprops[PR_MDB_PROVIDER]){
 				case ZARAFA_STORE_DELEGATE_GUID:
+					$softDelete = $softDelete || defined('ENABLE_DEFAULT_SOFT_DELETE') ? ENABLE_DEFAULT_SOFT_DELETE : false;
 					// with a store from an other user we need our own waste basket...
-					if(isset($msgprops[PR_IPM_WASTEBASKET_ENTRYID]) && $msgprops[PR_IPM_WASTEBASKET_ENTRYID] == $parententryid || $softDelete == true) {
+					if(isset($msgprops[PR_IPM_WASTEBASKET_ENTRYID]) && $msgprops[PR_IPM_WASTEBASKET_ENTRYID] == $parententryid || $softDelete) {
 						// except when it is the waste basket itself
 						$result = mapi_folder_deletemessages($folder, $entryids);
 					}else{
@@ -3138,6 +3156,43 @@
 
 						// save changes in the embedded message and the final attachment
 						mapi_savechanges($imessage);
+						mapi_savechanges($attachment);
+					} elseif ($fileinfo['sourcetype'] === 'icsfile') {
+						$messageStore = $GLOBALS['mapisession']->openMessageStore(hex2bin($fileinfo['store_entryid']));
+						$copyFrom = mapi_msgstore_openentry($messageStore , hex2bin($fileinfo['entryid']));
+
+						// Get addressbook for current session
+						$addrBook = $GLOBALS['mapisession']->getAddressbook();
+
+						// get message properties.
+						$messageProps = mapi_getprops($copyFrom, array(PR_SUBJECT));
+
+						// Read the appointment as RFC2445-formatted ics stream.
+						$appointmentStream = mapi_mapitoical($GLOBALS['mapisession']->getSession(), $addrBook, $copyFrom, array());
+
+						$filename = (!empty($messageProps[PR_SUBJECT])) ? $messageProps[PR_SUBJECT] : _('Untitled');
+						$filename .= '.ics';
+
+						$props = Array(
+							PR_ATTACH_LONG_FILENAME => $filename,
+							PR_DISPLAY_NAME => $filename,
+							PR_ATTACH_METHOD => ATTACH_BY_VALUE,
+							PR_ATTACH_DATA_BIN => "",
+							PR_ATTACH_MIME_TAG => "application/octet-stream",
+							PR_ATTACHMENT_HIDDEN => false,
+							PR_EC_WA_ATTACHMENT_ID => isset($fileinfo["attach_id"]) && !empty($fileinfo["attach_id"]) ? $fileinfo["attach_id"] : uniqid(),
+							PR_ATTACH_EXTENSION => pathinfo($filename, PATHINFO_EXTENSION)
+						);
+
+						$attachment = mapi_message_createattach($message);
+						mapi_setprops($attachment, $props);
+
+						// Stream the file to the PR_ATTACH_DATA_BIN property
+						$stream = mapi_openproperty($attachment, PR_ATTACH_DATA_BIN, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
+						mapi_stream_write($stream, $appointmentStream);
+
+						// Commit the stream and save changes
+						mapi_stream_commit($stream);
 						mapi_savechanges($attachment);
 					} else {
 						$filepath = $attachment_state->getAttachmentPath($tmpname);
@@ -3508,7 +3563,8 @@
 
 						// Get the SMTP address from the addressbook if no address is found
 						if(empty($props['smtp_address']) && $recipientRow[PR_ADDRTYPE] == 'ZARAFA') {
-							$props['smtp_address'] = $this->getEmailAddress($recipientRow[PR_ENTRYID], $recipientRow[PR_SEARCH_KEY]);
+							$recipientSearchKey = isset($recipientRow[PR_SEARCH_KEY]) ? $recipientRow[PR_SEARCH_KEY] : false;
+							$props['smtp_address'] = $this->getEmailAddress($recipientRow[PR_ENTRYID], $recipientSearchKey);
 						}
 					}
 
@@ -3516,6 +3572,12 @@
 					// value of email address is copied into smtp address.
 					if($props['address_type'] == 'SMTP' && empty($props['smtp_address'])) {
 						$props['smtp_address'] = $props['email_address'];
+					}
+
+					// PST importer imports items without an entryid and as SMTP recipient, this causes issues for
+					// opening meeting requests with removed users as recipient.
+					if (empty($props['entryid']) && $props['address_type'] === 'SMTP') {
+						$props['entryid'] = bin2hex(mapi_createoneoff($props['display_name'], $props['address_type'], $props['email_address'], MAPI_UNICODE));
 					}
 
 					// Set propose new time properties
@@ -3890,7 +3952,7 @@
 		/**
 		 * Parse reply-to value from PR_REPLY_RECIPIENT_ENTRIES property
 		 * @param string $flatEntryList the PR_REPLY_RECIPIENT_ENTRIES value
-		 * @return array list of recipients in XML array structure
+		 * @return array list of recipients in array structure
 		 */
 		function readReplyRecipientEntry($flatEntryList)
 		{
@@ -3915,7 +3977,7 @@
 				// Obtain the size for the current entry
 				$size = unpack('a' . $position . '/V1cb/a*', $flatEntryList);
 
-				// We have the size, now can can obtain the bytes
+				// We have the size, now can obtain the bytes
 				$entryid = unpack('a' . $position . '/V1cb/a' . $size['cb'] . 'entryid/a*', $flatEntryList);
 
 				// unpack() will remove the NULL characters, readd
@@ -3933,7 +3995,19 @@
 			$recipients = Array();
 			foreach ($entryids as $entryid)
 			{
-				$entry = mapi_ab_openentry($addressbook, $entryid);
+				// Check if entryid extracted, since unpack errors can not be catched.
+				if (!$entryid) {
+					continue;
+				}
+
+				// Handle malformed entryid's
+				try {
+					$entry = mapi_ab_openentry($addressbook, $entryid);
+				} catch (MAPIException $e) {
+					Log::Write(LOGLEVEL_WARN, "readReplyRecipientEntry unable to open AB entry: " . get_mapi_error_name($e->getCode()), $e->getDisplayMessage());
+					continue;
+				}
+
 				$props = mapi_getprops($entry, array( PR_ENTRYID, PR_SEARCH_KEY, PR_OBJECT_TYPE, PR_DISPLAY_NAME, PR_ADDRTYPE, PR_EMAIL_ADDRESS ));
 
 				// Put data in recipient array
@@ -3958,7 +4032,7 @@
 		 * Build full-page HTML from the TinyMCE HTML
 		 *
 		 * This function basically takes the generated HTML from TinyMCE and embeds it in
-		 * a standonline HTML page (including header and CSS) to form.
+		 * a standalone HTML page (including header and CSS) to form.
 		 *
 		 * @param string $body This is the HTML created by the TinyMCE
 		 * @param string $title  Optional, this string is placed in the <title>
@@ -4351,6 +4425,7 @@
 		function convertInlineImage($message)
 		{
 			$body = streamProperty($message, PR_HTML);
+			$imageIDs = array();
 
 			// Only load the DOM if the HTML contains a data:image or data:text/plain due to a bug
 			// in Chrome on Windows in combination with TinyMCE.
@@ -4382,6 +4457,8 @@
 						// TinyMCE adds an extra inline image for some reason, remove it.
 						$image->setAttribute('data-mce-src', '');
 
+						array_push($imageIDs, $uniqueId);
+
 						// Create hidden attachment with CID
 						$inlineImage = mapi_message_createattach($message);
 						$props = Array(PR_ATTACH_FILENAME => 'inline.txt',
@@ -4411,7 +4488,41 @@
 					mapi_savechanges($message);
 				}
 			}
+			$this->clearDeletedInlineAttachments($message, $imageIDs);
+		}
 
+		/**
+		 * Delete the deleted inline image attachment from attachment store.
+		 *
+		 * @param MAPIMessage $message the distribution list message
+		 * @param Array $imageIDs Array of existing inline image PR_ATTACH_CONTENT_ID
+		 */
+		function clearDeletedInlineAttachments($message, $imageIDs = array())
+		{
+			$attachmentTable = mapi_message_getattachmenttable($message);
+
+			$restriction =	Array(RES_AND, Array(
+				Array(RES_PROPERTY,
+					Array(
+						RELOP => RELOP_EQ,
+						ULPROPTAG => PR_ATTACHMENT_HIDDEN,
+						VALUE => Array( PR_ATTACHMENT_HIDDEN => true )
+					)
+				),
+				Array(RES_EXIST,
+					Array(
+						ULPROPTAG => PR_ATTACH_CONTENT_ID
+					)
+				)
+			));
+
+			$attachments = mapi_table_queryallrows($attachmentTable, array( PR_ATTACH_CONTENT_ID, PR_ATTACH_NUM), $restriction);
+			foreach ($attachments as $attachment) {
+				$clearDeletedInlineAttach = array_search($attachment[PR_ATTACH_CONTENT_ID], $imageIDs) === false;
+				if($clearDeletedInlineAttach) {
+					mapi_message_deleteattach($message, $attachment[PR_ATTACH_NUM]);
+				}
+			}
 		}
 
 		/**

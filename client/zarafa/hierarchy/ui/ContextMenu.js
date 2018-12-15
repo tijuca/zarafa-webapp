@@ -54,7 +54,14 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	 */
 	createContextMenuItems : function(config)
 	{
-		var isJunkFolder = config.records ? config.records.isSpecialFolder('junk') : false;
+		var folderName = _('Empty folder');
+		var record = config.records;
+		if (record.isSpecialFolder('junk')) {
+			folderName = _('Empty Junk E-mail');
+		} else if (record.isSpecialFolder('wastebasket')) {
+			folderName = _('Empty Deleted Items');
+		}
+
 		return [{
 			text : _('Open'),
 			iconCls : 'icon_open',
@@ -109,7 +116,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			}
 		}, {
 			text : _('New Folder'),
-			iconCls : 'icon_createFolderColor',
+			iconCls : 'icon_folder_create',
 			handler : this.onContextItemNewFolder,
 			beforeShow : function(item, record) {
 				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_CREATE_HIERARCHY;
@@ -123,7 +130,7 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			xtype: 'menuseparator'
 		}, {
 			text : _('Mark All Messages Read'),
-			iconCls : 'icon_mark_all_read',
+			iconCls : 'icon_mail_read',
 			handler : this.onContextItemReadFlags,
 			beforeShow : function(item, record) {
 				// We're not modifying the folder, but the contents. Hence we request the READ access
@@ -155,13 +162,13 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 				}
 			}
 		}, {
-			text : isJunkFolder ? _("Empty Junk E-mail") : _("Empty Deleted Items"),
-			iconCls : 'icon_empty_trash',
+			text : folderName,
+			iconCls : 'icon_folder_delete',
 			handler : this.onContextItemEmptyFolder,
 			beforeShow : function(item, record) {
 				// We're not modifying the folder, but the contents. Hence we request the READ access
 				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_READ;
-				if (access && record.isSpecialFolder('wastebasket') || isJunkFolder) {
+				if (access && !record.isIPMSubTree() &&  !record.isTodoListFolder()) {
 					item.setDisabled(false);
 				} else {
 					item.setDisabled(true);
@@ -242,9 +249,13 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			menu : this.createSelectColorSubmenu(config)
 		},{
 			text : _('Add to Favorites'),
-			iconCls : 'icon_folder_favorites',
+			iconCls : 'icon_favorites',
 			hidden : true,
 			beforeShow : function(item, record) {
+				// Hide the button is favorites is hidden
+				if (container.getSettingsModel().get('zarafa/v1/contexts/hierarchy/hide_favorites')) {
+					return item.setVisible(false);
+				}
 				if(!record.isInDeletedItems()) {
 					var isVisible = record.existsInFavorites();
 					if(!isVisible && record.isIPMSubTree()) {
@@ -259,6 +270,10 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			hidden : true,
 			iconCls : 'icon_remove_favorites',
 			beforeShow : function(item, record) {
+				// Hide the button if favorites is hidden
+				if (container.getSettingsModel().get('zarafa/v1/contexts/hierarchy/hide_favorites')) {
+					return item.setVisible(false);
+				}
 				if(record.existsInFavorites()) {
 					item.setDisabled(false);
 				}
@@ -274,30 +289,21 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 			xtype: 'menuseparator'
 		},{
 			text : _('Import emails'),
-			handler : this.onContextImportEml,
+			handler : this.onContextImportItem,
 			iconCls: 'icon_import_attachment',
-			beforeShow : function(item, record) {
-				var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_CREATE_CONTENTS;
-				var isIPFNote = Zarafa.core.ContainerClass.isClass(record.get('container_class'), 'IPF.Note', true);
-
-				if (
-					!access ||
-					!isIPFNote ||
-					record.isIPMSubTree() ||
-					record.isTodoListFolder() ||
-					record.isRSSFolder()
-				) {
-					item.setDisabled(true);
-				} else {
-					item.setDisabled(false);
-				}
-			}
+			beforeShow : this.onBeforeShowImportItem
+		},{
+			text : _('Import appointments'),
+			iconCls : 'icon_import_attachment',
+			name : 'importAppointments',
+			beforeShow : this.onBeforeShowImportItem,
+			handler : this.onContextImportItem
 		},{
 			xtype: 'menuseparator'
 		},{
 			text : _('Properties'),
 			handler : this.onContextItemSharedFolderAndProperties,
-			iconCls : 'icon_openMessageOptions',
+			iconCls : 'icon_cogwheel',
 			beforeShow : this.onBeforeContextItem
 		}];
 	},
@@ -359,6 +365,38 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 	onBeforeContextItem : function(item, record)
 	{
 		if (!record.get('access') || record.isTodoListFolder()) {
+			item.setDisabled(true);
+		} else {
+			item.setDisabled(false);
+		}
+	},
+
+	/**
+	 * Event handler triggered before the 'Import emails' and 'Import appointment'
+	 * context menu item show.
+	 *
+	 * @param {Ext.Button} item The item which is going to show.
+	 * @param {Zarafa.core.data.IPFRecord} record The folder record on which
+	 * this context menu item shows.
+	 */
+	onBeforeShowImportItem : function(item, record)
+	{
+		var access = record.get('access') & Zarafa.core.mapi.Access.ACCESS_CREATE_CONTENTS;
+
+		var hasImportSupport;
+		if (item.name === 'importAppointments') {
+			hasImportSupport = record.isCalendarFolder();
+		} else {
+			hasImportSupport = Zarafa.core.ContainerClass.isClass(record.get('container_class'), 'IPF.Note', true);
+		}
+
+		if (
+			!access ||
+			!hasImportSupport ||
+			record.isIPMSubTree() ||
+			record.isTodoListFolder() ||
+			record.isRSSFolder()
+		) {
 			item.setDisabled(true);
 		} else {
 			item.setDisabled(false);
@@ -605,11 +643,17 @@ Zarafa.hierarchy.ui.ContextMenu = Ext.extend(Zarafa.core.ui.menu.ConditionalMenu
 
 	/**
 	 * Open upload files dialog to import into folder.
+	 *
+	 * @param {Zarafa.core.ui.menu.ConditionalItem} item The menu item that was clicked on
 	 * @private
 	 */
-	onContextImportEml : function()
+	onContextImportItem : function(button)
 	{
-		Zarafa.common.Actions.openImportEmlContent(this.records);
+		var config = Ext.apply({}, {
+			accept : button.name === 'importAppointments' ? '.ics,.vcs' : '.eml',
+			callback : Zarafa.common.Actions.importItemCallback.createDelegate(Zarafa.common.Actions, [ button.getRecords() ], 1)
+		});
+		Zarafa.common.Actions.openImportContent(this.records, config);
 	},
 
 	/**

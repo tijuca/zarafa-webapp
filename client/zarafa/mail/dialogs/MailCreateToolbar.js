@@ -103,14 +103,15 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 				}]
 			},
 			cls : 'zarafa-action',
-			iconCls : 'buttons-icon_send_white',
+			iconCls : 'icon_send_white',
 			handler : this.onSendButton,
 			scope : this
 		}, {
 			xtype : 'button',
+			ref : 'saveBtn',
 			overflowText : _('Save'),
 			tooltip : _('Save') + ' (Ctrl + S)',
-			iconCls : 'icon_saveEmail',
+			iconCls : 'icon_floppy',
 			handler : this.onSaveButton,
 			scope : this
 		},{
@@ -126,7 +127,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			plugins : ['zarafa.recordcomponentupdaterplugin'],
 			overflowText : _('Add attachment'),
 			tooltip : _('Add attachments to this email'),
-			iconCls : 'icon_attachment',
+			iconCls : 'icon_paperclip',
 			ref : 'attachmentButton',
 			// Add a listener to the component added event to set use the correct update function when the toolbar overflows
 			// (i.e. is too wide for the panel) and Ext moves the button to a menuitem.
@@ -140,14 +141,14 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			xtype : 'button',
 			overflowText : _('Check names'),
 			tooltip : _('Check names'),
-			iconCls : 'icon_checkNames',
+			iconCls : 'icon_checknames',
 			handler : this.onCheckNamesButton,
 			scope : this
 		},{
 			xtype : 'button',
 			overflowText : _('Add signature'),
 			tooltip : _('Add signature'),
-			iconCls : 'icon_addSignature',
+			iconCls : 'icon_signature',
 			ref : 'signatureButton',
 			scope : this
 		}];
@@ -183,7 +184,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			xtype : 'button',
 			overflowText : _('Options'),
 			tooltip: _('Open options dialog'),
-			iconCls : 'icon_openMessageOptions',
+			iconCls : 'icon_cogwheel',
 			handler : this.onMailOptionsButton,
 			scope : this
 		},{
@@ -197,7 +198,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			xtype : 'button',
 			overflowText : _('High priority'),
 			tooltip : _('Mark this mail as high priority'),
-			iconCls : 'icon_setHighPriority',
+			iconCls : 'icon_priority_high',
 			ref : 'highPriority',
 			toggleGroup : 'priorityGroup',
 			importance : Zarafa.core.mapi.Importance.URGENT,
@@ -208,7 +209,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			xtype : 'button',
 			overflowText : _('Low priority'),
 			tooltip : _('Mark this mail as low priority'),
-			iconCls : 'icon_setLowPriority',
+			iconCls : 'icon_priority_low',
 			ref : 'lowPriority',
 			toggleGroup : 'priorityGroup',
 			importance : Zarafa.core.mapi.Importance.NONURGENT,
@@ -219,7 +220,7 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 			xtype : 'button',
 			overflowText : _('Set read receipt'),
 			tooltip : _('Request read receipt from recipients'),
-			iconCls : 'icon_setReadReceipt',
+			iconCls : 'icon_read_receipt',
 			enableToggle : true,
 			ref : 'readReceiptField',
 			toggleHandler : this.onReadReceiptToggle,
@@ -527,6 +528,20 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 	 */
 	update : function (record, contentReset)
 	{
+		// Add event listener when record is available with this toolbar.
+		if (!Ext.isDefined(this.record) && Ext.isDefined(record)) {
+			// Listen to the 'add', 'update' and 'remove' events on the attachment-sub-store
+			var attachmentStore = record.getAttachmentStore();
+			if (attachmentStore) {
+				this.mon(attachmentStore, {
+					'update' : this.onAttachmentChange,
+					'add' : this.onAttachmentChange,
+					'remove' : this.onAttachmentChange,
+					scope : this
+				});
+			}
+		}
+
 		this.record = record;
 
 		// Only enable Disabled button when it is not a phantom
@@ -551,6 +566,40 @@ Zarafa.mail.dialogs.MailCreateToolbar = Ext.extend(Zarafa.core.ui.ContentPanelTo
 
 		if (contentReset === true || record.isModifiedSinceLastUpdate('read_receipt_requested')) {
 			this.readReceiptField.toggle(this.record.get('read_receipt_requested'), true);
+		}
+	},
+
+	/**
+	 * Event handler called when attachment store gets updated.
+	 * This will prevent save operation if attachments are still
+	 * being uploaded.
+	 *
+	 * @param {Zarafa.core.data.IPMAttachmentStore} attachmentStore The store which fired the event
+	 * @param {Ext.data.Record} record The record which was updated
+	 * @private
+	 */
+	onAttachmentChange : function(attachmentStore, record)
+	{
+		var isAllAttachUploaded = true;
+
+		// Loop over all the attachments and check if all attachments gets uploaded or not
+		attachmentStore.each(function(attach) {
+			if(!attach.isUploaded()) {
+				isAllAttachUploaded = false;
+				// stop further iterations
+				return false;
+			}
+		}, this);
+
+		// stop the autosave and disable the save button
+		this.dialog.autoSave = isAllAttachUploaded;
+		this.saveBtn.setDisabled(!isAllAttachUploaded);
+
+		// Change the tooltip accordingly
+		if (isAllAttachUploaded) {
+			this.saveBtn.setTooltip(_('Save') + ' (Ctrl + S)');
+		} else {
+			this.saveBtn.setTooltip(_('Cannot save while attachment is being uploaded'));
 		}
 	},
 

@@ -43,7 +43,7 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 		});
 		Zarafa.common.attachment.ui.AttachmentContextMenu.superclass.constructor.call(this, config);
 	},
-	
+
 	/**
 	 * Create the Action context menu items
 	 * @param {Zarafa.core.data.IPMAttachmentRecord} Attachment record. Based on record type preview will be enabled or disabled.
@@ -60,13 +60,13 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 			beforeShow : this.onPreviewBeforeShow
 		}, {
 			text : _('Download'),
-			iconCls : 'icon_saveaseml',
+			iconCls : 'icon_download',
 			scope : this,
 			handler : this.onDownloadItem,
 			beforeShow : this.onDownloadBeforeShow
 		}, {
 			text : _('Download all as ZIP'),
-			iconCls : 'icon_saveemlaszip',
+			iconCls : 'icon_download_zip',
 			scope : this,
 			handler : this.onDownloadAllAsZip,
 			beforeShow : this.onDownloadZipBeforeShow
@@ -155,11 +155,27 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 	 */
 	onImportToFolderAfterRender : function(item)
 	{
-		if (!container.getServerConfig().isImportSupported()) {
-			let itemElement = this.getEl();
-			itemElement.dom.setAttribute('ext:qtip', _('In order to use the vCard import feature, upgrade your Kopano Core to version 8.3+'));
-			itemElement.dom.setAttribute('ext:qwidth', 'ext:qwidth="100%"');
+		var serverConfig = container.getServerConfig();
+		var attachRecord = this.getRecords();
+		if (!serverConfig.isVCfImportSupported() && attachRecord.isVCFAttachment()) {
+			var tooltip = _('In order to use the vCard import feature, upgrade your Kopano Core to version 8.3 or higher.');
+			this.setTooltipOnImportButton(this.getEl(), tooltip);
+		} else if (!serverConfig.isICSImportSupported() && attachRecord.isICSAttachment()) {
+			var tooltip = _('In order to use the ICS / VCS import feature, upgrade your Kopano Core to version 8.3 or higher.');
+			this.setTooltipOnImportButton(this.getEl(), tooltip);
 		}
+	},
+
+	/**
+	 * Helper function to set the tooltip on import button.
+	 *
+	 * @param {Ext.Element} itemElement The Element which encapsulates this Component.
+	 * @param {String} tooltip The tooltip which is going to show on import button.
+	 */
+	setTooltipOnImportButton(itemElement, tooltip)
+	{
+		itemElement.dom.setAttribute('ext:qtip', tooltip);
+		itemElement.dom.setAttribute('ext:qwidth', 'ext:qwidth="100%"');
 	},
 
 	/**
@@ -172,7 +188,7 @@ Zarafa.common.attachment.ui.AttachmentContextMenu = Ext.extend(Zarafa.core.ui.me
 		//should already have a component that has won the bid
 		//invoke that component to open the preview
 		Zarafa.core.data.UIFactory.openViewRecord(this.records);
-	}, 
+	},
 
 	/**
 	 * Event handler which is called when the user selects the 'Download'

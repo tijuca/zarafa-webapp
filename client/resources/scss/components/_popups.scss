@@ -43,15 +43,11 @@
 					}
 
 					.x-tool-close {
-						@extend .icon_cross;
-						background-position: sprite-position($icons, 'icon_cross_large', $offset_y: ($header-height - 10px)/2, $offset_x: $padding-medium);
 						width: 2 * $padding-large + 7px;
 						height: $header-height;
 					}
 
 					.x-tool-minimize {
-						@extend .minimize_button;
-						background-position: sprite-position($icons, 'minimize_button', $offset_y: ($header-height - 3px)/2, $offset_x: $padding-medium);
 						width: 2 * $padding-large + 7px;
 						height: $header-height;
 					}
@@ -89,8 +85,6 @@
 
 					.x-window-header-text {
 						padding-right: 16px + $padding-medium;
-						@extend .icon_favorites;
-						background-position: sprite-position($iconsmap, icon_favorites, $offset_y: 10 , $offset_x: 0);
 						background-position-x: right;
 					}
 				}
@@ -268,19 +262,12 @@
 							padding-bottom: ($header-height - 1 - $font-default-line-height) / 2;
 							padding-left: (16 + $padding-medium);
 							line-height: $font-default-line-height;
-							background-position: 0 ($header-height - 1 - 13)/2;
+							background-position: 0 ($header-height - 1 - 17)/2 !important;
 							background-repeat: no-repeat;
 							font-weight: bold;
 							font-size: $font-size-large !important;
 						}
 
-					    @each $img in sprite-names($iconsmap) {
-					    	.display-name.#{$img} {
-						        background-image: sprite-url($iconsmap);
-						        background-repeat: no-repeat;
-					    		background-position: sprite-position($iconsmap, $img, $offset-y: ($header-height - 1 - 15)/2, $offset-x: 0);
-					    	}
-					    }
 
 					    .description-panel {
 					    	> .x-panel-bwrap > .x-panel-body {
@@ -403,12 +390,9 @@
 		}
 
 		/* search button */
-		.icon_search {
+		.icon_magnifier {
 			background-color: transparent;
 			width: $button-small-height;
-			background-image: sprite-url($icons) !important;
-			background-repeat: no-repeat;
-			background-position: sprite-position($icons, icon_magnifier, $offset-x: 4px, $offset-y: 4px) !important;
 		}
 	}
 }

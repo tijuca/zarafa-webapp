@@ -93,12 +93,12 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 			autoLoad: true,
 			data: Zarafa.advancesearch.data.DateRangeFields
 		};
-
+		
 		Ext.applyIf(config, {
 			xtype : 'zarafa.searchtoolboxpanel',
 			title: _('Search tools'),
 			width: 175,
-			iconCls : 'advance_search',
+			iconCls : 'icon_magnifier',
 			cls : 'zarafa-search-toolbox',
 			plugins : [{
 				ptype : 'zarafa.recordcomponentplugin'
@@ -123,7 +123,7 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 				]
 			}]
 		});
-
+		
 		this.addEvents(
 			/**
 			 * @event afterupdaterestriction fired after the {@link #searchCriteria} gets updated by the
@@ -332,7 +332,7 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 			autoHeight: true,
 			items: [{
 				xtype: 'button',
-				iconCls: 'k-category-add-button-icon',
+				iconCls: 'icon_category_add',
 				cls: 'k-category-add-button',
 				handler: this.onSelectCategory,
 				scope: this
@@ -433,8 +433,10 @@ Zarafa.advancesearch.dialogs.SearchToolBoxPanel = Ext.extend(Ext.Panel, {
 			xtype : 'container',
 			cls: 'zarafa-search-toolbox-favoritesbutton-container',
 			layout:'fit',
+			hidden: container.getSettingsModel().get('zarafa/v1/contexts/hierarchy/hide_favorites', true, false),
 			items: [{
 				cls: 'search-toolbox-favorites-button',
+				iconCls: 'icon_favorites',
 				xtype:'button',
 				text: '<span>' + _('Favorites') + '</span>',
 				handler : this.onClickFavorites,

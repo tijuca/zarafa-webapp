@@ -1,21 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp Finnish (Finland) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp Finnish (Finland)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2013-02-21 09:59+0200\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2017-10-05 19:52+0200\n"
 "Last-Translator: Verkkotaito <Kopano@verkkotaito.fi>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fi\n"
+"Language-Team: Finnish (Finland) <https://translate.kopano.io/projects/"
+"kopano/kopano-webapp/fi/>\n"
+"Language: fi_FI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.6\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
 msgid "Wk"
@@ -989,8 +990,9 @@ msgstr "Vastaanottaja tai kopio"
 msgid "Meeting"
 msgstr "Tapaaminen"
 
+#, fuzzy
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
+msgid "Resources have been planned"
 msgstr "Resurssit on suunniteltu."
 
 msgid ""
@@ -1292,6 +1294,10 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#, fuzzy
+msgid "Location: "
+msgstr "Sijainti"
+
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
 msgstr "l j F Y"
@@ -1441,6 +1447,14 @@ msgstr "Alustava"
 msgid "Decline"
 msgstr "Kieltäydy"
 
+# 75%
+#, fuzzy
+msgid "Send to..."
+msgstr "Lähetä"
+
+msgid "Export as"
+msgstr ""
+
 # 80%
 # 100%
 #, fuzzy
@@ -1570,29 +1584,6 @@ msgstr "Avaa kokouskutsu muutoksilla"
 
 msgid "Copy"
 msgstr "Kopioi"
-
-# 89%
-# 100%
-# 84%
-#, fuzzy
-msgid "a meeting request"
-msgstr "Uusi kokouskutsu"
-
-# 93%
-# 100%
-# 80%
-#, fuzzy
-msgid "an appointment"
-msgstr "Uusi tapaaminen"
-
-msgid "Insufficient privileges"
-msgstr ""
-
-# 79%
-# 100%
-#, fuzzy
-msgid "You have insufficient privileges to move "
-msgstr "Sinulla ei ole tarpeeksi oikeuksia kansion kopioimiseen."
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1830,7 +1821,7 @@ msgstr ""
 msgid "Import error"
 msgstr "Tärkeä"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr ""
 
 msgid "Cc"
@@ -1919,7 +1910,12 @@ msgstr "Tyhjennä kansio"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
+msgstr ""
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
 msgstr ""
 
 msgid "Attachment error"
@@ -2085,6 +2081,10 @@ msgstr ""
 msgid "Permission"
 msgstr "Oikeudet"
 
+#, fuzzy
+msgid "Duplicate delegate"
+msgstr "Kieltäydy kokouskutsusta"
+
 msgid "Delegate already exists in the list."
 msgstr "Edustaja on jo listalla."
 
@@ -2109,6 +2109,9 @@ msgid "Folder '{0}' selected."
 msgstr "Kansio '{0}' on valittu."
 
 msgid "Do not show this message again."
+msgstr ""
+
+msgid "ICS"
 msgstr ""
 
 #, fuzzy
@@ -2397,12 +2400,18 @@ msgid "Not supported at the moment."
 msgstr "Ei tuettu tällä hetkellä"
 
 #, fuzzy
-msgid "There are no reminders"
-msgstr "{0} muistutus"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "{0} muistutus"
+msgstr[1] "{0} muistutus"
 
 # 88%
 msgid "Reminders"
 msgstr "Muistutukset"
+
+#, fuzzy
+msgid "There are no reminders"
+msgstr "{0} muistutus"
 
 msgid "Due In"
 msgstr "Eräpäivä"
@@ -2616,6 +2625,9 @@ msgstr "Kun viesti"
 msgid "Do the following"
 msgstr "Tee seuraava"
 
+msgid "Apply only when Out of Office is active"
+msgstr ""
+
 msgid "Stop processing more rules"
 msgstr "Älä käsittele enempää sääntöjä"
 
@@ -2641,6 +2653,10 @@ msgstr "Sääntöä ei ole"
 
 msgid "Active"
 msgstr "Aktiivinen"
+
+#, fuzzy
+msgid "Out of office"
+msgstr "Poissa toimistolta"
 
 # 80%
 msgid "Rule"
@@ -3385,9 +3401,6 @@ msgstr "Ryhmä"
 msgid "Work"
 msgstr "Työ"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Sort by: Full Name"
 msgstr "Järjestä: Koko nimi"
 
@@ -3679,12 +3692,9 @@ msgstr "Vaihda näkymää"
 msgid "Widgets"
 msgstr "Lisää pienoisohjelmia"
 
-msgid "Sending"
+#, fuzzy
+msgid "Sending..."
 msgstr "Lähetetään"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Lähetetty"
 
 msgid "Sent successfully"
 msgstr "Lähetetty onnistuneesti"
@@ -3767,6 +3777,25 @@ msgstr "Lisää pienoisohjelmia"
 
 msgid "No widgets installed."
 msgstr "Pienoisohjelmia ei ole asennettu."
+
+msgid "Configure widget"
+msgstr "Konfiguroi pienoisohjelma"
+
+#, fuzzy
+msgid "Remove widget"
+msgstr "Poista"
+
+#, fuzzy
+msgid "Collapse widget"
+msgstr "Hierarkiaa ei voitu ladata."
+
+#, fuzzy
+msgid "Expand widget"
+msgstr "Lisää pienoisohjelmia"
+
+#, fuzzy
+msgid "Add new widget"
+msgstr "Lisää pienoisohjelmia"
 
 msgid "Collapse widget panel"
 msgstr ""
@@ -3983,6 +4012,19 @@ msgstr "Näytä alikansiot"
 msgid "Open shared folder/store"
 msgstr ""
 
+#, fuzzy
+msgid "Empty folder"
+msgstr "Tyhjennä kansio"
+
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Roskaposti"
+
+# 92%
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Roskakori"
+
 msgid "Rename Folder"
 msgstr "Nimeä kansio uudelleen"
 
@@ -3994,15 +4036,6 @@ msgstr "Merkitse kaikki viestit luetuiksi"
 
 msgid "Delete Folder"
 msgstr "Poista kansio"
-
-#, fuzzy
-msgid "Empty Junk E-mail"
-msgstr "Roskaposti"
-
-# 92%
-#, fuzzy
-msgid "Empty Deleted Items"
-msgstr "Roskakori"
 
 msgid "Close store"
 msgstr "Sulje varasto"
@@ -4037,6 +4070,12 @@ msgstr "Aloitus kansio"
 #, fuzzy
 msgid "Import emails"
 msgstr "Tärkeä"
+
+# 93%
+# 100%
+#, fuzzy
+msgid "Import appointments"
+msgstr "Uusi tapaaminen"
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -4081,6 +4120,10 @@ msgstr "Järjestä: Tärkeys"
 # 76%
 msgid "Sort by: To"
 msgstr "Järjestä: Vastaanottaja"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Lähetetty"
 
 msgid "Red"
 msgstr "Punainen"
@@ -4207,6 +4250,9 @@ msgstr "Näytä lähettäjä"
 msgid "No signatures configured"
 msgstr "Allekirjoituksia ei asetettu"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr ""
+
 msgid "E-Mail Flags"
 msgstr "Sähköpostimerkinnät"
 
@@ -4279,11 +4325,11 @@ msgstr "Tulosta valitut tehtävät"
 msgid "Filter"
 msgstr ""
 
-msgid "RE"
-msgstr "RE"
-
 msgid "FW"
 msgstr "FW"
+
+msgid "RE"
+msgstr "RE"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4296,6 +4342,10 @@ msgstr "Postin kirjoitusasetukset"
 
 msgid "Compose mail in this format"
 msgstr "Kirjoita viesti tässä muodossa"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Muokkaa"
 
 msgid "Default font"
 msgstr "Oletusfontti"
@@ -4581,6 +4631,10 @@ msgstr "Palauta oletus"
 msgid "Delete settings"
 msgstr "Poista asetukset"
 
+#, fuzzy
+msgid "{0} Iconset"
+msgstr "Ikonit"
+
 msgid "About"
 msgstr "Koskien"
 
@@ -4591,6 +4645,18 @@ msgid "Short"
 msgstr ""
 
 msgid "Long"
+msgstr ""
+
+# 88%
+#, fuzzy
+msgid "Favorite settings"
+msgstr "Edustaja-asetukset"
+
+#, fuzzy
+msgid "Hide favorites"
+msgstr "Suosikit"
+
+msgid "Unpin favorites from top"
 msgstr ""
 
 msgid "Inbox navigation"
@@ -4968,6 +5034,10 @@ msgstr "Järjestä: Aloitus aika"
 msgid "Sort by: Owner"
 msgstr "Järjestä: Omistaja"
 
+#, fuzzy
+msgid "Sort by: Percentage Completed"
+msgstr "Järjestä: Prosenttia valmiina"
+
 msgid "Loading tasks"
 msgstr "Ladataan tehtäviä"
 
@@ -4990,56 +5060,39 @@ msgstr "Päivitä lista"
 msgid "D d-m-Y"
 msgstr "d-m-Y"
 
-msgid "Improved categories"
+#, fuzzy
+msgid "Import / Export"
+msgstr "Tärkeä"
+
+msgid ""
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
+msgstr ""
+
+msgid "Exporting can be done from the context menu of an item."
+msgstr ""
+
+#, fuzzy
+msgid "Icon packs"
+msgstr "Ikonit"
+
+msgid ""
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
 
-msgid "Flag item for follow up"
-msgstr ""
-
-msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
-msgstr ""
-
-msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-
-msgid "Transformation of flags into follow-ups and categories"
-msgstr ""
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-
-msgid "Search folders"
-msgstr ""
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
+msgid "Left: Breeze - Right: Classic"
 msgstr ""
 
 msgid "What's new"
@@ -5194,26 +5247,60 @@ msgstr "Lähetä faksi"
 msgid "Contact Fax"
 msgstr "Yhteystiedon faksi"
 
-msgid "Configure widget"
-msgstr "Konfiguroi pienoisohjelma"
+#, fuzzy
+msgid "Widget height"
+msgstr "Lisää pienoisohjelmia"
+
+msgid "pixels"
+msgstr ""
 
 msgid "Reload interval"
 msgstr ""
 
-msgid "seconds."
+msgid "seconds"
 msgstr ""
 
-msgid "No appointments for today."
-msgstr "Ei tapaamisia tälle päivälle."
+#, fuzzy
+msgid "Loading appointments..."
+msgstr "Ladataan tapaamisia"
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
+# 93%
+# 100%
+#, fuzzy
+msgid "No appointments"
+msgstr "Uusi tapaaminen"
+
+msgid "Number of days"
+msgstr ""
+
+#, fuzzy
+msgid "Today {0} - {1}"
 msgstr "Tänään: {1} {0}"
 
-msgid "Today's Appointments"
-msgstr "Tämän päivän tapaamiset"
+msgid "Today (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "{0} - {1}"
+msgstr "{0} {1}"
+
+#, fuzzy
+msgid "d/m/y G:i"
+msgstr "l d.m.Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "d/m/y"
+msgstr "d.m.Y"
+
+#, fuzzy
+msgid "Upcoming Appointments"
+msgstr "Ladataan tapaamisia"
+
+msgid "Datepicker"
+msgstr ""
 
 msgid "No unread mail."
 msgstr "Ei lukemattomia posteja."
@@ -5223,6 +5310,9 @@ msgstr "Lukemattomat postit"
 
 msgid "No tasks."
 msgstr "Ei tehtäviä."
+
+msgid "Tasks / To-Do"
+msgstr ""
 
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -5251,6 +5341,9 @@ msgstr "Valitse toinen kansio"
 
 msgid "E-mails are moved to {0}"
 msgstr "Sähköpostit siirretty kohteeseen {0}"
+
+msgid "Open in new tab"
+msgstr ""
 
 msgid "Quick Appointment"
 msgstr "Pikakokous"
@@ -5452,6 +5545,28 @@ msgstr ""
 msgid "The vcf attachment is not imported successfully"
 msgstr ""
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr ""
+
+#, fuzzy
+msgid "There is no appointment found in this file."
+msgstr "Tapaaminen sijoittuu menneisyyteen."
+
+msgid "The file is corrupt."
+msgstr ""
+
+#, fuzzy
+msgid "The file is invalid."
+msgstr "{0} ei ole saliittu aika"
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr ""
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5632,10 +5747,8 @@ msgid "Contact not found"
 msgstr ""
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 
 msgid "Could not handle this type of object."
@@ -5651,6 +5764,29 @@ msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
 "Toistuvuutta ei voitu avata, yksittäinen toistuminen on todennäköisesti "
 "poistettu."
+
+# 89%
+# 100%
+# 84%
+#, fuzzy
+msgid "a meeting request"
+msgstr "Uusi kokouskutsu"
+
+# 93%
+# 100%
+# 80%
+#, fuzzy
+msgid "an appointment"
+msgstr "Uusi tapaaminen"
+
+# 79%
+# 100%
+#, fuzzy
+msgid "You have insufficient privileges to move "
+msgstr "Sinulla ei ole tarpeeksi oikeuksia kansion kopioimiseen."
+
+msgid "Insufficient privileges"
+msgstr ""
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

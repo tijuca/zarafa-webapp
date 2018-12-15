@@ -181,6 +181,30 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
+	 * @return {String} The active iconset selected by admin or user.
+	 */
+	getActiveIconset : function()
+	{
+		return this.meta.active_iconset;
+	},
+
+	/**
+	 * @return {Array} The installed iconsets
+	 */
+	getIconsets : function()
+	{
+		return this.meta.iconsets;
+	},
+
+	/**
+	 * @return {Object} The about texts of iconsets
+	 */
+	getIconsetAbouts : function()
+	{
+		return this.meta.iconsets_about;
+	},
+
+	/**
  	 * @return {Array} returns the installed plugins version information array.
 	 */
 	getPluginsVersion : function()
@@ -189,11 +213,19 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
-	 * @return {Boolean} True if import functionality is supported on backend, false otherwise.
+	 * @return {Boolean} True if VCF import functionality is supported on backend, false otherwise.
 	 */
-	isImportSupported : function()
+	isVCfImportSupported : function()
 	{
 		return this.meta.is_vcfimport_supported;
+	},
+
+	/**
+	 * @return {Boolean} True if ICS and VCS import functionality is supported on backend, false otherwise.
+	 */
+	isICSImportSupported : function()
+	{
+		return this.meta.is_icsimport_supported;
 	},
 
 	/**
