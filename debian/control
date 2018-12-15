@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Giraffe Maintainers <pkg-giraffe-maintainers@alioth-lists.debian.net>
 Uploaders: Carsten Schoenert <c.schoenert@t-online.de>,
   Jelle van der Waa <j.vanderwaa@kopano.com>
-Build-Depends: ant,
-  ant-optional,
+Build-Depends:
   default-jdk,
   debhelper (>= 11),
   dh-exec,
