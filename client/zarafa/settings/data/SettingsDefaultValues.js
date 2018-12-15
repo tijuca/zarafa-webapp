@@ -297,7 +297,7 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 										 * @property
 										 * @type String
 										 */
-										'value' : 'messagebox'
+										'value' : 'dropdown'
 									}
 
 								}
@@ -349,7 +349,21 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 								 * @property
 								 * @type Number
 								 */
-								'polling_interval' : 60 * 5
+								'polling_interval' : 60 * 5,
+								
+								/**
+								 * zarafa/v1/contexts/hierarchy/hide_favorites
+								 * @property
+								 * @type Boolean
+								 */
+								'hide_favorites' : false,
+								
+								/**
+								 * zarafa/v1/contexts/hierarchy/scroll_favorites
+								 * @property
+								 * @type Boolean
+								 */
+								'scroll_favorites' : false
 							},
 
 							'search' : {
@@ -527,6 +541,13 @@ Zarafa.settings.data.SettingsDefaultValue = function(){
 								 * @type Boolean
 								 */
 								'enable_grouping' : false,
+
+								/**
+								 * zarafa/v1/contexts/mail/html_editor
+								 * @property
+								 * @type string
+								 */
+								'html_editor' : 'full_tinymce',
 
 								// Small hack, the server determines these defaults
 								// but we copy them here so the user can press

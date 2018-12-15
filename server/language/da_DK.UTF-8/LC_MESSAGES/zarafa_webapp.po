@@ -1,12 +1,12 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp Danish (Denmark) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp Danish (Denmark)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
 "PO-Revision-Date: 2018-02-06 18:03+0000\n"
 "Last-Translator: jengelh <jengelh@inai.de>\n"
 "Language-Team: Danish <http://translate.kopano.io/projects/kopano/kopano-"
@@ -940,8 +940,9 @@ msgstr "Til eller Cc"
 msgid "Meeting"
 msgstr "Møde"
 
+#, fuzzy
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
+msgid "Resources have been planned"
 msgstr "Ressourcerne er blevet planlagt. "
 
 msgid ""
@@ -1236,6 +1237,10 @@ msgstr "Kopier det valgte element"
 msgid "Paste selected item"
 msgstr "Sæt det valgte element ind"
 
+#, fuzzy
+msgid "Location: "
+msgstr "Placering"
+
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
 msgstr "l j F Y"
@@ -1386,6 +1391,13 @@ msgstr "Foreløbig "
 msgid "Decline"
 msgstr "Afvis"
 
+#, fuzzy
+msgid "Send to..."
+msgstr "Send"
+
+msgid "Export as"
+msgstr ""
+
 msgid "Occurrence"
 msgstr "Hændelse"
 
@@ -1498,18 +1510,6 @@ msgstr "Åben mødeindkaldelse med ændringer"
 
 msgid "Copy"
 msgstr "Kopier"
-
-msgid "a meeting request"
-msgstr "en mødeindkaldelse"
-
-msgid "an appointment"
-msgstr "en aftale"
-
-msgid "Insufficient privileges"
-msgstr "Ikke tilstrækkelige rettigheder"
-
-msgid "You have insufficient privileges to move "
-msgstr "Du har ikke tilstrækkelige rettigheder til at flytte "
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1747,7 +1747,7 @@ msgstr ""
 msgid "Import error"
 msgstr "Vigtigt"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr ""
 
 msgid "Cc"
@@ -1833,7 +1833,12 @@ msgstr "Tøm mappe"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
+msgstr ""
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
 msgstr ""
 
 msgid "Attachment error"
@@ -1998,6 +2003,10 @@ msgstr ""
 msgid "Permission"
 msgstr "Tilladelse"
 
+#, fuzzy
+msgid "Duplicate delegate"
+msgstr "Afslå og slet"
+
 msgid "Delegate already exists in the list."
 msgstr "Delegeret eksisterer allerede i listen."
 
@@ -2023,6 +2032,9 @@ msgstr "Mappen '{0}' er valgt."
 
 msgid "Do not show this message again."
 msgstr "Vis ikke denne meddelelse igen."
+
+msgid "ICS"
+msgstr ""
 
 #, fuzzy
 msgid "Set custom flag"
@@ -2302,11 +2314,17 @@ msgid "Not supported at the moment."
 msgstr "Ikke pt. understøttet."
 
 #, fuzzy
-msgid "There are no reminders"
-msgstr "Der er {0} påmindelse"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Der er {0} påmindelse"
+msgstr[1] "Der er {0} påmindelse"
 
 msgid "Reminders"
 msgstr "Påmindelser"
+
+#, fuzzy
+msgid "There are no reminders"
+msgstr "Der er {0} påmindelse"
 
 msgid "Due In"
 msgstr "Forfalder om"
@@ -2507,6 +2525,9 @@ msgstr "Når meddelelsen"
 msgid "Do the following"
 msgstr "Gør følgende"
 
+msgid "Apply only when Out of Office is active"
+msgstr ""
+
 msgid "Stop processing more rules"
 msgstr "Stop udførsel af flere regler"
 
@@ -2534,6 +2555,10 @@ msgstr "Ingen regel eksisterer"
 
 msgid "Active"
 msgstr "Aktiv"
+
+#, fuzzy
+msgid "Out of office"
+msgstr "Ude af kontoret"
 
 msgid "Rule"
 msgstr "Regel"
@@ -3227,9 +3252,6 @@ msgstr "Gruppe"
 msgid "Work"
 msgstr "Arbejde"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Sort by: Full Name"
 msgstr "Sorter efter: Fulde navn"
 
@@ -3526,12 +3548,9 @@ msgstr "Skift visning"
 msgid "Widgets"
 msgstr "Tilføj widgets"
 
-msgid "Sending"
+#, fuzzy
+msgid "Sending..."
 msgstr "Sender"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Sendt"
 
 msgid "Sent successfully"
 msgstr "Sendt med success"
@@ -3619,6 +3638,25 @@ msgstr "Tilføj widgets"
 
 msgid "No widgets installed."
 msgstr "Ingen widgets er installeret"
+
+msgid "Configure widget"
+msgstr "Konfigurer widget"
+
+#, fuzzy
+msgid "Remove widget"
+msgstr "Fjern billede"
+
+#, fuzzy
+msgid "Collapse widget"
+msgstr "Luk widget panel"
+
+#, fuzzy
+msgid "Expand widget"
+msgstr "Udvid widget panel"
+
+#, fuzzy
+msgid "Add new widget"
+msgstr "Tilføj widgets"
 
 msgid "Collapse widget panel"
 msgstr "Luk widget panel"
@@ -3833,6 +3871,18 @@ msgstr "Vis undermapper"
 msgid "Open shared folder/store"
 msgstr "Åbn delt folder/lager"
 
+#, fuzzy
+msgid "Empty folder"
+msgstr "Tøm mappe"
+
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Uønsket post"
+
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Slettede elementer"
+
 msgid "Rename Folder"
 msgstr "Omdøb mappe"
 
@@ -3844,14 +3894,6 @@ msgstr "Marker alle meddelelser som læst"
 
 msgid "Delete Folder"
 msgstr "Slet mappe"
-
-#, fuzzy
-msgid "Empty Junk E-mail"
-msgstr "Uønsket post"
-
-#, fuzzy
-msgid "Empty Deleted Items"
-msgstr "Slettede elementer"
 
 msgid "Close store"
 msgstr "Luk lager"
@@ -3881,6 +3923,10 @@ msgstr "Start mappe"
 #, fuzzy
 msgid "Import emails"
 msgstr "Vigtigt"
+
+#, fuzzy
+msgid "Import appointments"
+msgstr "Ny aftale"
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -3924,6 +3970,10 @@ msgstr "Sorter efter: Vigtighed"
 
 msgid "Sort by: To"
 msgstr "Sorter efter: Til"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Sendt"
 
 msgid "Red"
 msgstr "Rød"
@@ -4050,6 +4100,9 @@ msgstr "Vis fra"
 msgid "No signatures configured"
 msgstr "Ingen signatur er konfigureret"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr ""
+
 msgid "E-Mail Flags"
 msgstr "Email flag"
 
@@ -4115,11 +4168,11 @@ msgstr "Udskriv det valgte element"
 msgid "Filter"
 msgstr "Filtrer.."
 
-msgid "RE"
-msgstr "SV"
-
 msgid "FW"
 msgstr "VS"
+
+msgid "RE"
+msgstr "SV"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4132,6 +4185,10 @@ msgstr "Indstillinger for redigering af email"
 
 msgid "Compose mail in this format"
 msgstr "Skriv ny email med denne formattering"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Ret"
 
 msgid "Default font"
 msgstr "Standard skrifttype"
@@ -4401,6 +4458,10 @@ msgstr "Genskab til standard"
 msgid "Delete settings"
 msgstr "Slet indstillinger"
 
+#, fuzzy
+msgid "{0} Iconset"
+msgstr "Ikoner"
+
 msgid "About"
 msgstr "Om"
 
@@ -4411,6 +4472,17 @@ msgid "Short"
 msgstr ""
 
 msgid "Long"
+msgstr ""
+
+#, fuzzy
+msgid "Favorite settings"
+msgstr "Repræsentant indstillinger"
+
+#, fuzzy
+msgid "Hide favorites"
+msgstr "Tilføj til favoritter"
+
+msgid "Unpin favorites from top"
 msgstr ""
 
 msgid "Inbox navigation"
@@ -4766,6 +4838,10 @@ msgstr "Sorter efter: Startdato"
 msgid "Sort by: Owner"
 msgstr "Sorter efter: Ejer"
 
+#, fuzzy
+msgid "Sort by: Percentage Completed"
+msgstr "Sorter efter: procent udført"
+
 msgid "Loading tasks"
 msgstr "Henter opgaver"
 
@@ -4784,56 +4860,39 @@ msgstr "Opdater liste"
 msgid "D d-m-Y"
 msgstr "D, d.m.Y"
 
-msgid "Improved categories"
-msgstr "Forbedrede kategorier"
+#, fuzzy
+msgid "Import / Export"
+msgstr "Vigtigt"
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
 msgstr ""
 
-msgid "Flag item for follow up"
-msgstr "Marker til opfølgning"
+msgid "Exporting can be done from the context menu of an item."
+msgstr ""
+
+#, fuzzy
+msgid "Icon packs"
+msgstr "Ikoner"
 
 msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
-msgstr ""
-
-msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-
-msgid "Transformation of flags into follow-ups and categories"
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
 
 msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
 
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-
-msgid "Search folders"
-msgstr "Søgemapper"
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
+msgid "Left: Breeze - Right: Classic"
 msgstr ""
 
 msgid "What's new"
@@ -4980,26 +5039,59 @@ msgstr "Send fax"
 msgid "Contact Fax"
 msgstr "Kontaktfax"
 
-msgid "Configure widget"
-msgstr "Konfigurer widget"
+#, fuzzy
+msgid "Widget height"
+msgstr "Tilføj widgets"
+
+msgid "pixels"
+msgstr ""
 
 msgid "Reload interval"
 msgstr "Genindlæsningsinterva"
 
-msgid "seconds."
+#, fuzzy
+msgid "seconds"
 msgstr "sekunder."
 
-msgid "No appointments for today."
-msgstr "Ingen aftaler i dag."
+#, fuzzy
+msgid "Loading appointments..."
+msgstr "Henter aftaler"
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
+#, fuzzy
+msgid "No appointments"
+msgstr "Ny aftale"
+
+msgid "Number of days"
+msgstr ""
+
+#, fuzzy
+msgid "Today {0} - {1}"
 msgstr "I dag: {1} {0}"
 
-msgid "Today's Appointments"
-msgstr "Dagens aftaler"
+msgid "Today (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "{0} - {1}"
+msgstr "{0} i {1}"
+
+#, fuzzy
+msgid "d/m/y G:i"
+msgstr "I d.m.Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "d/m/y"
+msgstr "d/m/Y"
+
+#, fuzzy
+msgid "Upcoming Appointments"
+msgstr "Henter aftaler"
+
+msgid "Datepicker"
+msgstr ""
 
 msgid "No unread mail."
 msgstr "Ingen ulæst post."
@@ -5009,6 +5101,9 @@ msgstr "Ulæst post"
 
 msgid "No tasks."
 msgstr "Ingen opgaver."
+
+msgid "Tasks / To-Do"
+msgstr ""
 
 #, fuzzy
 msgid "Google Maps"
@@ -5038,6 +5133,10 @@ msgstr "Vælg anden mappe"
 
 msgid "E-mails are moved to {0}"
 msgstr "E-mails er flyttet til {0}"
+
+#, fuzzy
+msgid "Open in new tab"
+msgstr "Åbn i nyt browser vindue"
 
 msgid "Quick Appointment"
 msgstr "Hurtigaftale"
@@ -5235,6 +5334,28 @@ msgstr "ZIP filen kunne ikke dannes"
 msgid "The vcf attachment is not imported successfully"
 msgstr "ZIP filen kunne ikke dannes"
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr ""
+
+#, fuzzy
+msgid "There is no appointment found in this file."
+msgstr "Denne aftale sker i fortiden."
+
+msgid "The file is corrupt."
+msgstr ""
+
+#, fuzzy
+msgid "The file is invalid."
+msgstr "De vedhæftede filer er endnu ikke uploadet."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr ""
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+
 #, fuzzy
 msgid "Attachment is not imported successfully"
 msgstr "ZIP filen kunne ikke dannes"
@@ -5370,10 +5491,8 @@ msgid "Contact not found"
 msgstr ""
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 
 msgid "Could not handle this type of object."
@@ -5387,6 +5506,18 @@ msgstr ""
 
 msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
+
+msgid "a meeting request"
+msgstr "en mødeindkaldelse"
+
+msgid "an appointment"
+msgstr "en aftale"
+
+msgid "You have insufficient privileges to move "
+msgstr "Du har ikke tilstrækkelige rettigheder til at flytte "
+
+msgid "Insufficient privileges"
+msgstr "Ikke tilstrækkelige rettigheder"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

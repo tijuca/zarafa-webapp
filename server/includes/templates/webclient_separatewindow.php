@@ -2,13 +2,12 @@
 include(BASE_PATH . 'server/includes/loader.php');
 
 $loader = new FileLoader();
-$version = trim(file_get_contents('version'));
 
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 	<head>
-		<meta name="Generator" content="Kopano WebApp v<?php echo $version?>">
+		<meta name="Generator" content="Kopano WebApp v<?php echo $loader->getVersion()?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title><?php echo $webappTitle; ?></title>
@@ -18,6 +17,7 @@ $version = trim(file_get_contents('version'));
 		<?php
 			$loader->cssOrder();
 			echo Theming::getStyles($theme);
+			$iconsetStylesheet = Iconsets::getActiveStylesheet();
 		?>
 	</head>
 
@@ -27,6 +27,7 @@ $version = trim(file_get_contents('version'));
 			$extjsFiles[] = "client/tinymce/tinymce.js";
 			$loader->printFiles($extjsFiles, $jsTemplate);
 		?>
+		<link id="kopano-iconset-stylesheet" rel="stylesheet" href="<?php echo $iconsetStylesheet; ?>" >
 		<script>
 
 			/**

@@ -1,22 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp Slovenian (Slovenia) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp Slovenian (Slovenia)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2014-12-19 20:00+0200\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2017-10-05 20:30+0200\n"
 "Last-Translator: Zoran <zolo@intelego.net>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: sl\n"
+"Language-Team: Slovenian (Slovenia) <https://translate.kopano.io/projects/"
+"kopano/kopano-webapp/sl/>\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
-"X-Generator: Pootle 2.1.6\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
 msgid "Wk"
@@ -1009,8 +1010,9 @@ msgstr "Za ali kp"
 msgid "Meeting"
 msgstr "Sestanek"
 
+#, fuzzy
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
+msgid "Resources have been planned"
 msgstr "Načrtovani so bili viri."
 
 msgid ""
@@ -1317,6 +1319,10 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#, fuzzy
+msgid "Location: "
+msgstr "Lokacija"
+
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
 msgstr "1 jS F Y"
@@ -1470,6 +1476,14 @@ msgstr "Pogojno"
 msgid "Decline"
 msgstr "Zavrni"
 
+# 75%
+#, fuzzy
+msgid "Send to..."
+msgstr "Pošlji"
+
+msgid "Export as"
+msgstr ""
+
 # 80%
 # 100%
 #, fuzzy
@@ -1594,30 +1608,6 @@ msgstr "Odpri zahtevo za sestanek s spremembami"
 
 msgid "Copy"
 msgstr "Kopiraj"
-
-# 89%
-# 100%
-# 84%
-#, fuzzy
-msgid "a meeting request"
-msgstr "Nova zahteva za sestanek"
-
-# 93%
-# 100%
-# 80%
-#, fuzzy
-msgid "an appointment"
-msgstr "Novi sestanek"
-
-msgid "Insufficient privileges"
-msgstr ""
-
-# 77%
-# 79%
-# 100%
-#, fuzzy
-msgid "You have insufficient privileges to move "
-msgstr "Nimate dovolj dovoljenj za kopiranje te mape."
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1858,7 +1848,7 @@ msgstr ""
 msgid "Import error"
 msgstr "Pomembno"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr ""
 
 msgid "Cc"
@@ -1946,7 +1936,12 @@ msgstr "Izprazni mapo"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
+msgstr ""
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
 msgstr ""
 
 msgid "Attachment error"
@@ -2118,6 +2113,10 @@ msgstr ""
 msgid "Permission"
 msgstr "Dovoljenje"
 
+#, fuzzy
+msgid "Duplicate delegate"
+msgstr "Zavrni zahtevo za sestanek"
+
 msgid "Delegate already exists in the list."
 msgstr "Član že obstaja na listi."
 
@@ -2144,6 +2143,9 @@ msgid "Folder '{0}' selected."
 msgstr "Izbrana '{0}' mapa."
 
 msgid "Do not show this message again."
+msgstr ""
+
+msgid "ICS"
 msgstr ""
 
 #, fuzzy
@@ -2438,12 +2440,20 @@ msgid "Not supported at the moment."
 msgstr "Trenutno ni podprto."
 
 #, fuzzy
-msgid "There are no reminders"
-msgstr "Tukaj je {0} opomnik"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Tukaj je {0} opomnik"
+msgstr[1] "Tukaj je {0} opomnik"
+msgstr[2] "Tukaj je {0} opomnik"
+msgstr[3] "Tukaj je {0} opomnik"
 
 # 88%
 msgid "Reminders"
 msgstr "Opomniki"
+
+#, fuzzy
+msgid "There are no reminders"
+msgstr "Tukaj je {0} opomnik"
 
 msgid "Due In"
 msgstr "Zapade"
@@ -2660,6 +2670,9 @@ msgstr "Ko sporočilo"
 msgid "Do the following"
 msgstr "Naredi naslednje"
 
+msgid "Apply only when Out of Office is active"
+msgstr ""
+
 msgid "Stop processing more rules"
 msgstr "Prenehaj ustvarjati pravila"
 
@@ -2685,6 +2698,10 @@ msgstr "Ni nobenega pravila"
 
 msgid "Active"
 msgstr "Aktiven"
+
+#, fuzzy
+msgid "Out of office"
+msgstr "Odsoten"
 
 # 80%
 msgid "Rule"
@@ -3450,9 +3467,6 @@ msgstr "Skupina"
 msgid "Work"
 msgstr "Delo"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Sort by: Full Name"
 msgstr "Razvrsti po: Polno ime"
 
@@ -3763,12 +3777,9 @@ msgstr "Preklopi pogled"
 msgid "Widgets"
 msgstr "Dodaj pripomočke"
 
-msgid "Sending"
+#, fuzzy
+msgid "Sending..."
 msgstr "Pošiljanje"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Poslano"
 
 msgid "Sent successfully"
 msgstr "Pošiljanje uspešno"
@@ -3857,6 +3868,25 @@ msgstr "Dodaj pripomočke"
 
 msgid "No widgets installed."
 msgstr "Ni naloženih pripomočkov."
+
+msgid "Configure widget"
+msgstr "Configure widget"
+
+#, fuzzy
+msgid "Remove widget"
+msgstr "Odstrani sliko"
+
+#, fuzzy
+msgid "Collapse widget"
+msgstr "Nalaganje hierarhije je bilo neuspešno."
+
+#, fuzzy
+msgid "Expand widget"
+msgstr "Dodaj pripomočke"
+
+#, fuzzy
+msgid "Add new widget"
+msgstr "Dodaj pripomočke"
 
 msgid "Collapse widget panel"
 msgstr ""
@@ -4079,6 +4109,18 @@ msgstr "Pokaži podmape"
 msgid "Open shared folder/store"
 msgstr "Odpri mapo v skupni rabi/hrambo"
 
+#, fuzzy
+msgid "Empty folder"
+msgstr "Izprazni mapo"
+
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Nezaželjena pošta"
+
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Izbrisani predmeti"
+
 msgid "Rename Folder"
 msgstr "Preimenuj mapo"
 
@@ -4090,14 +4132,6 @@ msgstr "Označi vsa sporočila kot prebrana"
 
 msgid "Delete Folder"
 msgstr "Izbriši mapo"
-
-#, fuzzy
-msgid "Empty Junk E-mail"
-msgstr "Nezaželjena pošta"
-
-#, fuzzy
-msgid "Empty Deleted Items"
-msgstr "Izbrisani predmeti"
 
 msgid "Close store"
 msgstr "Zapri hrambo"
@@ -4132,6 +4166,12 @@ msgstr "Zagonska mapa"
 #, fuzzy
 msgid "Import emails"
 msgstr "Pomembno"
+
+# 93%
+# 100%
+#, fuzzy
+msgid "Import appointments"
+msgstr "Novi sestanek"
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -4176,6 +4216,10 @@ msgstr "Razvrsti po: Pomembnost"
 # 76%
 msgid "Sort by: To"
 msgstr "Razvrsti po: Za"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Poslano"
 
 msgid "Red"
 msgstr "Beri"
@@ -4302,6 +4346,9 @@ msgstr "Pokaži Od"
 msgid "No signatures configured"
 msgstr "Ni nastavljenih podpisov"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr ""
+
 msgid "E-Mail Flags"
 msgstr "Zastavice sporočila"
 
@@ -4374,11 +4421,11 @@ msgstr "Natisni izbrano nalogo"
 msgid "Filter"
 msgstr ""
 
-msgid "RE"
-msgstr "Ponovno"
-
 msgid "FW"
 msgstr "Posreduj"
+
+msgid "RE"
+msgstr "Ponovno"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4391,6 +4438,10 @@ msgstr "Sestavi nastavitve sporočila"
 
 msgid "Compose mail in this format"
 msgstr "Sestavi sporočilo v tem formatu"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Uredi"
 
 msgid "Default font"
 msgstr "Privzeta pisava"
@@ -4676,6 +4727,10 @@ msgstr "Povrni na privzeto"
 msgid "Delete settings"
 msgstr "Izbriši nastavitve"
 
+#, fuzzy
+msgid "{0} Iconset"
+msgstr "Ikone"
+
 msgid "About"
 msgstr "O"
 
@@ -4686,6 +4741,18 @@ msgid "Short"
 msgstr ""
 
 msgid "Long"
+msgstr ""
+
+# 88%
+#, fuzzy
+msgid "Favorite settings"
+msgstr "Nastavitve udeležencev"
+
+#, fuzzy
+msgid "Hide favorites"
+msgstr "Priljubljene"
+
+msgid "Unpin favorites from top"
 msgstr ""
 
 msgid "Inbox navigation"
@@ -5071,6 +5138,10 @@ msgstr "Razvrsti po: Času začetka"
 msgid "Sort by: Owner"
 msgstr "Razvrsti po: Lastniku"
 
+#, fuzzy
+msgid "Sort by: Percentage Completed"
+msgstr "Razvrsti po: Dokončanem procentu"
+
 msgid "Loading tasks"
 msgstr "Nalaganje nalog"
 
@@ -5093,56 +5164,39 @@ msgstr "Posodobi listo"
 msgid "D d-m-Y"
 msgstr "d-m-Y"
 
-msgid "Improved categories"
+#, fuzzy
+msgid "Import / Export"
+msgstr "Pomembno"
+
+msgid ""
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
+msgstr ""
+
+msgid "Exporting can be done from the context menu of an item."
+msgstr ""
+
+#, fuzzy
+msgid "Icon packs"
+msgstr "Ikone"
+
+msgid ""
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
 
-msgid "Flag item for follow up"
-msgstr ""
-
-msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
-msgstr ""
-
-msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-
-msgid "Transformation of flags into follow-ups and categories"
-msgstr ""
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-
-msgid "Search folders"
-msgstr ""
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
+msgid "Left: Breeze - Right: Classic"
 msgstr ""
 
 msgid "What's new"
@@ -5293,26 +5347,60 @@ msgstr "Pošlji faks"
 msgid "Contact Fax"
 msgstr "Kontakt faksa"
 
-msgid "Configure widget"
-msgstr "Configure widget"
+#, fuzzy
+msgid "Widget height"
+msgstr "Dodaj pripomočke"
+
+msgid "pixels"
+msgstr ""
 
 msgid "Reload interval"
 msgstr ""
 
-msgid "seconds."
+msgid "seconds"
 msgstr ""
 
-msgid "No appointments for today."
-msgstr "Ni sestankov za danes."
+#, fuzzy
+msgid "Loading appointments..."
+msgstr "Nalagam sestanke"
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
+# 93%
+# 100%
+#, fuzzy
+msgid "No appointments"
+msgstr "Novi sestanek"
+
+msgid "Number of days"
+msgstr ""
+
+#, fuzzy
+msgid "Today {0} - {1}"
 msgstr "Danes: {1} {0}"
 
-msgid "Today's Appointments"
-msgstr "Današnji sestanki"
+msgid "Today (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "{0} - {1}"
+msgstr "{0} v {1}"
+
+#, fuzzy
+msgid "d/m/y G:i"
+msgstr "l d/m/Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "d/m/y"
+msgstr "d/m/Y"
+
+#, fuzzy
+msgid "Upcoming Appointments"
+msgstr "Nalagam sestanke"
+
+msgid "Datepicker"
+msgstr ""
 
 msgid "No unread mail."
 msgstr "Ni neprebranih sporočil."
@@ -5322,6 +5410,9 @@ msgstr "Neprebrano sporočilo"
 
 msgid "No tasks."
 msgstr "Ni nalog."
+
+msgid "Tasks / To-Do"
+msgstr ""
 
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -5350,6 +5441,9 @@ msgstr "Izberi drugo mapo"
 
 msgid "E-mails are moved to {0}"
 msgstr "Elektronska sporočila so prestavljena v {0}"
+
+msgid "Open in new tab"
+msgstr ""
 
 msgid "Quick Appointment"
 msgstr "Hitri sestanek"
@@ -5548,6 +5642,28 @@ msgstr ""
 msgid "The vcf attachment is not imported successfully"
 msgstr ""
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr ""
+
+#, fuzzy
+msgid "There is no appointment found in this file."
+msgstr "Ta sestanek se pojavlja v preteklosti."
+
+msgid "The file is corrupt."
+msgstr ""
+
+#, fuzzy
+msgid "The file is invalid."
+msgstr "Priložene datoteke še niso bile naložene."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr ""
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+
 msgid "Attachment is not imported successfully"
 msgstr ""
 
@@ -5719,10 +5835,8 @@ msgid "Contact not found"
 msgstr ""
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 
 msgid "Could not handle this type of object."
@@ -5738,6 +5852,30 @@ msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
 "Pojavljanja ni bilo mogoče odpreti, dotično pojavljanje je najverjetneje "
 "izbrisano."
+
+# 89%
+# 100%
+# 84%
+#, fuzzy
+msgid "a meeting request"
+msgstr "Nova zahteva za sestanek"
+
+# 93%
+# 100%
+# 80%
+#, fuzzy
+msgid "an appointment"
+msgstr "Novi sestanek"
+
+# 77%
+# 79%
+# 100%
+#, fuzzy
+msgid "You have insufficient privileges to move "
+msgstr "Nimate dovolj dovoljenj za kopiranje te mape."
+
+msgid "Insufficient privileges"
+msgstr ""
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

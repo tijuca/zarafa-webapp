@@ -4,6 +4,9 @@
  * not been set in the config.php.Each definition of a configuration value must
  * be preceeded by "if(!defined('KEY'))"
  */
+
+require_once(__DIR__ . '/server/includes/core/constants.php');
+
 if(!defined('CONFIG_CHECK')) define('CONFIG_CHECK', TRUE);
 if(!defined('CONFIG_CHECK_COOKIES_HTTP')) define('CONFIG_CHECK_COOKIES_HTTP', FALSE);
 if(!defined('CONFIG_CHECK_COOKIES_SSL')) define('CONFIG_CHECK_COOKIES_SSL', FALSE);
@@ -11,7 +14,6 @@ if(!defined('CONFIG_CHECK_COOKIES_SSL')) define('CONFIG_CHECK_COOKIES_SSL', FALS
 if(!defined('STATE_FILE_MAX_LIFETIME')) define('STATE_FILE_MAX_LIFETIME', 28*60*60);
 if(!defined('UPLOADED_ATTACHMENT_MAX_LIFETIME')) define('UPLOADED_ATTACHMENT_MAX_LIFETIME', 6*60*60);
 if(!defined('ENABLE_PUBLIC_FOLDERS')) define('ENABLE_PUBLIC_FOLDERS', true);
-
 
 /**
  * Set to true to give users the possiblity to edit and create mail filters on the store
@@ -106,6 +108,9 @@ if(!defined('THEME')) define('THEME', '');
  * when they are logged in.
  */
 if(!defined('PERSONAL_THEMES_ENABLED')) define('PERSONAL_THEMES_ENABLED', false);
+
+// Use the classic icons as default iconset
+if(!defined('ICONSET')) define('ICONSET', 'breeze');
 
 // Disable/enabled advanced settings
 if(!defined('ENABLE_ADVANCED_SETTINGS')) define('ENABLE_ADVANCED_SETTINGS', false);
@@ -384,6 +389,9 @@ if (!defined('DEFAULT_CATEGORIES')) define('DEFAULT_CATEGORIES', json_encode(arr
 
 // Maximum reminder items we can show on client side.
 if(!defined('MAX_NUM_REMINDERS')) define('MAX_NUM_REMINDERS', 99);
+
+// Set true to default soft delete the shared store items
+if(!defined('ENABLE_DEFAULT_SOFT_DELETE')) define('ENABLE_DEFAULT_SOFT_DELETE', false);
 
 // Shared store polling timer in minutes
 if(!defined('SHARED_STORE_POLLING_INTERVAL')) define('SHARED_STORE_POLLING_INTERVAL', 15);

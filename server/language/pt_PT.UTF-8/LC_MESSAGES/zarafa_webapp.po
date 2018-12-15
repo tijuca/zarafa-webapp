@@ -1,17 +1,19 @@
-# foo <foo@bar.foobar>, 2005.
-#
+# Kopano Webapp Portuguese (Portugal) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PHP-Langadmin 1.0\n"
+"Project-Id-Version: Kopano Webapp Portuguese (Portugal)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2018-08-20 16:07+0000\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2018-12-13 14:08+0000\n"
 "Last-Translator: Nuno Jerónimo <nuno.jeronimo@valsousa.pt>\n"
-"Language-Team: Portuguese (Portugal) <http://translate.kopano.io/projects/"
-"kopano/kopano-webapp/pt_PT/>\n"
+"Language-Team: Portuguese (Portugal) "
+"<http://translate.kopano.io/projects/kopano/kopano-webapp/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.4\n"
@@ -934,8 +936,8 @@ msgid "Meeting"
 msgstr "Reunião"
 
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
-msgstr "Os recursos foram planeados."
+msgid "Resources have been planned"
+msgstr "Os recursos foram planeados"
 
 msgid ""
 "An update message will be sent to all recipients, do you wish to continue?"
@@ -1167,33 +1169,29 @@ msgstr "Enviar cancelamento agora."
 msgid "Send Meeting Request Confirmation"
 msgstr "Enviar confirmação de pedido de reunião"
 
-#, fuzzy
 msgid ""
 "This meeting will be accepted and moved to your calendar. Do you want to "
 "include comments with your response?"
 msgstr ""
-"Esta reunião foi aceite e vai ser movida para o calendário. Quer editar a "
-"resposta antes de enviar?"
+"Esta reunião vai ser aceite e movida para o calendário. Quer incluir "
+"comentários com a sua resposta?"
 
-#, fuzzy
 msgid ""
 "This meeting will be tentatively accepted and moved to your calendar. Do you "
 "want to include comments with your response?"
 msgstr ""
-"Esta reunião foi aceite em modo de tentativa e vai ser movida para o "
-"Calendário, Quer editar a resposta?"
+"Esta reunião vai ser aceite em modo de tentativa e movida para o Calendário, "
+"Quer incluir comentários com a sua resposta?"
 
-#, fuzzy
 msgid ""
 "This meeting will be declined and moved to your Deleted Items folder. Do you "
 "want to include comments with your response?"
 msgstr ""
-"Esta reunião foi recusada e vai ser movida para os Itens Eliminados. Quer "
-"editar a resposta antes de enviar?"
+"Esta reunião vai ser recusada e movida para os Itens Eliminados. Quer "
+"incluir comentários com a sua resposta?"
 
-#, fuzzy
 msgid "Edit the response before sending"
-msgstr "Editar resposta antes de enviar."
+msgstr "Editar resposta antes de enviar"
 
 msgid "Send the response now."
 msgstr "Enviar resposta agora."
@@ -1223,10 +1221,13 @@ msgid "Switch calendar range back and forth"
 msgstr "Mudar posição no calendário"
 
 msgid "Copy selected item"
-msgstr "Abrir item selecionado"
+msgstr "Copiar item selecionado"
 
 msgid "Paste selected item"
 msgstr "Colar item selecionado"
+
+msgid "Location: "
+msgstr "Local: "
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
@@ -1376,6 +1377,12 @@ msgstr "Tentativa"
 msgid "Decline"
 msgstr "Recusar"
 
+msgid "Send to..."
+msgstr "Enviar para..."
+
+msgid "Export as"
+msgstr "Exportar como"
+
 msgid "Occurrence"
 msgstr "Periocidade"
 
@@ -1488,18 +1495,6 @@ msgstr "Abrir pedido de reunião com alterações"
 
 msgid "Copy"
 msgstr "Copiar"
-
-msgid "a meeting request"
-msgstr "um pedido de reunião"
-
-msgid "an appointment"
-msgstr "um compromisso"
-
-msgid "Insufficient privileges"
-msgstr "Permissões insuficientes"
-
-msgid "You have insufficient privileges to move "
-msgstr "Não tem permissões suficientes para mover "
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1728,8 +1723,8 @@ msgstr "Falhou ao importar Item(s) para {0}"
 msgid "Import error"
 msgstr "Erro ao importar"
 
-msgid "Unable to import {0}. The file is not valid"
-msgstr "Não foi possível importar {0}. O ficheiro não é válido"
+msgid "Unable to import \"{0}\". The file is not valid"
+msgstr "Não foi possível importar \"{0}\". O ficheiro não é válido"
 
 msgid "Cc"
 msgstr "Cc"
@@ -1812,10 +1807,17 @@ msgstr "Importar para a pasta"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
 msgstr ""
 "Para poder usar a funcionalidade de importar Vcard's, por favor atualize o "
-"Kopano Core para uma versão superior à 8.3"
+"Kopano Core para a versão 8.3 ou superior."
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
+msgstr ""
+"Para poder usar a funcionalidade de importar ICS / VCS, por favor atualize o "
+"Kopano Core para a versão 8.3 ou superior."
 
 msgid "Attachment error"
 msgstr "Erro Anexo"
@@ -1985,6 +1987,9 @@ msgstr ""
 msgid "Permission"
 msgstr "Nível de permissão"
 
+msgid "Duplicate delegate"
+msgstr "Delegado duplicado"
+
 msgid "Delegate already exists in the list."
 msgstr "Utilizador já existe na lista."
 
@@ -2010,6 +2015,9 @@ msgstr "Pasta '{0}' selecionada."
 
 msgid "Do not show this message again."
 msgstr "Não mostrar esta mensagem outra vez."
+
+msgid "ICS"
+msgstr "ICS"
 
 msgid "Set custom flag"
 msgstr "Marcar bandeira personalizada"
@@ -2284,11 +2292,16 @@ msgstr "Informação"
 msgid "Not supported at the moment."
 msgstr "Não suportado atualmente."
 
-msgid "There are no reminders"
-msgstr "Não existem lembretes"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Existe {0} lembrete"
+msgstr[1] "Existem {0} lembretes"
 
 msgid "Reminders"
 msgstr "Lembretes"
+
+msgid "There are no reminders"
+msgstr "Não existem lembretes"
 
 msgid "Due In"
 msgstr "Limite em"
@@ -2488,6 +2501,9 @@ msgstr "Quando a mensagem"
 msgid "Do the following"
 msgstr "Executar o seguinte"
 
+msgid "Apply only when Out of Office is active"
+msgstr "Aplicar apenas quando Fora do escritório estiver ativo"
+
 msgid "Stop processing more rules"
 msgstr "Para de processar mais regras"
 
@@ -2515,6 +2531,9 @@ msgstr "Não existem regras"
 
 msgid "Active"
 msgstr "Ativa"
+
+msgid "Out of office"
+msgstr "Fora do escritório"
 
 msgid "Rule"
 msgstr "Regra"
@@ -2624,7 +2643,7 @@ msgstr "D, d-m-Y, G:i"
 msgid "{0} selected row"
 msgid_plural "{0} selected rows"
 msgstr[0] "{0} linha selecionada"
-msgstr[1] "0} linhas selecionadas"
+msgstr[1] "{0} linhas selecionadas"
 
 msgid "Reminder is set on: {0}, {1}"
 msgstr "Lembrete definido em: {0}, {1}"
@@ -2867,15 +2886,12 @@ msgctxt "mail.previewpanel"
 msgid "None"
 msgstr "Nenhum"
 
-#, fuzzy
 msgid "Pop-out"
 msgstr "Pop-out"
 
-#, fuzzy
 msgid "Mark as read"
-msgstr "Marcar como não lida"
+msgstr "Marcar como lida"
 
-#, fuzzy
 msgid "Mark as unread"
 msgstr "Marcar como não lida"
 
@@ -3136,20 +3152,17 @@ msgstr "Extensão"
 msgid "Add Attachment"
 msgstr "Adicionar anexo"
 
-#, fuzzy
 msgid "Add attachments to this contact"
-msgstr "Adicionar anexos a este contacto."
+msgstr "Adicionar anexos a este contacto"
 
-#, fuzzy
 msgid "Mark this contact as private"
-msgstr "Marcar contacto como privado."
+msgstr "Marcar contacto como privado"
 
 msgid "Distribution List"
 msgstr "Lista de Distribuição"
 
-#, fuzzy
 msgid "Mark this Distribution list as private"
-msgstr "Marcar esta lista de distribuição como privada."
+msgstr "Marcar esta lista de distribuição como privada"
 
 msgid "New email address"
 msgstr "Novo endereço de E-mail"
@@ -3204,9 +3217,6 @@ msgstr "Grupo"
 
 msgid "Work"
 msgstr "Trabalho"
-
-msgid "Export as"
-msgstr "Exportar como"
 
 msgid "Sort by: Full Name"
 msgstr "Ordenar por: Nome da completo"
@@ -3500,16 +3510,11 @@ msgstr "Sair"
 msgid "Switch view"
 msgstr "Mudar vista"
 
-#, fuzzy
 msgid "Widgets"
-msgstr "Adicionar widgets"
+msgstr "Widgets"
 
-msgid "Sending"
-msgstr "A enviar"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Enviado"
+msgid "Sending..."
+msgstr "A enviar..."
 
 msgid "Sent successfully"
 msgstr "Enviado com sucesso"
@@ -3590,6 +3595,21 @@ msgstr "Adicionar widgets"
 msgid "No widgets installed."
 msgstr "Sem widgets instalados."
 
+msgid "Configure widget"
+msgstr "Configurar widget"
+
+msgid "Remove widget"
+msgstr "Remover widget"
+
+msgid "Collapse widget"
+msgstr "Colapsar widget"
+
+msgid "Expand widget"
+msgstr "Expandir widget"
+
+msgid "Add new widget"
+msgstr "Adicionar novo widget"
+
 msgid "Collapse widget panel"
 msgstr "Fechar painel de widgets"
 
@@ -3622,11 +3642,10 @@ msgstr ""
 msgid "Not enough permissions to open this folder."
 msgstr "Não tem permissões suficientes para abrir esta pasta."
 
-#, fuzzy
 msgid "There is {0} unread message in the folder {1} of {2}"
 msgid_plural "There are {0} unread messages in the folder {1} of {2}"
-msgstr[0] "Existem {0} mensagem por ler na pasta {1}"
-msgstr[1] "Existem {0} mensagens por ler na pasta {1}"
+msgstr[0] "Existe {0} mensagem por ler na pasta {1} de {2}"
+msgstr[1] "Existem {0} mensagens por ler na pasta {1} de {2}"
 
 msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
@@ -3800,6 +3819,15 @@ msgstr "Mostrar subpastas"
 msgid "Open shared folder/store"
 msgstr "Abrir pastas/caixas partilhadas"
 
+msgid "Empty folder"
+msgstr "Esvaziar pasta"
+
+msgid "Empty Junk E-mail"
+msgstr "Esvaziar E-mail de SPAM"
+
+msgid "Empty Deleted Items"
+msgstr "Esvaziar Itens Eliminados"
+
 msgid "Rename Folder"
 msgstr "Mudar nome da pasta"
 
@@ -3811,12 +3839,6 @@ msgstr "Marcar todas as mensagens como lidas"
 
 msgid "Delete Folder"
 msgstr "Eliminar pasta"
-
-msgid "Empty Junk E-mail"
-msgstr "Esvaziar E-mail de SPAM"
-
-msgid "Empty Deleted Items"
-msgstr "Esvaziar Itens Eliminados"
 
 msgid "Close store"
 msgstr "Fechar caixa"
@@ -3844,6 +3866,9 @@ msgstr "Partilhar pasta..."
 
 msgid "Import emails"
 msgstr "Importar mensagens"
+
+msgid "Import appointments"
+msgstr "Importar compromissos"
 
 msgid "Properties of {0}"
 msgstr "Propriedades de {0}"
@@ -3884,6 +3909,10 @@ msgstr "Ordenar por: Importância"
 
 msgid "Sort by: To"
 msgstr "Ordenar por: Para"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Enviado"
 
 msgid "Red"
 msgstr "Vermelho"
@@ -3960,9 +3989,8 @@ msgstr "Esta mensagem vai ser marcada para seguimento quando for enviada."
 msgid "Send Later"
 msgstr "Enviar depois"
 
-#, fuzzy
 msgid "Schedule your mail to be sent on a specific date and time"
-msgstr "Agendar a mensagem para ser enviada numa data específica."
+msgstr "Agendar a mensagem para ser enviada numa data específica"
 
 msgid "Add attachments to this email"
 msgstr "Adicionar anexos a esta mensagem"
@@ -3997,16 +4025,17 @@ msgstr "Pedir recibo de leitura dos destinatários"
 msgid "Show Bcc"
 msgstr "Mostar Bcc"
 
-#, fuzzy
 msgid "Show Bcc field"
-msgstr "Mostar Bcc"
+msgstr "Mostrar Bcc"
 
-#, fuzzy
 msgid "Show From field"
 msgstr "Mostrar De"
 
 msgid "No signatures configured"
 msgstr "Sem assinaturas configuradas"
+
+msgid "Cannot save while attachment is being uploaded"
+msgstr "Não é possível guardar enquanto o anexo é enviado"
 
 msgid "E-Mail Flags"
 msgstr "Bandeiras de mensagem"
@@ -4065,18 +4094,17 @@ msgstr "Abrir caixas partilhadas"
 msgid "Print single e-mail"
 msgstr "Imprimir só uma mensagem"
 
-#, fuzzy
 msgid "Print selected email"
 msgstr "Imprimir item selecionado"
 
 msgid "Filter"
 msgstr "Filtrar"
 
-msgid "RE"
-msgstr "RE"
-
 msgid "FW"
 msgstr "FW"
+
+msgid "RE"
+msgstr "RE"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4089,6 +4117,9 @@ msgstr "Definições de composição de E-mail"
 
 msgid "Compose mail in this format"
 msgstr "Formatar mensagem como"
+
+msgid "Editor"
+msgstr "Editor"
 
 msgid "Default font"
 msgstr "Tipo de letra por defeito"
@@ -4117,7 +4148,7 @@ msgid "Never send a response"
 msgstr "Nunca enviar uma resposta"
 
 msgid "Ask me before sending a response"
-msgstr "Perguntar sempre antes de mandar uma resposta"
+msgstr "Perguntar sempre antes de enviar uma resposta"
 
 #. TRANSLATORS: The {A} _must_ always be at the start of the translation
 #. The '{B}' represents the number of seconds which the user will type in.
@@ -4259,7 +4290,6 @@ msgstr "Enviar para"
 msgid "Loading mail"
 msgstr "A Carregar mensagens"
 
-#, fuzzy
 msgid "Print note"
 msgstr "Imprimir esta nota"
 
@@ -4352,6 +4382,9 @@ msgstr "Repor valores originais"
 msgid "Delete settings"
 msgstr "Eliminar definições"
 
+msgid "{0} Iconset"
+msgstr "{0} conjunto Ícones"
+
 msgid "About"
 msgstr "Acerca"
 
@@ -4363,6 +4396,15 @@ msgstr "Abreviada"
 
 msgid "Long"
 msgstr "Completa"
+
+msgid "Favorite settings"
+msgstr "Definições de favoritos"
+
+msgid "Hide favorites"
+msgstr "Esconder Favoritos"
+
+msgid "Unpin favorites from top"
+msgstr "Desprender os favoritos do topo"
 
 msgid "Inbox navigation"
 msgstr "Navegação na Caixa de Entrada"
@@ -4408,7 +4450,7 @@ msgid "All keyboard shortcuts on"
 msgstr "Todos atalhos teclado ligados"
 
 msgid "Discard"
-msgstr "Cancelar"
+msgstr "Ignorar"
 
 msgid "Plugins"
 msgstr "Plugins"
@@ -4564,13 +4606,12 @@ msgstr "Aceitação de Tarefa"
 msgid "Declining Task"
 msgstr "Recusa de Tarefa"
 
-#, fuzzy
 msgid ""
 "This task will be accepted and moved to your task folder. Do you want to "
 "include comments with your response?"
 msgstr ""
-"Esta reunião foi aceite e vai ser movida para o calendário. Quer editar a "
-"resposta antes de enviar?"
+"Esta tarefa vai ser aceite e movida para a pasta das tarefas. Quer incluir "
+"comentários com a sua resposta?"
 
 msgid ""
 "This task will be declined and moved into the Deleted Items folder. Do you "
@@ -4723,6 +4764,9 @@ msgstr "Ordenar por: Data de Início"
 msgid "Sort by: Owner"
 msgstr "Ordenar por: Proprietário"
 
+msgid "Sort by: Percentage Completed"
+msgstr "Ordenar por: Percentagem Completa"
+
 msgid "Loading tasks"
 msgstr "A Carregar Tarefas"
 
@@ -4741,75 +4785,46 @@ msgstr "Atualizar lista"
 msgid "D d-m-Y"
 msgstr "D d-m-Y"
 
-msgid "Improved categories"
-msgstr "Categorias melhoradas"
+msgid "Import / Export"
+msgstr "Importar / Exportar"
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
-"As categorias têm agora um espaço destacado nas vistas de Correio, "
-"Calendário, Tarefas e mais."
+"Itens de Calendário, Contactos e Correio podem ser importados e exportados "
+"para a e da WebApp."
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
 msgstr ""
-"Adicionar uma categoria é fácil e pode ser feito através da vista geral. "
-"Mova o rato sobre uma mensagem para ver  \"Adicionar categoria\" e "
-"selecione, ou use o botão do lado direito do rato para abrir o menu "
-"contextual."
+"Use o botão direito numa pasta e selecione o botão de importar. "
+"Adicionalmente podem ser importados itens do menu de contexto dos anexos."
 
-msgid "Flag item for follow up"
-msgstr "Marcar item para seguimento"
+msgid "Exporting can be done from the context menu of an item."
+msgstr "Exportar pode ser realizado do menu de contexto de um item."
+
+msgid "Icon packs"
+msgstr "Pacote de ícones"
 
 msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
-"Agora pode marcar mensagens para seguimento definindo uma bandeira. No novo "
-"menu de bandeiras pode definir uma data. Será mostrado um lembrete nesse dia."
+"Agora pode escolher entre diferentes ícones. Por defeito os novos ícones "
+"Breeze estão ativos, mas se preferir os ícones clássicos pode alterar nas "
+"definições."
 
 msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
-"O contexto das Tarefas fornece uma visão das Ações a Fazer. Todas as tarefas "
-"e mensagens marcadas serão mostradas nesta lista."
+"Vá às definições, e na aba Geral selecione o pacote de ícones que desejar."
 
-msgid "Transformation of flags into follow-ups and categories"
-msgstr "Transformação de marcas em seguimentos e categorias"
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-"Os seus itens anteriormente marcados com bandeiras serão transformados em "
-"categorias e ficarão com uma bandeira \"Sem data\". Por exemplo, um item com "
-"uma bandeira azul ficará com a categoria \"Azul\"."
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-" Tem a opção de alterar a cor de uma categoria quando a usa pela primeira "
-"vez. Todos os itens nessa categoria serão atualizados."
-
-msgid "Search folders"
-msgstr "Pastas de procura"
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
-msgstr ""
-"Se existir uma procura que realize frequentemente pode guarda-la como "
-"\"pasta de procura\" e esta irá aparecer nos favoritos. Poderá voltar a "
-"fazer essa mesma procura selecionando a pasta de procura criada."
+msgid "Left: Breeze - Right: Classic"
+msgstr "Esquerda: Breeze - Direita: Clássico"
 
 msgid "What's new"
 msgstr "Novidades"
@@ -4954,26 +4969,50 @@ msgstr "Enviar Fax"
 msgid "Contact Fax"
 msgstr "Contacto Fax"
 
-msgid "Configure widget"
-msgstr "Configurar widget"
+msgid "Widget height"
+msgstr "Altura do Widget"
+
+msgid "pixels"
+msgstr "pixeis"
 
 msgid "Reload interval"
 msgstr "Intervalo para refrescar (s)"
 
-msgid "seconds."
-msgstr "segundos."
+msgid "seconds"
+msgstr "segundos"
 
-msgid "No appointments for today."
-msgstr "Sem compromissos para hoje."
+msgid "Loading appointments..."
+msgstr "A carregar compromissos..."
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
-msgstr "Hoje: {1} {0}"
+msgid "No appointments"
+msgstr "Sem compromissos"
 
-msgid "Today's Appointments"
-msgstr "Compromissos para hoje"
+msgid "Number of days"
+msgstr "Número de dias"
+
+msgid "Today {0} - {1}"
+msgstr "Hoje {0} - {1}"
+
+msgid "Today (all day)"
+msgstr "Hoje (todo dia)"
+
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+msgid "d/m/y G:i"
+msgstr "d/m/Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr "{0} - {1} (todo dia)"
+
+msgid "d/m/y"
+msgstr "d/m/Y"
+
+msgid "Upcoming Appointments"
+msgstr "Próximos compromissos"
+
+msgid "Datepicker"
+msgstr "Escolha de data"
 
 msgid "No unread mail."
 msgstr "Sem mensagens por ler."
@@ -4983,6 +5022,9 @@ msgstr "Mensagens por ler"
 
 msgid "No tasks."
 msgstr "Sem tarefas."
+
+msgid "Tasks / To-Do"
+msgstr "Tarefas a fazer"
 
 msgid "Google Maps"
 msgstr "Mapas Google"
@@ -5012,6 +5054,9 @@ msgstr "Selecionar outra pasta"
 msgid "E-mails are moved to {0}"
 msgstr "Emails são movidos para {0}"
 
+msgid "Open in new tab"
+msgstr "Abrir numa nova aba"
+
 msgid "Quick Appointment"
 msgstr "Compromisso rápido"
 
@@ -5025,7 +5070,7 @@ msgid "Quick Note"
 msgstr "Nota rápida"
 
 msgid "none"
-msgstr ""
+msgstr "nenhum"
 
 msgid "Quick Task"
 msgstr "Tarefa rápida"
@@ -5133,6 +5178,8 @@ msgid ""
 "Sorry, access to WebApp is not available with this user account. Please "
 "contact your system administrator."
 msgstr ""
+"Infelizmente o acesso à Webapp não está disponível para a conta deste "
+"utilizador. Por favor contacte o seu administrador de sistema."
 
 msgid "Can't add data to bus, same action type is present in bus"
 msgstr "Não foi possível adicionar dados ao bus. A mesma ação já existe no bus"
@@ -5209,6 +5256,27 @@ msgstr "O anexo EML não foi importado com sucesso"
 
 msgid "The vcf attachment is not imported successfully"
 msgstr "O anexo VCF não foi importado com sucesso"
+
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr "Não foi possível importar '%s' para '%s' "
+
+msgid "There is no appointment found in this file."
+msgstr "Não foi encontrado nenhum compromisso neste ficheiro."
+
+msgid "The file is corrupt."
+msgstr "O ficheiro está corrompido."
+
+msgid "The file is invalid."
+msgstr "O ficheiro é inválido."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr "Não foi possível importar '%s' "
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+"Por favor contacte o seu administrador de sistema se o problema persistir."
 
 msgid "Attachment is not imported successfully"
 msgstr "O anexo não foi importado com sucesso"
@@ -5345,14 +5413,11 @@ msgid "Contact not found"
 msgstr "Contacto não encontrado"
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 "A informação sobre o contacto não pode ser exibida porque o servidor teve um "
-"problema ao recolher a informação. Por favor contacte o seu administrador de "
-"sistema se o problema persistir."
+"problema ao recolher a informação."
 
 msgid "Could not handle this type of object."
 msgstr "Não foi possível processar este tipo de objeto."
@@ -5365,6 +5430,18 @@ msgstr "Não foi possível abrir a ocorrência."
 
 msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr "Não foi possível abrir a ocorrência. Provalvelmente foi apagada."
+
+msgid "a meeting request"
+msgstr "um pedido de reunião"
+
+msgid "an appointment"
+msgstr "um compromisso"
+
+msgid "You have insufficient privileges to move "
+msgstr "Não tem permissões suficientes para mover "
+
+msgid "Insufficient privileges"
+msgstr "Permissões insuficientes"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

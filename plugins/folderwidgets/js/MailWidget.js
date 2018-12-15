@@ -37,7 +37,6 @@ Zarafa.widgets.folderwidgets.MailWidget = Ext.extend(Zarafa.widgets.folderwidget
 		};
 
 		Ext.applyIf(config, {
-			height : 200,
 			autoScroll: true,
 			layout: 'fit',
 			folderType : 'inbox',
@@ -50,7 +49,7 @@ Zarafa.widgets.folderwidgets.MailWidget = Ext.extend(Zarafa.widgets.folderwidget
 				loadMask : {
 					msg : _('Loading mail') + '...'
 				},
-				sm: new Ext.grid.RowSelectionModel({
+				sm: new Zarafa.common.ui.grid.RowSelectionModel({
 					singleSelect: true
 				}),
 				viewConfig: {

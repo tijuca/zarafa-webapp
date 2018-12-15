@@ -124,7 +124,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			renderer : Zarafa.common.ui.grid.Renderers.categories
 		}, {
 			headerCls: 'zarafa-icon-column',
-			header : '<p class="icon_attachment">&nbsp;</p>',
+			header : '<p class="icon_paperclip">&nbsp;</p>',
 			dataIndex : 'hasattach',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.attachment,
@@ -142,7 +142,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			hidden: true
 		}, {
 			headerCls: 'zarafa-icon-column',
-			header : '<p class="icon_recurring">&nbsp;</p>',
+			header : '<p class="icon_recurrence">&nbsp;</p>',
 			dataIndex: 'recurring',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.recurrence,
@@ -235,7 +235,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			dataIndex : 'percent_complete',
 			header : _('% Completed'),
 			width : 75,
-			tooltip : _('Sort by: Percent Completed'),
+			tooltip : _('Sort by: Percentage Completed'),
 			renderer : this.columnRenderer
 		}, {
 			dataIndex : 'categories',
@@ -244,7 +244,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			renderer : Zarafa.common.ui.grid.Renderers.categories
 		}, {
 			headerCls: 'zarafa-icon-column',
-			header : '<p class="icon_attachment">&nbsp;</p>',
+			header : '<p class="icon_paperclip">&nbsp;</p>',
 			dataIndex : 'hasattach',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.attachment,
@@ -261,7 +261,7 @@ Zarafa.task.ui.TaskGridColumnModel = Ext.extend(Zarafa.common.ui.grid.ColumnMode
 			hidden: true
 		}, {
 			headerCls: 'zarafa-icon-column',
-			header : '<p class="icon_recurring">&nbsp;</p>',
+			header : '<p class="icon_recurrence">&nbsp;</p>',
 			dataIndex: 'recurring',
 			width: 24,
 			renderer : Zarafa.common.ui.grid.Renderers.recurrence,

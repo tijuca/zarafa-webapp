@@ -4,11 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: KC-8\n"
+"Project-Id-Version: Kopano Webapp German (Germany)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2018-09-13 11:24+0000\n"
-"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2018-12-06 14:56+0000\n"
+"Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
 "Language: de_DE\n"
@@ -997,8 +997,8 @@ msgid "Meeting"
 msgstr "Besprechung"
 
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
-msgstr "Die Ressourcen wurden geplant."
+msgid "Resources have been planned"
+msgstr "Die Ressourcen wurden geplant"
 
 msgid ""
 "An update message will be sent to all recipients, do you wish to continue?"
@@ -1307,6 +1307,9 @@ msgstr "Selektion kopieren"
 msgid "Paste selected item"
 msgstr "Selektion einfügen"
 
+msgid "Location: "
+msgstr "Ort: "
+
 # 87%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
@@ -1462,6 +1465,13 @@ msgstr "Mit Vorbehalt"
 msgid "Decline"
 msgstr "Ablehnen"
 
+# 75%
+msgid "Send to..."
+msgstr "Senden an..."
+
+msgid "Export as"
+msgstr "Exportieren als"
+
 # 80%
 # 100%
 msgid "Occurrence"
@@ -1593,26 +1603,6 @@ msgstr "Besprechungsanfrage mit den Änderungen öffnen"
 
 msgid "Copy"
 msgstr "Kopieren"
-
-# 89%
-# 100%
-# 84%
-msgid "a meeting request"
-msgstr "neue Terminanfrage"
-
-# 93%
-# 100%
-# 80%
-msgid "an appointment"
-msgstr "neuer Termin"
-
-msgid "Insufficient privileges"
-msgstr "Nicht genügend Berechtigungen"
-
-# 79%
-# 100%
-msgid "You have insufficient privileges to move "
-msgstr "Sie haben nicht genügend Berechtigungen zum verschieben von "
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1851,7 +1841,7 @@ msgstr "Import fehlgeschlagen in {0}"
 msgid "Import error"
 msgstr "Importfehler"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr "Import von {0} nicht möglich. Die Datei ist ungültig"
 
 msgid "Cc"
@@ -1938,10 +1928,17 @@ msgstr "Einfügen in Ordner"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
 msgstr ""
 "Um das vCard Import Feature zu verwenden müssen Sie Kopano Core auf die "
-"Version 8.3 und neuer updaten"
+"Version 8.3 oder neuer updaten."
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
+msgstr ""
+"Um das vCard Import Feature zu verwenden müssen Sie Kopano Core auf die "
+"Version 8.3 oder neuer updaten."
 
 msgid "Attachment error"
 msgstr "Problem mit dem Anhang"
@@ -2123,6 +2120,9 @@ msgstr ""
 msgid "Permission"
 msgstr "Berechtigung"
 
+msgid "Duplicate delegate"
+msgstr "Stellvertreter kopieren"
+
 msgid "Delegate already exists in the list."
 msgstr "Stellvertreter existiert bereits in der Liste."
 
@@ -2148,6 +2148,9 @@ msgstr "Ordner \"{0}\" ausgewählt."
 
 msgid "Do not show this message again."
 msgstr "Diese Nachricht nicht wieder anzeigen."
+
+msgid "ICS"
+msgstr "ICS"
 
 msgid "Set custom flag"
 msgstr "Zur Nachverfolgung kennzeichnen"
@@ -2448,12 +2451,17 @@ msgstr "Informationen"
 msgid "Not supported at the moment."
 msgstr "Wird momentan nicht unterstützt."
 
-msgid "There are no reminders"
-msgstr "Es gibt keine Erinnerungen"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Es gibt {0} Erinnerung"
+msgstr[1] "Es gibt {0} Erinnerungen"
 
 # 88%
 msgid "Reminders"
 msgstr "Erinnerungen"
+
+msgid "There are no reminders"
+msgstr "Es gibt keine Erinnerungen"
 
 msgid "Due In"
 msgstr "Fällig in"
@@ -2667,6 +2675,9 @@ msgstr "Falls die Nachricht"
 msgid "Do the following"
 msgstr "Folgende Aktion ausführen"
 
+msgid "Apply only when Out of Office is active"
+msgstr "Nur anwenden wenn Abwesenheitsbenachrichtigung aktiv ist"
+
 msgid "Stop processing more rules"
 msgstr "Keine weiteren Regeln anwenden"
 
@@ -2694,6 +2705,9 @@ msgstr "Es wurde keine Regel angelegt"
 
 msgid "Active"
 msgstr "Aktiv"
+
+msgid "Out of office"
+msgstr "Abwesend"
 
 # 80%
 msgid "Rule"
@@ -3239,16 +3253,16 @@ msgid "Dr."
 msgstr "Dr."
 
 msgid "Miss"
-msgstr "Fr."
+msgstr "Fräulein"
 
 msgid "Mr."
-msgstr "Hr."
+msgstr "Herr"
 
 msgid "Mrs."
-msgstr "Fr."
+msgstr "Frau"
 
 msgid "Ms."
-msgstr "Fr."
+msgstr "Frau"
 
 msgid "Prof."
 msgstr "Prof."
@@ -3447,9 +3461,6 @@ msgstr "Gruppe"
 
 msgid "Work"
 msgstr "Arbeit"
-
-msgid "Export as"
-msgstr "Exportieren als"
 
 msgid "Sort by: Full Name"
 msgstr "Sortieren nach: Vollständiger Name"
@@ -3757,16 +3768,11 @@ msgstr "Abmelden"
 msgid "Switch view"
 msgstr "Ansicht umschalten"
 
-#, fuzzy
 msgid "Widgets"
-msgstr "Alle Widgets"
+msgstr "Widgets"
 
-msgid "Sending"
-msgstr "Senden"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Gesendet"
+msgid "Sending..."
+msgstr "Senden..."
 
 # 94%
 msgid "Sent successfully"
@@ -3856,6 +3862,21 @@ msgstr "Alle Widgets"
 msgid "No widgets installed."
 msgstr "Es sind keine Widgets installiert."
 
+msgid "Configure widget"
+msgstr "Widget konfigurieren"
+
+msgid "Remove widget"
+msgstr "Widget entfernen"
+
+msgid "Collapse widget"
+msgstr "Widgets minimieren"
+
+msgid "Expand widget"
+msgstr "Widget erweitern"
+
+msgid "Add new widget"
+msgstr "Widgets hinzufügen"
+
 msgid "Collapse widget panel"
 msgstr "Widgets verstecken"
 
@@ -3891,11 +3912,10 @@ msgstr ""
 msgid "Not enough permissions to open this folder."
 msgstr "Keine ausreichenden Berechtigungen, um diesen Ordner zu öffnen."
 
-#, fuzzy
 msgid "There is {0} unread message in the folder {1} of {2}"
 msgid_plural "There are {0} unread messages in the folder {1} of {2}"
-msgstr[0] "Es befinden sich {0} ungelesene Nachricht Im Ordner {1} aus {2}"
-msgstr[1] "Es befinden sich {0} ungelesene Nachrichten Im Ordner {1} aus {2}"
+msgstr[0] "Es befindet sich {0} ungelesene Nachricht im Ordner {1} aus {2}"
+msgstr[1] "Es befinden sich {0} ungelesene Nachrichten im Ordner {1} aus {2}"
 
 msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
@@ -4077,6 +4097,16 @@ msgstr "Unterordner anzeigen"
 msgid "Open shared folder/store"
 msgstr "Gemeinsamen Ordner oder Postfach öffnen"
 
+msgid "Empty folder"
+msgstr "Ordner leeren"
+
+msgid "Empty Junk E-mail"
+msgstr "Junk-E-Mail Ordner leeren"
+
+# 92%
+msgid "Empty Deleted Items"
+msgstr "Gelöschte Objekte leeren"
+
 msgid "Rename Folder"
 msgstr "Ordner umbenennen"
 
@@ -4088,13 +4118,6 @@ msgstr "Alle Nachrichten als gelesen markieren"
 
 msgid "Delete Folder"
 msgstr "Ordner löschen"
-
-msgid "Empty Junk E-mail"
-msgstr "Junk-E-Mail Ordner leeren"
-
-# 92%
-msgid "Empty Deleted Items"
-msgstr "Gelöschte Objekte leeren"
 
 msgid "Close store"
 msgstr "Postfach schließen"
@@ -4124,6 +4147,11 @@ msgstr "Ordner teilen..."
 
 msgid "Import emails"
 msgstr "E-Mails importieren"
+
+# 93%
+# 100%
+msgid "Import appointments"
+msgstr "Termine importieren"
 
 msgid "Properties of {0}"
 msgstr "Eigenschaften von {0}"
@@ -4167,6 +4195,10 @@ msgstr "Sortieren nach: Wichtigkeit"
 # 76%
 msgid "Sort by: To"
 msgstr "Sortien nach: An"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Gesendet"
 
 msgid "Red"
 msgstr "Rot"
@@ -4295,6 +4327,9 @@ msgstr "Von anzeigen"
 msgid "No signatures configured"
 msgstr "Keine Signaturen konfiguriert"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr "Es kann nicht gespeichert werden, während ein Anhang hochlädt"
+
 msgid "E-Mail Flags"
 msgstr "E-Mail-Kategorien"
 
@@ -4367,11 +4402,11 @@ msgstr "Ausgewähltes Element drucken"
 msgid "Filter"
 msgstr "Filter"
 
-msgid "RE"
-msgstr "AW"
-
 msgid "FW"
 msgstr "WG"
+
+msgid "RE"
+msgstr "AW"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4384,6 +4419,9 @@ msgstr "Einstellungen zur E-Mail-Erstellung"
 
 msgid "Compose mail in this format"
 msgstr "E-Mail in diesem Format erstellen"
+
+msgid "Editor"
+msgstr "Editor"
 
 msgid "Default font"
 msgstr "Standardschriftart"
@@ -4668,6 +4706,9 @@ msgstr "Standardeinstellungen wiederherstellen"
 msgid "Delete settings"
 msgstr "Einstellungen löschen"
 
+msgid "{0} Iconset"
+msgstr "{0} Symbol-Set"
+
 msgid "About"
 msgstr "Über"
 
@@ -4679,6 +4720,16 @@ msgstr "Kurzform"
 
 msgid "Long"
 msgstr "Langform"
+
+# 88%
+msgid "Favorite settings"
+msgstr "Favoriten-Einstellungen"
+
+msgid "Hide favorites"
+msgstr "Favoriten verstecken"
+
+msgid "Unpin favorites from top"
+msgstr "Favoriten nicht oben anzeigen"
 
 msgid "Inbox navigation"
 msgstr "Navigation im Posteingang"
@@ -5072,6 +5123,9 @@ msgstr "Sortieren nach: Startdatum"
 msgid "Sort by: Owner"
 msgstr "Sortieren nach: Besitzer"
 
+msgid "Sort by: Percentage Completed"
+msgstr "Sortieren nach: Prozent erledigt"
+
 msgid "Loading tasks"
 msgstr "Lade Aufgaben"
 
@@ -5091,79 +5145,47 @@ msgstr "Liste aktualisieren"
 msgid "D d-m-Y"
 msgstr "D, d.m.Y"
 
-msgid "Improved categories"
-msgstr "Verbesserte Kategorien"
+msgid "Import / Export"
+msgstr "Import / Export"
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
-msgstr "Kategorien haben nun einen präsenteren Platz in Ihrer Übersicht."
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
+msgstr ""
+"Kalender-, Kontakt- und E-Mail-Elemente können in WebApp importiert und "
+"exportiert werden."
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
 msgstr ""
-"Es ist besonders einfach, von der Übersicht aus neue Kategorien "
-"hinzuzufügen. Wenn Sie Ihren Mauszeiger über eine Mail bewegen, können Sie "
-"das \"Kategorie hinzufügen\"-Symbol sehen und anklicken. Alternativ können "
-"Sie dies auch über einen Rechtsklick auf das Element erreichen."
+"Rechtsklicken Sie auf einen Ordner und wählen Import. Zusätzlich können "
+"Elemente über das Kontextmenü für Anhänge importiert werden."
 
-msgid "Flag item for follow up"
-msgstr "Element zur Nachverfolgung kennzeichnen"
+msgid "Exporting can be done from the context menu of an item."
+msgstr "Elemente können über deren Kontextmenü exportiert werden."
+
+msgid "Icon packs"
+msgstr "Symbol Pakete"
 
 msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
-"Sie können nun E-Mails zur Nachverfolgung markieren. Im neuen "
-"Nachverfolgungsmenü können Sie das Datum hierfür setzen, an dem eine "
-"Erinnerung angezeigt wird."
+"Sie können ab jetzt verschiedene Symbole auswählen. Standardmäßig sind die "
+"neuen \"Breeze\"-Symbole aktiviert, wenn Sie aber die klassischen Symbole "
+"bevorzugen, kann dies in den Einstellungen konfiguriert werden."
 
 msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
-"Die Aufgaben-Ansicht gibt einen kompletten Überblick über Ihre Aufgaben. "
-"Alle Aufgaben und markierten E-Mails werden in der To-Do-Listen-Ansicht "
-"gezeigt."
+"Wechseln Sie in den Einstellungen auf den Reiter \"Allgemein\" und wählen "
+"das Symbolpaket das Ihnen zusagt."
 
-msgid "Transformation of flags into follow-ups and categories"
-msgstr ""
-"Änderung von Flaggen in Kennzeichnungen zur Nachverfolgung und Kategorien"
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-"Ihre mit einer Flagge markierten Elemente wurden als Elemente mit einer "
-"farbigen Kategorie zur Nachverfolgung ohne Datumsangabe geändert. Zum "
-"Beispiel gehört ein Element mit einer blauen Flagge nun zur Kategorie \"Blau"
-"\"."
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-" Sie haben die Möglichkeit, eine Kategorie einmalig umzubenennen, wenn Sie "
-"diese zum ersten Mal nutzen. Alle mit dieser Kategorie markierten Elemente "
-"werden dann angepasst."
-
-msgid "Search folders"
-msgstr "Suchordner"
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
-msgstr ""
-"Sie suchen öfters nach derselben Anfrage? Nachdem Sie diese Suche "
-"erfolgreich ausgeführt haben, können Sie sie als \"Suchordner\" speichern, "
-"der in Ihren Favoriten auftaucht. Damit können Sie diese Suchanfrage ab "
-"sofort mit einem einzelnen Mausklick ausführen."
+msgid "Left: Breeze - Right: Classic"
+msgstr "Links: Breeze - Rechts: Klassisch"
 
 msgid "What's new"
 msgstr "Neuigkeiten"
@@ -5322,26 +5344,53 @@ msgstr "Fax senden"
 msgid "Contact Fax"
 msgstr "Fax kontaktieren"
 
-msgid "Configure widget"
-msgstr "Widget konfigurieren"
+msgid "Widget height"
+msgstr "Höhe des Widget"
+
+msgid "pixels"
+msgstr "Pixel"
 
 msgid "Reload interval"
 msgstr "Aktualisieren nach"
 
-msgid "seconds."
-msgstr "Sekunden."
+msgid "seconds"
+msgstr "Sekunden"
 
-msgid "No appointments for today."
-msgstr "Heute keine Termine."
+msgid "Loading appointments..."
+msgstr "Termine werden geladen..."
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
-msgstr "Heute: {1} {0}"
+# 93%
+# 100%
+msgid "No appointments"
+msgstr "Keine Termine"
 
-msgid "Today's Appointments"
-msgstr "Heutige Termine"
+msgid "Number of days"
+msgstr "Anzahl Tage"
+
+msgid "Today {0} - {1}"
+msgstr "Heute: {0} - {1}"
+
+msgid "Today (all day)"
+msgstr "Heute (ganztägig)"
+
+# 100%
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+msgid "d/m/y G:i"
+msgstr "d.m.Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr "{0} - {1} (ganztägig)"
+
+msgid "d/m/y"
+msgstr "d.m.Y"
+
+msgid "Upcoming Appointments"
+msgstr "Bevorstehende Termine"
+
+msgid "Datepicker"
+msgstr "Datumsauswahl"
 
 msgid "No unread mail."
 msgstr "Keine ungelesene E-Mail."
@@ -5351,6 +5400,9 @@ msgstr "Ungelesene E-Mail"
 
 msgid "No tasks."
 msgstr "Keine Aufgaben."
+
+msgid "Tasks / To-Do"
+msgstr "Aufgaben / To-Dos"
 
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -5380,6 +5432,9 @@ msgstr "Einen Ordner auswählen"
 msgid "E-mails are moved to {0}"
 msgstr "E-Mails werden verschoben nach {0}"
 
+msgid "Open in new tab"
+msgstr "In neuem Tab öffnen"
+
 msgid "Quick Appointment"
 msgstr "Schnelltermin"
 
@@ -5393,7 +5448,7 @@ msgid "Quick Note"
 msgstr "Schnellnotiz"
 
 msgid "none"
-msgstr ""
+msgstr "keine"
 
 msgid "Quick Task"
 msgstr "Schnellaufgabe"
@@ -5584,6 +5639,28 @@ msgstr "Der Anhang konnte nicht erfolgreich importiert werden"
 msgid "The vcf attachment is not imported successfully"
 msgstr "Der VCF Anhang konnte nicht erfolgreich importiert werden"
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr "Konnte '%s' nicht nach '%s' importieren. "
+
+msgid "There is no appointment found in this file."
+msgstr "Es gibt keine Termine in dieser Datei."
+
+msgid "The file is corrupt."
+msgstr "Die Datei ist beschädigt."
+
+msgid "The file is invalid."
+msgstr "Die Datei ist ungültig."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr "Konnte '%s' nicht importieren. "
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+"Bitte kontaktieren Sie Ihren lokalen Administrator falls das Problem "
+"wiederholt auftritt."
+
 msgid "Attachment is not imported successfully"
 msgstr "Der Anhang konnte nicht erfolgreich importiert werden"
 
@@ -5633,7 +5710,7 @@ msgstr "Sie haben nicht genügend Berechtigungen, um dieses Objekt zu öffnen."
 
 # 93%
 msgid "Logon Failed. Please check your name/password."
-msgstr "Login fehlgeschlagen. Prüfen Sie Benutzername und Passwort."
+msgstr "Login fehlgeschlagen. Prüfen Sie Benutzernamen und Passwort."
 
 # 83%
 msgid "Can not connect to Kopano Core."
@@ -5760,15 +5837,11 @@ msgid "Contact not found"
 msgstr "Kontakt wurde nicht gefunden"
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
-"Kontaktinformationen konnten nicht angezeigt werden da der Server \n"
-"\t\t\t\t\t\t\tProbleme beim Abrufen der Informationen hatte. Bitte "
-"kontaktieren Sie Ihren Systemadministrator\n"
-"\t\t\t\t\t\t\tfalls das Problem erneut auftritt."
+"Kontaktinformationen konnten nicht angezeigt werden da der Server Probleme "
+"beim Abrufen der Informationen hatte."
 
 msgid "Could not handle this type of object."
 msgstr "Der Typ dieses Objekts konnte nicht verarbeitet werden."
@@ -5782,6 +5855,26 @@ msgstr "Konnte Serientermin nicht öffnen."
 msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
 "Konnte Serientermin nicht öffnen. Dieser wurde wahrscheinlich gelöscht."
+
+# 89%
+# 100%
+# 84%
+msgid "a meeting request"
+msgstr "neue Terminanfrage"
+
+# 93%
+# 100%
+# 80%
+msgid "an appointment"
+msgstr "neuer Termin"
+
+# 79%
+# 100%
+msgid "You have insufficient privileges to move "
+msgstr "Sie haben nicht genügend Berechtigungen zum verschieben von "
+
+msgid "Insufficient privileges"
+msgstr "Nicht genügend Berechtigungen"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

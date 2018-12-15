@@ -1,22 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp French (France) translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp French (France)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
 "PO-Revision-Date: 2018-02-09 09:18+0000\n"
 "Last-Translator: jengelh <jengelh@inai.de>\n"
-"Language-Team: French <http://translate.kopano.io/projects/kopano/kopano-"
-"webapp/fr/>\n"
+"Language-Team: French (France) <http://translate.kopano.io/projects/kopano/"
+"kopano-webapp/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #. TRANSLATORS: This message is used as label for the column which indicates the week number of the month in date picker. and 'Wk' stands for week
 msgid "Wk"
@@ -970,8 +970,9 @@ msgstr "À ou Cc"
 msgid "Meeting"
 msgstr "Réunion"
 
+#, fuzzy
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
+msgid "Resources have been planned"
 msgstr "Les ressources ont été planifiées."
 
 msgid ""
@@ -1286,6 +1287,10 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#, fuzzy
+msgid "Location: "
+msgstr "Emplacement"
+
 # 87%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
@@ -1449,6 +1454,14 @@ msgstr "Provisoire"
 msgid "Decline"
 msgstr "Refuser"
 
+# 75%
+#, fuzzy
+msgid "Send to..."
+msgstr "Envoyer"
+
+msgid "Export as"
+msgstr ""
+
 msgid "Occurrence"
 msgstr "Périodicité"
 
@@ -1575,22 +1588,6 @@ msgstr "Demande de réunion en cours contenant des modifications"
 
 msgid "Copy"
 msgstr "Copier"
-
-# 89%
-# 100%
-msgid "a meeting request"
-msgstr "une demande de réunion"
-
-# 93%
-# 100%
-msgid "an appointment"
-msgstr "un rendez-vous"
-
-msgid "Insufficient privileges"
-msgstr "Vous ne disposez pas des droits nécessaires pour cette action"
-
-msgid "You have insufficient privileges to move "
-msgstr "Vous ne disposez pas des droits nécessaires pour déplacer ce dossier. "
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1830,7 +1827,7 @@ msgstr ""
 msgid "Import error"
 msgstr "Important"
 
-msgid "Unable to import {0}. The file is not valid"
+msgid "Unable to import \"{0}\". The file is not valid"
 msgstr ""
 
 msgid "Cc"
@@ -1920,7 +1917,12 @@ msgstr "Vider le dossier"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
+msgstr ""
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
 msgstr ""
 
 msgid "Attachment error"
@@ -2089,6 +2091,10 @@ msgstr ""
 msgid "Permission"
 msgstr "Permission"
 
+#, fuzzy
+msgid "Duplicate delegate"
+msgstr "Refuser la demande de rendez-vous"
+
 msgid "Delegate already exists in the list."
 msgstr "Ce délégué est déjà dans la liste."
 
@@ -2113,6 +2119,9 @@ msgid "Folder '{0}' selected."
 msgstr "Dossier '{0}' sélectionné."
 
 msgid "Do not show this message again."
+msgstr ""
+
+msgid "ICS"
 msgstr ""
 
 #, fuzzy
@@ -2406,11 +2415,17 @@ msgid "Not supported at the moment."
 msgstr "Pas encore implémenté."
 
 #, fuzzy
-msgid "There are no reminders"
-msgstr "Il y a {0} rappel"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Il y a {0} rappel"
+msgstr[1] "Il y a {0} rappel"
 
 msgid "Reminders"
 msgstr "Rappels"
+
+#, fuzzy
+msgid "There are no reminders"
+msgstr "Il y a {0} rappel"
 
 msgid "Due In"
 msgstr "Échéance"
@@ -2618,6 +2633,9 @@ msgstr "Quand le message"
 msgid "Do the following"
 msgstr "Faire ceci"
 
+msgid "Apply only when Out of Office is active"
+msgstr ""
+
 msgid "Stop processing more rules"
 msgstr "Cesser le traitement des autres règles"
 
@@ -2645,6 +2663,10 @@ msgstr "Aucune règle n'existe"
 
 msgid "Active"
 msgstr "Actif"
+
+#, fuzzy
+msgid "Out of office"
+msgstr "Absent(e) du bureau"
 
 # 80%
 msgid "Rule"
@@ -3393,9 +3415,6 @@ msgstr "Groupe"
 msgid "Work"
 msgstr "Travail"
 
-msgid "Export as"
-msgstr ""
-
 msgid "Sort by: Full Name"
 msgstr "Trier par : Nom complet"
 
@@ -3725,12 +3744,9 @@ msgstr "Changer de vue"
 msgid "Widgets"
 msgstr "Ajouter des widgets"
 
-msgid "Sending"
+#, fuzzy
+msgid "Sending..."
 msgstr "Envoi en cours"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Envoyé"
 
 # 94%
 msgid "Sent successfully"
@@ -3823,6 +3839,25 @@ msgstr "Ajouter des widgets"
 
 msgid "No widgets installed."
 msgstr "Aucun widget installé."
+
+msgid "Configure widget"
+msgstr "Configurer le module"
+
+#, fuzzy
+msgid "Remove widget"
+msgstr "Supprimer la Photo"
+
+#, fuzzy
+msgid "Collapse widget"
+msgstr "Réduire les fenêtres"
+
+#, fuzzy
+msgid "Expand widget"
+msgstr "Ouvrir les fenêtres"
+
+#, fuzzy
+msgid "Add new widget"
+msgstr "Ajouter des widgets"
 
 msgid "Collapse widget panel"
 msgstr "Réduire les fenêtres"
@@ -4042,6 +4077,19 @@ msgstr "Afficher les sous-répertoires"
 msgid "Open shared folder/store"
 msgstr "Ouvrir un dossier / magasin partagé"
 
+#, fuzzy
+msgid "Empty folder"
+msgstr "Vider le dossier"
+
+#, fuzzy
+msgid "Empty Junk E-mail"
+msgstr "Spam"
+
+# 92%
+#, fuzzy
+msgid "Empty Deleted Items"
+msgstr "Supprimer les éléments"
+
 msgid "Rename Folder"
 msgstr "Renommer le Dossier"
 
@@ -4053,15 +4101,6 @@ msgstr "Marquer tous les messages comme lus"
 
 msgid "Delete Folder"
 msgstr "Effacer le dossier"
-
-#, fuzzy
-msgid "Empty Junk E-mail"
-msgstr "Spam"
-
-# 92%
-#, fuzzy
-msgid "Empty Deleted Items"
-msgstr "Supprimer les éléments"
 
 msgid "Close store"
 msgstr "Fermer la base"
@@ -4092,6 +4131,12 @@ msgstr "Dossier de démarrage"
 #, fuzzy
 msgid "Import emails"
 msgstr "Important"
+
+# 93%
+# 100%
+#, fuzzy
+msgid "Import appointments"
+msgstr "Nouveau rendez-vous"
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -4136,6 +4181,10 @@ msgstr "Trier par : Importance"
 
 msgid "Sort by: To"
 msgstr "Trier par : À"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Envoyé"
 
 msgid "Red"
 msgstr "Rouge"
@@ -4262,6 +4311,9 @@ msgstr "Afficher De"
 msgid "No signatures configured"
 msgstr "Aucune signature configurée"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr ""
+
 msgid "E-Mail Flags"
 msgstr "Indicateurs de courriel"
 
@@ -4334,11 +4386,11 @@ msgstr "Imprimer l'élément sélectionnée"
 msgid "Filter"
 msgstr "Filtrer.."
 
-msgid "RE"
-msgstr "RE"
-
 msgid "FW"
 msgstr "TR"
+
+msgid "RE"
+msgstr "RE"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4351,6 +4403,10 @@ msgstr "Paramètres de composition du courrier"
 
 msgid "Compose mail in this format"
 msgstr "Composer le courrier sous ce format"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Éditer"
 
 msgid "Default font"
 msgstr "Police par défaut"
@@ -4634,6 +4690,10 @@ msgstr "Restaurer la configuration par défaut"
 msgid "Delete settings"
 msgstr "Supprimer les paramètres"
 
+#, fuzzy
+msgid "{0} Iconset"
+msgstr "Icônes"
+
 msgid "About"
 msgstr "À propos"
 
@@ -4644,6 +4704,18 @@ msgid "Short"
 msgstr ""
 
 msgid "Long"
+msgstr ""
+
+# 88%
+#, fuzzy
+msgid "Favorite settings"
+msgstr "Paramètres de délégation"
+
+#, fuzzy
+msgid "Hide favorites"
+msgstr "Favoris"
+
+msgid "Unpin favorites from top"
 msgstr ""
 
 msgid "Inbox navigation"
@@ -5037,6 +5109,10 @@ msgstr "Trier par : Date de début"
 msgid "Sort by: Owner"
 msgstr "Trier par : Taille"
 
+#, fuzzy
+msgid "Sort by: Percentage Completed"
+msgstr "Trier par : Pourcentage achevé"
+
 msgid "Loading tasks"
 msgstr "Chargement des tâches"
 
@@ -5060,56 +5136,39 @@ msgstr "Actualiser la liste"
 msgid "D d-m-Y"
 msgstr "d-m-Y"
 
-msgid "Improved categories"
+#, fuzzy
+msgid "Import / Export"
+msgstr "Important"
+
+msgid ""
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
+msgstr ""
+
+msgid "Exporting can be done from the context menu of an item."
+msgstr ""
+
+#, fuzzy
+msgid "Icon packs"
+msgstr "Icônes"
+
+msgid ""
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
 msgstr ""
 
-msgid "Flag item for follow up"
-msgstr ""
-
-msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
-msgstr ""
-
-msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-
-msgid "Transformation of flags into follow-ups and categories"
-msgstr ""
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-
-msgid "Search folders"
-msgstr ""
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
+msgid "Left: Breeze - Right: Classic"
 msgstr ""
 
 msgid "What's new"
@@ -5267,26 +5326,61 @@ msgstr "Envoyer Fax"
 msgid "Contact Fax"
 msgstr "Contact Fax"
 
-msgid "Configure widget"
-msgstr "Configurer le module"
+#, fuzzy
+msgid "Widget height"
+msgstr "Ajouter des widgets"
+
+msgid "pixels"
+msgstr ""
 
 msgid "Reload interval"
 msgstr ""
 
-msgid "seconds."
+msgid "seconds"
 msgstr ""
 
-msgid "No appointments for today."
-msgstr "Aucun rendez-vous aujourd'hui"
+#, fuzzy
+msgid "Loading appointments..."
+msgstr "Chargement des rendez-vous"
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
+# 93%
+# 100%
+#, fuzzy
+msgid "No appointments"
+msgstr "Nouveau rendez-vous"
+
+msgid "Number of days"
+msgstr ""
+
+#, fuzzy
+msgid "Today {0} - {1}"
 msgstr "Aujourd'hui : {1} {0}"
 
-msgid "Today's Appointments"
-msgstr "Rendez-vous du jour"
+msgid "Today (all day)"
+msgstr ""
+
+# 100%
+#, fuzzy
+msgid "{0} - {1}"
+msgstr "{0} dans {1}"
+
+#, fuzzy
+msgid "d/m/y G:i"
+msgstr "l d/m/Y G\\Hi"
+
+msgid "{0} - {1} (all day)"
+msgstr ""
+
+#, fuzzy
+msgid "d/m/y"
+msgstr "d/m/Y"
+
+#, fuzzy
+msgid "Upcoming Appointments"
+msgstr "Chargement des rendez-vous"
+
+msgid "Datepicker"
+msgstr ""
 
 msgid "No unread mail."
 msgstr "Aucun message non lu."
@@ -5296,6 +5390,9 @@ msgstr "Message Non lu"
 
 msgid "No tasks."
 msgstr "Aucune tâche."
+
+msgid "Tasks / To-Do"
+msgstr ""
 
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -5324,6 +5421,10 @@ msgstr "Sélectionner un autre dossier"
 
 msgid "E-mails are moved to {0}"
 msgstr "Les messages sont déplacés vers {0}"
+
+#, fuzzy
+msgid "Open in new tab"
+msgstr "Ouvrir dans une nouvelle fenêtre du navigateur"
 
 msgid "Quick Appointment"
 msgstr "Rendez-vous rapide"
@@ -5532,6 +5633,28 @@ msgstr "Fichier ZIP n'a pas été créé correctement"
 msgid "The vcf attachment is not imported successfully"
 msgstr "Fichier ZIP n'a pas été créé correctement"
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr ""
+
+#, fuzzy
+msgid "There is no appointment found in this file."
+msgstr "Ce rendez-vous est planifié dans le passé."
+
+msgid "The file is corrupt."
+msgstr ""
+
+#, fuzzy
+msgid "The file is invalid."
+msgstr "Les fichiers joints ne sont pas encore téléchargés."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr ""
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+
 # 94%
 #, fuzzy
 msgid "Attachment is not imported successfully"
@@ -5700,10 +5823,8 @@ msgid "Contact not found"
 msgstr ""
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 
 msgid "Could not handle this type of object."
@@ -5719,6 +5840,22 @@ msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
 "Impossible d'ouvrir l'occurrence, l'occurrence en question a probablement "
 "été supprimée."
+
+# 89%
+# 100%
+msgid "a meeting request"
+msgstr "une demande de réunion"
+
+# 93%
+# 100%
+msgid "an appointment"
+msgstr "un rendez-vous"
+
+msgid "You have insufficient privileges to move "
+msgstr "Vous ne disposez pas des droits nécessaires pour déplacer ce dossier. "
+
+msgid "Insufficient privileges"
+msgstr "Vous ne disposez pas des droits nécessaires pour cette action"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "

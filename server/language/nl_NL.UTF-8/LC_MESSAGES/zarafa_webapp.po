@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kopano Webapp Dutch translation.
+# Copyright (C) 2017
+# This file is distributed under the same license as the kopano-webapp  package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Kopano Webapp Dutch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 14:57+0200\n"
-"PO-Revision-Date: 2018-09-13 10:57+0000\n"
-"Last-Translator: martijn <m.alberts@zarafa.com>\n"
+"POT-Creation-Date: 2018-12-13 14:58+0100\n"
+"PO-Revision-Date: 2018-12-06 15:22+0000\n"
+"Last-Translator: Bob <b.huisman@kopano.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
 "Language: nl_NL\n"
@@ -1004,8 +1004,8 @@ msgid "Meeting"
 msgstr "Bijeenkomst"
 
 msgctxt "calendar.dialog"
-msgid "Resources have been planned."
-msgstr "Resources zijn geboekt."
+msgid "Resources have been planned"
+msgstr "Resources zijn geboekt"
 
 msgid ""
 "An update message will be sent to all recipients, do you wish to continue?"
@@ -1310,6 +1310,9 @@ msgstr "Kopieer geselecteerd item"
 msgid "Paste selected item"
 msgstr "Plak geselecteerd item"
 
+msgid "Location: "
+msgstr "Locatie: "
+
 # 87%
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F Y"
@@ -1468,6 +1471,13 @@ msgstr "Voorlopig bezet"
 msgid "Decline"
 msgstr "Afwijzen"
 
+# 75%
+msgid "Send to..."
+msgstr "Verzenden naar.."
+
+msgid "Export as"
+msgstr "Exporteren als"
+
 # 80%
 # 100%
 msgid "Occurrence"
@@ -1600,27 +1610,6 @@ msgstr "Open het vergaderverzoek met wijzigingen"
 
 msgid "Copy"
 msgstr "Kopiëren"
-
-# 89%
-# 100%
-# 84%
-msgid "a meeting request"
-msgstr "een vergaderverzoek"
-
-# 93%
-# 100%
-# 80%
-msgid "an appointment"
-msgstr "een afspraak"
-
-msgid "Insufficient privileges"
-msgstr "Onvoldoende permissie"
-
-# 88%
-# 79%
-# 100%
-msgid "You have insufficient privileges to move "
-msgstr "U heeft onvoldoende permissie om deze map te verplaatsen: "
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -1862,8 +1851,8 @@ msgstr "Kon item(s) niet succesvol importeren naar {0}"
 msgid "Import error"
 msgstr "Probleem met importeren"
 
-msgid "Unable to import {0}. The file is not valid"
-msgstr "{0} kan niet geïmporteerd worden. Het bestand is niet valide"
+msgid "Unable to import \"{0}\". The file is not valid"
+msgstr "Kan \"{0}\" niet geïmporteerd worden. Het bestand is niet valide"
 
 msgid "Cc"
 msgstr "Cc"
@@ -1950,10 +1939,17 @@ msgstr "Importeren naar map"
 
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
-"version 8.3+"
+"version 8.3 or higher."
 msgstr ""
-"Om de vCard import functionaliteit te gebruiken, moet uw Kopano Core worden "
-"bijgewerkt naar versie 8.3+"
+"Om de vCard import functionaliteit te gebruiken, moet Kopano Core worden "
+"bijgewerkt naar versie 8.3+."
+
+msgid ""
+"In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
+"version 8.3 or higher."
+msgstr ""
+"Om de ICS/VCS import functionaliteit te gebruiken, moet uw Kopano Core "
+"worden bijgewerkt naar versie 8.3+."
 
 msgid "Attachment error"
 msgstr "Bijlagefout"
@@ -2131,6 +2127,9 @@ msgstr ""
 msgid "Permission"
 msgstr "Permissie"
 
+msgid "Duplicate delegate"
+msgstr "Identieke gemachtige"
+
 msgid "Delegate already exists in the list."
 msgstr "Gemachtigde bestaat reeds in de lijst."
 
@@ -2156,6 +2155,9 @@ msgstr "Map '{0}' geselecteerd."
 
 msgid "Do not show this message again."
 msgstr "Toon dit bericht niet meer."
+
+msgid "ICS"
+msgstr "ICS"
 
 msgid "Set custom flag"
 msgstr "Speciale vlag instellen"
@@ -2448,12 +2450,17 @@ msgstr "Info"
 msgid "Not supported at the moment."
 msgstr "Op dit moment niet ondersteund."
 
-msgid "There are no reminders"
-msgstr "Er zijn geen herinnering"
+msgid "There is {0} reminder"
+msgid_plural "There are {0} reminders"
+msgstr[0] "Er is {0} herinnering"
+msgstr[1] "Er zijn {0} herinneringen"
 
 # 88%
 msgid "Reminders"
 msgstr "Herinneringen"
+
+msgid "There are no reminders"
+msgstr "Er zijn geen herinnering"
 
 msgid "Due In"
 msgstr "Verloopt Over"
@@ -2668,6 +2675,9 @@ msgstr "Als het bericht"
 msgid "Do the following"
 msgstr "Doe het volgende"
 
+msgid "Apply only when Out of Office is active"
+msgstr "Pas alleen toe indien Out of Office actief is"
+
 msgid "Stop processing more rules"
 msgstr "Voorkom uitvoeren van andere regels"
 
@@ -2695,6 +2705,9 @@ msgstr "Er bestaan geen regels"
 
 msgid "Active"
 msgstr "Actief"
+
+msgid "Out of office"
+msgstr "Afwezigheid"
 
 # 80%
 msgid "Rule"
@@ -3440,9 +3453,6 @@ msgstr "Groep"
 msgid "Work"
 msgstr "Werk"
 
-msgid "Export as"
-msgstr "Exporteren als"
-
 msgid "Sort by: Full Name"
 msgstr "Sorteer op: Volledige Naam"
 
@@ -3797,16 +3807,11 @@ msgstr "Afmelden"
 msgid "Switch view"
 msgstr "Weergave wijzigen"
 
-#, fuzzy
 msgid "Widgets"
-msgstr "Widgets toevoegen"
+msgstr "Widgets"
 
-msgid "Sending"
-msgstr "Verzenden"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Sent"
-msgstr "Verstuurd"
+msgid "Sending..."
+msgstr "Verzenden..."
 
 # 94%
 msgid "Sent successfully"
@@ -3893,6 +3898,21 @@ msgstr "Widgets toevoegen"
 
 msgid "No widgets installed."
 msgstr "Geen widgets geïnstalleerd."
+
+msgid "Configure widget"
+msgstr "Configureer widget"
+
+msgid "Remove widget"
+msgstr "Verwijder widget"
+
+msgid "Collapse widget"
+msgstr "Widget inklappen"
+
+msgid "Expand widget"
+msgstr "Widget uitklappen"
+
+msgid "Add new widget"
+msgstr "Widget toevoegen"
 
 msgid "Collapse widget panel"
 msgstr "Widget paneel inklappen"
@@ -4114,6 +4134,16 @@ msgstr "Toon submappen"
 msgid "Open shared folder/store"
 msgstr "Open gedeelde map of opslag"
 
+msgid "Empty folder"
+msgstr "Leeg folder"
+
+msgid "Empty Junk E-mail"
+msgstr "Ongewenste E-mail legen"
+
+# 92%
+msgid "Empty Deleted Items"
+msgstr "Verwijderde items legen"
+
 msgid "Rename Folder"
 msgstr "Map Hernoemen"
 
@@ -4125,13 +4155,6 @@ msgstr "Markeer Alle Berichten Gelezen"
 
 msgid "Delete Folder"
 msgstr "Verwijder Map"
-
-msgid "Empty Junk E-mail"
-msgstr "Ongewenste E-mail legen"
-
-# 92%
-msgid "Empty Deleted Items"
-msgstr "Verwijderde items legen"
 
 msgid "Close store"
 msgstr "Store sluiten"
@@ -4161,6 +4184,11 @@ msgstr "Deel folder..."
 
 msgid "Import emails"
 msgstr "Importeer emails"
+
+# 93%
+# 100%
+msgid "Import appointments"
+msgstr "Importeer afspraken"
 
 msgid "Properties of {0}"
 msgstr "Eigenschappen van {0}"
@@ -4204,6 +4232,10 @@ msgstr "Sorteer op: Belangrijkheid"
 # 76%
 msgid "Sort by: To"
 msgstr "Sorteer op: Aan"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Sent"
+msgstr "Verstuurd"
 
 msgid "Red"
 msgstr "Rood"
@@ -4328,6 +4360,9 @@ msgstr "Toon afzender"
 msgid "No signatures configured"
 msgstr "Geen handtekeningen geconfigureerd"
 
+msgid "Cannot save while attachment is being uploaded"
+msgstr "Kan niet opslaan als bijlage aan het uploaden is"
+
 msgid "E-Mail Flags"
 msgstr "E-mailmarkeringen"
 
@@ -4398,11 +4433,11 @@ msgstr "Print de geselecteerde email"
 msgid "Filter"
 msgstr "Filter"
 
-msgid "RE"
-msgstr "AW"
-
 msgid "FW"
 msgstr "FW"
+
+msgid "RE"
+msgstr "AW"
 
 msgid "HTML"
 msgstr "HTML"
@@ -4415,6 +4450,9 @@ msgstr "Instellingen voor nieuwe e-mail"
 
 msgid "Compose mail in this format"
 msgstr "Mail in dit formaat opstellen"
+
+msgid "Editor"
+msgstr "Editor"
 
 msgid "Default font"
 msgstr "Standaardlettertype"
@@ -4696,6 +4734,9 @@ msgstr "Standaard herstellen"
 msgid "Delete settings"
 msgstr "Instellingen verwijderen"
 
+msgid "{0} Iconset"
+msgstr "{0} Iconen"
+
 msgid "About"
 msgstr "Over"
 
@@ -4708,11 +4749,21 @@ msgstr "Kort"
 msgid "Long"
 msgstr "Lang"
 
+# 88%
+msgid "Favorite settings"
+msgstr "Instellingen voor favorieten"
+
+msgid "Hide favorites"
+msgstr "Verberg favorieten"
+
+msgid "Unpin favorites from top"
+msgstr "Maak favorieten los van de bovenkant"
+
 msgid "Inbox navigation"
-msgstr "Postvak navigatie"
+msgstr "Inbox navigatie"
 
 msgid "I want to navigate through my items by using."
-msgstr "Navigeren door items door middel van."
+msgstr "I wil navigeren door mijn items met."
 
 msgid "Infinite Scroll"
 msgstr "Eindeloos bladeren"
@@ -4720,7 +4771,7 @@ msgstr "Eindeloos bladeren"
 # 98%
 # 100%
 msgid "WebApp automatically loads additional items when you scroll down"
-msgstr "(WebApp laadt automatisch nieuwe items wanneer u naar beneden scrollt)"
+msgstr "WebApp laadt automatisch nieuwe items wanneer u naar beneden scrollt"
 
 msgid "Pagination"
 msgstr "Paginering"
@@ -5098,6 +5149,10 @@ msgstr "Sorteer op: Startdatum"
 msgid "Sort by: Owner"
 msgstr "Sorteer op: Eigenaar"
 
+# 88%
+msgid "Sort by: Percentage Completed"
+msgstr "Sorteer op: Percentage Voltooid"
+
 # 76%
 msgid "Loading tasks"
 msgstr "Taken laden"
@@ -5118,79 +5173,44 @@ msgstr "Lijst bijwerken"
 msgid "D d-m-Y"
 msgstr "D d-m-Y"
 
-msgid "Improved categories"
-msgstr "Verbeterde categorieën"
+msgid "Import / Export"
+msgstr "Importeren/Exporteren"
 
 msgid ""
-"Categories now have a prominent place in your overviews of Mail, Calendar, "
-"Tasks and more."
+"Calendar, contact and mail items can be imported and exported from and to "
+"WebApp."
 msgstr ""
-"Categorieën hebben nu een prominente plek in uw overzichten van Mail, "
-"Kalender, Taken en meer."
+"Kalender, contacten en mail items kunnen geïmporteerd en geëxporteerd worden "
+"van en naar WebApp."
 
 msgid ""
-"Adding a category is easy and can be done from the overview. Move your mouse "
-"over an email to see the \"Add category\" icon and click it, or right-click "
-"an item to open the context menu."
+"Right-click a folder and select the import button. Additionally, items can "
+"be imported from the attachment context menu."
 msgstr ""
-"Het toevoegen van een categorie is makkelijk en kan worden gedaan vanuit het "
-"overzicht. Beweeg uw muis over een email om het \"Voeg categorie toe\" icoon "
-"te zien en klik erop, of klik er met de rechtermuisknop op om het context "
-"menu te openen."
+"Klik met de rechtermuisknop en selecteer de importeer knop. Tevens kunnen "
+"items ook geïmporteerd worden via het rechtsklik menu van een bijlage."
 
-msgid "Flag item for follow up"
-msgstr "Markeer item voor opvolgen"
+msgid "Exporting can be done from the context menu of an item."
+msgstr "Exporteren kan gedaan worden via het rechtsklik menu van een item."
+
+msgid "Icon packs"
+msgstr "Icon packs"
 
 msgid ""
-"You can now mark email items for follow-up by setting a flag. In the new "
-"flags menu you can select the follow-up date. A reminder will be shown that "
-"day."
+"You can now choose between different icons. By default the new Breeze icons "
+"are enabled, but if you prefer the classic icons you can change this in the "
+"settings."
 msgstr ""
-"U kunt nu uw items markeren voor opvolging door het zetten van een vlag. In "
-"dit nieuwe \"Opvolgen\" menu kunt u de datum voor opvolgen selecteren. Er "
-"zal op die dag een herinnering worden getoond."
+"Je kan nu kiezen tussen verschillende iconen. Standaard zijn de Breeze icons "
+"enabled, maar de oude iconen kunnen via settings worden geactiveerd."
 
 msgid ""
-"The Tasks context provides a complete overview of your to-do's. All tasks "
-"and flagged emails will be shown in this to-do list."
-msgstr ""
-"De Taken context verschaft een compleet overzicht van uw to-do's. Alle taken "
-"en emails gemarkeerd voor opvolgen worden getoond in deze to-do lijst."
+"Go to your settings, open the general tab and select an icon pack to your "
+"liking."
+msgstr "Ga naar settings, open de algemene tab en selecteer een icon pack."
 
-msgid "Transformation of flags into follow-ups and categories"
-msgstr "Transformatie van vlaggen naar markeren voor opvolgen en categorieën"
-
-msgid ""
-"Your former flagged items are transformed into items with a color category "
-"and a \"No date\" follow-up flag. For example: an item with a blue flag will "
-"now have a category named \"Blue\"."
-msgstr ""
-"De items waar u voorheen een vlag op heeft gezet, zijn getransformeerd naar "
-"items met een categorie en kleur en een \"Geen datum\" opvolg vlag. "
-"Bijvoorbeeld: een item met een blauwe vlag zal nu een categorie genaamd "
-"\"Blauw\" hebben."
-
-msgid ""
-" You have the option to rename a color category when you first use it and "
-"all items with this category will get updated."
-msgstr ""
-" U heeft de optie om een categorie met kleur te hernoemen wanneer u deze "
-"voor het eerst gebruikt. Alle items met deze categorie zullen worden "
-"bijgewerkt."
-
-msgid "Search folders"
-msgstr "Zoekfolders"
-
-msgid ""
-"If there is a search query you use frequently you are in luck! After you "
-"have completed a search you can now save it as a \"search folder\" which "
-"will show up in your favorites! You can then do the same search again with a "
-"single click."
-msgstr ""
-"Als u regelmatig een zoekopdracht gebruikt dan zult u hier blij mee zijn! Na "
-"het uitvoeren van een zoekopdracht kunt u nu de zoekopdracht opslaan als "
-"\"zoekfolder\" welke onder uw favorieten komt te staan! U kunt dan dezelfde "
-"zoekopdracht uitvoeren met een enkele muisklik."
+msgid "Left: Breeze - Right: Classic"
+msgstr "Links: Breeze - Rechts: Klassiek"
 
 msgid "What's new"
 msgstr "Wat is er nieuw"
@@ -5346,26 +5366,55 @@ msgstr "Fax Verzenden"
 msgid "Contact Fax"
 msgstr "Contact Fax"
 
-msgid "Configure widget"
-msgstr "Configureer widget"
+msgid "Widget height"
+msgstr "Widget hoogte"
+
+msgid "pixels"
+msgstr "pixels"
 
 msgid "Reload interval"
 msgstr "Herlaad interval"
 
-msgid "seconds."
-msgstr "seconden."
+msgid "seconds"
+msgstr "seconden"
 
-msgid "No appointments for today."
-msgstr "Geen afspraken vandaag."
+# 86%
+msgid "Loading appointments..."
+msgstr "Afspraken laden..."
 
-#. TRANSLATORS: {0} is the subject of an all-day
-#. appointment, {1} is the html code to display
-#. icons.
-msgid "Today: {1} {0}"
-msgstr "Vandaag: {1} {0}"
+# 93%
+# 100%
+msgid "No appointments"
+msgstr "Geen afspraken"
 
-msgid "Today's Appointments"
-msgstr "Afspraken Vandaag"
+msgid "Number of days"
+msgstr "Aantal dagen"
+
+msgid "Today {0} - {1}"
+msgstr "Vandaag: {1} - {0}"
+
+msgid "Today (all day)"
+msgstr "Vandaag (gehele dag)"
+
+# 100%
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+msgid "d/m/y G:i"
+msgstr "d/m/Y G:i"
+
+msgid "{0} - {1} (all day)"
+msgstr "{0} - {1} (gehele dag)"
+
+msgid "d/m/y"
+msgstr "d-m-Y"
+
+# 86%
+msgid "Upcoming Appointments"
+msgstr "Aankomende afspraken"
+
+msgid "Datepicker"
+msgstr "Datumkiezer"
 
 msgid "No unread mail."
 msgstr "Geen ongelezen e-mail."
@@ -5375,6 +5424,9 @@ msgstr "Ongelezen E-mail"
 
 msgid "No tasks."
 msgstr "Geen taken."
+
+msgid "Tasks / To-Do"
+msgstr "Taken / To-Do"
 
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -5404,6 +5456,9 @@ msgstr "Selecteer een andere folder"
 msgid "E-mails are moved to {0}"
 msgstr "E-mails worden verplaatst naar {0}"
 
+msgid "Open in new tab"
+msgstr "Open in nieuwe tab"
+
 msgid "Quick Appointment"
 msgstr "Vlugge Afspraak"
 
@@ -5417,7 +5472,7 @@ msgid "Quick Note"
 msgstr "Vlugge Notitie"
 
 msgid "none"
-msgstr ""
+msgstr "geen"
 
 msgid "Quick Task"
 msgstr "Vlugge Taak"
@@ -5450,7 +5505,7 @@ msgid "Apricot"
 msgstr "Abrikoos"
 
 msgid "California"
-msgstr "California"
+msgstr "Californië"
 
 msgid "Soft green"
 msgstr "Zacht groen"
@@ -5459,7 +5514,7 @@ msgid "Mint"
 msgstr "Munt"
 
 msgid "Pearl aqua"
-msgstr "Pearl aqua"
+msgstr "Parel aqua"
 
 msgid "Kopano blue"
 msgstr "Kopano blauw"
@@ -5606,6 +5661,28 @@ msgstr "De EML bijlage kon niet succesvol worden geimporteerd"
 msgid "The vcf attachment is not imported successfully"
 msgstr "De vcf bijlage kon niet succesvol worden geimporteerd"
 
+#, php-format
+msgid "Unable to import '%s' to '%s'. "
+msgstr "Kan '%s' naar '%s' niet importeren. "
+
+msgid "There is no appointment found in this file."
+msgstr "Er is geen afspraak gevonden in dit bestand."
+
+msgid "The file is corrupt."
+msgstr "Dit bestand is corrupt."
+
+msgid "The file is invalid."
+msgstr "De bestanden zijn niet geldig."
+
+#, php-format
+msgid "Unable to import '%s'. "
+msgstr "'%s' kan niet worden geïmporteerd. "
+
+msgid "Please contact your system administrator if the problem persists."
+msgstr ""
+"Neem contact op met uw systeem administrator als het probleem zich blijft "
+"voortdoen."
+
 msgid "Attachment is not imported successfully"
 msgstr "Bijlage kon niet succesvol worden geimporteerd"
 
@@ -5721,8 +5798,8 @@ msgstr[1] "Vind elke %s %s plaats vanaf %s voor %s herhalingen van %s tot %s."
 #, php-format
 msgid "Occurs every %s effective %s for %s occurence."
 msgid_plural "Occurs every %s effective %s for %s occurences."
-msgstr[0] "Vind elke %s %s plaats vanaf %s voor %s herhaling."
-msgstr[1] "Vind elke %s %s plaats vanaf %s voor %s herhalingen."
+msgstr[0] "Vind elke %s plaats vanaf %s voor %s herhaling."
+msgstr[1] "Vind elke %s plaats vanaf %s voor %s herhalingen."
 
 # 77%
 #, php-format
@@ -5773,14 +5850,11 @@ msgid "Contact not found"
 msgstr "Contact niet gevonden"
 
 msgid ""
-"Contact information could not be displayed because the server \n"
-"\t\t\t\t\t\t\thad trouble retrieving the information. Please contact your "
-"system administrator if the\n"
-"\t\t\t\t\t\t\tproblem persists."
+"Contact information could not be displayed because the server had trouble "
+"retrieving the information."
 msgstr ""
 "Contact informatie kan niet worden getoond, omdat de server problemen heeft "
-"met het ophalen van de informatie. Neem contact op met uw "
-"systeemadministrator als het probleem zich blijft voordoet."
+"met het ophalen van de informatie."
 
 msgid "Could not handle this type of object."
 msgstr "Kon dit type object niet behandelen."
@@ -5795,6 +5869,27 @@ msgid "Could not open occurrence, specific occurrence is probably deleted."
 msgstr ""
 "Kon herhaling niet openen, deze specifieke herhaling is waarschijnlijk "
 "verwijderd."
+
+# 89%
+# 100%
+# 84%
+msgid "a meeting request"
+msgstr "een vergaderverzoek"
+
+# 93%
+# 100%
+# 80%
+msgid "an appointment"
+msgstr "een afspraak"
+
+# 88%
+# 79%
+# 100%
+msgid "You have insufficient privileges to move "
+msgstr "U heeft onvoldoende permissie om deze map te verplaatsen: "
+
+msgid "Insufficient privileges"
+msgstr "Onvoldoende permissie"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "
