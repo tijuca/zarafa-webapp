@@ -26,7 +26,7 @@ Architecture: all
 Depends:
  kopano-contacts (>= 8.1.0),
  php-gettext,
- php-mapi (>= 8.1.0),
+ php-mapi (>= 8.6.90),
  ssl-cert,
  ${misc:Depends},
 Recommends:
