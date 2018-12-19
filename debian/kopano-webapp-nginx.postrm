@@ -25,15 +25,16 @@ NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
 case "$1" in
     remove|purge)
         if [ -L "${NGINX_SITES_ENABLED}/kopano-webapp.conf" ]; then
-            echo "Disable Nginx kopano-webapp config ..." >&2
+            echo "[kopano-webapp-nginx] Disable kopano-webapp-nginx site config ..." >&2
             rm ${NGINX_SITES_ENABLED}/kopano-webapp.conf || true
             if [ -x /etc/init.d/nginx ]; then
                 if [ -s /run/nginx.pid ] && pidof /usr/sbin/nginx >/dev/null; then
-                    echo "Triggering nginx reload ..."
+                    echo "[kopano-webapp-nginx] Triggering reload of Nginx config ..."
                     invoke-rc.d nginx reload || true
                 fi
             fi
         fi
+        # We don't do any disabling of modules, we don't know if they used else where.
     ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
