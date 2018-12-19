@@ -36,21 +36,23 @@ case "$1" in
                 # the user has enabled site(s) for kopano-webapp
                 if [ -x /etc/init.d/nginx ]; then
                     if [ -s /run/nginx.pid ] && pidof /usr/sbin/nginx >/dev/null; then
-                        echo "Triggering nginx reload ..."
+                        echo "[kopano-webapp-nginx] Triggering reload of Nginx config ..."
                         invoke-rc.d nginx reload || true
                     fi
                  else
-                    echo "Couldn't find Nginx and reload the configuration. Package nginx not installed?"
+                    echo "[kopano-webapp-nginx] Couldn't find Nginx and reload the configuration. Package nginx not installed?"
                 fi
             fi
         else
             # we are on a first time installation
             if [ ! -L "${NGINX_SITES_ENABLED}/kopano-webapp.conf" ]; then
-                echo "Enable Nginx kopano-webapp config ..." >&2
+                echo "[kopano-webapp-nginx] Enable kopano-webapp-nginx site config ..." >&2
                 ln -s ${NGINX_SITES_AVAILABLE}/kopano-webapp.conf ${NGINX_SITES_ENABLED}/kopano-webapp.conf
+				# check if Nginx is installed ...
                 if [ -x /etc/init.d/nginx ]; then
+                    # ... and is running
                     if [ -s /run/nginx.pid ] && pidof /usr/sbin/nginx >/dev/null; then
-                        echo "Triggering nginx reload ..."
+                        echo "[kopano-webapp-nginx] Triggering reload of Nginx config ..."
                         invoke-rc.d nginx reload || true
                     fi
                  else
@@ -59,6 +61,7 @@ case "$1" in
                 fi
             fi
         fi
+        invoke-rc.d php${PHPVERSION}-fpm reload || true
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
