@@ -14,6 +14,24 @@ Please note due the fact the kopano-webapp is using sensible data like account
 names and passwords the prepared configuration shouldn't enabled until https
 transport for the webserver is properly configured!
 
+Kopano has introduced a PHP check into kopano-webapp since 3.4.4 to ensure that
+kopano-webapp is not accessible by accident over a not encrypted http web server
+configuration!
+Using http only would lead to a "HTTP Error 400 - Bad Request" if you proceed
+further without adjustments to the configuration of kopano-webapp for lighttpd.
+You will see the above error in your webbrowser and a log entry in
+/varlog/lighttpd/error.log like this:
+
+ 2018-12-20 10:10:24: (mod_fastcgi.c.425) FastCGI-stderr: Rejected insecure request as configuration for 'INSECURE_COOKIES' is false.
+
+You can turn off this check by modify the file /etc/kopano/webapp/config.php in
+line 39.
+
+	// Set to 'true' to disable secure session cookies and to allow log-in without HTTPS.
+	define("INSECURE_COOKIES", false);
+
+It's strongly recommend NOT to do this!
+
 If you running a working SSL configuration or really know what you are doing
 you can enable the kopano-webapp config for lighttpd by the following steps.
 
@@ -32,4 +50,4 @@ providing some more convenient user experience please let us know and get in
 contact with
 "Giraffe Maintainers <pkg-giraffe-maintainers@alioth-lists.debian.net>".
 
- -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 4 June 2017 13:56:00 +0200
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 20 December 2018 11:44:00 +0200
