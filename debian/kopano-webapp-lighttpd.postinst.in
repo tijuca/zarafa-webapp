@@ -17,7 +17,7 @@
 set -e
 #set -x # uncomment for verbose output
 
-PHPVERSION="7.0"
+PHPVERSION="@version@"
 PACKAGE_ETC_FOLDER="/etc/kopano/webapp"
 
 case "$1" in
@@ -30,14 +30,15 @@ case "$1" in
         fi
         # Handle the lighttpd modules
         if [ -x "`which lighty-enable-mod`" ]; then
-            echo "Add symlink for Lighttpd config file"
+            echo "[kopano-webapp-lighttpd] Add symlink for Lighttpd config file..."
             if [ ! -L /etc/lighttpd/conf-available/50-kopano-webapp.conf ]; then
                 ln -s ${PACKAGE_ETC_FOLDER}/lighttpd.conf /etc/lighttpd/conf-available/50-kopano-webapp.conf
             fi
-            # We need some modules enabled, but let this all the user,
-            # note /usr/share/kopano-webapp-lighttpd/kopano-webapp-lighttpd.README.Debian
+            # We need some modules enabled, but let this all to the user.
+            # Note /usr/share/doc/kopano-webapp-lighttpd/README.Debian
             #lighty-enable-mod accesslog kopano-webapp fastcgi-php mod_alias || true
-            echo "kopano-webapp-lighttpd: not enable Lighttpd configuration by default!"
+            echo "[kopano-webapp-lighttpd] Not enable Lighttpd configuration by default!"
+            echo "Please note /usr/share/doc/kopano-webapp-lighttpd/README.Debian"
         fi
     ;;
 
