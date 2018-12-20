@@ -17,10 +17,19 @@
 set -e
 #set -x # uncomment for verbose output
 
+PHPVERSION="@version@"
+
 case "$1" in
     configure)
         ### Apache2.4
         # processing kopano-webapp for apache2
+        if [ -e /usr/lib/php/php-maintscript-helper ]; then
+            . /usr/lib/php/php-maintscript-helper
+
+            # calling php_invoke to enable 'mapi' for Apache2
+            php_invoke enmod ${PHPVERSION} apache2 mapi
+        fi
+
         if [ -e /usr/share/apache2/apache2-maintscript-helper ]; then
             . /usr/share/apache2/apache2-maintscript-helper
 
