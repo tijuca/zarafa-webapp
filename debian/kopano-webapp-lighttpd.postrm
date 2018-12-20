@@ -23,8 +23,8 @@ case "$1" in
     purge)
         if [ -x "`which lighty-disable-mod`" ] ; then
             lighty-disable-mod kopano-webapp
-            rm -f /etc/lighttpd/conf-available/50-kopano-webapp.conf || true
         fi
+        rm -f /etc/lighttpd/conf-available/50-kopano-webapp.conf || true
     ;;
 
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
