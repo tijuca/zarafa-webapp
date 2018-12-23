@@ -3,4 +3,5 @@ Depends: chromium-driver,
  phantomjs,
  python-nose,
  python-selenium
-Restrictions: allow-stderr
+Restrictions: allow-stderr,
+ needs-root
