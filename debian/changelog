@@ -1,3 +1,63 @@
+kopano-webapp (3.5.0+dfsg1-1) unstable; urgency=medium
+
+  * [c7188ec] d/rules: detect PHP_VERSION dynamically
+     We need to know the version of PHP in some postinst scripts. Read the PHP
+     version from the installed php$VERSION-cli package which is getting
+     installed as a Build-Dependency from php-dev.
+  * [cf82604] d/control: add B-D on php-dev
+  * [0ed0592] d/rules: some sanity checking addition
+     Ensure we could read the PHP version from the system, otherwise a further
+     build is useless.
+  * [6320c46] New upstream version 3.5.0+dfsg1
+  * [de94789] rebuild patch queue from patch-queue branch
+     Removed all patches that have modified the existing po files, all
+     modifications are applied upstream now. The non existing language es_CA
+     still needs to be removed by the patch queue.
+    added patch:
+     server-do-not-define-JSONException-as-function.patch
+  * [0ff6616] Build_Depends: add new needed packages
+     The new upstream version is relying on npm and phpmd as build
+     dependencies.
+  * [858ac95] d/control: remove ant* packages from B-D
+     But we don't need any ant related packages as build dependencies any more.
+  * [a24d168] d/rules: drop ant related call
+     As the build system isn't using ant any more we need to adjust the build
+     in debian/rules. Upstream is now working with a classical Makefile.
+  * [0ffdb83] d/rules: remove potential execution rights on php files
+     We don't need execution rights on the php files shipped in the -common
+     package.
+  * [c451b2b] k-w-common: increase depending version on php-mapi
+     kopano-webapp is heavily relying on php-mapi from src:kopanocore. Recent
+     kopanocore packages are build against php7.3 so we need to increase the
+     depending version of php-mapi.
+  * [b31e457] k-w-nginx: update postinst script
+     The postinst for the nginx package was missing a reload of php-fpm at the
+     end of the postinst script. Reworking some informal output in the script.
+  * [2060987] k-w-nginx: update postrm script
+     No functional changes, but also updating the informal output of the
+     script.
+  * [11bf5b1] k-w-apache2: update postinst script
+     The apache2 postinst script needs to enable the mapi module while
+     configuring the package in case of installation or update.
+  * [ff3cbf3] k-w-lighttpd: always remove site config while purging
+     (Closes: #909599)
+  * [980c627] k-w-lighttpd: use dynamical PHPVERSION in postinst
+     Don't use a hardcoded PHP version within the postinst script, the version
+     will substituted with the version from the build so we don't need to
+     modify it every time a new PHP version is coming.
+  * [d83bfa3] k-w-lighttpd: update email contact in README
+     Since the ML is now moved to the domain alioth-lists.debian.net a small
+     update is needed in the README.
+  * [d2552c3] k-w-lighttpd: update README about http usage
+     And one more update to the README file for kopano-webapp-lighttpd, add
+     some information about the wanted non working http only access to
+     kopano-webapp.
+  * [7900c38] d/t/control: autopkgtest needs root rights
+     A small update to the autotest, but more changes are needed to get the
+     autopkgtest working again.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 23 Dec 2018 18:04:49 +0100
+
 kopano-webapp (3.4.22+dfsg1-1) unstable; urgency=medium
 
   * [d65e82d] New upstream version 3.4.22+dfsg1
