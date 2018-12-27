@@ -10,6 +10,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--window-size=1200x900')
+
 URL = os.getenv('WEBAPP_URL', 'http://127.0.0.1/webapp/')
 auth_user = os.environ['AUTH_USER']
 auth_pass = os.environ['AUTH_PASS']
@@ -18,8 +23,9 @@ auth_pass = os.environ['AUTH_PASS']
 class TestWebApp(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.PhantomJS()
-        self.driver.set_window_size(1120, 550)
+        self.driver = webdriver.Chrome(chrome_options=chrome_options,
+                                       service_args=['--verbose',
+                                                     '--log-path=/tmp/chromedriver.log'])
 
     def tearDown(self):
         self.driver.quit()
@@ -31,7 +37,7 @@ class TestWebApp(unittest.TestCase):
 
     def find_element_by_(self, type, name):
         try:
-            find_element_by_ = getattr(self.driver, 'find_element_by_%s', type)
+            find_element_by_ = getattr(self.driver, 'find_element_by_%s' % type)
             return find_element_by_(name)
         except NoSuchElementException:
             self.fail_with_screenshot("No element %s of type %s found" %
@@ -54,13 +60,13 @@ class TestWebApp(unittest.TestCase):
 
         # wait 40 seconds until WebApp is loaded
         try:
-            element = WebDriverWait(self.driver, 40).until(lambda self: self.find_element_by_("class_name", "icon_createEmailMessage"))
+            element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "x-btn-text"))
         except TimeoutException:
             # Maybe first login?
             try:
                 elem = self.find_element_by_("xpath", xpath)
                 elem.click()
-                element = WebDriverWait(self.driver, 40).until(lambda self: self.find_element_by_("class_name", "icon_createEmailMessage"))
+                element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "icon_createEmailMessage"))
             except NoSuchElementException:
                 self.fail("Failed to login")
         self.assertIsNotNone(element)
