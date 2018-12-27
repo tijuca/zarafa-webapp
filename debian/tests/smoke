@@ -23,11 +23,12 @@ apt-get -y install kopano-webapp-apache2 kopano-utils
 kopano-admin  -c mailtest -p r00tme \
               -e admin@example.com -f "Mail test user" -a 1 | grep -qs "User created."
 
+kopano-storeadm -h default: -Cn mailtest
 
 cd debian/tests
 export AUTH_USER='mailtest'
 export AUTH_PASS='r00tme'
 nosetests
 
-echo 'Smoke test of kopano server succesful'
+echo 'Smoke test of kopano-webapp successful!'
 exit 0
