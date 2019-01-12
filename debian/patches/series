@@ -1,3 +1,2 @@
 use-non-minimized-JS-tinymce-file.patch
 remove-not-valid-es_CA.UTF-8-language.patch
-server-do-not-define-JSONException-as-function.patch
