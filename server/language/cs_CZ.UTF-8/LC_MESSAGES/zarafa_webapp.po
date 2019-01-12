@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Czech\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-13 14:58+0100\n"
-"PO-Revision-Date: 2018-05-01 19:12+0000\n"
+"POT-Creation-Date: 2019-01-11 14:14+0100\n"
+"PO-Revision-Date: 2019-01-09 11:22+0000\n"
 "Last-Translator: Luba <luba.neuwirth@maincube.net>\n"
 "Language-Team: Czech <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/cs/>\n"
@@ -588,9 +588,8 @@ msgstr "Přidejte složku do oblíbených na základě vašeho vyhledávacího d
 msgid "Folder name"
 msgstr "Název složky"
 
-#, fuzzy
 msgid "Select Category"
-msgstr "Nastavit Kategorii"
+msgstr "Nastavit kategorii"
 
 msgid "Apply"
 msgstr "Použít"
@@ -701,25 +700,25 @@ msgstr "Nahrávání výsledků vyhledávání"
 msgid "Sorting tip"
 msgstr "Tip pro třídění"
 
-#, fuzzy
 msgid ""
 "You can sort by date if you narrow down your search results. Enable filters "
 "or adjust your input."
 msgstr ""
-"Pokud zúžíte výsledky vyhledávání, můžete seřadit podle data. Povolte "
+"Pokud zúžíte výsledky vyhledávání, můžete je seřadit podle data. Povolte "
 "filtry, nebo upravte zadání."
 
 msgid "Did you mean"
-msgstr ""
+msgstr "Mysleli jste tím"
 
+#, fuzzy
 msgid "With"
-msgstr ""
+msgstr "S"
 
 msgid "To"
 msgstr "Komu"
 
 msgid "No date"
-msgstr ""
+msgstr "Bez data"
 
 msgid "Error"
 msgstr "Chyba"
@@ -939,24 +938,30 @@ msgstr "Tisk"
 msgid "No appointment selected"
 msgstr "Nebyl vybrán termín"
 
+#, fuzzy
+msgid "Create Appointment"
+msgstr "Soukromá schůzka"
+
 msgid "Calendar"
 msgstr "Kalendář"
 
-#, fuzzy
 msgid "Create in other calendar"
-msgstr "Zobrazit více kalendářů"
+msgstr "Vytvořit v jiném kalendáři"
 
+#, fuzzy
 msgid ""
 "The selected calendar has \"read-only\" permissions. Instead you can create "
 "an item in your own calendar."
 msgstr ""
-
-msgid "What would you like?"
-msgstr ""
+"Vybraný kalendář má oprávnění jen pro čtení. Namísto toho můžete vytvořit "
+"položku ve svém vlastním kalendáři."
 
 #, fuzzy
+msgid "What would you like?"
+msgstr "Požadovaná akce"
+
 msgid "Own calendar"
-msgstr "Zobrazit více kalendářů"
+msgstr "Můj kalendář"
 
 msgid "F Y"
 msgstr "F Y"
@@ -1080,13 +1085,13 @@ msgstr ""
 
 #, fuzzy
 msgid "Create in"
-msgstr "Vytvořit"
+msgstr "Vytvořit v"
 
 msgid "Time"
 msgstr "Čas"
 
 msgid "until"
-msgstr ""
+msgstr "do"
 
 msgid "Recurrence"
 msgstr "Opakování"
@@ -1129,7 +1134,7 @@ msgid "Close"
 msgstr "Zavřít"
 
 msgid "Delete"
-msgstr "Smazat"
+msgstr "Odstranit"
 
 msgid "Add attachment"
 msgstr "Přidat přílohu"
@@ -1138,7 +1143,7 @@ msgid "Check names"
 msgstr "Ověřit jména"
 
 msgid "Invite attendees"
-msgstr "Pozvat účastníci"
+msgstr "Pozvat účastníky"
 
 msgid "Cancel invitation"
 msgstr "Zrušit pozvánky"
@@ -1213,33 +1218,29 @@ msgstr "Odeslat zrušení nyní."
 msgid "Send Meeting Request Confirmation"
 msgstr "Poslat potvrzení žádosti o schůzku"
 
-#, fuzzy
 msgid ""
 "This meeting will be accepted and moved to your calendar. Do you want to "
 "include comments with your response?"
 msgstr ""
 "Tato schůzka byla přijata a bude přesunuta do vašeho kalendáře. Přejete si "
-"připojit komentář k vaší odpovědí?"
+"připojit komentář k vaší odpovědi?"
 
-#, fuzzy
 msgid ""
 "This meeting will be tentatively accepted and moved to your calendar. Do you "
 "want to include comments with your response?"
 msgstr ""
 "Tato schůzka byla předběžně přijata a bude přesunuta do vašeho kalendáře. "
-"Přejete si připojit komentář k vaší odpovedí?"
+"Přejete si připojit komentář k vaší odpovedi?"
 
-#, fuzzy
 msgid ""
 "This meeting will be declined and moved to your Deleted Items folder. Do you "
 "want to include comments with your response?"
 msgstr ""
-"Tato schůzka byla zrušena a bude přesunuta do složky odstraněné položky. "
-"Přejete si připojit komentář k vaší odpovědí?"
+"Tato schůzka byla zrušena a bude přesunuta do složky Odstraněné položky. "
+"Přejete si připojit komentář k vaší odpovědi?"
 
-#, fuzzy
 msgid "Edit the response before sending"
-msgstr "Upravit odpověď před odesláním."
+msgstr "Upravit odpověď před odesláním"
 
 msgid "Send the response now."
 msgstr "Odeslat odpověď nyní."
@@ -1276,7 +1277,7 @@ msgid "Copy selected item"
 msgstr "Kopírovat vybranou položku"
 
 msgid "Paste selected item"
-msgstr ""
+msgstr "Vložit vybranou položku"
 
 #, fuzzy
 msgid "Location: "
@@ -1443,8 +1444,9 @@ msgstr "Odmítnout"
 msgid "Send to..."
 msgstr "Odeslat"
 
+#, fuzzy
 msgid "Export as"
-msgstr ""
+msgstr "Exportovat jako"
 
 # 80%
 # 100%
@@ -1481,7 +1483,7 @@ msgid "Sort by: Meeting Status"
 msgstr "Třídit podle: Stav schůzky"
 
 msgid "Sort by: Show as"
-msgstr ""
+msgstr "Třídit podle: Ukázat jako"
 
 msgid "Sort by: Categories"
 msgstr "Třídit podle: Kategorie"
@@ -1587,12 +1589,6 @@ msgstr "Místo"
 msgid "Remove From Calendar"
 msgstr "Odstranit z kalendáře"
 
-msgid "Not Current"
-msgstr "Neaktuální"
-
-msgid "Meeting Request is out of date"
-msgstr "Žádost o schůzku je již neaktuální"
-
 msgid "No Response Required"
 msgstr "Odpověď není nutná"
 
@@ -1619,10 +1615,7 @@ msgstr "Přijmout navrhovaný čas"
 
 #, fuzzy
 msgid "View in calendar"
-msgstr "Zobrazit více kalendářů"
-
-msgid "This meeting request is out-of-date and will now be deleted."
-msgstr "Tato žádost o schůzku není aktuální a nyní bude odstraněna."
+msgstr "Zobrazit v kalendáři"
 
 msgid ""
 "Your calendar has been updated automatically. This meeting request will now "
@@ -1692,13 +1685,15 @@ msgstr "Otevřít pouze toto"
 msgid "Open the series"
 msgstr "Otevřít celou sérii"
 
+#, fuzzy
 msgid "Paste Recurring {0}"
-msgstr ""
+msgstr "Vložit opakující se {0}"
 
+#, fuzzy
 msgid ""
 "This is a recurring {0}. Do you want to paste only this occurrence or the "
 "series?"
-msgstr ""
+msgstr "Toto je opakující se {0}. Chcete vložit pouze tento výskyt nebo série?"
 
 msgid "message"
 msgstr ""
@@ -2146,6 +2141,10 @@ msgstr ""
 msgid "Edit recipient"
 msgstr "Upravit příjemce"
 
+#, fuzzy
+msgid "Copy email address"
+msgstr "Nová e-mailová adresa"
+
 msgid "Select attendees"
 msgstr "Vybrat účastníky"
 
@@ -2241,6 +2240,10 @@ msgid ""
 "deleted item can still be restored."
 msgstr ""
 
+#, fuzzy
+msgid "Kopano WebApp print"
+msgstr "Kopano WebbApp"
+
 # 91%
 msgid "Display name"
 msgstr "Zobrazené jméno"
@@ -2257,24 +2260,12 @@ msgstr ""
 msgid "Edit Recipient"
 msgstr "Upravit Příjemce"
 
-#, fuzzy
-msgid "Copy e-mail address"
-msgstr "Nová e-mailová adresa"
-
-# 90%
-msgid "Send e-mail"
-msgstr "Odeslat e-mail"
+msgid "Send email"
+msgstr "Odeslat zprávu"
 
 #, fuzzy
 msgid "Delete recipient from suggestion list"
 msgstr "Odstranit distribuční seznam."
-
-#, fuzzy
-msgid "Copy email address"
-msgstr "Nová e-mailová adresa"
-
-msgid "Send email"
-msgstr "Odeslat zprávu"
 
 msgid "View recipient"
 msgstr "Zobrazit příjemce"
@@ -2671,7 +2662,7 @@ msgid "Update rules for"
 msgstr ""
 
 msgid "Do you wish to apply the changes?"
-msgstr "Přejete si uložit změny?"
+msgstr "Chcete použít tyto změny?"
 
 #, fuzzy
 msgid "All folders"
@@ -4179,7 +4170,7 @@ msgid "Message saving failed."
 msgstr ""
 
 msgid "Message Saved at {0}."
-msgstr ""
+msgstr "Zpráva byla uložena o {0}."
 
 msgid "g:i A"
 msgstr ""
@@ -4309,7 +4300,8 @@ msgstr ""
 msgid "Open Shared Mails"
 msgstr "Otevřít sdílenou poštu"
 
-msgid "Print single e-mail"
+#, fuzzy
+msgid "Print single email"
 msgstr "Tisknout jedinou zprávu"
 
 # 78%
@@ -6176,7 +6168,7 @@ msgid "Username"
 msgstr "Uživatelské jméno"
 
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 msgid "Sign in"
 msgstr ""

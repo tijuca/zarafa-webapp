@@ -85,6 +85,14 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	},
 
 	/**
+	 * @return {Boolean} True if the What's New dialog is disabled
+	 */
+	isWhatsNewDialogDisabled : function()
+	{
+		return this.meta.disable_whats_new_dialog === true;
+	},
+
+	/**
 	 * @return {Boolean} True if Advanced Settings are enabled
 	 */
 	isAdvancedSettingsEnabled : function()
@@ -194,6 +202,24 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	getIconsets : function()
 	{
 		return this.meta.iconsets;
+	},
+
+	/**
+	 * @return {String|Boolean} The primary color for SVG icons if defined by the active theme,
+	 * or false otherwise
+	 */
+	getPrimaryIconColor : function()
+	{
+		return this.meta.icons_primary_color;
+	},
+
+	/**
+	 * @return {String|Boolean} The secondary color for SVG icons if defined by the active theme,
+	 * or false otherwise
+	 */
+	getSecondaryIconColor : function()
+	{
+		return this.meta.icons_secondary_color;
 	},
 
 	/**
