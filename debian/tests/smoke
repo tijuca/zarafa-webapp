@@ -28,7 +28,7 @@ kopano-storeadm -h default: -Cn mailtest
 cd debian/tests
 export AUTH_USER='mailtest'
 export AUTH_PASS='r00tme'
-nosetests
+nosetests3 -v
 
 echo 'Smoke test of kopano-webapp successful!'
 exit 0

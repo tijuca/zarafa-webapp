@@ -1,7 +1,7 @@
 Tests: smoke
 Depends: chromium-driver,
  phantomjs,
- python-nose,
- python-selenium
+ python3-nose,
+ python3-selenium
 Restrictions: allow-stderr,
  needs-root
