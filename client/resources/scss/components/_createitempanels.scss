@@ -81,7 +81,6 @@
 		div {
 			padding: $padding-medium;
 			background: $light-blue;
-			border: 1px solid $grey5;
 		}
 	}
 
@@ -233,7 +232,8 @@
 
 	.k-datepanel,
 	.k-workpanel,
-	.k-companypanel {
+	.k-companypanel,
+	.k-updatelistpanel {
 		padding: $padding-medium;
 	}
 
@@ -242,9 +242,11 @@
 			padding-left: $padding-extra-extra-large;
 		}
 	}
-
-	.k-updatelistpanel .x-form-item {
-		padding: $padding-medium;
+	
+	.k-updatelistpanel {
+		.x-btn {
+			padding-top: $padding-medium;
+		}	
 	}
 }
 

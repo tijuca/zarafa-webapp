@@ -2253,24 +2253,33 @@
 				} else {
 					$tz = null;
 					$hasRecipient = false;
-					if (!$pasteRecord) {
-						//Set sender of new Appointment.
-						$this->setSenderAddress($store, $action);
-					} else {
+					$copyAttachments = false;
+					$sourceRecord = false;
+					if (isset($action['message_action']) && isset($action['message_action']['source_entryid'])) {
 						$sourceEntryId = $action['message_action']['source_entryid'];
 						$sourceStoreEntryId = $action['message_action']['source_store_entryid'];
+						
 						$sourceStore = $GLOBALS['mapisession']->openMessageStore(hex2bin($sourceStoreEntryId));
 						$sourceRecord = mapi_msgstore_openentry($sourceStore, hex2bin($sourceEntryId));
-						$sourceRecordProps = mapi_getprops($sourceRecord, array($properties["meeting"], $properties["responsestatus"]));
-						// Don't copy recipient if source record is received message.
-						if($sourceRecordProps[$properties["meeting"]] === olMeeting &&
-							$sourceRecordProps[$properties["meeting"]] === olResponseOrganized) {
-							$table = mapi_message_getrecipienttable($sourceRecord);
-							$hasRecipient = mapi_table_getrowcount($table) > 0;
+						if ($pasteRecord) {
+							$sourceRecordProps = mapi_getprops($sourceRecord, array($properties["meeting"], $properties["responsestatus"]));
+							// Don't copy recipient if source record is received message.
+							if($sourceRecordProps[$properties["meeting"]] === olMeeting &&
+								$sourceRecordProps[$properties["meeting"]] === olResponseOrganized) {
+								$table = mapi_message_getrecipienttable($sourceRecord);
+								$hasRecipient = mapi_table_getrowcount($table) > 0;
+							}
+						} else {
+							$copyAttachments = true;
+							//Set sender of new Appointment.
+							$this->setSenderAddress($store, $action);
 						}
+					} else {
+						//Set sender of new Appointment.
+						$this->setSenderAddress($store, $action);
 					}
 
-					$message = $this->saveMessage($store, $entryid, $parententryid, Conversion::mapXML2MAPI($properties, $action['props']), $messageProps, $recips ? $recips : array(), isset($action['attachments']) ? $action['attachments'] : array(), array(), $pasteRecord ? $sourceRecord : false, false, $hasRecipient, false, false, false, $send);
+					$message = $this->saveMessage($store, $entryid, $parententryid, Conversion::mapXML2MAPI($properties, $action['props']), $messageProps, $recips ? $recips : array(), isset($action['attachments']) ? $action['attachments'] : array(), array(),$sourceRecord, $copyAttachments, $hasRecipient, false, false, false, $send);
 
 					if(isset($action['props']['timezone'])) {
 						$tzprops = Array('timezone','timezonedst','dststartmonth','dststartweek','dststartday','dststarthour','dstendmonth','dstendweek','dstendday','dstendhour');
@@ -4427,9 +4436,9 @@
 			$body = streamProperty($message, PR_HTML);
 			$imageIDs = array();
 
-			// Only load the DOM if the HTML contains a data:image or data:text/plain due to a bug
+			// Only load the DOM if the HTML contains a img or data:text/plain due to a bug
 			// in Chrome on Windows in combination with TinyMCE.
-			if (strpos($body, "data:image") !== false || strpos($body, "data:text/plain") !== false) {
+			if (strpos($body, "img") !== false || strpos($body, "data:text/plain") !== false) {
 				$doc = new DOMDocument();
 				// TinyMCE does not generate valid HTML, so we must supress warnings.
 				@$doc->loadHTML($body);
@@ -4475,6 +4484,13 @@
 						mapi_stream_write($stream, $rawImage);
 						mapi_stream_commit($stream);
 						mapi_savechanges($inlineImage);
+					} else if (strstr($src, "cid:") !== false) {
+						// Check for the cid(there may be http: ) is in the image src. push the cid 
+						// to $imageIDs array. which further used in clearDeletedInlineAttachments function.
+
+						$firstOffset = strpos($src, ":") + 1;
+						$cid = substr($src, $firstOffset);
+						array_push($imageIDs, $cid);				
 					}
 				}
 
