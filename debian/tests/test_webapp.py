@@ -60,13 +60,13 @@ class TestWebApp(unittest.TestCase):
 
         # wait 40 seconds until WebApp is loaded
         try:
-            element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "x-btn-text"))
+            element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "button"))
         except TimeoutException:
             # Maybe first login?
             try:
                 elem = self.find_element_by_("xpath", xpath)
                 elem.click()
-                element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "icon_createEmailMessage"))
+                element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "icon_new_email"))
             except NoSuchElementException:
                 self.fail("Failed to login")
         self.assertIsNotNone(element)
