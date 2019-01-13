@@ -1,3 +1,37 @@
+kopano-webapp (3.5.1~rc1+dfsg1-1) unstable; urgency=medium
+
+  * [1df56c9] debian/control: increase Standards-Version to 4.3.0
+     No further changes needed.
+  * [2b72826] d/control: remove npm package from B-D (again)
+     The npm package was a Build-Depends after kopano-webapp versions 3.4.22,
+     but no version of these releases was ever uploaded. npm isn't needed now
+     any more.
+  * [3756879] autopkgtest: create needed store before testing
+     Since kopanocore version > 8.6.0 the user needs to get a store, updating
+     the autopkgtest to fulfil this requirement.
+  * [32228fd] autopkgtest: update test to work in headless mode
+     The phantomjs driver in selenium is abandoned for some time, it's
+     suggested to work with the headless mode of the chromedriver or with
+     firefox.
+     Rework of the test to work with chromium in headless mode.
+     Thanks Guido for helping out with the lambda functions!
+  * [66c1e9e] New upstream version 3.5.1~rc1+dfsg1
+  * [878097f] rebuild patch queue from patch-queue branch
+     removed patch (fixed upstream):
+     server-do-not-define-JSONException-as-function.patch
+  * [748e428] autopkgtest: search correct CSS class names
+     Obviously the CSS class names have changed a bit more, we need to search
+     for other names now to login and send an email.
+  * [c56d0f3] autopkgtest: move over to Python3 based packages
+  * [6b4563d] d/control: increase depending version on php-mapi
+     The autopkgtest has detected that we need a recent version of php-mapi
+     (which is provided by the kopanocore package) with a version >= 8.6.92.
+  * [e1a92d4] k-w-common.install: also install the tokenizr JS file
+     The file tokenizr.min.js isn't installed by the Makefile from upstream,
+     working around this and pick the file directly from the source folder.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 13 Jan 2019 12:52:59 +0100
+
 kopano-webapp (3.5.0+dfsg1-1) unstable; urgency=medium
 
   * [c7188ec] d/rules: detect PHP_VERSION dynamically
