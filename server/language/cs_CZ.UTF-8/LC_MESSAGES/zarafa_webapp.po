@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kopano Webapp Czech\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-11 14:14+0100\n"
-"PO-Revision-Date: 2019-01-09 11:22+0000\n"
+"PO-Revision-Date: 2019-01-16 14:37+0000\n"
 "Last-Translator: Luba <luba.neuwirth@maincube.net>\n"
 "Language-Team: Czech <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/cs/>\n"
@@ -1693,22 +1693,24 @@ msgstr "Vložit opakující se {0}"
 msgid ""
 "This is a recurring {0}. Do you want to paste only this occurrence or the "
 "series?"
-msgstr "Toto je opakující se {0}. Chcete vložit pouze tento výskyt nebo série?"
+msgstr "Toto je opakující se {0}. Chcete vložit pouze tento výskyt nebo sérii?"
 
 msgid "message"
-msgstr ""
+msgstr "zpráva"
 
 msgid "meeting request"
-msgstr ""
+msgstr "Žádost o schůzku"
 
 msgid "appointment"
-msgstr ""
+msgstr "událost"
 
+#, fuzzy
 msgid "Paste this occurrence only"
-msgstr ""
+msgstr "Vložte pouze tento výskyt"
 
+#, fuzzy
 msgid "Paste the series..."
-msgstr ""
+msgstr "vložte sérii"
 
 msgid ""
 "This is a recurring message. Do you want to delete only this occurrence or "
@@ -1762,12 +1764,12 @@ msgid ""
 "continue?"
 msgstr "Zpráva o zrušení bude odeslána všem příjemcům. Přejete si pokračovat?"
 
-#, fuzzy
 msgid "Delete Incomplete Task"
-msgstr "Dokončené úkoly"
+msgstr "Smazat nekompletní úlohu"
 
+#, fuzzy
 msgid "The task \"{0}\" has not been completed. What do you want to do?"
-msgstr ""
+msgstr "Úkol \"{0}\" nebyl dokončen. Co chcete dělat?"
 
 #, fuzzy
 msgid "Decline and delete"
@@ -1775,7 +1777,7 @@ msgstr "Odmítnout žádost o schůzku"
 
 #, fuzzy
 msgid "Mark complete and delete"
-msgstr "Označit jako Dokončené"
+msgstr "Označit jako dokončené a odstranit"
 
 msgid ""
 "The sender of this message has asked to be notified when you read this "
@@ -1786,20 +1788,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Import"
-msgstr "Důležitý"
+msgstr "Importovat"
 
 msgid "Successfully imported item(s) to {0}"
-msgstr ""
+msgstr "Položky byly úspěšně importovány do {0}"
 
+#, fuzzy
 msgid "Failed to import item(s) to {0}"
-msgstr ""
+msgstr "Nepodařilo se importovat položku(y) do {0}"
 
 #, fuzzy
 msgid "Import error"
 msgstr "Důležitý"
 
+#, fuzzy
 msgid "Unable to import \"{0}\". The file is not valid"
-msgstr ""
+msgstr "Nelze importovat \"{0}\". Soubor není platný"
 
 # 100%
 msgid "Cc"
@@ -1839,7 +1843,7 @@ msgstr "Nebyla vybrána žádná zpráva"
 
 #, fuzzy
 msgid "Import to"
-msgstr "Důležitý"
+msgstr "Importovat do"
 
 # 90%
 # 100%
@@ -1884,17 +1888,23 @@ msgstr "Stáhnout vše jako ZIP"
 
 #, fuzzy
 msgid "Import to folder"
-msgstr "Vyprázdnit složku"
+msgstr "Importovat do složky"
 
+#, fuzzy
 msgid ""
 "In order to use the vCard import feature, upgrade your Kopano Core to "
 "version 8.3 or higher."
 msgstr ""
+"Chcete-li použít funkci importu vCard, upgradujte Kopano Core na verzi 8.3 "
+"nebo vyšší."
 
+#, fuzzy
 msgid ""
 "In order to use the ICS / VCS import feature, upgrade your Kopano Core to "
 "version 8.3 or higher."
 msgstr ""
+"Chcete-li použít funkci importu ICS/VCS, upgradujte Kopano Core na verzi 8.3 "
+"nebo vyšší."
 
 msgid "Attachment error"
 msgstr "Chyba přílohy"
@@ -1913,42 +1923,51 @@ msgstr "Podporovaný formát pro kontaktní obrázky je"
 msgid "Attachment Error"
 msgstr "Chyba přílohy"
 
+#, fuzzy
 msgid "Manage Categories"
-msgstr ""
+msgstr "Spravovat kategorie"
 
 msgid "New"
 msgstr "Nové"
 
 msgid "Delete Category"
-msgstr ""
+msgstr "Odstranit kategorii"
 
+#, fuzzy
 msgid ""
 "Are you sure you want to delete the category \"{0}\"? Items already assigned "
 "this category won't be affected."
 msgstr ""
+"Opravdu chcete smazat kategorii \"{0}\"? Položky, které již byly přiřazeny "
+"do této kategorie, nebudou ovlivněny."
 
 msgid "Rename Category"
-msgstr ""
+msgstr "Přejmenovat kategorii"
 
+#, fuzzy
 msgid "A category named \""
-msgstr ""
+msgstr "Kategorie s názvem \""
 
+#, fuzzy
 msgid "Create New Category"
-msgstr ""
+msgstr "Vytvořit novou kategorii"
 
 msgid "Pin to quick access"
 msgstr ""
 
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 msgid ""
 "You must apply the changes you have made to the categories before you can "
 "create this category."
 msgstr ""
+"Předtím než vytvoříte tuto kategorii, musíte aplikovat změny, které jste "
+"provedli v kategoriích."
 
+#, fuzzy
 msgid "You already have a category named '{0}'. Please use another name."
-msgstr ""
+msgstr "Máte již kategorii s názvem \"{0}\". Použijte prosím jiné jméno."
 
 msgid ""
 "You already have a category named '{0}' in your pending changes. Please use "
@@ -1956,21 +1975,23 @@ msgid ""
 msgstr ""
 
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
+#, fuzzy
 msgid "This is the first time you have used \"{0}\" category."
-msgstr ""
+msgstr "Kategorie \"{0}\" byla použita poprvé"
 
 msgid "Do you want to rename it?"
-msgstr ""
+msgstr "Chcete ji přejmenovat?"
 
 msgid ""
 "The category \"{0}\" already exists. Do you want to merge the \"{1}\" and "
 "\"{2}\" categories?"
 msgstr ""
+"Kategorie \"{0}\" již existuje. Chcete sloučit kategorie \"{1}\" a \"{2}\"?"
 
 msgid "Merge"
-msgstr ""
+msgstr "Sloučit"
 
 msgid "Remove"
 msgstr "Odstranit"
@@ -2091,10 +2112,10 @@ msgid "Folder '{0}' selected."
 msgstr "Vybrána složka '{0}'."
 
 msgid "Do not show this message again."
-msgstr ""
+msgstr "Tuto zprávu již nezobrazovat."
 
 msgid "ICS"
-msgstr ""
+msgstr "ICS"
 
 #, fuzzy
 msgid "Set custom flag"
@@ -2107,36 +2128,35 @@ msgid "End date"
 msgstr "Konečné datum"
 
 msgid "Tomorrow"
-msgstr ""
+msgstr "Zítra"
 
 msgid "This week"
-msgstr ""
+msgstr "Tento týden"
 
 msgid "Next week"
-msgstr ""
+msgstr "Příští týden"
 
 #, fuzzy
 msgid "Custom"
 msgstr "Výbrat datumy"
 
-#, fuzzy
 msgid "Set reminder"
-msgstr "Připomínka"
+msgstr "Nastavit připomenutí"
 
 msgid "Complete"
 msgstr "Dokončeno"
 
 msgid "today"
-msgstr ""
+msgstr "dnes"
 
 msgid "tomorrow"
-msgstr ""
+msgstr "zítra"
 
 msgid "this week"
-msgstr ""
+msgstr "tento týden"
 
 msgid "next week"
-msgstr ""
+msgstr "příští týden"
 
 msgid "Edit recipient"
 msgstr "Upravit příjemce"
@@ -2235,14 +2255,17 @@ msgstr "Otevřít okno na kopírování/přesunování"
 msgid "Delete selected item"
 msgstr "Odstranit vybranou položku"
 
+#, fuzzy
 msgid ""
 "Delete selected item without moving it to the Deleted Items folder. The "
 "deleted item can still be restored."
 msgstr ""
+"Odstranit vybranou položku, aniž byste ji přesunuli do složky Odstraněné "
+"položky. Vymazaná položka může být obnovena."
 
 #, fuzzy
 msgid "Kopano WebApp print"
-msgstr "Kopano WebbApp"
+msgstr "Vytisknout Kopano WebbApp"
 
 # 91%
 msgid "Display name"
