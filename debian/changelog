@@ -1,3 +1,17 @@
+kopano-webapp (3.5.1-1) unstable; urgency=medium
+
+  [ Carsten Schoenert ]
+  * [c4517b5] New upstream version 3.5.1
+  * [5416e27] source lintian: ignore warning about long line
+     Ignore warning about KQLParser.js which has one long line.
+
+  [ Martijn Alberts ]
+  * [c0aae23] autopkgtest: use another method to find CSS IDs
+     Use now another check method while searching for an CSS ID. Due this the
+     check searches for another ID too.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 18 Jan 2019 19:01:32 +0100
+
 kopano-webapp (3.5.1~rc1+dfsg1-1) unstable; urgency=medium
 
   * [1df56c9] debian/control: increase Standards-Version to 4.3.0
