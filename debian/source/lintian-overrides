@@ -1,6 +1,8 @@
 # These are all language files mostly UTF8 encoded
 source: source-is-missing client/tinymce-languages/*.js *
 source: source-is-missing client/tinymce-plugins/powerpaste/langs/*.js *
+# This is a regexpression in this file
+source: source-is-missing client/zarafa/advancesearch/KQLParser.js *
 # PreCached Icons
 source: source-is-missing client/zarafa/calendar/ui/IconCache.js *
 # JSON data fields
