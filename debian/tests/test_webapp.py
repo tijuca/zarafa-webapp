@@ -6,7 +6,9 @@ import time
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
@@ -60,13 +62,13 @@ class TestWebApp(unittest.TestCase):
 
         # wait 40 seconds until WebApp is loaded
         try:
-            element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "button"))
+            element = WebDriverWait(self.driver, 40).until(EC.presence_of_element_located((By.ID, "zarafa-maintoolbar")))
         except TimeoutException:
             # Maybe first login?
             try:
                 elem = self.find_element_by_("xpath", xpath)
                 elem.click()
-                element = WebDriverWait(self.driver, 40).until(lambda x: self.find_element_by_("class_name", "icon_new_email"))
+                element = WebDriverWait(self.driver, 40).until(EC.presence_of_element_located((By.ID, "zarafa-maintoolbar")))
             except NoSuchElementException:
                 self.fail("Failed to login")
         self.assertIsNotNone(element)
