@@ -14,7 +14,7 @@ deploy/index.php              usr/share/kopano-webapp
 deploy/init.php               usr/share/kopano-webapp
 deploy/robots.txt             usr/share/kopano-webapp
 deploy/kopano.php             usr/share/kopano-webapp
-client/third-party/tokenizr/tokenizr.min.js usr/share/kopano-webapp/client/third-party
+client/third-party/tokenizr/tokenizr.js usr/share/kopano-webapp/client/third-party
 
 deploy/client/resources/fonts/KopanoWebAppDings.svg   usr/share/fonts/svg/kopanowebapp
 deploy/client/resources/fonts/kopanowebappdings.eot   usr/share/fonts/eot/kopanowebapp
