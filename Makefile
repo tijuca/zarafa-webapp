@@ -47,6 +47,7 @@ IMAGEDIR = client/resources/images
 IMAGES = $(wildcard $(IMAGEDIR)/*.* $(IMAGEDIR)/whatsnew/*.*)
 IMAGESDEST = $(addprefix $(DESTDIR)/, $(IMAGES))
 APPICONS = $(wildcard $(IMAGEDIR)/app-icons/*.*)
+APPICONSDEST = $(addprefix $(DESTDIR)/, $(APPICONS))
 APPICONSSCSS = client/resources/scss/base/_icons.scss
 APPICONSEXTENSIONSFILE = client/resources/images/app-icons.extensions.json
 EXTJSMODFILES = $(wildcard client/extjs-mod/*.js)
@@ -58,6 +59,7 @@ ICONSETSDEST = $(addprefix $(DESTDIR)/client/resources/iconsets/, $(ICONSETS))
 ICONSETSCSS = $(foreach iconsetdir,$(ICONSETS),client/resources/iconsets/$(iconsetdir)/$(iconsetdir)-icons.css)
 ICONSETSCSSDEST = $(addprefix $(DESTDIR)/, $(ICONSETSCSS))
 EXTJS = client/extjs/ext-base.js client/extjs/ext-all.js
+THIRDPARTY = $(shell find client/third-party -name '*.js') client/third-party/tokenizr/tokenizr.js
 
 POFILES = $(wildcard server/language/*/*/*.po)
 JSFILES = $(shell find client/zarafa -name '*.js')
@@ -75,11 +77,13 @@ test: jstest
 
 server: $(MOS) $(LANGTXTDEST) $(PHPFILES) $(DESTDIR)/$(APACHECONF) $(DISTFILES) $(ROBOTS) $(HTACCESS) $(DESTDIR)/version $(SERVERROOTFILES)
 
-client: $(CSSDEST) $(ICONSETSDEST) $(IMAGESDEST) $(KOPANOCSS) js
+client: $(CSSDEST) $(ICONSETSDEST) $(IMAGESDEST) $(KOPANOCSS) $(APPICONSDEST) js
 	cp -r client/resources/fonts $(DESTDIR)/client/resources/
 	cp -r client/resources/scss $(DESTDIR)/client/resources/
 	cp -r client/resources/config.rb $(DESTDIR)/client/resources/
+	cp -r client/resources/iconsets $(DESTDIR)/client/resources/
 	cp -r client/zarafa/core/themes $(DESTDIR)/client/
+	cp -r client/resources/images/app-icons $(DESTDIR)/client/resources/images/
 	rm -rf $(DESTDIR)/client/themes/*/js
 	# TODO use separate targets
 
@@ -152,10 +156,15 @@ $(JSDEPLOY)/resize.js: client/resize.js
 	cat client/resize.js > $(JSDEPLOY)/resize-debug.js
 	$(JSCOMPILER) --js $(@:.js=-debug.js) --js_output_file $@
 
-$(JSDEPLOY)/third-party/ux-thirdparty.js: $(JSDEPLOY)/third-party/TinyMceTextArea-debug.js client/third-party/tokenizr/tokenizr.min.js
+$(JSDEPLOY)/third-party/ux-thirdparty.js: $(THIRDPARTY)
 	mkdir -p $(JSDEPLOY)/third-party
 	# concatenate using cat
-	cat $^ > $@
+	cat $^ > $(@:.js=-debug.js)
+	$(JSCOMPILER) --js $(@:.js=-debug.js) --js_output_file $@ \
+		--source_map_location_mapping=$(JSDEPLOY)/\| \
+		--output_wrapper="%output%//# sourceMappingURL=$(shell basename $@.map)" \
+		--create_source_map $@.map \
+		$(JSOPTIONS) --jscomp_off=checkVars
 
 $(JSDEPLOY)/third-party/TinyMceTextArea-debug.js: client/third-party/tinymce/TinyMceTextArea.js
 	mkdir -p $(JSDEPLOY)/third-party
@@ -235,6 +244,18 @@ app-icons: $(APPICONSSCSS)
 
 $(APPICONSSCSS): $(APPICONS) $(APPICONSEXTENSIONSFILE) node_modules
 	$(NPM) run app-icons
+
+# Tokenizr library
+
+# This rule should not be enabled until our build server supports nodejs.
+# Just build the tokenizr library locally by running `make tokenizr` whenever
+# something has changed. (i.e. the tokenizr lib has been updated)
+#client/third-party/tokenizr/tokenizr.js: tokenizr
+#	$(NPM) run build:tokenizr
+
+.PHONY: tokenizr
+tokenizr: node_modules
+	$(NPM) run build:tokenizr
 
 # Plugins
 
