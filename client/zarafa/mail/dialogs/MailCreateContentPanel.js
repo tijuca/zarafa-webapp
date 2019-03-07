@@ -21,10 +21,10 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 	showbcc : false,
 
 	/**
-	 * @cfg {Boolean} use_html_editor True to enable the HTML editor in this panel
+	 * @cfg {Boolean} useHtml True to enable the HTML editor in this panel
 	 * If not provided, the value will be obtained from the {@link Zarafa.settings.SettingsModel}.
 	 */
-	use_html_editor : false,
+	useHtml : false,
 
 	/**
 	 * True if the From field should be shown.
@@ -51,8 +51,8 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 	{
 		config = config || {};
 
-		if (!Ext.isDefined(config.use_html_editor)) {
-			config.use_html_editor = container.getSettingsModel().get('zarafa/v1/contexts/mail/dialogs/mailcreate/use_html_editor');
+		if (!Ext.isDefined(config.useHtml)) {
+			config.useHtml = container.getSettingsModel().get('zarafa/v1/contexts/mail/dialogs/mailcreate/use_html_editor');
 		}
 
 		config.plugins = Ext.value(config.plugins, []);
@@ -68,7 +68,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 			xtype : 'zarafa.mailcreatecontentpanel',
 			// Override from Ext.Component
 			layout : 'fit',
-			title : _('E-Mail'),
+			title : _('Email'),
 			recordComponentPluginConfig : Ext.applyIf(config.recordComponentPluginConfig || {}, {
 				allowWrite : true
 			}),
@@ -77,7 +77,7 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 			items: [{
 				xtype: 'zarafa.mailcreatepanel',
 				ref: 'mainPanel',
-				use_html_editor : config.use_html_editor,
+				useHtml : config.useHtml,
 				tbar :{
 					xtype: 'zarafa.mailcreatetoolbar'
 				}
@@ -143,15 +143,9 @@ Zarafa.mail.dialogs.MailCreateContentPanel = Ext.extend(Zarafa.core.ui.MessageCo
 			return;
 		}
 
-		// If there isn't any message action set on the record then it is just save mail action.
+		// If there isn't any message action set on the record, then it's just the save mail action.
 		if (this.isSaving && !this.isSending) {
-			var message;
-			if (success === false) {
-				message = _('Message saving failed.');
-			} else {
-				message = String.format(_('Message Saved at {0}.'), this.record.get('last_modification_time').format(_('g:i A')));
-			}
-
+			var message = (success) ? String.format(_('Saved at {0}'), this.record.get('last_modification_time').format(_('g:i A'))) : _('Saving failed');
 			container.getNotifier().notify('info.mailsaved', message, {
 				toolbar : this.mainPanel.getTopToolbar()
 			});

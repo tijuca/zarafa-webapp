@@ -316,5 +316,21 @@ Zarafa.core.data.ServerConfig = Ext.extend(Object, {
 	getSharedStorePollingInterval : function()
 	{
 		return this.meta.shared_store_polling_interval * 60000;
+	},
+
+	/**
+	 * @return {Number} return the amount of emails to load in the background
+	 */
+	getPrefetchTotalCount : function()
+	{
+		return this.meta.prefetch_email_count;
+	},
+
+	/**
+	 * @return {Number} return the interval in microseconds to load new emails in the background.
+	 */
+	getPrefetchInterval : function()
+	{
+		return this.meta.prefetch_email_interval * 1000;
 	}
 });
