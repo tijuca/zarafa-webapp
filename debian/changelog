@@ -1,3 +1,10 @@
+kopano-webapp (3.5.3+dfsg1-1) unstable; urgency=medium
+
+  * [a292ded] New upstream version 3.5.3+dfsg1
+  * [5a04a67] rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 07 Mar 2019 19:51:26 +0100
+
 kopano-webapp (3.5.2+dfsg1-1) unstable; urgency=medium
 
   * [63c1d6f] New upstream version 3.5.2+dfsg1
