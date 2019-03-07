@@ -331,7 +331,12 @@ class Theming
 
 		if ( $themeProps['primary-color'] ) {
 			if ( !$themeProps['primary-color:hover'] ) {
-				$themeProps['primary-color:hover'] = Colors::darker($themeProps['primary-color'], 10);
+				list(, , $l) = Colors::rgb2hsl(Colors::colorString2Object($themeProps['primary-color']));
+				if ( $l > 20 ) {
+					$themeProps['primary-color:hover'] = Colors::darker($themeProps['primary-color'], 10);
+				} else {
+					$themeProps['primary-color:hover'] = Colors::lighter($themeProps['primary-color'], 20);
+				}
 			}
 
 			if ( !$themeProps['mainbar-text-color'] ) {
@@ -348,14 +353,16 @@ class Theming
 		if ( $themeProps['action-color'] && !$themeProps['action-color:hover'] ) {
 			$themeProps['action-color:hover'] = Colors::darker($themeProps['action-color'], 10);
 		}
-		// Set a text color for the selection-color
-		$hsl = Colors::rgb2hsl($themeProps['selection-color']);
-		if ( $hsl['l'] > 50 ) {
-			$hsl['l'] = 5;
-		} else {
-			$hsl['l'] = 95;
+		if ( isset($themeProps['selection-color']) && !isset($themeProps['selection-text-color']) ) {
+			// Set a text color for the selection-color
+			$hsl = Colors::rgb2hsl($themeProps['selection-color']);
+			if ( $hsl['l'] > 50 ) {
+				$hsl['l'] = 5;
+			} else {
+				$hsl['l'] = 95;
+			}
+			$themeProps['selection-text-color'] = Colors::colorObject2string(Colors::hsl2rgb($hsl));
 		}
-		$themeProps['selection-text-color'] = Colors::colorObject2string(Colors::hsl2rgb($hsl));
 
 		if ( isset($themeProps['background-image']) ) {
 			$themeProps['background-image'] = Theming::fixUrl($themeProps['background-image'], $theme);
