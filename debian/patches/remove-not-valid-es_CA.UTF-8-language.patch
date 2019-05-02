@@ -3,18 +3,18 @@ Date: Thu, 5 Oct 2017 20:58:17 +0200
 Subject: remove not valid es_CA.UTF-8 language
 
 ---
- .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6333 --------------------
+ .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6517 --------------------
  server/language/es_CA.UTF-8/language.txt           |    1 -
- 2 files changed, 6334 deletions(-)
+ 2 files changed, 6518 deletions(-)
  delete mode 100644 server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
  delete mode 100644 server/language/es_CA.UTF-8/language.txt
 
 diff --git a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 deleted file mode 100644
-index 202db1f..0000000
+index c7a3955..0000000
 --- a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ /dev/null
-@@ -1,6333 +0,0 @@
+@@ -1,6517 +0,0 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,7 +23,7 @@ index 202db1f..0000000
 -msgstr ""
 -"Project-Id-Version: PACKAGE VERSION\n"
 -"Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2019-03-05 10:57+0100\n"
+-"POT-Creation-Date: 2019-05-14 09:42+0200\n"
 -"PO-Revision-Date: 2013-02-22 23:00+0200\n"
 -"Last-Translator: Manuel <info@picholeiro.info>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,8 +468,9 @@ index 202db1f..0000000
 -msgid "Pager"
 -msgstr "Buscapersonas"
 -
--msgid "Kopano WebApp"
--msgstr "Kopano WebApp"
+-#, fuzzy
+-msgid "No user selected"
+-msgstr "No hay tareas seleccionadas"
 -
 -msgid "You must select one or more users."
 -msgstr "Debe seleccionar uno o más usuarios."
@@ -610,6 +611,10 @@ index 202db1f..0000000
 -
 -msgid "Add"
 -msgstr "Añadir"
+-
+-#, fuzzy
+-msgid "Empty folder name"
+-msgstr "Carpeta vacía"
 -
 -msgid "You must specify a name."
 -msgstr "Ud. debe especificar un nombre."
@@ -1024,6 +1029,10 @@ index 202db1f..0000000
 -msgid "Resources have been planned"
 -msgstr "Los recursos han sido planificados."
 -
+-#, fuzzy
+-msgid "Send update"
+-msgstr "Fecha de finalización"
+-
 -msgid ""
 -"An update message will be sent to all recipients, do you wish to continue?"
 -msgstr ""
@@ -1045,8 +1054,12 @@ index 202db1f..0000000
 -msgid "Send updates to all attendees."
 -msgstr "Enviar actualizaciones a todos los asistentes."
 -
--msgid ""
--"One or more attendees you have invited are busy. Are you sure to invite?"
+-#, fuzzy
+-msgid "Busy attendees"
+-msgstr "Invitar asistentes"
+-
+-#, fuzzy
+-msgid "One or more attendees are busy. Are you sure to invite?"
 -msgstr ""
 -"Uno o más asistentes que usted ha invitado están ocupados. ¿Está usted "
 -"seguro de invitarlos?"
@@ -1153,6 +1166,10 @@ index 202db1f..0000000
 -
 -msgid "Type your message here..."
 -msgstr ""
+-
+-#, fuzzy
+-msgid "Update location"
+-msgstr "Actualizar Lista"
 -
 -msgid ""
 -"Do you want to update the location \"{0}\" with the new location \"{1}\"?"
@@ -1514,6 +1531,10 @@ index 202db1f..0000000
 -msgid "Series"
 -msgstr "Categorías"
 -
+-#, fuzzy
+-msgid "Appointment not found"
+-msgstr "Cita"
+-
 -msgid "This appointment has been moved or deleted, do you want to continue?"
 -msgstr "Esta cita ha sido movida o borrada, ¿desea continuar?."
 -
@@ -1627,6 +1648,10 @@ index 202db1f..0000000
 -msgid "jS F Y"
 -msgstr "jS F Y"
 -
+-#, fuzzy
+-msgid "Update recipients"
+-msgstr "Editar recipiente"
+-
 -msgid "The time of the meeting has changed. Choose one of the following:"
 -msgstr ""
 -
@@ -1699,6 +1724,10 @@ index 202db1f..0000000
 -#, fuzzy
 -msgid "View in calendar"
 -msgstr "Ver varios calendarios en"
+-
+-#, fuzzy
+-msgid "No additional response required"
+-msgstr "La respuesta no es requerida"
 -
 -msgid ""
 -"Your calendar has been updated automatically. This meeting request will now "
@@ -1843,6 +1872,10 @@ index 202db1f..0000000
 -msgid "Delete without sending"
 -msgstr "Borrar sin enviar"
 -
+-#, fuzzy
+-msgid "Notify recipients"
+-msgstr "Editar recipiente"
+-
 -msgid ""
 -"A cancellation message will be sent to all recipients, do you wish to "
 -"continue?"
@@ -1865,9 +1898,15 @@ index 202db1f..0000000
 -msgid "Mark complete and delete"
 -msgstr "Marcar como Completado"
 -
+-# 77%
+-#, fuzzy
+-msgid "Notify sender"
+-msgstr "Ordenar por: Recordatorio de Tiempo"
+-
+-#, fuzzy
 -msgid ""
--"The sender of this message has asked to be notified when you read this "
--"message. Do you wish to notify the sender?"
+-"The sender of this email has requested a read receipt. Do you wish to notify "
+-"the sender?"
 -msgstr ""
 -"El emisor de este mensaje ha solicitado la notificación al leer este "
 -"mensaje. ¿Desea enviar la notificación?"
@@ -1899,14 +1938,6 @@ index 202db1f..0000000
 -msgstr "De"
 -
 -msgid "Insert item"
--msgstr ""
--
--# 83%
--#, fuzzy
--msgid "Items:"
--msgstr "Elementos"
--
--msgid "Look in:"
 -msgstr ""
 -
 -msgid "Insert as"
@@ -1988,6 +2019,9 @@ index 202db1f..0000000
 -msgstr "Error"
 -
 -msgid "Cannot create ZIP, The allowed maximum size is 30 MB."
+-msgstr ""
+-
+-msgid "Unable to download"
 -msgstr ""
 -
 -msgid "Picture format is not supported. "
@@ -2130,8 +2164,9 @@ index 202db1f..0000000
 -msgid "Other"
 -msgstr "Otro"
 -
--msgid "No delegate exists"
--msgstr "No existe delegado"
+-#, fuzzy
+-msgid "No delegates configured"
+-msgstr "Firmas no configuradas"
 -
 -msgid "Loading delegates"
 -msgstr "Cargando delegados"
@@ -2139,11 +2174,12 @@ index 202db1f..0000000
 -msgid "Please select a delegate."
 -msgstr "Por favor, seleccione un delegado."
 -
+-msgid "Delegates can send items on your behalf."
+-msgstr ""
+-
 -msgid ""
--"Delegates can send items on your behalf. To grant permission to others to "
--"access your folders without also giving them send-on-behalf-of privileges, "
--"go to properties for each folder and change the options on the Permissions "
--"Tab."
+-"If you only want to set folder permissions, right-click on a folder to open "
+-"the context menu and click on \"Share Folder...\""
 -msgstr ""
 -
 -# 90%
@@ -2174,6 +2210,9 @@ index 202db1f..0000000
 -
 -msgid "Folder '{0}' selected."
 -msgstr ""
+-
+-msgid "Kopano WebApp"
+-msgstr "Kopano WebApp"
 -
 -msgid "Do not show this message again."
 -msgstr ""
@@ -2229,6 +2268,18 @@ index 202db1f..0000000
 -#, fuzzy
 -msgid "Copy email address"
 -msgstr "Nueva dirección de correo electrónico"
+-
+-#, fuzzy
+-msgid "Set as required"
+-msgstr "Este campo es obligatorio"
+-
+-#, fuzzy
+-msgid "Set as optional"
+-msgstr "Opcional"
+-
+-#, fuzzy
+-msgid "Set as resource"
+-msgstr "Ordenar por: Recursos"
 -
 -msgid "Select attendees"
 -msgstr "Seleccionar asistentes "
@@ -2342,6 +2393,12 @@ index 202db1f..0000000
 -msgid "Email address"
 -msgstr "Correo Electrónico"
 -
+-# 78%
+-# 100%
+-#, fuzzy
+-msgid "Expand distribution list"
+-msgstr "Imprimir lista de Distribución"
+-
 -msgid ""
 -"Distribution list will be replaced with its members. You will not be able to "
 -"collapse it again."
@@ -2408,10 +2465,13 @@ index 202db1f..0000000
 -msgid "Remove Recurrence"
 -msgstr ""
 -
--msgid ""
--"This will discard any exceptions which might have been made for this "
--"recurring series. Do you wish to continue?"
--msgstr ""
+-#, fuzzy
+-msgid "Reset recurring"
+-msgstr "Repetición"
+-
+-#, fuzzy
+-msgid "This will reset every exception. Do you want to continue?"
+-msgstr "Esta cita ha sido movida o borrada, ¿desea continuar?."
 -
 -msgid "Task Recurrence"
 -msgstr ""
@@ -2537,11 +2597,23 @@ index 202db1f..0000000
 -msgid "Messages"
 -msgstr "Mensaje"
 -
--msgid "Are you sure you want to Permanently Delete all items?"
--msgstr ""
+-#, fuzzy
+-msgid "Delete all items"
+-msgstr "Elementos eliminados"
 -
--msgid "Are you sure you want to Restore all items?"
+-#, fuzzy
+-msgid "Are you sure you want to permanently delete all items?"
 -msgstr ""
+-"¿Esta seguro de que desea eliminar permanentemente todos los elementos y "
+-"subcarpetas de la carpeta \"{0}\"?"
+-
+-#, fuzzy
+-msgid "Restore all items"
+-msgstr "Restaurar elementos"
+-
+-#, fuzzy
+-msgid "Are you sure you want to restore all items?"
+-msgstr "¿Esta seguro de que desea vaciar {0}?"
 -
 -msgid "Total {0} recoverable item"
 -msgid_plural "Total {0} recoverable items"
@@ -2597,10 +2669,17 @@ index 202db1f..0000000
 -msgid "Forward the message as attachment to ..."
 -msgstr ""
 -
+-#, fuzzy
+-msgid "Mark the message as read ..."
+-msgstr "Marcar todos los mensajes como leídos"
+-
 -msgid "is received from ..."
 -msgstr ""
 -
 -msgid "includes these words in the sender's address ..."
+-msgstr ""
+-
+-msgid "includes these words in the recipient's address ..."
 -msgstr ""
 -
 -msgid "includes these words in the subject ..."
@@ -2747,6 +2826,9 @@ index 202db1f..0000000
 -msgid "Update rules for"
 -msgstr ""
 -
+-msgid "Apply changes"
+-msgstr ""
+-
 -msgid "Do you wish to apply the changes?"
 -msgstr "¿ Desea aplicar los cambios ?"
 -
@@ -2761,6 +2843,10 @@ index 202db1f..0000000
 -#, fuzzy
 -msgid "Search in.."
 -msgstr "Buscar en"
+-
+-#, fuzzy
+-msgid "Folder does not exist"
+-msgstr "Contenido de carpeta"
 -
 -msgid ""
 -"The folder you are searching through no longer exists. Please select another "
@@ -2779,7 +2865,9 @@ index 202db1f..0000000
 -msgid "Please select a from address record."
 -msgstr ""
 -
--msgid "Here you can setup your alias email addresses."
+-msgid ""
+-"Manage the email addresses you can use as sender address when sending an "
+-"email."
 -msgstr ""
 -
 -msgid "View"
@@ -3041,6 +3129,10 @@ index 202db1f..0000000
 -#, fuzzy
 -msgid "{0} has updated on behalf of {1} {2}."
 -msgstr "{0} ha aceptado el nombre de {1}."
+-
+-#, fuzzy
+-msgid "Fix message"
+-msgstr "Mensaje original"
 -
 -msgid ""
 -"We are going to try to fix a corrupted mail message, do you wish to continue?"
@@ -3764,6 +3856,14 @@ index 202db1f..0000000
 -msgid "Sent successfully"
 -msgstr "Envio finalizado"
 -
+-#, fuzzy
+-msgid "No recipient"
+-msgstr "Editar recipiente"
+-
+-#, fuzzy
+-msgid "Please specify at least one recipient"
+-msgstr "Por favor, especifique un destinatario"
+-
 -msgid "Please specify a recipient"
 -msgstr "Por favor, especifique un destinatario"
 -
@@ -3773,14 +3873,26 @@ index 202db1f..0000000
 -msgid "Do you want to send this message without attachments?"
 -msgstr ""
 -
+-#, fuzzy
+-msgid "Attachments not uploaded yet"
+-msgstr "Los adjuntos no se pueden modificar para una sola ocurrencia."
+-
 -msgid "Don't Send"
 -msgstr ""
 -
 -msgid "Send Anyway"
 -msgstr ""
 -
+-#, fuzzy
+-msgid "No subject"
+-msgstr "Sin asunto"
+-
 -msgid "Send this message without a subject?"
 -msgstr "¿ Enviar este mensaje sin asunto ?"
+-
+-#, fuzzy
+-msgid "Unresolved recipients"
+-msgstr "Editar recipiente"
 -
 -msgid "Not all recipients could be resolved"
 -msgstr "No todos los destinatarios pueden ser resueltos"
@@ -3818,9 +3930,9 @@ index 202db1f..0000000
 -msgid "Saved successfully"
 -msgstr "Grabación finalizada"
 -
+-#, fuzzy
 -msgid ""
--"You are going to lose all unsaved changes. Are you sure you want to close "
--"this window?"
+-"You will lose all unsaved work. Are you sure you want to close this window?"
 -msgstr ""
 -"Ud. va a perder los cambios no guardados. ¿ Está seguro de cerrar esta "
 -"ventana ?"
@@ -3828,7 +3940,14 @@ index 202db1f..0000000
 -msgid "Kopano Content Panel"
 -msgstr "Panel de Contenido Kopano"
 -
+-#, fuzzy
+-msgid "Delete item"
+-msgstr "Elementos eliminados"
+-
 -msgid "This item has been changed. Are you sure you want to delete it?"
+-msgstr ""
+-
+-msgid "Unsaved changes"
 -msgstr ""
 -
 -msgid "Welcome to Kopano WebApp"
@@ -3884,6 +4003,12 @@ index 202db1f..0000000
 -msgid "D d-m"
 -msgstr "d-m-A"
 -
+-# 80%
+-# 84%
+-#, fuzzy
+-msgid "Insufficient permissions"
+-msgstr "No tiene privilegios necesarios para guardar objetos en esta carpeta"
+-
 -msgid ""
 -"Not enough permissions to open this store, do you want to remove it from the "
 -"hierarchy?"
@@ -3897,6 +4022,12 @@ index 202db1f..0000000
 -msgstr ""
 -"No dispone de suficientes permisos para abrir la carpeta, ¿desea eliminarla "
 -"de la jerarquía?"
+-
+-# 80%
+-# 84%
+-#, fuzzy
+-msgid "Insufficient Permissions"
+-msgstr "No tiene privilegios necesarios para guardar objetos en esta carpeta"
 -
 -msgid "Not enough permissions to open this folder."
 -msgstr "Privilegios insuficientes para abrir la carpeta."
@@ -3961,6 +4092,14 @@ index 202db1f..0000000
 -
 -msgid "Select where to place the folder"
 -msgstr "Seleccionar donde alojar carpeta"
+-
+-#, fuzzy
+-msgid "No folder name"
+-msgstr "Nombre carpeta"
+-
+-#, fuzzy
+-msgid "No destination"
+-msgstr "sin Información"
 -
 -msgid "You must select a destination folder."
 -msgstr "Ud. debe seleccionar un destino para la carpeta."
@@ -4061,21 +4200,39 @@ index 202db1f..0000000
 -msgid "Open Shared Folders"
 -msgstr "Abrir notas compartidas"
 -
+-msgid "Unresolved user"
+-msgstr ""
+-
 -msgid "Username '{0}' could not be resolved."
 -msgstr "No se pudo resolver el usuario '{0}'."
+-
+-msgid "Invalid user"
+-msgstr ""
 -
 -msgid "Username '{0}' is not a valid user."
 -msgstr "El usuario '{0}' no es un usuario válido."
 -
--msgid "It is not possible to open your own store twice"
+-#, fuzzy
+-msgid "Own store"
+-msgstr "Caja no encontrada"
+-
+-#, fuzzy
+-msgid "It is not possible to open your own store twice."
 -msgstr "No es posible abrir su propio buzón dos veces."
+-
+-#, fuzzy
+-msgid "Folder already open"
+-msgstr "La carpeta compartida ya se encuentra abierta."
 -
 -msgid "This shared folder is already open."
 -msgstr "La carpeta compartida ya se encuentra abierta."
 -
+-msgid "No user"
+-msgstr ""
+-
 -# 85%
 -#, fuzzy
--msgid "You must specify a username."
+-msgid "You must specify a user"
 -msgstr "Ud. debe especificar un nombre."
 -
 -msgid "Folder type"
@@ -4176,6 +4333,10 @@ index 202db1f..0000000
 -"¿Esta seguro de que desea eliminar la carpeta \"{0}\" y mover todo su "
 -"contenido a la carpeta de Elementos Eliminados?"
 -
+-#, fuzzy
+-msgid "Delete folder"
+-msgstr "Borrar Carpeta"
+-
 -msgid "Are you sure you want to empty {0}?"
 -msgstr "¿Esta seguro de que desea vaciar {0}?"
 -
@@ -4263,9 +4424,6 @@ index 202db1f..0000000
 -msgid "Message Options"
 -msgstr "Opciones de Mensaje"
 -
--msgid "No from addresses configured!"
--msgstr ""
--
 -msgid "This message will be flagged for follow up when it is sent."
 -msgstr ""
 -
@@ -4329,6 +4487,9 @@ index 202db1f..0000000
 -
 -msgid "Internet Headers"
 -msgstr "Encabezados de Internet"
+-
+-msgid "EntryID"
+-msgstr ""
 -
 -msgid "Message Settings"
 -msgstr "Configuración de mensajes"
@@ -4651,11 +4812,14 @@ index 202db1f..0000000
 -msgid "Loading notes"
 -msgstr "Cargando notas"
 -
--msgid "In order for the changes to take effect, please reload WebApp."
+-msgid ""
+-"You must reload WebApp for the changes to take effect. Unsaved changes will "
+-"be lost."
 -msgstr ""
 -
--msgid "NOTE: Any unsaved changes will be lost."
--msgstr ""
+-#, fuzzy
+-msgid "Reload WebApp"
+-msgstr "Kopano WebApp"
 -
 -msgid "Settings"
 -msgstr "Configuración"
@@ -4674,9 +4838,6 @@ index 202db1f..0000000
 -
 -msgid "Theme"
 -msgstr ""
--
--msgid "This change requires a reload of the WebApp"
--msgstr "Este cambio require recargar la WebApp"
 -
 -msgid "Select Default Folder"
 -msgstr ""
@@ -4767,6 +4928,9 @@ index 202db1f..0000000
 -msgid "All keyboard shortcuts on"
 -msgstr ""
 -
+-msgid "This change requires a reload of the WebApp"
+-msgstr "Este cambio require recargar la WebApp"
+-
 -msgid "Discard"
 -msgstr "Descartar"
 -
@@ -4830,25 +4994,26 @@ index 202db1f..0000000
 -"Usted no puede enviar correos electrónicos, ha excedido su espacio máximo "
 -"permitido"
 -
--msgid "Reset WebApp settings"
--msgstr ""
+-#, fuzzy
+-msgid "Reset settings"
+-msgstr "Eliminar ajustes"
 -
--msgid "Resets WebApp's settings to their original defaults"
--msgstr ""
--
--msgid ""
--"Your WebApp settings will be restored to their default condition. Are you "
--"sure you want to reset all WebApp settings?"
+-msgid "Reset settings to their original defaults."
 -msgstr ""
 -
 -msgid ""
--"WebApp will automatically restart in order for these changes to take effect"
+-"This will close all opened shared stores and resets all settings to the "
+-"default value."
+-msgstr ""
+-
+-msgid ""
+-"WebApp will automatically reload in order for these changes to take effect"
 -msgstr ""
 -
 -msgid "Reset"
 -msgstr ""
 -
--msgid "Webapp is reloading, Please wait."
+-msgid "Reloading, Please wait."
 -msgstr ""
 -
 -msgid "Setting"
@@ -4958,8 +5123,15 @@ index 202db1f..0000000
 -msgid "copy"
 -msgstr ""
 -
+-msgid "Unable to send task request"
+-msgstr ""
+-
 -msgid "You cannot send a task request to yourself."
 -msgstr ""
+-
+-#, fuzzy
+-msgid "Multiple recipients"
+-msgstr "Ver recipiente"
 -
 -#, fuzzy
 -msgid "A task request can only have one recipient."
@@ -5074,6 +5246,14 @@ index 202db1f..0000000
 -msgid "Mark Incomplete"
 -msgstr ""
 -
+-#, fuzzy
+-msgid "Remove from To-Do List"
+-msgstr "Eliminar del calendario"
+-
+-#, fuzzy
+-msgid "Changes to assigned task"
+-msgstr "Enviar la tarea al agente"
+-
 -msgid ""
 -"Please note that assigned task(s) will be overwritten when the assignee "
 -"makes changes."
@@ -5103,6 +5283,10 @@ index 202db1f..0000000
 -#, fuzzy
 -msgid "Sort by: Percentage Completed"
 -msgstr "Ordenar por. Porcentaje completado"
+-
+-#, fuzzy
+-msgid "Assigned task changes"
+-msgstr "Asignar Tarea"
 -
 -msgid "Loading tasks"
 -msgstr "Cargando tareas"
@@ -5191,12 +5375,12 @@ index 202db1f..0000000
 -"browser window or tab."
 -msgstr ""
 -
+-msgid "Session expired"
+-msgstr "Sesión expirada"
+-
 -#, fuzzy
 -msgid "Do you wish to be redirected to the logon page?"
 -msgstr "Deja de ser rediredicionado a la pagina de logeo"
--
--msgid "Session expired"
--msgstr "Sesión expirada"
 -
 -msgid "Reauthentication required, click here to go to back to logon page."
 -msgstr "autentificacion necesaria, volver ala pagina de logeo."
@@ -5296,7 +5480,7 @@ index 202db1f..0000000
 -msgid "Loading model from server failed"
 -msgstr "La carga del modelo desde el servidor, ha fallado"
 -
--msgid "Out of Office currently on. Would you like to turn it off?"
+-msgid "Out of Office is currently activated. Would you like to turn it off?"
 -msgstr ""
 -
 -msgid "Out of office off"
