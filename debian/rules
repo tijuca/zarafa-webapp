@@ -35,7 +35,7 @@ override_dh_auto_build: check_php_version
 	sed -e "s/@version@/$(PHP_VERSION)/g" debian/kopano-webapp-nginx.postinst.in > debian/kopano-webapp-nginx.postinst
 
 override_dh_install:
-	dh_install -X.js.map -X*debug.js
+	dh_install -X.js.map -X*debug.js -X.md
 	# figure out package version
 	echo $(DEB_VERSION) > \
 		$(CURDIR)/debian/kopano-webapp-common/usr/share/kopano-webapp/version
