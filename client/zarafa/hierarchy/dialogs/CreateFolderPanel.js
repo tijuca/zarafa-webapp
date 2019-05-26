@@ -111,7 +111,8 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 				anchor : '100% 65%',
 				ref : '../hierarchyTree',
 				treeSorter : true,
-				hideTodoList: true
+				hideTodoList: true,
+				hideFavorites: true
 			}]
 		};
 	},
@@ -199,10 +200,9 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 	{
 		if (this.newNameField.getValue().trim().length === 0) {
 			Ext.MessageBox.show({
-				title: _('Kopano WebApp'),
+				title: _('No folder name'),
 				msg: _("You must specify a name."),
 				buttons: Ext.MessageBox.OK,
-				icon: Ext.MessageBox.INFO
 			});
 
 			return;
@@ -222,10 +222,9 @@ Zarafa.hierarchy.dialogs.CreateFolderPanel = Ext.extend(Ext.Panel, {
 			this.dialog.saveRecord();
 		} else {
 			Ext.MessageBox.show({
-				title: _('Kopano WebApp'),
+				title: _('No destination'),
 				msg: _("You must select a destination folder."),
 				buttons: Ext.MessageBox.OK,
-				icon: Ext.MessageBox.INFO
 			});
 
 			return;
