@@ -37,9 +37,23 @@ ul.x-tab-strip-top {
 	height: $padding-small;
 }
 
-/* Common emptytext for example empty task list */
+/* Common emptytext for empty grids. Overwriting x-grid-empty in some cases */
 .emptytext {
 	text-align: center;
+	font-size: $font-size-large;
+	margin-top: 5%;
+}
+
+/* Exclude bigger font and margin for x-window empty texts
+ * Example: permission tab
+ */
+.x-window .emptytext {
+	font-size: $font-default-size !important;
+	margin-top: 0;
+}
+
+#note-iconview .emptytext {
+	color: grey;
 }
 
 /* TODO: move to general scss file */

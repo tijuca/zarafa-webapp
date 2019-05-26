@@ -396,6 +396,7 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 			items: [{
 				xtype: 'zarafa.datetimeperiodfield',
 				ref: '../../../datetimePeriod',
+				defaultValue : this.generateDefaultDate(),
 				defaultPeriod: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_appointment_period'),
 				defaultPeriodType : Date.MINUTE,
 				timeIncrement: container.getSettingsModel().get('zarafa/v1/contexts/calendar/default_zoom_level'),
@@ -630,6 +631,28 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 				}
 			}]
 		};
+	},
+
+	/**
+	 * Generate the defaultValue start and end date for an appointment
+	 * according to defaultPeriod and default Appointment timeslot.
+	 * @return {Zarafa.core.DateRange} object which contains {@link Zarafa.core.DateRange DateRange} of an appointment.
+	 */
+	generateDefaultDate : function()
+	{
+		var settingsModel = container.getSettingsModel();
+		var zoomLevel = settingsModel.get('zarafa/v1/contexts/calendar/default_zoom_level');
+		var defaultPeriod = settingsModel.get('zarafa/v1/contexts/calendar/default_appointment_period');
+
+		// The default should be the next (rounded up) default Appointment time slot.
+		// e.g. When creating a new appointment on 11:55, with a defaultPeriod of 30 minutes,
+		// will create an appointment starting on 12:00.
+		var start = new Date().ceil(Date.MINUTE, zoomLevel);
+
+		// The default should be the default appointment time after the start date.
+		var end = start.add(Date.MINUTE, defaultPeriod);
+
+		return new Zarafa.core.DateRange({ startDate : start, dueDate : end });
 	},
 
 	/**
@@ -893,10 +916,9 @@ Zarafa.calendar.dialogs.AppointmentTab = Ext.extend(Ext.form.FormPanel, {
 		} else {
 			//If suggested location seems different then ask user whether want to use suggested location or not.
 			Ext.MessageBox.show({
-				title: _('Kopano WebApp'),
+				title: _('Update location'),
 				msg: String.format(_('Do you want to update the location "{0}" with the new location "{1}"?'), Ext.util.Format.htmlEncode(meetingLocation), Ext.util.Format.htmlEncode(locationSuggestion)),
 				buttons: Ext.Msg.YESNO,
-				icon: Ext.MessageBox.WARNING,
 				fn: this.setLocation,
 				locationSuggestion: locationSuggestion,
 				scope: this
