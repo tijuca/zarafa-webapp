@@ -1,3 +1,14 @@
+kopano-webapp (3.5.6+dfsg1-1) unstable; urgency=medium
+
+  * [627b6b3] New upstream version 3.5.6+dfsg1
+  * [79f588b] rebuild patch queue from patch-queue branch
+  * [b4a3931] d/copyright: update copyright information
+     Since upstream version 3.5.4 some new additional software is included
+     which is required to be reflected in the copyright file.
+  * [c983579] d/rules: exclude the installation of *.md files
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 30 May 2019 11:22:51 +0200
+
 kopano-webapp (3.5.3+dfsg1-1) unstable; urgency=medium
 
   * [a292ded] New upstream version 3.5.3+dfsg1
