@@ -18,7 +18,7 @@ Rules-Requires-Root: binary-targets
 Vcs-Git: https://salsa.debian.org/giraffe-team/kopano-webapp.git
 Vcs-Browser: https://salsa.debian.org/giraffe-team/kopano-webapp
 Homepage: https://github.com/Kopano-dev/kopano-webapp
-Standards-Version: 4.3.0
+Standards-Version: 4.4.0
 
 Package: kopano-webapp-common
 Architecture: all
