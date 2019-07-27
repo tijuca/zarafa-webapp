@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Arabic (Morocco)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 09:42+0200\n"
+"POT-Creation-Date: 2019-07-16 10:32+0200\n"
 "PO-Revision-Date: 2018-08-24 21:08+0200\n"
 "Last-Translator: Carsten Schoenert <c.schoenert@t-online.de>\n"
 "Language-Team: Arabic (Morocco) <https://translate.kopano.io/projects/kopano/"
@@ -978,6 +978,10 @@ msgstr ""
 msgid "F Y"
 msgstr ""
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "l"
+msgstr ""
+
 msgid "All text fields"
 msgstr ""
 
@@ -1277,6 +1281,21 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Start"
+msgstr ""
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "End"
+msgstr ""
+
+msgid "Printed by: "
+msgstr ""
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Printed on: "
+msgstr ""
+
 msgid "Location: "
 msgstr ""
 
@@ -1286,14 +1305,6 @@ msgstr ""
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F"
-msgstr ""
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Start"
-msgstr ""
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "End"
 msgstr ""
 
 msgid "Organiser"
@@ -1392,10 +1403,6 @@ msgid "Default reminder time"
 msgstr ""
 
 msgid "Default all-day appointment reminder time"
-msgstr ""
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "l"
 msgstr ""
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
@@ -1569,6 +1576,9 @@ msgid "Move"
 msgstr ""
 
 msgid "Don't move"
+msgstr ""
+
+msgid "Switch to day view to see all appointments"
 msgstr ""
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
@@ -2509,6 +2519,9 @@ msgstr ""
 msgid "has my name in the Cc field"
 msgstr ""
 
+msgid "does not have my name in the To or Cc field"
+msgstr ""
+
 msgid "has my name in the To or Cc field"
 msgstr ""
 
@@ -2521,6 +2534,12 @@ msgstr ""
 msgid "is received before"
 msgstr ""
 
+msgid "at least message size"
+msgstr ""
+
+msgid "at most message size"
+msgstr ""
+
 msgid "has my name in the To field"
 msgstr ""
 
@@ -2528,6 +2547,12 @@ msgid "is received (all messages)"
 msgstr ""
 
 msgid "Select one..."
+msgstr ""
+
+msgid "Unknown condition"
+msgstr ""
+
+msgid "This condition for the current rule is unknown"
 msgstr ""
 
 msgid "Unnamed folder"
@@ -2551,12 +2576,6 @@ msgstr ""
 msgid "Remove condition"
 msgstr ""
 
-msgid "Unknown condition"
-msgstr ""
-
-msgid "This condition for the current rule is unknown"
-msgstr ""
-
 msgid "Inbox Rule"
 msgstr ""
 
@@ -2569,10 +2588,19 @@ msgstr ""
 msgid "Do the following"
 msgstr ""
 
+msgid "Exceptions"
+msgstr ""
+
 msgid "Apply only when Out of Office is active"
 msgstr ""
 
 msgid "Stop processing more rules"
+msgstr ""
+
+msgid "Add exception"
+msgstr ""
+
+msgid "Remove exception"
 msgstr ""
 
 msgid "Specify Words or Phrases"
@@ -4472,6 +4500,9 @@ msgstr ""
 msgid "Unpin favorites from top"
 msgstr ""
 
+msgid "Give unread items a colored border"
+msgstr ""
+
 msgid "Inbox navigation"
 msgstr ""
 
@@ -4746,6 +4777,9 @@ msgid "Mark this task as private"
 msgstr ""
 
 msgid "New task"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Percent complete"

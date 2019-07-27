@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Norwegian (Bokmål)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 09:42+0200\n"
-"PO-Revision-Date: 2019-05-09 18:31+0000\n"
+"POT-Creation-Date: 2019-07-16 10:32+0200\n"
+"PO-Revision-Date: 2019-06-25 13:44+0000\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano/"
 "kopano-webapp/nb_NO/>\n"
@@ -968,6 +968,10 @@ msgstr "Egen kalender"
 msgid "F Y"
 msgstr "F Y"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "l"
+msgstr "l"
+
 msgid "All text fields"
 msgstr "Alle tekstfelt"
 
@@ -1294,6 +1298,22 @@ msgstr "Kopier valgt element"
 msgid "Paste selected item"
 msgstr "Lim inn valgt element"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Start"
+msgstr "Start"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "End"
+msgstr "Slutt"
+
+# 76%
+msgid "Printed by: "
+msgstr "Skrevet ut: "
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Printed on: "
+msgstr "Skrevet ut: "
+
 msgid "Location: "
 msgstr "Sted: "
 
@@ -1304,14 +1324,6 @@ msgstr "I j. F Y"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F"
 msgstr "l, j. F Y"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Start"
-msgstr "Start"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "End"
-msgstr "Slutt"
 
 # 88%
 msgid "Organiser"
@@ -1418,10 +1430,6 @@ msgstr "Standard påminnelsestid"
 
 msgid "Default all-day appointment reminder time"
 msgstr "Standard påminnelsestid for heldagsavtale"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "l"
-msgstr "l"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "jS"
@@ -1611,6 +1619,9 @@ msgstr "Flytt"
 
 msgid "Don't move"
 msgstr "Ikke flytt"
+
+msgid "Switch to day view to see all appointments"
+msgstr ""
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -2573,9 +2584,8 @@ msgstr "Videresend meldingen til ..."
 msgid "Forward the message as attachment to ..."
 msgstr "Videresend meldingen som vedlegg til ..."
 
-#, fuzzy
 msgid "Mark the message as read ..."
-msgstr "Videresend meldingen til ..."
+msgstr "Marker meldingen som lest ..."
 
 msgid "is received from ..."
 msgstr "er mottatt fra ..."
@@ -2583,9 +2593,8 @@ msgstr "er mottatt fra ..."
 msgid "includes these words in the sender's address ..."
 msgstr "inneholder følgende ord i avsenders adresse ..."
 
-#, fuzzy
 msgid "includes these words in the recipient's address ..."
-msgstr "inneholder følgende ord i avsenders adresse ..."
+msgstr "inneholder følgende ord i mottakers adresse ..."
 
 msgid "includes these words in the subject ..."
 msgstr "inneholder følgende ord i emnefeltet ..."
@@ -2611,6 +2620,9 @@ msgstr "er sendt bare til meg"
 msgid "has my name in the Cc field"
 msgstr "har mitt navn i Cc-feltet"
 
+msgid "does not have my name in the To or Cc field"
+msgstr "inneholder ikke mitt navn i Til eller Cc-feltet"
+
 msgid "has my name in the To or Cc field"
 msgstr "har mitt navn i Til eller Cc-feltet"
 
@@ -2623,6 +2635,13 @@ msgstr "er mottatt etter"
 msgid "is received before"
 msgstr "er mottatt før"
 
+msgid "at least message size"
+msgstr ""
+
+#, fuzzy
+msgid "at most message size"
+msgstr "Ingen melding valgt"
+
 msgid "has my name in the To field"
 msgstr "har mitt navn i Til-feltet"
 
@@ -2631,6 +2650,12 @@ msgstr "er mottatt (alle meldinger)"
 
 msgid "Select one..."
 msgstr "Merk..."
+
+msgid "Unknown condition"
+msgstr "Ukjent betingelse"
+
+msgid "This condition for the current rule is unknown"
+msgstr "Betingelsen for gjeldende regel er ukjent"
 
 msgid "Unnamed folder"
 msgstr "Mappe uten navn"
@@ -2654,12 +2679,6 @@ msgstr "Legg til betingelse"
 msgid "Remove condition"
 msgstr "Fjern betingelse"
 
-msgid "Unknown condition"
-msgstr "Ukjent betingelse"
-
-msgid "This condition for the current rule is unknown"
-msgstr "Betingelsen for gjeldende regel er ukjent"
-
 msgid "Inbox Rule"
 msgstr "Innboksregel"
 
@@ -2673,11 +2692,23 @@ msgstr "Når meldingen"
 msgid "Do the following"
 msgstr "Gjør følgende"
 
+#, fuzzy
+msgid "Exceptions"
+msgstr "Alternativer"
+
 msgid "Apply only when Out of Office is active"
 msgstr "Bruk kun når Fraværende er aktivert"
 
 msgid "Stop processing more rules"
 msgstr "Stopp behandlingen av flere regler"
+
+#, fuzzy
+msgid "Add exception"
+msgstr "Legg til handling"
+
+#, fuzzy
+msgid "Remove exception"
+msgstr "Fjern handling"
 
 msgid "Specify Words or Phrases"
 msgstr "Angi ord eller uttrykk"
@@ -3017,9 +3048,8 @@ msgstr "Siste oppdatering send på {0}."
 msgid "{0} has updated on behalf of {1} {2}."
 msgstr "{0} har blitt godtatt på vegne av {1} {2}."
 
-#, fuzzy
 msgid "Fix message"
-msgstr "beskjed"
+msgstr "Reparer melding"
 
 msgid ""
 "We are going to try to fix a corrupted mail message, do you wish to continue?"
@@ -4668,6 +4698,9 @@ msgstr "Skjul favoritter"
 msgid "Unpin favorites from top"
 msgstr "Ta bort favoritter fra toppen"
 
+msgid "Give unread items a colored border"
+msgstr "Marker uleste meldinger med et farget omriss"
+
 msgid "Inbox navigation"
 msgstr "Navigasjon i Innboks"
 
@@ -4783,6 +4816,7 @@ msgid ""
 "This will close all opened shared stores and resets all settings to the "
 "default value."
 msgstr ""
+"Dette vil lukke alle åpne delte mapper, og tilbakestille alle innstillinger."
 
 msgid ""
 "WebApp will automatically reload in order for these changes to take effect"
@@ -4902,7 +4936,7 @@ msgid "copy"
 msgstr "kopi"
 
 msgid "Unable to send task request"
-msgstr ""
+msgstr "Klarte ikke å sende oppgaveforespørsel"
 
 msgid "You cannot send a task request to yourself."
 msgstr "Du kan ikke sende en oppgaveforespørsel til deg selv."
@@ -4965,6 +4999,10 @@ msgstr "Marker denne oppgaven som privat"
 msgid "New task"
 msgstr "Ny oppgave"
 
+# 80%
+msgid "Completed"
+msgstr "Ferdig"
+
 msgid "Percent complete"
 msgstr "Prosent utført"
 
@@ -5015,9 +5053,8 @@ msgstr "Merk som ikke fullført"
 msgid "Remove from To-Do List"
 msgstr "Fjern fra Gjøremålslisten"
 
-#, fuzzy
 msgid "Changes to assigned task"
-msgstr "Send oppgave til tilordnede"
+msgstr "Endringer på tilordnet oppgave"
 
 msgid ""
 "Please note that assigned task(s) will be overwritten when the assignee "
@@ -5051,9 +5088,8 @@ msgstr "Sorter på: eier"
 msgid "Sort by: Percentage Completed"
 msgstr "Sorter på: prosent utført"
 
-#, fuzzy
 msgid "Assigned task changes"
-msgstr "Tilordne oppgaven"
+msgstr "Tilordne endringene"
 
 msgid "Loading tasks"
 msgstr "Laster inn oppgaver"

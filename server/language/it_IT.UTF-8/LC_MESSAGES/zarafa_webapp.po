@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Italian (Italy)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 09:42+0200\n"
+"POT-Creation-Date: 2019-07-16 10:32+0200\n"
 "PO-Revision-Date: 2018-05-08 15:53+0000\n"
 "Last-Translator: Marco <MARCO@COSTANTINO.CO.UK>\n"
 "Language-Team: Italian (Italy) <http://translate.kopano.io/projects/kopano/"
@@ -988,6 +988,10 @@ msgstr "Visualizza nel calendario"
 msgid "F Y"
 msgstr "F Y"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "l"
+msgstr "l"
+
 msgid "All text fields"
 msgstr "Tutti i campi testo"
 
@@ -1323,6 +1327,23 @@ msgstr "Copia l'elemento selezionato"
 msgid "Paste selected item"
 msgstr "Incollat l'elemento selezionato"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Start"
+msgstr "Inizio"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "End"
+msgstr "Fine"
+
+#, fuzzy
+msgid "Printed by: "
+msgstr "Ordina per: Destinatario"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#, fuzzy
+msgid "Printed on: "
+msgstr "Stampa nota"
+
 #, fuzzy
 msgid "Location: "
 msgstr "Posizione"
@@ -1334,14 +1355,6 @@ msgstr "l j F Y"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F"
 msgstr "l jS F"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Start"
-msgstr "Inizio"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "End"
-msgstr "Fine"
 
 msgid "Organiser"
 msgstr "Agenda"
@@ -1455,10 +1468,6 @@ msgstr "Orario predefinito promemoria"
 
 msgid "Default all-day appointment reminder time"
 msgstr "Orario predefinito appuntamento giornata intera"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "l"
-msgstr "l"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "jS"
@@ -1652,6 +1661,9 @@ msgstr "Sposta"
 #, fuzzy
 msgid "Don't move"
 msgstr "Non inviare"
+
+msgid "Switch to day view to see all appointments"
+msgstr ""
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -2688,6 +2700,10 @@ msgstr "inviato solo a me"
 msgid "has my name in the Cc field"
 msgstr "ha il mio nome nel campo Cc"
 
+#, fuzzy
+msgid "does not have my name in the To or Cc field"
+msgstr "ha il mion nome nel campo A o Cc"
+
 msgid "has my name in the To or Cc field"
 msgstr "ha il mion nome nel campo A o Cc"
 
@@ -2700,6 +2716,13 @@ msgstr "è ricevuto dopo"
 msgid "is received before"
 msgstr "è ricevuto prima"
 
+msgid "at least message size"
+msgstr ""
+
+#, fuzzy
+msgid "at most message size"
+msgstr "Nessun messaggio selezionato"
+
 msgid "has my name in the To field"
 msgstr "ha il mio nome nel campo A"
 
@@ -2708,6 +2731,12 @@ msgstr "e` ricevuto (tutti i messaggi)"
 
 msgid "Select one..."
 msgstr "Selezionare..."
+
+msgid "Unknown condition"
+msgstr "Condizione sconosciuta"
+
+msgid "This condition for the current rule is unknown"
+msgstr "Condizione sconosciuta per la regola corrente"
 
 msgid "Unnamed folder"
 msgstr "Cartella senza nome"
@@ -2730,12 +2759,6 @@ msgstr "Aggiungi condizione"
 msgid "Remove condition"
 msgstr "Rimuovi condizione"
 
-msgid "Unknown condition"
-msgstr "Condizione sconosciuta"
-
-msgid "This condition for the current rule is unknown"
-msgstr "Condizione sconosciuta per la regola corrente"
-
 msgid "Inbox Rule"
 msgstr "Regola posta in arrivo"
 
@@ -2748,11 +2771,23 @@ msgstr "Quando il messaggio"
 msgid "Do the following"
 msgstr "Esegui le seguenti operazioni"
 
+#, fuzzy
+msgid "Exceptions"
+msgstr "Opzioni"
+
 msgid "Apply only when Out of Office is active"
 msgstr ""
 
 msgid "Stop processing more rules"
 msgstr "Non processare ulteriori regole"
+
+#, fuzzy
+msgid "Add exception"
+msgstr "Aggiungi azione"
+
+#, fuzzy
+msgid "Remove exception"
+msgstr "Rimuovi azione"
 
 msgid "Specify Words or Phrases"
 msgstr "Specificare parole o frasi"
@@ -4858,6 +4893,9 @@ msgstr "Aggiungi ai favoriti"
 msgid "Unpin favorites from top"
 msgstr ""
 
+msgid "Give unread items a colored border"
+msgstr ""
+
 msgid "Inbox navigation"
 msgstr "Navigazione inbox"
 
@@ -5172,6 +5210,10 @@ msgstr "Contrassegna questa attività come privata"
 
 msgid "New task"
 msgstr "Nuova attività"
+
+#, fuzzy
+msgid "Completed"
+msgstr "Completato"
 
 msgid "Percent complete"
 msgstr "Percentuale completato"
