@@ -46,6 +46,10 @@ Files: client/third-party/tinymce/TinyMceTextArea.js
 Copyright: 2013, Oleg Schildt
 License: LGPL-2.1+
 
+Files: client/third-party/tokenizr/tokenizr.js
+Copyright: 2015-2019, Dr. Ralf S. Engelschall <rse@engelschall.com>
+License: Expat
+
 Files: client/zarafa/common/ui/CompositeField.js
        client/zarafa/settings/ui/SettingsCopyrightCategory.js
 Copyright: 2005-2015, Zarafa B.V. and its licensors <info@zarafa.com>
