@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Turkish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 09:42+0200\n"
+"POT-Creation-Date: 2019-07-16 10:32+0200\n"
 "PO-Revision-Date: 2017-10-03 21:34+0200\n"
 "Last-Translator: Smart <sadi.tanis@smartdata.com.tr>\n"
 "Language: tr_TR\n"
@@ -991,6 +991,10 @@ msgstr "takvim'de görüntüle"
 msgid "F Y"
 msgstr "F Y"
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "l"
+msgstr "l"
+
 msgid "All text fields"
 msgstr "Tüm metin alanlari"
 
@@ -1333,6 +1337,24 @@ msgstr ""
 msgid "Paste selected item"
 msgstr ""
 
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "Start"
+msgstr "Başlangıç"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+msgid "End"
+msgstr "Son"
+
+# 76%
+#, fuzzy
+msgid "Printed by: "
+msgstr "Sıralama: Kime"
+
+#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
+#, fuzzy
+msgid "Printed on: "
+msgstr "Bu notu yazdır"
+
 #, fuzzy
 msgid "Location: "
 msgstr "Konum"
@@ -1347,14 +1369,6 @@ msgstr "l j F Y"
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "l jS F"
 msgstr "l j F"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "Start"
-msgstr "Başlangıç"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "End"
-msgstr "Son"
 
 # 88%
 msgid "Organiser"
@@ -1469,10 +1483,6 @@ msgstr "Varsayılan hatırlatma zamanı"
 
 msgid "Default all-day appointment reminder time"
 msgstr "Tüm gün randevular için varsayılan hatırlatma saatini"
-
-#. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
-msgid "l"
-msgstr "l"
 
 #. TRANSLATORS: See http://docs.sencha.com/ext-js/3-4/#!/api/Date for the meaning of these formatting instructions
 msgid "jS"
@@ -1666,6 +1676,9 @@ msgstr "Kaydır"
 #, fuzzy
 msgid "Don't move"
 msgstr "gönderme"
+
+msgid "Switch to day view to see all appointments"
+msgstr ""
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -2684,6 +2697,10 @@ msgstr "yalnızca bana gönderilen"
 msgid "has my name in the Cc field"
 msgstr "CC alanında adım olan"
 
+#, fuzzy
+msgid "does not have my name in the To or Cc field"
+msgstr "alıcı veya CC alanında adım olan"
+
 msgid "has my name in the To or Cc field"
 msgstr "alıcı veya CC alanında adım olan"
 
@@ -2696,6 +2713,13 @@ msgstr "sonra alınır"
 msgid "is received before"
 msgstr "önce alınır"
 
+msgid "at least message size"
+msgstr ""
+
+#, fuzzy
+msgid "at most message size"
+msgstr "Hiçbir mesaj seçilmedi"
+
 msgid "has my name in the To field"
 msgstr "alıcı alanında adım olan"
 
@@ -2704,6 +2728,12 @@ msgstr ""
 
 msgid "Select one..."
 msgstr "birini seç ..."
+
+msgid "Unknown condition"
+msgstr "bilinmeyen koşul"
+
+msgid "This condition for the current rule is unknown"
+msgstr "güncel kuralın bu koşulu bilinmiyor"
 
 msgid "Unnamed folder"
 msgstr "isimsiz klasör"
@@ -2726,12 +2756,6 @@ msgstr "koşul ekle"
 msgid "Remove condition"
 msgstr "koşul sil"
 
-msgid "Unknown condition"
-msgstr "bilinmeyen koşul"
-
-msgid "This condition for the current rule is unknown"
-msgstr "güncel kuralın bu koşulu bilinmiyor"
-
 msgid "Inbox Rule"
 msgstr "'gelen kutusu' kuralı"
 
@@ -2744,11 +2768,24 @@ msgstr "mesaj"
 msgid "Do the following"
 msgstr "aşağıdakileri yapın"
 
+# 75%
+#, fuzzy
+msgid "Exceptions"
+msgstr "Ayarlar"
+
 msgid "Apply only when Out of Office is active"
 msgstr ""
 
 msgid "Stop processing more rules"
 msgstr "Daha fazla kural işlemeyi durdur"
+
+#, fuzzy
+msgid "Add exception"
+msgstr "eylem ekle"
+
+#, fuzzy
+msgid "Remove exception"
+msgstr "eylem sil"
 
 msgid "Specify Words or Phrases"
 msgstr "kelime ve cümleler belirle"
@@ -4858,6 +4895,9 @@ msgstr "Favoriler"
 msgid "Unpin favorites from top"
 msgstr ""
 
+msgid "Give unread items a colored border"
+msgstr ""
+
 msgid "Inbox navigation"
 msgstr "gelen kutusu navigasyonu"
 
@@ -5174,6 +5214,10 @@ msgstr "Bu görevi özel olarak işaretle"
 
 msgid "New task"
 msgstr "yeni görev"
+
+#, fuzzy
+msgid "Completed"
+msgstr "Tamamlandı"
 
 msgid "Percent complete"
 msgstr "Yüzde kaç tamamlama"

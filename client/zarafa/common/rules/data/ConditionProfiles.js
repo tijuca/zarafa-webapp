@@ -41,6 +41,9 @@ Zarafa.common.rules.data.ConditionProfiles = [{
 	name : _('has my name in the Cc field'),
 	value : Zarafa.common.rules.data.ConditionFlags.SENT_CC_ME
 },{
+	name : _('does not have my name in the To or Cc field'),
+	value : Zarafa.common.rules.data.ConditionFlags.NAME_BCC
+},{
 	name : _('has my name in the To or Cc field'),
 	value : Zarafa.common.rules.data.ConditionFlags.NAME_TO_CC
 },{
@@ -52,6 +55,12 @@ Zarafa.common.rules.data.ConditionProfiles = [{
 },{
 	name : _('is received before'),
 	value : Zarafa.common.rules.data.ConditionFlags.RECEIVED_BEFORE
+},{
+	name : _('at least message size'),
+	value : Zarafa.common.rules.data.ConditionFlags.ATLEAST_SIZE
+},{
+	name : _('at most message size'),
+	value : Zarafa.common.rules.data.ConditionFlags.ATMOST_SIZE
 },{
 	name : _('has my name in the To field'),
 	value : Zarafa.common.rules.data.ConditionFlags.SENT_TO_ME

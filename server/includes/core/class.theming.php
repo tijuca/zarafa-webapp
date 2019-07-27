@@ -435,6 +435,11 @@ class Theming
 			body #zarafa-mainmenu.zarafa-maintabbar > .x-toolbar-ct {
 				background-color: {{primary-color}};
 			}
+			/* Unread items */
+			.k-unreadborders .x-grid3-row.x-grid3-row-collapsed.mail_unread > table,
+			.k-unreadborders .x-grid3-row.x-grid3-row-expanded.mail_unread > table {
+		        	border-left: 4px solid {{primary-color}} !important;
+			}
 		',
 
 		'primary-color:hover' => '
@@ -547,6 +552,26 @@ class Theming
 			.x-btn.zarafa-action.x-btn-focus .x-btn-small, .x-btn.zarafa-action.x-btn-focus .x-btn-medium, .x-btn.zarafa-action.x-btn-focus .x-btn-large {
 				background: {{action-color}} !important;
 			}
+			/* Selected calendar */
+			.zarafa-calendar-tabarea-stroke.zarafa-calendar-tab-selected {
+				border-top-color: {{action-color}};
+			}
+			.x-date-picker .x-date-inner td.x-date-weeknumber a,
+			.zarafa-hierarchy-node-total-count span.zarafa-hierarchy-node-counter,
+			.zarafa-hierarchy-node-unread-count span.zarafa-hierarchy-node-counter {
+				color: {{action-color}};
+			}
+			.x-date-picker .x-date-inner td.x-date-today a {
+				border-color: {{action-color}};
+			}
+			.zarafa-freebusy-panel .x-freebusy-timeline-container .x-freebusy-header .x-freebusy-header-body .x-freebusy-timeline-day.x-freebusy-timeline-day-current,
+			.zarafa-freebusy-panel .x-freebusy-timeline-container .x-freebusy-body .x-freebusy-background .x-freebusy-timeline-day.x-freebusy-timeline-day-current {
+				border-right-color: {{action-color}};
+			}
+			.zarafa-freebusy-panel .x-freebusy-timeline-container .x-freebusy-header .x-freebusy-header-body .x-freebusy-timeline-day.x-freebusy-timeline-day-current table tr.x-freebusy-timeline-hour td:first-child,
+			.zarafa-freebusy-panel .x-freebusy-timeline-container .x-freebusy-body .x-freebusy-background .x-freebusy-timeline-day.x-freebusy-timeline-day-current td:first-child {
+				border-left-color: {{action-color}};
+			}
 		',
 
 		'action-color:hover' => '
@@ -618,6 +643,17 @@ class Theming
 			.k-taskgeneraltab .zarafa-calendar-appointment-extrainfo div,
 			.zarafa-mailcreatepanel > .x-panel-bwrap > .x-panel-body .zarafa-mailcreatepanel-extrainfo div {
 				background: {{selection-color}} !important;
+			}
+
+			/* Selected mail item */
+			.k-unreadborders .x-grid3-row.x-grid3-row-expanded.mail_read.x-grid3-row-selected > table {
+			        border-left: 4px solid {{selection-color}} !important;
+			}
+
+			/* Hover selected item */
+			.k-unreadborders .x-grid3-row.x-grid3-row-expanded.mail_read.x-grid3-row-selected.x-grid3-row-over > table,
+			.k-unreadborders .x-grid3-row.x-grid3-row-collapsed.mail_read.x-grid3-row-selected > table {
+			        border-left: 4px solid {{selection-color}} !important;
 			}
 		',
 
