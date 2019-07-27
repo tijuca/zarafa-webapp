@@ -9,7 +9,7 @@ tinymce.js file.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/server/includes/loader.php b/server/includes/loader.php
-index 4c390cb..cbeb810 100644
+index 21f6c3b..cee43c0 100644
 --- a/server/includes/loader.php
 +++ b/server/includes/loader.php
 @@ -31,7 +31,7 @@ class FileLoader {
