@@ -24,7 +24,6 @@ Package: kopano-webapp-common
 Architecture: all
 Depends:
  kopano-contacts (>= 8.1.0),
- php-gettext,
  php-mapi (>= 8.6.92),
  ssl-cert,
  ${misc:Depends},
