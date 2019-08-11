@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Polish (Poland)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 10:32+0200\n"
+"POT-Creation-Date: 2019-07-31 17:06+0200\n"
 "PO-Revision-Date: 2019-05-15 09:38+0000\n"
 "Last-Translator: Pawel <p.debik@kopano.com>\n"
 "Language-Team: Polish <http://translate.kopano.io/projects/kopano/kopano-"
@@ -2274,6 +2274,68 @@ msgstr ""
 "obiekty. Wciąż można przywrócić usunięty element."
 
 #, fuzzy
+msgid "Add/Edit Cc recipient"
+msgstr "Edytuj odbiorcę"
+
+#, fuzzy
+msgid "Duplicate recipient"
+msgstr "Edytuj odbiorcę"
+
+#, fuzzy
+msgid "Recipient already exists."
+msgstr "Ten użytkownik już istnieje"
+
+#, fuzzy
+msgid "Disable for new mail"
+msgstr "Sygnatura dla nowych wiadomości"
+
+#, fuzzy
+msgid "Enable for new mail"
+msgstr "Sygnatura dla nowych wiadomości"
+
+msgid "Disable for replies"
+msgstr ""
+
+msgid "Enable for replies"
+msgstr ""
+
+#, fuzzy
+msgid "No Cc recipient configured"
+msgstr "Nie skonfigurowano sygnatur"
+
+#, fuzzy
+msgid "Loading Cc recipients"
+msgstr "Edytuj odbiorcę"
+
+#, fuzzy
+msgid "Reply Mail"
+msgstr "Odpowiedz wszystkim"
+
+msgid "New Mail"
+msgstr "Nowy e-mail"
+
+#, fuzzy
+msgid "Please select a Cc recipient record."
+msgstr "Wybierz odbiorcę"
+
+#, fuzzy
+msgid "Manage Cc recipients"
+msgstr "Edytuj odbiorcę"
+
+msgid ""
+"Cc recipients can be used to set a default Cc user in new mail, replies or "
+"both."
+msgstr ""
+
+#, fuzzy
+msgid "Following recipients are already exists"
+msgstr "Ten odbiorca nie jest dostępny"
+
+#, fuzzy
+msgid "Duplicate recipients"
+msgstr "Edytuj odbiorcę"
+
+#, fuzzy
 msgid "Kopano WebApp print"
 msgstr "Kopano WebApp"
 
@@ -2536,55 +2598,66 @@ msgstr "Rozmiar"
 msgid "Sort by: Size"
 msgstr "Sortuj według: Rozmiar"
 
-msgid "Move the message to folder ..."
+#, fuzzy
+msgid "Move the message to folder..."
 msgstr "Przenieś wiadomość do folderu ..."
 
-msgid "Copy the message to folder ..."
+#, fuzzy
+msgid "Copy the message to folder..."
 msgstr "Kopiuj wiadomość do folderu ..."
 
 msgid "Delete the message"
 msgstr "Usuń wiadomość"
 
-msgid "Redirect the message to ..."
+#, fuzzy
+msgid "Redirect the message to..."
 msgstr "Przekieruj wiadomość do ..."
 
-msgid "Forward the message to ..."
+#, fuzzy
+msgid "Forward the message to..."
 msgstr "Przekaż wiadomość dalej do ..."
 
-msgid "Forward the message as attachment to ..."
+#, fuzzy
+msgid "Forward the message as attachment to..."
 msgstr "Przekaż wiadomość dalej jako załącznik ..."
 
 #, fuzzy
-msgid "Mark the message as read ..."
+msgid "Mark the message as read..."
 msgstr "Przekaż wiadomość dalej do ..."
 
-msgid "is received from ..."
+#, fuzzy
+msgid "is received from..."
 msgstr "otrzymana od ..."
 
-msgid "includes these words in the sender's address ..."
+#, fuzzy
+msgid "includes these words in the sender's address..."
 msgstr "zawiera te słowa w adresie nadawcy ..."
 
 #, fuzzy
-msgid "includes these words in the recipient's address ..."
+msgid "includes these words in the recipient's address..."
 msgstr "zawiera te słowa w adresie nadawcy ..."
 
-msgid "includes these words in the subject ..."
+#, fuzzy
+msgid "includes these words in the subject..."
 msgstr "zawiera te słowa w temacie ..."
 
-msgid "includes these words in the body ..."
+#, fuzzy
+msgid "includes these words in the body..."
 msgstr "zawiera te słowa w treści ..."
 
 #, fuzzy
-msgid "includes these words in the transport-headers ..."
+msgid "includes these words in the transport-headers..."
 msgstr "zawiera te słowa w treści ..."
 
-msgid "has importance ..."
+#, fuzzy
+msgid "has importance..."
 msgstr "ważność ..."
 
 msgid "has an attachment"
 msgstr "zawiera załącznik"
 
-msgid "is sent to ..."
+#, fuzzy
+msgid "is sent to..."
 msgstr "wysłano do ..."
 
 msgid "is sent only to me"
@@ -2600,21 +2673,23 @@ msgstr "zawiera moją nazwę w polu Do lub DW"
 msgid "has my name in the To or Cc field"
 msgstr "zawiera moją nazwę w polu Do lub DW"
 
-msgid "has sensitivity"
+#, fuzzy
+msgid "has sensitivity..."
 msgstr "jest poufna"
 
-msgid "is received after"
+#, fuzzy
+msgid "is received after..."
 msgstr "otrzymano po"
 
-msgid "is received before"
+#, fuzzy
+msgid "is received before..."
 msgstr "otrzymano przed"
 
-msgid "at least message size"
+msgid "size is at least..."
 msgstr ""
 
-#, fuzzy
-msgid "at most message size"
-msgstr "Nie wybrano wiadomości"
+msgid "size is at most..."
+msgstr ""
 
 msgid "has my name in the To field"
 msgstr "zawiera moją nazwę w polu Do "
@@ -3876,9 +3951,6 @@ msgid_plural "There are {0} unread messages in the folder {1}"
 msgstr[0] "W folderze {1} znajduje się {0} nieprzeczytana wiadomość"
 msgstr[1] "W folderze {1} znajduje się {0} nieprzeczytanych wiadomości"
 msgstr[2] ""
-
-msgid "New Mail"
-msgstr "Nowy e-mail"
 
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
 msgid "{0} in {1}"

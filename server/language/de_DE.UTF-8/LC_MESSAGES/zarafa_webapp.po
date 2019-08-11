@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp German (Germany)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 10:32+0200\n"
-"PO-Revision-Date: 2019-06-24 13:31+0000\n"
-"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"POT-Creation-Date: 2019-07-31 17:06+0200\n"
+"PO-Revision-Date: 2019-08-05 07:52+0000\n"
+"Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
 "Language: de_DE\n"
@@ -2372,6 +2372,61 @@ msgstr ""
 "Das ausgewählte Element löschen, ohne es in den Ordner \"Gelöschte Objekte\" "
 "zu verschieben. Das gelöschte Element kann wiederhergestellt werden."
 
+msgid "Add/Edit Cc recipient"
+msgstr "Cc Empfänger Hinzufügen/bearbeiten"
+
+msgid "Duplicate recipient"
+msgstr "Doppelter Empfänger"
+
+msgid "Recipient already exists."
+msgstr "Der Empfänger existiert bereits."
+
+msgid "Disable for new mail"
+msgstr "Für neue E-Mails abschalten"
+
+msgid "Enable for new mail"
+msgstr "Für neue E-Mails einschalten"
+
+msgid "Disable for replies"
+msgstr "Für Antworten ausschalten"
+
+msgid "Enable for replies"
+msgstr "Für Antworten einschalten"
+
+msgid "No Cc recipient configured"
+msgstr "Kein Cc Empfänger konfiguriert"
+
+msgid "Loading Cc recipients"
+msgstr "Lade Cc Empfänger"
+
+# 88%
+# 100%
+msgid "Reply Mail"
+msgstr "Auf E-Mail antworten"
+
+msgid "New Mail"
+msgstr "Neue E-Mail"
+
+# 80%
+msgid "Please select a Cc recipient record."
+msgstr "Bitte wählen Sie einen Cc Empfänger aus."
+
+msgid "Manage Cc recipients"
+msgstr "Cc Empfänger verwalten"
+
+msgid ""
+"Cc recipients can be used to set a default Cc user in new mail, replies or "
+"both."
+msgstr ""
+"Cc Empfänger können verwendet werden, um einen standard Cc Benutzer für neue "
+"E-Mails, Antworten oder beides festzulegen."
+
+msgid "Following recipients are already exists"
+msgstr "Die folgenden Empfänger existieren bereits"
+
+msgid "Duplicate recipients"
+msgstr "Doppelte Empfänger"
+
 msgid "Kopano WebApp print"
 msgstr "Kopano WebApp drucken"
 
@@ -2642,57 +2697,57 @@ msgstr "Größe"
 msgid "Sort by: Size"
 msgstr "Sortieren nach: Größe"
 
-msgid "Move the message to folder ..."
-msgstr "Nachricht in Ordner verschieben ..."
+msgid "Move the message to folder..."
+msgstr "Nachricht in Ordner verschieben..."
 
-msgid "Copy the message to folder ..."
-msgstr "Nachricht in Ordner kopieren ..."
+msgid "Copy the message to folder..."
+msgstr "Nachricht in Ordner kopieren..."
 
 msgid "Delete the message"
 msgstr "Nachricht löschen"
 
-msgid "Redirect the message to ..."
-msgstr "Nachricht umleiten an ..."
+msgid "Redirect the message to..."
+msgstr "Nachricht umleiten an..."
 
-msgid "Forward the message to ..."
-msgstr "Nachricht weiterleiten an ..."
+msgid "Forward the message to..."
+msgstr "Nachricht weiterleiten an..."
 
-msgid "Forward the message as attachment to ..."
-msgstr "Nachricht als Anhang weiterleiten an ..."
+msgid "Forward the message as attachment to..."
+msgstr "Nachricht als Anhang weiterleiten an..."
 
-msgid "Mark the message as read ..."
-msgstr "Nachricht als gelesen markieren ..."
+msgid "Mark the message as read..."
+msgstr "Nachricht als gelesen markieren..."
 
-msgid "is received from ..."
-msgstr "Erhalten von ..."
+msgid "is received from..."
+msgstr "Erhalten von..."
 
-msgid "includes these words in the sender's address ..."
-msgstr "Enthält die folgenden Wörter in der Absenderadresse ..."
+msgid "includes these words in the sender's address..."
+msgstr "Enthält die folgenden Wörter in der Absenderadresse..."
 
-msgid "includes these words in the recipient's address ..."
-msgstr "enthält die folgenden Wörter in der Empfängeradresse ..."
+msgid "includes these words in the recipient's address..."
+msgstr "Enthält die folgenden Wörter in der Empfängeradresse..."
 
-msgid "includes these words in the subject ..."
-msgstr "enthält diese Wörter im Betreff ..."
-
-# 84%
-# 100%
-msgid "includes these words in the body ..."
-msgstr "enthält diese Wörter im Text ..."
+msgid "includes these words in the subject..."
+msgstr "Enthält diese Wörter im Betreff..."
 
 # 84%
 # 100%
-msgid "includes these words in the transport-headers ..."
-msgstr "enthält diese Wörter in den transport-headern ..."
+msgid "includes these words in the body..."
+msgstr "Enthält diese Wörter im Text..."
 
-msgid "has importance ..."
-msgstr "Wichtigkeit ..."
+# 84%
+# 100%
+msgid "includes these words in the transport-headers..."
+msgstr "Enthält diese Wörter in den Transportkopf..."
+
+msgid "has importance..."
+msgstr "als wichtig markiert..."
 
 msgid "has an attachment"
 msgstr "enthält einen Anhang"
 
-msgid "is sent to ..."
-msgstr "Gesendet an ..."
+msgid "is sent to..."
+msgstr "wurde gesendet an ..."
 
 msgid "is sent only to me"
 msgstr "Nur an mich gesendet"
@@ -2706,21 +2761,20 @@ msgstr "enthält meinen Namen nicht im An- oder CC-Feld"
 msgid "has my name in the To or Cc field"
 msgstr "enthält meinen Namen im An- oder CC-Feld"
 
-msgid "has sensitivity"
-msgstr "ist vertraulich"
+msgid "has sensitivity..."
+msgstr "ist vertraulich..."
 
-msgid "is received after"
-msgstr "erhalten nach dem"
+msgid "is received after..."
+msgstr "wurde empfangen nach dem..."
 
-msgid "is received before"
-msgstr "erhalten vor dem"
+msgid "is received before..."
+msgstr "wurde empfangen vor dem..."
 
-msgid "at least message size"
-msgstr ""
+msgid "size is at least..."
+msgstr "hat mindestens die folgende Grö­ße..."
 
-#, fuzzy
-msgid "at most message size"
-msgstr "Keine Nachricht ausgewählt"
+msgid "size is at most..."
+msgstr "hat maximal die folgende Grö­ße..."
 
 msgid "has my name in the To field"
 msgstr "enthält meinen Namen im An-Feld"
@@ -4029,9 +4083,6 @@ msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
 msgstr[0] "Im Ordner {1} befindet sich {0} ungelesene Nachricht"
 msgstr[1] "Im Ordner {1} befinden sich {0} ungelesene Nachrichten"
-
-msgid "New Mail"
-msgstr "Neue E-Mail"
 
 # 100%
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".

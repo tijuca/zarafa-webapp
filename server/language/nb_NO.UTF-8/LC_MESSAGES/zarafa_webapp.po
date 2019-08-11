@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Norwegian (Bokmål)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 10:32+0200\n"
-"PO-Revision-Date: 2019-06-25 13:44+0000\n"
+"POT-Creation-Date: 2019-07-31 17:06+0200\n"
+"PO-Revision-Date: 2019-08-01 07:08+0000\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
-"Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano/"
-"kopano-webapp/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano"
+"/kopano-webapp/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1621,7 +1621,7 @@ msgid "Don't move"
 msgstr "Ikke flytt"
 
 msgid "Switch to day view to see all appointments"
-msgstr ""
+msgstr "Bytt til Dagsoversikt for å se alle avtaler"
 
 #. TRANSLATORS: This message is used as label for the field which to indicates to whom the given mail was sent.
 msgctxt "mail.previewpanel"
@@ -2319,6 +2319,69 @@ msgstr ""
 "Slett merkede elementer uten å først flytte dem til Slette Elementer. De "
 "slettede elementene kan allikevel bli gjenopprettet."
 
+#, fuzzy
+msgid "Add/Edit Cc recipient"
+msgstr "Rediger mottaker"
+
+#, fuzzy
+msgid "Duplicate recipient"
+msgstr "Oppdater mottaker"
+
+#, fuzzy
+msgid "Recipient already exists."
+msgstr "Bruker finnes allerede"
+
+#, fuzzy
+msgid "Disable for new mail"
+msgstr "Signatur for nye meldinger"
+
+#, fuzzy
+msgid "Enable for new mail"
+msgstr "Signatur for nye meldinger"
+
+msgid "Disable for replies"
+msgstr ""
+
+msgid "Enable for replies"
+msgstr ""
+
+#, fuzzy
+msgid "No Cc recipient configured"
+msgstr "Ingen representant er konfigurert"
+
+#, fuzzy
+msgid "Loading Cc recipients"
+msgstr "Rediger mottaker"
+
+#, fuzzy
+msgid "Reply Mail"
+msgstr "Svar til alle"
+
+# 87%
+msgid "New Mail"
+msgstr "Ny e-post"
+
+#, fuzzy
+msgid "Please select a Cc recipient record."
+msgstr "Vennligst velg en mottaker"
+
+#, fuzzy
+msgid "Manage Cc recipients"
+msgstr "Oppdater mottaker"
+
+msgid ""
+"Cc recipients can be used to set a default Cc user in new mail, replies or "
+"both."
+msgstr ""
+
+#, fuzzy
+msgid "Following recipients are already exists"
+msgstr "De følgende mottakere kunne ikke nåes"
+
+#, fuzzy
+msgid "Duplicate recipients"
+msgstr "Oppdater mottaker"
+
 msgid "Kopano WebApp print"
 msgstr "Kopano WebApp utskrift"
 
@@ -2566,52 +2629,52 @@ msgstr "Størrelse"
 msgid "Sort by: Size"
 msgstr "Sorter på: størrelse"
 
-msgid "Move the message to folder ..."
+msgid "Move the message to folder..."
 msgstr "Flytt melding til mappe ..."
 
-msgid "Copy the message to folder ..."
+msgid "Copy the message to folder..."
 msgstr "Kopier melding til mappe ..."
 
 msgid "Delete the message"
 msgstr "Slett meldingen"
 
-msgid "Redirect the message to ..."
+msgid "Redirect the message to..."
 msgstr "Omdiriger meldingen til ..."
 
-msgid "Forward the message to ..."
+msgid "Forward the message to..."
 msgstr "Videresend meldingen til ..."
 
-msgid "Forward the message as attachment to ..."
+msgid "Forward the message as attachment to..."
 msgstr "Videresend meldingen som vedlegg til ..."
 
-msgid "Mark the message as read ..."
+msgid "Mark the message as read..."
 msgstr "Marker meldingen som lest ..."
 
-msgid "is received from ..."
+msgid "is received from..."
 msgstr "er mottatt fra ..."
 
-msgid "includes these words in the sender's address ..."
+msgid "includes these words in the sender's address..."
 msgstr "inneholder følgende ord i avsenders adresse ..."
 
-msgid "includes these words in the recipient's address ..."
+msgid "includes these words in the recipient's address..."
 msgstr "inneholder følgende ord i mottakers adresse ..."
 
-msgid "includes these words in the subject ..."
+msgid "includes these words in the subject..."
 msgstr "inneholder følgende ord i emnefeltet ..."
 
-msgid "includes these words in the body ..."
+msgid "includes these words in the body..."
 msgstr "inneholder følgende ord i meldingsteksten ..."
 
-msgid "includes these words in the transport-headers ..."
+msgid "includes these words in the transport-headers..."
 msgstr "inkluder disse ordene i transport-headers ..."
 
-msgid "has importance ..."
+msgid "has importance..."
 msgstr "har viktighet ..."
 
 msgid "has an attachment"
 msgstr "har et vedlegg"
 
-msgid "is sent to ..."
+msgid "is sent to..."
 msgstr "er sendt til ..."
 
 msgid "is sent only to me"
@@ -2626,21 +2689,20 @@ msgstr "inneholder ikke mitt navn i Til eller Cc-feltet"
 msgid "has my name in the To or Cc field"
 msgstr "har mitt navn i Til eller Cc-feltet"
 
-msgid "has sensitivity"
-msgstr "har fortrolighet"
+msgid "has sensitivity..."
+msgstr "har fortrolighet..."
 
-msgid "is received after"
-msgstr "er mottatt etter"
+msgid "is received after..."
+msgstr "er mottatt etter..."
 
-msgid "is received before"
-msgstr "er mottatt før"
+msgid "is received before..."
+msgstr "er mottatt før..."
 
-msgid "at least message size"
-msgstr ""
+msgid "size is at least..."
+msgstr "minimum størrelse..."
 
-#, fuzzy
-msgid "at most message size"
-msgstr "Ingen melding valgt"
+msgid "size is at most..."
+msgstr "maksimum størrelse..."
 
 msgid "has my name in the To field"
 msgstr "har mitt navn i Til-feltet"
@@ -2692,9 +2754,8 @@ msgstr "Når meldingen"
 msgid "Do the following"
 msgstr "Gjør følgende"
 
-#, fuzzy
 msgid "Exceptions"
-msgstr "Alternativer"
+msgstr "Unntak"
 
 msgid "Apply only when Out of Office is active"
 msgstr "Bruk kun når Fraværende er aktivert"
@@ -2702,13 +2763,11 @@ msgstr "Bruk kun når Fraværende er aktivert"
 msgid "Stop processing more rules"
 msgstr "Stopp behandlingen av flere regler"
 
-#, fuzzy
 msgid "Add exception"
-msgstr "Legg til handling"
+msgstr "Legg til unntak"
 
-#, fuzzy
 msgid "Remove exception"
-msgstr "Fjern handling"
+msgstr "Fjern unntak"
 
 msgid "Specify Words or Phrases"
 msgstr "Angi ord eller uttrykk"
@@ -3905,10 +3964,6 @@ msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
 msgstr[0] "Det er {0} ulest melding i mappen {1}"
 msgstr[1] "Det er {0} uleste meldinger i mappen {1}"
-
-# 87%
-msgid "New Mail"
-msgstr "Ny e-post"
 
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
 msgid "{0} in {1}"

@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Dutch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 10:32+0200\n"
-"PO-Revision-Date: 2019-07-05 14:09+0000\n"
-"Last-Translator: Bob <b.huisman@kopano.com>\n"
+"POT-Creation-Date: 2019-07-31 17:06+0200\n"
+"PO-Revision-Date: 2019-08-05 08:35+0000\n"
+"Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
 "Language: nl_NL\n"
@@ -2378,6 +2378,61 @@ msgstr ""
 "Verwijder geselecteerde item zonder het te verplaatsen naar de Verwijderde "
 "Items map. Het verwijderde item kan nog steeds worden hersteld."
 
+msgid "Add/Edit Cc recipient"
+msgstr "Toevoegen/Wijzigen Cc ontvanger"
+
+msgid "Duplicate recipient"
+msgstr "Identieke ontvanger"
+
+msgid "Recipient already exists."
+msgstr "Ontvanger bestaat al."
+
+msgid "Disable for new mail"
+msgstr "Schakel uit voor nieuwe email"
+
+msgid "Enable for new mail"
+msgstr "Zet aan voor nieuwe email"
+
+msgid "Disable for replies"
+msgstr "Schakel uit voor antwoorden"
+
+msgid "Enable for replies"
+msgstr "Zet aan voor antwoorden"
+
+msgid "No Cc recipient configured"
+msgstr "Geen Cc ontvanger geconfigureerd"
+
+msgid "Loading Cc recipients"
+msgstr "Laden van Cc ontvangers"
+
+# 88%
+# 100%
+msgid "Reply Mail"
+msgstr "Beantwoorden"
+
+msgid "New Mail"
+msgstr "Nieuwe email"
+
+# 80%
+msgid "Please select a Cc recipient record."
+msgstr "Selecteer een Cc ontvanger."
+
+msgid "Manage Cc recipients"
+msgstr "Beheer Cc ontvangers"
+
+msgid ""
+"Cc recipients can be used to set a default Cc user in new mail, replies or "
+"both."
+msgstr ""
+"Cc ontvangers kunnen gebruikt worden om een gebruiker toe te voegen in het "
+"Cc veld, in nieuwe mail, antwoorden of beide."
+
+msgid "Following recipients are already exists"
+msgstr "De volgende geadresseerden bestaan al"
+
+msgid "Duplicate recipients"
+msgstr "Ontvanger bestaat al"
+
 msgid "Kopano WebApp print"
 msgstr "Kopano WebApp printen"
 
@@ -2640,57 +2695,57 @@ msgstr "Grootte"
 msgid "Sort by: Size"
 msgstr "Sorteer op: Grootte"
 
-msgid "Move the message to folder ..."
-msgstr "Verplaats bericht naar map ..."
+msgid "Move the message to folder..."
+msgstr "Verplaats bericht naar map..."
 
-msgid "Copy the message to folder ..."
-msgstr "Kopieer bericht naar map ..."
+msgid "Copy the message to folder..."
+msgstr "Kopieer bericht naar map..."
 
 msgid "Delete the message"
 msgstr "Verwijder het bericht"
 
-msgid "Redirect the message to ..."
-msgstr "Leid het bericht om naar ..."
+msgid "Redirect the message to..."
+msgstr "Leid het bericht om naar..."
 
-msgid "Forward the message to ..."
-msgstr "Stuur het bericht door naar ..."
+msgid "Forward the message to..."
+msgstr "Stuur het bericht door naar..."
 
-msgid "Forward the message as attachment to ..."
-msgstr "Stuur het bericht als bijlage door naar ..."
+msgid "Forward the message as attachment to..."
+msgstr "Stuur het bericht als bijlage door naar..."
 
-msgid "Mark the message as read ..."
-msgstr "Markeer het bericht als gelezen ..."
+msgid "Mark the message as read..."
+msgstr "Markeer het bericht als gelezen..."
 
-msgid "is received from ..."
-msgstr "is ontvangen van ..."
+msgid "is received from..."
+msgstr "is ontvangen van..."
 
-msgid "includes these words in the sender's address ..."
-msgstr "Gebruik deze woorden in het adres van de afzender ..."
+msgid "includes these words in the sender's address..."
+msgstr "Gebruik deze woorden in het adres van de afzender..."
 
-msgid "includes these words in the recipient's address ..."
-msgstr "Gebruik deze woorden in het adres van de afzender ..."
+msgid "includes these words in the recipient's address..."
+msgstr "Gebruik deze woorden in het adres van de afzender..."
 
-msgid "includes these words in the subject ..."
-msgstr "bevat deze woorden in het onderwerp ..."
+msgid "includes these words in the subject..."
+msgstr "bevat deze woorden in het onderwerp..."
 
 # 84%
 # 100%
-msgid "includes these words in the body ..."
+msgid "includes these words in the body..."
 msgstr "bevat deze woorden in de inhoud..."
 
 # 84%
 # 100%
-msgid "includes these words in the transport-headers ..."
+msgid "includes these words in the transport-headers..."
 msgstr "bevat deze woorden in de transport-headers..."
 
-msgid "has importance ..."
-msgstr "heeft belangrijkheid ..."
+msgid "has importance..."
+msgstr "heeft belangrijkheid..."
 
 msgid "has an attachment"
 msgstr "bevat bijlage"
 
-msgid "is sent to ..."
-msgstr "is verzonden aan ..."
+msgid "is sent to..."
+msgstr "is verzonden aan..."
 
 msgid "is sent only to me"
 msgstr "is alleen naar mij verzonden"
@@ -2704,21 +2759,20 @@ msgstr "heeft mijn naam niet in de Aan of CC veld"
 msgid "has my name in the To or Cc field"
 msgstr "bevat mijn naam in het Aan of CC veld"
 
-msgid "has sensitivity"
-msgstr "heeft gevoeligheid"
+msgid "has sensitivity..."
+msgstr "heeft gevoeligheid..."
 
-msgid "is received after"
-msgstr "is ontvangen na"
+msgid "is received after..."
+msgstr "is ontvangen na..."
 
-msgid "is received before"
-msgstr "is ontvangen voor"
+msgid "is received before..."
+msgstr "is ontvangen voor..."
 
-msgid "at least message size"
-msgstr ""
+msgid "size is at least..."
+msgstr "grootte is ten minste..."
 
-#, fuzzy
-msgid "at most message size"
-msgstr "Geen bericht geselecteerd"
+msgid "size is at most..."
+msgstr "grootte is maximaal..."
 
 msgid "has my name in the To field"
 msgstr "bevat mijn naam in het Aan veld"
@@ -4065,9 +4119,6 @@ msgid "There is {0} unread message in the folder {1}"
 msgid_plural "There are {0} unread messages in the folder {1}"
 msgstr[0] "Er is {0} ongelezen bericht in de map {1}"
 msgstr[1] "Er zijn {0} ongelezen berichten in de map {1}"
-
-msgid "New Mail"
-msgstr "Nieuwe E-mail"
 
 # 100%
 #. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
