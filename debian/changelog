@@ -1,3 +1,12 @@
+kopano-webapp (3.5.9+dfsg1-1) unstable; urgency=medium
+
+  * [e3d5e48] New upstream version 3.5.9+dfsg1
+  * [4654083] rebuild patch queue from patch-queue branch
+  * [31eed61] source lintian: ignore more warning about long lines
+     Also ignore waenings about oidc-client.js and tokenizr.js.
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 11 Aug 2019 19:22:35 +0200
+
 kopano-webapp (3.5.8+dfsg1-2) unstable; urgency=medium
 
   * [40939f0] remove php-gettext as package dependency
