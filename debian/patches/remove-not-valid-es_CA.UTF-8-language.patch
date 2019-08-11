@@ -3,18 +3,18 @@ Date: Thu, 5 Oct 2017 20:58:17 +0200
 Subject: remove not valid es_CA.UTF-8 language
 
 ---
- .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6559 --------------------
+ .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6629 --------------------
  server/language/es_CA.UTF-8/language.txt           |    1 -
- 2 files changed, 6560 deletions(-)
+ 2 files changed, 6630 deletions(-)
  delete mode 100644 server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
  delete mode 100644 server/language/es_CA.UTF-8/language.txt
 
 diff --git a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 deleted file mode 100644
-index 0aff752..0000000
+index 91c28e7..0000000
 --- a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ /dev/null
-@@ -1,6559 +0,0 @@
+@@ -1,6629 +0,0 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,7 +23,7 @@ index 0aff752..0000000
 -msgstr ""
 -"Project-Id-Version: PACKAGE VERSION\n"
 -"Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2019-07-16 10:32+0200\n"
+-"POT-Creation-Date: 2019-07-31 17:06+0200\n"
 -"PO-Revision-Date: 2013-02-22 23:00+0200\n"
 -"Last-Translator: Manuel <info@picholeiro.info>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2396,6 +2396,70 @@ index 0aff752..0000000
 -msgstr ""
 -
 -#, fuzzy
+-msgid "Add/Edit Cc recipient"
+-msgstr "Editar recipiente"
+-
+-#, fuzzy
+-msgid "Duplicate recipient"
+-msgstr "Editar recipiente"
+-
+-#, fuzzy
+-msgid "Recipient already exists."
+-msgstr "Ya existe este Usuario"
+-
+-#, fuzzy
+-msgid "Disable for new mail"
+-msgstr "Firma para nuevos mensajes"
+-
+-#, fuzzy
+-msgid "Enable for new mail"
+-msgstr "Firma para nuevos mensajes"
+-
+-msgid "Disable for replies"
+-msgstr ""
+-
+-msgid "Enable for replies"
+-msgstr ""
+-
+-#, fuzzy
+-msgid "No Cc recipient configured"
+-msgstr "Firmas no configuradas"
+-
+-#, fuzzy
+-msgid "Loading Cc recipients"
+-msgstr "Editar recipiente"
+-
+-# 88%
+-# 100%
+-#, fuzzy
+-msgid "Reply Mail"
+-msgstr "Responder a todos"
+-
+-msgid "New Mail"
+-msgstr "Nuevo Correo"
+-
+-# 80%
+-#, fuzzy
+-msgid "Please select a Cc recipient record."
+-msgstr "Por favor, especifique un destinatario"
+-
+-#, fuzzy
+-msgid "Manage Cc recipients"
+-msgstr "Editar recipiente"
+-
+-msgid ""
+-"Cc recipients can be used to set a default Cc user in new mail, replies or "
+-"both."
+-msgstr ""
+-
+-msgid "Following recipients are already exists"
+-msgstr ""
+-
+-#, fuzzy
+-msgid "Duplicate recipients"
+-msgstr "Editar recipiente"
+-
+-#, fuzzy
 -msgid "Kopano WebApp print"
 -msgstr "Kopano WebApp"
 -
@@ -2664,54 +2728,63 @@ index 0aff752..0000000
 -msgid "Sort by: Size"
 -msgstr "Ordenar por. Tamaño"
 -
--msgid "Move the message to folder ..."
--msgstr ""
+-#, fuzzy
+-msgid "Move the message to folder..."
+-msgstr "Marcar todos los mensajes como leídos"
 -
--msgid "Copy the message to folder ..."
--msgstr ""
+-#, fuzzy
+-msgid "Copy the message to folder..."
+-msgstr "Marcar todos los mensajes como leídos"
 -
 -msgid "Delete the message"
 -msgstr ""
 -
--msgid "Redirect the message to ..."
--msgstr ""
--
--msgid "Forward the message to ..."
--msgstr ""
--
--msgid "Forward the message as attachment to ..."
--msgstr ""
--
 -#, fuzzy
--msgid "Mark the message as read ..."
+-msgid "Redirect the message to..."
 -msgstr "Marcar todos los mensajes como leídos"
 -
--msgid "is received from ..."
+-#, fuzzy
+-msgid "Forward the message to..."
+-msgstr "Marcar todos los mensajes como leídos"
+-
+-#, fuzzy
+-msgid "Forward the message as attachment to..."
+-msgstr "Marcar todos los mensajes como leídos"
+-
+-#, fuzzy
+-msgid "Mark the message as read..."
+-msgstr "Marcar todos los mensajes como leídos"
+-
+-msgid "is received from..."
 -msgstr ""
 -
--msgid "includes these words in the sender's address ..."
+-msgid "includes these words in the sender's address..."
 -msgstr ""
 -
--msgid "includes these words in the recipient's address ..."
+-msgid "includes these words in the recipient's address..."
 -msgstr ""
 -
--msgid "includes these words in the subject ..."
+-msgid "includes these words in the subject..."
 -msgstr ""
 -
--msgid "includes these words in the body ..."
+-msgid "includes these words in the body..."
 -msgstr ""
 -
--msgid "includes these words in the transport-headers ..."
+-msgid "includes these words in the transport-headers..."
 -msgstr ""
 -
--msgid "has importance ..."
--msgstr ""
+-# 80%
+-#, fuzzy
+-msgid "has importance..."
+-msgstr "Importacia"
 -
 -msgid "has an attachment"
 -msgstr ""
 -
--msgid "is sent to ..."
--msgstr ""
+-# 75%
+-#, fuzzy
+-msgid "is sent to..."
+-msgstr "Enviar"
 -
 -msgid "is sent only to me"
 -msgstr ""
@@ -2725,21 +2798,21 @@ index 0aff752..0000000
 -msgid "has my name in the To or Cc field"
 -msgstr ""
 -
--msgid "has sensitivity"
--msgstr ""
--
--msgid "is received after"
--msgstr ""
--
--msgid "is received before"
--msgstr ""
--
--msgid "at least message size"
--msgstr ""
--
 -#, fuzzy
--msgid "at most message size"
--msgstr "No seleccionado mensaje"
+-msgid "has sensitivity..."
+-msgstr "Sensibilidad"
+-
+-msgid "is received after..."
+-msgstr ""
+-
+-msgid "is received before..."
+-msgstr ""
+-
+-msgid "size is at least..."
+-msgstr ""
+-
+-msgid "size is at most..."
+-msgstr ""
 -
 -msgid "has my name in the To field"
 -msgstr ""
@@ -4077,9 +4150,6 @@ index 0aff752..0000000
 -msgid_plural "There are {0} unread messages in the folder {1}"
 -msgstr[0] "Hay {0} mensaje no leido en la carpeta {1}"
 -msgstr[1] "Hay {0} mensajes no leidos en la carpeta {1}"
--
--msgid "New Mail"
--msgstr "Nuevo Correo"
 -
 -# 100%
 -#. TRANSLATORS: Display name of a folder: "FOLDERNAME in STORENAME".
