@@ -3,18 +3,18 @@ Date: Thu, 5 Oct 2017 20:58:17 +0200
 Subject: remove not valid es_CA.UTF-8 language
 
 ---
- .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6629 --------------------
+ .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6636 --------------------
  server/language/es_CA.UTF-8/language.txt           |    1 -
- 2 files changed, 6630 deletions(-)
+ 2 files changed, 6637 deletions(-)
  delete mode 100644 server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
  delete mode 100644 server/language/es_CA.UTF-8/language.txt
 
 diff --git a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 deleted file mode 100644
-index 91c28e7..0000000
+index cc6816d..0000000
 --- a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ /dev/null
-@@ -1,6629 +0,0 @@
+@@ -1,6636 +0,0 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -23,7 +23,7 @@ index 91c28e7..0000000
 -msgstr ""
 -"Project-Id-Version: PACKAGE VERSION\n"
 -"Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2019-07-31 17:06+0200\n"
+-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
 -"PO-Revision-Date: 2013-02-22 23:00+0200\n"
 -"Last-Translator: Manuel <info@picholeiro.info>\n"
 -"Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2486,6 +2486,10 @@ index 91c28e7..0000000
 -msgid "Edit Recipient"
 -msgstr "Editar recipiente"
 -
+-#, fuzzy
+-msgid "Copy email addresses"
+-msgstr "Nueva dirección de correo electrónico"
+-
 -msgid "Send email"
 -msgstr "Enviar Correo Electrónico"
 -
@@ -4746,6 +4750,9 @@ index 91c28e7..0000000
 -#, fuzzy
 -msgid "Browser window"
 -msgstr "Examinar"
+-
+-msgid "Update Out of Office settings for"
+-msgstr ""
 -
 -msgid "I am currently in the office"
 -msgstr "En la oficina"
