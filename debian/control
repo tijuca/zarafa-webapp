@@ -6,7 +6,7 @@ Uploaders: Carsten Schoenert <c.schoenert@t-online.de>,
   Jelle van der Waa <j.vanderwaa@kopano.com>
 Build-Depends:
   default-jdk,
-  debhelper (>= 11),
+  debhelper-compat (= 12),
   dh-exec,
   gettext,
   liblocale-msgfmt-perl,
