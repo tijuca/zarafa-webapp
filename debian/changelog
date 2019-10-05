@@ -1,3 +1,12 @@
+kopano-webapp (3.5.10+dfsg1-1) unstable; urgency=medium
+
+  * [9c055ec] New upstream version 3.5.10+dfsg1
+  * [7117c6d] debian/control: increase Standards-Version to 4.4.1
+  * [fe29d44] dh: move over to debhelper-compat
+  * [a2c591f] rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 05 Oct 2019 14:55:06 +0200
+
 kopano-webapp (3.5.9+dfsg1-1) unstable; urgency=medium
 
   * [e3d5e48] New upstream version 3.5.9+dfsg1
