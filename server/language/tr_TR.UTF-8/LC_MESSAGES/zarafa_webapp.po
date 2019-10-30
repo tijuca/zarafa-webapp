@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Turkish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2017-10-03 21:34+0200\n"
 "Last-Translator: Smart <sadi.tanis@smartdata.com.tr>\n"
 "Language: tr_TR\n"
@@ -2916,6 +2916,18 @@ msgstr "Kural halihazırda en yüksek önceliğe sahiptir."
 msgid "Rule already has lowest priority."
 msgstr "Kural halihazırda en düşük önceliğe sahiptir."
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4397,6 +4409,9 @@ msgstr "Önemli"
 #, fuzzy
 msgid "Import appointments"
 msgstr "Yeni randevu"
+
+msgid "Import contacts"
+msgstr ""
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -6585,6 +6600,9 @@ msgstr "oturum aç"
 #, fuzzy
 msgid "File is not imported successfully"
 msgstr "ZIP oluşturma başarısız"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chinese (Simplified)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2017-10-05 20:36+0200\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.kopano.io/projects/"
@@ -2737,6 +2737,18 @@ msgstr ""
 msgid "Rule already has lowest priority."
 msgstr ""
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4112,6 +4124,9 @@ msgstr "重要的"
 #, fuzzy
 msgid "Import appointments"
 msgstr "发送任务"
+
+msgid "Import contacts"
+msgstr ""
 
 msgid "Properties of {0}"
 msgstr ""
@@ -6105,6 +6120,9 @@ msgstr ""
 #, fuzzy
 msgid "File is not imported successfully"
 msgstr "保存成功"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

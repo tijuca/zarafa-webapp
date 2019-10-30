@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp French (France)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2018-02-09 09:18+0000\n"
 "Last-Translator: jengelh <jengelh@inai.de>\n"
 "Language-Team: French (France) <http://translate.kopano.io/projects/kopano/"
@@ -2902,6 +2902,18 @@ msgstr "La règle a déjà la plus haute priorité."
 msgid "Rule already has lowest priority."
 msgstr "La règle a déjà la plus basse priorité."
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4398,6 +4410,9 @@ msgstr "Important"
 #, fuzzy
 msgid "Import appointments"
 msgstr "Nouveau rendez-vous"
+
+msgid "Import contacts"
+msgstr ""
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -6619,6 +6634,9 @@ msgstr "Se connecter"
 #, fuzzy
 msgid "File is not imported successfully"
 msgstr "Fichier ZIP n'a pas été créé correctement"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

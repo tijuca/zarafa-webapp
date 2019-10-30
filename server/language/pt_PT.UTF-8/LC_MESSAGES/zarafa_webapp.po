@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Portuguese (Portugal)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
-"PO-Revision-Date: 2019-08-05 12:17+0000\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
+"PO-Revision-Date: 2019-09-26 13:54+0000\n"
 "Last-Translator: Nuno Jerónimo <nuno.jeronimo@valsousa.pt>\n"
 "Language-Team: Portuguese (Portugal) <http://translate.kopano.io/projects/"
 "kopano/kopano-webapp/pt_PT/>\n"
@@ -2296,9 +2296,8 @@ msgstr ""
 msgid "Edit Recipient"
 msgstr "Editar Destinatário"
 
-#, fuzzy
 msgid "Copy email addresses"
-msgstr "Copiar endereço de E-mail"
+msgstr "Copiar endereços de E-mail"
 
 msgid "Send email"
 msgstr "Enviar mensagem"
@@ -2700,6 +2699,18 @@ msgstr "Regra já tem a prioridade mais elevada."
 
 msgid "Rule already has lowest priority."
 msgstr "Regra já tem a prioridade mais baixa."
+
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
 
 msgid "myself"
 msgstr "eu próprio"
@@ -4051,6 +4062,9 @@ msgstr "Importar mensagens"
 msgid "Import appointments"
 msgstr "Importar compromissos"
 
+msgid "Import contacts"
+msgstr ""
+
 msgid "Properties of {0}"
 msgstr "Propriedades de {0}"
 
@@ -4361,7 +4375,7 @@ msgid "Browser window"
 msgstr "Nova janela"
 
 msgid "Update Out of Office settings for"
-msgstr ""
+msgstr "Atualizar definições Fora do escritório para"
 
 msgid "I am currently in the office"
 msgstr "Estou no escritório neste momento"
@@ -6052,6 +6066,9 @@ msgstr "Iniciar sessão"
 
 msgid "File is not imported successfully"
 msgstr "O ficheiro não foi importado com sucesso"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

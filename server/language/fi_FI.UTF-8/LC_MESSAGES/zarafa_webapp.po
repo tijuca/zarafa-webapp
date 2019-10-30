@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Finnish (Finland)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2017-10-05 19:52+0200\n"
 "Last-Translator: Verkkotaito <Kopano@verkkotaito.fi>\n"
 "Language-Team: Finnish (Finland) <https://translate.kopano.io/projects/"
@@ -2898,6 +2898,18 @@ msgstr "Säännöllä on jo korkein tärkeysaste."
 msgid "Rule already has lowest priority."
 msgstr "Säännöllä on jo matalin tärkeysaste."
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4346,6 +4358,9 @@ msgstr "Tärkeä"
 #, fuzzy
 msgid "Import appointments"
 msgstr "Uusi tapaaminen"
+
+msgid "Import contacts"
+msgstr ""
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -6549,6 +6564,9 @@ msgstr ""
 #, fuzzy
 msgid "File is not imported successfully"
 msgstr "Lähetetty onnistuneesti"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

@@ -456,10 +456,18 @@ Zarafa.common.Actions = {
 		var componentType = Zarafa.core.data.SharedComponentType['common.dialog.reminder'];
 		var component = container.getSharedComponent(componentType, records);
 
-		config = Ext.applyIf(config || {}, {
-			modal : false,
-			manager : Ext.WindowMgr
-		});
+		if ( window.showReminderPanelInPopout ) {
+			config = Ext.applyIf(config || {}, {
+				layerType: 'separateWindows',
+				width: 450,
+				height: 500
+			});
+		} else {
+			config = Ext.applyIf(config || {}, {
+				modal : false,
+				manager : Ext.WindowMgr
+			});
+		}
 
 		// check if panel is already open
 		var contentPanelInstances = Zarafa.core.data.ContentPanelMgr.getContentPanelInstances(component);
@@ -477,6 +485,7 @@ Zarafa.common.Actions = {
 
 			if(records.length > 0) {
 				// there are reminders to show, so give focus to existing reminder dialog
+				Zarafa.core.BrowserWindowMgr.getOwnerWindow(reminderDialog).focus();
 				reminderDialog.focus();
 			} else {
 				// no reminders to show, close existing dialog
@@ -503,6 +512,12 @@ Zarafa.common.Actions = {
 		if (record) {
 			Zarafa.core.data.UIFactory.openViewRecord(record, config);
 			store.dismissReminders(dismissReminders);
+		}
+
+		// Set the focus to the main window because the reminder panel
+		// could be shown in a separate window in DeskApp
+		if (Zarafa.isDeskApp && window.global && window.global.DA && window.global.DA.winWebApp) {
+			window.global.DA.winWebApp.focus();
 		}
 	},
 
@@ -1059,7 +1074,7 @@ Zarafa.common.Actions = {
 				record.setReadFlags(read);
 				saveRecords.push(record);
 			}
-		}	
+		}
 
 		if (!Ext.isEmpty(saveRecords)) {
 			saveRecords[0].store.save(saveRecords);
@@ -1296,7 +1311,7 @@ Zarafa.common.Actions = {
 		}
 
 		// Make sure we are processing only eml and ics/vcs files for broken check
-		if (!this.isEmlFile(files[index]) && !this.isICSFile(files[index])) {
+		if (!this.isEmlFile(files[index]) && !this.isICSFile(files[index]) && !this.isVCFFile(files[index])) {
 			this.brokenFiles.push(files[index]);
 			index++;
 			this.readFiles(files, folder, index);
@@ -1333,14 +1348,18 @@ Zarafa.common.Actions = {
 		var rawHeaders = splittedContent.match(/([^\n^:]+:)/g);
 
 		// Restrict the eml files to import in calendar folder.
-		var invalidImportingFolder = (this.isEmlFile(files[index]) && folder.isCalendarFolder()) || (this.isICSFile(files[index]) && !folder.isCalendarFolder());
+		var invalidImportingFolder = (this.isEmlFile(files[index]) && folder.isCalendarFolder()) ||
+			(this.isEmlFile(files[index]) && folder.isContactFolder())||
+			(this.isICSFile(files[index]) && !folder.isCalendarFolder()) ||
+			(this.isICSFile(files[index]) && folder.isContactFolder()) ||
+			(this.isVCFFile(files[index]) && !folder.isContactFolder());
 
 		// Compare if necessary headers are present or not
 		if (Ext.isEmpty(rawHeaders) || invalidImportingFolder) {
 			this.brokenFiles.push(files[index]);
 		} else if (this.isICSFile(files[index])) {
 			this.isBrokenICSVCS(files[index], splittedContent, rawHeaders);
-		} else if(rawHeaders.indexOf('From:') === -1 || rawHeaders.indexOf('Date:') === -1) {
+		} else if (!this.isVCFFile(files[index]) && (rawHeaders.indexOf('From:') === -1 || rawHeaders.indexOf('Date:') === -1)) {
 			this.brokenFiles.push(files[index]);
 		}
 
@@ -1362,24 +1381,45 @@ Zarafa.common.Actions = {
 
 		// IF Appointment was updated then there may be chances that VTIMEZONE property exists in ICS/VCS file
 		// VTIMEZONE block must have to DTSTART if not then we consider that ICS/VCS is invalid.
-		// Also check that VEVENT block must have 'DTSTART;TZID' and 'DTEND;TZID' properties.
-		var hasTimeZoneProperlty = splittedContent.search(/VTIMEZONE(\r\n|\n|\r)/);
-		if (hasTimeZoneProperlty != -1) {
+		// Also check that VEVENT block must have 'DTSTART;TZID'/'DTSTART;VALUE' and 'DTEND;TZID'/'DTEND;VALUE' properties.
+		var hasTimeZoneProperty = splittedContent.search(/VTIMEZONE(\r\n|\n|\r)/);
+		if (hasTimeZoneProperty !== -1) {
 			var icsRawHeaders = splittedContent.match(/([^\n=:^]+)/g);
-			var hasStartAndEndDate = icsRawHeaders.indexOf('DTSTART;TZID') !== -1 && icsRawHeaders.indexOf('DTEND;TZID') !== -1;
-			var hasNotStartDate = icsRawHeaders.indexOf('DTSTART') === -1;
+			var hasStartAndEndDate = this.isPropertyExists(icsRawHeaders, ['DTSTART;TZID', 'DTEND;TZID', 'DTSTART;VALUE', 'DTEND;VALUE']);
+			var hasStartDate = this.isPropertyExists(icsRawHeaders, 'DTSTART');
 			// Check that any of the condition is true then we consider that ICS/VCS file is
-			// broken.
-			if (begins.length !== end.length || hasNotStartDate || !hasStartAndEndDate) {
+			// broken
+			if (begins.length !== end.length || !hasStartDate || !hasStartAndEndDate) {
 				this.brokenFiles.push(file);
 			}
 		} else {
-			var hasStartDate = rawHeaders.indexOf("DTSTART;VALUE=DATE:") !== -1 || rawHeaders.indexOf("DTSTART:") !== -1;
-			var hasEndDate = rawHeaders.indexOf("DTEND;VALUE=DATE:") !== -1 || rawHeaders.indexOf("DTEND:") !== -1;
+			var hasStartDate = this.isPropertyExists(rawHeaders, ['DTSTART;VALUE=DATE:', 'DTSTART:']);
+			var hasEndDate = this.isPropertyExists(rawHeaders, ['DTEND;VALUE=DATE:', 'DTEND:']);
 			if (begins.length !== end.length || !hasStartDate || !hasEndDate) {
 				this.brokenFiles.push(file);
 			}
 		}
+	},
+	
+	/**
+	 * Function checks if the given property(s) is present in the given key array or not.
+	 * @param {Array} rawHeaders The keys array of ics/vcs file contains.
+	 * @param {Array/String} propertyName The property(s) in the rawHeader
+	 * @return {boolean} exists True if any property exists, false otherwise.
+	 */
+	isPropertyExists : function(rawHeaders, propertyName)
+	{
+		var exists = false;
+		if (!Array.isArray(propertyName)) {
+			propertyName = [ propertyName ];
+		}
+		propertyName.forEach(function (property) {
+			if (rawHeaders.indexOf(property) === -1) {
+				return;
+			}
+			exists = true;
+		});
+		return exists;
 	},
 
 	/**
@@ -1497,6 +1537,27 @@ Zarafa.common.Actions = {
 			}
 			var extension = file.name.substr(i + 1);
 			return extension === 'ics' || extension === 'vcs';
+		}
+	},
+
+	/**
+	 * Helper function to check if given file is of vcf type or not.
+	 * This is required as there is no file type available at all in case of IE11 and edge.
+	 *
+	 * @param {Object} file The file to be checked.
+	 * @return {Boolean} True if the file is of type vcf. false otherwise.
+	 */
+	isVCFFile : function(file)
+	{
+		if (!Ext.isEmpty(file.type)) {
+			// windows system somehow show the file type to x-vcard.
+			return file.type === 'text/vcard' || file.type === 'text/x-vcard';
+		} else {
+			var i = file.name.lastIndexOf('.');
+			if (i === -1) {
+				return false;
+			}
+			return file.name.substr(i + 1) === 'vcf';
 		}
 	}
 };

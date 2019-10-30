@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2013-02-22 23:00+0200\n"
 "Last-Translator: Manuel <info@picholeiro.info>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2915,6 +2915,18 @@ msgstr ""
 msgid "Rule already has lowest priority."
 msgstr ""
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4399,6 +4411,9 @@ msgstr "Importante"
 #, fuzzy
 msgid "Import appointments"
 msgstr "Nueva cita"
+
+msgid "Import contacts"
+msgstr ""
 
 #, fuzzy
 msgid "Properties of {0}"
@@ -6592,6 +6607,9 @@ msgstr ""
 #, fuzzy
 msgid "File is not imported successfully"
 msgstr "Grabación finalizada"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

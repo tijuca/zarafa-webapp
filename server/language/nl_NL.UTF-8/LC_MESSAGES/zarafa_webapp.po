@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Dutch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
-"PO-Revision-Date: 2019-09-04 09:39+0000\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
+"PO-Revision-Date: 2019-10-22 12:09+0000\n"
 "Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
@@ -2886,6 +2886,18 @@ msgstr "Regel heeft al hoogste prioriteit."
 msgid "Rule already has lowest priority."
 msgstr "Regel heeft al laagste prioriteit."
 
+msgid "Always move messages from {0}"
+msgstr "Berichten van {0} altijd verplaasen"
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr "Berichten gestuurd aan <ontvangers> altijd verplaatsen"
+
+msgid "Always move messages with this subject"
+msgstr "Berichten met dit onderwerp altijd verplaatsen"
+
+msgid "Create rule..."
+msgstr "Maak regel..."
+
 msgid "myself"
 msgstr "mijzelf"
 
@@ -4372,6 +4384,9 @@ msgstr "Importeer emails"
 # 100%
 msgid "Import appointments"
 msgstr "Importeer afspraken"
+
+msgid "Import contacts"
+msgstr "Contacten importeren"
 
 msgid "Properties of {0}"
 msgstr "Eigenschappen van {0}"
@@ -6557,6 +6572,9 @@ msgstr "Inloggen"
 
 msgid "File is not imported successfully"
 msgstr "Bijlage kon niet succesvol worden geïmporteerd"
+
+msgid "There is no contact found in this file."
+msgstr "Geen contact gevonden in dit bestand."
 
 #, php-format
 msgid "Unable to import '%s'"
