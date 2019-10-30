@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Norwegian (Bokmål)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
-"PO-Revision-Date: 2019-08-09 15:50+0000\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
+"PO-Revision-Date: 2019-09-05 11:33+0000\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.kopano.io/projects/kopano/"
 "kopano-webapp/nb_NO/>\n"
@@ -2396,9 +2396,8 @@ msgstr ""
 msgid "Edit Recipient"
 msgstr "Rediger mottaker"
 
-#, fuzzy
 msgid "Copy email addresses"
-msgstr "Kopier e-postadresse"
+msgstr "Kopier e-postadresser"
 
 # 81%
 msgid "Send email"
@@ -2805,6 +2804,18 @@ msgstr "Regelen har allerede høyeste prioritet."
 
 msgid "Rule already has lowest priority."
 msgstr "Regelen har allerede laveste prioritet."
+
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
 
 msgid "myself"
 msgstr "meg selv"
@@ -4201,6 +4212,9 @@ msgstr "Importer e-post"
 msgid "Import appointments"
 msgstr "Importer avtaler"
 
+msgid "Import contacts"
+msgstr ""
+
 msgid "Properties of {0}"
 msgstr "Egenskaper til {0}"
 
@@ -4518,7 +4532,7 @@ msgid "Browser window"
 msgstr "Nettleservindu"
 
 msgid "Update Out of Office settings for"
-msgstr ""
+msgstr "Endre Fraværende-innstillinger for"
 
 msgid "I am currently in the office"
 msgstr "Jeg er på kontoret"
@@ -6291,6 +6305,9 @@ msgstr "Logg inn"
 
 msgid "File is not imported successfully"
 msgstr "Filen ble ikke vellykket importert"
+
+msgid "There is no contact found in this file."
+msgstr ""
 
 #, php-format
 msgid "Unable to import '%s'"

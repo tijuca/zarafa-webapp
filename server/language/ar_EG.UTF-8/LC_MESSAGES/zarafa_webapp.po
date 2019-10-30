@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kopano Webapp Arabic (Egypt)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-04 11:34+0200\n"
+"POT-Creation-Date: 2019-09-25 14:32+0200\n"
 "PO-Revision-Date: 2018-08-24 21:01+0200\n"
 "Last-Translator: Carsten Schoenert <c.schoenert@t-online.de>\n"
 "Language-Team: Arabic (Egypt) <https://translate.kopano.io/projects/kopano/"
@@ -2697,6 +2697,18 @@ msgstr ""
 msgid "Rule already has lowest priority."
 msgstr ""
 
+msgid "Always move messages from {0}"
+msgstr ""
+
+msgid "Always move messages that are sent to <recipients>"
+msgstr ""
+
+msgid "Always move messages with this subject"
+msgstr ""
+
+msgid "Create rule..."
+msgstr ""
+
 msgid "myself"
 msgstr ""
 
@@ -4023,6 +4035,9 @@ msgid "Import emails"
 msgstr ""
 
 msgid "Import appointments"
+msgstr ""
+
+msgid "Import contacts"
 msgstr ""
 
 msgid "Properties of {0}"
@@ -5967,6 +5982,9 @@ msgid "Sign in"
 msgstr ""
 
 msgid "File is not imported successfully"
+msgstr ""
+
+msgid "There is no contact found in this file."
 msgstr ""
 
 #, php-format
