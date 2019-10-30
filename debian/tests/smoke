@@ -1,8 +1,10 @@
 #!/bin/sh
 
 set -e
-set -x
+#set -x
 
+echo "#######################################################################"
+echo "# Setting up database configuration...                                #"
 cat <<EOF | debconf-set-selections
 kopano kopano-server/mysql/method select unix socket
 kopano kopano-server/missing-db-package-error select abort
@@ -16,19 +18,58 @@ kopano kopano-server/mysql/admin-user string root
 kopano kopano-server/database-type select mysql
 kopano kopano-server/db/dbname string kopanoserver
 EOF
+echo "# Setting up database configuration... done.                          #"
+echo "#######################################################################"
+echo
 
-apt-get -y install mariadb-server
+echo "#######################################################################"
+echo "# Installing MariaDB server package...                                #"
+apt-get -y install mariadb-server || exit 77
+echo "# Installing MariaDB server package... done.                          #"
+echo "#######################################################################"
+echo
+
+echo "#######################################################################"
+echo "# Restart MariaDB server...                                           #"
+/etc/init.d/mysql start
+echo "# Restart MariaDB server... done.                                     #"
+echo "#######################################################################"
+echo
+
+echo "#######################################################################"
+echo "# Installing kopano-webapp-apache2 kopano-utils...                    #"
 apt-get -y install kopano-webapp-apache2 kopano-utils
+echo "# Installing kopano-webapp-apache2 kopano-utils... done.              #"
 
+echo "#######################################################################"
+echo "# Check we can create users...                                        #"
 kopano-admin  -c mailtest -p r00tme \
-              -e admin@example.com -f "Mail test user" -a 1 | grep -qs "User created."
+              -e admin@example.com \
+              -f "Mail test user" -a 1 | grep -qs "User created."
+echo "# Check we can create users... done.                                  #"
+echo "#######################################################################"
+echo
 
-kopano-storeadm -h default: -Cn mailtest
+echo "#######################################################################"
+echo "# Check that we find a user 'mailtest' within the server...           #"
+kopano-admin --details mailtest
+echo "# Check that we find a user 'mailtest' within the server... done.     #"
 
+echo "#######################################################################"
+echo "# Check that we can create a public store...                          #"
+kopano-storeadm -P
+echo "# Check that we can create a public store... done.                    #"
+echo "#######################################################################"
+echo
+
+echo "#######################################################################"
+echo "# Run the selinium test...                                            #"
 cd debian/tests
 export AUTH_USER='mailtest'
 export AUTH_PASS='r00tme'
 nosetests3 -v
+echo "# Run the selinium test... done.                                      #"
+echo
 
 echo 'Smoke test of kopano-webapp successful!'
 exit 0
