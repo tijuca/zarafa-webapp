@@ -1,3 +1,11 @@
+kopano-webapp (3.5.12+dfsg1-1) unstable; urgency=medium
+
+  * [27aee26] New upstream version 3.5.12+dfsg1
+  * [a1545dc] rebuild patch queue from patch-queue branch
+  * [0276382] autopkgtest: adjust testing
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 01 Nov 2019 18:13:36 +0100
+
 kopano-webapp (3.5.10+dfsg1-1) unstable; urgency=medium
 
   * [9c055ec] New upstream version 3.5.10+dfsg1
