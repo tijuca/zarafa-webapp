@@ -63,12 +63,12 @@ echo "#######################################################################"
 echo
 
 echo "#######################################################################"
-echo "# Run the selinium test...                                            #"
+echo "# Run the selenium test...                                            #"
 cd debian/tests
 export AUTH_USER='mailtest'
 export AUTH_PASS='r00tme'
 nosetests3 -v
-echo "# Run the selinium test... done.                                      #"
+echo "# Run the selenium test... done.                                      #"
 echo
 
 echo 'Smoke test of kopano-webapp successful!'
