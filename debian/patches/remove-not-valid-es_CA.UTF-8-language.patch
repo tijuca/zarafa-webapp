@@ -3,18 +3,18 @@ Date: Thu, 5 Oct 2017 20:58:17 +0200
 Subject: remove not valid es_CA.UTF-8 language
 
 ---
- .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6654 --------------------
+ .../es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po       | 6679 --------------------
  server/language/es_CA.UTF-8/language.txt           |    1 -
- 2 files changed, 6655 deletions(-)
+ 2 files changed, 6680 deletions(-)
  delete mode 100644 server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
  delete mode 100644 server/language/es_CA.UTF-8/language.txt
 
 diff --git a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po b/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 deleted file mode 100644
-index 1754125..0000000
+index 0802d09..0000000
 --- a/server/language/es_CA.UTF-8/LC_MESSAGES/zarafa_webapp.po
 +++ /dev/null
-@@ -1,6654 +0,0 @@
+@@ -1,6679 +0,0 @@
 -# SOME DESCRIPTIVE TITLE.
 -# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 -# This file is distributed under the same license as the PACKAGE package.
@@ -1941,6 +1941,22 @@ index 1754125..0000000
 -msgid "Unable to import \"{0}\". The file is not valid"
 -msgstr ""
 -
+-msgid ""
+-"You have insufficient privileges to move these items. Would you like to copy "
+-"instead?"
+-msgstr ""
+-
+-msgid ""
+-"You have insufficient privileges to move this item. Would you like to copy "
+-"instead?"
+-msgstr ""
+-
+-# 80%
+-# 84%
+-#, fuzzy
+-msgid "Insufficient privileges"
+-msgstr "No tiene privilegios necesarios para guardar objetos en esta carpeta"
+-
 -msgid "Cc"
 -msgstr "Cc"
 -
@@ -2224,6 +2240,35 @@ index 1754125..0000000
 -msgid "Folder '{0}' selected."
 -msgstr ""
 -
+-msgid ""
+-"You have insufficient privileges to move this folder. Ask the folder owner "
+-"to grant you permissions or contact your system administrator."
+-msgstr ""
+-
+-msgid ""
+-"You have insufficient privileges to copy this folder. Ask the folder owner "
+-"to grant you permissions or contact your system administrator."
+-msgstr ""
+-
+-msgid ""
+-"You have insufficient privileges to move and copy this item. Ask the folder "
+-"owner to grant you permissions or contact your system administrator."
+-msgstr ""
+-
+-msgid ""
+-"You have insufficient privileges to copy this item. Ask the folder owner to "
+-"grant you permissions or contact your system administrator."
+-msgstr ""
+-
+-msgid "You have insufficient privileges to move following items."
+-msgstr ""
+-
+-msgid "Subject:"
+-msgstr ""
+-
+-msgid "Would you like to copy instead?"
+-msgstr ""
+-
 -msgid "Kopano WebApp"
 -msgstr "Kopano WebApp"
 -
@@ -2406,20 +2451,6 @@ index 1754125..0000000
 -#, fuzzy
 -msgid "Recipient already exists."
 -msgstr "Ya existe este Usuario"
--
--#, fuzzy
--msgid "Disable for new mail"
--msgstr "Firma para nuevos mensajes"
--
--#, fuzzy
--msgid "Enable for new mail"
--msgstr "Firma para nuevos mensajes"
--
--msgid "Disable for replies"
--msgstr ""
--
--msgid "Enable for replies"
--msgstr ""
 -
 -#, fuzzy
 -msgid "No Cc recipient configured"
@@ -6148,12 +6179,6 @@ index 1754125..0000000
 -# 80%
 -#, fuzzy
 -msgid "You have insufficient privileges to move "
--msgstr "No tiene privilegios necesarios para guardar objetos en esta carpeta"
--
--# 80%
--# 84%
--#, fuzzy
--msgid "Insufficient privileges"
 -msgstr "No tiene privilegios necesarios para guardar objetos en esta carpeta"
 -
 -msgid ""
