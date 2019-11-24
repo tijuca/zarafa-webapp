@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kopano Webapp German (Germany)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 14:32+0200\n"
-"PO-Revision-Date: 2019-10-22 12:29+0000\n"
+"PO-Revision-Date: 2019-11-19 14:10+0000\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/de/>\n"
@@ -1910,6 +1910,23 @@ msgstr "Importfehler"
 msgid "Unable to import \"{0}\". The file is not valid"
 msgstr "Import von {0} nicht möglich. Die Datei ist ungültig"
 
+msgid ""
+"You have insufficient privileges to move these items. Would you like to copy "
+"instead?"
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um diese Elemente zu verschieben. "
+"Möchten Sie stattdessen kopieren?"
+
+msgid ""
+"You have insufficient privileges to move this item. Would you like to copy "
+"instead?"
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um dieses Element zu verschieben. "
+"Möchten Sie stattdessen kopieren?"
+
+msgid "Insufficient privileges"
+msgstr "Nicht genügend Berechtigungen"
+
 msgid "Cc"
 msgstr "CC"
 
@@ -2204,6 +2221,48 @@ msgstr[1] "Es sind {0} Nachrichten ausgewählt."
 msgid "Folder '{0}' selected."
 msgstr "Ordner \"{0}\" ausgewählt."
 
+msgid ""
+"You have insufficient privileges to move this folder. Ask the folder owner "
+"to grant you permissions or contact your system administrator."
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um diesen Ordner zu verschieben. "
+"Bitten Sie den Ordnereigentümer, Ihnen Berechtigungen zu erteilen, oder "
+"wenden Sie sich an Ihren Systemadministrator."
+
+msgid ""
+"You have insufficient privileges to copy this folder. Ask the folder owner "
+"to grant you permissions or contact your system administrator."
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um diesen Ordner zu kopieren. "
+"Bitten Sie den Ordnereigentümer, Ihnen Berechtigungen zu erteilen, oder "
+"wenden Sie sich an Ihren Systemadministrator."
+
+msgid ""
+"You have insufficient privileges to move and copy this item. Ask the folder "
+"owner to grant you permissions or contact your system administrator."
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um diesen Ordner zu verschieben und "
+"zu kopieren. Bitten Sie den Ordnereigentümer, Ihnen Berechtigungen zu "
+"erteilen, oder wenden Sie sich an Ihren Systemadministrator."
+
+msgid ""
+"You have insufficient privileges to copy this item. Ask the folder owner to "
+"grant you permissions or contact your system administrator."
+msgstr ""
+"Sie haben nicht genügend Rechte, um dieses Element zu kopieren. Bitten Sie "
+"den Ordnereigentümer, Ihnen Berechtigungen zu erteilen, oder wenden Sie sich "
+"an Ihren Systemadministrator."
+
+msgid "You have insufficient privileges to move following items."
+msgstr ""
+"Sie haben nicht genügend Berechtigungen, um folgende Elemente zu verschieben."
+
+msgid "Subject:"
+msgstr "Betreff:"
+
+msgid "Would you like to copy instead?"
+msgstr "Möchten Sie stattdessen kopieren?"
+
 msgid "Kopano WebApp"
 msgstr "Kopano WebApp"
 
@@ -2380,18 +2439,6 @@ msgstr "Doppelter Empfänger"
 
 msgid "Recipient already exists."
 msgstr "Der Empfänger existiert bereits."
-
-msgid "Disable for new mail"
-msgstr "Für neue E-Mails abschalten"
-
-msgid "Enable for new mail"
-msgstr "Für neue E-Mails einschalten"
-
-msgid "Disable for replies"
-msgstr "Für Antworten ausschalten"
-
-msgid "Enable for replies"
-msgstr "Für Antworten einschalten"
 
 msgid "No Cc recipient configured"
 msgstr "Kein Cc Empfänger konfiguriert"
@@ -6096,9 +6143,6 @@ msgstr "neuer Termin"
 # 100%
 msgid "You have insufficient privileges to move "
 msgstr "Sie haben nicht genügend Berechtigungen zum verschieben von "
-
-msgid "Insufficient privileges"
-msgstr "Nicht genügend Berechtigungen"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "
