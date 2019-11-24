@@ -74,13 +74,15 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 			buttonAlign: 'left',
 			buttons: [{
 				text: _('Move'),
-				handler: this.onMove,
+				handler: this.onClickHandler,
+				name : 'move',
 				scope: this,
 				ref: '../moveButton',
 				disabled: true
 			},{
 				text: _('Copy'),
-				handler: this.onCopy,
+				name : 'copy',
+				handler: this.onClickHandler,
 				scope: this,
 				ref: '../copyButton',
 				disabled: true
@@ -330,13 +332,17 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 	},
 
 	/**
-	 * Event handler which is triggered when the user presses the Copy
-	 * {@link Ext.Button button}. This will copy all {@link Zarafa.core.data.IPMRecord records}
-	 * and will close the {@link Zarafa.common.dialogs.CopyMovePanel dialog} when it is done.
+	 *  Event handler which is triggered when the user presses the Copy or Move
+	 * {@link Ext.Button button}. It will check necessary {@link Zarafa.core.mapi.Rights Rights} and
+	 * {@link Zarafa.core.mapi.Access Access} of folder.
+	 *
+	 * @param {Ext.Button} item The button which is clicked.
 	 * @private
 	 */
-	onCopy : function()
+	onClickHandler : function(item)
 	{
+		var isMoveAction = item.name === 'move';
+
 		var folder = this.hierarchyTree.getSelectionModel().getSelectedNode().getFolder();
 		var records = this.record;
 
@@ -348,7 +354,37 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 			return;
 		}
 
+		if (records[0] instanceof Zarafa.core.data.IPFRecord) {
+			var access = folder.get('access') & Zarafa.core.mapi.Access.ACCESS_CREATE_HIERARCHY;
+			if (!access) {
+				var msg = isMoveAction ? _("You have insufficient privileges to move this folder. Ask the folder owner to grant you permissions or contact your system administrator.") :
+					_("You have insufficient privileges to copy this folder. Ask the folder owner to grant you permissions or contact your system administrator.");
+				container.getNotifier().notify('error', _("Insufficient privileges"), msg);
+				return false;
+			}
+		} else if (!folder.hasCreateRights()) {
+			// Check folder has create item rights.
+			var msg = isMoveAction ? _("You have insufficient privileges to move and copy this item. Ask the folder owner to grant you permissions or contact your system administrator.")
+				: _("You have insufficient privileges to copy this item. Ask the folder owner to grant you permissions or contact your system administrator.");
+			container.getNotifier().notify('error', _("Insufficient privileges"), msg);
+			return false;
+		}
 
+		if (isMoveAction) {
+			this.onMove(records, folder);
+		} else {
+			this.onCopy(records, folder);
+		}
+
+	},
+
+	/**
+	 * Function will copy all {@link Zarafa.core.data.IPMRecord records}
+	 * and will close the {@link Zarafa.common.dialogs.CopyMovePanel dialog} when it is done.
+	 * @private
+	 */
+	onCopy : function(records, folder)
+	{
 		Ext.each(records, function(record, index) {
 			// When we have this panel open and we receive a new email, the records store is
 			// not accessible anymore, so we need to get a new record by the entryid of the old record.
@@ -366,37 +402,67 @@ Zarafa.common.dialogs.CopyMovePanel = Ext.extend(Ext.Panel, {
 	},
 
 	/**
-	 * Event handler which is triggered when the user presses the Move
-	 * {@link Ext.Button button}. This will move all {@link Zarafa.core.data.IPMRecord records}
+	 * Function will move all {@link Zarafa.core.data.IPMRecord records}
 	 * and will close the {@link Zarafa.common.dialogs.CopyMovePanel dialog} when it is done.
 	 * @private
 	 */
-	onMove : function()
+	onMove : function(records, folder)
 	{
-		var folder = this.hierarchyTree.getSelectionModel().getSelectedNode().getFolder();
-		var records = this.record;
-
-		if (!Ext.isDefined(folder)) {
-			return;
+		var sourceFolder = container.getHierarchyStore().getFolder(records[0].get('parent_entryid'));
+		// If targetFolder has create item rights and source folder does not have delete item rights,
+		// in that case move operation is not possible, therefore show message box which indicate that
+		// move operation is not possible and ask user to copy the item.
+		if (folder.hasCreateRights() && !sourceFolder.hasDeleteOwnRights()) {
+			Zarafa.common.Actions.showMessageBox(records, folder, this.store,undefined, this);
+			return false;
 		}
 
-		if (Ext.isEmpty(this.record)) {
-			return;
-		}
-
-
+		var noAccessRecord = [];
 		Ext.each(records, function(record, index) {
 			// When we have this panel open and we receive a new email, the records store is
 			// not accessible anymore, so we need to get a new record by the entryid of the old record.
 			if(this.objectType === Zarafa.core.mapi.ObjectType.MAPI_MESSAGE && !record.getStore()) {
 				record = records[index] = this.store.getById(record.id);
 			}
-			record.moveTo(folder);
+			// Check record access. If record has no delete access (record not belongs to user)
+			// user can't move this item.
+			if (!record.hasDeleteAccess()) {
+				noAccessRecord.push({
+					record: record,
+					index:index
+				});
+			} else {
+				record.moveTo(folder);
+			}
 		}, this);
+
+		// Show detailed warning message when record have no access to delete
+		// ask user to copy that records.
+		if (!Ext.isEmpty(noAccessRecord)) {
+			var msg = undefined;
+			if (noAccessRecord.length > 1) {
+				msg = _("You have insufficient privileges to move following items.");
+				msg += "<br/><br/>";
+				noAccessRecord.forEach(function (item) {
+					records.splice(item.index, 1);
+					var subject = item.record.get('subject');
+					subject = !Ext.isEmpty(subject) ? subject : _("None");
+					msg += "<b>" +_("Subject:") + "</b> " + subject ;
+					msg += "<br/>";
+				}, this);
+				msg += "<br/>" + _("Would you like to copy instead?");
+			}
+			var noAccessRecords = Ext.pluck(noAccessRecord, "record");
+
+			Zarafa.common.Actions.showMessageBox(noAccessRecords, folder, this.store, msg, this);
+			return;
+		}
 
 		this.dialog.selectFolder(folder);
 
-		this.store.save(records);
+		if(!Ext.isEmpty(records)) {
+			this.store.save(records);
+		}
 
 		this.dialog.close();
 	},

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kopano Webapp Dutch\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 14:32+0200\n"
-"PO-Revision-Date: 2019-10-22 12:09+0000\n"
+"PO-Revision-Date: 2019-11-19 13:34+0000\n"
 "Last-Translator: martijn <m.alberts@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/kopano-"
 "webapp/nl/>\n"
@@ -1920,6 +1920,21 @@ msgstr "Probleem met importeren"
 msgid "Unable to import \"{0}\". The file is not valid"
 msgstr "Kan \"{0}\" niet geïmporteerd worden. Het bestand is niet valide"
 
+msgid ""
+"You have insufficient privileges to move these items. Would you like to copy "
+"instead?"
+msgstr ""
+"Onvoldoende rechten om deze items te verplaatsen. Wil je deze items kopiëren?"
+
+msgid ""
+"You have insufficient privileges to move this item. Would you like to copy "
+"instead?"
+msgstr ""
+"Onvoldoende rechten om dit item te verplaatsen. Wil je het item kopiëren?"
+
+msgid "Insufficient privileges"
+msgstr "Onvoldoende rechten"
+
 msgid "Cc"
 msgstr "Cc"
 
@@ -2211,6 +2226,43 @@ msgstr[1] "Er zijn {0} berichten geselecteerd."
 msgid "Folder '{0}' selected."
 msgstr "Map '{0}' geselecteerd."
 
+msgid ""
+"You have insufficient privileges to move this folder. Ask the folder owner "
+"to grant you permissions or contact your system administrator."
+msgstr ""
+"Je hebt onvoldoende rechten om deze folder te verplaatsen. Vraag de eigenaar "
+"van de folder om meer rechten of neem contact op met de administrator."
+
+msgid ""
+"You have insufficient privileges to copy this folder. Ask the folder owner "
+"to grant you permissions or contact your system administrator."
+msgstr ""
+"Je hebt onvoldoende rechten om deze folder te kopiëren. Vraag de eigenaar "
+"van de folder om rechten of neem contact op met de administrator."
+
+msgid ""
+"You have insufficient privileges to move and copy this item. Ask the folder "
+"owner to grant you permissions or contact your system administrator."
+msgstr ""
+"Je hebt onvoldoende rechten om dit item te verplaatsen en te kopiëren. Vraag "
+"de eigenaar van de folder om rechten of neem contact op met de administrator."
+
+msgid ""
+"You have insufficient privileges to copy this item. Ask the folder owner to "
+"grant you permissions or contact your system administrator."
+msgstr ""
+"Je hebt onvoldoende rechten om dit item te kopiëren. Vraag de eigenaar van "
+"de folder om rechten of neem contact op met de administrator."
+
+msgid "You have insufficient privileges to move following items."
+msgstr "Je hebt onvoldoende rechten om de volgende items te verplaatsen."
+
+msgid "Subject:"
+msgstr "Onderwerp:"
+
+msgid "Would you like to copy instead?"
+msgstr "Wil je de items kopiëren?"
+
 msgid "Kopano WebApp"
 msgstr "Kopano WebApp"
 
@@ -2386,18 +2438,6 @@ msgstr "Identieke ontvanger"
 
 msgid "Recipient already exists."
 msgstr "Ontvanger bestaat al."
-
-msgid "Disable for new mail"
-msgstr "Schakel uit voor nieuwe email"
-
-msgid "Enable for new mail"
-msgstr "Zet aan voor nieuwe email"
-
-msgid "Disable for replies"
-msgstr "Schakel uit voor antwoorden"
-
-msgid "Enable for replies"
-msgstr "Zet aan voor antwoorden"
 
 msgid "No Cc recipient configured"
 msgstr "Geen Cc ontvanger geconfigureerd"
@@ -6109,9 +6149,6 @@ msgstr "een afspraak"
 # 100%
 msgid "You have insufficient privileges to move "
 msgstr "U heeft onvoldoende permissie om deze map te verplaatsen: "
-
-msgid "Insufficient privileges"
-msgstr "Onvoldoende permissie"
 
 msgid ""
 "Cannot set a reminder to appear before the previous occurrence. Reset "
